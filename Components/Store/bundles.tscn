@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://8vvmo8to2g0t"]
+
+[ext_resource type="Script" path="res://Components/Store/bundles.gd" id="1_nf30b"]
+
+[node name="bundles" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_nf30b")

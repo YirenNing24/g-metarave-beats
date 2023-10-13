@@ -1,0 +1,82 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnn0beghg08qk"]
+
+[ext_resource type="Texture2D" uid="uid://duvn5qt3kq5k1" path="res://UITextures/PanelElements/Selected.png" id="1_aq242"]
+[ext_resource type="Script" path="res://Components/Store/cards.gd" id="1_xdj0r"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_245a4"]
+[ext_resource type="Texture2D" uid="uid://mqkk4t4fmk8r" path="res://UITextures/PanelElements/backdrop.png" id="4_ntxt2"]
+
+[node name="cards" type="Control"]
+layout_mode = 3
+anchor_right = 0.3
+anchor_bottom = 0.485185
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xdj0r")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="TextureRect" parent="."]
+clip_contents = true
+layout_mode = 0
+anchor_right = 1.10511
+anchor_bottom = 1.09886
+texture = ExtResource("1_aq242")
+metadata/_edit_use_anchors_ = true
+
+[node name="Icon" type="TextureRect" parent="Panel"]
+unique_name_in_owner = true
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.364467
+anchor_top = 0.100729
+anchor_right = 0.710301
+anchor_bottom = 0.810653
+offset_right = 4.91333
+offset_bottom = 15.6122
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 6
+metadata/_edit_use_anchors_ = true
+
+[node name="CardName" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -87.9198
+offset_top = -4.90137
+offset_right = 129.08
+offset_bottom = 30.0986
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_245a4")
+theme_override_font_sizes/font_size = 20
+text = "Leeseo Love Dive LE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0427308
+anchor_top = 0.0138936
+anchor_right = 0.980295
+anchor_bottom = 0.941295
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_ntxt2")
+
+[connection signal="pressed" from="Panel/TextureButton" to="." method="_on_texture_button_pressed"]

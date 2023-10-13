@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://dk8b3n7imt4nv"]
+
+[ext_resource type="Script" path="res://Components/Lists/auth_error.gd" id="1_gp4sy"]
+[ext_resource type="Texture2D" uid="uid://cglfbl6b6k6ay" path="res://UITextures/Buttons/PanelTextures/active.png" id="1_ughnb"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="2_eqou3"]
+
+[sub_resource type="Animation" id="Animation_cb3ko"]
+resource_name = "initial"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1eeiw"]
+_data = {
+"initial": SubResource("Animation_cb3ko")
+}
+
+[node name="HBoxContainer" type="HBoxContainer"]
+offset_right = 170.0
+offset_bottom = 30.0
+script = ExtResource("1_gp4sy")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_ughnb")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("2_eqou3")
+theme_override_font_sizes/font_size = 14
+autowrap_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+autoplay = "initial"
+libraries = {
+"": SubResource("AnimationLibrary_1eeiw")
+}
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

@@ -1,0 +1,311 @@
+[gd_scene load_steps=11 format=3 uid="uid://c32csp53qlais"]
+
+[ext_resource type="Script" path="res://UIScenes/song_menu.gd" id="1_75gia"]
+[ext_resource type="Texture2D" uid="uid://u7nq2pgwrahq" path="res://UITextures/BGTextures/song_menu_bg.png" id="2_agocj"]
+[ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="3_mxqyj"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="4_aqf5a"]
+[ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="5_h7gew"]
+[ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="6_34ojg"]
+[ext_resource type="Script" path="res://UIScenes/SongMenuScroll.gd" id="7_36j7h"]
+[ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="7_yex5a"]
+[ext_resource type="Texture2D" uid="uid://df4ks21hiueoy" path="res://UITextures/Buttons/next_prev_button.png" id="8_nwtib"]
+[ext_resource type="Texture2D" uid="uid://daunxrmrur2c4" path="res://UITextures/PanelElements/difficulty_bg.png" id="9_vyfj1"]
+
+[node name="SongMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_75gia")
+
+[node name="BackgroundTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+self_modulate = Color(0.447059, 0.447059, 0.447059, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_agocj")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="BackgroundTexture"]
+z_index = 3
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.037037
+anchor_right = 0.981667
+anchor_bottom = 0.12963
+mouse_filter = 2
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer3"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer3/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("3_mxqyj")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="EnergyBalance" type="Label" parent="BackgroundTexture/HBoxContainer3/VBoxContainer/HBoxContainer/TextureRect"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_aqf5a")
+theme_override_font_sizes/font_size = 16
+text = "Energy"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect3" type="TextureRect" parent="BackgroundTexture/HBoxContainer3/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("3_mxqyj")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="BeatsBalance" type="Label" parent="BackgroundTexture/HBoxContainer3/VBoxContainer/HBoxContainer/TextureRect3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_aqf5a")
+theme_override_font_sizes/font_size = 16
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect2" type="TextureRect" parent="BackgroundTexture/HBoxContainer3/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("3_mxqyj")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="KMRBalance" type="Label" parent="BackgroundTexture/HBoxContainer3/VBoxContainer/HBoxContainer/TextureRect2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_aqf5a")
+theme_override_font_sizes/font_size = 16
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+offset_left = 14.0
+offset_top = 16.0
+offset_right = 74.0
+offset_bottom = 76.0
+
+[node name="CloseButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("5_h7gew")
+texture_hover = ExtResource("6_34ojg")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BackgroundTexture"]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.118519
+anchor_right = 1.0
+anchor_bottom = 0.816667
+offset_top = -1.52588e-05
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+script = ExtResource("7_36j7h")
+metadata/_edit_use_anchors_ = true
+
+[node name="CenterContainer" type="CenterContainer" parent="BackgroundTexture/ScrollContainer"]
+custom_minimum_size = Vector2(3000, 377)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="BackgroundTexture/ScrollContainer/CenterContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(3000, 200)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 1200
+theme_override_constants/margin_right = 1200
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/ScrollContainer/CenterContainer/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 40
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="BackgroundTexture"]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.890741
+anchor_right = 1.0
+anchor_bottom = 0.992593
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="StoreButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer4" groups=["MainButtons"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 55)
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("7_yex5a")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer4/StoreButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -14.5
+offset_right = 47.0
+offset_bottom = 19.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_aqf5a")
+theme_override_font_sizes/font_size = 20
+text = "Leaderboard"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer4"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer4/HBoxContainer"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+texture_normal = ExtResource("8_nwtib")
+ignore_texture_size = true
+stretch_mode = 0
+flip_h = true
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer4/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+texture = ExtResource("9_vyfj1")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer4/HBoxContainer/TextureRect"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -17.5
+offset_right = 90.0
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_aqf5a")
+theme_override_font_sizes/font_size = 22
+text = "Easy"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="TextureButton2" type="TextureButton" parent="BackgroundTexture/HBoxContainer4/HBoxContainer"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+texture_normal = ExtResource("8_nwtib")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="LeaderboardButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer4" groups=["MainButtons"]]
+custom_minimum_size = Vector2(220, 55)
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("7_yex5a")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer4/LeaderboardButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -14.5
+offset_right = 47.0
+offset_bottom = 19.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_aqf5a")
+theme_override_font_sizes/font_size = 20
+text = "History"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+volume_db = 24.0
+
+[connection signal="pressed" from="BackgroundTexture/HBoxContainer2/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="gui_input" from="BackgroundTexture/ScrollContainer" to="BackgroundTexture/ScrollContainer" method="_on_gui_input"]

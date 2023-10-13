@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3 uid="uid://dniibdgmghavl"]
+
+[ext_resource type="Script" path="res://UIScenes/splash_screen.gd" id="1_mc7qq"]
+[ext_resource type="Texture2D" uid="uid://dll3cuvr6gna3" path="res://UITextures/BGTextures/splash.png" id="2_amwvv"]
+[ext_resource type="Texture2D" uid="uid://c6jne54yyhp3a" path="res://UITextures/Progress/splash_base.png" id="3_rp0rw"]
+[ext_resource type="Texture2D" uid="uid://c7ms0fmdj83si" path="res://UITextures/Progress/splash_progress.png" id="4_5slah"]
+
+[node name="SplashScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mc7qq")
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+unique_name_in_owner = true
+texture_repeat = 1
+custom_minimum_size = Vector2(1200, 540)
+layout_mode = 2
+texture = ExtResource("2_amwvv")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="LoadingWheel" type="TextureProgressBar" parent="HBoxContainer/TextureRect"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.855
+anchor_top = 0.0277778
+anchor_right = 1.00083
+anchor_bottom = 0.316667
+offset_right = -0.00012207
+grow_horizontal = 0
+fill_mode = 5
+texture_under = ExtResource("3_rp0rw")
+texture_progress = ExtResource("4_5slah")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.878571
+anchor_right = 1.0
+anchor_bottom = 0.9625
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="LoadingLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.552941, 0.552941, 0.552941, 1)
+theme_override_constants/shadow_offset_y = 1
+text = "Checking app version..."
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+autostart = true

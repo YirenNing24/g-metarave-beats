@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=3 uid="uid://cjx2qu2kdc3p2"]
+
+[ext_resource type="Script" path="res://GameComponents/NotePicker/notepicker.gd" id="1_nn2og"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8tmit"]
+size = Vector3(0.06, 0.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aig7u"]
+size = Vector3(0.06, 0.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_adcft"]
+size = Vector3(0.06, 0.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d5ims"]
+size = Vector3(0.3, 0.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tx1l3"]
+size = Vector3(0.2, 0.5, 1)
+
+[node name="NotePicker" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.548166, 0.051, 0)
+script = ExtResource("1_nn2og")
+
+[node name="BadAreaEarly" type="Area3D" parent="." groups=["bad_area", "picker_area"]]
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, -0.104836, 0, 0)
+
+[node name="BadEarly" type="CollisionShape3D" parent="BadAreaEarly"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00117272, -7.15261e-10, 2.08189e-12)
+shape = SubResource("BoxShape3D_8tmit")
+
+[node name="GoodArea" type="Area3D" parent="." groups=["good_area", "picker_area"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0409462, 0, 0)
+monitorable = false
+
+[node name="Good" type="CollisionShape3D" parent="GoodArea"]
+shape = SubResource("BoxShape3D_aig7u")
+
+[node name="VeryGoodAreaEarly" type="Area3D" parent="." groups=["picker_area", "verygood_area"]]
+transform = Transform3D(1, 0, 0, 0, 0.999998, 0, 0, 0, 0.999998, 0.0218905, 0, 0)
+
+[node name="VeryGoodEarly" type="CollisionShape3D" parent="VeryGoodAreaEarly"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08189e-12, 2.08189e-12, 2.08189e-12)
+shape = SubResource("BoxShape3D_adcft")
+
+[node name="PerfectArea" type="Area3D" parent="." groups=["perfect_area", "picker_area"]]
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0.205482, 0, 0)
+
+[node name="Perfect" type="CollisionShape3D" parent="PerfectArea"]
+shape = SubResource("BoxShape3D_d5ims")
+
+[node name="VeryGoodAreaLate" type="Area3D" parent="." groups=["picker_area", "verygood_area"]]
+transform = Transform3D(1, 0, 0, 0, 0.999998, 0, 0, 0, 0.999998, 0.389473, 0, 0)
+
+[node name="VeryGoodLate" type="CollisionShape3D" parent="VeryGoodAreaLate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08189e-12, 2.08189e-12, 2.08189e-12)
+shape = SubResource("BoxShape3D_adcft")
+
+[node name="BadAreaLate" type="Area3D" parent="." groups=["bad_area", "picker_area"]]
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0.454795, 0, 0)
+
+[node name="BadLate" type="CollisionShape3D" parent="BadAreaLate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08189e-12, 2.08189e-12, 2.08189e-12)
+shape = SubResource("BoxShape3D_8tmit")
+
+[node name="MissArea" type="Area3D" parent="." groups=["miss_area", "picker_area"]]
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0.590402, 0, 0)
+
+[node name="Miss" type="CollisionShape3D" parent="MissArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08189e-12, 2.08189e-12, 2.08189e-12)
+shape = SubResource("BoxShape3D_tx1l3")

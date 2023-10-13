@@ -1,0 +1,63 @@
+extends Node3D
+
+@export_range(1, 5) var line: int = 1
+
+var is_pressed: bool = false
+var is_collecting: bool = false
+var note_collect
+var note_name: String = ""
+
+func _ready():
+	set_process_input(true)
+	for area in get_tree().get_nodes_in_group("notepicker_area"):
+		area.connect("area_entered", _on_area_entered)
+
+func _input(event):
+	match line:
+		1:
+			if event.is_action_pressed("ui_a"):
+				is_pressed = true
+				is_collecting = true
+				print('burat')
+				
+			elif event.is_action_released("ui_a"):
+				is_pressed = false
+				is_collecting = false
+				note_collect = null
+				note_name = "short_note"
+		2:
+			if event.is_action_pressed("ui_s"):
+				is_pressed = true
+				is_collecting = true
+			elif event.is_action_released("ui_s"):
+				is_pressed = false
+				is_collecting = false
+				note_collect = null
+		3:
+			if event.is_action_pressed("ui_space"):
+				is_pressed = true
+				is_collecting = true
+			elif event.is_action_released("ui_space"):
+				is_pressed = false
+				is_collecting = false
+				note_collect = null
+		4:
+			if event.is_action_pressed("ui_j"):
+				is_pressed = true
+				is_collecting = true
+			elif event.is_action_released("ui_j"):
+				is_pressed = false
+				is_collecting = false
+				note_collect = null
+		5:
+			if event.is_action_pressed("ui_k"):
+				is_pressed = true
+				is_collecting = true
+			elif event.is_action_released("ui_k"):
+				is_pressed = false
+				is_collecting = false
+				note_collect = null
+	
+	
+func _on_area_entered(area):
+	note_name = area.get_parent().note_name

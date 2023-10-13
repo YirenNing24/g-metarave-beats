@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cuwyf13qp33ip"]
+
+[ext_resource type="Script" path="res://GameComponents/Notes/base_note.gd" id="1_tvbd5"]
+
+[node name="BaseNote" type="Node3D"]
+script = ExtResource("1_tvbd5")

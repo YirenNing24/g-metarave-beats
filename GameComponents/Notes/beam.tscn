@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://fl620scyryxd"]
+
+[ext_resource type="Script" path="res://GameComponents/Notes/beam.gd" id="1_lhian"]
+
+[node name="Beam" type="Node3D"]
+script = ExtResource("1_lhian")
+
+[node name="Beam" type="CSGPolygon3D" parent="."]
+transform = Transform3D(0.805, 0, 0, 0, 1, 0, 0, 0, 1, 2.08189e-12, 2.08189e-12, 2.08189e-12)
+polygon = PackedVector2Array(0, 0, 2.08189e-12, 2.08189e-12, 2.08189e-12, 2.08189e-12, 1, 0, 0, 0)

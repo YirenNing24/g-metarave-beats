@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0qeas3iwkcad"]
+
+[ext_resource type="PackedScene" uid="uid://cbhfcq0bjdlqy" path="res://GameComponents/Road/road.tscn" id="1_bdnqg"]
+[ext_resource type="Script" path="res://UIScenes/game_scene.gd" id="1_qchx2"]
+[ext_resource type="PackedScene" uid="uid://bj2igrdk8hfmb" path="res://GameComponents/Music/music.tscn" id="3_wlywk"]
+
+[sub_resource type="Environment" id="Environment_0fcn8"]
+background_energy_multiplier = 0.0
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+tonemap_mode = 3
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_qchx2")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0fcn8")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.33921e-08, -0.494397, 0.869236, -5.27407e-09, 0.869236, 0.494397, -1, 1.68685e-08, -4.03255e-08, 7.06499, 3.07075, -0.0707325)
+keep_aspect = 0
+fov = 68.8
+near = 0.06
+
+[node name="Road" parent="." instance=ExtResource("1_bdnqg")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.239552, 0.0334427, 0)
+
+[node name="Music" parent="." instance=ExtResource("3_wlywk")]
+unique_name_in_owner = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.43525, 21.8571, 0)
+light_energy = 7.626
+omni_range = 47.404
+omni_attenuation = 0.435275
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UserHUD" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

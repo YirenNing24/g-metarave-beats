@@ -1,0 +1,1030 @@
+[gd_scene load_steps=12 format=3 uid="uid://dbebu2yc0n0wy"]
+
+[ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="2_kc23b"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_8esx4"]
+[ext_resource type="Texture2D" uid="uid://bfbv6cy714jg3" path="res://UITextures/Buttons/stat_button.png" id="3_mluvr"]
+[ext_resource type="Texture2D" uid="uid://bmo2tkxhc1hci" path="res://UITextures/Progress/prop_base2.png" id="4_g3c72"]
+[ext_resource type="Texture2D" uid="uid://d20dujwh8ic6l" path="res://UITextures/Progress/prop_progress2.png" id="5_a58nw"]
+[ext_resource type="Texture2D" uid="uid://b0nji0srtvb14" path="res://UITextures/PanelTextures/main_hero1.png" id="5_sh6fm"]
+[ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="6_0u28o"]
+
+[sub_resource type="GDScript" id="GDScript_2xrb2"]
+script/source = "extends Control
+
+@onready var animation_player:AnimationPlayer = %AnimationPlayer
+@onready var stat_points_display:Label = %AvailablePoints
+@onready var main_stats:VBoxContainer = %MainStats
+@onready var save_button:TextureButton = %SaveButton
+@onready var cancel_button:TextureButton = %CancelButton
+@onready var path_main_stats:String = \"main_screen/FilterPanel/stat_modal/Panel/VBoxContainer/HBoxContainer/MainStats/\"
+
+
+var stat_points:int = 0
+var visual_add:int = 0
+var mainvocalist_add:int = 0
+var leadvocalist_add:int = 0
+var maindancer_add:int = 0
+var leaddancer_add:int = 0
+var rapper_add:int = 0
+var leadrapper_add:int = 0
+
+
+func _ready():
+	stat_points = PLAYER.stat_points
+	stat_points_display.text = str(PLAYER.stat_points)
+	save_button.modulate = \"7d7d7d\"
+	
+	load_stats()
+	if stat_points == 0:
+		for button in get_tree().get_nodes_in_group(\"PlusButtons\"):
+			button.disabled = true
+			button.modulate = \"7d7d7d\"
+	else:
+		for button in get_tree().get_nodes_in_group(\"PlusButtons\"):
+			button.disabled = false
+	for button in get_tree().get_nodes_in_group(\"PlusButtons\"):
+		button.pressed.connect(increase_stat.bind(button.get_node(\"../\").get_name()))
+		
+	for button in get_tree().get_nodes_in_group(\"MinusButtons\"):
+		button.pressed.connect(decrease_stat.bind(button.get_node(\"../\").get_name()))
+		button.disabled = true
+		button.modulate = \"7d7d7d\"
+	
+	BKMREngine.Profile.stat_update_complete.connect(_on_Stat_Update_Complete)
+		
+		
+func load_stats():
+	for stats in PLAYER.stat_points_saved.keys():
+		for stat in main_stats.get_children():
+			var stat_name:String = stat.name
+			var name_stat:String= stat.name.to_lower()
+			if stats.to_lower() == name_stat.to_lower():
+				get_tree().get_root().get_node(path_main_stats + stat_name + \"/Stats/Value\").text = (str(PLAYER.stat_points_saved[stats]))
+		
+		
+func increase_stat(stat):
+	save_button.disabled = false
+	save_button.modulate = \"fff\"
+	cancel_button.modulate = \"c1c1c1\"
+	set(stat.to_lower() + \"_add\", get(stat.to_lower() + \"_add\") + 1)
+	get_tree().get_root().get_node(path_main_stats + stat + \"/Stats/Change\").set_text(
+									\"+\" + str(get(stat.to_lower() + \"_add\")) + \" \")
+	get_tree().get_root().get_node(path_main_stats + stat + \"/Min\").disabled = false
+	get_tree().get_root().get_node(path_main_stats + stat + \"/Min\").modulate  = \"ffffff\"
+	get_tree().get_root().get_node(path_main_stats + stat + \"/HBoxContainer/TextureProgressBar\").value += 1
+	stat_points -= 1
+	stat_points_display.text = str(stat_points)
+	if stat_points == 0:
+		for button in get_tree().get_nodes_in_group(\"PlusButtons\"):
+			button.disabled = true
+			button.modulate = \"7d7d7d\"
+			
+	
+	
+func decrease_stat(stat):
+	set(stat.to_lower() + \"_add\", get(stat.to_lower() + \"_add\") - 1)
+	get_tree().get_root().get_node(path_main_stats + stat + \"/HBoxContainer/TextureProgressBar\").value -= 1
+	if get(stat.to_lower() + \"_add\") == 0:
+		get_tree().get_root().get_node(path_main_stats + stat + \"/Min\").set_disabled(true)
+		get_tree().get_root().get_node(path_main_stats + stat + \"/Min\").modulate  = \"7d7d7d\"
+		get_tree().get_root().get_node(path_main_stats + stat + \"/Stats/Change\").set_text(\"\")
+	else:
+		get_tree().get_root().get_node(path_main_stats + stat + \"/Stats/Change\").set_text(
+										\"+\" + str(get(stat.to_lower() + \"_add\")) + \" \")
+	stat_points += 1
+	
+	stat_points_display.text = str(stat_points)
+	for button in get_tree().get_nodes_in_group(\"PlusButtons\"):
+		button.disabled = false
+		button.modulate = \"ffffff\"
+	if stat_points == PLAYER.stat_points:
+		save_button.disabled = true
+		save_button.modulate = \"7d7d7d\"
+		cancel_button.modulate = \"7d7d7d\"
+	
+func _on_visibility_changed():
+	if visible:
+		animation_player.play(\"fade-in\")
+	
+	
+func _on_save_button_pressed():
+	
+	if  mainvocalist_add + rapper_add + leaddancer_add + leadvocalist_add + maindancer_add + visual_add + leadrapper_add == 0:
+		print(\"tae\")
+		return
+	
+	var stat_points_saved: Dictionary = {
+		\"mainVocalist\": PLAYER.stat_points_saved[\"mainVocalist\"] + mainvocalist_add,
+		\"rapper\": PLAYER.stat_points_saved[\"rapper\"] + rapper_add,
+		\"leadDancer\": PLAYER.stat_points_saved[\"leadDancer\"] + leaddancer_add,
+		\"leadVocalist\": PLAYER.stat_points_saved[\"leadVocalist\"] + leadvocalist_add,
+		\"mainDancer\": PLAYER.stat_points_saved[\"mainDancer\"] + maindancer_add,
+		\"visual\": PLAYER.stat_points_saved[\"visual\"] + visual_add,
+		\"leadRapper\": PLAYER.stat_points_saved[\"leadRapper\"] + leadrapper_add,
+		\"username\": BKMREngine.Auth.logged_in_player
+	}
+	var updated_stat_points_saved: Dictionary = {
+		\"statPointsSaved\": stat_points_saved
+	}
+	BKMREngine.Profile.update_statpoints_saved(updated_stat_points_saved)
+	
+	
+func _on_Stat_Update_Complete(data):
+	
+	for button in get_tree().get_nodes_in_group(\"MinusButtons\"):
+		button.pressed.connect(decrease_stat.bind(button.get_node(\"../\").get_name()))
+		button.disabled = true
+		button.modulate = \"7d7d7d\"
+	PLAYER.stat_points_saved = data.updatedPlayerStats.statPointsSaved
+	PLAYER.stat_points = data.updatedPlayerStats.availStatPoints
+	
+	visual_add = 0
+	mainvocalist_add = 0
+	leadvocalist_add = 0
+	leadvocalist_add = 0
+	maindancer_add = 0
+	leaddancer_add = 0
+	rapper_add = 0
+	
+	for stat in main_stats.get_children():
+		var stat_name:String = stat.name
+		if stat_name != \"HBoxContainer\":
+			get_tree().get_root().get_node(path_main_stats + stat_name + \"/Stats/Change\").text = \"\"
+	load_stats()
+	save_button.modulate = \"7d7d7d\"
+	
+func _on_cancel_button_pressed():
+	stat_points = PLAYER.stat_points
+	stat_points_display.text = str(PLAYER.stat_points)
+	
+	save_button.modulate = \"7d7d7d\"
+	cancel_button.modulate = \"7d7d7d\"
+	load_stats()
+	
+	stat_points = 0
+	visual_add = 0
+	mainvocalist_add = 0
+	leadvocalist_add = 0
+	maindancer_add = 0
+	leaddancer_add = 0
+	rapper_add = 0
+	leadrapper_add = 0
+		
+	for button in get_tree().get_nodes_in_group(\"MinusButtons\"):
+		button.modulate = \"7d7d7d\"
+	
+	for label in get_tree().get_nodes_in_group(\"ChangeLabels\"):
+		label.text = \"\"
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8724y"]
+bg_color = Color(0.113725, 0.0980392, 0.2, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 10
+shadow_offset = Vector2(5, 8)
+
+[sub_resource type="Animation" id="Animation_ydsjf"]
+resource_name = "fade-in"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sqsaf"]
+_data = {
+"fade-in": SubResource("Animation_ydsjf")
+}
+
+[node name="stat_modal" type="Control"]
+z_index = 1
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_2xrb2")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -315.5
+offset_top = -241.0
+offset_right = 315.5
+offset_bottom = 241.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_8724y")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0237718
+anchor_top = 0.0373444
+anchor_right = 0.988907
+anchor_bottom = 0.975104
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_8esx4")
+theme_override_font_sizes/font_size = 28
+text = "Your beats stats"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MainStats" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 24
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/MainStats"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/HBoxContainer"]
+custom_minimum_size = Vector2(162, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 20
+text = "Remaining points:"
+clip_text = true
+
+[node name="AvailablePoints" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 20
+text = "99"
+horizontal_alignment = 1
+clip_text = true
+
+[node name="Visual" type="Control" parent="Panel/VBoxContainer/HBoxContainer/MainStats"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Min" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Visual" groups=["MinusButtons"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0281457
+anchor_top = -0.4
+anchor_right = 0.120861
+anchor_bottom = 1.4
+texture_normal = ExtResource("3_mluvr")
+ignore_texture_size = true
+stretch_mode = 0
+flip_h = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Max" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Visual" groups=["PlusButtons"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.759934
+anchor_top = -0.4
+anchor_right = 0.90894
+anchor_bottom = 1.4
+texture_normal = ExtResource("3_mluvr")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Stats" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Visual"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0993376
+anchor_top = 0.12
+anchor_right = 0.788079
+anchor_bottom = 1.12
+offset_left = 1.52588e-05
+offset_right = -3.05176e-05
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Name" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Visual/Stats"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+text = "Visual"
+vertical_alignment = 1
+clip_text = true
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Visual/Stats"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Change" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Visual/Stats" groups=["ChangeLabels"]]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Visual"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0264901
+anchor_top = 0.44
+anchor_right = 1.13245
+anchor_bottom = 2.32
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Visual/HBoxContainer"]
+custom_minimum_size = Vector2(290, 0)
+layout_mode = 2
+mouse_filter = 2
+nine_patch_stretch = true
+texture_under = ExtResource("4_g3c72")
+texture_progress = ExtResource("5_a58nw")
+
+[node name="MainVocalist" type="Control" parent="Panel/VBoxContainer/HBoxContainer/MainStats"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Min" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainVocalist" groups=["MinusButtons"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0281457
+anchor_top = -0.4
+anchor_right = 0.120861
+anchor_bottom = 1.4
+texture_normal = ExtResource("3_mluvr")
+ignore_texture_size = true
+stretch_mode = 0
+flip_h = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Max" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainVocalist" groups=["PlusButtons"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.759934
+anchor_top = -0.4
+anchor_right = 0.90894
+anchor_bottom = 1.4
+texture_normal = ExtResource("3_mluvr")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Stats" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainVocalist"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0993376
+anchor_top = 0.12
+anchor_right = 0.788079
+anchor_bottom = 1.12
+offset_left = 1.52588e-05
+offset_right = -3.05176e-05
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Name" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainVocalist/Stats"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+text = "Main Vocalist"
+vertical_alignment = 1
+clip_text = true
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainVocalist/Stats"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Change" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainVocalist/Stats" groups=["ChangeLabels"]]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainVocalist"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0264901
+anchor_top = 0.44
+anchor_right = 1.13245
+anchor_bottom = 2.32
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainVocalist/HBoxContainer"]
+custom_minimum_size = Vector2(290, 0)
+layout_mode = 2
+mouse_filter = 2
+nine_patch_stretch = true
+texture_under = ExtResource("4_g3c72")
+texture_progress = ExtResource("5_a58nw")
+
+[node name="LeadVocalist" type="Control" parent="Panel/VBoxContainer/HBoxContainer/MainStats"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Min" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadVocalist" groups=["MinusButtons"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0281457
+anchor_top = -0.4
+anchor_right = 0.120861
+anchor_bottom = 1.4
+texture_normal = ExtResource("3_mluvr")
+ignore_texture_size = true
+stretch_mode = 0
+flip_h = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Max" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadVocalist" groups=["PlusButtons"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.759934
+anchor_top = -0.4
+anchor_right = 0.90894
+anchor_bottom = 1.4
+texture_normal = ExtResource("3_mluvr")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Stats" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadVocalist"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0993376
+anchor_top = 0.12
+anchor_right = 0.788079
+anchor_bottom = 1.12
+offset_left = 1.52588e-05
+offset_right = -3.05176e-05
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Name" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadVocalist/Stats"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+text = "Lead Vocalist"
+vertical_alignment = 1
+clip_text = true
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadVocalist/Stats"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Change" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadVocalist/Stats" groups=["ChangeLabels"]]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_8esx4")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadVocalist"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0264901
+anchor_top = 0.44
+anchor_right = 1.13245
+anchor_bottom = 2.32
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadVocalist/HBoxContainer"]
+custom_minimum_size = Vector2(290, 0)
+layout_mode = 2
+mouse_filter = 2
+nine_patch_stretch = true
+texture_under = ExtResource("4_g3c72")
+texture_progress = ExtResource("5_a58nw")
+
+[node name="MainDancer" type="Control" parent="Panel/VBoxContainer/HBoxContainer/MainStats"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Min" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainDancer" groups=["MinusButtons"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0281457
+anchor_top = -0.4
+anchor_right = 0.120861
+anchor_bottom = 1.4
+texture_normal = ExtResource("3_mluvr")
+ignore_texture_size = true
+stretch_mode = 0
+flip_h = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Max" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainDancer" groups=["PlusButtons"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.759934
+anchor_top = -0.4
+anchor_right = 0.90894
+anchor_bottom = 1.4
+texture_normal = ExtResource("3_mluvr")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Stats" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainDancer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0993376
+anchor_top = 0.12
+anchor_right = 0.788079
+anchor_bottom = 1.12
+offset_left = 1.52588e-05
+offset_right = -3.05176e-05
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Name" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainDancer/Stats"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+text = "Main Dancer"
+vertical_alignment = 1
+clip_text = true
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainDancer/Stats"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Change" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainDancer/Stats" groups=["ChangeLabels"]]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainDancer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0264901
+anchor_top = 0.44
+anchor_right = 1.13245
+anchor_bottom = 2.32
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainDancer/HBoxContainer"]
+custom_minimum_size = Vector2(290, 0)
+layout_mode = 2
+mouse_filter = 2
+nine_patch_stretch = true
+texture_under = ExtResource("4_g3c72")
+texture_progress = ExtResource("5_a58nw")
+
+[node name="LeadDancer" type="Control" parent="Panel/VBoxContainer/HBoxContainer/MainStats"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Min" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadDancer" groups=["MinusButtons"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0281457
+anchor_top = -0.4
+anchor_right = 0.120861
+anchor_bottom = 1.4
+texture_normal = ExtResource("3_mluvr")
+ignore_texture_size = true
+stretch_mode = 0
+flip_h = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Max" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadDancer" groups=["PlusButtons"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.759934
+anchor_top = -0.4
+anchor_right = 0.90894
+anchor_bottom = 1.4
+texture_normal = ExtResource("3_mluvr")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Stats" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadDancer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0993376
+anchor_top = 0.12
+anchor_right = 0.788079
+anchor_bottom = 1.12
+offset_left = 1.52588e-05
+offset_right = -3.05176e-05
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Name" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadDancer/Stats"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+text = "Lead Dancer"
+vertical_alignment = 1
+clip_text = true
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadDancer/Stats"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Change" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadDancer/Stats" groups=["ChangeLabels"]]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadDancer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0264901
+anchor_top = 0.44
+anchor_right = 1.13245
+anchor_bottom = 2.32
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadDancer/HBoxContainer"]
+custom_minimum_size = Vector2(290, 0)
+layout_mode = 2
+mouse_filter = 2
+nine_patch_stretch = true
+texture_under = ExtResource("4_g3c72")
+texture_progress = ExtResource("5_a58nw")
+
+[node name="Rapper" type="Control" parent="Panel/VBoxContainer/HBoxContainer/MainStats"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Min" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Rapper" groups=["MinusButtons"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0281457
+anchor_top = -0.4
+anchor_right = 0.120861
+anchor_bottom = 1.4
+texture_normal = ExtResource("3_mluvr")
+ignore_texture_size = true
+stretch_mode = 0
+flip_h = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Max" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Rapper" groups=["PlusButtons"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.759934
+anchor_top = -0.4
+anchor_right = 0.90894
+anchor_bottom = 1.4
+texture_normal = ExtResource("3_mluvr")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Stats" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Rapper"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0993376
+anchor_top = 0.12
+anchor_right = 0.788079
+anchor_bottom = 1.12
+offset_left = 1.52588e-05
+offset_right = -3.05176e-05
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Name" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Rapper/Stats"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+text = "Rapper"
+vertical_alignment = 1
+clip_text = true
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Rapper/Stats"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Change" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Rapper/Stats" groups=["ChangeLabels"]]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Rapper"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0264901
+anchor_top = 0.44
+anchor_right = 1.13245
+anchor_bottom = 2.32
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Rapper/HBoxContainer"]
+custom_minimum_size = Vector2(290, 0)
+layout_mode = 2
+mouse_filter = 2
+nine_patch_stretch = true
+texture_under = ExtResource("4_g3c72")
+texture_progress = ExtResource("5_a58nw")
+
+[node name="LeadRapper" type="Control" parent="Panel/VBoxContainer/HBoxContainer/MainStats"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Min" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadRapper" groups=["MinusButtons"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0281457
+anchor_top = -0.4
+anchor_right = 0.120861
+anchor_bottom = 1.4
+texture_normal = ExtResource("3_mluvr")
+ignore_texture_size = true
+stretch_mode = 0
+flip_h = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Max" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadRapper" groups=["PlusButtons"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.759934
+anchor_top = -0.4
+anchor_right = 0.90894
+anchor_bottom = 1.4
+texture_normal = ExtResource("3_mluvr")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Stats" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadRapper"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0993376
+anchor_top = 0.12
+anchor_right = 0.788079
+anchor_bottom = 1.12
+offset_left = 1.52588e-05
+offset_right = -3.05176e-05
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Name" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadRapper/Stats"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+text = "Lead Rapper"
+vertical_alignment = 1
+clip_text = true
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadRapper/Stats"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Change" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadRapper/Stats" groups=["ChangeLabels"]]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadRapper"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0264901
+anchor_top = 0.44
+anchor_right = 1.13245
+anchor_bottom = 2.32
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadRapper/HBoxContainer"]
+custom_minimum_size = Vector2(290, 0)
+layout_mode = 2
+mouse_filter = 2
+nine_patch_stretch = true
+texture_under = ExtResource("4_g3c72")
+texture_progress = ExtResource("5_a58nw")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 355)
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("5_sh6fm")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CancelButton" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.454902)
+self_modulate = Color(0.766619, 0.76662, 0.766619, 1)
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+texture_normal = ExtResource("6_0u28o")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/CancelButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -14.5
+offset_right = 47.0
+offset_bottom = 19.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_8esx4")
+theme_override_font_sizes/font_size = 16
+text = "Cancel"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SaveButton" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+disabled = true
+texture_normal = ExtResource("6_0u28o")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/SaveButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -14.5
+offset_right = 47.0
+offset_bottom = 19.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_8esx4")
+theme_override_font_sizes/font_size = 16
+text = "Save"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_sqsaf")
+}
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/SaveButton" to="." method="_on_save_button_pressed"]

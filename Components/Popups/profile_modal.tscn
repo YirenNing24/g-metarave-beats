@@ -1,0 +1,266 @@
+[gd_scene load_steps=11 format=3 uid="uid://c0bfp8uhi3poy"]
+
+[ext_resource type="Script" path="res://Components/Popups/profile_modal.gd" id="1_umnlo"]
+[ext_resource type="Texture2D" uid="uid://d3gybnopjgs8s" path="res://UITextures/BGTextures/auth.png" id="2_1rd46"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_lawlb"]
+[ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="4_tyy1t"]
+[ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="5_xgibo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jrcmy"]
+bg_color = Color(0.113725, 0.0980392, 0.2, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 10
+shadow_offset = Vector2(5, 8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ib3y8"]
+bg_color = Color(0.0313726, 0.0196078, 0.0941176, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lk1uv"]
+bg_color = Color(0.0705882, 0.054902, 0.14902, 1)
+
+[sub_resource type="Animation" id="Animation_ydsjf"]
+resource_name = "fade-in"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sqsaf"]
+_data = {
+"fade-in": SubResource("Animation_ydsjf")
+}
+
+[node name="ProfileModal" type="Control"]
+top_level = true
+z_index = 3
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_umnlo")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -315.5
+offset_top = -241.0
+offset_right = 315.5
+offset_bottom = 241.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_jrcmy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(585, 440)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -294.5
+offset_top = -221.5
+offset_right = 294.5
+offset_bottom = 221.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+
+[node name="ProfilePic" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture = ExtResource("2_1rd46")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(135, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PlayerName" type="Label" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_lawlb")
+theme_override_font_sizes/font_size = 20
+text = "kaetaro13adadada"
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="PlayerRank" type="Label" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("4_tyy1t")
+theme_override_font_sizes/font_size = 16
+text = "Platinum"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(27, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("4_tyy1t")
+theme_override_font_sizes/font_size = 16
+text = "Level"
+
+[node name="Level" type="Label" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(27, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("4_tyy1t")
+theme_override_font_sizes/font_size = 16
+text = "100"
+
+[node name="WalletAddress" type="Label" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878431, 0.223529, 0.992157, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 15
+vertical_alignment = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Status" type="Label" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_lawlb")
+theme_override_font_sizes/font_size = 20
+text = "In-game"
+vertical_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LogoutButton" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+self_modulate = Color(0.537255, 0.537255, 0.537255, 0.580392)
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+texture_normal = ExtResource("5_xgibo")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer3/LogoutButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.5
+offset_bottom = -0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+text = "LOGOUT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Panel" type="Panel" parent="Panel/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ib3y8")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0152801
+anchor_top = 0.08
+anchor_right = 0.98472
+anchor_bottom = 1.02
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerRank" type="Label" parent="Panel/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_tyy1t")
+theme_override_font_sizes/font_size = 18
+text = "Recent Activity"
+
+[node name="Panel2" type="Panel" parent="Panel/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lk1uv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/Panel2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0152801
+anchor_top = 0.08
+anchor_right = 0.98472
+anchor_bottom = 1.02
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerRank" type="Label" parent="Panel/VBoxContainer/VBoxContainer/Panel2/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_fonts/font = ExtResource("4_tyy1t")
+theme_override_font_sizes/font_size = 12
+text = "You acquired a new badge!"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_sqsaf")
+}
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer3/LogoutButton" to="." method="_on_logout_button_pressed"]
