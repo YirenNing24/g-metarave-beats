@@ -1,6 +1,6 @@
 extends Node
 
-const BKMRELogger = preload("res://BeatsKMREngine/utils/BKMRLogger.gd") 
+const BKMRELogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd") 
 
 # Retrieves data stored as JSON in local storage
 # example path: "user://swsession.save"
@@ -16,10 +16,10 @@ static func save_data(path: String, data: Dictionary, debug_message: String='Sav
 
 
 static func remove_data(path: String, debug_message: String='Removing data from file in local storage: ') -> bool:
-	var delete_success = false
+	var delete_success: bool = false
 	if FileAccess.file_exists(path):
-		var file = FileAccess.open(path, FileAccess.WRITE)
-		var data = {}
+		var file: FileAccess = FileAccess.open(path, FileAccess.WRITE)
+		var data: Dictionary = {}
 		file.store_var(data)
 		delete_success = true
 	BKMRELogger.debug(debug_message)
@@ -31,11 +31,11 @@ static func does_file_exist(path: String) -> bool:
 
 
 static func get_data(path: String) -> Dictionary:
-	var content = {}
+	var content: Dictionary = {}
 	if FileAccess.file_exists(path):
-		var file = FileAccess.open(path, FileAccess.READ)
-		var text_content = file.get_as_text()
-		var data = JSON.parse_string(text_content)
+		var file: FileAccess = FileAccess.open(path, FileAccess.READ)
+		var text_content: String = file.get_as_text()
+		var data: Dictionary = JSON.parse_string(text_content)
 		if typeof(data) == TYPE_DICTIONARY:
 			content = data
 		else:

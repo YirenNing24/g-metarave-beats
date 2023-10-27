@@ -30,7 +30,7 @@ func session_check() -> void:
 		change_to_auth_scene()
 	else:
 		LOADER.previous_texture = transition_texture.texture
-		LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
+		var _load_scne: bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
 		LOADER.next_texture = preload("res://UITextures/BGTextures/main.png")
 		
 	tween.kill()
@@ -38,12 +38,12 @@ func session_check() -> void:
 func fake_loader() -> void:
 	loading_wheel.value = 0
 	tween = get_tree().create_tween()
-	tween.tween_property(loading_wheel, "value", 100, 3.0).set_trans(Tween.TRANS_LINEAR)
-	tween.tween_callback(fake_loader)
+	var _wheel_loader: PropertyTweener = tween.tween_property(loading_wheel, "value", 100, 3.0).set_trans(Tween.TRANS_LINEAR)
+	var _loader_fake: CallbackTweener = tween.tween_callback(fake_loader)
 	
 func change_to_auth_scene()  -> void:
 	await(get_tree().create_timer(1).timeout)
 	tween.kill()
-	LOADER.load_scene(self, "res://UIScenes/auth_screen.tscn")
+	var _load_scene : bool = await LOADER.load_scene(self, "res://UIScenes/auth_screen.tscn")
 	LOADER.previous_texture = transition_texture.texture
 	LOADER.next_texture = preload("res://UITextures/BGTextures/auth.png")

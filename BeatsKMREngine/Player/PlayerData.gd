@@ -1,25 +1,20 @@
 extends Node
 
 var data: Dictionary = {}
-
 var powerup_inventory: Dictionary
 var player_stats: Dictionary
 var card_inventory: Dictionary
 var wallet_data: Dictionary
-
 var profile_pics: Array
-
 var username: String
 var firstname: String
 var lastname: String
 var email: String
-
 var wallet_address: String
 var kmr_balance: String
 var native_balance: String
 var beats_balance: String
 var thump_balance: String
-
 var level: int
 var player_experience: int
 var player_rank: String
@@ -36,21 +31,29 @@ func _ready() -> void:
 		return
 		
 	# Parse and assign values to variables
-	powerup_inventory = JSON.parse_string(data.powerUpInventory)
-	player_stats = JSON.parse_string(data.playerStats)
-	card_inventory = JSON.parse_string(data.cardInventory)
+	var powerup_inventory: String = data.powerUpInventory
+	powerup_inventory = JSON.parse_string(powerup_inventory)
+	var player_statistics: String = data.playerStats
+	player_stats = JSON.parse_string(player_statistics)
+	var card_inventory: String = data.cardInventory
+	card_inventory = JSON.parse_string(card_inventory)
 	wallet_data = data.wallet
-	
-	wallet_address = formatAddress(wallet_data.smartWalletAddress)
-	beats_balance = format_balance(wallet_data.beatsBalance)
-	native_balance = format_balance(wallet_data.nativeBalance)
-	kmr_balance = format_balance(wallet_data.kmrBalance)
-	thump_balance = format_balance(wallet_data.thumpBalance)
+	var smartwallet_address: String = wallet_data.smartWalletAddress
+	wallet_address = formatAddress( smartwallet_address)
+	var beats_balance: String = wallet_data.beatsBalance
+	beats_balance = format_balance(beats_balance)
+	var native_balance: String = wallet_data.nativeBalance
+	native_balance = format_balance(native_balance)
+	var kmr_balance: String  = wallet_data.kmrBalance
+	kmr_balance = format_balance(kmr_balance)
+	var thump_balance: String = wallet_data.thumpBalance
+	thump_balance = format_balance(thump_balance)
 	
 	username = data.username
 	firstname = data.firstName
 	lastname = data.lastName
 	email = data.email
+	
 
 	level = player_stats.level
 	player_experience = player_stats.playerExp
@@ -70,7 +73,7 @@ func format_balance(value: String) -> String:
 	# Add commas for every three digits in the whole part
 	var formattedWholePart: String = ""
 	var digitCount:int = 0
-	for i in range(wholePart.length() - 1, -1, -1):
+	for i: int in range(wholePart.length() - 1, -1, -1):
 		formattedWholePart = wholePart[i] + formattedWholePart
 		digitCount += 1
 		if digitCount == 3 and i != 0:

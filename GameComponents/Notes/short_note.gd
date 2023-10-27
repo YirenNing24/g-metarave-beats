@@ -21,7 +21,7 @@ var concurrent: Array = []
 func _ready() -> void:
 	set_note_position() 
 	note_area.add_to_group("note")
-	note_area.area_entered.connect(_on_area_entered)
+	var _note_connect: int = note_area.area_entered.connect(_on_area_entered)
 	
 func _process(_delta: float) -> void:
 	if not picker or (picker.note_collect != null and picker.note_collect != self): 

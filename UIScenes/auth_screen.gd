@@ -20,8 +20,8 @@ func _ready() -> void:
 	login_container.show()
 	register_container.hide()
 	play_animations() 
-	BKMREngine.Auth.connect("bkmr_registration_complete",  _on_registration_completed)
-	BKMREngine.Auth.connect("bkmr_login_complete",  _on_login_succeeded)
+	var _complete_registration: Error = BKMREngine.Auth.connect("bkmr_registration_complete",  _on_registration_completed)
+	var _login_succeeded: Error = BKMREngine.Auth.connect("bkmr_login_complete",  _on_login_succeeded)
 	
 func play_animations() -> void:
 	await(animation_player.animation_finished)
@@ -31,14 +31,14 @@ func _on_login_succeeded(result: Dictionary) -> void:
 	if "error" in result:
 		await animation_player2.animation_finished
 		animation_player2.play("error_container")
-		error_logger([result.message])
+		error_logger([result.message]) 
 		return
 	else:
 		BKMRLogger.info("logged in as: " + str(BKMREngine.Auth.logged_in_player))
 		LOADER.previous_texture = background_texture.texture
 		LOADER.next_texture = preload("res://UITextures/BGTextures/main.png")
-		LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
-	
+		var _change_scene:bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
+		
 func _on_registration_completed(result: Dictionary) -> void:
 	if "error" in result:
 		animation_player2.play("error_container")
@@ -64,13 +64,13 @@ func _on_login_button_pressed() -> void:
 		BKMREngine.Auth.login_player(userName, passWord)
 		animation_player2.play("registration_loading")
 		
-func _on_username_field_text_changed(new_text) -> void:
+func _on_username_field_text_changed(new_text: String) -> void:
 	username = new_text
 
-func _on_password_field_text_changed(new_text) -> void:
+func _on_password_field_text_changed(new_text: String) -> void:
 	password = new_text
 
-func _on_password_field_text_submitted(_new_text) -> void:
+func _on_password_field_text_submitted(_new_text: String) -> void:
 	var userName:String = username
 	var passWord:String = password
 	BKMREngine.Auth.login_player(userName, passWord)
@@ -96,7 +96,7 @@ func _on_register_button_pressed() -> void:
 	var valid_username: String = ""
 	var valid_password: String = ""
 	
-	for fields in get_tree().get_nodes_in_group("reg_field"):
+	for fields: LineEdit in get_tree().get_nodes_in_group("reg_field"):
 		if fields.text == "":
 			if fields.name != "FirstName" and fields.name != "LastName":
 				var empty_fields: String = fields.name
@@ -153,7 +153,7 @@ func _on_register_button_pressed() -> void:
 		valid_password = password
 		
 	if valid_email and valid_username and valid_password != "":
-		for child in error_container.get_children():
+		for child: Control in error_container.get_children():
 			error_container.remove_child(child)
 			child.queue_free()
 			
@@ -164,25 +164,25 @@ func _on_register_button_pressed() -> void:
 func is_valid_name(name: String) -> bool:
 	var name_pattern: String = "^[a-zA-Z]{2,30}$"
 	var regex: RegEx = RegEx.new()
-	regex.compile(name_pattern)
+	var _pattern_name: Error =regex.compile(name_pattern)
 	return regex.search(name) != null
 		
 func is_valid_username(username: String) -> bool:
 	var username_pattern: String = "^[a-zA-Z0-9_]{3,16}$"
 	var regex: RegEx = RegEx.new()
-	regex.compile(username_pattern)
+	var _pattern_username: Error = regex.compile(username_pattern)
 	return regex.search(username) != null
 	
 func is_valid_email(email: String) -> bool:
 	var email_pattern: String = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
 	var regex: RegEx = RegEx.new()
-	regex.compile(email_pattern)
+	var _pattern_email: Error = regex.compile(email_pattern)
 	return regex.search(email) != null
 
 func is_valid_password(password: String) -> bool:
 	var password_pattern: String = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z\\d\\s]).{8,}$"
 	var regex: RegEx = RegEx.new()
-	regex.compile(password_pattern)
+	var _pattern_password: Error = regex.compile(password_pattern)
 	return regex.search(password) != null
 
 func error_logger(errors: Array) -> void:
@@ -193,13 +193,13 @@ func error_logger(errors: Array) -> void:
 	var unique_errors: Array= []
 	var list_error: Control
 	
-	for child in error_container.get_children():
+	for child: Control in error_container.get_children():
 		error_container.remove_child(child)
 		child.queue_free()
-	for error in errors:
+	for error: String in errors:
 		if error not in unique_errors:
 			unique_errors.append(error)
-	for err in unique_errors:
+	for err: String in unique_errors:
 		list_error = error_list.instantiate()
 		if err == "ConfirmPassword is required":
 			list_error.get_node("Label").set_text("Please confirm your password")
@@ -209,7 +209,7 @@ func error_logger(errors: Array) -> void:
 			list_error.get_node("Label").set_text(err)
 			error_container.add_child(list_error)
 	
-func on_submit_registration(val_email, val_username, val_password, namefirst: String, namelast: String)  -> void:
+func on_submit_registration(val_email: String, val_username: String, val_password: String, namefirst: String, namelast: String)  -> void:
 	password = val_password
 	username = val_username
 	BKMREngine.Auth.register_player(val_email, val_username, val_password, namefirst, namelast)

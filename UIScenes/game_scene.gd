@@ -29,12 +29,15 @@ func set_variables() -> void:
 	map = load_map()
 	
 func calculate_params() -> void:
-	tempo = int(map.tempo)
+	var song_tempo: int = map.tempo
+	tempo = song_tempo
 	bar_length_in_m = 16.8# Godot meters
 	quarter_time_in_sec = 60/float(tempo) # 60/60 = 1, 60/85 = 0.71
 	speed = bar_length_in_m/float(4 * quarter_time_in_sec) # each bar has 4 quarters # 
 	note_scale = bar_length_in_m/float(4 * 400)
-	start_pos_in_sec = (float(map.start_pos)/400.0) * quarter_time_in_sec
+	
+	var map_start_pos: float = map.start_pos
+	start_pos_in_sec = (float(map_start_pos)/400.0) * quarter_time_in_sec
 	
 func load_map() -> Dictionary:
 	var file: FileAccess = FileAccess.open(map_file, FileAccess.READ)
@@ -52,7 +55,7 @@ func setup_nodes() -> void:
 	music.setup(self)
 	road.setup(self)
 	
-func build_map(_empty) -> void:
+func build_map(_empty: String) -> void:
 	pass
 	
 func map_finished() -> void:

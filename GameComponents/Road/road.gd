@@ -20,7 +20,8 @@ var game: Node3D
 # Called when the node enters the scene tree for the first time.
 func setup(game_config: Node3D) -> void:
 	game = game_config
-	speed = Vector3(0,0,game.speed)
+	var game_speed: float = game.speed
+	speed = Vector3(0, 0, game_speed)
 	bar_length_in_meters = game.bar_length_in_m
 	current_location = Vector3(0,0,-bar_length_in_meters)
 	note_scale = game.note_scale
@@ -29,13 +30,13 @@ func setup(game_config: Node3D) -> void:
 	tracks_data = game.map.tracks
 	scaled_bar_amount = max(ceil(32 / bar_length_in_meters), 16)
 	max_index = 0
-	for t in tracks_data:
+	for t: Dictionary in tracks_data:
 		max_index = max(max_index, len(t.bars))
 	add_bars(scaled_bar_amount)
 	
 func _process(delta: float) -> void:
 	bars_node.translate(speed * delta)
-	for bar in bars:
+	for bar: Node3D in bars:
 		if bar.position.z + bars_node.position.z >= bar_length_in_meters:
 			remove_bar(bar)
 			add_bar()
@@ -71,5 +72,5 @@ func remove_bar(bar: Node3D) -> void:
 		get_parent().map_finished()
 		
 func add_bars(l: float) -> void:
-	for _i in range(l):
+	for _i: float in range(l):
 		add_bar()

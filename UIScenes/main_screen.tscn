@@ -603,12 +603,9 @@ libraries = {
 }
 autoplay = "fade_in"
 
-[connection signal="chat_opened" from="." to="Panel/BackgroundTexture/chat_box" method="_on_main_screen_chat_opened"]
 [connection signal="pressed" from="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect/ProfileButton" to="." method="_on_profile_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect/StatsWheel/StatButton" to="." method="_on_stat_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect/GameModeButton" to="." method="_on_game_mode_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/StoreButton" to="." method="_on_store_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/InventoryButton" to="." method="_on_inventory_button_pressed"]
-[connection signal="message_sent" from="Panel/BackgroundTexture/chat_box" to="." method="_on_chat_box_message_sent"]
-[connection signal="slide_pressed" from="Panel/BackgroundTexture/chat_box" to="." method="_on_chat_box_slide_pressed"]
 [connection signal="gui_input" from="FilterPanel" to="." method="_on_panel_2_gui_input"]

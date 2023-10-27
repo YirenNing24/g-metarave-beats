@@ -32,7 +32,7 @@ var note_name: String = "long_note"
 func _ready() -> void:
 	set_note_position() 
 	note_area.add_to_group("note")
-	note_area.area_entered.connect(_on_area_entered)
+	var _note_connect: int = note_area.area_entered.connect(_on_area_entered)
 	
 	curr_length_in_m = max(100, length - 100) * length_scale
 	beam.scale.z = curr_length_in_m

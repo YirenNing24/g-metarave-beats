@@ -2,16 +2,16 @@ extends Node
 
 const BKMRLogger:Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 
-static func get_timestamp() -> int:
+static func get_timestamp() -> float:
 	
 	var unix_time: float = Time.get_unix_time_from_system()
 	@warning_ignore("narrowing_conversion")
 	var unix_time_int: int = unix_time
-	var timestamp = round((unix_time - unix_time_int) * 1000.0)
+	var timestamp: float = round((unix_time - unix_time_int) * 1000.0)
 	return timestamp
 
 
-static func check_http_response(response_code, headers, body):
+static func check_http_response(response_code: int, headers: Array, body: PackedByteArray) -> bool:
 	
 	BKMRLogger.debug("response code: " + str(response_code))
 	BKMRLogger.debug("response headers: " + str(headers))
@@ -39,13 +39,13 @@ static func check_http_response(response_code, headers, body):
 	return check_ok
 
 
-static func no_connection_error():
+static func no_connection_error() -> void:
 	BKMRLogger.error("Beats couldn't connect to the server. There are several reasons why this might happen. See https://www.kmetarave.com/troubleshooting for more details. If the problem persists you can reach out to us: https://www.kmetarave.com/contact")
 
-static func forbidden_error():
+static func forbidden_error() -> void:
 	BKMRLogger.error("You are not authorized to call the BKMREngine - check your device, game version or account or contact us at https://www.kmetarave.com/contact")
 
-static func validation_error():
+static func validation_error() -> void:
 	BKMRLogger.error("Your credentials entered or used are invalid")
 
 static func obfuscate_string(string: String) -> String:

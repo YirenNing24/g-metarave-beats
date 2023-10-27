@@ -13,7 +13,8 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		if event.pressed:
-			var touched_node: bool = get_touched_node(event.position)
+			var position_event: Vector2 = event.position
+			var touched_node: bool = get_touched_node(position_event)
 			if touched_node != false:
 				is_pressed = true
 				is_collecting = true

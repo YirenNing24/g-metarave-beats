@@ -611,8 +611,8 @@ theme_override_styles/normal = ExtResource("6_0mn33")
 theme_override_styles/focus = ExtResource("6_w6605")
 placeholder_text = "Enter your password"
 alignment = 1
-secret = true
 caret_blink = true
+secret = true
 
 [node name="LoginButton" type="TextureButton" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 65)
@@ -823,8 +823,8 @@ theme_override_styles/normal = ExtResource("6_0mn33")
 theme_override_styles/focus = ExtResource("6_w6605")
 placeholder_text = "Enter your password"
 alignment = 1
-secret = true
 caret_blink = true
+secret = true
 
 [node name="Label3" type="Label" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer"]
 layout_mode = 2
@@ -846,8 +846,8 @@ theme_override_styles/normal = ExtResource("6_0mn33")
 theme_override_styles/focus = ExtResource("6_w6605")
 placeholder_text = "Confirm password"
 alignment = 1
-secret = true
 caret_blink = true
+secret = true
 
 [node name="RegisterButton" type="TextureButton" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 65)

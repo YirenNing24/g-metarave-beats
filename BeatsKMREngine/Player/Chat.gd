@@ -6,7 +6,7 @@ signal connected(url: String)
 signal connect_failed
 signal received(data: Dictionary)
 signal closing
-signal closed(code, reason)
+signal closed(code: int, reason: Dictionary)
 
 signal messages(room_messages: Array, roomId: String)
 signal message_single(message: Dictionary)
@@ -16,23 +16,21 @@ var connection_timeout: int = 10
 
 var socket_url: String
 var socket: WebSocketPeer = WebSocketPeer.new()
+var socket_poll: String
+var socket_state: WebSocketPeer.State
 
-var socket_state:
-	get:
-		socket.poll()
-		return socket.get_ready_state()
-		
 var socket_connected: bool = false
 var closing_started: bool = false
 var counter: int = 0
 
-func _process(_delta: float):
+func _process(_delta: float) -> void:
 	socket.poll()
+	socket_state = socket.get_ready_state()
 	if socket_state == WebSocketPeer.STATE_OPEN:
 		socket_connected = true
 		closing_started = false
 		connected.emit(socket_url)
-		var _available = socket.get_available_packet_count()
+		var _available: int = socket.get_available_packet_count()
 		var message: String = socket.get_packet().get_string_from_utf8()
 		var json: JSON = JSON.new()
 		var error: Error = json.parse(message)
@@ -58,15 +56,13 @@ func _process(_delta: float):
 			counter = 0
 			socket.close()
 			
-			
 func socket_send_message(message: Dictionary) -> void:
-	var msg = JSON.stringify(message)
-	socket.send(msg)
+	var msg: String = JSON.stringify(message)
+	var _message_sent: Error = socket.send_text(msg)
 	
 func connect_socket(url: String) -> bool:
 	if socket_connected:
 		return true
-
 	socket_url = url
 	var err: Error = socket.connect_to_url(url)
 	if err != OK: # or socket_state != WebSocketPeer.STATE_OPEN:

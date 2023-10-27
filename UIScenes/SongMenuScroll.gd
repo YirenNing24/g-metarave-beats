@@ -19,15 +19,15 @@ var tween: Tween
 func _ready() -> void:
 	await get_tree().process_frame
 	song_nodes = %HBoxContainer.get_children()
-	for song in song_nodes:
-		var song_pos_x = (margin_right + song.position.x) - ((size.x - song.size.x) / 2)
+	for song: Node in song_nodes:
+		var song_pos_x: float = (margin_right + song.position.x) - ((size.x - song.size.x) / 2)
 		song.pivot_offset = (song.size / 2)
 		song_x_positions.append(song_pos_x)
 		scroll_horizontal = song_x_positions[song_current_index]
 	scroll()
 		
 func _process(_delta: float) -> void:
-	for _index in range(song_x_positions.size()):
+	for _index: int in range(song_x_positions.size()):
 		var _card_pos_x: float = song_x_positions[_index]
 
 		var _swipe_length: float = (song_nodes[_index].size.x / 2.0) + (song_space / 2.0)
@@ -47,23 +47,24 @@ func _process(_delta: float) -> void:
 			
 func scroll() -> void:
 	tween = get_tree().create_tween()
-	tween.tween_property(
+	var _tween_scroll: PropertyTweener = tween.tween_property(
 		scroll_container,
 		"scroll_horizontal",
 		song_x_positions[song_current_index],
 		scroll_duration 
 		).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	
-	for index in range(song_nodes.size()):
+	for index: int in range(song_nodes.size()):
 		var _song_scale: float = song_current_scale if index == song_current_index else song_scale
-		tween.tween_property(
-			song_nodes[index],
+		var song_nodes_index: Object = song_nodes[index]
+		var _tween_scale: PropertyTweener = tween.tween_property(
+			song_nodes_index,
 			"scale",
 			Vector2(_song_scale, _song_scale),
 			scroll_duration 
 		)
 		
-func _on_gui_input(event) -> void:
+func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.pressed:
 			tween.kill()

@@ -50,7 +50,6 @@ func free_request(weak_ref: WeakRef, object: Node) -> void:
 
 func prepare_http_request() -> Dictionary:
 	var request: HTTPRequest = HTTPRequest.new()
-	@warning_ignore("shadowed_global_identifier")
 	var weakref: WeakRef = weakref(request)
 	if OS.get_name() != "Web":
 		request.set_use_threads(true)
@@ -62,7 +61,7 @@ func prepare_http_request() -> Dictionary:
 	}
 	return return_dict
 
-func send_get_request(http_node: HTTPRequest, request_url: String) -> void:
+func send_get_request(http_node: HTTPRequest, request_url: String) -> Error:
 	var headers: Array = [
 		"x-api-key: " + BKMREngine.config.apiKey, 
 		"x-api-id: " + BKMREngine.config.apiId,
@@ -76,7 +75,8 @@ func send_get_request(http_node: HTTPRequest, request_url: String) -> void:
 	BKMRLogger.debug("Method: GET")
 	BKMRLogger.debug("request_url: " + str(request_url))
 	BKMRLogger.debug("headers: " + str(headers))
-	http_node.request(request_url, headers) 
+	var get_request_send: Error = http_node.request(request_url, headers) 
+	return get_request_send
 	
 func send_post_request(http_node: HTTPRequest, request_url: String, payload: Dictionary) -> void:
 	var headers: Array = [
@@ -94,7 +94,7 @@ func send_post_request(http_node: HTTPRequest, request_url: String, payload: Dic
 	BKMRLogger.debug("request_url: " + str(request_url))
 	BKMRLogger.debug("headers: " + str(headers))
 	BKMRLogger.debug("query: " + str(query))
-	http_node.request(request_url, headers, HTTPClient.METHOD_POST, query)
+	var _request_post_send: Error = http_node.request(request_url, headers, HTTPClient.METHOD_POST, query)
 	
 func add_jwt_token_headers(headers: Array) -> Array:
 	if Auth.bkmr_access_token != null:

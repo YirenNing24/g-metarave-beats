@@ -28,4 +28,4 @@ func _on_logout_button_pressed() -> void:
 func _on_Logout_Complete() -> void:
 	LOADER.previous_texture = load("res://UITextures/BGTextures/main.png")
 	LOADER.next_texture = load("res://UITextures/BGTextures/auth.png")
-	LOADER.load_scene(self, "res://UIScenes/auth_screen.tscn")
+	var _auth_screen: int = await LOADER.load_scene(self, "res://UIScenes/auth_screen.tscn")

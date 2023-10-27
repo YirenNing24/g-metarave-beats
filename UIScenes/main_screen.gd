@@ -25,7 +25,7 @@ var stat_modal: Control = preload("res://Components/Popups/stat_modal.tscn").ins
 var stat_tween: Tween
 var chat_connected: bool = false
 var is_opened: bool = false
-var url: String = "ws://localhost:8081/api/chats/all"
+var url: String = "ws://192.168.100.178:8081/api/chats/all"
 
 func _ready() -> void:
 	filter_panel.add_child(profile_modal)
@@ -102,10 +102,10 @@ func _on_chat_box_slide_pressed(isOpen: bool) -> void:
 		is_opened = false
 		chat_opened.emit(false)
 	
-func _on_chat_connected(_url) -> void:
+func _on_chat_connected(_url: String) -> void:
 	chat_connected = true
 	
-func _on_chat_closed(_code, _reason) -> void:
+func _on_chat_closed(_code: int, _reason: String) -> void:
 	chat_connected = false
 	if is_opened:
 		BKMREngine.Chat.connect_socket(url)
