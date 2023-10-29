@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://rnosah2ru31"]
 
-[ext_resource type="Texture2D" uid="uid://by3gevrtv416c" path="res://UITextures/Popups/generic_texture.png" id="1_56p52"]
+[ext_resource type="Texture2D" uid="uid://byq0as4ib8p6" path="res://UITextures/Popups/generic_texture.png" id="1_56p52"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="2_qia87"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_nehkl"]
 

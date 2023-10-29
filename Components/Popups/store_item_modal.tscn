@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://ds0um88d71gmp" path="res://UITextures/Progress/prop_progress.png" id="6_sh0mv"]
 [ext_resource type="FontFile" uid="uid://vqx73un0cel7" path="res://UITextures/Fonts/HankenGrotesk-Italic-VariableFont_wght.ttf" id="7_vtv0g"]
 [ext_resource type="Texture2D" uid="uid://1ktjogd6a24l" path="res://UITextures/Buttons/buy_button.png" id="8_0vpge"]
-[ext_resource type="Texture2D" uid="uid://rf7crm8iniew" path="res://UITextures/PanelTextures/store_loading_hero.png" id="11_iowjj"]
+[ext_resource type="Texture2D" uid="uid://rf7crm8iniew" path="res://UITextures/Buttons/PanelTextures/store_loading_hero.png" id="11_iowjj"]
 [ext_resource type="Texture2D" uid="uid://fadyu86xt0om" path="res://UITextures/Progress/buy_base.png" id="12_jh3eo"]
 [ext_resource type="Texture2D" uid="uid://cam62c8r5h2y" path="res://UITextures/Progress/buy_progress.png" id="13_1eycr"]
 

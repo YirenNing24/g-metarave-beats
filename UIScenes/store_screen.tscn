@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="6_usbye"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="7_grflq"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="7_qpqmh"]
-[ext_resource type="Texture2D" uid="uid://bo2dc8yxqbqp4" path="res://UITextures/PanelTextures/main_hero3.png" id="8_8b0sr"]
+[ext_resource type="Texture2D" uid="uid://bo2dc8yxqbqp4" path="res://UITextures/Buttons/PanelTextures/main_hero3.png" id="8_8b0sr"]
 
 [sub_resource type="Animation" id="Animation_y3bef"]
 resource_name = "pulldown"

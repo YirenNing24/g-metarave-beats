@@ -51,8 +51,8 @@ func hud_data() -> void:
 	if PLAYER.stat_points > 0:
 		stats_wheel.value = 0
 		stat_tween = get_tree().create_tween()
-		stat_tween.tween_property(stats_wheel, "value", 100, 1.5).set_trans(Tween.TRANS_LINEAR)
-		stat_tween.tween_callback(hud_data)
+		var _tween_property: PropertyTweener =stat_tween.tween_property(stats_wheel, "value", 100, 1.5).set_trans(Tween.TRANS_LINEAR)
+		var _tween_callback: CallbackTweener = stat_tween.tween_callback(hud_data)
 	
 func _on_profile_button_pressed() -> void:
 	profile_modal.visible = true
@@ -72,8 +72,8 @@ func _on_store_button_pressed() -> void:
 		stat_tween.kill()
 	LOADER.previous_texture = background_texture.texture
 	LOADER.next_texture = preload("res://UITextures/BGTextures/store_bg.png")
-	LOADER.load_scene(self, "res://UIScenes/store_screen.tscn")
-	for buttons in get_tree().get_nodes_in_group('MainButtons'):
+	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/store_screen.tscn")
+	for buttons: Button in get_tree().get_nodes_in_group('MainButtons'):
 		buttons.disabled = true
 	
 func _on_inventory_button_pressed() -> void:
@@ -82,8 +82,8 @@ func _on_inventory_button_pressed() -> void:
 	BKMREngine.Chat.socket.close(1000, "changed_scene")
 	LOADER.previous_texture = background_texture.texture
 	LOADER.next_texture = preload("res://UITextures/BGTextures/main_inventory_bg.png")
-	LOADER.load_scene(self, "res://UIScenes/main_inventory.tscn")
-	for buttons in get_tree().get_nodes_in_group('MainButtons'):
+	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/main_inventory.tscn")
+	for buttons: Button in get_tree().get_nodes_in_group('MainButtons'):
 		buttons.disabled = true
 	
 func _on_chat_box_slide_pressed(isOpen: bool) -> void:
@@ -113,8 +113,8 @@ func _on_chat_closed(_code: int, _reason: String) -> void:
 func _on_game_mode_button_pressed() -> void:
 	LOADER.previous_texture = background_texture.texture
 	LOADER.next_texture = preload("res://UITextures/BGTextures/song_menu_bg.png")
-	LOADER.load_scene(self, "res://UIScenes/song_menu.tscn")
-	for buttons in get_tree().get_nodes_in_group('MainButtons'):
+	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/song_menu.tscn")
+	for buttons: Button in get_tree().get_nodes_in_group('MainButtons'):
 		buttons.disabled = true
 
 func _on_chat_box_message_sent(message: Dictionary) -> void:
