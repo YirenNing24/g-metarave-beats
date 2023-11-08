@@ -3,7 +3,6 @@ extends Node
 const BKMRLogger:Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 
 static func get_timestamp() -> float:
-	
 	var unix_time: float = Time.get_unix_time_from_system()
 	@warning_ignore("narrowing_conversion")
 	var unix_time_int: int = unix_time
@@ -12,11 +11,9 @@ static func get_timestamp() -> float:
 
 
 static func check_http_response(response_code: int, headers: Array, body: PackedByteArray) -> bool:
-	
 	BKMRLogger.debug("response code: " + str(response_code))
 	BKMRLogger.debug("response headers: " + str(headers))
 	BKMRLogger.debug("response body: " + str(body.get_string_from_utf8()))
-
 	var check_ok:bool = true
 	if response_code == 0:
 		no_connection_error()
@@ -35,7 +32,6 @@ static func check_http_response(response_code: int, headers: Array, body: Packed
 	elif response_code == 500:
 		forbidden_error()
 		check_ok = false
-		
 	return check_ok
 
 

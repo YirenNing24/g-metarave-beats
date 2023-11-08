@@ -1,9 +1,9 @@
 extends Node
 
 var data: Dictionary = {}
-var powerup_inventory: Dictionary
+var inventory_powerup: Dictionary
 var player_stats: Dictionary
-var card_inventory: Dictionary
+var inventory_card: Dictionary
 var wallet_data: Dictionary
 var profile_pics: Array
 var username: String
@@ -32,20 +32,23 @@ func _ready() -> void:
 		
 	# Parse and assign values to variables
 	var powerup_inventory: String = data.powerUpInventory
-	powerup_inventory = JSON.parse_string(powerup_inventory)
+	inventory_powerup = JSON.parse_string(powerup_inventory)
+	
 	var player_statistics: String = data.playerStats
 	player_stats = JSON.parse_string(player_statistics)
+	
 	var card_inventory: String = data.cardInventory
-	card_inventory = JSON.parse_string(card_inventory)
+	inventory_card = JSON.parse_string(card_inventory)
+	
 	wallet_data = data.wallet
 	var smartwallet_address: String = wallet_data.smartWalletAddress
 	wallet_address = formatAddress( smartwallet_address)
-	var beats_balance: String = wallet_data.beatsBalance
-	beats_balance = format_balance(beats_balance)
-	var native_balance: String = wallet_data.nativeBalance
-	native_balance = format_balance(native_balance)
-	var kmr_balance: String  = wallet_data.kmrBalance
-	kmr_balance = format_balance(kmr_balance)
+	var beats: String = wallet_data.beatsBalance
+	beats_balance = format_balance(beats)
+	var native: String = wallet_data.nativeBalance
+	native_balance = format_balance(native)
+	var kmr: String  = wallet_data.kmrBalance
+	kmr_balance = format_balance(kmr)
 	var thump_balance: String = wallet_data.thumpBalance
 	thump_balance = format_balance(thump_balance)
 	

@@ -44,6 +44,7 @@ _data = {
 }
 
 [node name="store_screen" type="Control"]
+clip_contents = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -106,7 +107,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="TextureButton7" type="TextureButton" parent="TextureRect/BackgroundTexture/TextureRect/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 texture_normal = ExtResource("4_ei2ks")
 ignore_texture_size = true
@@ -133,7 +134,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureButton" type="TextureButton" parent="TextureRect/BackgroundTexture/TextureRect/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 texture_normal = ExtResource("4_ei2ks")
 ignore_texture_size = true
@@ -159,7 +160,7 @@ text = "Card Bundle"
 vertical_alignment = 1
 
 [node name="CardsButton" type="TextureButton" parent="TextureRect/BackgroundTexture/TextureRect/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 texture_normal = ExtResource("4_ei2ks")
 ignore_texture_size = true
@@ -186,7 +187,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureButton2" type="TextureButton" parent="TextureRect/BackgroundTexture/TextureRect/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 texture_normal = ExtResource("4_ei2ks")
 ignore_texture_size = true
@@ -213,7 +214,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureButton3" type="TextureButton" parent="TextureRect/BackgroundTexture/TextureRect/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 texture_normal = ExtResource("4_ei2ks")
 ignore_texture_size = true
@@ -240,7 +241,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureButton4" type="TextureButton" parent="TextureRect/BackgroundTexture/TextureRect/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 texture_normal = ExtResource("4_ei2ks")
 ignore_texture_size = true
@@ -267,7 +268,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureButton5" type="TextureButton" parent="TextureRect/BackgroundTexture/TextureRect/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 texture_normal = ExtResource("4_ei2ks")
 ignore_texture_size = true

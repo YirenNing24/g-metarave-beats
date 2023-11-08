@@ -168,7 +168,7 @@ theme_override_fonts/font = ExtResource("4_l7enx")
 theme_override_font_sizes/font_size = 16
 text = "Platinum"
 
-[node name="ProfileButton" type="Button" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect" groups=["MainButtons"]]
+[node name="ProfileButton" type="Button" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect" groups=["MainButtons2"]]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = -1
@@ -550,7 +550,7 @@ vertical_alignment = 1
 
 [node name="chat_box" parent="Panel/BackgroundTexture" instance=ExtResource("12_b1h6r")]
 unique_name_in_owner = true
-visible = false
+z_index = 1
 layout_mode = 1
 anchor_left = 0.765833
 anchor_right = 1.04917
@@ -558,6 +558,7 @@ offset_left = 284.0
 offset_top = 4.57764e-05
 offset_right = 284.0
 offset_bottom = 6.10352e-05
+mouse_force_pass_scroll_events = false
 
 [node name="VBoxContainer" type="HBoxContainer" parent="Panel"]
 layout_mode = 1
@@ -594,7 +595,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_force_pass_scroll_events = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
@@ -608,4 +609,7 @@ autoplay = "fade_in"
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect/GameModeButton" to="." method="_on_game_mode_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/StoreButton" to="." method="_on_store_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/InventoryButton" to="." method="_on_inventory_button_pressed"]
-[connection signal="gui_input" from="FilterPanel" to="." method="_on_panel_2_gui_input"]
+[connection signal="message_sent" from="Panel/BackgroundTexture/chat_box" to="." method="_on_chat_box_message_sent"]
+[connection signal="slide_pressed" from="Panel/BackgroundTexture/chat_box" to="." method="_on_chat_box_slide_pressed"]
+[connection signal="view_profile_pressed" from="Panel/BackgroundTexture/chat_box" to="." method="_on_chat_box_view_profile_pressed"]
+[connection signal="gui_input" from="FilterPanel" to="." method="_on_filter_panel_gui_input"]

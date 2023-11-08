@@ -30,15 +30,15 @@ var listing_id: String
 var nft_name: String
 	
 	
-func _ready():
-	BKMREngine.Store.connect("buy_card_complete",  _on_buy_completed)
+func _ready() -> void:
+	var _connect : int = BKMREngine.Store.connect("buy_card_complete",  _on_buy_completed)
 	
 	animation_player.play('unwrap')
 	await animation_player.animation_finished
 	animation_player.play('halfspin')
 	
 	
-func set_data(data, texture):
+func set_data(data: Dictionary, texture: Texture) -> void:
 	card_mesh.mesh.surface_get_material(0).set("albedo_texture", texture)
 	
 	var currency_symbol:String = data.currencyValuePerToken.name
@@ -46,9 +46,13 @@ func set_data(data, texture):
 	
 	card_name.text = data.asset.name
 	score_boost.text  = data.asset.scoreBoost
-	score_boost_progress.value = float(data.asset.scoreBoost)
+	
+	var card_score_boost: String = data.asset.scoreBoost
+	score_boost_progress.value = float(card_score_boost)
+	
 	heal_boost.text  = data.asset.healBoost
-	heal_boost_progress.value = float(data.asset.healBoost)
+	var card_heal_boost: String = data.asset.healBoost
+	heal_boost_progress.value = float(card_heal_boost)
 	rarity.text = data.asset.rarity
 	skill.text = data.asset.skill
 	price.text = display_value + " " + currency_symbol
@@ -68,21 +72,21 @@ func set_data(data, texture):
 		
 
 
-func _on_close_button_pressed():
+func _on_close_button_pressed() -> void:
 	animation_player.play_backwards("unwrap")
 	await animation_player.animation_finished
 	hide()
 	
 	
-func _on_buy_button_pressed():
+func _on_buy_button_pressed() -> void:
 	print("test")
 	loading_filter.show()
 	animation_player.play("buy_loading")
-	return
+
 	BKMREngine.Store.buy_card(listing_id, nft_name, PLAYER.username )
 	
 	
-func _on_buy_completed(data):
+func _on_buy_completed(data: Dictionary) -> void:
 	animation_player.stop()
 	if data.success:
 		purchase_label.text = "Purchase Completed"
@@ -90,7 +94,7 @@ func _on_buy_completed(data):
 		purchase_label.text = data.error 
 		
 		
-func _on_close_transaction_pressed():
+func _on_close_transaction_pressed() -> void:
 	animation_player.play_backwards("unwrap")
 	await animation_player.animation_finished
 	hide()

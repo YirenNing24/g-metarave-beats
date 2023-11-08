@@ -74,6 +74,7 @@ func _on_password_field_text_submitted(_new_text: String) -> void:
 	var userName:String = username
 	var passWord:String = password
 	BKMREngine.Auth.login_player(userName, passWord)
+	animation_player2.play("registration_loading")
 	
 func _on_register_toggle_pressed() -> void:
 	animation_player2.play("login_container")

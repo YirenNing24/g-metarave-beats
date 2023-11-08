@@ -15,36 +15,34 @@ var rapper_add:int = 0
 var leadrapper_add:int = 0
 
 
-func _ready():
+func _ready() -> void:
 	stat_points = PLAYER.stat_points
 	stat_points_display.text = str(PLAYER.stat_points)
 	load_stats()
 	if stat_points == 0:
-		for button in get_tree().get_nodes_in_group("PlusButtons"):
+		for button: TextureButton in get_tree().get_nodes_in_group("PlusButtons"):
 			button.set_disabled(true)
 			button.modulate = "7d7d7d"
 	else:
-		for button in get_tree().get_nodes_in_group("PlusButtons"):
+		for button: TextureButton in get_tree().get_nodes_in_group("PlusButtons"):
 			button.set_disabled(false)
-	for button in get_tree().get_nodes_in_group("PlusButtons"):
-		button.pressed.connect(increase_stat.bind(button.get_node("../").get_name()))
+	for button: TextureButton  in get_tree().get_nodes_in_group("PlusButtons"):
+		var _connect: int = button.pressed.connect(increase_stat.bind(button.get_node("../").get_name()))
 		
-	for button in get_tree().get_nodes_in_group("MinusButtons"):
-		button.pressed.connect(decrease_stat.bind(button.get_node("../").get_name()))
+	for button: TextureButton in get_tree().get_nodes_in_group("MinusButtons"):
+		var _connect: int = button.pressed.connect(decrease_stat.bind(button.get_node("../").get_name()))
 		button.set_disabled(true)
 		button.modulate = "7d7d7d"
 		
-
-func load_stats():
-	for stats in PLAYER.stat_points_saved.keys():
-		for stat in main_stats.get_children():
+func load_stats() -> void:
+	for stats: String in PLAYER.stat_points_saved.keys():
+		for stat: Control in main_stats.get_children():
 			var stat_name:String = stat.name
 			var name_stat:String= stat.name.to_lower()
 			if stats.to_lower() == name_stat.to_lower():
 				get_tree().get_root().get_node(path_main_stats + stat_name + "/Stats/Value").set_text(str(PLAYER.stat_points_saved[stats]))
 		
-
-func increase_stat(stat):
+func increase_stat(stat: String) -> void:
 	set(stat.to_lower() + "_add", get(stat.to_lower() + "_add") + 1)
 	get_tree().get_root().get_node(path_main_stats + stat + "/Stats/Change").set_text(
 									"+" + str(get(stat.to_lower() + "_add")) + " ")
@@ -54,12 +52,11 @@ func increase_stat(stat):
 	stat_points -= 1
 	stat_points_display.text = str(stat_points)
 	if stat_points == 0:
-		for button in get_tree().get_nodes_in_group("PlusButtons"):
+		for button: TextureButton in get_tree().get_nodes_in_group("PlusButtons"):
 			button.set_disabled(true)
 			button.modulate = "7d7d7d"
 	
-	
-func decrease_stat(stat):
+func decrease_stat(stat: String) -> void:
 	set(stat.to_lower() + "_add", get(stat.to_lower() + "_add") - 1)
 	get_tree().get_root().get_node(path_main_stats + stat + "/HBoxContainer/TextureProgressBar").value -= 1
 	if get(stat.to_lower() + "_add") == 0:
@@ -71,11 +68,10 @@ func decrease_stat(stat):
 										"+" + str(get(stat.to_lower() + "_add")) + " ")
 	stat_points += 1
 	stat_points_display.text = str(stat_points)
-	for button in get_tree().get_nodes_in_group("PlusButtons"):
+	for button: TextureButton in get_tree().get_nodes_in_group("PlusButtons"):
 		button.set_disabled(false)
 		button.modulate = "ffffff"
 	
-	
-func _on_visibility_changed():
+func _on_visibility_changed() -> void:
 	if visible:
 		animation_player.play("fade-in")

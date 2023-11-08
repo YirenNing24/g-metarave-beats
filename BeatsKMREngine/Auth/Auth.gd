@@ -1,9 +1,9 @@
 extends Node
 
-const BKMRLocalFileStorage:Script = preload("res://BeatsKMREngine/utils/BKMRLocalFileStorage.gd")
-const BKMRUtils:Script = preload("res://BeatsKMREngine/utils/BKMRUtils.gd")
-const BKMRLogger:Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
-const UUID:Script = preload("res://BeatsKMREngine/utils/UUID.gd")
+const BKMRLocalFileStorage: Script = preload("res://BeatsKMREngine/utils/BKMRLocalFileStorage.gd")
+const BKMRUtils: Script = preload("res://BeatsKMREngine/utils/BKMRUtils.gd")
+const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
+const UUID: Script = preload("res://BeatsKMREngine/utils/UUID.gd")
 
 signal bkmr_login_complete
 signal bkmr_logout_complete
@@ -24,7 +24,7 @@ var logged_in_anon: bool = false
 var bkmr_access_token: String
 var bkmr_id_token: String
 
-var host: String = "http://192.168.100.178:8081"
+var host: String = "http://192.168.4.117:8081"
 
 var VersionCheck: HTTPRequest
 var RegisterPlayer: HTTPRequest
@@ -234,7 +234,7 @@ func login_player(username: String, password: String ) -> Node:
 	return self
 
 
-func _on_LoginPlayer_request_completed(_result: Dictionary, response_code: int, headers: Array, body: PackedByteArray) -> void:
+func _on_LoginPlayer_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	BKMREngine.free_request(bkmrLoginPlayer, LoginPlayer)
 	if status_check:
@@ -376,13 +376,15 @@ func validate_player_session(lookup: String, validator: String, _scene: Node=get
 	return self
 	
 	
-func _on_ValidateSession_request_completed(_result: Dictionary, response_code: int, headers: Array, body: PackedByteArray) -> void:
+func _on_ValidateSession_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	BKMREngine.free_request(bkmrValidateSession, ValidateSession)
 	if status_check:
 		var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
 		var bkmr_result: Dictionary = BKMREngine.build_result(json_body)
-		if json_body.success:
+		if json_body.has("error"):
+			BKMRLogger.error("BKMREngine validate session failure: " + str(json_body.error))
+		elif json_body.has("success"):
 			BKMRLogger.info("BKMREngine validate session success.")	
 			var body_username: String = json_body.username
 			set_player_logged_in(body_username)
@@ -390,8 +392,6 @@ func _on_ValidateSession_request_completed(_result: Dictionary, response_code: i
 				bkmr_access_token = json_body.bkmr_jwt
 				
 			PLAYER.data = json_body
-		else:
-			BKMRLogger.error("BKMREngine validate session failure: " + str(json_body.error))
 		complete_session_check(bkmr_result)
 	else:
 		complete_session_check({})

@@ -2,6 +2,7 @@ extends Node
 
 const version: String = "0.1"
 var godot_version: String = Engine.get_version_info().string
+var host: String = "http://192.168.4.117:8081"
 
 const BKMRUtils: Script = preload("res://BeatsKMREngine/utils/BKMRUtils.gd")
 const BKMRHashing: Script = preload("res://BeatsKMREngine/utils/BKMRHashing.gd")
@@ -11,6 +12,7 @@ const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 @onready var Profile: Node = Node.new()
 @onready var Store: Node = Node.new()
 @onready var Chat: Node = Node.new()
+@onready var Social: Node = Node.new()
 
 @onready var config: Dictionary = {}
 
@@ -23,6 +25,7 @@ var auth_script: Script = load("res://BeatsKMREngine/Auth/Auth.gd")
 var profile_script: Script = load("res://BeatsKMREngine/Player/Profile.gd")
 var store_script: Script = load("res://BeatsKMREngine/Store/Store.gd")
 var chat_script: Script = load("res://BeatsKMREngine/Player/Chat.gd")
+var social_script: Script = load("res://BeatsKMREngine/Social/Social.gd")
 
 func _ready() -> void:
 	await ENV_VAR.completed
@@ -41,6 +44,8 @@ func _ready() -> void:
 	add_child(Store)
 	Chat.set_script(chat_script)
 	add_child(Chat)
+	Social.set_script(social_script)
+	add_child(Social)
 	print("BKMR ready end timestamp: " + str(BKMRUtils.get_timestamp()))
 	Auth.check_version(config)
 	
@@ -67,7 +72,6 @@ func send_get_request(http_node: HTTPRequest, request_url: String) -> Error:
 		"x-api-id: " + BKMREngine.config.apiId,
 		"x-bkmr-plugin-version: " + BKMREngine.version,
 		"x-bkmr-godot-version: " + godot_version,
-		
 	]
 	headers = add_jwt_token_headers(headers)
 	if !http_node.is_inside_tree():
@@ -75,7 +79,7 @@ func send_get_request(http_node: HTTPRequest, request_url: String) -> Error:
 	BKMRLogger.debug("Method: GET")
 	BKMRLogger.debug("request_url: " + str(request_url))
 	BKMRLogger.debug("headers: " + str(headers))
-	var get_request_send: Error = http_node.request(request_url, headers) 
+	var get_request_send: Error = http_node.request(request_url, headers, HTTPClient.METHOD_GET) 
 	return get_request_send
 	
 func send_post_request(http_node: HTTPRequest, request_url: String, payload: Dictionary) -> void:

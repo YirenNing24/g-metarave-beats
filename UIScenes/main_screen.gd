@@ -4,6 +4,7 @@ signal session_check_done
 signal chat_opened
 
 var profile_modal: Control = preload("res://Components/Popups/profile_modal.tscn").instantiate()
+var player_modal: Control = preload("res://Components/Popups/player_modal.tscn").instantiate()
 var stat_modal: Control = preload("res://Components/Popups/stat_modal.tscn").instantiate()
 
 @onready var chat_box: Control = %chat_box
@@ -20,15 +21,18 @@ var stat_modal: Control = preload("res://Components/Popups/stat_modal.tscn").ins
 @onready var level: Label = %Level
 @onready var menu_buttons_cont: VBoxContainer = %VBoxContainer
 @onready var background_texture: TextureRect = %BackgroundTexture
-
 @onready var store_button: TextureButton = %StoreButton
+
 var stat_tween: Tween
 var chat_connected: bool = false
 var is_opened: bool = false
-var url: String = "ws://192.168.100.178:8081/api/chats/all"
+var url_all: String = "ws://192.168.4.117:8081/api/chats/all"
+var url_player: String
+
 
 func _ready() -> void:
 	filter_panel.add_child(profile_modal)
+	filter_panel.add_child(player_modal)
 	filter_panel.add_child(stat_modal)
 	hud_data()
 	await animation_player.animation_finished
@@ -42,6 +46,7 @@ func session_check() -> void:
 	
 func hud_data() -> void:
 	player_name.text = BKMREngine.Auth.logged_in_player
+	url_player = "ws://192.168.4.117:8081/api/chats" + BKMREngine.Auth.logged_in_player
 	player_rank.text = PLAYER.player_rank	
 	beats_balance.text = PLAYER.beats_balance
 	native_balance.text = PLAYER.native_balance
@@ -51,20 +56,30 @@ func hud_data() -> void:
 	if PLAYER.stat_points > 0:
 		stats_wheel.value = 0
 		stat_tween = get_tree().create_tween()
-		var _tween_property: PropertyTweener =stat_tween.tween_property(stats_wheel, "value", 100, 1.5).set_trans(Tween.TRANS_LINEAR)
+		var _tween_property: PropertyTweener = stat_tween.tween_property(
+			stats_wheel, 
+			"value", 
+			100, 
+			1.5).set_trans(Tween.TRANS_LINEAR)
 		var _tween_callback: CallbackTweener = stat_tween.tween_callback(hud_data)
 	
 func _on_profile_button_pressed() -> void:
 	profile_modal.visible = true
 	filter_panel.visible = true
 	
-func _on_panel_2_gui_input(event: InputEvent) -> void:
+func _on_filter_panel_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if profile_modal.visible:
 			filter_panel.visible = false
 			profile_modal.visible = false
+			player_modal.visible = false
 		elif stat_modal.visible:
 			filter_panel.visible = false
+			stat_modal.visible = false
+			player_modal.visible = false
+		elif player_modal.visible:
+			filter_panel.visible = false
+			profile_modal.visible = false
 			stat_modal.visible = false
 	
 func _on_store_button_pressed() -> void:
@@ -86,8 +101,7 @@ func _on_inventory_button_pressed() -> void:
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons'):
 		buttons.disabled = true
 	
-func _on_chat_box_slide_pressed(isOpen: bool) -> void:
-	is_opened = isOpen
+func _on_chat_box_slide_pressed(_isOpen: bool) -> void:
 	if !is_opened:
 		animation_player.play("chat_slide")
 		await animation_player.animation_finished
@@ -95,7 +109,7 @@ func _on_chat_box_slide_pressed(isOpen: bool) -> void:
 		is_opened = true
 		if chat_connected:
 			return
-		BKMREngine.Chat.connect_socket(url)
+		BKMREngine.Chat.connect_socket(url_all)
 	else:
 		animation_player.play_backwards("chat_slide")
 		await animation_player.animation_finished
@@ -108,20 +122,28 @@ func _on_chat_connected(_url: String) -> void:
 func _on_chat_closed(_code: int, _reason: String) -> void:
 	chat_connected = false
 	if is_opened:
-		BKMREngine.Chat.connect_socket(url)
+		BKMREngine.Chat.connect_socket(url_all)
 		
 func _on_game_mode_button_pressed() -> void:
+	for buttons: TextureButton in get_tree().get_nodes_in_group('MainButtons'):
+		buttons.disabled = true
+	for buttons2: Button in get_tree().get_nodes_in_group('MainButtons2'):
+		buttons2.disabled = true
+		
 	LOADER.previous_texture = background_texture.texture
 	LOADER.next_texture = preload("res://UITextures/BGTextures/song_menu_bg.png")
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/song_menu.tscn")
-	for buttons: Button in get_tree().get_nodes_in_group('MainButtons'):
-		buttons.disabled = true
-
-func _on_chat_box_message_sent(message: Dictionary) -> void:
-	BKMREngine.Chat.connect_socket(url)
-	var msg: String = JSON.stringify(message)
-	BKMREngine.Chat.socket.send_text(msg)
+	
+func _on_chat_box_message_sent(data: Dictionary) -> void:
+	BKMREngine.Chat.connect_socket(url_all)
+	
+	var message: String = JSON.stringify(data)
+	BKMREngine.Chat.socket.send_text(message)
 	
 func _on_stat_button_pressed() -> void:
 	filter_panel.show()
 	stat_modal.show()
+
+func _on_chat_box_view_profile_pressed(_player_profile: Dictionary) -> void:
+	player_modal.visible = true
+	filter_panel.visible = true

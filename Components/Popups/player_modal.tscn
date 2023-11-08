@@ -1,12 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://c0bfp8uhi3poy"]
+[gd_scene load_steps=11 format=3 uid="uid://d3525s8khlmqy"]
 
-[ext_resource type="Script" path="res://Components/Popups/profile_modal.gd" id="1_umnlo"]
-[ext_resource type="Texture2D" uid="uid://d3gybnopjgs8s" path="res://UITextures/BGTextures/auth.png" id="2_1rd46"]
-[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_lawlb"]
-[ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="4_tyy1t"]
-[ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="5_xgibo"]
+[ext_resource type="Script" path="res://Components/Popups/player_modal.gd" id="1_1wv2s"]
+[ext_resource type="Texture2D" uid="uid://d3gybnopjgs8s" path="res://UITextures/BGTextures/auth.png" id="1_x7hnd"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="2_lk40d"]
+[ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="3_fki7l"]
+[ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="4_61bi6"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jrcmy"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kas5t"]
 bg_color = Color(0.113725, 0.0980392, 0.2, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -15,10 +15,10 @@ corner_radius_bottom_left = 20
 shadow_size = 10
 shadow_offset = Vector2(5, 8)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ib3y8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3lqpw"]
 bg_color = Color(0.0313726, 0.0196078, 0.0941176, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lk1uv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hbfhs"]
 bg_color = Color(0.0705882, 0.054902, 0.14902, 1)
 
 [sub_resource type="Animation" id="Animation_ydsjf"]
@@ -42,20 +42,18 @@ _data = {
 "fade-in": SubResource("Animation_ydsjf")
 }
 
-[node name="ProfileModal" type="Control"]
+[node name="PlayerModal" type="Control"]
 visible = false
-top_level = true
-z_index = 3
+modulate = Color(1, 1, 1, 0)
+z_index = 1
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-script = ExtResource("1_umnlo")
+script = ExtResource("1_1wv2s")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -71,7 +69,7 @@ offset_bottom = 241.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_jrcmy")
+theme_override_styles/panel = SubResource("StyleBoxFlat_kas5t")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 custom_minimum_size = Vector2(585, 440)
@@ -95,7 +93,7 @@ layout_mode = 2
 [node name="ProfilePic" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
-texture = ExtResource("2_1rd46")
+texture = ExtResource("1_x7hnd")
 expand_mode = 1
 stretch_mode = 5
 
@@ -112,9 +110,9 @@ theme_override_constants/separation = 0
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_lawlb")
+theme_override_fonts/font = ExtResource("2_lk40d")
 theme_override_font_sizes/font_size = 20
-text = "kaetaro13adadada"
+text = "tyjtjjtj"
 vertical_alignment = 2
 clip_text = true
 text_overrun_behavior = 3
@@ -124,7 +122,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("4_tyy1t")
+theme_override_fonts/font = ExtResource("3_fki7l")
 theme_override_font_sizes/font_size = 16
 text = "Platinum"
 
@@ -137,7 +135,7 @@ custom_minimum_size = Vector2(27, 24)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("4_tyy1t")
+theme_override_fonts/font = ExtResource("3_fki7l")
 theme_override_font_sizes/font_size = 16
 text = "Level"
 
@@ -147,7 +145,7 @@ custom_minimum_size = Vector2(27, 24)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("4_tyy1t")
+theme_override_fonts/font = ExtResource("3_fki7l")
 theme_override_font_sizes/font_size = 16
 text = "100"
 
@@ -169,9 +167,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Status" type="Label" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_lawlb")
+theme_override_fonts/font = ExtResource("2_lk40d")
 theme_override_font_sizes/font_size = 20
 text = "In-game"
 vertical_alignment = 2
@@ -180,15 +179,15 @@ vertical_alignment = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LogoutButton" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+[node name="FollowUnfollowButton" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer3"]
 self_modulate = Color(0.537255, 0.537255, 0.537255, 0.580392)
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-texture_normal = ExtResource("5_xgibo")
+texture_normal = ExtResource("4_61bi6")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer3/LogoutButton"]
+[node name="FollowLabel" type="Label" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer3/FollowUnfollowButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -198,7 +197,7 @@ offset_bottom = -0.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 10
-text = "LOGOUT"
+text = "FOLLOW"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -214,7 +213,7 @@ theme_override_constants/separation = 0
 [node name="Panel" type="Panel" parent="Panel/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ib3y8")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3lqpw")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/Panel"]
 layout_mode = 1
@@ -230,14 +229,14 @@ metadata/_edit_use_anchors_ = true
 [node name="PlayerRank" type="Label" parent="Panel/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("4_tyy1t")
+theme_override_fonts/font = ExtResource("3_fki7l")
 theme_override_font_sizes/font_size = 18
 text = "Recent Activity"
 
 [node name="Panel2" type="Panel" parent="Panel/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_lk1uv")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hbfhs")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/Panel2"]
 layout_mode = 1
@@ -253,7 +252,7 @@ metadata/_edit_use_anchors_ = true
 [node name="PlayerRank" type="Label" parent="Panel/VBoxContainer/VBoxContainer/Panel2/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
-theme_override_fonts/font = ExtResource("4_tyy1t")
+theme_override_fonts/font = ExtResource("3_fki7l")
 theme_override_font_sizes/font_size = 12
 text = "You acquired a new badge!"
 
@@ -264,4 +263,3 @@ libraries = {
 }
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer3/LogoutButton" to="." method="_on_logout_button_pressed"]

@@ -1,13 +1,13 @@
 extends Node
 
-const BKMRUtils:Script = preload("res://BeatsKMREngine/utils/BKMRUtils.gd")
-const BKMRLogger:Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
+const BKMRUtils: Script = preload("res://BeatsKMREngine/utils/BKMRUtils.gd")
+const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 
-var UploadProfilePicture:HTTPRequest = null
-var ProfilePictureUpload:WeakRef = null
+var UploadProfilePicture: HTTPRequest = null
+var ProfilePictureUpload: WeakRef = null
 
-var UpdateStatPointsSaved:HTTPRequest = null
-var StatPointsSavedUpdate:WeakRef = null
+var UpdateStatPointsSaved: HTTPRequest = null
+var StatPointsSavedUpdate: WeakRef = null
 
 #var FetchImages = null
 #var ImagesFetch = null

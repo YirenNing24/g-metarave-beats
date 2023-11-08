@@ -25,6 +25,7 @@ var counter: int = 0
 
 func _process(_delta: float) -> void:
 	socket.poll()
+	
 	socket_state = socket.get_ready_state()
 	if socket_state == WebSocketPeer.STATE_OPEN:
 		socket_connected = true
@@ -42,7 +43,7 @@ func _process(_delta: float) -> void:
 				counter = 1
 				return
 			elif counter == 1:
-				var single_message: String = json.data
+				var single_message: Dictionary = json.data
 				message_single.emit(single_message)
 				return
 	if socket_state == WebSocketPeer.STATE_CLOSED:

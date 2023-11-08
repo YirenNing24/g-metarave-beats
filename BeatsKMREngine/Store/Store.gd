@@ -6,9 +6,10 @@ const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 signal get_cards_complete
 signal buy_card_complete
 
-var GetCards: Node
-var BuyCard: Node
-var host: String = "http://192.168.100.178:8081"
+var GetCards: HTTPRequest
+var BuyCard: HTTPRequest
+var host: String = BKMREngine.host
+
 #weak ref
 var wrGetCards: WeakRef = null
 var wrBuyCard: WeakRef = null
@@ -20,10 +21,10 @@ func get_store_items(item_type: String) -> Node:
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	GetCards = prepared_http_req.request
 	wrGetCards = prepared_http_req.weakref
-	var get_cards: HTTPRequest = GetCards.request_completed.connect(_onGetCards_request_completed)
+	var _get_cards: int = GetCards.request_completed.connect(_onGetCards_request_completed)
 	BKMRLogger.info("Calling BKMREngine to get cards on sale data")
 	var request_url: String = host + "/api/store/cards/get?itemType=" + item_type
-	var _get_store_cards: Error = await BKMREngine.send_get_request(get_cards, request_url)
+	var _get_store_cards: Error = await BKMREngine.send_get_request(GetCards, request_url)
 	return self
 	
 func _onGetCards_request_completed(_result: Dictionary, response_code: int, headers: Array, body: PackedByteArray) -> void:
@@ -40,7 +41,7 @@ func buy_card(token_id: String, card_name: String, username: String) -> Node:
 	BuyCard = prepared_http_req.request
 	var buy_card: HTTPRequest = BuyCard
 	wrBuyCard = prepared_http_req.weakref
-	BuyCard.request_completed.connect(_onBuyCard_request_completed)
+	var _connect: int = BuyCard.request_completed.connect(_onBuyCard_request_completed)
 	BKMRLogger.info("Calling BKMREngine to get buy a card")
 	var payload: Dictionary = {"tokenId": token_id,"cardName": card_name, "username": username}
 	BKMRLogger.debug("Validate session payload: " + str(payload))

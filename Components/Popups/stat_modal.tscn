@@ -29,40 +29,40 @@ var rapper_add:int = 0
 var leadrapper_add:int = 0
 
 
-func _ready():
+func _ready() -> void:
 	stat_points = PLAYER.stat_points
 	stat_points_display.text = str(PLAYER.stat_points)
 	save_button.modulate = \"7d7d7d\"
 	
 	load_stats()
 	if stat_points == 0:
-		for button in get_tree().get_nodes_in_group(\"PlusButtons\"):
+		for button: TextureButton in get_tree().get_nodes_in_group(\"PlusButtons\"):
 			button.disabled = true
 			button.modulate = \"7d7d7d\"
 	else:
-		for button in get_tree().get_nodes_in_group(\"PlusButtons\"):
+		for button: TextureButton  in get_tree().get_nodes_in_group(\"PlusButtons\"):
 			button.disabled = false
-	for button in get_tree().get_nodes_in_group(\"PlusButtons\"):
-		button.pressed.connect(increase_stat.bind(button.get_node(\"../\").get_name()))
+	for button: TextureButton  in get_tree().get_nodes_in_group(\"PlusButtons\"):
+		var _connect: int = button.pressed.connect(increase_stat.bind(button.get_node(\"../\").get_name()))
 		
-	for button in get_tree().get_nodes_in_group(\"MinusButtons\"):
-		button.pressed.connect(decrease_stat.bind(button.get_node(\"../\").get_name()))
+	for button: TextureButton  in get_tree().get_nodes_in_group(\"MinusButtons\"):
+		var _connect: int = button.pressed.connect(decrease_stat.bind(button.get_node(\"../\").get_name()))
 		button.disabled = true
 		button.modulate = \"7d7d7d\"
 	
 	BKMREngine.Profile.stat_update_complete.connect(_on_Stat_Update_Complete)
 		
 		
-func load_stats():
-	for stats in PLAYER.stat_points_saved.keys():
-		for stat in main_stats.get_children():
+func load_stats() -> void:
+	for stats: String in PLAYER.stat_points_saved.keys():
+		for stat: Control in main_stats.get_children():
 			var stat_name:String = stat.name
 			var name_stat:String= stat.name.to_lower()
 			if stats.to_lower() == name_stat.to_lower():
 				get_tree().get_root().get_node(path_main_stats + stat_name + \"/Stats/Value\").text = (str(PLAYER.stat_points_saved[stats]))
 		
 		
-func increase_stat(stat):
+func increase_stat(stat: String) -> void:
 	save_button.disabled = false
 	save_button.modulate = \"fff\"
 	cancel_button.modulate = \"c1c1c1\"
@@ -75,13 +75,13 @@ func increase_stat(stat):
 	stat_points -= 1
 	stat_points_display.text = str(stat_points)
 	if stat_points == 0:
-		for button in get_tree().get_nodes_in_group(\"PlusButtons\"):
+		for button: TextureButton in get_tree().get_nodes_in_group(\"PlusButtons\"):
 			button.disabled = true
 			button.modulate = \"7d7d7d\"
 			
 	
 	
-func decrease_stat(stat):
+func decrease_stat(stat: String) -> void:
 	set(stat.to_lower() + \"_add\", get(stat.to_lower() + \"_add\") - 1)
 	get_tree().get_root().get_node(path_main_stats + stat + \"/HBoxContainer/TextureProgressBar\").value -= 1
 	if get(stat.to_lower() + \"_add\") == 0:
@@ -94,7 +94,7 @@ func decrease_stat(stat):
 	stat_points += 1
 	
 	stat_points_display.text = str(stat_points)
-	for button in get_tree().get_nodes_in_group(\"PlusButtons\"):
+	for button: TextureButton in get_tree().get_nodes_in_group(\"PlusButtons\"):
 		button.disabled = false
 		button.modulate = \"ffffff\"
 	if stat_points == PLAYER.stat_points:
@@ -102,12 +102,12 @@ func decrease_stat(stat):
 		save_button.modulate = \"7d7d7d\"
 		cancel_button.modulate = \"7d7d7d\"
 	
-func _on_visibility_changed():
+func _on_visibility_changed() -> void:
 	if visible:
 		animation_player.play(\"fade-in\")
 	
 	
-func _on_save_button_pressed():
+func _on_save_button_pressed() -> void:
 	
 	if  mainvocalist_add + rapper_add + leaddancer_add + leadvocalist_add + maindancer_add + visual_add + leadrapper_add == 0:
 		print(\"tae\")
@@ -129,10 +129,10 @@ func _on_save_button_pressed():
 	BKMREngine.Profile.update_statpoints_saved(updated_stat_points_saved)
 	
 	
-func _on_Stat_Update_Complete(data):
+func _on_Stat_Update_Complete(data: Dictionary) -> void:
 	
-	for button in get_tree().get_nodes_in_group(\"MinusButtons\"):
-		button.pressed.connect(decrease_stat.bind(button.get_node(\"../\").get_name()))
+	for button: TextureButton in get_tree().get_nodes_in_group(\"MinusButtons\"):
+		var _connect: int = button.pressed.connect(decrease_stat.bind(button.get_node(\"../\").get_name()))
 		button.disabled = true
 		button.modulate = \"7d7d7d\"
 	PLAYER.stat_points_saved = data.updatedPlayerStats.statPointsSaved
@@ -146,14 +146,14 @@ func _on_Stat_Update_Complete(data):
 	leaddancer_add = 0
 	rapper_add = 0
 	
-	for stat in main_stats.get_children():
+	for stat: Control in main_stats.get_children():
 		var stat_name:String = stat.name
 		if stat_name != \"HBoxContainer\":
 			get_tree().get_root().get_node(path_main_stats + stat_name + \"/Stats/Change\").text = \"\"
 	load_stats()
 	save_button.modulate = \"7d7d7d\"
 	
-func _on_cancel_button_pressed():
+func _on_cancel_button_pressed() -> void:
 	stat_points = PLAYER.stat_points
 	stat_points_display.text = str(PLAYER.stat_points)
 	
@@ -170,10 +170,10 @@ func _on_cancel_button_pressed():
 	rapper_add = 0
 	leadrapper_add = 0
 		
-	for button in get_tree().get_nodes_in_group(\"MinusButtons\"):
+	for button: TextureButton in get_tree().get_nodes_in_group(\"MinusButtons\"):
 		button.modulate = \"7d7d7d\"
 	
-	for label in get_tree().get_nodes_in_group(\"ChangeLabels\"):
+	for label: Label in get_tree().get_nodes_in_group(\"ChangeLabels\"):
 		label.text = \"\"
 "
 
@@ -208,6 +208,7 @@ _data = {
 }
 
 [node name="stat_modal" type="Control"]
+visible = false
 z_index = 1
 layout_mode = 3
 anchors_preset = 8
@@ -217,6 +218,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = SubResource("GDScript_2xrb2")
 
 [node name="Panel" type="Panel" parent="."]
