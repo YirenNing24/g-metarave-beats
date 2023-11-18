@@ -18,15 +18,15 @@ signal profile_pic_upload_complete
 signal stat_update_complete(data: String)
 
 # Called when the node enters the scene tree for the first time.
-#func upload_profile_pic(image_buffer) -> Node:
-	#var prepared_http_req:Dictionary = BKMREngine.prepare_http_request()
-	#UploadProfilePicture = prepared_http_req.request
-	#ProfilePictureUpload = prepared_http_req.weakref
-	#UploadProfilePicture.request_completed.connect(_on_ProfilePictureUpload_request_completed)
-	#var payload:Dictionary = {"bufferData": image_buffer}
-	#var request_url:String = host + "/api/upload/pic/profile/"
-	#BKMREngine.send_post_request(UploadProfilePicture, request_url, payload)
-	#return self
+func upload_profile_pic(image_buffer: PackedByteArray) -> Node:
+	var prepared_http_req:Dictionary = BKMREngine.prepare_http_request()
+	UploadProfilePicture = prepared_http_req.request
+	ProfilePictureUpload = prepared_http_req.weakref
+	var _upload: int = UploadProfilePicture.request_completed.connect(_on_ProfilePictureUpload_request_completed)
+	var payload:Dictionary = {"bufferData": image_buffer}
+	var request_url:String = host + "/api/upload/pic/profile/"
+	BKMREngine.send_post_request(UploadProfilePicture, request_url, payload)
+	return self
 	
 	
 @warning_ignore("unused_parameter")

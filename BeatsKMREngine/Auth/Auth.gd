@@ -465,7 +465,8 @@ func load_session() -> Dictionary:
 	var bkmr_session_data: Dictionary
 	var path: String = "user://bkmrsession.save"
 	bkmr_session_data = BKMRLocalFileStorage.get_data(path)
-	if bkmr_session_data == {}:
+	print(bkmr_session_data, "tae na mo gago")
+	if bkmr_session_data == {} or null:
 		BKMRLogger.debug("No local BKMREngine session stored, or session data stored in incorrect format")
 	BKMRLogger.info("Found session data: " + str(bkmr_session_data))
 	return bkmr_session_data

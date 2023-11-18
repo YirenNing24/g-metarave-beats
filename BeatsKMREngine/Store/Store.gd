@@ -27,7 +27,7 @@ func get_store_items(item_type: String) -> Node:
 	var _get_store_cards: Error = await BKMREngine.send_get_request(GetCards, request_url)
 	return self
 	
-func _onGetCards_request_completed(_result: Dictionary, response_code: int, headers: Array, body: PackedByteArray) -> void:
+func _onGetCards_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	if is_instance_valid(GetCards):
 		BKMREngine.free_request(wrGetCards, GetCards)

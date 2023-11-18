@@ -1,0 +1,138 @@
+[gd_scene load_steps=10 format=3 uid="uid://b3eiw5d6jk827"]
+
+[ext_resource type="Script" path="res://Components/Chat/mutuals_box.gd" id="1_0bpm2"]
+[ext_resource type="Texture2D" uid="uid://b6nau7vgc00e8" path="res://UITextures/PanelElements/chat_active_tab.png" id="2_g5lir"]
+[ext_resource type="Texture2D" uid="uid://jtteocw4fdjn" path="res://UITextures/PanelElements/chat_inactive_tab.png" id="3_ed3jv"]
+[ext_resource type="Texture2D" uid="uid://irgifod6546h" path="res://UITextures/Buttons/show_chat.png" id="4_6u0gt"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fumum"]
+texture = ExtResource("2_g5lir")
+texture_margin_left = 10.0
+texture_margin_right = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qw3eb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7vqh7"]
+texture = ExtResource("3_ed3jv")
+texture_margin_left = 15.0
+texture_margin_right = 15.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qmsnq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_twf0d"]
+
+[node name="MutualsBox" type="Control"]
+custom_minimum_size = Vector2(286, 0)
+layout_mode = 3
+anchor_left = -0.000833333
+anchor_top = -0.00185185
+anchor_right = 0.238333
+anchor_bottom = 0.872222
+offset_top = 19.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_0bpm2")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(276, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.938776
+anchor_bottom = 1.0
+offset_right = 16.8979
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/side_margin = 0
+theme_override_constants/icon_separation = 0
+theme_override_constants/icon_max_width = 0
+theme_override_font_sizes/font_size = 12
+theme_override_styles/tab_selected = SubResource("StyleBoxTexture_fumum")
+theme_override_styles/tab_hovered = SubResource("StyleBoxEmpty_qw3eb")
+theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_7vqh7")
+current_tab = 1
+tab_focus_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Online" type="TabBar" parent="VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_qmsnq")
+
+[node name="OnlineListScroll" type="ScrollContainer" parent="VBoxContainer/TabContainer/Online"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 2.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="OnlineVBox" type="VBoxContainer" parent="VBoxContainer/TabContainer/Online/OnlineListScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Mutual" type="TabBar" parent="VBoxContainer/TabContainer"]
+layout_mode = 2
+
+[node name="MutualsScroll" type="ScrollContainer" parent="VBoxContainer/TabContainer/Mutual"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 2.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="MutualsVBox" type="VBoxContainer" parent="VBoxContainer/TabContainer/Mutual/MutualsScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Group" type="TabBar" parent="VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_twf0d")
+
+[node name="SlideButton" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.41115
+anchor_top = 0.0677966
+anchor_right = -0.41115
+anchor_bottom = 0.199982
+offset_left = 68.0
+offset_right = 130.391
+offset_bottom = 5.60871
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -6.28319
+mouse_force_pass_scroll_events = false
+texture_normal = ExtResource("4_6u0gt")
+ignore_texture_size = true
+stretch_mode = 4
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="SlideButton" to="." method="_on_slide_button_pressed"]

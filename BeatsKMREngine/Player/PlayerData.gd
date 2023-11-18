@@ -49,8 +49,8 @@ func _ready() -> void:
 	native_balance = format_balance(native)
 	var kmr: String  = wallet_data.kmrBalance
 	kmr_balance = format_balance(kmr)
-	var thump_balance: String = wallet_data.thumpBalance
-	thump_balance = format_balance(thump_balance)
+	var thump: String = wallet_data.thumpBalance
+	thump_balance = format_balance(thump)
 	
 	username = data.username
 	firstname = data.firstName

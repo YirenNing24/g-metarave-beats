@@ -6,8 +6,6 @@ var next_texture: Texture2D
 func load_scene(current_scene: Control, next_scene: String) -> bool:
 	var game_loader: Control = preload("res://UIScenes/GameLoader.tscn").instantiate()
 	
-	
-	print(next_scene, 'fuck youuuu')
 	var loader: Resource = ResourceLoader.load(next_scene)
 	var scene: PackedScene = loader
 	if loader == null:

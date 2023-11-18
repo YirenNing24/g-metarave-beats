@@ -1,0 +1,342 @@
+[gd_scene load_steps=18 format=3 uid="uid://4hviwgrfsnfn"]
+
+[ext_resource type="Texture2D" uid="uid://c7qlt18wu7138" path="res://UITextures/BGTextures/dark_panel.png" id="1_m3mo4"]
+[ext_resource type="Script" path="res://Components/Chat/chat_box2.gd" id="1_v2n36"]
+[ext_resource type="Texture2D" uid="uid://cb81snus3aovt" path="res://UITextures/BGTextures/Untitled.png" id="2_sl2t0"]
+[ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="3_w74j3"]
+[ext_resource type="Texture2D" uid="uid://s1ul6vm55i6w" path="res://UITextures/Buttons/message_submit.png" id="4_qqcqh"]
+[ext_resource type="StyleBox" uid="uid://chv57rdd2b5s" path="res://UITextures/CustomResource/chat_box_tab.tres" id="5_ojsyq"]
+[ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="5_tml6f"]
+[ext_resource type="PackedScene" uid="uid://b8i432vjpef5" path="res://Components/Chat/chat_mutual_panel.tscn" id="6_txv16"]
+[ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="9_qeh5r"]
+[ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="10_h2v5f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55g5g"]
+bg_color = Color(0.0235294, 0.0235294, 0.0235294, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eleki"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 0.827451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tq2g1"]
+bg_color = Color(0.164706, 0.152941, 0.235294, 0.466667)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.564706, 0.47451, 0.643137, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6dy5r"]
+bg_color = Color(0.854902, 0.74902, 1, 0.258824)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.290196, 0.8, 0.8, 0.505882)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcmgm"]
+bg_color = Color(0.854902, 0.74902, 1, 0.258824)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.8, 0.8, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ib8mi"]
+bg_color = Color(0.164706, 0.152941, 0.235294, 0.466667)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_color = Color(0.564706, 0.47451, 0.643137, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l7ob3"]
+texture = ExtResource("5_tml6f")
+texture_margin_left = 60.0
+texture_margin_right = 60.0
+texture_margin_bottom = 12.0
+modulate_color = Color(1, 1, 1, 0.380392)
+
+[node name="ChatBox2" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v2n36")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -409.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_55g5g")
+
+[node name="Panel2" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_eleki")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel2"]
+custom_minimum_size = Vector2(791, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -408.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel2/VBoxContainer"]
+self_modulate = Color(1, 0.556863, 1, 1)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_m3mo4")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel2/VBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel2/VBoxContainer/TextureRect/VBoxContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_sl2t0")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.888889
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_tq2g1")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.43
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.17
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.99
+alignment = 1
+
+[node name="MessageInputLine" type="LineEdit" parent="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_colors/selection_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("3_w74j3")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_6dy5r")
+theme_override_styles/focus = SubResource("StyleBoxFlat_rcmgm")
+placeholder_text = "Enter your message here"
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.61
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.99
+alignment = 1
+
+[node name="SendMessageButton" type="TextureButton" parent="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(31, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("4_qqcqh")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel2/VBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.0037037
+anchor_right = 1.0
+anchor_bottom = 0.888889
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 27)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ib8mi")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/Panel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("6_txv16")]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TabContainer" type="TabContainer" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2"]
+self_modulate = Color(0.113725, 0.0980392, 0.2, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/tab_selected = ExtResource("5_ojsyq")
+theme_override_styles/tab_hovered = ExtResource("5_ojsyq")
+theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_l7ob3")
+theme_override_styles/tab_focus = ExtResource("5_ojsyq")
+metadata/_edit_use_anchors_ = true
+
+[node name="General" type="TabBar" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2/TabContainer"]
+layout_mode = 2
+
+[node name="AllMessageScroll" type="ScrollContainer" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2/TabContainer/General"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="AllChatVBox" type="VBoxContainer" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2/TabContainer/General/AllMessageScroll"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="Mutual" type="TabBar" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MutualMessageScroll" type="ScrollContainer" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2/TabContainer/Mutual"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="MutualChatVBox" type="VBoxContainer" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2/TabContainer/Mutual/MutualMessageScroll"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="Spaces" type="TabBar" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="CloseButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -68.0
+offset_bottom = 68.0
+grow_horizontal = 0
+size_flags_horizontal = 3
+texture_normal = ExtResource("9_qeh5r")
+texture_hover = ExtResource("10_h2v5f")
+
+[connection signal="text_submitted" from="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer/VBoxContainer/MessageInputLine" to="." method="_on_message_line_text_submitted"]
+[connection signal="pressed" from="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/SendMessageButton" to="." method="_on_send_message_button_pressed"]
+[connection signal="tab_clicked" from="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2/TabContainer" to="." method="_on_tab_container_tab_clicked"]
+[connection signal="button_up" from="CloseButton" to="." method="_on_close_button_button_up"]

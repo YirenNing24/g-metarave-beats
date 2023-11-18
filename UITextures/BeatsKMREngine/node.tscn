@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b8jtf5nj0xypf"]
-
-[ext_resource type="Script" path="res://BeatsKMREngine.gd" id="1_hwjpx"]
-
-[node name="Node" type="Node"]
-script = ExtResource("1_hwjpx")

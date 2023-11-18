@@ -1,0 +1,96 @@
+[gd_scene load_steps=3 format=3 uid="uid://dt6o2d3trj4d4"]
+
+[ext_resource type="Texture2D" uid="uid://clu717sjyfm4r" path="res://UITextures/Buttons/message_button.png" id="1_wky12"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pkqk1"]
+bg_color = Color(0.105882, 0.0980392, 0.160784, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.564706, 0.47451, 0.643137, 1)
+
+[node name="Control" type="Control"]
+custom_minimum_size = Vector2(0, 113)
+layout_mode = 3
+anchor_right = 0.238333
+anchor_bottom = 0.209259
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pkqk1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = -8.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="UsernameLabel" type="Label" parent="Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 14
+text = "ddfasassdasd"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(83, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.48
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LevelLabel" type="Label" parent="Panel/VBoxContainer/HBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 12
+text = "Level 1"
+
+[node name="RankLabel" type="Label" parent="Panel/VBoxContainer/HBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 12
+text = "ddfasassdasd"
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ChatButton" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/HBoxContainer2/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+texture_normal = ExtResource("1_wky12")
+ignore_texture_size = true
+stretch_mode = 0

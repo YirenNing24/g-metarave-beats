@@ -2,7 +2,9 @@ extends Node
 
 const version: String = "0.1"
 var godot_version: String = Engine.get_version_info().string
-var host: String = "http://192.168.4.117:8081"
+
+var host_ip: String = '192.168.4.117:8081'
+var host: String = "http://" + host_ip
 
 const BKMRUtils: Script = preload("res://BeatsKMREngine/utils/BKMRUtils.gd")
 const BKMRHashing: Script = preload("res://BeatsKMREngine/utils/BKMRHashing.gd")
@@ -87,6 +89,8 @@ func send_post_request(http_node: HTTPRequest, request_url: String, payload: Dic
 		"content-Type: application/json",
 		"x-api-key: " + BKMREngine.config.apiKey,
 		"x-api-id: " + BKMREngine.config.apiId,
+		"x-bkmr-plugin-version: " + BKMREngine.version,
+		"x-bkmr-godot-version: " + godot_version,
 	]
 	headers = add_jwt_token_headers(headers)
 	var _use_ssl: bool = true
@@ -100,10 +104,9 @@ func send_post_request(http_node: HTTPRequest, request_url: String, payload: Dic
 	BKMRLogger.debug("query: " + str(query))
 	var _request_post_send: Error = http_node.request(request_url, headers, HTTPClient.METHOD_POST, query)
 	
-func add_jwt_token_headers(headers: Array) -> Array:
+func add_jwt_token_headers(headers: Array = []) -> Array:
 	if Auth.bkmr_access_token != null:
 		headers.append("Authorization: Bearer " + Auth.bkmr_access_token)
-		print(Auth.bkmr_access_token, "meron baaaaaaaaaaaaaaaaaaaaaaaaaa")
 	return headers
 	
 func check_string_in_url(test_string: String, url: String) -> bool:
