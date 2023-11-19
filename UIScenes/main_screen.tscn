@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://b1tsal8jhxld4" path="res://UITextures/Buttons/PanelTextures/normal_mode.png" id="12_p87ie"]
 [ext_resource type="Texture2D" uid="uid://cyl1bqw5cea6d" path="res://UITextures/Buttons/mode_normal.png" id="13_cv2mc"]
 [ext_resource type="Texture2D" uid="uid://b0nji0srtvb14" path="res://UITextures/Buttons/PanelTextures/main_hero1.png" id="16_4hgnp"]
-[ext_resource type="PackedScene" uid="uid://4hviwgrfsnfn" path="res://Components/Chat/chat_box3.tscn" id="17_c2ldk"]
+[ext_resource type="PackedScene" uid="uid://4hviwgrfsnfn" path="res://Components/Chat/chat_box.tscn" id="17_c2ldk"]
 [ext_resource type="Texture2D" uid="uid://irgifod6546h" path="res://UITextures/Buttons/show_chat.png" id="20_svq2r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtby7"]
@@ -35,7 +35,7 @@ length = 0.15
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Panel/BackgroundTexture/ChatBox2:position")
+tracks/0/path = NodePath("Panel/BackgroundTexture/ChatBox:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -596,7 +596,7 @@ theme_override_font_sizes/font_size = 20
 text = "Leaderboard"
 vertical_alignment = 1
 
-[node name="ChatBox2" parent="Panel/BackgroundTexture" instance=ExtResource("17_c2ldk")]
+[node name="ChatBox" parent="Panel/BackgroundTexture" instance=ExtResource("17_c2ldk")]
 z_index = 1
 layout_mode = 1
 anchors_preset = -1
@@ -686,8 +686,9 @@ libraries = {
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect/GameModeButton" to="." method="_on_game_mode_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/StoreButton" to="." method="_on_store_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/InventoryButton" to="." method="_on_inventory_button_pressed"]
-[connection signal="all_message_received" from="Panel/BackgroundTexture/ChatBox2" to="." method="_on_chat_box_2_all_message_received"]
-[connection signal="close_pressed" from="Panel/BackgroundTexture/ChatBox2" to="." method="_on_chat_box_2_close_pressed"]
+[connection signal="all_message_received" from="Panel/BackgroundTexture/ChatBox" to="." method="_on_chat_box_2_all_message_received"]
+[connection signal="close_pressed" from="Panel/BackgroundTexture/ChatBox" to="." method="_on_chat_box_2_close_pressed"]
+[connection signal="chat_button_pressed" from="Panel/BackgroundTexture/MutualsBox" to="Panel/BackgroundTexture/ChatBox" method="_on_mutuals_box_chat_button_pressed"]
 [connection signal="slide_pressed" from="Panel/BackgroundTexture/MutualsBox" to="." method="_on_mutuals_box_slide_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/MutualsButton" to="." method="_on_mutuals_button_pressed"]
 [connection signal="gui_input" from="FilterPanel" to="." method="_on_filter_panel_gui_input"]

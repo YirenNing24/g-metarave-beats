@@ -2,8 +2,8 @@ extends Control
 
 # SIGNALS
 signal slide_pressed(is_opened: bool)
-signal message_sent(message: Dictionary)
 signal view_profile_pressed(player_profile: Dictionary)
+signal chat_button_pressed(private_message: Array, conversing_username: String)
 
 # BUTTON FOR TOGGLING THE MUTUALS WINDOW TO CLOSE
 @onready var slide_button: TextureButton = $SlideButton
@@ -31,8 +31,6 @@ func _ready() -> void:
 	populate_mutuals_list()
 	
 	var _v_scroll: int = mutual_v_scroll.changed.connect(_on_new_all_message_received)
-	#BKMREngine.Chat.messages.connect(_on_messages_opened)
-	#BKMREngine.Chat.message_single.connect(_on_message_received)
 	
 func populate_mutuals_list() -> void:
 	for mutuals: Dictionary in mutuals_list:
@@ -61,5 +59,4 @@ func _on_view_profile(username: String) -> void:
 func _on_chat_button_pressed() -> void:
 	BKMREngine.Chat.get_private_inbox_data(conversing_username)
 	await BKMREngine.Chat.get_inbox_messages_complete
-	private_messages = BKMREngine.Chat.private_messages
-	
+	chat_button_pressed.emit(BKMREngine.Chat.private_messages, conversing_username)
