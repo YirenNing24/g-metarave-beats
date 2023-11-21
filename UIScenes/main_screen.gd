@@ -26,9 +26,9 @@ signal mutuals_button_pressed
 @onready var mutuals_button: TextureButton = %MutualsButton
 
 # Modals
-var profile_modal: Control = preload("res://Components/Popups/profile_modal.tscn").instantiate()
-var player_modal: Control = preload("res://Components/Popups/player_modal.tscn").instantiate()
-var stats_modal: Control = preload("res://Components/Popups/stats_modal.tscn").instantiate()
+var profile_modal: Control = load("res://Components/Popups/profile_modal.tscn").instantiate()
+var player_modal: Control = load("res://Components/Popups/player_modal.tscn").instantiate()
+var stats_modal: Control = load("res://Components/Popups/stats_modal.tscn").instantiate()
 
 # Tween
 var stats_tween: Tween

@@ -21,7 +21,7 @@ script/source = "extends Control
 @onready var cancel_button: TextureButton = %CancelButton
 
 # Path to main stats in the scene tree.
-@onready var path_main_stats: String = \"main_screen/FilterPanel/stat_modal/Panel/VBoxContainer/HBoxContainer/MainStats/\"
+@onready var path_main_stats: String = \"MainScreen/FilterPanel/StatsModal/Panel/VBoxContainer/HBoxContainer/MainStats/\"
 
 # Variables to track stat points and their changes.
 var stat_points: int = 0

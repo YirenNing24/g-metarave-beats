@@ -9,13 +9,16 @@ extends Control
 
 # Initialization function called when the node is ready.
 func _ready() -> void:
+
 	# Display player statistics
 	stat_display()
+	#It connects the logout complete signal to the _on_Logout_Complete function for handling logout events.
+	BKMREngine.Auth.bkmr_logout_complete.connect(_on_Logout_Complete)
 
 # Display player statistics.
 #
 # This function updates UI elements with player statistics, such as player name, level, rank, and wallet address.
-# It connects the logout complete signal to the _on_Logout_Complete function for handling logout events.
+# 
 #
 # Parameters:
 # - No explicit parameters are passed to this function.
@@ -32,8 +35,7 @@ func stat_display() -> void:
 	level.text = str(PLAYER.level)
 	player_rank.text = PLAYER.player_rank
 	wallet_address.text = PLAYER.wallet_address
-	BKMREngine.Auth.bkmr_logout_complete.connect(_on_Logout_Complete)
-
+	
 # Handle visibility change.
 #
 # This function is triggered when the visibility of the control changes. 

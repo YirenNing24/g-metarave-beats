@@ -29,22 +29,6 @@ corner_radius_top_left = 100
 corner_radius_bottom_right = 60
 corner_radius_bottom_left = 100
 
-[sub_resource type="Animation" id="Animation_qxijd"]
-resource_name = " chat_slide"
-length = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Panel/BackgroundTexture/ChatBox:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-1199, 0), Vector2(0, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_yw8t1"]
 resource_name = "mutual_slide"
 length = 0.15
@@ -73,13 +57,29 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_qxijd"]
+resource_name = "chat_slide"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/BackgroundTexture/ChatBox:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1199, 0), Vector2(0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qe76f"]
 _data = {
-" chat_slide": SubResource("Animation_qxijd"),
+"chat_slide": SubResource("Animation_qxijd"),
 "mutual_slide": SubResource("Animation_yw8t1")
 }
 
-[node name="main_screen" type="Control"]
+[node name="MainScreen" type="Control"]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 15
@@ -602,6 +602,8 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.999167
 anchor_right = 0.000833333
+offset_left = 0.000488281
+offset_right = 0.000488698
 metadata/_edit_use_anchors_ = true
 
 [node name="MutualsBox" parent="Panel/BackgroundTexture" instance=ExtResource("12_b1h6r")]

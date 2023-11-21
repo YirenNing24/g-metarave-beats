@@ -12,6 +12,7 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
+shadow_color = Color(0.301961, 0.301961, 0.301961, 1)
 shadow_size = 10
 shadow_offset = Vector2(5, 8)
 
@@ -43,7 +44,6 @@ _data = {
 }
 
 [node name="ProfileModal" type="Control"]
-visible = false
 top_level = true
 z_index = 3
 layout_mode = 3
@@ -114,7 +114,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_lawlb")
 theme_override_font_sizes/font_size = 20
-text = "kaetaro13adadada"
+text = "kaetaro13"
 vertical_alignment = 2
 clip_text = true
 text_overrun_behavior = 3
