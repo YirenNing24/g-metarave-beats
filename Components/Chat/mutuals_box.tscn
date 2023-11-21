@@ -89,31 +89,25 @@ theme_override_constants/separation = 10
 [node name="Mutual" type="TabBar" parent="VBoxContainer/TabContainer"]
 layout_mode = 2
 
-[node name="MutualsScroll" type="ScrollContainer" parent="VBoxContainer/TabContainer/Mutual"]
+[node name="Group" type="TabBar" parent="VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_twf0d")
+
+[node name="MutualsScroll" type="ScrollContainer" parent="VBoxContainer/TabContainer"]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 2.0
-offset_bottom = -6.0
-grow_horizontal = 2
-grow_vertical = 2
+visible = false
+layout_mode = 2
 follow_focus = true
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
-[node name="MutualsVBox" type="VBoxContainer" parent="VBoxContainer/TabContainer/Mutual/MutualsScroll"]
+[node name="MutualsVBox" type="VBoxContainer" parent="VBoxContainer/TabContainer/MutualsScroll"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 0
-
-[node name="Group" type="TabBar" parent="VBoxContainer/TabContainer"]
-visible = false
-layout_mode = 2
-theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_twf0d")
 
 [node name="SlideButton" type="TextureButton" parent="."]
 custom_minimum_size = Vector2(60, 60)

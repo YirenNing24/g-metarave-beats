@@ -16,39 +16,56 @@ var username: String
 var password: String
 var animation_played: bool = false
 
+# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Show the login container and hide the register container.
 	login_container.show()
 	register_container.hide()
+	# Play the initial animations.
 	play_animations() 
+	# Connect signals for user registration completion and login success.
 	var _complete_registration: Error = BKMREngine.Auth.connect("bkmr_registration_complete",  _on_registration_completed)
 	var _login_succeeded: Error = BKMREngine.Auth.connect("bkmr_login_complete",  _on_login_succeeded)
 	
+# Method to play animations.
 func play_animations() -> void:
+	# Wait for the initial animation to finish before proceeding.
 	await(animation_player.animation_finished)
+	# Play the "hero_bg" animation.
 	animation_player.play("hero_bg")
 
+# Callback for successful login.
 func _on_login_succeeded(result: Dictionary) -> void:
+	# Check if the result contains an error.
 	if "error" in result:
+		# If there is an error, play the error animation and log the message.
 		await animation_player2.animation_finished
 		animation_player2.play("error_container")
 		error_logger([result.message]) 
 		return
 	else:
+		# If login is successful, log the user in and transition to the main screen.
 		BKMRLogger.info("logged in as: " + str(BKMREngine.Auth.logged_in_player))
 		LOADER.previous_texture = background_texture.texture
 		LOADER.next_texture = preload("res://UITextures/BGTextures/main.png")
 		var _change_scene:bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
 		
+# Callback for completion of user registration.
 func _on_registration_completed(result: Dictionary) -> void:
+	# Check if there is an error in the registration result.
 	if "error" in result:
+		# If an error is present, play the error animation and log the error message.
 		animation_player2.play("error_container")
 		error_logger([result.error])
 		return
+	# If registration is successful, play the loading animation, wait for it to finish,
+	# then play the success animation and proceed with login.
 	animation_player2.play("registration_loading")
 	await(animation_player2.animation_finished)
 	animation_player2.play("success")
 	BKMREngine.Auth.login_player(username, password)
 	
+# Event handler for login button press.
 func _on_login_button_pressed() -> void:
 	var userName: String = username
 	var passWord: String = password
@@ -64,24 +81,30 @@ func _on_login_button_pressed() -> void:
 		BKMREngine.Auth.login_player(userName, passWord)
 		animation_player2.play("registration_loading")
 		
+# Event handler for username field text change.
 func _on_username_field_text_changed(new_text: String) -> void:
 	username = new_text
 
+# Event handler for password field text change.
 func _on_password_field_text_changed(new_text: String) -> void:
 	password = new_text
 
+# Event handler for password field text submission.
 func _on_password_field_text_submitted(_new_text: String) -> void:
 	var userName:String = username
 	var passWord:String = password
 	BKMREngine.Auth.login_player(userName, passWord)
 	animation_player2.play("registration_loading")
 	
+# Event handler for register toggle button press.
 func _on_register_toggle_pressed() -> void:
 	animation_player2.play("login_container")
 	
+# Event handler for login toggle button press.
 func _on_login_toggle_pressed() -> void:
 	animation_player2.play("register_container")
 
+# Event handler for register button press.
 func _on_register_button_pressed() -> void:
 	var errors:Array = []
 	
@@ -162,30 +185,35 @@ func _on_register_button_pressed() -> void:
 		animation_played = false
 		animation_player2.play_backwards("error_container")
 
+# Function to check the validity of a name.
 func is_valid_name(name: String) -> bool:
 	var name_pattern: String = "^[a-zA-Z]{2,30}$"
 	var regex: RegEx = RegEx.new()
 	var _pattern_name: Error =regex.compile(name_pattern)
 	return regex.search(name) != null
 		
+# Function to check the validity of a username.
 func is_valid_username(username: String) -> bool:
 	var username_pattern: String = "^[a-zA-Z0-9_]{3,16}$"
 	var regex: RegEx = RegEx.new()
 	var _pattern_username: Error = regex.compile(username_pattern)
 	return regex.search(username) != null
-	
+
+# Function to check the validity of an email address.
 func is_valid_email(email: String) -> bool:
 	var email_pattern: String = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
 	var regex: RegEx = RegEx.new()
 	var _pattern_email: Error = regex.compile(email_pattern)
 	return regex.search(email) != null
 
+# Function to check the validity of a password.
 func is_valid_password(password: String) -> bool:
 	var password_pattern: String = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z\\d\\s]).{8,}$"
 	var regex: RegEx = RegEx.new()
 	var _pattern_password: Error = regex.compile(password_pattern)
 	return regex.search(password) != null
 
+# Function to log errors and play animation if not played.
 func error_logger(errors: Array) -> void:
 	if animation_played == false:
 		animation_player2.play("error_container")
@@ -209,7 +237,8 @@ func error_logger(errors: Array) -> void:
 			list_error.name = err
 			list_error.get_node("Label").set_text(err)
 			error_container.add_child(list_error)
-	
+
+# Function to submit user registration.
 func on_submit_registration(val_email: String, val_username: String, val_password: String, namefirst: String, namelast: String)  -> void:
 	password = val_password
 	username = val_username

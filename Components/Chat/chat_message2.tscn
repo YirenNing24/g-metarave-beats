@@ -37,6 +37,7 @@ horizontal_alignment = 2
 vertical_alignment = 2
 
 [node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/UsernameLabel"]
+unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = -1

@@ -1,74 +1,81 @@
 [gd_scene load_steps=12 format=3 uid="uid://dbebu2yc0n0wy"]
 
-[ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="2_kc23b"]
-[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_8esx4"]
-[ext_resource type="Texture2D" uid="uid://bfbv6cy714jg3" path="res://UITextures/Buttons/stat_button.png" id="3_mluvr"]
-[ext_resource type="Texture2D" uid="uid://bmo2tkxhc1hci" path="res://UITextures/Progress/prop_base2.png" id="4_g3c72"]
-[ext_resource type="Texture2D" uid="uid://d20dujwh8ic6l" path="res://UITextures/Progress/prop_progress2.png" id="5_a58nw"]
-[ext_resource type="Texture2D" uid="uid://b0nji0srtvb14" path="res://UITextures/Buttons/PanelTextures/main_hero1.png" id="5_sh6fm"]
-[ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="6_0u28o"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="1_0wty4"]
+[ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="2_0n7da"]
+[ext_resource type="Texture2D" uid="uid://bfbv6cy714jg3" path="res://UITextures/Buttons/stat_button.png" id="3_j2m63"]
+[ext_resource type="Texture2D" uid="uid://bmo2tkxhc1hci" path="res://UITextures/Progress/prop_base2.png" id="4_aj5qw"]
+[ext_resource type="Texture2D" uid="uid://d20dujwh8ic6l" path="res://UITextures/Progress/prop_progress2.png" id="5_aefwb"]
+[ext_resource type="Texture2D" uid="uid://b0nji0srtvb14" path="res://UITextures/Buttons/PanelTextures/main_hero1.png" id="6_qlaxm"]
+[ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="7_qul76"]
 
 [sub_resource type="GDScript" id="GDScript_2xrb2"]
 script/source = "extends Control
 
-@onready var animation_player:AnimationPlayer = %AnimationPlayer
-@onready var stat_points_display:Label = %AvailablePoints
-@onready var main_stats:VBoxContainer = %MainStats
-@onready var save_button:TextureButton = %SaveButton
-@onready var cancel_button:TextureButton = %CancelButton
-@onready var path_main_stats:String = \"main_screen/FilterPanel/stat_modal/Panel/VBoxContainer/HBoxContainer/MainStats/\"
+# Reference to the AnimationPlayer node.
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
 
+# UI elements
+@onready var stat_points_display: Label = %AvailablePoints
+@onready var main_stats: VBoxContainer = %MainStats
+@onready var save_button: TextureButton = %SaveButton
+@onready var cancel_button: TextureButton = %CancelButton
 
-var stat_points:int = 0
-var visual_add:int = 0
-var mainvocalist_add:int = 0
-var leadvocalist_add:int = 0
-var maindancer_add:int = 0
-var leaddancer_add:int = 0
-var rapper_add:int = 0
-var leadrapper_add:int = 0
+# Path to main stats in the scene tree.
+@onready var path_main_stats: String = \"main_screen/FilterPanel/stat_modal/Panel/VBoxContainer/HBoxContainer/MainStats/\"
 
+# Variables to track stat points and their changes.
+var stat_points: int = 0
+var visual_add: int = 0
+var mainvocalist_add: int = 0
+var leadvocalist_add: int = 0
+var maindancer_add: int = 0
+var leaddancer_add: int = 0
+var rapper_add: int = 0
+var leadrapper_add: int = 0
 
+# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Initialize UI with player's stat points.
 	stat_points = PLAYER.stat_points
 	stat_points_display.text = str(PLAYER.stat_points)
 	save_button.modulate = \"7d7d7d\"
 	
+	# Load existing stats and set up button connections.
 	load_stats()
 	if stat_points == 0:
 		for button: TextureButton in get_tree().get_nodes_in_group(\"PlusButtons\"):
 			button.disabled = true
 			button.modulate = \"7d7d7d\"
 	else:
-		for button: TextureButton  in get_tree().get_nodes_in_group(\"PlusButtons\"):
+		for button: TextureButton in get_tree().get_nodes_in_group(\"PlusButtons\"):
 			button.disabled = false
-	for button: TextureButton  in get_tree().get_nodes_in_group(\"PlusButtons\"):
-		var _connect: int = button.pressed.connect(increase_stat.bind(button.get_node(\"../\").get_name()))
+	for button: TextureButton in get_tree().get_nodes_in_group(\"PlusButtons\"):
+		var _connect: int = button.pressed.connect(increase_stat.bind(button.get_node(\"../\").name))
 		
-	for button: TextureButton  in get_tree().get_nodes_in_group(\"MinusButtons\"):
-		var _connect: int = button.pressed.connect(decrease_stat.bind(button.get_node(\"../\").get_name()))
+	for button: TextureButton in get_tree().get_nodes_in_group(\"MinusButtons\"):
+		var _connect: int = button.pressed.connect(decrease_stat.bind(button.get_node(\"../\").name))
 		button.disabled = true
 		button.modulate = \"7d7d7d\"
 	
+	# Connect the signal for stat update completion.
 	BKMREngine.Profile.stat_update_complete.connect(_on_Stat_Update_Complete)
-		
-		
+
+# Load existing stats from the player's saved data.
 func load_stats() -> void:
 	for stats: String in PLAYER.stat_points_saved.keys():
 		for stat: Control in main_stats.get_children():
-			var stat_name:String = stat.name
-			var name_stat:String= stat.name.to_lower()
+			var stat_name: String = stat.name
+			var name_stat: String = stat.name.to_lower()
 			if stats.to_lower() == name_stat.to_lower():
 				get_tree().get_root().get_node(path_main_stats + stat_name + \"/Stats/Value\").text = (str(PLAYER.stat_points_saved[stats]))
-		
-		
+
+# Increase the specified stat and update UI accordingly.
 func increase_stat(stat: String) -> void:
 	save_button.disabled = false
 	save_button.modulate = \"fff\"
 	cancel_button.modulate = \"c1c1c1\"
 	set(stat.to_lower() + \"_add\", get(stat.to_lower() + \"_add\") + 1)
-	get_tree().get_root().get_node(path_main_stats + stat + \"/Stats/Change\").set_text(
-									\"+\" + str(get(stat.to_lower() + \"_add\")) + \" \")
+	get_tree().get_root().get_node(path_main_stats + stat + \"/Stats/Change\").text = \"+\" + str(get(stat.to_lower() + \"_add\")) + \" \"
 	get_tree().get_root().get_node(path_main_stats + stat + \"/Min\").disabled = false
 	get_tree().get_root().get_node(path_main_stats + stat + \"/Min\").modulate  = \"ffffff\"
 	get_tree().get_root().get_node(path_main_stats + stat + \"/HBoxContainer/TextureProgressBar\").value += 1
@@ -78,19 +85,17 @@ func increase_stat(stat: String) -> void:
 		for button: TextureButton in get_tree().get_nodes_in_group(\"PlusButtons\"):
 			button.disabled = true
 			button.modulate = \"7d7d7d\"
-			
-	
-	
+
+# Decrease the specified stat and update UI accordingly.
 func decrease_stat(stat: String) -> void:
 	set(stat.to_lower() + \"_add\", get(stat.to_lower() + \"_add\") - 1)
 	get_tree().get_root().get_node(path_main_stats + stat + \"/HBoxContainer/TextureProgressBar\").value -= 1
 	if get(stat.to_lower() + \"_add\") == 0:
-		get_tree().get_root().get_node(path_main_stats + stat + \"/Min\").set_disabled(true)
+		get_tree().get_root().get_node(path_main_stats + stat + \"/Min\").disabled = true
 		get_tree().get_root().get_node(path_main_stats + stat + \"/Min\").modulate  = \"7d7d7d\"
-		get_tree().get_root().get_node(path_main_stats + stat + \"/Stats/Change\").set_text(\"\")
+		get_tree().get_root().get_node(path_main_stats + stat + \"/Stats/Change\").text = \"\"
 	else:
-		get_tree().get_root().get_node(path_main_stats + stat + \"/Stats/Change\").set_text(
-										\"+\" + str(get(stat.to_lower() + \"_add\")) + \" \")
+		get_tree().get_root().get_node(path_main_stats + stat + \"/Stats/Change\").text = \"+\" + str(get(stat.to_lower() + \"_add\")) + \" \"
 	stat_points += 1
 	
 	stat_points_display.text = str(stat_points)
@@ -101,18 +106,20 @@ func decrease_stat(stat: String) -> void:
 		save_button.disabled = true
 		save_button.modulate = \"7d7d7d\"
 		cancel_button.modulate = \"7d7d7d\"
-	
+
+# Called when the visibility of the node changes.
 func _on_visibility_changed() -> void:
 	if visible:
 		animation_player.play(\"fade-in\")
-	
-	
+
+# Called when the save button is pressed.
 func _on_save_button_pressed() -> void:
-	
+	# Check if any stats have been modified.
 	if  mainvocalist_add + rapper_add + leaddancer_add + leadvocalist_add + maindancer_add + visual_add + leadrapper_add == 0:
-		print(\"tae\")
+		print(\"No stats modified.\")
 		return
 	
+	# Create a dictionary with updated stat points and save it.
 	var stat_points_saved: Dictionary = {
 		\"mainVocalist\": PLAYER.stat_points_saved[\"mainVocalist\"] + mainvocalist_add,
 		\"rapper\": PLAYER.stat_points_saved[\"rapper\"] + rapper_add,
@@ -127,17 +134,18 @@ func _on_save_button_pressed() -> void:
 		\"statPointsSaved\": stat_points_saved
 	}
 	BKMREngine.Profile.update_statpoints_saved(updated_stat_points_saved)
-	
-	
+
+# Callback function when the stat update is complete.
 func _on_Stat_Update_Complete(data: Dictionary) -> void:
-	
+	# Reconnect minus buttons, update player stats, and reset stat modifications.
 	for button: TextureButton in get_tree().get_nodes_in_group(\"MinusButtons\"):
-		var _connect: int = button.pressed.connect(decrease_stat.bind(button.get_node(\"../\").get_name()))
+		var _connect: int = button.pressed.connect(decrease_stat.bind(button.get_node(\"../\").name))
 		button.disabled = true
 		button.modulate = \"7d7d7d\"
 	PLAYER.stat_points_saved = data.updatedPlayerStats.statPointsSaved
 	PLAYER.stat_points = data.updatedPlayerStats.availStatPoints
 	
+	# Reset individual stat modifications.
 	visual_add = 0
 	mainvocalist_add = 0
 	leadvocalist_add = 0
@@ -146,14 +154,17 @@ func _on_Stat_Update_Complete(data: Dictionary) -> void:
 	leaddancer_add = 0
 	rapper_add = 0
 	
+	# Reset change labels and reload stats.
 	for stat: Control in main_stats.get_children():
-		var stat_name:String = stat.name
+		var stat_name: String = stat.name
 		if stat_name != \"HBoxContainer\":
 			get_tree().get_root().get_node(path_main_stats + stat_name + \"/Stats/Change\").text = \"\"
 	load_stats()
 	save_button.modulate = \"7d7d7d\"
-	
+
+# Callback function when the cancel button is pressed.
 func _on_cancel_button_pressed() -> void:
+	# Reset stat points, UI, and reload stats.
 	stat_points = PLAYER.stat_points
 	stat_points_display.text = str(PLAYER.stat_points)
 	
@@ -169,7 +180,8 @@ func _on_cancel_button_pressed() -> void:
 	leaddancer_add = 0
 	rapper_add = 0
 	leadrapper_add = 0
-		
+	
+	# Disable minus buttons and reset change labels.
 	for button: TextureButton in get_tree().get_nodes_in_group(\"MinusButtons\"):
 		button.modulate = \"7d7d7d\"
 	
@@ -207,7 +219,7 @@ _data = {
 "fade-in": SubResource("Animation_ydsjf")
 }
 
-[node name="stat_modal" type="Control"]
+[node name="StatsModal" type="Control"]
 visible = false
 z_index = 1
 layout_mode = 3
@@ -258,7 +270,7 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_8esx4")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 28
 text = "Your beats stats"
 horizontal_alignment = 1
@@ -283,7 +295,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(162, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 20
 text = "Remaining points:"
 clip_text = true
@@ -293,7 +305,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 20
 text = "99"
 horizontal_alignment = 1
@@ -310,7 +322,7 @@ anchor_left = -0.0281457
 anchor_top = -0.4
 anchor_right = 0.120861
 anchor_bottom = 1.4
-texture_normal = ExtResource("3_mluvr")
+texture_normal = ExtResource("3_j2m63")
 ignore_texture_size = true
 stretch_mode = 0
 flip_h = true
@@ -323,7 +335,7 @@ anchor_left = 0.759934
 anchor_top = -0.4
 anchor_right = 0.90894
 anchor_bottom = 1.4
-texture_normal = ExtResource("3_mluvr")
+texture_normal = ExtResource("3_j2m63")
 ignore_texture_size = true
 stretch_mode = 0
 metadata/_edit_use_anchors_ = true
@@ -345,7 +357,7 @@ metadata/_edit_use_anchors_ = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 text = "Visual"
 vertical_alignment = 1
@@ -355,7 +367,7 @@ clip_text = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 text = "0"
 horizontal_alignment = 1
@@ -366,7 +378,7 @@ clip_text = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -387,8 +399,8 @@ custom_minimum_size = Vector2(290, 0)
 layout_mode = 2
 mouse_filter = 2
 nine_patch_stretch = true
-texture_under = ExtResource("4_g3c72")
-texture_progress = ExtResource("5_a58nw")
+texture_under = ExtResource("4_aj5qw")
+texture_progress = ExtResource("5_aefwb")
 
 [node name="MainVocalist" type="Control" parent="Panel/VBoxContainer/HBoxContainer/MainStats"]
 custom_minimum_size = Vector2(0, 25)
@@ -401,7 +413,7 @@ anchor_left = -0.0281457
 anchor_top = -0.4
 anchor_right = 0.120861
 anchor_bottom = 1.4
-texture_normal = ExtResource("3_mluvr")
+texture_normal = ExtResource("3_j2m63")
 ignore_texture_size = true
 stretch_mode = 0
 flip_h = true
@@ -414,7 +426,7 @@ anchor_left = 0.759934
 anchor_top = -0.4
 anchor_right = 0.90894
 anchor_bottom = 1.4
-texture_normal = ExtResource("3_mluvr")
+texture_normal = ExtResource("3_j2m63")
 ignore_texture_size = true
 stretch_mode = 0
 metadata/_edit_use_anchors_ = true
@@ -436,7 +448,7 @@ metadata/_edit_use_anchors_ = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 text = "Main Vocalist"
 vertical_alignment = 1
@@ -446,7 +458,7 @@ clip_text = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 text = "0"
 horizontal_alignment = 1
@@ -457,7 +469,7 @@ clip_text = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -478,8 +490,8 @@ custom_minimum_size = Vector2(290, 0)
 layout_mode = 2
 mouse_filter = 2
 nine_patch_stretch = true
-texture_under = ExtResource("4_g3c72")
-texture_progress = ExtResource("5_a58nw")
+texture_under = ExtResource("4_aj5qw")
+texture_progress = ExtResource("5_aefwb")
 
 [node name="LeadVocalist" type="Control" parent="Panel/VBoxContainer/HBoxContainer/MainStats"]
 custom_minimum_size = Vector2(0, 25)
@@ -492,7 +504,7 @@ anchor_left = -0.0281457
 anchor_top = -0.4
 anchor_right = 0.120861
 anchor_bottom = 1.4
-texture_normal = ExtResource("3_mluvr")
+texture_normal = ExtResource("3_j2m63")
 ignore_texture_size = true
 stretch_mode = 0
 flip_h = true
@@ -505,7 +517,7 @@ anchor_left = 0.759934
 anchor_top = -0.4
 anchor_right = 0.90894
 anchor_bottom = 1.4
-texture_normal = ExtResource("3_mluvr")
+texture_normal = ExtResource("3_j2m63")
 ignore_texture_size = true
 stretch_mode = 0
 metadata/_edit_use_anchors_ = true
@@ -527,7 +539,7 @@ metadata/_edit_use_anchors_ = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 text = "Lead Vocalist"
 vertical_alignment = 1
@@ -537,7 +549,7 @@ clip_text = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 text = "0"
 horizontal_alignment = 1
@@ -548,7 +560,7 @@ clip_text = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_8esx4")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -569,8 +581,8 @@ custom_minimum_size = Vector2(290, 0)
 layout_mode = 2
 mouse_filter = 2
 nine_patch_stretch = true
-texture_under = ExtResource("4_g3c72")
-texture_progress = ExtResource("5_a58nw")
+texture_under = ExtResource("4_aj5qw")
+texture_progress = ExtResource("5_aefwb")
 
 [node name="MainDancer" type="Control" parent="Panel/VBoxContainer/HBoxContainer/MainStats"]
 custom_minimum_size = Vector2(0, 25)
@@ -583,7 +595,7 @@ anchor_left = -0.0281457
 anchor_top = -0.4
 anchor_right = 0.120861
 anchor_bottom = 1.4
-texture_normal = ExtResource("3_mluvr")
+texture_normal = ExtResource("3_j2m63")
 ignore_texture_size = true
 stretch_mode = 0
 flip_h = true
@@ -596,7 +608,7 @@ anchor_left = 0.759934
 anchor_top = -0.4
 anchor_right = 0.90894
 anchor_bottom = 1.4
-texture_normal = ExtResource("3_mluvr")
+texture_normal = ExtResource("3_j2m63")
 ignore_texture_size = true
 stretch_mode = 0
 metadata/_edit_use_anchors_ = true
@@ -618,7 +630,7 @@ metadata/_edit_use_anchors_ = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 text = "Main Dancer"
 vertical_alignment = 1
@@ -628,7 +640,7 @@ clip_text = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 text = "0"
 horizontal_alignment = 1
@@ -639,7 +651,7 @@ clip_text = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -660,8 +672,8 @@ custom_minimum_size = Vector2(290, 0)
 layout_mode = 2
 mouse_filter = 2
 nine_patch_stretch = true
-texture_under = ExtResource("4_g3c72")
-texture_progress = ExtResource("5_a58nw")
+texture_under = ExtResource("4_aj5qw")
+texture_progress = ExtResource("5_aefwb")
 
 [node name="LeadDancer" type="Control" parent="Panel/VBoxContainer/HBoxContainer/MainStats"]
 custom_minimum_size = Vector2(0, 25)
@@ -674,7 +686,7 @@ anchor_left = -0.0281457
 anchor_top = -0.4
 anchor_right = 0.120861
 anchor_bottom = 1.4
-texture_normal = ExtResource("3_mluvr")
+texture_normal = ExtResource("3_j2m63")
 ignore_texture_size = true
 stretch_mode = 0
 flip_h = true
@@ -687,7 +699,7 @@ anchor_left = 0.759934
 anchor_top = -0.4
 anchor_right = 0.90894
 anchor_bottom = 1.4
-texture_normal = ExtResource("3_mluvr")
+texture_normal = ExtResource("3_j2m63")
 ignore_texture_size = true
 stretch_mode = 0
 metadata/_edit_use_anchors_ = true
@@ -709,7 +721,7 @@ metadata/_edit_use_anchors_ = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 text = "Lead Dancer"
 vertical_alignment = 1
@@ -719,7 +731,7 @@ clip_text = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 text = "0"
 horizontal_alignment = 1
@@ -730,7 +742,7 @@ clip_text = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -751,8 +763,8 @@ custom_minimum_size = Vector2(290, 0)
 layout_mode = 2
 mouse_filter = 2
 nine_patch_stretch = true
-texture_under = ExtResource("4_g3c72")
-texture_progress = ExtResource("5_a58nw")
+texture_under = ExtResource("4_aj5qw")
+texture_progress = ExtResource("5_aefwb")
 
 [node name="Rapper" type="Control" parent="Panel/VBoxContainer/HBoxContainer/MainStats"]
 custom_minimum_size = Vector2(0, 25)
@@ -765,7 +777,7 @@ anchor_left = -0.0281457
 anchor_top = -0.4
 anchor_right = 0.120861
 anchor_bottom = 1.4
-texture_normal = ExtResource("3_mluvr")
+texture_normal = ExtResource("3_j2m63")
 ignore_texture_size = true
 stretch_mode = 0
 flip_h = true
@@ -778,7 +790,7 @@ anchor_left = 0.759934
 anchor_top = -0.4
 anchor_right = 0.90894
 anchor_bottom = 1.4
-texture_normal = ExtResource("3_mluvr")
+texture_normal = ExtResource("3_j2m63")
 ignore_texture_size = true
 stretch_mode = 0
 metadata/_edit_use_anchors_ = true
@@ -800,7 +812,7 @@ metadata/_edit_use_anchors_ = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 text = "Rapper"
 vertical_alignment = 1
@@ -810,7 +822,7 @@ clip_text = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 text = "0"
 horizontal_alignment = 1
@@ -821,7 +833,7 @@ clip_text = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -842,8 +854,8 @@ custom_minimum_size = Vector2(290, 0)
 layout_mode = 2
 mouse_filter = 2
 nine_patch_stretch = true
-texture_under = ExtResource("4_g3c72")
-texture_progress = ExtResource("5_a58nw")
+texture_under = ExtResource("4_aj5qw")
+texture_progress = ExtResource("5_aefwb")
 
 [node name="LeadRapper" type="Control" parent="Panel/VBoxContainer/HBoxContainer/MainStats"]
 custom_minimum_size = Vector2(0, 25)
@@ -856,7 +868,7 @@ anchor_left = -0.0281457
 anchor_top = -0.4
 anchor_right = 0.120861
 anchor_bottom = 1.4
-texture_normal = ExtResource("3_mluvr")
+texture_normal = ExtResource("3_j2m63")
 ignore_texture_size = true
 stretch_mode = 0
 flip_h = true
@@ -869,7 +881,7 @@ anchor_left = 0.759934
 anchor_top = -0.4
 anchor_right = 0.90894
 anchor_bottom = 1.4
-texture_normal = ExtResource("3_mluvr")
+texture_normal = ExtResource("3_j2m63")
 ignore_texture_size = true
 stretch_mode = 0
 metadata/_edit_use_anchors_ = true
@@ -891,7 +903,7 @@ metadata/_edit_use_anchors_ = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 text = "Lead Rapper"
 vertical_alignment = 1
@@ -901,7 +913,7 @@ clip_text = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 text = "0"
 horizontal_alignment = 1
@@ -912,7 +924,7 @@ clip_text = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_kc23b")
+theme_override_fonts/font = ExtResource("2_0n7da")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -933,8 +945,8 @@ custom_minimum_size = Vector2(290, 0)
 layout_mode = 2
 mouse_filter = 2
 nine_patch_stretch = true
-texture_under = ExtResource("4_g3c72")
-texture_progress = ExtResource("5_a58nw")
+texture_under = ExtResource("4_aj5qw")
+texture_progress = ExtResource("5_aefwb")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -950,7 +962,7 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource("5_sh6fm")
+texture = ExtResource("6_qlaxm")
 expand_mode = 1
 stretch_mode = 5
 
@@ -966,7 +978,7 @@ custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-texture_normal = ExtResource("6_0u28o")
+texture_normal = ExtResource("7_qul76")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -984,7 +996,7 @@ offset_bottom = 19.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_8esx4")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 text = "Cancel"
 horizontal_alignment = 1
@@ -997,7 +1009,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 disabled = true
-texture_normal = ExtResource("6_0u28o")
+texture_normal = ExtResource("7_qul76")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -1015,7 +1027,7 @@ offset_bottom = 19.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_8esx4")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 text = "Save"
 horizontal_alignment = 1

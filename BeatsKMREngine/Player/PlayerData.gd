@@ -1,5 +1,6 @@
 extends Node
 
+# Dictionary to store player data, including inventory, wallet, and stats.
 var data: Dictionary = {}
 var inventory_powerup: Dictionary
 var player_stats: Dictionary
@@ -21,16 +22,16 @@ var player_rank: String
 var stat_points: int
 var stat_points_saved: Dictionary
 
+# Function called when the node is ready.
 func _ready() -> void:
+	# Wait for session check completion and login completion.
 	await BKMREngine.Auth.bkmr_session_check_complete
-	# Check if data is empty and initialize it
 	if data == {}:
 		await BKMREngine.Auth.bkmr_login_complete
-	# Check again after login, if data is still empty, return
 	if data == {}:
-		return
-		
-	# Parse and assign values to variables
+		return  # If data is still empty after login, return.
+
+	# Parse and assign values to variables.
 	var powerup_inventory: String = data.powerUpInventory
 	inventory_powerup = JSON.parse_string(powerup_inventory)
 	
@@ -42,7 +43,7 @@ func _ready() -> void:
 	
 	wallet_data = data.wallet
 	var smartwallet_address: String = wallet_data.smartWalletAddress
-	wallet_address = formatAddress( smartwallet_address)
+	wallet_address = formatAddress(smartwallet_address)
 	var beats: String = wallet_data.beatsBalance
 	beats_balance = format_balance(beats)
 	var native: String = wallet_data.nativeBalance
@@ -56,7 +57,6 @@ func _ready() -> void:
 	firstname = data.firstName
 	lastname = data.lastName
 	email = data.email
-	
 
 	level = player_stats.level
 	player_experience = player_stats.playerExp
@@ -64,18 +64,20 @@ func _ready() -> void:
 	stat_points = player_stats.availStatPoints
 	stat_points_saved = player_stats.statPointsSaved
 
+# Function to format a wallet address for display.
 func formatAddress(address: String) -> String:
 	var firstFour: String = address.left(6)
 	var lastFour: String = address.right(4)
 	return firstFour + "..." + lastFour
 	
+# Function to format a balance value with commas for thousands.
 func format_balance(value: String) -> String:
 	var parts: Array = value.split(".")
 	var wholePart: String = parts[0]
 	
-	# Add commas for every three digits in the whole part
+	# Add commas for every three digits in the whole part.
 	var formattedWholePart: String = ""
-	var digitCount:int = 0
+	var digitCount: int = 0
 	for i: int in range(wholePart.length() - 1, -1, -1):
 		formattedWholePart = wholePart[i] + formattedWholePart
 		digitCount += 1

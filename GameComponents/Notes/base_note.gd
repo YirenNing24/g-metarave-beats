@@ -30,7 +30,7 @@ func _ready() -> void:
 func _on_ready()  -> void:
 	set_note_position() 
 	note_area.add_to_group("note")
-	note_area.area_entered.connect(_on_area_entered)
+	var _connect: int = note_area.area_entered.connect(_on_area_entered)
 	
 func _process(_delta: float) -> void:
 	if not picker or (picker.note_collect != null and picker.note_collect != self): 
@@ -40,7 +40,7 @@ func _process(_delta: float) -> void:
 func _on_process(_delta: float) -> void:
 	pass
 	
-func collect(is_miss = false) -> void:
+func collect(is_miss: bool = false) -> void:
 	note_body.visible = false
 	collected = true
 	picker.is_collecting = false
@@ -87,7 +87,7 @@ func set_note_position() -> void:
 			
 	position = Vector3( z, 0 , -note_position * length_scale )
 	
-func _on_area_entered(area) -> void:
+func _on_area_entered(area: Area3D) -> void:
 	if collected:
 		return
 		
