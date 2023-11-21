@@ -13,7 +13,7 @@
 script/source = "extends Control
 
 ### PACKED SCENES
-@onready var message_slot: PackedScene = preload(\"res://Components/Chat/chat_message2.tscn\")
+@onready var message_slot: PackedScene = preload(\"res://Components/Chat/chat_message.tscn\")
 @onready var chat_mutual_panel: PackedScene = preload(\"res://Components/Chat/chat_mutual_panel.tscn\")
 
 ### SIGNALS
@@ -44,7 +44,8 @@ signal view_profile_pressed(player_profile: Dictionary)
 
 ### SERVER ENGINE VARIABLES
 var host: String = BKMREngine.host_ip
-var url: String = \"ws://\" + host + \"/api/chats/\"
+var port: String = BKMREngine.port
+var url: String = \"ws://\" + host + port + \"/api/chats/all\"
 
 ### STATE VARIABLES
 var current_room: String = \"all\"
@@ -71,8 +72,8 @@ var username_conversing: String
 # ```
 func _ready() -> void:
 	# Connect to the chat socket for the public \"All Messages\" room
-	await BKMREngine.Chat.connect_socket(url + \"all\")
-	
+	await BKMREngine.Chat.connect_socket(url)
+	print(url)
 	# Connect signals to their corresponding functions
 	BKMREngine.Chat.message_single.connect(_on_message_received)
 	BKMREngine.Chat.messages.connect(_on_all_messages_opened)
@@ -208,7 +209,7 @@ func remove_excess_message(message_vbox: VBoxContainer, limit: int) -> void:
 # ```
 func _on_new_all_message_received() -> void:
 	# Adjust the vertical scroll position to show the latest messages on the \"All Messages\" tab
-	all_message_scroll.scroll_vertical = all_chat_v_scroll.max_val
+	all_message_scroll.scroll_vertical = all_chat_v_scroll.max_value
 
 # Callback function triggered when new messages are received in the mutual chat.
 #
