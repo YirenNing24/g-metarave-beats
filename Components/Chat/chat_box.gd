@@ -153,6 +153,7 @@ func add_message_to_container(received_message: Dictionary) -> void:
 			# Add to the player's messages container in a private conversation
 			mutual_chat_vbox.add_child(slot_message)
 		else:
+			# Instantiate a new message slot for the other user the player is having a chat with
 			var conversing_message: Control = conversing_message_slot.instantiate()
 			conversing_message.get_node('VBoxContainer/HBoxContainer/UsernameLabel').text = sender_username
 			conversing_message.get_node('VBoxContainer/HBoxContainer/TimestampLabel').text = timestamp
