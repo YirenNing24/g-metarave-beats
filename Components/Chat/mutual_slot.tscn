@@ -10,7 +10,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.564706, 0.47451, 0.643137, 1)
 
-[node name="Control" type="Control"]
+[node name="MutualSlot" type="Control"]
 custom_minimum_size = Vector2(0, 113)
 layout_mode = 3
 anchor_right = 0.238333

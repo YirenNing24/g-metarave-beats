@@ -3,7 +3,7 @@ extends Control
 # SIGNALS
 signal slide_pressed(is_opened: bool)
 signal view_profile_pressed(player_profile: Dictionary)
-signal chat_button_pressed(private_message: Array, conversing_username: String)
+signal chat_button_pressed(conversing_username: String)
 
 # BUTTON FOR TOGGLING THE MUTUALS WINDOW TO CLOSE
 @onready var slide_button: TextureButton = $SlideButton
@@ -11,7 +11,7 @@ signal chat_button_pressed(private_message: Array, conversing_username: String)
 # SCROLL CONTAINER AND SCROLL BAR FOR MUTUALS WINDOW
 @onready var mutual_scroll: ScrollContainer = %MutualsScroll
 @onready var mutual_vbox: VBoxContainer = %MutualsVBox
-@onready var mutual_v_scroll: VScrollBar = mutual_scroll.get_v_scroll_bar()
+
 
 # INSTANCE SCENE COMPONENTS FOR MUTUALS WINDOW
 var mutual_slot: PackedScene = preload("res://Components/Chat/mutual_slot.tscn")
@@ -47,9 +47,6 @@ func _ready() -> void:
 	# Populate the mutuals list in the UI
 	populate_mutuals_list()
 
-	# Connect the VScrollBar signal to handle new messages received
-	var _v_scroll: int = mutual_v_scroll.changed.connect(_on_new_all_message_received)
-
 # Function to populate the mutuals list in the UI.
 #
 # This function iterates through the mutual followers list and creates UI slots for each follower.
@@ -72,6 +69,7 @@ func populate_mutuals_list() -> void:
 
 		var level: String = str(player_stats.level)
 		conversing_username = mutuals.username
+
 		# Set UI labels with relevant information
 		slot_mutuals.get_node('Panel/VBoxContainer/VBoxContainer/UsernameLabel').text = mutuals.username
 		slot_mutuals.get_node('Panel/VBoxContainer/HBoxContainer/HBoxContainer2/LevelLabel').text = "Level: " + level
@@ -96,21 +94,6 @@ func populate_mutuals_list() -> void:
 func _on_slide_button_pressed() -> void:
 	# Emit signal to toggle the visibility of the mutuals window
 	slide_pressed.emit(is_opened)
-
-# Function to handle the event when new messages are received in the mutuals window.
-#
-# This function scrolls to the bottom of the mutuals window to display the latest messages.
-#
-# Returns:
-# - This function does not return a value; it operates by scrolling to the bottom of the mutuals window.
-#
-# Example usage:
-# ```gdscript
-# _on_new_all_message_received()
-# ```
-func _on_new_all_message_received() -> void:
-	# Scroll to the bottom of the mutuals window when new messages are received
-	mutual_scroll.scroll_vertical = mutual_v_scroll.max_value
 
 # Function to handle the event when the user wants to view the profile of a specific username.
 #
@@ -151,3 +134,4 @@ func _on_view_profile(username: String) -> void:
 func _on_chat_button_pressed() -> void:
 	# Emit signal to initiate a chat with the selected user
 	chat_button_pressed.emit(conversing_username)
+	print(conversing_username)

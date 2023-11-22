@@ -81,6 +81,7 @@ func _ready() -> void:
 # ```gdscript
 # session_check()
 # ```
+
 func session_check() -> void:
 	# Automatically attempt to log in the player
 	BKMREngine.Auth.auto_login_player()
@@ -100,6 +101,7 @@ func session_check() -> void:
 # ```gdscript
 # hud_data()
 # ```
+
 func hud_data() -> void:
 	# Set HUD elements with player data.
 	player_name.text = BKMREngine.Auth.logged_in_player
@@ -241,7 +243,6 @@ func _on_inventory_button_pressed() -> void:
 	# Disable buttons in the 'MainButtons2' group during the scene transition
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons2'):
 		buttons.disabled = true
-
 
 # Handle the event when the chat is successfully connected
 func _on_chat_connected(_url: String) -> void:
@@ -391,9 +392,22 @@ func _on_mutuals_box_slide_pressed(_isOpen: bool) -> void:
 # ```gdscript
 # _on_chat_box_2_close_pressed()
 # ```
-func _on_chat_box_2_close_pressed() -> void:
+func _on_chat_box_close_pressed() -> void:
 	animation_player.play_backwards("chat_slide")
+	
+	for buttons: TextureButton in get_tree().get_nodes_in_group('MainButtons'):
+		buttons.disabled = false
+	for buttons: Button in get_tree().get_nodes_in_group('MainButtons2'):
+		buttons.disabled = false
 
-
-func _on_mutuals_box_chat_button_pressed(_private_message: Array, _conversing_username: String) -> void:
+func _on_mutuals_box_chat_button_pressed(_conversing_username: String) -> void:
+	for buttons: TextureButton in get_tree().get_nodes_in_group('MainButtons'):
+		buttons.disabled = true
+	for buttons: Button in get_tree().get_nodes_in_group('MainButtons2'):
+		buttons.disabled = true
+	
+	animation_player.play_backwards("mutual_slide")
+	await animation_player.animation_finished
+	mutuals_button.visible = true
+	
 	animation_player.play("chat_slide")

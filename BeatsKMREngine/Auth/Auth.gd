@@ -26,24 +26,21 @@ var logged_in_player_email: String
 var logged_in_anon: bool = false
 var bkmr_access_token: String
 var bkmr_id_token: String
+var VerifyEmail: String
+var ResendConfCode: String
 
 # Server host URL
 var host: String = BKMREngine.host
 
-# HTTPRequest instances for server communication
-var VersionCheck: HTTPRequest
-var RegisterPlayer: HTTPRequest
-var VerifyEmail: String
-var ResendConfCode: String
+# HTTPRequest instances and weakrefs for server communication
 var LoginPlayer: HTTPRequest
+var wrLoginPlayer: WeakRef
 var ValidateSession: HTTPRequest
-
-# Weak references to prevent circular references
-var bkmrVersionCheck:Object = null
-var bkmrValidateSession: WeakRef
-
-var bkmrRegisterPlayer: WeakRef
-var bkmrLoginPlayer: WeakRef
+var wrValidateSession: WeakRef
+var RegisterPlayer: HTTPRequest
+var wrRegisterPlayer: WeakRef
+var VersionCheck: HTTPRequest
+var wrVersionCheck: WeakRef = null
 
 # Timer variables for login timeout and session check wait
 var login_timeout: int = 0
@@ -58,7 +55,7 @@ func check_version(config: Dictionary) -> Node:
 	# Prepare HTTP request
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	VersionCheck = prepared_http_req.request
-	bkmrVersionCheck = prepared_http_req.weakref
+	wrVersionCheck = prepared_http_req.weakref
 	
 	# Connect the signal for handling version check completion
 	var _signal_version_check: int = VersionCheck.request_completed.connect(_on_VersionCheck_request_completed)
@@ -73,7 +70,6 @@ func check_version(config: Dictionary) -> Node:
 	
 	return self
 
-
 # Callback function when version check request is completed
 func _on_VersionCheck_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check HTTP response status
@@ -83,7 +79,6 @@ func _on_VersionCheck_request_completed(_result: int, response_code: int, header
 	# Emit signal with the server response
 	bkmr_version_check_complete.emit(json_body)
 
-	
 #func register_player_anon(player_name: String = "") -> Node:
 	#var user_local_id: String = get_anon_user_id()
 	#var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -108,7 +103,7 @@ func register_player(email: String, username: String, password: String, firstnam
 	# Prepare HTTP request
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	RegisterPlayer = prepared_http_req.request
-	bkmrRegisterPlayer = prepared_http_req.weakref
+	wrRegisterPlayer = prepared_http_req.weakref
 	
 	# Connect the signal for handling registration completion
 	var _register_signal: int = RegisterPlayer.request_completed.connect(_on_RegisterPlayer_request_completed)
@@ -130,14 +125,13 @@ func register_player(email: String, username: String, password: String, firstnam
 	
 	return self
 
-
 # Callback function triggered upon completion of the player registration request
 func _on_RegisterPlayer_request_completed(_result: Dictionary, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	
 	# Free the HTTP request resources
-	BKMREngine.free_request(bkmrRegisterPlayer, RegisterPlayer)
+	BKMREngine.free_request(wrRegisterPlayer, RegisterPlayer)
 	
 	# Parse the JSON body of the response
 	var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
@@ -155,11 +149,10 @@ func _on_RegisterPlayer_request_completed(_result: Dictionary, response_code: in
 		BKMRLogger.error("BKMREngine player registration failure: " + str(json_body.message))
 		bkmr_registration_complete.emit(_bkmr_result)
 
-
 func register_player_user_password(player_name: String, password: String, confirm_password: String) -> Node:
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	RegisterPlayer = prepared_http_req.request
-	bkmrRegisterPlayer = prepared_http_req.weakref
+	wrRegisterPlayer = prepared_http_req.weakref
 	var _register_signal: int = RegisterPlayer.request_completed.connect(_on_RegisterPlayerUserPassword_request_completed)
 	BKMRLogger.info("Calling BKMRE to register a player")
 	var payload: Dictionary = { "apiId": BKMREngine.config.apiId, "player_name": player_name, "password": password, "confirm_password": confirm_password }
@@ -170,7 +163,7 @@ func register_player_user_password(player_name: String, password: String, confir
 func _on_RegisterPlayerUserPassword_request_completed(_result: Dictionary, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	#RegisterPlayer.queue_free()
-	BKMREngine.free_request(bkmrRegisterPlayer, RegisterPlayer)
+	BKMREngine.free_request(wrRegisterPlayer, RegisterPlayer)
 	if status_check:
 		var json_body:Dictionary = JSON.parse_string(body.get_string_from_utf8())
 		# also get a JWT token here
@@ -242,7 +235,6 @@ func _on_RegisterPlayerUserPassword_request_completed(_result: Dictionary, respo
 			#BKMRLogger.error("BKMREngine resend conf code failure: " + str(json_body.error))
 		#bkmr_resend_conf_code_complete.emit(bkmr_result)
 
-
 # Initiates a request to log in a player with the provided username and password
 func login_player(username: String, password: String) -> Node:
 	# Store the username temporarily for reference in the callback function
@@ -251,7 +243,7 @@ func login_player(username: String, password: String) -> Node:
 	# Prepare the HTTP request for player login
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	LoginPlayer = prepared_http_req.request
-	bkmrLoginPlayer = prepared_http_req.weakref
+	wrLoginPlayer = prepared_http_req.weakref
 	
 	# Connect the callback function to handle the completion of the login request
 	var _login_signal: int = LoginPlayer.request_completed.connect(_on_LoginPlayer_request_completed)
@@ -282,8 +274,7 @@ func login_player(username: String, password: String) -> Node:
 func _on_LoginPlayer_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status and free the request resources
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	BKMREngine.free_request(bkmrLoginPlayer, LoginPlayer)
-	
+	BKMREngine.free_request(wrLoginPlayer, LoginPlayer)
 	# Process the response based on the status check
 	if status_check:
 		# Parse the JSON body of the response
@@ -333,8 +324,8 @@ func logout_player() -> void:
 	
 	# Emit signal indicating completion of player logout
 	bkmr_logout_complete.emit()
+	get_tree().quit()
 
-	
 #func request_player_password_reset(player_name: String) -> Node:
 	#var prepared_http_req = BKMREngine.prepare_http_request()
 	#RequestPasswordReset = prepared_http_req.request
@@ -409,7 +400,7 @@ func validate_player_session(lookup: String, validator: String, _scene: Node = g
 	# Prepare the HTTP request for session validation
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	ValidateSession = prepared_http_req.request
-	bkmrValidateSession = prepared_http_req.weakref
+	wrValidateSession = prepared_http_req.weakref
 	var _validate_session: int = ValidateSession.request_completed.connect(_on_ValidateSession_request_completed)
 	
 	# Log the initiation of player session validation
@@ -433,8 +424,6 @@ func validate_player_session(lookup: String, validator: String, _scene: Node = g
 	# Return the current script instance
 	return self
 
-	
-	
 # Event handler for the completion of the player session validation request
 # Params:
 # - _result: int, the result of the HTTP request
@@ -446,7 +435,7 @@ func _on_ValidateSession_request_completed(_result: int, response_code: int, hea
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	
 	# Free the request resources
-	BKMREngine.free_request(bkmrValidateSession, ValidateSession)
+	BKMREngine.free_request(wrValidateSession, ValidateSession)
 	
 	# Handle the result based on the status check
 	if status_check:
@@ -477,7 +466,6 @@ func _on_ValidateSession_request_completed(_result: int, response_code: int, hea
 	else:
 		# Trigger the completion of the session check with an empty result in case of failure
 		complete_session_check({})
-
 
 # Set the currently logged-in player and configure session timeout if applicable
 # Params:
@@ -596,9 +584,6 @@ func load_session() -> Dictionary:
 	
 	# Use the 'BKMRLocalFileStorage' script to retrieve the session data from the specified path
 	bkmr_session_data = BKMRLocalFileStorage.get_data(path)
-	
-	# Print debug information about the loaded session data (for debugging purposes)
-	print(bkmr_session_data)
 	
 	# Check if the loaded session data is an empty dictionary or null
 	if bkmr_session_data == {} or null:

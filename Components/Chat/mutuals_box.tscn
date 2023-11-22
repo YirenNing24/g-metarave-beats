@@ -57,6 +57,7 @@ theme_override_styles/tab_selected = SubResource("StyleBoxTexture_fumum")
 theme_override_styles/tab_hovered = SubResource("StyleBoxEmpty_qw3eb")
 theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_7vqh7")
 current_tab = 1
+clip_tabs = false
 tab_focus_mode = 1
 metadata/_edit_use_anchors_ = true
 
@@ -91,7 +92,14 @@ layout_mode = 2
 
 [node name="MutualsScroll" type="ScrollContainer" parent="VBoxContainer/TabContainer/Mutual"]
 unique_name_in_owner = true
-visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
 follow_focus = true
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
@@ -113,9 +121,9 @@ custom_minimum_size = Vector2(60, 60)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.41115
-anchor_top = 0.0677966
+anchor_top = 0.0720339
 anchor_right = -0.41115
-anchor_bottom = 0.199982
+anchor_bottom = 0.20422
 offset_left = 68.0
 offset_right = 130.391
 offset_bottom = 5.60871

@@ -1,6 +1,10 @@
 extends Control
 
 # UI Elements
+
+const followed_color: Color = Color("#89898994")
+const default_color: Color = Color("#ffffff")
+
 @onready var player_name: Label = %PlayerName
 @onready var player_rank: Label = %PlayerRank
 @onready var player_level: Label = %Level
@@ -51,6 +55,7 @@ func _ready() -> void:
 # ```gdscript
 # _on_stat_display()
 # ```
+
 func _on_stat_display() -> void:
 	# Retrieve player stats from the player profile
 	player_profile = BKMREngine.Social.player_profile
@@ -69,8 +74,13 @@ func _on_stat_display() -> void:
 			follow_unfollow_button.modulate = "#ffffff"
 			
 		# Update follow status label for mutual follows
-		if player_profile.followedByUser:
+		if player_profile.followedByUser and player_profile.followsUser:
+			follow_button_label.text = "UNFOLLOW"
+			follow_unfollow_button.modulate = "#89898994"
+			
+		elif player_profile.followedByUser:
 			follow_status_label.text = "Follows you!"
+			
 			follow_button_label.text = "FOLLOW BACK"
 			follow_unfollow_button.modulate = "#ffffff"
 		
@@ -80,7 +90,7 @@ func _on_stat_display() -> void:
 		player_rank.text = player_stats.rank
 		
 		player_username = player_profile.username
-
+		
 # Handle visibility changes for the control.
 #
 # This function is triggered when the visibility of the control changes. 
@@ -96,11 +106,11 @@ func _on_stat_display() -> void:
 # ```gdscript
 # _on_visibility_changed()
 # ```
+
 func _on_visibility_changed() -> void:
 	# Play fade-in animation when the control becomes visible
 	if visible:
 		animation_player.play("fade-in")
-
 
 # Handle follow/unfollow button press.
 #
@@ -116,6 +126,7 @@ func _on_visibility_changed() -> void:
 # ```gdscript
 # _on_follow_unfollow_button_pressed()
 # ```
+
 func _on_follow_unfollow_button_pressed() -> void:
 	# Handle follow/unfollow button press
 	
