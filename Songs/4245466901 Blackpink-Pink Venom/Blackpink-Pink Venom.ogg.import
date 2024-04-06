@@ -2,7 +2,7 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://d2amrymqk4b4j"
+uid="uid://ctlywb4nl0gxa"
 path="res://.godot/imported/Blackpink-Pink Venom.ogg-f5238050f8493b167b59180fa76f9522.oggvorbisstr"
 
 [deps]
@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/Blackpink-Pink Venom.ogg-f5238050f8493b167b59
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
 bpm=0
 beat_count=0

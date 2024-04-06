@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bmqvpri1e7kee"
 path.s3tc="res://.godot/imported/Metal_006_basecolor.jpg-069eef1621ff9364ffdae22a73fe27e9.s3tc.ctex"
+path.etc2="res://.godot/imported/Metal_006_basecolor.jpg-069eef1621ff9364ffdae22a73fe27e9.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://UITextures/3DTextures/RoadTextures/Metal_006_basecolor.jpg"
-dest_files=["res://.godot/imported/Metal_006_basecolor.jpg-069eef1621ff9364ffdae22a73fe27e9.s3tc.ctex"]
+dest_files=["res://.godot/imported/Metal_006_basecolor.jpg-069eef1621ff9364ffdae22a73fe27e9.s3tc.ctex", "res://.godot/imported/Metal_006_basecolor.jpg-069eef1621ff9364ffdae22a73fe27e9.etc2.ctex"]
 
 [params]
 

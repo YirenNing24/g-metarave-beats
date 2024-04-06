@@ -1,14 +1,15 @@
-[gd_scene load_steps=12 format=3 uid="uid://dpnba3xg218sm"]
+[gd_scene load_steps=13 format=3 uid="uid://dpnba3xg218sm"]
 
 [ext_resource type="Script" path="res://UIScenes/store.gd" id="1_whek4"]
 [ext_resource type="Texture2D" uid="uid://bjpkh360v82aq" path="res://UITextures/BGTextures/store_bg.png" id="2_vxubm"]
 [ext_resource type="Texture2D" uid="uid://bwk432eyctrpf" path="res://UITextures/BGTextures/store.png" id="3_ky2cn"]
-[ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="4_ei2ks"]
+[ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="4_j1ed7"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="6_cd6am"]
 [ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="6_usbye"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="7_grflq"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="7_qpqmh"]
 [ext_resource type="Texture2D" uid="uid://bo2dc8yxqbqp4" path="res://UITextures/Buttons/PanelTextures/main_hero3.png" id="8_8b0sr"]
+[ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="10_unem4"]
 
 [sub_resource type="Animation" id="Animation_y3bef"]
 resource_name = "pulldown"
@@ -92,6 +93,10 @@ anchor_left = 0.00333333
 anchor_top = 0.17037
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 47.0
+offset_top = 0.000198364
+offset_right = 47.0
+offset_bottom = 0.000183105
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
@@ -107,9 +112,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="TextureButton7" type="TextureButton" parent="TextureRect/BackgroundTexture/TextureRect/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 45)
+custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
-texture_normal = ExtResource("4_ei2ks")
+texture_normal = ExtResource("4_j1ed7")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -121,9 +126,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -56.5
-offset_top = -19.0
+offset_top = -15.5
 offset_right = 56.5
-offset_bottom = 15.0
+offset_bottom = 18.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -134,9 +139,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureButton" type="TextureButton" parent="TextureRect/BackgroundTexture/TextureRect/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 45)
+custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
-texture_normal = ExtResource("4_ei2ks")
+texture_normal = ExtResource("4_j1ed7")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -148,9 +153,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -56.5
-offset_top = -19.0
+offset_top = -15.5
 offset_right = 56.5
-offset_bottom = 15.0
+offset_bottom = 18.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -160,9 +165,9 @@ text = "Card Bundle"
 vertical_alignment = 1
 
 [node name="CardsButton" type="TextureButton" parent="TextureRect/BackgroundTexture/TextureRect/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 45)
+custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
-texture_normal = ExtResource("4_ei2ks")
+texture_normal = ExtResource("4_j1ed7")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -174,9 +179,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -56.5
-offset_top = -19.0
+offset_top = -15.5
 offset_right = 56.5
-offset_bottom = 15.0
+offset_bottom = 18.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -187,9 +192,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureButton2" type="TextureButton" parent="TextureRect/BackgroundTexture/TextureRect/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 45)
+custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
-texture_normal = ExtResource("4_ei2ks")
+texture_normal = ExtResource("4_j1ed7")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -201,9 +206,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -56.5
-offset_top = -19.0
+offset_top = -15.5
 offset_right = 56.5
-offset_bottom = 15.0
+offset_bottom = 18.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -214,9 +219,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureButton3" type="TextureButton" parent="TextureRect/BackgroundTexture/TextureRect/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 45)
+custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
-texture_normal = ExtResource("4_ei2ks")
+texture_normal = ExtResource("4_j1ed7")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -228,9 +233,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -56.5
-offset_top = -19.0
+offset_top = -15.5
 offset_right = 56.5
-offset_bottom = 15.0
+offset_bottom = 18.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -241,9 +246,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureButton4" type="TextureButton" parent="TextureRect/BackgroundTexture/TextureRect/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 45)
+custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
-texture_normal = ExtResource("4_ei2ks")
+texture_normal = ExtResource("4_j1ed7")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -255,9 +260,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -56.5
-offset_top = -19.0
+offset_top = -15.5
 offset_right = 56.5
-offset_bottom = 15.0
+offset_bottom = 18.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -268,9 +273,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureButton5" type="TextureButton" parent="TextureRect/BackgroundTexture/TextureRect/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 45)
+custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
-texture_normal = ExtResource("4_ei2ks")
+texture_normal = ExtResource("4_j1ed7")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -282,9 +287,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -56.5
-offset_top = -19.0
+offset_top = -15.5
 offset_right = 56.5
-offset_bottom = 15.0
+offset_bottom = 18.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -351,7 +356,6 @@ anchor_bottom = 0.76
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("7_qpqmh")
 theme_override_font_sizes/font_size = 16
-text = "Native"
 horizontal_alignment = 2
 vertical_alignment = 1
 clip_text = true
@@ -377,7 +381,6 @@ anchor_bottom = 0.76
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("7_qpqmh")
 theme_override_font_sizes/font_size = 16
-text = "Beats"
 horizontal_alignment = 2
 vertical_alignment = 1
 clip_text = true
@@ -403,7 +406,6 @@ anchor_bottom = 0.76
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("7_qpqmh")
 theme_override_font_sizes/font_size = 16
-text = "Thump"
 horizontal_alignment = 2
 vertical_alignment = 1
 clip_text = true
@@ -429,7 +431,6 @@ anchor_bottom = 0.76
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("7_qpqmh")
 theme_override_font_sizes/font_size = 16
-text = "KMR"
 horizontal_alignment = 2
 vertical_alignment = 1
 clip_text = true
@@ -490,6 +491,9 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_5uw8m")
 }
+
+[node name="CursorSpark" parent="." instance=ExtResource("10_unem4")]
+unique_name_in_owner = true
 
 [connection signal="pressed" from="TextureRect/BackgroundTexture/TextureRect/HBoxContainer/ScrollContainer/VBoxContainer/CardsButton" to="." method="_on_cards_button_pressed"]
 [connection signal="pressed" from="TextureRect/BackgroundTexture/TextureRect/HBoxContainer2/CloseButton" to="." method="_on_close_button_pressed"]

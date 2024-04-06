@@ -24,7 +24,7 @@ script/source = "extends Control
 @onready var path_main_stats: String = \"MainScreen/FilterPanel/StatsModal/Panel/VBoxContainer/HBoxContainer/MainStats/\"
 
 # Variables to track stat points and their changes.
-var stat_points: int = 0
+var stat_points: int
 var visual_add: int = 0
 var mainvocalist_add: int = 0
 var leadvocalist_add: int = 0
@@ -35,13 +35,10 @@ var leadrapper_add: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Initialize UI with player's stat points.
+	load_stats()
 	stat_points = PLAYER.stat_points
 	stat_points_display.text = str(PLAYER.stat_points)
 	save_button.modulate = \"7d7d7d\"
-	
-	# Load existing stats and set up button connections.
-	load_stats()
 	if stat_points == 0:
 		for button: TextureButton in get_tree().get_nodes_in_group(\"PlusButtons\"):
 			button.disabled = true
@@ -51,7 +48,6 @@ func _ready() -> void:
 			button.disabled = false
 	for button: TextureButton in get_tree().get_nodes_in_group(\"PlusButtons\"):
 		var _connect: int = button.pressed.connect(increase_stat.bind(button.get_node(\"../\").name))
-		
 	for button: TextureButton in get_tree().get_nodes_in_group(\"MinusButtons\"):
 		var _connect: int = button.pressed.connect(decrease_stat.bind(button.get_node(\"../\").name))
 		button.disabled = true
@@ -79,6 +75,7 @@ func increase_stat(stat: String) -> void:
 	get_tree().get_root().get_node(path_main_stats + stat + \"/Min\").disabled = false
 	get_tree().get_root().get_node(path_main_stats + stat + \"/Min\").modulate  = \"ffffff\"
 	get_tree().get_root().get_node(path_main_stats + stat + \"/HBoxContainer/TextureProgressBar\").value += 1
+	
 	stat_points -= 1
 	stat_points_display.text = str(stat_points)
 	if stat_points == 0:
@@ -88,6 +85,8 @@ func increase_stat(stat: String) -> void:
 
 # Decrease the specified stat and update UI accordingly.
 func decrease_stat(stat: String) -> void:
+	if  mainvocalist_add + rapper_add + leaddancer_add + leadvocalist_add + maindancer_add + visual_add + leadrapper_add == 0:
+		return
 	set(stat.to_lower() + \"_add\", get(stat.to_lower() + \"_add\") - 1)
 	get_tree().get_root().get_node(path_main_stats + stat + \"/HBoxContainer/TextureProgressBar\").value -= 1
 	if get(stat.to_lower() + \"_add\") == 0:
@@ -111,6 +110,8 @@ func decrease_stat(stat: String) -> void:
 func _on_visibility_changed() -> void:
 	if visible:
 		animation_player.play(\"fade-in\")
+	else:
+		reset_state()
 
 # Called when the save button is pressed.
 func _on_save_button_pressed() -> void:
@@ -120,7 +121,7 @@ func _on_save_button_pressed() -> void:
 		return
 	
 	# Create a dictionary with updated stat points and save it.
-	var stat_points_saved: Dictionary = {
+	var updated_stat_points_saved: Dictionary = {
 		\"mainVocalist\": PLAYER.stat_points_saved[\"mainVocalist\"] + mainvocalist_add,
 		\"rapper\": PLAYER.stat_points_saved[\"rapper\"] + rapper_add,
 		\"leadDancer\": PLAYER.stat_points_saved[\"leadDancer\"] + leaddancer_add,
@@ -129,9 +130,6 @@ func _on_save_button_pressed() -> void:
 		\"visual\": PLAYER.stat_points_saved[\"visual\"] + visual_add,
 		\"leadRapper\": PLAYER.stat_points_saved[\"leadRapper\"] + leadrapper_add,
 		\"username\": BKMREngine.Auth.logged_in_player
-	}
-	var updated_stat_points_saved: Dictionary = {
-		\"statPointsSaved\": stat_points_saved
 	}
 	BKMREngine.Profile.update_statpoints_saved(updated_stat_points_saved)
 
@@ -164,15 +162,14 @@ func _on_Stat_Update_Complete(data: Dictionary) -> void:
 
 # Callback function when the cancel button is pressed.
 func _on_cancel_button_pressed() -> void:
-	# Reset stat points, UI, and reload stats.
-	stat_points = PLAYER.stat_points
-	stat_points_display.text = str(PLAYER.stat_points)
+	reset_state()
 	
+func reset_state() -> void:
+	load_stats()
+	stat_points_display.text = str(PLAYER.stat_points)
 	save_button.modulate = \"7d7d7d\"
 	cancel_button.modulate = \"7d7d7d\"
-	load_stats()
-	
-	stat_points = 0
+	stat_points = PLAYER.stat_points
 	visual_add = 0
 	mainvocalist_add = 0
 	leadvocalist_add = 0
@@ -180,17 +177,15 @@ func _on_cancel_button_pressed() -> void:
 	leaddancer_add = 0
 	rapper_add = 0
 	leadrapper_add = 0
-	
 	# Disable minus buttons and reset change labels.
 	for button: TextureButton in get_tree().get_nodes_in_group(\"MinusButtons\"):
 		button.modulate = \"7d7d7d\"
-	
 	for label: Label in get_tree().get_nodes_in_group(\"ChangeLabels\"):
 		label.text = \"\"
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8724y"]
-bg_color = Color(0.113725, 0.0980392, 0.2, 1)
+bg_color = Color(0.00392157, 0.0588235, 0.0588235, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -220,7 +215,6 @@ _data = {
 }
 
 [node name="StatsModal" type="Control"]
-visible = false
 z_index = 1
 layout_mode = 3
 anchors_preset = 8
@@ -253,9 +247,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_8724y")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0237718
-anchor_top = 0.0373444
+anchor_top = 0.0248963
 anchor_right = 0.988907
-anchor_bottom = 0.975104
+anchor_bottom = 0.96888
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true

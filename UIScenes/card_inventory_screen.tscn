@@ -1,0 +1,609 @@
+[gd_scene load_steps=21 format=3 uid="uid://gmllsb3bdm2u"]
+
+[ext_resource type="Script" path="res://UIScenes/card_inventory_screen.gd" id="1_2vffs"]
+[ext_resource type="Texture2D" uid="uid://dwjyucfqohry6" path="res://UITextures/BGTextures/inventory_bg.png" id="2_wn8no"]
+[ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="3_kawcx"]
+[ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="4_l46n7"]
+[ext_resource type="Script" path="res://UIScenes/InventoryScroll.gd" id="5_oujch"]
+[ext_resource type="Texture2D" uid="uid://bw5krlc1axemo" path="res://UITextures/BGTextures/Inventory/ive_inventory_bg.png" id="6_2hair"]
+[ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="7_aj63t"]
+[ext_resource type="Texture2D" uid="uid://b14ylnyc3spjg" path="res://UITextures/GroupLogo/ive_logo.png" id="7_b8i3d"]
+[ext_resource type="Texture2D" uid="uid://muq2lcadw5j0" path="res://UITextures/BGTextures/Inventory/EmptySlot/yujin_empty_slot_bg.png" id="7_jv5co"]
+[ext_resource type="Script" path="res://Components/Inventory/ive_equipment_slot.gd" id="7_tqxdo"]
+[ext_resource type="Texture2D" uid="uid://p2oa17o0326v" path="res://UITextures/BGTextures/Inventory/EmptySlot/wonyoung_empty_slot_bg.png" id="8_i5r6j"]
+[ext_resource type="Texture2D" uid="uid://bnchxo7clqm8b" path="res://UITextures/BGTextures/Inventory/EmptySlot/liz_empty_slot_bg.png" id="9_1fopu"]
+[ext_resource type="Texture2D" uid="uid://dqxrvuynk81tq" path="res://UITextures/BGTextures/Inventory/EmptySlot/gaeul_empty_slot_bg.png" id="10_lqnwq"]
+[ext_resource type="Texture2D" uid="uid://bmfrid71nu5h5" path="res://UITextures/BGTextures/Inventory/EmptySlot/rei_empty_slot_bg.png" id="11_anuhq"]
+[ext_resource type="Texture2D" uid="uid://bphnoinnywdgo" path="res://UITextures/BGTextures/Inventory/EmptySlot/leeseo_empty_slot_bg.png" id="12_bytol"]
+[ext_resource type="PackedScene" uid="uid://d7lwkk74i4o1" path="res://Components/Inventory/item_stats.tscn" id="16_bcxqp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1tsup"]
+bg_color = Color(0, 0, 0, 0.556863)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.0823529, 0.8, 0.8, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ko1p5"]
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0.0431373, 0.0431373, 0.0431373, 1)
+shadow_size = 6
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="Animation" id="Animation_qnqui"]
+resource_name = "item_stats_slide"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemStats:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, -382), Vector2(1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dwomd"]
+_data = {
+"item_stats_slide": SubResource("Animation_qnqui")
+}
+
+[node name="CardInventoryScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2vffs")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+unique_name_in_owner = true
+self_modulate = Color(0.309804, 0.309804, 0.309804, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_wn8no")
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="TextureRect"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+offset_right = 68.0
+offset_bottom = 68.0
+mouse_filter = 0
+
+[node name="CloseButton" type="TextureButton" parent="TextureRect/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("3_kawcx")
+texture_hover = ExtResource("4_l46n7")
+
+[node name="CloseButton2" type="TextureButton" parent="TextureRect/VBoxContainer3"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("3_kawcx")
+texture_hover = ExtResource("4_l46n7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.712963
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="TextureRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 155)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00583333
+anchor_top = 0.0903226
+anchor_right = 0.930833
+anchor_bottom = 0.922581
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureButton" parent="TextureRect/VBoxContainer/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(83.6, 129)
+layout_mode = 2
+
+[node name="InventoryScroll" type="ScrollContainer" parent="TextureRect/VBoxContainer/Panel/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+script = ExtResource("5_oujch")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect/VBoxContainer/Panel/HBoxContainer/InventoryScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_left = 550
+theme_override_constants/margin_right = 900
+
+[node name="CardInventoryContainer" type="HBoxContainer" parent="TextureRect/VBoxContainer/Panel/HBoxContainer/InventoryScroll/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(10000, 129)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 7
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0566667
+anchor_right = 0.999167
+anchor_bottom = 0.701852
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="CenterContainer" type="CenterContainer" parent="TextureRect/ScrollContainer"]
+custom_minimum_size = Vector2(3000, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect/ScrollContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="EquipmentSlotContainer" type="HBoxContainer" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(5000, 377)
+layout_mode = 2
+
+[node name="IveEquip" type="VBoxContainer" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer"]
+custom_minimum_size = Vector2(1055, 0)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip"]
+custom_minimum_size = Vector2(1057, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_1tsup")
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel"]
+self_modulate = Color(0.239216, 0.239216, 0.239216, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -528.5
+offset_top = -178.5
+offset_right = 528.5
+offset_bottom = 178.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_2hair")
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0198676
+anchor_top = 0.022409
+anchor_right = 0.981079
+anchor_bottom = 0.997199
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 129)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Yujin" type="Panel" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(83.46, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
+
+[node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Yujin" groups=["CardSlot", "IveSlot"]]
+self_modulate = Color(0.729412, 0.729412, 0.729412, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_jv5co")
+expand_mode = 1
+script = ExtResource("7_tqxdo")
+
+[node name="Button" type="Button" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Yujin"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="Wonyoung" type="Panel" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(83.46, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
+
+[node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Wonyoung" groups=["CardSlot", "IveSlot"]]
+self_modulate = Color(0.729412, 0.729412, 0.729412, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_i5r6j")
+expand_mode = 1
+script = ExtResource("7_tqxdo")
+
+[node name="Button" type="Button" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Wonyoung"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="Liz" type="Panel" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(83.46, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
+
+[node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Liz" groups=["CardSlot", "IveSlot"]]
+self_modulate = Color(0.729412, 0.729412, 0.729412, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_1fopu")
+expand_mode = 1
+script = ExtResource("7_tqxdo")
+
+[node name="Button" type="Button" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Liz"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Label" type="Label" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Yujin"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Wonyoung"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Liz"
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 129)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Gaeul" type="Panel" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(83.46, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
+
+[node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Gaeul" groups=["CardSlot", "IveSlot"]]
+self_modulate = Color(0.686275, 0.686275, 0.686275, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_lqnwq")
+expand_mode = 1
+script = ExtResource("7_tqxdo")
+
+[node name="Button" type="Button" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Gaeul"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="Rei" type="Panel" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(83.46, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
+
+[node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Rei" groups=["CardSlot", "IveSlot"]]
+self_modulate = Color(0.686275, 0.686275, 0.686275, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_anuhq")
+expand_mode = 1
+script = ExtResource("7_tqxdo")
+
+[node name="Button" type="Button" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Rei"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="Leeseo" type="Panel" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(83.46, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
+
+[node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Leeseo" groups=["CardSlot", "IveSlot"]]
+self_modulate = Color(0.686275, 0.686275, 0.686275, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_bytol")
+expand_mode = 1
+script = ExtResource("7_tqxdo")
+
+[node name="Button" type="Button" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Leeseo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Label" type="Label" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer5"]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Gaeul"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer5"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Rei"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer5"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Leeseo"
+horizontal_alignment = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(120, 30)
+layout_mode = 2
+texture_normal = ExtResource("7_aj63t")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 13
+text = "Equip Set"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton2" type="TextureButton" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(120, 30)
+layout_mode = 2
+texture_normal = ExtResource("7_aj63t")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 13
+text = "Equip Best"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton3" type="TextureButton" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(120, 30)
+layout_mode = 2
+texture_normal = ExtResource("7_aj63t")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 13
+text = "Uneuip"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VboxContainer" type="VBoxContainer" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.44
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
+custom_minimum_size = Vector2(92.4, 120)
+layout_mode = 2
+texture = ExtResource("7_b8i3d")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "IVE"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Equipped Skills"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="IVESkillIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer" groups=["IveSkill"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(66, 66)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 1
+
+[node name="IVESkillIcon2" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer" groups=["IveSkill"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(66, 66)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="IVESkillIcon3" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer2" groups=["IveSkill"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(66, 66)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/IveEquip/Panel/TextureRect/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Card Inventory Stats"
+horizontal_alignment = 1
+
+[node name="ItemStats" parent="." instance=ExtResource("16_bcxqp")]
+unique_name_in_owner = true
+z_index = 0
+layout_mode = 1
+offset_top = -0.000213623
+offset_bottom = -0.000212193
+
+[node name="FilterPanel" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_dwomd")
+}
+
+[connection signal="item_stats_card_data" from="." to="ItemStats" method="_on_card_inventory_screen_item_stats_card_data"]
+[connection signal="pressed" from="TextureRect/VBoxContainer3/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="TextureRect/VBoxContainer3/CloseButton2" to="." method="_on_close_button_pressed"]
+[connection signal="gui_input" from="TextureRect/VBoxContainer/Panel/HBoxContainer/InventoryScroll" to="TextureRect/VBoxContainer/Panel/HBoxContainer/InventoryScroll" method="_on_gui_input"]
+[connection signal="close_item_stats_pressed" from="ItemStats" to="." method="_on_item_stats_close_item_stats_pressed"]
+[connection signal="equip_unequip_pressed" from="ItemStats" to="." method="_on_item_stats_equip_unequip_pressed"]

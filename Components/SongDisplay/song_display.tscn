@@ -1,0 +1,332 @@
+[gd_scene load_steps=13 format=3 uid="uid://j6g3c714j8u2"]
+
+[ext_resource type="Script" path="res://Components/SongDisplay/song_display.gd" id="1_g74vl"]
+[ext_resource type="Texture2D" uid="uid://naup1ns6qyy" path="res://UITextures/PanelElements/song_display.png" id="2_yho8l"]
+[ext_resource type="Texture2D" uid="uid://crq85ijvocfbm" path="res://UITextures/SongMenu/antifragile.png" id="3_jkifp"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="4_5hrhr"]
+[ext_resource type="Texture2D" uid="uid://4euq5v0yi5wh" path="res://UITextures/Progress/song_exp.png" id="5_s462h"]
+[ext_resource type="Texture2D" uid="uid://d2liwvto7p64l" path="res://UITextures/Progress/player_exp_base.png" id="6_ip67h"]
+[ext_resource type="Texture2D" uid="uid://74d22xpi5g4s" path="res://UITextures/Progress/player_exp_progress.png" id="7_30xba"]
+[ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="8_d7nbb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dgorp"]
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0.6, 0.6, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+anti_aliasing_size = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eegfq"]
+bg_color = Color(0, 0.6, 0.6, 0.894118)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0.937255, 0.937255, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing_size = 9.856
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_25ijq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lwl0m"]
+
+[node name="SongDisplay" type="Control" groups=["SongDisplay"]]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -2.0
+offset_right = 298.0
+offset_bottom = 200.0
+scale = Vector2(1.3, 1.3)
+mouse_filter = 1
+script = ExtResource("1_g74vl")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -260.0
+offset_bottom = -160.0
+texture = ExtResource("2_yho8l")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="SongArt" type="TextureRect" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0666667
+anchor_top = 0.055
+anchor_right = 0.963333
+anchor_bottom = 0.945
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_jkifp")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="HBoxContainer" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.025641
+anchor_top = -0.0961538
+anchor_right = 0.958974
+anchor_bottom = 0.0388462
+metadata/_edit_use_anchors_ = true
+
+[node name="SongTitle" type="Label" parent="TextureRect/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("4_5hrhr")
+theme_override_font_sizes/font_size = 20
+text = "Title"
+horizontal_alignment = 1
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Artist" type="Label" parent="TextureRect/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("4_5hrhr")
+theme_override_font_sizes/font_size = 20
+text = "Title"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0307692
+anchor_top = 0.796154
+anchor_right = 0.969231
+anchor_bottom = 1.39615
+offset_right = -3.05176e-05
+theme_override_constants/separation = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 120)
+layout_mode = 2
+texture = ExtResource("5_s462h")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="VBoxContainer/HBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0966667
+anchor_top = 0.2
+anchor_right = 0.613333
+anchor_bottom = 0.691667
+nine_patch_stretch = true
+texture_under = ExtResource("6_ip67h")
+texture_progress = ExtResource("7_30xba")
+metadata/_edit_use_anchors_ = true
+
+[node name="Rating" type="Label" parent="VBoxContainer/HBoxContainer/TextureRect/TextureProgressBar"]
+visible = false
+layout_mode = 0
+offset_left = 27.1538
+offset_top = 33.6923
+offset_right = 85.1538
+offset_bottom = 60.6923
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("4_5hrhr")
+theme_override_font_sizes/font_size = 16
+text = "Rating"
+horizontal_alignment = 1
+
+[node name="Bpm3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/TextureRect/TextureProgressBar"]
+custom_minimum_size = Vector2(100, 21)
+layout_mode = 0
+offset_left = 205.0
+offset_top = 17.0
+offset_right = 305.0
+offset_bottom = 38.0
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/TextureRect/TextureProgressBar/Bpm3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("4_5hrhr")
+theme_override_font_sizes/font_size = 16
+text = "BPM:"
+
+[node name="Bpm" type="Label" parent="VBoxContainer/HBoxContainer/TextureRect/TextureProgressBar/Bpm3"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("4_5hrhr")
+theme_override_font_sizes/font_size = 16
+text = "120"
+
+[node name="Rating" type="Label" parent="VBoxContainer/HBoxContainer/TextureRect"]
+layout_mode = 0
+offset_left = 164.615
+offset_top = 40.7692
+offset_right = 222.615
+offset_bottom = 67.7692
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("4_5hrhr")
+theme_override_font_sizes/font_size = 16
+text = "0%"
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 99.2308
+offset_top = 223.077
+offset_right = 383.231
+offset_bottom = 244.077
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 21)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("4_5hrhr")
+theme_override_font_sizes/font_size = 14
+text = "HIGH SCORE:"
+
+[node name="HighScoreLabel" type="Label" parent="HBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(139, 21)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("4_5hrhr")
+theme_override_font_sizes/font_size = 14
+text = "0"
+
+[node name="InitiateStartButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.769231
+offset_right = -0.769226
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="StartPanel" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00666667
+anchor_top = 0.025
+anchor_right = 0.993333
+anchor_bottom = 1.34
+theme_override_styles/panel = SubResource("StyleBoxFlat_dgorp")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="StartPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.003367
+anchor_top = 0.127208
+anchor_right = 1.0
+anchor_bottom = 0.572438
+theme_override_styles/panel = SubResource("StyleBoxFlat_eegfq")
+metadata/_edit_use_anchors_ = true
+
+[node name="StartButton" type="Button" parent="StartPanel/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.769231
+offset_right = -0.769226
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_25ijq")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_lwl0m")
+flat = true
+
+[node name="Label" type="Label" parent="StartPanel/Panel/StartButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.0341881
+anchor_right = 1.01024
+anchor_bottom = 0.518315
+theme_override_fonts/font = ExtResource("4_5hrhr")
+theme_override_font_sizes/font_size = 35
+text = "LET'S GO!"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label2" type="Label" parent="StartPanel/Panel/StartButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.235653
+anchor_right = 1.01024
+anchor_bottom = 1.06899
+theme_override_fonts/font = ExtResource("4_5hrhr")
+theme_override_font_sizes/font_size = 80
+text = "START"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CancelButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.88718
+anchor_top = -0.119231
+anchor_right = 0.98718
+anchor_bottom = 0.0307692
+offset_right = 2.0
+offset_bottom = 2.0
+texture_normal = ExtResource("8_d7nbb")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="CancelLabel" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 221.538
+offset_top = -11.5385
+offset_right = 285.538
+offset_bottom = 15.4615
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("4_5hrhr")
+theme_override_font_sizes/font_size = 12
+text = "Cancel"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="InitiateStartButton" to="." method="_on_initiate_start_button_pressed"]
+[connection signal="pressed" from="StartPanel/Panel/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CancelButton" to="." method="_on_cancel_button_pressed"]

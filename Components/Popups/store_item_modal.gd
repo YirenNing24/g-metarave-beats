@@ -118,7 +118,7 @@ func _on_close_button_pressed() -> void:
 	await animation_player.animation_finished
 	
 	# Hide the control
-	hide()
+	visible = false
 
 # Handle buy button press.
 #
@@ -141,7 +141,7 @@ func _on_buy_button_pressed() -> void:
 	print("test")
 	
 	# Show the loading filter
-	loading_filter.show()
+	loading_filter.visible = true
 	
 	# Play the "buy_loading" animation
 	animation_player.play("buy_loading")
@@ -199,4 +199,4 @@ func _on_close_transaction_pressed() -> void:
 	await animation_player.animation_finished
 	
 	# Hide the control
-	hide()
+	visible = false

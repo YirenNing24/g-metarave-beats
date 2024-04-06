@@ -1,4 +1,11 @@
-[gd_scene format=3 uid="uid://j1ox362pqin7"]
+[gd_scene load_steps=7 format=3 uid="uid://j1ox362pqin7"]
+
+[ext_resource type="Script" path="res://GameComponents/UserHUD/userhud.gd" id="1_5118n"]
+[ext_resource type="Texture2D" uid="uid://4euq5v0yi5wh" path="res://UITextures/Progress/song_exp.png" id="1_jofs5"]
+[ext_resource type="Texture2D" uid="uid://d2liwvto7p64l" path="res://UITextures/Progress/player_exp_base.png" id="2_j4g7n"]
+[ext_resource type="Texture2D" uid="uid://74d22xpi5g4s" path="res://UITextures/Progress/player_exp_progress.png" id="3_3qn4g"]
+[ext_resource type="Texture2D" uid="uid://dqvuj8xqovy43" path="res://UITextures/Progress/score_progress.png" id="5_wco1r"]
+[ext_resource type="Texture2D" uid="uid://bo2cod3i2s70d" path="res://UITextures/Buttons/Skill/heal_skill_texture.png" id="6_qr71n"]
 
 [node name="UserHUD" type="Control"]
 layout_mode = 3
@@ -7,3 +14,152 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_5118n")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_jofs5")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="HealthBar" type="TextureProgressBar" parent="VBoxContainer/HBoxContainer/HBoxContainer/TextureRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.2
+anchor_right = 0.89
+anchor_bottom = 0.686667
+value = 100.0
+texture_under = ExtResource("2_j4g7n")
+texture_progress = ExtResource("3_3qn4g")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.23
+anchor_top = 0.466667
+anchor_right = 0.496667
+anchor_bottom = 0.686667
+theme_override_font_sizes/font_size = 20
+text = "LIFE"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="UsernameLabel" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer/TextureRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.233333
+anchor_top = 0.14
+anchor_right = 0.56
+anchor_bottom = 0.36
+theme_override_font_sizes/font_size = 20
+text = "kaetaro13"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_wco1r")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer2/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.196667
+anchor_top = 0.233333
+anchor_right = 0.876667
+anchor_bottom = 0.493333
+metadata/_edit_use_anchors_ = true
+
+[node name="Momentum Label" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer2/TextureRect/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "SCORE"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ScoreLabel" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer2/TextureRect/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "999,999,999,999"
+horizontal_alignment = 2
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer2/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.293333
+anchor_top = 0.0733333
+anchor_right = 0.663333
+anchor_bottom = 0.226667
+theme_override_font_sizes/font_size = 16
+text = "WARMING UP!"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(1095, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
+visible = false
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+texture_normal = ExtResource("6_qr71n")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureButton2" type="TextureButton" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+texture_normal = ExtResource("6_qr71n")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureButton3" type="TextureButton" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+texture_normal = ExtResource("6_qr71n")
+ignore_texture_size = true
+stretch_mode = 0

@@ -1,6 +1,7 @@
-# Node representing a long musical note in a 3D space.
 extends Node3D
 
+signal hit_continued_feedback(accuracy: int, line: int)
+signal hit_feedback(accuracy: int, line: int)
 # Mesh instance representing the visual body of the note.
 @onready var note_body: MeshInstance3D = get_node("NoteMesh/NoteBody")
 # Area3D representing the collision area of the note.
@@ -35,13 +36,11 @@ var time_delay: float = 0.1
 var time: float = 0
 var hold: int = 0
 var captured: bool = false
-var note_name: String = "long_note"
 
 # Initialize the note when ready.
 func _ready() -> void:
 	# Set the position of the note and add it to the "note" group.
 	set_note_position() 
-	note_area.add_to_group("note")
 	
 	# Connect the _on_area_entered function to the area_entered signal.
 	var _note_connect: int = note_area.area_entered.connect(_on_area_entered)
@@ -49,26 +48,26 @@ func _ready() -> void:
 	# Calculate and set the current length of the note and update the beam scale.
 	curr_length_in_m = max(100, length - 100) * length_scale
 	beam.scale.z = curr_length_in_m
-
+	
+	print(beam.scale.z)
 # Set the position of the note based on the specified line and layer.
 func set_note_position() -> void:
-	var z: float
-	
 	# Determine the z-coordinate based on the specified line.
-	if line == 1:
-		z = -1.79
-	elif line == 2:
-		z = -0.89
-	elif line == 3:
-		z = 0
-	elif line == 4:
-		z = 0.89
-	elif line == 5:
-		z = 1.79
+	var z: float
+	match line:
+		1:
+			z = -1.79
+		2:
+			z = -0.89
+		3:
+			z = 0
+		4:
+			z = 0.89
+		5:
+			z = 1.79
 	
 	# Set the position of the note in 3D space.
 	position = Vector3(z, layer, -note_position * length_scale)
-
 
 # Handle the process logic for the note.
 # Parameters:
@@ -79,13 +78,13 @@ func set_note_position() -> void:
 # func _process(_delta: float) -> void:
 #     handle_note_process(_delta)
 # ```
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	# Check if the picker is present or if the current note is being collected by another picker.
 	if not picker or (picker.note_collect != null and picker.note_collect != self): 
 		return
-	
-	# Check if the note is colliding and not canceled.
-	if is_colliding and not hold_canceled:
+
+	# Check if the note is colliding.
+	if is_colliding:
 		# Check if the picker is collecting the note and the note has not been collected.
 		if picker.is_collecting and not collected:
 			collect()
@@ -96,23 +95,28 @@ func _process(_delta: float) -> void:
 			hold_canceled = true
 			picker.note_collect = null
 			picker.is_collecting = false
-	
+	else:
+		# If the hold was started and not canceled, trigger long_note_hold.
+		if hold_started and not hold_canceled:
+			long_note_hold()
+			hold_canceled = true  # Ensure it's only triggered once.
+
 	# Check if the hold is started and not canceled.
 	if hold_started and not hold_canceled:
 		# Update the current length of the note.
-		curr_length_in_m -= speed.z * _delta
+		curr_length_in_m -= speed.z * delta
 		note_collecting = true
-		
+
+		#beam.scale.z -= delta
 		# Check if the note is still collecting and the current length is greater than 0.
 		if note_collecting and curr_length_in_m > 0:
 			# Update the time and trigger the long note hold if the time delay is reached.
-			time += _delta
+			time += delta
 			if time > time_delay:
 				long_note_hold()
 				time = 0
 		else:
 			note_collecting = false
-
 
 # Handle the continued holding of a long note.
 #
@@ -121,8 +125,7 @@ func _process(_delta: float) -> void:
 # long_note_hold()
 # ```
 func long_note_hold() -> void:
-	print(accuracy)
-	pass
+	hit_continued_feedback.emit(accuracy, line)
 	# ui.hit_continued_feedback(accuracy, line)
 
 # Collect the note and provide feedback.
@@ -140,6 +143,7 @@ func collect(is_miss: bool = false) -> void:
 
 	if is_miss and beam != null:
 		pass
+	hit_feedback.emit(accuracy, line)
 		# "%Beam".get_node("Particles").hide()
 
 	# ui.hit_feedback(accuracy, line)

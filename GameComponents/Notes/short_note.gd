@@ -1,5 +1,6 @@
-# Node3D representing a short musical note.
 extends Node3D
+
+signal hit_feedback(accuracy: int, line: int)
 
 # Mesh instance representing the visual body of the note.
 @onready var note_body: MeshInstance3D = get_node("NoteMesh/NoteBody")
@@ -10,8 +11,6 @@ extends Node3D
 var line: int
 # Layer position of the note.
 var layer: float = 0
-# Name of the note (short_note in this case).
-var note_name: String = "short_note"
 # Position of the note within the line.
 var note_position: int = 0
 # Length of the note.
@@ -37,7 +36,6 @@ var concurrent: Array = []
 # Initialization method called when the node is ready.
 func _ready() -> void:
 	set_note_position()
-	note_area.add_to_group("note")
 	var _note_connect: int = note_area.area_entered.connect(_on_area_entered)
 
 # Process method called on every frame.
@@ -60,7 +58,7 @@ func collect(is_miss: bool = false) -> void:
 		note_body.visible = false
 	if not is_miss:
 		picker.note_collect = self
-	print(accuracy)
+	hit_feedback.emit(accuracy, line)
 	#game_ui.hit_feedback(accuracy, line)
 	#game_ui.add_score()
 

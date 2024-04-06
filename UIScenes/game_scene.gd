@@ -1,3 +1,5 @@
+
+
 # Class extending Node3D to manage the gameplay environment.
 extends Node3D
 
@@ -33,7 +35,7 @@ func _ready() -> void:
 func set_variables() -> void:
 	map_file = SONG.map_selected.map_file
 	map = load_map()
-
+ 
 # Function to calculate parameters based on the loaded map.
 func calculate_params() -> void:
 	var song_tempo: int = map.tempo
@@ -57,17 +59,14 @@ func load_map() -> Dictionary:
 		var result: Dictionary = json.data
 		return result
 	else:
-		return {}
+		return {} as Dictionary
 
 # Function to set up the gameplay nodes (music and road).
 func setup_nodes() -> void:
-	music.setup(self)
 	road.setup(self)
-
+	music.setup(self)
+	
 # Placeholder function for building the game map.
 func build_map(_empty: String) -> void:
 	pass
 
-# Placeholder function called when the game map is finished.
-func map_finished() -> void:
-	pass

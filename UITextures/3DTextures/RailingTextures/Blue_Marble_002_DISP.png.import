@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cgxvigqrsd5b1"
 path.s3tc="res://.godot/imported/Blue_Marble_002_DISP.png-03c7c27688c239dff8f1bc05579c23bd.s3tc.ctex"
+path.etc2="res://.godot/imported/Blue_Marble_002_DISP.png-03c7c27688c239dff8f1bc05579c23bd.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_DISP.png"
-dest_files=["res://.godot/imported/Blue_Marble_002_DISP.png-03c7c27688c239dff8f1bc05579c23bd.s3tc.ctex"]
+dest_files=["res://.godot/imported/Blue_Marble_002_DISP.png-03c7c27688c239dff8f1bc05579c23bd.s3tc.ctex", "res://.godot/imported/Blue_Marble_002_DISP.png-03c7c27688c239dff8f1bc05579c23bd.etc2.ctex"]
 
 [params]
 

@@ -8,7 +8,9 @@ const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 signal view_profile_complete
 signal follow_complete
 signal unfollow_complete
-signal get_mutual_complete
+signal get_mutual_complete(mutual_list: Array)
+#signal set_status_online_complete
+signal get_mutual_status_complete
 
 # Host URL for server communication.
 var host: String = BKMREngine.host
@@ -26,9 +28,16 @@ var wrUnfollow: WeakRef
 var Mutual: HTTPRequest
 var wrMutual: WeakRef
 
+var OnlineStatus: HTTPRequest
+var wrOnlineStatus: WeakRef
+
+var MutualStatus: HTTPRequest
+var wrMutualStatus: WeakRef
+
 # Data containers for player profile, follow response, and mutual followers.
 var player_profile: Dictionary 
 var follow_response: Dictionary
+var mutual_status: Array
 var mutual_followers: Array
 
 # Function to view a player's profile.
@@ -52,7 +61,7 @@ func view_profile(username: String) -> Node:
 	var request_url: String = host + "/api/social/viewprofile/" + username
 	
 	# Send the GET request to view the player's profile.
-	var _get_store_cards: Error = await BKMREngine.send_get_request(ViewProfile, request_url)
+	await BKMREngine.send_get_request(ViewProfile, request_url)
 	
 	# Return the current Node.
 	return self
@@ -210,20 +219,15 @@ func get_mutual() -> Node:
 	BKMRLogger.info("Calling BKMREngine to get mutual followers data")
 	
 	# Specify the request URL for retrieving mutual followers data.
-	var request_url: String = host + "/api/social/mutual"
+	var request_url: String = host + "/api/social/list/mutual"
 	
 	# Initiate the GET request and await its completion.
-	var _get_mutuals: Error = await BKMREngine.send_get_request(Mutual, request_url)
+	await BKMREngine.send_get_request(Mutual, request_url)
 	
 	# Return self for method chaining.
 	return self
 
 # Callback function invoked upon completion of the get_mutual request.
-# Parameters:
-# - _result (int): The result of the HTTP request.
-# - response_code (int): The HTTP response code.
-# - headers (Array): An array containing the HTTP response headers.
-# - body (PackedByteArray): The packed byte array containing the response body.
 func _onGetMutual_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
@@ -235,10 +239,93 @@ func _onGetMutual_request_completed(_result: int, response_code: int, headers: A
 	# Process the response data if the status check is successful.
 	if status_check:
 		# Parse the response body as a JSON array.
-		var json_body: Array = JSON.parse_string(body.get_string_from_utf8())
-		
-		# Assign the parsed data to the mutual_followers variable.
-		mutual_followers = json_body
-		
-		# Emit the signal to indicate the completion of the get_mutual request.
-		get_mutual_complete.emit()
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body != null:
+			# Assign the parsed data to the mutual_followers variable.
+			mutual_followers = json_body
+			
+			# Emit the signal to indicate the completion of the get_mutual request.
+			get_mutual_complete.emit(json_body)
+		else:
+			pass
+
+func set_status_online(activity: String) -> Node:
+	# Check the HTTP response status.
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	OnlineStatus = prepared_http_req.request
+	wrOnlineStatus = prepared_http_req.weakref
+	
+	# Connect the callback function to handle the completion of the follow request.
+	var _set_status: int = OnlineStatus.request_completed.connect(_onSetStatus_Online_request_completed)
+	
+	var user_agent: String = OS.get_unique_id()
+	var os_name: String = OS.get_name()
+
+	# Prepare the payload with the activity and device info.
+	var payload: Dictionary = { "activity": activity, "userAgent": user_agent, "osName": os_name }
+	
+	# Construct the request URL.
+	var request_url: String = host + "/api/social/status/online"
+	
+	# Send the POST request to initiate the follow action.
+	BKMREngine.send_post_request(OnlineStatus, request_url, payload)
+	
+	# Return the current node for method chaining.
+	return self
+
+func _onSetStatus_Online_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check the HTTP response status.
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	
+	# Free the request resources if the HTTP response is valid.
+	if is_instance_valid(OnlineStatus):
+		BKMREngine.free_request(wrOnlineStatus, OnlineStatus)
+	
+	# Process the response body if the HTTP status check is successful.
+	if status_check:
+		pass
+
+
+func get_mutual_status() -> Node:
+	# Prepare HTTP request resources.
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	MutualStatus = prepared_http_req.request
+	wrMutualStatus  = prepared_http_req.weakref
+	
+	# Connect the callback function for handling mutual followers request completion.
+	var _mutuals_status: int = MutualStatus.request_completed.connect(_on_MutualStatus_request_completed)
+	
+	# Specify the request URL for retrieving mutual followers data.
+	var request_url: String = host + "/api/social/mutual/online"
+	
+	# Initiate the GET request and await its completion.
+	await BKMREngine.send_get_request(MutualStatus, request_url)
+	
+	# Return self for method chaining.
+	return self
+
+# Callback function invoked upon completion of the get_mutual request.
+# Parameters:
+# - _result (int): The result of the HTTP request.
+# - response_code (int): The HTTP response code.
+# - headers (Array): An array containing the HTTP response headers.
+# - body (PackedByteArray): The packed byte array containing the response body.
+func _on_MutualStatus_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check the HTTP response status.
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	# Free resources associated with the HTTP request if valid.
+	if is_instance_valid(MutualStatus):
+		BKMREngine.free_request(wrMutualStatus, MutualStatus)
+	
+	# Process the response data if the status check is successful.
+	if status_check:
+		# Parse the response body as a JSON array.
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body != null:
+			# Assign the parsed data to the mutual_followers variable.
+			mutual_status = json_body
+			
+			# Emit the signal to indicate the completion of the get_mutual request.
+			get_mutual_status_complete.emit()
+		else:
+			pass

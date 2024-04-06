@@ -1,15 +1,21 @@
 extends Control
+#NOTE afer canceling song select the song displays scroll on its own
+#NOTE preview music not playing when selecting a song from the song displays
 
 @onready var background_texture: TextureRect = %BackgroundTexture
 @onready var audio_player: AudioStreamPlayer = %AudioStreamPlayer
-@onready var song_scroll: ScrollContainer = %ScrollContainer
+@onready var song_scroll_container: ScrollContainer = %SongScrollContainer
 @onready var song_list_container: HBoxContainer = %HBoxContainer
 
 @onready var energy_balance: Label = %EnergyBalance
 @onready var beats_balance: Label = %BeatsBalance
 @onready var kmr_balance: Label = %KMRBalance
 
-var song_display: PackedScene = preload("res://Components/SongDisplay/SongDisplay.tscn")
+@onready var difficulty_label: Label = %DifficultyLabel
+@onready var left_difficulty_button: TextureButton = %LeftDifficultyButton
+@onready var right_difficulty_button: TextureButton = %RightDifficultyButton
+
+var song_display: PackedScene = preload("res://Components/SongDisplay/song_display.tscn")
 var songs_directory: String = "res://Songs/"
 var song_files: Array
 var map_changed: bool = false
@@ -17,19 +23,33 @@ var selected_map: String
 
 var difficulty: Array = ['easy', 'medium', 'hard', 'ultra hard']
 var difficulty_mode: String = "easy" #default
-var tween: Tween
 
 # Ready function called when the node and its children are added to the scene.
 func _ready() -> void:
 	# Initialize and set up the UI elements, connect signals.
+	BKMREngine.Score.get_classic_highscore_complete.connect(on_get_classic_high_score_complete)
 	parse_song_files()
 	list_songs()
 	hud_data()
-	var _song_selected: int = SONG.set_selected_map.connect(set_selected_map)
+	get_classic_high_score()
+	
+	left_difficulty_button.disabled = true
+	left_difficulty_button.modulate = "ffffff68"
+
+func on_get_classic_high_score_complete(high_scores: Array) -> void:
+	for score: Dictionary in high_scores:
+		for song: Control in song_list_container.get_children():
+			if song.name == score.scoreStats.finalStats.songName:
+				var high_score: String = str(score.scoreStats.finalStats.score)
+				var formatted_high_score: String = format_scores(high_score)
+				song.get_node("HBoxContainer2/HBoxContainer/HighScoreLabel").text = formatted_high_score
+				
+func get_classic_high_score() -> void:
+	BKMREngine.Score.get_classic_high_score()
 
 # Initialize HUD data, such as energy, beats, and kmr balances.
 func hud_data() -> void:
-	energy_balance.text = "500 Energy to do"
+	energy_balance.text = "0"
 	beats_balance.text = PLAYER.beats_balance
 	kmr_balance.text = PLAYER.kmr_balance
 
@@ -53,7 +73,6 @@ func parse_song_files() -> void:
 				# Recursively search subdirectories.
 				file_names += search_dir(songs_directory + file_name)
 			file_name = dir.get_next()
-
 		dir.list_dir_end()
 
 		# Parse each song file.
@@ -76,7 +95,7 @@ func parse_song_file(file_name_entry: Array) -> void:
 		var content: String = file.get_as_text()
 		file.close()
 		var content_json: Dictionary = JSON.parse_string(content)
-
+		
 		# Update file paths in the content JSON.
 		content_json.audio_file = song_file_dir + "/" + content_json.audio_file
 		content_json.map_file = song_file_dir + "/" + song_file_name
@@ -102,9 +121,9 @@ func search_dir(dir_name: String) -> Array:
 				file_names += search_dir(dir_name + "/" + file_name)
 			file_name = dir.get_next()
 
-		return file_names
+		return file_names as Array
 	else:
-		return []
+		return [] as Array
 
 # List the parsed songs in the UI.
 func list_songs() -> void:
@@ -115,6 +134,11 @@ func list_songs() -> void:
 		var song_title: String = 'UITextures/SongMenu/' + song.audio.title.to_lower() + '.png'
 		songs.get_node("TextureRect/SongArt").texture = load(song_title)
 		song_list_container.add_child(songs)
+		
+		songs.song_selected.connect(song_selected)
+		songs.song_selected.connect(song_unfocused_selected.bind(songs.get_index()))
+		songs.song_started.connect(song_start)
+		songs.song_canceled.connect(song_cancel)
 
 # Callback function to set the selected map when a song is chosen.
 func set_selected_map(audio_file: String) -> void:
@@ -123,11 +147,11 @@ func set_selected_map(audio_file: String) -> void:
 		selected_map = SONG.map_selected.song_folder
 		play_song(audio_file)
 
-# Play the selected song.
+# Previe Play the selected song.
 func play_song(path: String) -> void:
-	var stream: AudioStreamOggVorbis = AudioStreamOggVorbis.load_from_file(path)
+	var stream: AudioStreamOggVorbis = ResourceLoader.load(path)
 	audio_player.set_stream(stream)
-	audio_player.play(stream.get_length() / 2)
+	#audio_player.play(stream.get_length() / 2)
 
 # Callback function for the close button pressed signal.
 func _on_close_button_pressed() -> void:
@@ -138,7 +162,59 @@ func _on_close_button_pressed() -> void:
 	var _main_screen: int = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
 
 # Callable function for song selection in the UI.
-func song_selected() -> Callable:
-	# Load the game scene when a song is selected.
+func song_selected(_song_display: Control) -> void:
+	song_scroll_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+func song_cancel() -> void:
+	song_scroll_container.mouse_filter = Control.MOUSE_FILTER_PASS
+
+func song_unfocused_selected(_song_display: Control, index: int) -> void:
+	song_scroll_container.song_unfocused_selected(index) 
+		 
+func song_start(song_file: String) -> void:
+	SONG.difficulty = difficulty_mode
+	set_selected_map(song_file)  
 	var _game_scene: int = await LOADER.load_scene(self, "res://UIScenes/game_scene.tscn")
-	return song_selected
+	
+	
+func _on_left_difficulty_button_pressed() -> void:
+	var current_difficulty: int = difficulty.find(difficulty_mode)
+	if current_difficulty != 0:  
+		var new_difficulty: String = difficulty[current_difficulty - 1]
+		difficulty_mode = new_difficulty
+		difficulty_update()
+		right_difficulty_button.disabled = false
+		right_difficulty_button.modulate = "ffffff"
+	if difficulty_mode == "easy":
+		left_difficulty_button.disabled = true
+		left_difficulty_button.modulate = "ffffff68"
+		
+func _on_right_difficulty_button_pressed() -> void:
+	var current_difficulty: int = difficulty.find(difficulty_mode)
+	if current_difficulty != 3:
+		var new_difficulty: String = difficulty[current_difficulty + 1]
+		difficulty_mode = new_difficulty
+		difficulty_update()
+		left_difficulty_button.disabled = false
+		left_difficulty_button.modulate = "ffffff"
+	if difficulty_mode == "ultra hard":
+		right_difficulty_button.disabled = true
+		right_difficulty_button.modulate = "ffffff68"
+		
+func difficulty_update() -> void:
+	difficulty_label.text = difficulty_mode
+	
+func format_scores(value: String) -> String:
+	var parts: Array = value.split(".")
+	var wholePart: String = parts[0]
+	
+	# Add commas for every three digits in the whole part.
+	var formattedWholePart: String = ""
+	var digitCount: int = 0
+	for i: int in range(wholePart.length() - 1, -1, -1):
+		formattedWholePart = wholePart[i] + formattedWholePart
+		digitCount += 1
+		if digitCount == 3 and i != 0:
+			formattedWholePart = "," + formattedWholePart
+			digitCount = 0
+	return formattedWholePart as String

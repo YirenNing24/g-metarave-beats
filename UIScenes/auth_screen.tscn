@@ -1,22 +1,28 @@
-[gd_scene load_steps=29 format=3 uid="uid://cfnseobkn66fh"]
+[gd_scene load_steps=37 format=3 uid="uid://cfnseobkn66fh"]
 
 [ext_resource type="Script" path="res://UIScenes/auth_screen.gd" id="1_fahu6"]
-[ext_resource type="Texture2D" uid="uid://d3gybnopjgs8s" path="res://UITextures/BGTextures/auth.png" id="2_x3gdp"]
+[ext_resource type="Texture2D" uid="uid://ba8q012bmx1s0" path="res://UITextures/BGTextures/purple-gradient.png" id="2_qlg4t"]
+[ext_resource type="Texture2D" uid="uid://bm26eeb5rxdbj" path="res://UITextures/Buttons/PanelTextures/suhye_auth_hero.png" id="3_7b75v"]
 [ext_resource type="Texture2D" uid="uid://b6j0jwl75qvpb" path="res://UITextures/Buttons/PanelTextures/auth_hero_bg.png" id="3_ccr1n"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_wtii2"]
-[ext_resource type="Texture2D" uid="uid://cn0pcifiy57lr" path="res://UITextures/Buttons/PanelTextures/auth_hero.png" id="4_5vveb"]
 [ext_resource type="Texture2D" uid="uid://bruw7jin81awf" path="res://UITextures/Buttons/PanelTextures/auth_hero_bg1.png" id="4_atrg8"]
 [ext_resource type="StyleBox" uid="uid://dpaedph31g6t5" path="res://UITextures/CustomResource/auth_screen_normal.tres" id="6_0mn33"]
 [ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="6_33msh"]
 [ext_resource type="StyleBox" uid="uid://b7dkk3cdsrviw" path="res://UITextures/CustomResource/auth_line_field.tres" id="6_w6605"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="8_1trul"]
-[ext_resource type="Texture2D" uid="uid://c64od33m4dlqm" path="res://UITextures/Buttons/PanelTextures/reg_success_bg.png" id="9_7eitc"]
-[ext_resource type="Texture2D" uid="uid://bu1qdx048p0nw" path="res://UITextures/Buttons/PanelTextures/reg_sucess_hero.png" id="10_duk5g"]
+[ext_resource type="Texture2D" uid="uid://dw3fdixdhhqyl" path="res://UITextures/ThirdPartyTextures/google_logo.png" id="10_3x61y"]
 [ext_resource type="Texture2D" uid="uid://b7ss828fwkixd" path="res://UITextures/Progress/base.png" id="10_wwgtq"]
 [ext_resource type="Texture2D" uid="uid://3gu5u20frmdr" path="res://UITextures/Progress/progress.png" id="11_xngx2"]
+[ext_resource type="Texture2D" uid="uid://cxiv2m0fuhlsm" path="res://UITextures/ThirdPartyTextures/twitter_logo.png" id="12_oa1pb"]
+[ext_resource type="Texture2D" uid="uid://b6rw177m64jhq" path="res://UITextures/ThirdPartyTextures/tiktok_logo.png" id="13_oegc4"]
+[ext_resource type="Texture2D" uid="uid://b8cylcdl5mdv7" path="res://UITextures/AppTextures/gmetarave_splash_screen.png" id="15_6asnb"]
+[ext_resource type="Texture2D" uid="uid://did8ldxfqm2u8" path="res://UITextures/Buttons/PanelTextures/beats_logo2.png" id="15_7qkxq"]
+[ext_resource type="FontFile" uid="uid://c5fr5m8j4q1cg" path="res://UITextures/Fonts/HankenGrotesk-ExtraBoldItalic.ttf" id="15_outm7"]
+[ext_resource type="StyleBox" uid="uid://d4grcs3ey2rdr" path="res://UITextures/CustomResource/start_button.tres" id="16_6u3q1"]
+[ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="20_6nce6"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fo7ht"]
-bg_color = Color(0.6, 0.6, 0.6, 0.678431)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4qor"]
+bg_color = Color(0.0745098, 0.0745098, 0.0745098, 0.709804)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -25,7 +31,7 @@ shadow_size = 10
 shadow_offset = Vector2(5, 8)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_keqlh"]
-bg_color = Color(0.113725, 0.0980392, 0.2, 1)
+bg_color = Color(0.00566075, 0.0596161, 0.0596163, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -33,11 +39,11 @@ corner_radius_bottom_left = 20
 shadow_size = 10
 shadow_offset = Vector2(5, 8)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_boybj"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b3174"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_enk2f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_boybj"]
 
 [sub_resource type="Animation" id="Animation_7oy6i"]
 resource_name = "hero_bg"
@@ -46,7 +52,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BackgroundTexture/VBoxContainer/Panel/HBoxContainer/TextureRect:self_modulate")
+tracks/0/path = NodePath("BackgroundTexture/LoginModalContainer/Panel/HBoxContainer/TextureRect:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -58,7 +64,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BackgroundTexture/VBoxContainer/Panel/HBoxContainer/TextureRect:texture")
+tracks/1/path = NodePath("BackgroundTexture/LoginModalContainer/Panel/HBoxContainer/TextureRect:texture")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -66,6 +72,58 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [ExtResource("4_atrg8"), ExtResource("3_ccr1n")]
+}
+
+[sub_resource type="Animation" id="Animation_aaf5s"]
+resource_name = "switch_start_screen"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundTexture/StartContainer:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BackgroundTexture/StartContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BackgroundTexture:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_6sob6"]
@@ -86,7 +144,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BackgroundTexture/VBoxContainer:modulate")
+tracks/1/path = NodePath("BackgroundTexture/LoginModalContainer:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -99,8 +157,12 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4w76c"]
 _data = {
 "hero_bg": SubResource("Animation_7oy6i"),
+"switch_start_screen": SubResource("Animation_aaf5s"),
 "transition_1": SubResource("Animation_6sob6")
 }
+
+[sub_resource type="Animation" id="Animation_pvikh"]
+length = 0.001
 
 [sub_resource type="Animation" id="Animation_igun7"]
 resource_name = "error_container"
@@ -115,7 +177,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1200, 0), Vector2(1200, 482)]
+"values": [Vector2(1189, 0), Vector2(1189, 482)]
 }
 
 [sub_resource type="Animation" id="Animation_05gyf"]
@@ -124,7 +186,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer:modulate")
+tracks/0/path = NodePath("BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -136,7 +198,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer:visible")
+tracks/1/path = NodePath("BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -148,7 +210,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer:visible")
+tracks/2/path = NodePath("BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -160,7 +222,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer:modulate")
+tracks/3/path = NodePath("BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -172,7 +234,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/HBoxContainer/Label3:modulate")
+tracks/4/path = NodePath("BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/HBoxContainer/Label3:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -184,14 +246,14 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/HBoxContainer/Label:modulate")
+tracks/5/path = NodePath("BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/HBoxContainer/Label:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.878431, 0.223529, 0.992157, 1)]
+"values": [Color(1, 1, 1, 1), Color(0, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_qng8j"]
@@ -200,7 +262,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer:modulate")
+tracks/0/path = NodePath("BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -212,7 +274,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer:visible")
+tracks/1/path = NodePath("BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -224,7 +286,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer:modulate")
+tracks/2/path = NodePath("BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -236,7 +298,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer:visible")
+tracks/3/path = NodePath("BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -248,26 +310,26 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/HBoxContainer/Label3:modulate")
+tracks/4/path = NodePath("BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/HBoxContainer/Label3:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.878431, 0.223529, 0.992157, 1)]
+"values": [Color(1, 1, 1, 1), Color(0, 1, 1, 1)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/HBoxContainer/Label:modulate")
+tracks/5/path = NodePath("BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/HBoxContainer/Label:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(0.878431, 0.223529, 0.992157, 1), Color(1, 1, 1, 1)]
+"values": [Color(0, 1, 1, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_yy4rn"]
@@ -340,7 +402,7 @@ length = 0.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BackgroundTexture/VBoxContainer:visible")
+tracks/0/path = NodePath("BackgroundTexture/LoginModalContainer:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -349,45 +411,10 @@ tracks/0/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BackgroundTexture/VBoxContainer2:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("BackgroundTexture/VBoxContainer2:size")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(631, 0), Vector2(631, 482)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = false
-tracks/3/path = NodePath("BackgroundTexture/VBoxContainer2:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, -6.28319]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tnpq4"]
 _data = {
+"RESET": SubResource("Animation_pvikh"),
 "error_container": SubResource("Animation_igun7"),
 "login_container": SubResource("Animation_05gyf"),
 "register_container": SubResource("Animation_qng8j"),
@@ -407,10 +434,11 @@ script = ExtResource("1_fahu6")
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.0518519
-anchor_right = 1.0
-anchor_bottom = 2.72037
-offset_bottom = -1441.0
+anchor_right = 0.990833
+offset_top = 28.0
+offset_right = 1189.0
+offset_bottom = 28.0
+mouse_filter = 2
 alignment = 2
 metadata/_edit_use_anchors_ = true
 
@@ -418,42 +446,35 @@ metadata/_edit_use_anchors_ = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="HBoxContainer/VBoxContainer"]
-self_modulate = Color(0.188235, 0.188235, 0.188235, 0.709804)
+[node name="ErrorPanel" type="Panel" parent="HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 z_index = 1
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_fo7ht")
+theme_override_styles/panel = SubResource("StyleBoxFlat_u4qor")
 
-[node name="ErrorContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Panel"]
+[node name="ErrorContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/ErrorPanel"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(229, 0)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.028
-anchor_top = 0.0584551
-anchor_right = 0.944
-anchor_bottom = 0.968685
-grow_horizontal = 2
-grow_vertical = 2
+anchor_right = 0.916
+offset_right = -229.0
 metadata/_edit_use_anchors_ = true
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
 
 [node name="BackgroundTexture" type="TextureRect" parent="."]
 unique_name_in_owner = true
-self_modulate = Color(0.462745, 0.462745, 0.462745, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_x3gdp")
+texture = ExtResource("2_qlg4t")
 expand_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture"]
+[node name="LoginModalContainer" type="VBoxContainer" parent="BackgroundTexture"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.230833
@@ -464,50 +485,39 @@ offset_right = -0.000793457
 offset_bottom = 0.000274658
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_use_anchors_ = true
 
-[node name="Panel" type="Panel" parent="BackgroundTexture/VBoxContainer"]
+[node name="Panel" type="Panel" parent="BackgroundTexture/LoginModalContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_keqlh")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/VBoxContainer/Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel"]
 layout_mode = 0
 offset_right = 320.0
 offset_bottom = 482.0
 
-[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/VBoxContainer/Panel/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/LoginModalContainer/Panel/HBoxContainer"]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
-texture = ExtResource("4_atrg8")
+texture = ExtResource("3_7b75v")
 expand_mode = 1
 
-[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/VBoxContainer/Panel/HBoxContainer/TextureRect"]
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/LoginModalContainer/Panel/HBoxContainer/TextureRect"]
+custom_minimum_size = Vector2(200, 56)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.225
-anchor_top = -0.0145228
-anchor_right = 0.784375
-anchor_bottom = 1.0
-texture = ExtResource("4_5vveb")
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -99.9996
+offset_top = -18.0
+offset_right = 100.0
+offset_bottom = 38.0
+grow_horizontal = 2
+texture = ExtResource("15_7qkxq")
 expand_mode = 1
-metadata/_edit_use_anchors_ = true
+stretch_mode = 5
 
-[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/Panel/HBoxContainer/TextureRect/TextureRect"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.00928915
-anchor_top = 0.867076
-anchor_right = 0.665636
-anchor_bottom = 1.0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("3_wtii2")
-theme_override_font_sizes/font_size = 20
-text = "Welcome to Beats!
-Show your rhythm!"
-metadata/_edit_use_anchors_ = true
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer/Panel"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -517,11 +527,11 @@ offset_top = 14.0
 offset_bottom = 409.0
 grow_horizontal = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label3" type="Label" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/HBoxContainer"]
+[node name="Label3" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -531,7 +541,7 @@ text = "LOGIN"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Label2" type="Label" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/HBoxContainer"]
+[node name="Label2" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
@@ -541,8 +551,7 @@ text = "/"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/HBoxContainer"]
-modulate = Color(0.878431, 0.223529, 0.992157, 1)
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -552,22 +561,21 @@ text = "REGISTRATION"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="LoginContainer" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2"]
+[node name="LoginContainer" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer"]
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_constants/line_spacing = 0
@@ -575,22 +583,22 @@ theme_override_fonts/font = ExtResource("3_wtii2")
 theme_override_font_sizes/font_size = 10
 text = "Username"
 
-[node name="UsernameField" type="LineEdit" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
+[node name="UsernameField" type="LineEdit" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_selected_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_colors/font_placeholder_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_colors/font_selected_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("6_33msh")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("6_0mn33")
 theme_override_styles/focus = ExtResource("6_w6605")
+theme_override_styles/normal = ExtResource("6_0mn33")
 placeholder_text = "Enter your username"
 alignment = 1
 caret_blink = true
 
-[node name="Label2" type="Label" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_constants/line_spacing = 0
@@ -598,53 +606,53 @@ theme_override_fonts/font = ExtResource("3_wtii2")
 theme_override_font_sizes/font_size = 10
 text = "Password"
 
-[node name="PasswordField" type="LineEdit" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
+[node name="PasswordField" type="LineEdit" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_selected_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_colors/font_placeholder_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_colors/font_selected_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("6_33msh")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("6_0mn33")
 theme_override_styles/focus = ExtResource("6_w6605")
+theme_override_styles/normal = ExtResource("6_0mn33")
 placeholder_text = "Enter your password"
 alignment = 1
 caret_blink = true
 secret = true
 
-[node name="LoginButton" type="TextureButton" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
+[node name="LoginButton" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 65)
 layout_mode = 2
 texture_normal = ExtResource("8_1trul")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/LoginButton"]
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/LoginButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -19.0004
-offset_top = -6.5
-offset_right = 27.9996
-offset_bottom = 17.5
+offset_left = -22.9997
+offset_top = -9.50003
+offset_right = 30.0003
+offset_bottom = 14.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_wtii2")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 18
 text = "LOGIN"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_constants/line_spacing = 0
@@ -652,136 +660,109 @@ theme_override_fonts/font = ExtResource("6_33msh")
 theme_override_font_sizes/font_size = 10
 text = "Forgot Password?"
 
-[node name="Button" type="Button" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Button" type="Button" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_fonts/font = ExtResource("6_33msh")
 theme_override_font_sizes/font_size = 10
-theme_override_styles/normal = SubResource("StyleBoxEmpty_boybj")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_b3174")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_enk2f")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_boybj")
 text = "Reset here"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 110)
-layout_mode = 2
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
+[node name="HBoxContainer3" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/HBoxContainer3"]
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("6_33msh")
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 12
 text = "Don't have an account yet?"
 
-[node name="RegisterToggle" type="Button" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/HBoxContainer3"]
+[node name="RegisterToggle" type="Button" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.878431, 0.223529, 0.992157, 1)
+theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_fonts/font = ExtResource("6_33msh")
-theme_override_font_sizes/font_size = 10
-theme_override_styles/normal = SubResource("StyleBoxEmpty_boybj")
+theme_override_font_sizes/font_size = 12
 theme_override_styles/hover = SubResource("StyleBoxEmpty_b3174")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_enk2f")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_boybj")
 text = "Register here"
 
-[node name="RegisterContainer" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("6_33msh")
+theme_override_font_sizes/font_size = 12
+text = "Or sign-up using the options below:"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="GoogleRegisterButton" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("10_3x61y")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TwitterRegisterButton" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("12_oa1pb")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="TiktokRegisterButton" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("13_oegc4")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="RegisterContainer" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label3" type="Label" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
-theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("3_wtii2")
-theme_override_font_sizes/font_size = 10
-text = "First  name (optional)"
-
-[node name="FirstName" type="LineEdit" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/HBoxContainer/VBoxContainer" groups=["reg_field"]]
-custom_minimum_size = Vector2(113, 30)
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_selected_color = Color(0.788235, 0.788235, 0.788235, 1)
-theme_override_colors/font_placeholder_color = Color(0.788235, 0.788235, 0.788235, 0.407843)
-theme_override_fonts/font = ExtResource("6_33msh")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("6_0mn33")
-theme_override_styles/focus = ExtResource("6_w6605")
-placeholder_text = "First Name"
-alignment = 1
-caret_blink = true
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Label3" type="Label" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
-theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("3_wtii2")
-theme_override_font_sizes/font_size = 10
-text = "Last name (optional)"
-
-[node name="LastName" type="LineEdit" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/HBoxContainer/VBoxContainer2" groups=["reg_field"]]
-custom_minimum_size = Vector2(113, 30)
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_selected_color = Color(0.788235, 0.788235, 0.788235, 1)
-theme_override_colors/font_placeholder_color = Color(0.788235, 0.788235, 0.788235, 0.407843)
-theme_override_fonts/font = ExtResource("6_33msh")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("6_0mn33")
-theme_override_styles/focus = ExtResource("6_w6605")
-placeholder_text = "LastName"
-alignment = 1
-caret_blink = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer"]
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
-theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("3_wtii2")
-theme_override_font_sizes/font_size = 10
-text = "Email"
-
-[node name="Email" type="LineEdit" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer" groups=["reg_field"]]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_selected_color = Color(0.788235, 0.788235, 0.788235, 1)
-theme_override_colors/font_placeholder_color = Color(0.788235, 0.788235, 0.788235, 0.407843)
-theme_override_fonts/font = ExtResource("6_33msh")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("6_0mn33")
-theme_override_styles/focus = ExtResource("6_w6605")
-placeholder_text = "Enter your email"
-alignment = 1
-caret_blink = true
-
-[node name="Label5" type="Label" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer"]
+[node name="Label5" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_constants/line_spacing = 0
@@ -789,21 +770,21 @@ theme_override_fonts/font = ExtResource("3_wtii2")
 theme_override_font_sizes/font_size = 10
 text = "Username"
 
-[node name="Username" type="LineEdit" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer" groups=["reg_field"]]
+[node name="Username" type="LineEdit" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer" groups=["reg_field"]]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_selected_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_colors/font_placeholder_color = Color(0.788235, 0.788235, 0.788235, 0.407843)
+theme_override_colors/font_selected_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("6_33msh")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("6_0mn33")
 theme_override_styles/focus = ExtResource("6_w6605")
+theme_override_styles/normal = ExtResource("6_0mn33")
 placeholder_text = "Enter your username"
 alignment = 1
 caret_blink = true
 
-[node name="Label2" type="Label" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_constants/line_spacing = 0
@@ -811,22 +792,22 @@ theme_override_fonts/font = ExtResource("3_wtii2")
 theme_override_font_sizes/font_size = 10
 text = "Password"
 
-[node name="Password" type="LineEdit" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer" groups=["reg_field"]]
+[node name="Password" type="LineEdit" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer" groups=["reg_field"]]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_selected_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_colors/font_placeholder_color = Color(0.788235, 0.788235, 0.788235, 0.407843)
+theme_override_colors/font_selected_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("6_33msh")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("6_0mn33")
 theme_override_styles/focus = ExtResource("6_w6605")
+theme_override_styles/normal = ExtResource("6_0mn33")
 placeholder_text = "Enter your password"
 alignment = 1
 caret_blink = true
 secret = true
 
-[node name="Label3" type="Label" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer"]
+[node name="Label3" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_constants/line_spacing = 0
@@ -834,29 +815,29 @@ theme_override_fonts/font = ExtResource("3_wtii2")
 theme_override_font_sizes/font_size = 10
 text = "Confirm Password"
 
-[node name="ConfirmPassword" type="LineEdit" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer" groups=["reg_field"]]
+[node name="ConfirmPassword" type="LineEdit" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer" groups=["reg_field"]]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_selected_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_colors/font_placeholder_color = Color(0.788235, 0.788235, 0.788235, 0.407843)
+theme_override_colors/font_selected_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("6_33msh")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("6_0mn33")
 theme_override_styles/focus = ExtResource("6_w6605")
+theme_override_styles/normal = ExtResource("6_0mn33")
 placeholder_text = "Confirm password"
 alignment = 1
 caret_blink = true
 secret = true
 
-[node name="RegisterButton" type="TextureButton" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer"]
+[node name="RegisterButton" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 65)
 layout_mode = 2
 texture_normal = ExtResource("8_1trul")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/RegisterButton"]
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/RegisterButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -874,12 +855,12 @@ theme_override_fonts/font = ExtResource("3_wtii2")
 theme_override_font_sizes/font_size = 14
 text = "REGISTER"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/HBoxContainer3"]
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_constants/line_spacing = 0
@@ -887,107 +868,79 @@ theme_override_fonts/font = ExtResource("6_33msh")
 theme_override_font_sizes/font_size = 10
 text = "Already have an account?"
 
-[node name="LoginToggle" type="Button" parent="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/HBoxContainer3"]
+[node name="LoginToggle" type="Button" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.878431, 0.223529, 0.992157, 1)
+theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_fonts/font = ExtResource("6_33msh")
 theme_override_font_sizes/font_size = 10
-theme_override_styles/normal = SubResource("StyleBoxEmpty_boybj")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_b3174")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_enk2f")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_boybj")
 text = "Login here"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture"]
+[node name="StartContainer" type="VBoxContainer" parent="BackgroundTexture"]
+unique_name_in_owner = true
 visible = false
+z_index = 3
+custom_minimum_size = Vector2(1153, 0)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.230833
-anchor_top = 0.0518519
-anchor_right = 0.756667
-anchor_bottom = 0.944444
-offset_bottom = -482.0
+anchor_left = 0.0191667
+anchor_right = 0.98
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(315.5, 241)
 metadata/_edit_use_anchors_ = true
 
-[node name="Panel" type="Panel" parent="BackgroundTexture/VBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/StartContainer"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_keqlh")
+alignment = 2
 
-[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/VBoxContainer2/Panel"]
-self_modulate = Color(0.713726, 0.713726, 0.713726, 1)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("9_7eitc")
-expand_mode = 1
-stretch_mode = 6
-
-[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/VBoxContainer2/Panel/TextureRect"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.267828
-anchor_right = 0.732172
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("10_duk5g")
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/StartContainer/HBoxContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+texture = ExtResource("15_6asnb")
 expand_mode = 1
 stretch_mode = 5
-metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer2/Panel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.438986
-anchor_top = 0.188797
-anchor_right = 0.947703
-anchor_bottom = 0.941909
-grow_horizontal = 0
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer2/Panel/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/StartContainer"]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 4
-theme_override_fonts/font = ExtResource("3_wtii2")
-theme_override_font_sizes/font_size = 70
-text = "Success!"
-horizontal_alignment = 1
-metadata/_edit_use_anchors_ = true
 
-[node name="LoginButton" type="TextureButton" parent="BackgroundTexture/VBoxContainer2/Panel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 110)
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/StartContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
-texture_normal = ExtResource("8_1trul")
-ignore_texture_size = true
-stretch_mode = 0
 
-[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer2/Panel/VBoxContainer/LoginButton"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -19.0004
-offset_top = -6.5
-offset_right = 27.9996
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_wtii2")
-theme_override_font_sizes/font_size = 24
-text = "LET'S GO!"
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/StartContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(600, 260)
+layout_mode = 2
+size_flags_horizontal = 6
+texture = ExtResource("15_7qkxq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/StartContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/StartContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+alignment = 1
+
+[node name="StartButton" type="Button" parent="BackgroundTexture/StartContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("15_outm7")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = ExtResource("16_6u3q1")
+theme_override_styles/disabled = ExtResource("16_6u3q1")
+theme_override_styles/hover = ExtResource("16_6u3q1")
+theme_override_styles/pressed = ExtResource("16_6u3q1")
+theme_override_styles/normal = ExtResource("16_6u3q1")
+text = "START"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
@@ -1003,9 +956,10 @@ libraries = {
 }
 
 [node name="Panel" type="Panel" parent="."]
+unique_name_in_owner = true
 visible = false
 modulate = Color(0.0352941, 0.0352941, 0.0352941, 1)
-z_index = 1
+z_index = 2
 z_as_relative = false
 layout_mode = 1
 anchors_preset = 15
@@ -1015,8 +969,9 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+unique_name_in_owner = true
 visible = false
-z_index = 1
+z_index = 2
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 1
 anchors_preset = 8
@@ -1036,7 +991,7 @@ texture_progress = ExtResource("11_xngx2")
 
 [node name="Label" type="Label" parent="."]
 visible = false
-z_index = 1
+z_index = 2
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1052,10 +1007,15 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_wtii2")
 text = "Loading"
 
-[connection signal="text_changed" from="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/UsernameField" to="." method="_on_username_field_text_changed"]
-[connection signal="text_changed" from="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/PasswordField" to="." method="_on_password_field_text_changed"]
-[connection signal="text_submitted" from="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/PasswordField" to="." method="_on_password_field_text_submitted"]
-[connection signal="pressed" from="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/LoginButton" to="." method="_on_login_button_pressed"]
-[connection signal="pressed" from="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/HBoxContainer3/RegisterToggle" to="." method="_on_register_toggle_pressed"]
-[connection signal="pressed" from="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/RegisterButton" to="." method="_on_register_button_pressed"]
-[connection signal="pressed" from="BackgroundTexture/VBoxContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/HBoxContainer3/LoginToggle" to="." method="_on_login_toggle_pressed"]
+[node name="CursorSpark" parent="." instance=ExtResource("20_6nce6")]
+unique_name_in_owner = true
+
+[connection signal="text_changed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/UsernameField" to="." method="_on_username_field_text_changed"]
+[connection signal="text_changed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/PasswordField" to="." method="_on_password_field_text_changed"]
+[connection signal="text_submitted" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/PasswordField" to="." method="_on_password_field_text_submitted"]
+[connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/LoginButton" to="." method="_on_login_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/HBoxContainer3/RegisterToggle" to="." method="_on_register_toggle_pressed"]
+[connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/VBoxContainer/HBoxContainer/GoogleRegisterButton" to="." method="_on_google_register_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/RegisterButton" to="." method="_on_register_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/HBoxContainer3/LoginToggle" to="." method="_on_login_toggle_pressed"]
+[connection signal="pressed" from="BackgroundTexture/StartContainer/VBoxContainer/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

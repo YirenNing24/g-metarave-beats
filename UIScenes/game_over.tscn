@@ -1,0 +1,1224 @@
+[gd_scene load_steps=30 format=3 uid="uid://dvqwd1vjvgbtk"]
+
+[ext_resource type="Script" path="res://UIScenes/game_over.gd" id="1_cnrlt"]
+[ext_resource type="Texture2D" uid="uid://c01cml7cwkwts" path="res://UITextures/BGTextures/game_over_bg.png" id="2_wpuc8"]
+[ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="3_ik2fc"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="4_64gxq"]
+[ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="5_b0j7s"]
+[ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="6_ovqjx"]
+[ext_resource type="Texture2D" uid="uid://bfmxnpo1gdkv1" path="res://UITextures/BGTextures/GameOver/game_over_hero.png" id="7_llh6l"]
+[ext_resource type="Texture2D" uid="uid://c7qlt18wu7138" path="res://UITextures/BGTextures/dark_panel.png" id="9_2s2i2"]
+[ext_resource type="FontFile" uid="uid://c5fr5m8j4q1cg" path="res://UITextures/Fonts/HankenGrotesk-ExtraBoldItalic.ttf" id="9_40tnt"]
+[ext_resource type="FontFile" uid="uid://c18nds4rmo5gg" path="res://UITextures/Fonts/SofaChromeItalic.otf" id="10_bscnk"]
+[ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="10_xfc4x"]
+[ext_resource type="FontFile" uid="uid://dvnt07l3vdl6f" path="res://UITextures/Fonts/SofaChromeRegular.otf" id="11_qh0mn"]
+[ext_resource type="Texture2D" uid="uid://dmxpmc3ckn6tt" path="res://UITextures/GameTextures/kperfect.png" id="12_loamo"]
+[ext_resource type="Texture2D" uid="uid://do8jreuy76wp2" path="res://UITextures/GameTextures/verygood.png" id="13_2yhbe"]
+[ext_resource type="Texture2D" uid="uid://vofwmpcudyxn" path="res://UITextures/GameTextures/good.png" id="14_whd5v"]
+[ext_resource type="Texture2D" uid="uid://cxgr2m8ocpfv0" path="res://UITextures/GameTextures/bad.png" id="15_r7hlv"]
+[ext_resource type="Texture2D" uid="uid://gjgvcsqa6t5f" path="res://UITextures/GameTextures/miss.png" id="16_fmltj"]
+[ext_resource type="FontFile" uid="uid://bblvvax0tw3p" path="res://UITextures/Fonts/HankenGrotesk-BoldItalic.ttf" id="17_g18gw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v6myh"]
+bg_color = Color(0, 0, 0, 0.466667)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0, 0.823529, 0.823529, 0.894118)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6p4tf"]
+bg_color = Color(0, 0, 0, 0.705882)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4tfs"]
+bg_color = Color(0, 0.141176, 0.141176, 0)
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0.823529, 0.823529, 0.894118)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ephhn"]
+bg_color = Color(0, 0.478431, 0.478431, 0.0627451)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0.823529, 0.823529, 0.894118)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ogvsp"]
+bg_color = Color(0, 0.478431, 0.478431, 0.141176)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmnq4"]
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.223529, 0.223529, 0.223529, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_size = 2
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y1r6f"]
+bg_color = Color(0.0923971, 0.0923971, 0.0923971, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.223103, 0.223103, 0.223103, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n26i1"]
+bg_color = Color(0.509286, 0.509286, 0.509286, 1)
+draw_center = false
+border_width_left = 5
+border_width_top = 2
+border_width_right = 5
+border_width_bottom = 2
+border_color = Color(0.577008, 0.577008, 0.577008, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qvces"]
+bg_color = Color(0.0923971, 0.0923971, 0.0923971, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.223103, 0.223103, 0.223103, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v3ypt"]
+bg_color = Color(0.212305, 0.212305, 0.212305, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xtxmh"]
+bg_color = Color(0, 0, 0, 0.184314)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0.823038, 0.823038, 0.894118)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cnrlt")
+
+[node name="BackgroundTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+self_modulate = Color(0.281187, 0.281187, 0.281187, 1)
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_wpuc8")
+expand_mode = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="BackgroundTexture"]
+z_index = 3
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.037037
+anchor_right = 0.981667
+anchor_bottom = 0.12963
+mouse_filter = 2
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer3"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer3/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("3_ik2fc")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="EnergyBalance" type="Label" parent="BackgroundTexture/HBoxContainer3/VBoxContainer/HBoxContainer/TextureRect"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_font_sizes/font_size = 16
+text = "Energy"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect3" type="TextureRect" parent="BackgroundTexture/HBoxContainer3/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("3_ik2fc")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="BeatsBalance" type="Label" parent="BackgroundTexture/HBoxContainer3/VBoxContainer/HBoxContainer/TextureRect3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_font_sizes/font_size = 16
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect2" type="TextureRect" parent="BackgroundTexture/HBoxContainer3/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("3_ik2fc")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="KMRBalance" type="Label" parent="BackgroundTexture/HBoxContainer3/VBoxContainer/HBoxContainer/TextureRect2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_font_sizes/font_size = 16
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+offset_left = 14.0
+offset_top = 16.0
+offset_right = 74.0
+offset_bottom = 76.0
+
+[node name="CloseButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("5_b0j7s")
+texture_hover = ExtResource("6_ovqjx")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.148148
+anchor_right = 1.0
+anchor_bottom = 1.00185
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+texture = ExtResource("7_llh6l")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_v6myh")
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0920097
+anchor_top = 0.0927419
+anchor_right = 0.940678
+anchor_bottom = 0.907258
+theme_override_styles/panel = SubResource("StyleBoxFlat_6p4tf")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0920097
+anchor_top = 0.0927419
+anchor_right = 0.939467
+anchor_bottom = 0.909274
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_2s2i2")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 11.69
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.65
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_g4tfs")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.033241
+anchor_top = 0.125
+anchor_right = 0.980609
+anchor_bottom = 0.875
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="EnergyBalance" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(130, 30)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_fonts/font = ExtResource("9_40tnt")
+theme_override_font_sizes/font_size = 28
+text = "SCORE"
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Panel/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Panel/HBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EnergyBalance" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Panel/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(95, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_font_sizes/font_size = 14
+text = " HIGH SCORE"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="EnergyBalance2" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Panel/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.78
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_font_sizes/font_size = 14
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Panel/HBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EnergyBalance2" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Panel/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_font_sizes/font_size = 14
+text = "+ 0"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ephhn")
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00434783
+anchor_top = 0.00623053
+anchor_right = 0.993478
+anchor_bottom = 0.632399
+theme_override_styles/panel = SubResource("StyleBoxFlat_ogvsp")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0153846
+anchor_top = 0.0279434
+anchor_right = 0.989011
+anchor_bottom = 0.978018
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cmnq4")
+
+[node name="EnergyBalance" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel/VBoxContainer/VBoxContainer2/Panel"]
+custom_minimum_size = Vector2(95, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_fonts/font = ExtResource("10_xfc4x")
+theme_override_font_sizes/font_size = 28
+text = "NEW RECORD!"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+size_flags_stretch_ratio = 2.0
+
+[node name="ScoreLabel" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("10_xfc4x")
+theme_override_font_sizes/font_size = 60
+text = "989,755"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel/VBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_y1r6f")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel/VBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0363636
+anchor_top = 0.105263
+anchor_right = 0.963636
+anchor_bottom = 0.929825
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel/VBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="EnergyBalance" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel/VBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(93, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.862745, 0.862745, 0.862745, 1)
+theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_font_sizes/font_size = 16
+text = "MAX COMBO"
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="MaxComboLabel" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel/VBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/Panel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 20)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.862745, 0.862745, 0.862745, 1)
+theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_font_sizes/font_size = 16
+text = "9999"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel/VBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_n26i1")
+
+[node name="FullComboLabel" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel/VBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/Panel/VBoxContainer/Panel"]
+custom_minimum_size = Vector2(120, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.181818
+anchor_right = 1.0
+anchor_bottom = 1.18182
+offset_top = 4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.255659, 0.255659, 0.255659, 1)
+theme_override_fonts/font = ExtResource("10_bscnk")
+theme_override_font_sizes/font_size = 16
+text = "FULL COMBO"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel"]
+custom_minimum_size = Vector2(423, 90)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0413043
+anchor_top = 0.639241
+anchor_right = 0.96087
+anchor_bottom = 0.96519
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_qvces")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0330969
+anchor_top = 0.0582524
+anchor_right = 0.966903
+anchor_bottom = 0.932039
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_v3ypt")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.94359
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer/Panel/HBoxContainer2"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+texture = ExtResource("12_loamo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="KPerfectLabel" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer/Panel/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.864675, 0.864675, 0.864675, 1)
+theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_v3ypt")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer2/Panel/HBoxContainer2"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+texture = ExtResource("13_2yhbe")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VeryGoodLabel" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer2/Panel/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.864675, 0.864675, 0.864675, 1)
+theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_v3ypt")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer3/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer3/Panel/HBoxContainer2"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+texture = ExtResource("14_whd5v")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GoodLabel" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer3/Panel/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.864675, 0.864675, 0.864675, 1)
+theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_v3ypt")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.00512821
+anchor_right = 0.938462
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/HBoxContainer/Panel/HBoxContainer2"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+texture = ExtResource("15_r7hlv")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BadLabel" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/HBoxContainer/Panel/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.864675, 0.864675, 0.864675, 1)
+theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_font_sizes/font_size = 16
+text = "10"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_v3ypt")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/HBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/HBoxContainer2/Panel/HBoxContainer2"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+texture = ExtResource("16_fmltj")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MissLabel" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/HBoxContainer2/Panel/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.864675, 0.864675, 0.864675, 1)
+theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/HBoxContainer3"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_v3ypt")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/HBoxContainer3/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/HBoxContainer3/Panel/HBoxContainer2"]
+unique_name_in_owner = true
+modulate = Color(0.862745, 0.862745, 0.862745, 1)
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.864675, 0.864675, 0.864675, 1)
+theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_font_sizes/font_size = 17
+text = "COMBO"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="ComboLabel" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/HBoxContainer3/Panel/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.864675, 0.864675, 0.864675, 1)
+theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xtxmh")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.033241
+anchor_top = 0.125
+anchor_right = 0.980609
+anchor_bottom = 0.875
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="FinishedLabel" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_fonts/font = ExtResource("17_g18gw")
+theme_override_font_sizes/font_size = 28
+text = "GREAT JOB!"
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel2" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.36
+theme_override_styles/panel = SubResource("StyleBoxFlat_ephhn")
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00358423
+anchor_top = 0.00852273
+anchor_right = 0.992832
+anchor_bottom = 0.616477
+theme_override_styles/panel = SubResource("StyleBoxFlat_ogvsp")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0217391
+anchor_top = 0.0255413
+anchor_right = 0.97826
+anchor_bottom = 0.6181
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 35)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cmnq4")
+
+[node name="EnergyBalance" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/Panel/VBoxContainer/HBoxContainer/Panel"]
+custom_minimum_size = Vector2(95, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_fonts/font = ExtResource("10_xfc4x")
+theme_override_font_sizes/font_size = 28
+text = "NEW"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="EnergyBalance2" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/Panel/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_fonts/font = ExtResource("11_qh0mn")
+theme_override_font_sizes/font_size = 60
+text = "SSS"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/Panel/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/Panel/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0215054
+anchor_top = 0.363354
+anchor_right = 0.967742
+anchor_bottom = 0.63354
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/HBoxContainer"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cmnq4")
+
+[node name="EnergyBalance2" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/HBoxContainer/Panel"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.04
+anchor_right = 0.96
+anchor_bottom = 1.05
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.862745, 0.862745, 0.862745, 1)
+theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_font_sizes/font_size = 16
+text = "ACCURACY"
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="AccuracyLabel" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_fonts/font = ExtResource("11_qh0mn")
+theme_override_font_sizes/font_size = 55
+text = "9.9"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0609319
+anchor_top = 0.639205
+anchor_right = 0.935484
+anchor_bottom = 0.957386
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel3" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_qvces")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0322581
+anchor_top = 0.109195
+anchor_right = 0.967742
+anchor_bottom = 0.931035
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_v3ypt")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_v3ypt")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer/HBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_v3ypt")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer/HBoxContainer3/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_v3ypt")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer2/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_v3ypt")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer2/HBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer2/HBoxContainer3"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_v3ypt")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer2/HBoxContainer3/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

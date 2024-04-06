@@ -1,10 +1,12 @@
 extends Node3D
 
+signal song_finished
+
 @onready var audio_player: AudioStreamPlayer = %AudioStreamPlayer
 
 var speed: int
-var started: bool
-var pre_start_duration: int
+var started: bool = false
+var pre_start_duration: float
 var start_pos_in_sec: int
 var audio_file: String = SONG.map_selected.audio_file
 
@@ -28,10 +30,9 @@ func _ready() -> void:
 # ```
 func play_song(path: String) -> void:
 	# Load and set the audio stream player with the selected audio file.
-	var ogg_file: FileAccess = FileAccess.open(path, FileAccess.READ)
-	var stream: AudioStreamOggVorbis = AudioStreamOggVorbis.load_from_file(path)
+	var stream: AudioStreamOggVorbis = ResourceLoader.load(path)
 	audio_player.set_stream(stream)
-	ogg_file.close()
+	audio_player.play(stream.get_length() / 2)
 
 # Set up the audio player for the game.
 # Parameters:
@@ -44,7 +45,6 @@ func setup(game: Node3D) -> void:
 	# Set up the audio player for the game.
 	audio_player.stream.set_loop(false)
 	speed = game.speed
-	started = false
 	pre_start_duration = game.bar_length_in_m
 	start_pos_in_sec = game.start_pos_in_sec
 	
@@ -55,9 +55,8 @@ func setup(game: Node3D) -> void:
 # ```
 func start() -> void:
 	# Start playing the audio from the specified position.
-	started = true
 	audio_player.play(start_pos_in_sec)
-	
+	started = true
 	# Check if the pre-start duration has elapsed and start playing the audio.
 	# Example usage:
 	# ```gdscript
@@ -69,3 +68,6 @@ func _process(delta: float) -> void:
 		if pre_start_duration <= 0:
 			start()
 			return
+
+func _on_audio_stream_player_finished() -> void:
+	song_finished.emit()

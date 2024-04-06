@@ -1,70 +1,436 @@
-[gd_scene load_steps=7 format=3 uid="uid://cjx2qu2kdc3p2"]
+[gd_scene load_steps=66 format=3 uid="uid://cjx2qu2kdc3p2"]
 
 [ext_resource type="Script" path="res://GameComponents/NotePicker/notepicker.gd" id="1_nn2og"]
+[ext_resource type="Texture2D" uid="uid://dqt5hoxr6n6le" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_01.png" id="2_1b715"]
+[ext_resource type="Texture2D" uid="uid://bm3ing1oa6up4" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_02.png" id="3_a255i"]
+[ext_resource type="Texture2D" uid="uid://bnqjjswiwedek" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_03.png" id="4_5oy53"]
+[ext_resource type="Texture2D" uid="uid://cqh5fcs7v1hmp" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_04.png" id="5_nep7w"]
+[ext_resource type="Texture2D" uid="uid://d0jrma7qqh5n8" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_05.png" id="6_n217q"]
+[ext_resource type="Texture2D" uid="uid://d0326y2ham4yr" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_06.png" id="7_b17q4"]
+[ext_resource type="Texture2D" uid="uid://do3yocd101x1i" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_07.png" id="8_6e3j3"]
+[ext_resource type="Texture2D" uid="uid://p5r5x7a62ub7" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_08.png" id="9_2m80i"]
+[ext_resource type="Texture2D" uid="uid://5usdimoxvyja" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_09.png" id="10_0hkmu"]
+[ext_resource type="Texture2D" uid="uid://b0qftgxpajqc" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_10.png" id="11_650jx"]
+[ext_resource type="Texture2D" uid="uid://b46778iw2j1cl" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_11.png" id="12_6k4gi"]
+[ext_resource type="Texture2D" uid="uid://dbclk6urv2l3i" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_12.png" id="13_2tly0"]
+[ext_resource type="Texture2D" uid="uid://bnrhugdpjrfhn" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_13.png" id="14_0n44t"]
+[ext_resource type="Texture2D" uid="uid://couxauxthqnvk" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_14.png" id="15_qnynq"]
+[ext_resource type="Texture2D" uid="uid://b8346bur7ar4n" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_15.png" id="16_q02v6"]
+[ext_resource type="Texture2D" uid="uid://drck6ubjc0k0g" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_16.png" id="17_xfnmw"]
+[ext_resource type="Texture2D" uid="uid://b5einn0cs8ios" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_17.png" id="18_4g1xt"]
+[ext_resource type="Texture2D" uid="uid://byl571elhojxq" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_18.png" id="19_53v2f"]
+[ext_resource type="Texture2D" uid="uid://dwb2m17l6vxhq" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_19.png" id="20_wsrjc"]
+[ext_resource type="Texture2D" uid="uid://hgssoj7mj4w6" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_20.png" id="21_x2ixa"]
+[ext_resource type="Texture2D" uid="uid://xrdpjkpvwsew" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_21.png" id="22_0t75i"]
+[ext_resource type="Texture2D" uid="uid://b061bmrtx5lfq" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_22.png" id="23_pjnq2"]
+[ext_resource type="Texture2D" uid="uid://bd1a4eio7w7qo" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_23.png" id="24_v24ix"]
+[ext_resource type="Texture2D" uid="uid://dsuiow6gkuqv7" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_24.png" id="25_255pi"]
+[ext_resource type="Texture2D" uid="uid://cysf0hmk5av3u" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_25.png" id="26_dnnkh"]
+[ext_resource type="Texture2D" uid="uid://qr4yd5a55lku" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_26.png" id="27_njoev"]
+[ext_resource type="Texture2D" uid="uid://c8vr5xgs8jxur" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_27.png" id="28_jpv6c"]
+[ext_resource type="Texture2D" uid="uid://s7lpdwx3c7ab" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_28.png" id="29_ijd7o"]
+[ext_resource type="Texture2D" uid="uid://brf061jm55y8a" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_29.png" id="30_b6vbc"]
+[ext_resource type="Texture2D" uid="uid://dnycgoaf5s3gj" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_30.png" id="31_12nix"]
+[ext_resource type="Texture2D" uid="uid://dmkem4gsx37vl" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_31.png" id="32_3358w"]
+[ext_resource type="Texture2D" uid="uid://cflyelmbi0dij" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_32.png" id="33_pcv8x"]
+[ext_resource type="Texture2D" uid="uid://cqfxdqrqgvrvv" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_33.png" id="34_n4x55"]
+[ext_resource type="Texture2D" uid="uid://cytiggfarhbxj" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_34.png" id="35_11xiu"]
+[ext_resource type="Texture2D" uid="uid://bb1g5pch33k7e" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_35.png" id="36_d1ma6"]
+[ext_resource type="Texture2D" uid="uid://diwwd8d65f4j7" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_36.png" id="37_dywve"]
+[ext_resource type="Texture2D" uid="uid://cj2v5tso064mq" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_37.png" id="38_no1dk"]
+[ext_resource type="Texture2D" uid="uid://oabhhx73d8pj" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_38.png" id="39_ghorn"]
+[ext_resource type="Texture2D" uid="uid://bik3qopg23ibt" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_39.png" id="40_r3kns"]
+[ext_resource type="Texture2D" uid="uid://c8n122sbfgb8x" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_40.png" id="41_6irsw"]
+[ext_resource type="Texture2D" uid="uid://b8060k6h0qlhd" path="res://UITextures/GameTextures/particles/spotlight_8.png" id="42_mc8og"]
+[ext_resource type="PackedScene" uid="uid://b581pfsbi35t2" path="res://GameComponents/NotePicker/fx_god_ray.tscn" id="43_nelaw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8tmit"]
-size = Vector3(0.06, 0.5, 1)
+size = Vector3(0.12, 0.5, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_aig7u"]
-size = Vector3(0.06, 0.5, 1)
+size = Vector3(0.12, 0.5, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_adcft"]
-size = Vector3(0.06, 0.5, 1)
+size = Vector3(0.12, 0.5, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d5ims"]
-size = Vector3(0.3, 0.5, 1)
+size = Vector3(0.8, 0.5, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tx1l3"]
 size = Vector3(0.2, 0.5, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_02lbd"]
+
+[sub_resource type="Gradient" id="Gradient_fp0ji"]
+offsets = PackedFloat32Array(0.110599, 0.225806, 0.589862, 0.824885, 0.912442)
+colors = PackedColorArray(0, 0, 0, 0.494118, 0, 0, 0, 0.494118, 0.552941, 0.552941, 0.552941, 0.494118, 0.913725, 0.913725, 0.913725, 0.635294, 1, 1, 1, 0.568627)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gf26y"]
+gradient = SubResource("Gradient_fp0ji")
+fill_from = Vector2(0.991453, 0)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_843bg"]
+blend_mode = 1
+cull_mode = 2
+shading_mode = 2
+specular_mode = 2
+albedo_color = Color(0, 0, 0, 0)
+emission_enabled = true
+emission = Color(0.133333, 0.356863, 0.364706, 1)
+emission_operator = 1
+emission_texture = SubResource("GradientTexture2D_gf26y")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jwy35"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_1b715")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_a255i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_5oy53")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_nep7w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_n217q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_b17q4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_6e3j3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_2m80i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_0hkmu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_650jx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_6k4gi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_2tly0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_0n44t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_qnynq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_q02v6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_xfnmw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_4g1xt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_53v2f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_wsrjc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_x2ixa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_0t75i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_pjnq2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_v24ix")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_255pi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_dnnkh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_njoev")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_jpv6c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_ijd7o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_b6vbc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_12nix")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_3358w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_pcv8x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_n4x55")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_11xiu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_d1ma6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_dywve")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_no1dk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_ghorn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_r3kns")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_6irsw")
+}],
+"loop": true,
+"name": &"vortex",
+"speed": 30.0
+}]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kg0bt"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("42_mc8og")
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="Gradient" id="Gradient_kkaeq"]
+offsets = PackedFloat32Array(0.0935252, 0.553957, 0.920863)
+colors = PackedColorArray(0.00784314, 1, 1, 1, 0.423529, 0.968627, 0.956863, 1, 0, 0.929412, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3w340"]
+gradient = SubResource("Gradient_kkaeq")
+
+[sub_resource type="Gradient" id="Gradient_mne1r"]
+offsets = PackedFloat32Array(0, 0.258993, 0.546763, 0.791367, 1)
+colors = PackedColorArray(0.0117647, 0.576471, 0.607843, 1, 0.831373, 1, 1, 1, 1, 1, 1, 1, 0.501961, 0.964706, 1, 1, 0, 0.576471, 0.552941, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_m2xj6"]
+gradient = SubResource("Gradient_mne1r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pegjh"]
+emission_shape_scale = Vector3(0, 0, 0.5)
+emission_shape = 3
+emission_box_extents = Vector3(0, 0, 1)
+direction = Vector3(0, 1, 0)
+spread = 7.0
+initial_velocity_min = 15.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, -15, 0)
+linear_accel_max = 6.0
+scale_min = 0.05
+scale_max = 0.15
+color_ramp = SubResource("GradientTexture1D_m2xj6")
+color_initial_ramp = SubResource("GradientTexture1D_3w340")
+hue_variation_min = 0.01
+hue_variation_max = 0.03
+turbulence_noise_strength = 5.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_uu6di"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ut6oe"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_46cw7"]
+resource_local_to_scene = true
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.0705882)
+albedo_texture = SubResource("ViewportTexture_ut6oe")
+heightmap_scale = 8.246
+
+[sub_resource type="Shader" id="Shader_2hf65"]
+code = "// This is a 3D shader
+shader_type spatial;
+// Pure light, no default shadows and shades
+render_mode blend_add, unshaded;
+
+// Make color selectable
+uniform vec4 albedo : source_color;
+
+// Effects configuration
+uniform float brightness: hint_range(0.0, 10.0) = 1.0;
+uniform float small_lines: hint_range(0.0, 1.0) = 1.0;
+uniform float medium_lines: hint_range(0.0, 1.0) = 1.0;
+uniform float big_lines: hint_range(0.0, 1.0) = 1.0;
+uniform float horizontal_fade: hint_range(0.001, 1.0) = 1.0;
+uniform float vertical_fade: hint_range(0.001, 10.0) = 2.0;
+uniform float animation_speed: hint_range(0.01, 5.0) = 1.0;
+
+// Simple cosine wave, moving horizontaly over time
+float animate_cos(float phase, float speed) {
+ return pow(0.5 * cos(phase * TAU + TIME * speed * animation_speed) + 0.5, 2.0);
+}
+
+void vertex() {
+ // Make it always face camera direction, copied from Godot source code
+ // Code imitted, see original on github
+}
+
+void fragment() {
+ // Apply user-selected color and transparency 
+ ALBEDO = albedo.rgb;
+ ALPHA = albedo.a;
+ 
+ // Move point (0, 0) to quad center
+ vec2 centered_UV = UV * 2.0 - 1.0;
+
+ // This is where the \"magic\" happens
+ float vertical_lines = 0.0;
+ vertical_lines += animate_cos(centered_UV.x * 0.9, -2.1) * big_lines;
+ vertical_lines += animate_cos(centered_UV.x * 1.9, -1.1) * medium_lines;
+ vertical_lines += animate_cos(centered_UV.x * 2.9, 3.1) * small_lines;
+ vertical_lines *= brightness;
+
+ // Apply lines if there are any, keep solid color otherwise
+ // This is done for demo purposes only, to make components 
+ // Of the effect visible
+ if (small_lines + medium_lines + big_lines > 0.01) {
+  ALPHA *= vertical_lines;
+ }
+
+ // Fade out left and right edges
+ ALPHA *= pow(cos(centered_UV.x * PI) * 0.5 + 0.5, horizontal_fade);
+
+ // Fade out top and bottom
+ ALPHA *= pow(1.0 - abs(centered_UV.y), vertical_fade);
+ 
+ // We implement fading differently for vertical and horizontal, 
+ // just to illustrate the idea that
+ // different curves can achieve very similar effects
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gwml7"]
+render_priority = 0
+shader = SubResource("Shader_2hf65")
+shader_parameter/albedo = Color(0.384314, 0.882353, 1, 0.219608)
+shader_parameter/brightness = 1.0
+shader_parameter/small_lines = 1.0
+shader_parameter/medium_lines = 1.0
+shader_parameter/big_lines = 0.188
+shader_parameter/horizontal_fade = 1.0
+shader_parameter/vertical_fade = 2.0
+shader_parameter/animation_speed = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_23non"]
 
 [node name="NotePicker" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.548166, 0.051, 0)
 script = ExtResource("1_nn2og")
 
 [node name="BadAreaEarly" type="Area3D" parent="." groups=["bad_area", "picker_area"]]
-transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, -0.104836, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.999998, 0, 0, 0, 0.999998, -0.518658, 0, 0)
 
 [node name="BadEarly" type="CollisionShape3D" parent="BadAreaEarly"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00117272, -7.15261e-10, 2.08189e-12)
 shape = SubResource("BoxShape3D_8tmit")
 
 [node name="GoodArea" type="Area3D" parent="." groups=["good_area", "picker_area"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0409462, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, -1.02135, 0, 0)
 monitorable = false
 
 [node name="Good" type="CollisionShape3D" parent="GoodArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.624464, 0, 0)
 shape = SubResource("BoxShape3D_aig7u")
 
 [node name="VeryGoodAreaEarly" type="Area3D" parent="." groups=["picker_area", "verygood_area"]]
-transform = Transform3D(1, 0, 0, 0, 0.999998, 0, 0, 0, 0.999998, 0.0218905, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.999996, 0, 0, 0, 0.999996, -0.274594, 0, 0)
 
 [node name="VeryGoodEarly" type="CollisionShape3D" parent="VeryGoodAreaEarly"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08189e-12, 2.08189e-12, 2.08189e-12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.08189e-12)
 shape = SubResource("BoxShape3D_adcft")
 
 [node name="PerfectArea" type="Area3D" parent="." groups=["perfect_area", "picker_area"]]
-transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0.205482, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.188894, 0, 0)
 
 [node name="Perfect" type="CollisionShape3D" parent="PerfectArea"]
 shape = SubResource("BoxShape3D_d5ims")
 
 [node name="VeryGoodAreaLate" type="Area3D" parent="." groups=["picker_area", "verygood_area"]]
-transform = Transform3D(1, 0, 0, 0, 0.999998, 0, 0, 0, 0.999998, 0.389473, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.999996, 0, 0, 0, 0.999996, 0.650389, 0, 0)
 
 [node name="VeryGoodLate" type="CollisionShape3D" parent="VeryGoodAreaLate"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08189e-12, 2.08189e-12, 2.08189e-12)
 shape = SubResource("BoxShape3D_adcft")
 
 [node name="BadAreaLate" type="Area3D" parent="." groups=["bad_area", "picker_area"]]
-transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0.454795, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0, 0, 0, 0.999997, 0.77088, 0, 0)
 
 [node name="BadLate" type="CollisionShape3D" parent="BadAreaLate"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08189e-12, 2.08189e-12, 2.08189e-12)
 shape = SubResource("BoxShape3D_8tmit")
 
 [node name="MissArea" type="Area3D" parent="." groups=["miss_area", "picker_area"]]
-transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0.590402, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0, 0, 0, 0.999997, 0.931815, 0, 0)
 
 [node name="Miss" type="CollisionShape3D" parent="MissArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08189e-12, 2.08189e-12, 2.08189e-12)
 shape = SubResource("BoxShape3D_tx1l3")
+
+[node name="FXHighLight" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(5.50763e-07, -4.5, 4.37113e-08, -1.60497e-14, 1.96701e-07, 0.999996, -4.2, -5.90102e-07, 1.91068e-15, -1.4163, -0.251183, -0.064116)
+visible = false
+gi_mode = 0
+mesh = SubResource("QuadMesh_02lbd")
+surface_material_override/0 = SubResource("StandardMaterial3D_843bg")
+
+[node name="FXSpinner" type="AnimatedSprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-5.90104e-08, 0.2, 4.37114e-08, 0, -8.74227e-09, 0.999999, 1.35, 8.74227e-09, 1.91068e-15, 0.233355, 0.122658, -0.555998)
+sprite_frames = SubResource("SpriteFrames_jwy35")
+animation = &"vortex"
+
+[node name="FXSpark" type="GPUParticles3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(0.1, 0, 0, 0, 0.9, 0, 0, 0, 0.8, 0.20461, 0, 0)
+material_override = SubResource("StandardMaterial3D_kg0bt")
+emitting = false
+amount = 100
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.3
+randomness = 0.1
+fixed_fps = 60
+collision_base_size = 0.5
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_pegjh")
+draw_pass_1 = SubResource("QuadMesh_uu6di")
+
+[node name="FXGodRay" parent="." instance=ExtResource("43_nelaw")]
+unique_name_in_owner = true
+transform = Transform3D(-0.00216416, -0.00174533, 0.999996, 1.50996e-07, -0.999997, -0.00174533, 0.999996, -3.62618e-06, 0.00216416, 0.181, 1.474, -0.284434)
+material_override = SubResource("StandardMaterial3D_46cw7")
+lifetime = 0.5
+
+[node name="FXLightPillar" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-1.74846e-07, 0, 1, 0, 8, 0, -4, 0, -4.37114e-08, 0.2659, 1.13402, 0)
+visible = false
+material_override = SubResource("ShaderMaterial_gwml7")
+mesh = SubResource("QuadMesh_23non")

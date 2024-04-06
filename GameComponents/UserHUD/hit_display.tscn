@@ -1,0 +1,83 @@
+[gd_scene load_steps=9 format=3 uid="uid://o7bs4n3vreta"]
+
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="1_cciad"]
+[ext_resource type="Script" path="res://GameComponents/UserHUD/hit_display.gd" id="1_ekha0"]
+[ext_resource type="Texture2D" uid="uid://dmxpmc3ckn6tt" path="res://UITextures/GameTextures/kperfect.png" id="3_e3a30"]
+[ext_resource type="Texture2D" uid="uid://do8jreuy76wp2" path="res://UITextures/GameTextures/verygood.png" id="4_k2rj5"]
+[ext_resource type="Texture2D" uid="uid://vofwmpcudyxn" path="res://UITextures/GameTextures/good.png" id="5_2esro"]
+[ext_resource type="Texture2D" uid="uid://cxgr2m8ocpfv0" path="res://UITextures/GameTextures/bad.png" id="6_glthl"]
+[ext_resource type="Texture2D" uid="uid://gjgvcsqa6t5f" path="res://UITextures/GameTextures/miss.png" id="7_yr4v7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lmt48"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_e3a30")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_k2rj5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2esro")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_glthl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_yr4v7")
+}],
+"loop": true,
+"name": &"HitLabel",
+"speed": 5.0
+}]
+
+[node name="HitDisplay" type="Node3D"]
+script = ExtResource("1_ekha0")
+
+[node name="ComboLabel" type="Label3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, -0.948876, 0.315649, 0, 0.315649, 0.948876, -1, 4.14767e-08, -1.37975e-08, 0, 0.289277, 0)
+visible = false
+text = "COMBO"
+font = ExtResource("1_cciad")
+font_size = 140
+
+[node name="ComboValueLabel" type="Label3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-4.14716e-08, -0.94876, 0.315997, 1.38127e-08, 0.315997, 0.94876, -1, 4.37114e-08, 1.91068e-15, 0.658, 0.2, 0)
+visible = false
+font = ExtResource("1_cciad")
+font_size = 140
+
+[node name="Hit1" type="AnimatedSprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-1.74846e-08, 0, 0.4, 0, 0.4, 0, -0.4, 0, -1.74846e-08, 3.21636, 0.2, 1.81635)
+sprite_frames = SubResource("SpriteFrames_lmt48")
+animation = &"HitLabel"
+
+[node name="Hit2" type="AnimatedSprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-1.74846e-08, 0, 0.4, 0, 0.4, 0, -0.4, 0, -1.74846e-08, 3.21636, 0.2, 0.957054)
+sprite_frames = SubResource("SpriteFrames_lmt48")
+animation = &"HitLabel"
+
+[node name="Hit3" type="AnimatedSprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-1.74846e-08, 0, 0.4, 0, 0.4, 0, -0.4, 0, -1.74846e-08, 3.21636, 0.2, 0.0997852)
+sprite_frames = SubResource("SpriteFrames_lmt48")
+animation = &"HitLabel"
+
+[node name="Hit4" type="AnimatedSprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-1.74846e-08, 0, 0.4, 0, 0.4, 0, -0.4, 0, -1.74846e-08, 3.21636, 0.2, -0.760899)
+sprite_frames = SubResource("SpriteFrames_lmt48")
+animation = &"HitLabel"
+
+[node name="Hit5" type="AnimatedSprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-1.74846e-08, 0, 0.4, 0, 0.4, 0, -0.4, 0, -1.74846e-08, 3.21636, 0.2, -1.61648)
+sprite_frames = SubResource("SpriteFrames_lmt48")
+animation = &"HitLabel"

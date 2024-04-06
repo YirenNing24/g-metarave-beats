@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0qeas3iwkcad"]
+[gd_scene load_steps=8 format=3 uid="uid://c0qeas3iwkcad"]
 
-[ext_resource type="PackedScene" uid="uid://cbhfcq0bjdlqy" path="res://GameComponents/Road/road.tscn" id="1_bdnqg"]
+[ext_resource type="PackedScene" uid="uid://cbhfcq0bjdlqy" path="res://Songs/Road/road.tscn" id="1_bdnqg"]
 [ext_resource type="Script" path="res://UIScenes/game_scene.gd" id="1_qchx2"]
 [ext_resource type="PackedScene" uid="uid://bj2igrdk8hfmb" path="res://GameComponents/Music/music.tscn" id="3_wlywk"]
+[ext_resource type="PackedScene" uid="uid://j1ox362pqin7" path="res://GameComponents/UserHUD/userhud.tscn" id="4_5wd3j"]
+[ext_resource type="PackedScene" uid="uid://o7bs4n3vreta" path="res://GameComponents/UserHUD/hit_display.tscn" id="4_ed5bh"]
+[ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="6_0o2hm"]
 
 [sub_resource type="Environment" id="Environment_0fcn8"]
 background_energy_multiplier = 0.0
@@ -17,31 +20,44 @@ script = ExtResource("1_qchx2")
 environment = SubResource("Environment_0fcn8")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.33921e-08, -0.494397, 0.869236, -5.27407e-09, 0.869236, 0.494397, -1, 1.68685e-08, -4.03255e-08, 7.06499, 3.07075, -0.0707325)
+transform = Transform3D(-4.33921e-08, -0.494397, 0.869236, -5.27407e-09, 0.869236, 0.494397, -1, 1.68685e-08, -4.03255e-08, 6.97966, 3.283, 0)
 keep_aspect = 0
 fov = 68.8
 near = 0.06
 
 [node name="Road" parent="." instance=ExtResource("1_bdnqg")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.239552, 0.0334427, 0)
 
 [node name="Music" parent="." instance=ExtResource("3_wlywk")]
 unique_name_in_owner = true
 
+[node name="HitDisplay" parent="." instance=ExtResource("4_ed5bh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.438878, 0, 0)
+
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.43525, 21.8571, 0)
-light_energy = 7.626
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.87361, 21.8571, 0)
+light_color = Color(0.737255, 0.737255, 0.737255, 1)
+light_energy = 16.0
+omni_range = 47.404
+omni_attenuation = 0.435275
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5098, 21.8571, 0)
+light_color = Color(0.458824, 0.458824, 0.458824, 1)
+light_energy = 0.0
 omni_range = 47.404
 omni_attenuation = 0.435275
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="UserHUD" type="Control" parent="CanvasLayer"]
+[node name="UserHUD" parent="CanvasLayer" instance=ExtResource("4_5wd3j")]
 unique_name_in_owner = true
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-6.83914e-08, -1.11112, -1.89879, -4.74624e-08, 1.89879, -1.11112, 2.2, 6.4228e-09, -8.29988e-08, -22.1791, -11.6438, 0)
+modulate = Color(0.737255, 0.737255, 0.737255, 0.592157)
+texture = ExtResource("6_0o2hm")
+
+[connection signal="song_finished" from="Music" to="CanvasLayer/UserHUD" method="_on_music_song_finished"]
+[connection signal="hit_display_data" from="CanvasLayer/UserHUD" to="Road" method="_on_user_hud_hit_display_data"]
+[connection signal="hit_display_data" from="CanvasLayer/UserHUD" to="HitDisplay" method="_on_user_hud_hit_display_data"]

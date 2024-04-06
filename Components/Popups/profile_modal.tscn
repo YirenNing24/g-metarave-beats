@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://c0bfp8uhi3poy"]
+[gd_scene load_steps=17 format=3 uid="uid://c0bfp8uhi3poy"]
 
 [ext_resource type="Script" path="res://Components/Popups/profile_modal.gd" id="1_umnlo"]
 [ext_resource type="Texture2D" uid="uid://d3gybnopjgs8s" path="res://UITextures/BGTextures/auth.png" id="2_1rd46"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_lawlb"]
 [ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="4_tyy1t"]
 [ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="5_xgibo"]
+[ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="6_7jbf1"]
+[ext_resource type="PackedScene" uid="uid://dkw4i4wmj2ike" path="res://Components/Popups/view_picture.tscn" id="7_kijk3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jrcmy"]
 bg_color = Color(0.113725, 0.0980392, 0.2, 1)
@@ -12,15 +14,47 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
-shadow_color = Color(0.301961, 0.301961, 0.301961, 1)
-shadow_size = 10
-shadow_offset = Vector2(5, 8)
+shadow_color = Color(0, 0, 0, 0.494118)
+shadow_size = 1
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8nuqf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g8l7j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ib3y8"]
 bg_color = Color(0.0313726, 0.0196078, 0.0941176, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lk1uv"]
 bg_color = Color(0.0705882, 0.054902, 0.14902, 1)
+
+[sub_resource type="Animation" id="Animation_k11gc"]
+resource_name = "dp_options"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DPPanel/DPOptionPanel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 541), Vector2(0, 415)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DPPanel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.01),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 
 [sub_resource type="Animation" id="Animation_ydsjf"]
 resource_name = "fade-in"
@@ -40,21 +74,27 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sqsaf"]
 _data = {
+"dp_options": SubResource("Animation_k11gc"),
 "fade-in": SubResource("Animation_ydsjf")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5tl12"]
+bg_color = Color(0.113725, 0.0980392, 0.2, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+shadow_color = Color(0, 0, 0, 0.407843)
+shadow_size = 2
 
 [node name="ProfileModal" type="Control"]
 top_level = true
 z_index = 3
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 script = ExtResource("1_umnlo")
 
 [node name="Panel" type="Panel" parent="."]
@@ -93,11 +133,24 @@ custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 
 [node name="ProfilePic" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 texture = ExtResource("2_1rd46")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="ProfilePicOptionsButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ProfilePic"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8nuqf")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_g8l7j")
+flat = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(5, 0)
@@ -263,5 +316,75 @@ libraries = {
 "": SubResource("AnimationLibrary_sqsaf")
 }
 
+[node name="DPPanel" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(1, 1, 1, 0.580392)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DPOptionPanel" type="Panel" parent="DPPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.768519
+anchor_right = 1.0
+anchor_bottom = 0.998148
+offset_top = 126.0
+offset_bottom = 126.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5tl12")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DPPanel/DPOptionPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00916667
+anchor_top = 0.0483871
+anchor_right = 0.99
+anchor_bottom = 0.959678
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SeeProfilePicButton" type="Button" parent="DPPanel/DPOptionPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_7jbf1")
+theme_override_font_sizes/font_size = 20
+text = "See Profile Picure"
+flat = true
+
+[node name="UploadProfilePicButton" type="Button" parent="DPPanel/DPOptionPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_7jbf1")
+theme_override_font_sizes/font_size = 20
+text = "Upload Profile Picture"
+flat = true
+
+[node name="ChooseAvatarButton" type="Button" parent="DPPanel/DPOptionPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_7jbf1")
+theme_override_font_sizes/font_size = 20
+text = "Choose Avatar"
+flat = true
+
+[node name="ViewPicture" parent="." instance=ExtResource("7_kijk3")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ProfilePic/ProfilePicOptionsButton" to="." method="_on_profile_pic_options_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer3/LogoutButton" to="." method="_on_logout_button_pressed"]
+[connection signal="gui_input" from="DPPanel" to="." method="_on_dp_panel_gui_input"]
+[connection signal="pressed" from="DPPanel/DPOptionPanel/VBoxContainer/SeeProfilePicButton" to="." method="_on_see_profile_pic_button_pressed"]
+[connection signal="pressed" from="DPPanel/DPOptionPanel/VBoxContainer/UploadProfilePicButton" to="." method="_on_upload_profile_pic_button_pressed"]
+[connection signal="view_picture_close" from="ViewPicture" to="." method="_on_view_picture_view_picture_close"]

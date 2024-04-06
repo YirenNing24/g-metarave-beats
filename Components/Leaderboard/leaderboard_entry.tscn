@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=3 uid="uid://c62ktsqjchrot"]
+
+[ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="1_3or6x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_45xei"]
+bg_color = Color(0, 0, 0, 0.533333)
+border_width_bottom = 1
+border_color = Color(0, 0.823529, 0.823529, 0.894118)
+shadow_size = 5
+
+[node name="LeaderboardEntry" type="Control"]
+custom_minimum_size = Vector2(761, 50)
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_45xei")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(95, 0)
+layout_mode = 2
+
+[node name="Rank" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_3or6x")
+theme_override_font_sizes/font_size = 38
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(335, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="PlayerName" type="Label" parent="Panel/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_3or6x")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Score" type="Label" parent="Panel/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("1_3or6x")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -7,9 +7,18 @@ const version: String = "0.1"
 var godot_version: String = Engine.get_version_info().string
 
 # Configuration variables
-var host_ip: String = '192.168.4.117'
-var port: String = ":8081"
-var host: String = "http://" + host_ip + port
+#var host_ip: String = "localhost"
+var host_ip: String = "api.gmetarave.art"
+var port: String = ":8085"
+#var host: String = "http://" + host_ip
+
+var google_server_client_id: String = "484949065971-ujoksdio9417hnvd5goaclrvlnsv6704.apps.googleusercontent.com"
+var host: String = "http://" + "localhost" + port
+
+var session: bool = false
+
+var time_server: String
+var ping: int
 
 # Preloaded utility scripts
 const BKMRUtils: Script = preload("res://BeatsKMREngine/utils/BKMRUtils.gd")
@@ -18,10 +27,13 @@ const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 
 # Child nodes representing different modules
 @onready var Auth: Node = Node.new()
+@onready var Websocket: Node = Node.new()
+@onready var Inventory: Node = Node.new()
 @onready var Profile: Node = Node.new()
 @onready var Store: Node = Node.new()
-@onready var Chat: Node = Node.new()
 @onready var Social: Node = Node.new()
+@onready var Score: Node = Node.new()
+@onready var Leaderboard: Node = Node.new()
 
 # Configuration dictionaries
 @onready var config: Dictionary = {}
@@ -32,16 +44,18 @@ var auth_config: Dictionary = {
 
 # Loaded scripts for various modules
 var auth_script: Script = load("res://BeatsKMREngine/Auth/Auth.gd")
-var store_script: Script = load("res://BeatsKMREngine/Store/Store.gd")
-var chat_script: Script = load("res://BeatsKMREngine/Chat/Chat.gd")
-var profile_script: Script = load("res://BeatsKMREngine/Social/Profile.gd")
+var websocket_script: Script = load("res://BeatsKMREngine/Websocket/Websocket.gd")
+var inventory_script: Script = load("res://BeatsKMREngine/Inventory/Inventory.gd")
+var profile_script: Script = load("res://BeatsKMREngine/Profile/Profile.gd")
 var social_script: Script = load("res://BeatsKMREngine/Social/Social.gd")
+var store_script: Script = load("res://BeatsKMREngine/Store/Store.gd")
+var score_script: Script = load("res://BeatsKMREngine/Score/Score.gd")
+var leaderboard_script: Script = load("res://BeatsKMREngine/Leaderboard/Leaderboard.gd")
 
 # Called when the node is added to the scene tree
 func _ready() -> void:
 	# Wait for environment variable completion
 	await ENV_VAR.completed
-	
 	# Set configuration based on environment variables
 	config = {
 		"apiKey": ENV_VAR.apiKey,
@@ -49,28 +63,48 @@ func _ready() -> void:
 		"gameVersion": ENV_VAR.gameVersion,
 		"logLevel": ENV_VAR.logLevel,
 	}
-	
 	# Print start timestamp for debugging purposes
 	print("BKMR ready start timestamp: " + str(BKMRUtils.get_timestamp()))
+	initialize_script()
+	add_child_nodes()
+	get_server_time()
 	
-	# Initialize and add child nodes for different modules
+func initialize_script() -> void:
+	# Initialize script
 	Auth.set_script(auth_script)
-	add_child(Auth)
+	Websocket.set_script(websocket_script)
+	Inventory.set_script(inventory_script)
 	Profile.set_script(profile_script)
-	add_child(Profile)
 	Store.set_script(store_script)
-	add_child(Store)
-	Chat.set_script(chat_script)
-	add_child(Chat)
 	Social.set_script(social_script)
+	Score.set_script(score_script)
+	Leaderboard.set_script(leaderboard_script)
+
+func add_child_nodes() -> void:
+	#Add child nodes for different modules
+	add_child(Auth)
+	add_child(Websocket)
+	add_child(Inventory)
+	add_child(Profile)
+	add_child(Store)
 	add_child(Social)
+	add_child(Score)
+	add_child(Leaderboard)
 	
 	# Print end timestamp for debugging purposes
 	print("BKMR ready end timestamp: " + str(BKMRUtils.get_timestamp()))
 	
-	# Check the version using the authentication module
-	Auth.check_version(config)
+#func _physics_process(_delta: float) -> void:
 
+func get_server_time() -> void:
+	var _connect: int = get_tree().create_timer(5).timeout.connect(get_server_time)
+	if session == false:
+		return
+	Websocket.get_server_time()
+
+	#time_server = server_time.serverTime
+	#ping = latency
+	
 # Frees an HTTP request object using a WeakRef.
 # 
 # This function checks if the WeakRef is still valid before freeing the associated HTTP request object.
@@ -84,7 +118,7 @@ func _ready() -> void:
 # ```gdscript
 # free_request(wrGetCards, GetCards)
 # ```
-func free_request(weak_ref: WeakRef, object: Node) -> void:
+func free_request(weak_ref: Variant, object: HTTPRequest) -> void:
 	if (weak_ref.get_ref()):
 		object.queue_free()
 
@@ -106,36 +140,19 @@ func free_request(weak_ref: WeakRef, object: Node) -> void:
 # ```
 func prepare_http_request() -> Dictionary:
 	var request: HTTPRequest = HTTPRequest.new()
-	var weakref: WeakRef = weakref(request)
+	var weak_ref: WeakRef = weakref(request)
 	if OS.get_name() != "Web":
 		request.set_use_threads(true)
 	request.process_mode = Node.PROCESS_MODE_ALWAYS
 	get_tree().get_root().call_deferred("add_child", request)
 	var return_dict: Dictionary = {
 		"request": request, 
-		"weakref": weakref
+		"weakref": weak_ref
 	}
 	return return_dict
 
 # Sends a GET request using the provided HTTPRequest object to the specified URL.
-# 
-# This function constructs the necessary headers, including API key, plugin version, and Godot version.
-# It then sends the GET request with the specified URL and headers. 
-# If the HTTPRequest object is not already inside the scene tree, it waits for a short time before sending the request.
-#
-# Parameters:
-# - http_node: The HTTPRequest object used to send the GET request.
-# - request_url: The URL to which the GET request is sent.
-#
-# Returns:
-# - An Error object indicating the success or failure of the GET request.
-#
-# Example usage:
-# ```gdscript
-# var request_url: String = "http://example.com/api/data"
-# var get_request_result: Error = send_get_request(http_request_object, request_url)
-# ```
-func send_get_request(http_node: HTTPRequest, request_url: String) -> Error:
+func send_get_request(http_node: HTTPRequest, request_url: String) -> void:
 	var headers: Array = [
 		"x-api-key: " + BKMREngine.config.apiKey, 
 		"x-api-id: " + BKMREngine.config.apiId,
@@ -144,30 +161,16 @@ func send_get_request(http_node: HTTPRequest, request_url: String) -> Error:
 	]
 	headers = add_jwt_token_headers(headers)
 	if !http_node.is_inside_tree():
-		await get_tree().create_timer(0.01).timeout
+		await get_tree().create_timer(0.09).timeout
+
 	BKMRLogger.debug("Method: GET")
 	BKMRLogger.debug("request_url: " + str(request_url))
 	BKMRLogger.debug("headers: " + str(headers))
-	var get_request_send: Error = http_node.request(request_url, headers, HTTPClient.METHOD_GET) 
-	return get_request_send
+	var _get_request_send: Error = http_node.request(request_url, headers, HTTPClient.METHOD_GET) 
+	
+#localhost:8081/api/social/mutual/nashar2
 
 # Sends a POST request using the provided HTTPRequest object to the specified URL with the given payload.
-# 
-# This function constructs the necessary headers, including API key, plugin version, and Godot version.
-# It then sends the POST request with the specified URL, headers, and payload. 
-# If the HTTPRequest object is not already inside the scene tree, it waits for a short time before sending the request.
-#
-# Parameters:
-# - http_node: The HTTPRequest object used to send the POST request.
-# - request_url: The URL to which the POST request is sent.
-# - payload: A Dictionary containing the data to be included in the POST request body.
-#
-# Example usage:
-# ```gdscript
-# var request_url: String = "http://example.com/api/data"
-# var payload_data: Dictionary = {"key": "value"}
-# send_post_request(http_request_object, request_url, payload_data)
-# ```
 func send_post_request(http_node: HTTPRequest, request_url: String, payload: Dictionary) -> void:
 	var headers: Array = [
 		"content-Type: application/json",
@@ -177,9 +180,8 @@ func send_post_request(http_node: HTTPRequest, request_url: String, payload: Dic
 		"x-bkmr-godot-version: " + godot_version,
 	]
 	headers = add_jwt_token_headers(headers)
-	var _use_ssl: bool = true
 	if !http_node.is_inside_tree():
-		await get_tree().create_timer(0.01).timeout
+		await get_tree().create_timer(0.05).timeout
 		
 	var query: String = JSON.stringify(payload)
 	BKMRLogger.debug("Method: POST")
@@ -188,28 +190,36 @@ func send_post_request(http_node: HTTPRequest, request_url: String, payload: Dic
 	BKMRLogger.debug("query: " + str(query))
 	var _request_post_send: Error = http_node.request(request_url, headers, HTTPClient.METHOD_POST, query)
 
+func send_login_request(http_node: HTTPRequest, request_url: String, payload: Dictionary) -> void:
+	var headers: Array = [
+		"content-Type: application/json",
+		"x-api-key: " + BKMREngine.config.apiKey,
+		"x-api-id: " + BKMREngine.config.apiId,
+		"x-bkmr-plugin-version: " + BKMREngine.version,
+		"x-bkmr-godot-version: " + godot_version,
+	]
+	headers = add_jwt_refresh_token_headers(headers)
+	if !http_node.is_inside_tree():
+		await get_tree().create_timer(0.05).timeout
+		
+	var query: String = JSON.stringify(payload)
+	BKMRLogger.debug("Method: POST")
+	BKMRLogger.debug("request_url: " + str(request_url))
+	BKMRLogger.debug("headers: " + str(headers))
+	BKMRLogger.debug("query: " + str(query))
+	var _request_post_send: Error = http_node.request(request_url, headers, HTTPClient.METHOD_POST, query)
 
 # Adds JWT token headers to the provided array of headers.
-#
-# This function checks if the authentication object (Auth) has a valid access token. 
-# If a valid access token exists, it appends the "Authorization" header with the Bearer token to the provided headers array.
-# The headers array is then returned with or without the added JWT token header.
-#
-# Parameters:
-# - headers: An optional Array containing headers to which the JWT token header will be added.
-#
-# Returns:
-# - An Array containing the original headers along with the JWT token header if a valid access token exists.
-#
-# Example usage:
-# ```gdscript
-# var custom_headers: Array = ["Content-Type: application/json"]
-# var headers_with_jwt: Array = add_jwt_token_headers(custom_headers)
-# ```
 func add_jwt_token_headers(headers: Array = []) -> Array:
-	if Auth.bkmr_access_token != null:
-		headers.append("Authorization: Bearer " + Auth.bkmr_access_token)
-	return headers
+	if Auth.access_token != null:
+		headers.append("Authorization: Bearer " + Auth.access_token)
+	return headers as Array
+	
+# Adds JWT token headers for LOGIN and AUTO_LOGIN.
+func add_jwt_refresh_token_headers(headers: Array = []) -> Array:
+	if Auth.refresh_token != null:
+		headers.append("Authorization: Bearer " + Auth.refresh_token)
+	return headers as Array
 
 # Checks if a specified string is present in the given URL.
 #

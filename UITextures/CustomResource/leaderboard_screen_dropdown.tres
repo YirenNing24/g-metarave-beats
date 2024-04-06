@@ -1,0 +1,8 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://b137tuats7kxu"]
+
+[ext_resource type="Texture2D" uid="uid://1ktjogd6a24l" path="res://UITextures/Buttons/buy_button.png" id="1_0jfqb"]
+
+[resource]
+content_margin_left = 28.0
+content_margin_right = 0.0
+texture = ExtResource("1_0jfqb")

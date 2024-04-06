@@ -2,7 +2,7 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://bn1lfgvrfeutn"
+uid="uid://c70gqabxlqahy"
 path="res://.godot/imported/Red Velvet-Red Flavor.ogg-6ab25d37e11828f4fad2488bd0909c47.oggvorbisstr"
 
 [deps]
@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/Red Velvet-Red Flavor.ogg-6ab25d37e11828f4fad
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
 bpm=0
 beat_count=0

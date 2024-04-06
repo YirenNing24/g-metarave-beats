@@ -1,0 +1,94 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkw4i4wmj2ike"]
+
+[ext_resource type="Script" path="res://Components/Popups/view_picture.gd" id="1_yuyeb"]
+[ext_resource type="Texture2D" uid="uid://df4ks21hiueoy" path="res://UITextures/Buttons/next_prev_button.png" id="2_fgglm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lsll3"]
+bg_color = Color(0, 0, 0, 0.933333)
+
+[node name="ViewPicture" type="Control"]
+z_index = 5
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yuyeb")
+
+[node name="Panel" type="Panel" parent="."]
+z_index = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lsll3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 350)
+layout_mode = 2
+alignment = 1
+
+[node name="DisplayPictureTexture" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(350, 350)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer2" type="HBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -35.0
+offset_right = 72.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="LeftButton" type="TextureButton" parent="Panel/VBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("2_fgglm")
+ignore_texture_size = true
+stretch_mode = 5
+flip_h = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer2"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+
+[node name="RightButton" type="TextureButton" parent="Panel/VBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("2_fgglm")
+ignore_texture_size = true
+stretch_mode = 5
+
+[connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]
+[connection signal="visibility_changed" from="Panel/VBoxContainer/HBoxContainer/DisplayPictureTexture" to="." method="_on_display_picture_texture_visibility_changed"]
+[connection signal="pressed" from="Panel/VBoxContainer2/LeftButton" to="." method="_on_left_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer2/RightButton" to="." method="_on_right_button_pressed"]

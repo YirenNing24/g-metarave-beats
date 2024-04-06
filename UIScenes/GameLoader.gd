@@ -14,7 +14,7 @@ var next_texture: Texture2D
 #
 # Returns:
 # - bool: True if the scene transition is successful, False otherwise.
-func load_scene(current_scene: Control, next_scene: String) -> bool:
+func load_scene(current_scene: Variant, next_scene: String) -> bool:
 	# Instantiate the GameLoader scene.
 	var game_loader: Control = preload("res://UIScenes/GameLoader.tscn").instantiate()
 	

@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://UIScenes/SongMenuScroll.gd" id="7_36j7h"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="7_yex5a"]
 [ext_resource type="Texture2D" uid="uid://df4ks21hiueoy" path="res://UITextures/Buttons/next_prev_button.png" id="8_nwtib"]
-[ext_resource type="Texture2D" uid="uid://daunxrmrur2c4" path="res://UITextures/PanelElements/difficulty_bg.png" id="9_vyfj1"]
+[ext_resource type="Texture2D" uid="uid://u5uvm5snnfq6" path="res://UITextures/PanelElements/difficulty_bg.png" id="9_vyfj1"]
 
 [node name="SongMenu" type="Control"]
 layout_mode = 3
@@ -148,7 +148,7 @@ size_flags_horizontal = 3
 texture_normal = ExtResource("5_h7gew")
 texture_hover = ExtResource("6_34ojg")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="BackgroundTexture"]
+[node name="SongScrollContainer" type="ScrollContainer" parent="BackgroundTexture"]
 unique_name_in_owner = true
 clip_contents = false
 layout_mode = 1
@@ -164,12 +164,12 @@ vertical_scroll_mode = 0
 script = ExtResource("7_36j7h")
 metadata/_edit_use_anchors_ = true
 
-[node name="CenterContainer" type="CenterContainer" parent="BackgroundTexture/ScrollContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="BackgroundTexture/SongScrollContainer"]
 custom_minimum_size = Vector2(3000, 377)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="BackgroundTexture/ScrollContainer/CenterContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="BackgroundTexture/SongScrollContainer/CenterContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(3000, 200)
 layout_mode = 2
@@ -177,12 +177,11 @@ mouse_filter = 2
 theme_override_constants/margin_left = 1200
 theme_override_constants/margin_right = 1200
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/ScrollContainer/CenterContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/SongScrollContainer/CenterContainer/MarginContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 0
 mouse_filter = 2
 theme_override_constants/separation = 40
 
@@ -232,7 +231,8 @@ custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer4/HBoxContainer"]
+[node name="LeftDifficultyButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer4/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(55, 55)
 layout_mode = 2
 texture_normal = ExtResource("8_nwtib")
@@ -245,19 +245,17 @@ custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 texture = ExtResource("9_vyfj1")
 expand_mode = 1
+stretch_mode = 6
 
-[node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer4/HBoxContainer/TextureRect"]
+[node name="DifficultyLabel" type="Label" parent="BackgroundTexture/HBoxContainer4/HBoxContainer/TextureRect"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -90.0
-offset_top = -17.5
-offset_right = 90.0
-offset_bottom = 17.5
+anchors_preset = -1
+anchor_left = 0.275
+anchor_top = 0.127271
+anchor_right = 0.725
+anchor_bottom = 0.763634
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -267,8 +265,10 @@ text = "Easy"
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
+metadata/_edit_use_anchors_ = true
 
-[node name="TextureButton2" type="TextureButton" parent="BackgroundTexture/HBoxContainer4/HBoxContainer"]
+[node name="RightDifficultyButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer4/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(55, 55)
 layout_mode = 2
 texture_normal = ExtResource("8_nwtib")
@@ -308,4 +308,6 @@ unique_name_in_owner = true
 volume_db = 24.0
 
 [connection signal="pressed" from="BackgroundTexture/HBoxContainer2/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="gui_input" from="BackgroundTexture/ScrollContainer" to="BackgroundTexture/ScrollContainer" method="_on_gui_input"]
+[connection signal="gui_input" from="BackgroundTexture/SongScrollContainer" to="BackgroundTexture/SongScrollContainer" method="_on_gui_input"]
+[connection signal="pressed" from="BackgroundTexture/HBoxContainer4/HBoxContainer/LeftDifficultyButton" to="." method="_on_left_difficulty_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/HBoxContainer4/HBoxContainer/RightDifficultyButton" to="." method="_on_right_difficulty_button_pressed"]

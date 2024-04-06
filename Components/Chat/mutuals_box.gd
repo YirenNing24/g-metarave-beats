@@ -12,7 +12,6 @@ signal chat_button_pressed(conversing_username: String)
 @onready var mutual_scroll: ScrollContainer = %MutualsScroll
 @onready var mutual_vbox: VBoxContainer = %MutualsVBox
 
-
 # INSTANCE SCENE COMPONENTS FOR MUTUALS WINDOW
 var mutual_slot: PackedScene = preload("res://Components/Chat/mutual_slot.tscn")
 
@@ -22,45 +21,21 @@ var conversing_username: String
 var is_opened: bool = false
 
 var private_messages: Array
-var mutuals_list: Array
 
 # Initialization function called when the node is ready.
-#
-# This function is called when the node is ready, and it performs the following tasks:
-# 1. Retrieves mutual followers from the social system using BKMREngine.Social.get_mutual().
-# 2. Waits for the completion of the mutual followers retrieval using await BKMREngine.Social.get_mutual_complete.
-# 3. Populates the mutuals list in the UI by calling the populate_mutuals_list() function.
-# 4. Connects the VScrollBar signal to handle new messages received using _on_new_all_message_received function.
-#
-# Returns:
-# - This function does not return a value; it operates by initializing and populating the UI.
-#
-# Example usage:
-# ```gdscript
-# _ready()
-# ```
 func _ready() -> void:
 	# Get mutual followers from the social system
 	BKMREngine.Social.get_mutual()
-	await BKMREngine.Social.get_mutual_complete
-	mutuals_list = BKMREngine.Social.mutual_followers
+	BKMREngine.Social.get_mutual_complete.connect(populate_mutuals_list)
 	# Populate the mutuals list in the UI
-	populate_mutuals_list()
+	call_deferred("set_status_and_activity")
 
+func set_status_and_activity() -> void:
+	BKMREngine.Social.set_status_online('main')
+	BKMREngine.Social.get_mutual_status()
+	
 # Function to populate the mutuals list in the UI.
-#
-# This function iterates through the mutual followers list and creates UI slots for each follower.
-# It sets UI labels with relevant information such as username, level, and rank.
-# Additionally, it connects the chat button signal to handle chat initiation through the _on_chat_button_pressed function.
-#
-# Returns:
-# - This function does not return a value; it operates by populating the mutuals list in the UI.
-#
-# Example usage:
-# ```gdscript
-# populate_mutuals_list()
-# ```
-func populate_mutuals_list() -> void:
+func populate_mutuals_list(mutuals_list: Array) -> void:
 	# Iterate through mutual followers and create UI slots for each
 	for mutuals: Dictionary in mutuals_list:
 		var slot_mutuals: Control = mutual_slot.instantiate()
@@ -80,39 +55,16 @@ func populate_mutuals_list() -> void:
 		mutual_vbox.add_child(slot_mutuals)
 
 # Function to handle the slide button press event.
-#
-# This function emits a signal to toggle the visibility of the mutuals window.
-# The signal includes the current state of the window (opened or closed).
-#
-# Returns:
-# - This function does not return a value; it operates by emitting a signal to toggle the visibility of the mutuals window.
-#
-# Example usage:
-# ```gdscript
-# _on_slide_button_pressed()
-# ```
 func _on_slide_button_pressed() -> void:
+	print("yehey")
+	slide_button.disabled = true
 	# Emit signal to toggle the visibility of the mutuals window
 	slide_pressed.emit(is_opened)
 
 # Function to handle the event when the user wants to view the profile of a specific username.
-#
-# This function triggers the Social engine to view the profile of the selected user and emits a signal
-# indicating that the view profile button was pressed, passing the player profile as a parameter.
-#
-# Parameters:
-# - `username`: The username of the user whose profile is to be viewed.
-#
-# Returns:
-# - This function does not return a value; it operates by viewing the profile and emitting a signal.
-#
-# Example usage:
-# ```gdscript
-# _on_view_profile("selected_username")
-# ```
-func _on_view_profile(username: String) -> void:
+func _on_view_profile(userName: String) -> void:
 	# View the profile of the selected user
-	BKMREngine.Social.view_profile(username)
+	BKMREngine.Social.view_profile(userName)
 	view_profile_pressed.emit(BKMREngine.Social.player_profile)
 
 # Function to handle the event when the user presses the chat button to initiate a conversation.
@@ -134,4 +86,11 @@ func _on_view_profile(username: String) -> void:
 func _on_chat_button_pressed() -> void:
 	# Emit signal to initiate a chat with the selected user
 	chat_button_pressed.emit(conversing_username)
-	print(conversing_username)
+
+func _on_main_screen_mutuals_button_pressed() -> void:
+	slide_button.disabled = false
+
+
+func _on_slide_button_2_pressed() -> void:
+	print("tae")
+	pass # Replace with function body.

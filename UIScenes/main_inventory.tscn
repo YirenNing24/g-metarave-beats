@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="4_v34na"]
 [ext_resource type="Texture2D" uid="uid://brt2d817g34ji" path="res://UITextures/Buttons/PanelTextures/main_inventory_hero.png" id="5_pua5d"]
 [ext_resource type="Texture2D" uid="uid://c77ras2lgiqbf" path="res://UITextures/PanelElements/inventory_selection.png" id="6_bbjlk"]
-[ext_resource type="Texture2D" uid="uid://bxb3fpjcokmy8" path="res://UITextures/Cards/leeseo_lovedive_le_debut.png" id="7_xbmdo"]
+[ext_resource type="Texture2D" uid="uid://bxb3fpjcokmy8" path="res://UITextures/Cards/leeseo_lovedive_le_trainee.png" id="7_xbmdo"]
 [ext_resource type="Texture2D" uid="uid://cnjoei80ls8fo" path="res://UITextures/Bundles/large_loot_box.png" id="8_5tdu4"]
 [ext_resource type="Texture2D" uid="uid://dqnqqawvspdxo" path="res://UITextures/Buttons/PanelTextures/accessories_texture.png" id="8_sxcys"]
 
@@ -370,7 +370,7 @@ size_flags_vertical = 1
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("4_7x11s")
 theme_override_font_sizes/font_size = 21
-text = "Cards"
+text = "Card Deck"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer"]
@@ -380,7 +380,7 @@ size_flags_vertical = 1
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("4_7x11s")
 theme_override_font_sizes/font_size = 21
-text = "Loot Boxes"
+text = "Bag"
 horizontal_alignment = 1
 
 [node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer"]

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmevgm83w578w"
 path.s3tc="res://.godot/imported/Metal_006_height.png-e109652eb43a767a3abb903f6edf64fe.s3tc.ctex"
+path.etc2="res://.godot/imported/Metal_006_height.png-e109652eb43a767a3abb903f6edf64fe.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://UITextures/3DTextures/RoadTextures/Metal_006_height.png"
-dest_files=["res://.godot/imported/Metal_006_height.png-e109652eb43a767a3abb903f6edf64fe.s3tc.ctex"]
+dest_files=["res://.godot/imported/Metal_006_height.png-e109652eb43a767a3abb903f6edf64fe.s3tc.ctex", "res://.godot/imported/Metal_006_height.png-e109652eb43a767a3abb903f6edf64fe.etc2.ctex"]
 
 [params]
 

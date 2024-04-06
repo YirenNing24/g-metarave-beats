@@ -12,21 +12,23 @@ var logLevel:String = ""
 
 func _ready() -> void:
 	env = parser.parse("res://.env")
-	apiKey = ENV_VAR.env.apiKey
-	apiId = ENV_VAR.env.apiId
-	gameVersion = ENV_VAR.env.gameVersion
-	logLevel = ENV_VAR.env.logLevel
+	apiKey = "1"
+	apiId = "Hello World"
+	gameVersion = "0.1"
+	logLevel = "2"
 	var _complete_signal: Error = emit_signal("completed")
 	
-@warning_ignore("shadowed_variable_base_class")
-func get_env(name: String) -> String:
+
+func get_env(names: String) -> String:
 	
 	# prioritized os environment variable
-	if(OS.has_environment(name)):
-		var _env: String = OS.get_environment(name)
+	if(OS.has_environment(names)):
+		var _env: String = OS.get_environment(names)
+		completed.emit()
 		return _env
 		
-	if(env.has(name)):
-		return env[name]
+	if(env.has(names)):
+		return env[names]
 	# return empty
 	return ""
+	

@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4er7m40crmy6"]
+
+[ext_resource type="Shader" path="res://GameComponents/NotePicker/fx_light_pillar.gdshader" id="1_vswfk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hw478"]
+render_priority = 0
+shader = ExtResource("1_vswfk")
+shader_parameter/albedo = Color(0, 0.803922, 0.815686, 0.290196)
+shader_parameter/brightness = 1.0
+shader_parameter/small_lines = 1.0
+shader_parameter/medium_lines = 1.0
+shader_parameter/big_lines = 1.0
+shader_parameter/horizontal_fade = 1.0
+shader_parameter/vertical_fade = 2.0
+shader_parameter/animation_speed = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n71op"]
+render_priority = 0
+shader = ExtResource("1_vswfk")
+shader_parameter/albedo = null
+shader_parameter/brightness = 1.0
+shader_parameter/small_lines = 1.0
+shader_parameter/medium_lines = 1.0
+shader_parameter/big_lines = 1.0
+shader_parameter/horizontal_fade = 1.0
+shader_parameter/vertical_fade = 2.0
+shader_parameter/animation_speed = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_2a5eo"]
+size = Vector2(0.3, 1)
+
+[node name="FXLightPillar" type="GPUParticles3D"]
+transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_hw478")
+amount = 3
+lifetime = 0.3
+explosiveness = 0.3
+randomness = 1.0
+process_material = SubResource("ShaderMaterial_n71op")
+draw_pass_1 = SubResource("QuadMesh_2a5eo")
