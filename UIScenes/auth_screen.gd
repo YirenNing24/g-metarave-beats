@@ -169,6 +169,7 @@ func on_submit_registration(val_username: String, val_password: String)  -> void
 	BKMREngine.Auth.register_player(val_username, val_password)
 	
 func _on_register_button_pressed() -> void:
+	print("register")
 	animation_player2.play("registration_loading")
 	var errors: Array = []
 	

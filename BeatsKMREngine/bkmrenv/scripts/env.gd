@@ -5,10 +5,10 @@ signal completed
 
 @onready var parser: BKMREnv_Parser = BKMREnv_Parser.new()
 var env: Dictionary = {};
-var apiKey:String = ""
-var apiId:String = ""
-var gameVersion:String = ""
-var logLevel:String = ""
+var apiKey: String = ""
+var apiId: String = ""
+var gameVersion: String = ""
+var logLevel: String = ""
 
 func _ready() -> void:
 	env = parser.parse("res://.env")

@@ -1,11 +1,9 @@
-[gd_scene load_steps=37 format=3 uid="uid://cfnseobkn66fh"]
+[gd_scene load_steps=34 format=3 uid="uid://cfnseobkn66fh"]
 
 [ext_resource type="Script" path="res://UIScenes/auth_screen.gd" id="1_fahu6"]
-[ext_resource type="Texture2D" uid="uid://ba8q012bmx1s0" path="res://UITextures/BGTextures/purple-gradient.png" id="2_qlg4t"]
-[ext_resource type="Texture2D" uid="uid://bm26eeb5rxdbj" path="res://UITextures/Buttons/PanelTextures/suhye_auth_hero.png" id="3_7b75v"]
-[ext_resource type="Texture2D" uid="uid://b6j0jwl75qvpb" path="res://UITextures/Buttons/PanelTextures/auth_hero_bg.png" id="3_ccr1n"]
+[ext_resource type="Texture2D" uid="uid://beivc8jimuyqa" path="res://UITextures/BGTextures/blue_gradient.png" id="2_usyb0"]
+[ext_resource type="Texture2D" uid="uid://hbj7i3cw1i02" path="res://UITextures/BGTextures/auth_hero_xin.png" id="3_jxmbw"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_wtii2"]
-[ext_resource type="Texture2D" uid="uid://bruw7jin81awf" path="res://UITextures/Buttons/PanelTextures/auth_hero_bg1.png" id="4_atrg8"]
 [ext_resource type="StyleBox" uid="uid://dpaedph31g6t5" path="res://UITextures/CustomResource/auth_screen_normal.tres" id="6_0mn33"]
 [ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="6_33msh"]
 [ext_resource type="StyleBox" uid="uid://b7dkk3cdsrviw" path="res://UITextures/CustomResource/auth_line_field.tres" id="6_w6605"]
@@ -44,35 +42,6 @@ shadow_offset = Vector2(5, 8)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_enk2f"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_boybj"]
-
-[sub_resource type="Animation" id="Animation_7oy6i"]
-resource_name = "hero_bg"
-length = 6.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BackgroundTexture/LoginModalContainer/Panel/HBoxContainer/TextureRect:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2.6, 2.8, 3, 5.8, 6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0.71064), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BackgroundTexture/LoginModalContainer/Panel/HBoxContainer/TextureRect:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 2.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [ExtResource("4_atrg8"), ExtResource("3_ccr1n")]
-}
 
 [sub_resource type="Animation" id="Animation_aaf5s"]
 resource_name = "switch_start_screen"
@@ -156,7 +125,6 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4w76c"]
 _data = {
-"hero_bg": SubResource("Animation_7oy6i"),
 "switch_start_screen": SubResource("Animation_aaf5s"),
 "transition_1": SubResource("Animation_6sob6")
 }
@@ -202,10 +170,10 @@ tracks/1/path = NodePath("BackgroundTexture/LoginModalContainer/Panel/VBoxContai
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [true, false]
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -278,10 +246,10 @@ tracks/1/path = NodePath("BackgroundTexture/LoginModalContainer/Panel/VBoxContai
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [true, false]
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -436,7 +404,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.990833
 offset_top = 28.0
-offset_right = 1189.0
+offset_right = 4756.0
 offset_bottom = 28.0
 mouse_filter = 2
 alignment = 2
@@ -470,7 +438,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_qlg4t")
+texture = ExtResource("2_usyb0")
 expand_mode = 1
 
 [node name="LoginModalContainer" type="VBoxContainer" parent="BackgroundTexture"]
@@ -499,7 +467,7 @@ offset_bottom = 482.0
 [node name="TextureRect" type="TextureRect" parent="BackgroundTexture/LoginModalContainer/Panel/HBoxContainer"]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
-texture = ExtResource("3_7b75v")
+texture = ExtResource("3_jxmbw")
 expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="BackgroundTexture/LoginModalContainer/Panel/HBoxContainer/TextureRect"]
@@ -532,6 +500,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="Label3" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/HBoxContainer"]
+modulate = Color(0, 1, 1, 1)
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -707,7 +676,7 @@ theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("6_33msh")
 theme_override_font_sizes/font_size = 12
-text = "Or sign-up using the options below:"
+text = "Or register using the options below:"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/VBoxContainer"]
@@ -881,6 +850,7 @@ text = "Login here"
 [node name="StartContainer" type="VBoxContainer" parent="BackgroundTexture"]
 unique_name_in_owner = true
 visible = false
+modulate = Color(1, 1, 1, 0)
 z_index = 3
 custom_minimum_size = Vector2(1153, 0)
 layout_mode = 1

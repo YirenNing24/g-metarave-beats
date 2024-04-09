@@ -43,11 +43,8 @@ var counter: int = 0
 
 var chat_messages: Array
 var chat_handle: String
+
 # Process function to handle WebSocket interactions and manage connection states.
-# Parameters:
-# - _delta (float): The time elapsed since the last frame.
-# Returns:
-# - void
 func _process(_delta: float) -> void:
 	var auth_header: Array = BKMREngine.add_jwt_token_headers()
 	if BKMREngine.session == false:

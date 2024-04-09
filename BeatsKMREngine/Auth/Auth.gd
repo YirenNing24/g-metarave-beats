@@ -194,12 +194,13 @@ func _on_RegisterPlayer_request_completed(_result: int, response_code: int, head
 		bkmr_registration_complete.emit({ "success": "Registration Successful" })
 	else:
 		if json_body != null or "":
-			BKMRLogger.error("BKMREngine player registration failure: " + str(json_body))
-			bkmr_registration_complete.emit({"error": str(json_body)})
-		elif "error" in json_body:
-			bkmr_registration_complete.emit({ "error": json_body })
+			if "error" in json_body:
+				bkmr_registration_complete.emit({ "error": json_body })
+			else:
+				BKMRLogger.error("BKMREngine player registration failure: " + str(json_body))
+				bkmr_registration_complete.emit({ "error": str(json_body) })
 		else:
-			bkmr_registration_complete.emit({ "error": "Unknown server error or server is offline" })
+			BKMRLogger.error("Unknown server Error")
 			
 func register_google(token: String) -> void:
 	# Prepare HTTP request

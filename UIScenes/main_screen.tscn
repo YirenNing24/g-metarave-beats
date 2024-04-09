@@ -1,8 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://yfevho5xx5qg"]
+[gd_scene load_steps=31 format=3 uid="uid://yfevho5xx5qg"]
 
 [ext_resource type="Script" path="res://UIScenes/main_screen.gd" id="1_25j1r"]
-[ext_resource type="Texture2D" uid="uid://cahtjifmsiqhm" path="res://UITextures/BGTextures/main.png" id="1_uh6x3"]
 [ext_resource type="Texture2D" uid="uid://cj3g7l2prnd31" path="res://UITextures/PanelElements/player_panel.png" id="2_37prv"]
+[ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_hcabu"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_5uujb"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="3_i1nbb"]
 [ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="3_uxccu"]
@@ -14,11 +14,12 @@
 [ext_resource type="Texture2D" uid="uid://clu717sjyfm4r" path="res://UITextures/Buttons/message_button.png" id="11_a2u7i"]
 [ext_resource type="Texture2D" uid="uid://dir30ha1xy1ee" path="res://UITextures/PanelElements/Square slot 4.png" id="11_ddq8t"]
 [ext_resource type="PackedScene" uid="uid://b3eiw5d6jk827" path="res://Components/Chat/mutuals_box.tscn" id="12_b1h6r"]
-[ext_resource type="Texture2D" uid="uid://b1tsal8jhxld4" path="res://UITextures/Buttons/PanelTextures/normal_mode.png" id="12_p87ie"]
 [ext_resource type="Texture2D" uid="uid://cyl1bqw5cea6d" path="res://UITextures/Buttons/mode_normal.png" id="13_cv2mc"]
+[ext_resource type="Texture2D" uid="uid://71gvtbylcmpr" path="res://UITextures/Buttons/PanelTextures/x_in_classic.png" id="13_rrqjq"]
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="15_ovxn5"]
-[ext_resource type="Texture2D" uid="uid://b0nji0srtvb14" path="res://UITextures/Buttons/PanelTextures/main_hero1.png" id="16_4hgnp"]
 [ext_resource type="PackedScene" uid="uid://4hviwgrfsnfn" path="res://Components/Chat/chat_box.tscn" id="17_c2ldk"]
+[ext_resource type="FontFile" uid="uid://cfpnum8trj6m7" path="res://UITextures/Fonts/HankenGrotesk-SemiBold.ttf" id="17_rffxp"]
+[ext_resource type="Texture2D" uid="uid://b1vri81ty6yl8" path="res://UITextures/Buttons/PanelTextures/x_in_hero_1.png" id="20_3dgv8"]
 [ext_resource type="Texture2D" uid="uid://irgifod6546h" path="res://UITextures/Buttons/show_chat.png" id="20_svq2r"]
 [ext_resource type="Texture2D" uid="uid://pillh3ktitlt" path="res://UITextures/GameTextures/particles/petal.png" id="21_vp18h"]
 [ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="22_6iiwn"]
@@ -62,7 +63,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.7, 1.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(75.9998, -93.9998), Vector2(76, -85), Vector2(76, -94)]
+"values": [Vector2(60, -94), Vector2(60, -85), Vector2(60, -94)]
 }
 
 [sub_resource type="Animation" id="Animation_alxay"]
@@ -161,7 +162,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_vtby7")
 
 [node name="BackgroundTexture" type="TextureRect" parent="Panel"]
 unique_name_in_owner = true
-self_modulate = Color(0.682353, 0.682353, 0.682353, 1)
+self_modulate = Color(0.255659, 0.255659, 0.255659, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -169,7 +170,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 0
-texture = ExtResource("1_uh6x3")
+texture = ExtResource("2_hcabu")
+expand_mode = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/BackgroundTexture"]
 custom_minimum_size = Vector2(0, 120)
@@ -186,6 +188,7 @@ custom_minimum_size = Vector2(450, 120)
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer"]
+self_modulate = Color(0.737193, 0.737193, 0.737193, 1)
 custom_minimum_size = Vector2(450, 120)
 layout_mode = 2
 mouse_filter = 0
@@ -311,6 +314,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
+self_modulate = Color(0.737193, 0.737193, 0.737193, 1)
 custom_minimum_size = Vector2(175, 50)
 layout_mode = 2
 texture = ExtResource("3_uxccu")
@@ -336,6 +340,7 @@ text_overrun_behavior = 3
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect2" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
+self_modulate = Color(0.737193, 0.737193, 0.737193, 1)
 custom_minimum_size = Vector2(175, 50)
 layout_mode = 2
 texture = ExtResource("3_uxccu")
@@ -361,6 +366,7 @@ text_overrun_behavior = 3
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect3" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
+self_modulate = Color(0.737193, 0.737193, 0.737193, 1)
 custom_minimum_size = Vector2(175, 50)
 layout_mode = 2
 texture = ExtResource("3_uxccu")
@@ -386,6 +392,7 @@ text_overrun_behavior = 3
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect4" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
+self_modulate = Color(0.737193, 0.737193, 0.737193, 1)
 custom_minimum_size = Vector2(175, 50)
 layout_mode = 2
 texture = ExtResource("3_uxccu")
@@ -489,17 +496,19 @@ stretch_mode = 6
 [node name="ClassicHero" type="TextureRect" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.196382
-anchor_top = -0.284848
-anchor_right = 0.832041
-anchor_bottom = 0.824242
-offset_left = -3.05176e-05
-offset_top = 3.8147e-05
-offset_bottom = 3.05176e-05
+anchor_left = 0.226667
+anchor_top = 0.827273
+anchor_right = 0.614326
+anchor_bottom = 1.93636
+offset_left = 7.99979
+offset_top = -280.0
+offset_right = 49.6277
+offset_bottom = -396.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("12_p87ie")
+texture = ExtResource("13_rrqjq")
 expand_mode = 1
+stretch_mode = 4
 flip_h = true
 metadata/_edit_use_anchors_ = true
 
@@ -553,6 +562,7 @@ layout_mode = 2
 
 [node name="StoreButton" type="TextureButton" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3" groups=["MainButtons"]]
 unique_name_in_owner = true
+self_modulate = Color(0.646029, 0.646029, 0.646029, 1)
 custom_minimum_size = Vector2(220, 55)
 layout_mode = 2
 size_flags_vertical = 0
@@ -573,14 +583,15 @@ offset_right = 47.0
 offset_bottom = 19.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_5uujb")
+theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
+theme_override_fonts/font = ExtResource("17_rffxp")
 theme_override_font_sizes/font_size = 20
 text = "Store"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MissionsButton" type="TextureButton" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3" groups=["MainButtons"]]
+self_modulate = Color(0.646029, 0.646029, 0.646029, 1)
 custom_minimum_size = Vector2(220, 55)
 layout_mode = 2
 size_flags_vertical = 0
@@ -601,13 +612,14 @@ offset_right = 47.0
 offset_bottom = 19.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_5uujb")
+theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
+theme_override_fonts/font = ExtResource("17_rffxp")
 theme_override_font_sizes/font_size = 20
 text = "Missions"
 vertical_alignment = 1
 
 [node name="InventoryButton" type="TextureButton" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3" groups=["MainButtons"]]
+self_modulate = Color(0.646029, 0.646029, 0.646029, 1)
 custom_minimum_size = Vector2(220, 55)
 layout_mode = 2
 size_flags_vertical = 0
@@ -628,13 +640,14 @@ offset_right = 47.0
 offset_bottom = 19.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_5uujb")
+theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
+theme_override_fonts/font = ExtResource("17_rffxp")
 theme_override_font_sizes/font_size = 20
 text = "Inventory"
 vertical_alignment = 1
 
 [node name="LeaderboardButton" type="TextureButton" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3" groups=["MainButtons"]]
+self_modulate = Color(0.646029, 0.646029, 0.646029, 1)
 custom_minimum_size = Vector2(220, 55)
 layout_mode = 2
 size_flags_vertical = 0
@@ -655,8 +668,8 @@ offset_right = 47.0
 offset_bottom = 19.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_5uujb")
+theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
+theme_override_fonts/font = ExtResource("17_rffxp")
 theme_override_font_sizes/font_size = 20
 text = "Leaderboard"
 vertical_alignment = 1
@@ -706,10 +719,10 @@ metadata/_edit_use_anchors_ = true
 [node name="VBoxContainer" type="HBoxContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.725833
-anchor_top = 0.12037
-anchor_right = 1.06167
-anchor_bottom = 1.15741
+anchor_left = 0.7775
+anchor_top = 0.137037
+anchor_right = 1.11334
+anchor_bottom = 1.17408
 offset_right = 0.00012207
 grow_horizontal = 0
 grow_vertical = 2
@@ -719,20 +732,21 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Hero" type="TextureRect" parent="Panel/VBoxContainer"]
 unique_name_in_owner = true
+self_modulate = Color(0.809, 0.808998, 0.808998, 1)
 custom_minimum_size = Vector2(0, 560)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
-texture = ExtResource("16_4hgnp")
+texture = ExtResource("20_3dgv8")
 expand_mode = 1
 stretch_mode = 4
 
 [node name="HBoxContainer" type="Panel" parent="Panel/VBoxContainer/Hero"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.208437
+anchor_left = 0.0719604
 anchor_top = 0.7875
-anchor_right = 0.796526
+anchor_right = 0.660049
 anchor_bottom = 0.830357
 grow_horizontal = 2
 grow_vertical = 0
@@ -785,7 +799,6 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_qe76f")
 }
-autoplay = "game_mode_hero"
 
 [node name="SakuraFX" type="GPUParticles2D" parent="."]
 modulate = Color(1, 0.745098, 1, 0.384314)
