@@ -494,6 +494,7 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="ClassicHero" type="TextureRect" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.226667
@@ -544,7 +545,7 @@ offset_right = -1.0
 offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_fonts/font = ExtResource("15_ovxn5")
 theme_override_font_sizes/font_size = 24
 text = "CLASSIC"
@@ -562,7 +563,7 @@ layout_mode = 2
 
 [node name="StoreButton" type="TextureButton" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3" groups=["MainButtons"]]
 unique_name_in_owner = true
-self_modulate = Color(0.646029, 0.646029, 0.646029, 1)
+self_modulate = Color(0.775064, 0.775063, 0.775063, 1)
 custom_minimum_size = Vector2(220, 55)
 layout_mode = 2
 size_flags_vertical = 0
@@ -591,7 +592,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MissionsButton" type="TextureButton" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3" groups=["MainButtons"]]
-self_modulate = Color(0.646029, 0.646029, 0.646029, 1)
+self_modulate = Color(0.775064, 0.775063, 0.775063, 1)
 custom_minimum_size = Vector2(220, 55)
 layout_mode = 2
 size_flags_vertical = 0
@@ -619,7 +620,7 @@ text = "Missions"
 vertical_alignment = 1
 
 [node name="InventoryButton" type="TextureButton" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3" groups=["MainButtons"]]
-self_modulate = Color(0.646029, 0.646029, 0.646029, 1)
+self_modulate = Color(0.775064, 0.775063, 0.775063, 1)
 custom_minimum_size = Vector2(220, 55)
 layout_mode = 2
 size_flags_vertical = 0
@@ -647,7 +648,7 @@ text = "Inventory"
 vertical_alignment = 1
 
 [node name="LeaderboardButton" type="TextureButton" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3" groups=["MainButtons"]]
-self_modulate = Color(0.646029, 0.646029, 0.646029, 1)
+self_modulate = Color(0.775064, 0.775063, 0.775063, 1)
 custom_minimum_size = Vector2(220, 55)
 layout_mode = 2
 size_flags_vertical = 0
@@ -804,6 +805,7 @@ libraries = {
 modulate = Color(1, 0.745098, 1, 0.384314)
 z_index = 2
 position = Vector2(836, -12)
+emitting = false
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_gfsdk")
 texture = ExtResource("21_vp18h")
@@ -814,6 +816,7 @@ speed_scale = 0.8
 modulate = Color(1, 0.745098, 1, 0.384314)
 z_index = 2
 position = Vector2(3, -12)
+emitting = false
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_gfsdk")
 texture = ExtResource("21_vp18h")
