@@ -1,30 +1,27 @@
-[gd_scene load_steps=30 format=3 uid="uid://dvqwd1vjvgbtk"]
+[gd_scene load_steps=27 format=3 uid="uid://dvqwd1vjvgbtk"]
 
 [ext_resource type="Script" path="res://UIScenes/game_over.gd" id="1_cnrlt"]
-[ext_resource type="Texture2D" uid="uid://c01cml7cwkwts" path="res://UITextures/BGTextures/game_over_bg.png" id="2_wpuc8"]
+[ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_jjkhf"]
 [ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="3_ik2fc"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="4_64gxq"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="5_b0j7s"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="6_ovqjx"]
-[ext_resource type="Texture2D" uid="uid://bfmxnpo1gdkv1" path="res://UITextures/BGTextures/GameOver/game_over_hero.png" id="7_llh6l"]
+[ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="8_03vso"]
 [ext_resource type="Texture2D" uid="uid://c7qlt18wu7138" path="res://UITextures/BGTextures/dark_panel.png" id="9_2s2i2"]
-[ext_resource type="FontFile" uid="uid://c5fr5m8j4q1cg" path="res://UITextures/Fonts/HankenGrotesk-ExtraBoldItalic.ttf" id="9_40tnt"]
 [ext_resource type="FontFile" uid="uid://c18nds4rmo5gg" path="res://UITextures/Fonts/SofaChromeItalic.otf" id="10_bscnk"]
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="10_xfc4x"]
-[ext_resource type="FontFile" uid="uid://dvnt07l3vdl6f" path="res://UITextures/Fonts/SofaChromeRegular.otf" id="11_qh0mn"]
 [ext_resource type="Texture2D" uid="uid://dmxpmc3ckn6tt" path="res://UITextures/GameTextures/kperfect.png" id="12_loamo"]
 [ext_resource type="Texture2D" uid="uid://do8jreuy76wp2" path="res://UITextures/GameTextures/verygood.png" id="13_2yhbe"]
 [ext_resource type="Texture2D" uid="uid://vofwmpcudyxn" path="res://UITextures/GameTextures/good.png" id="14_whd5v"]
 [ext_resource type="Texture2D" uid="uid://cxgr2m8ocpfv0" path="res://UITextures/GameTextures/bad.png" id="15_r7hlv"]
 [ext_resource type="Texture2D" uid="uid://gjgvcsqa6t5f" path="res://UITextures/GameTextures/miss.png" id="16_fmltj"]
-[ext_resource type="FontFile" uid="uid://bblvvax0tw3p" path="res://UITextures/Fonts/HankenGrotesk-BoldItalic.ttf" id="17_g18gw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v6myh"]
-bg_color = Color(0, 0, 0, 0.466667)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
+bg_color = Color(0, 0.121569, 0.121569, 0.435294)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
 border_color = Color(0, 0.823529, 0.823529, 0.894118)
 border_blend = true
 corner_radius_top_left = 8
@@ -38,32 +35,32 @@ bg_color = Color(0, 0, 0, 0.705882)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4tfs"]
 bg_color = Color(0, 0.141176, 0.141176, 0)
 draw_center = false
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
 border_color = Color(0, 0.823529, 0.823529, 0.894118)
 border_blend = true
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ephhn"]
 bg_color = Color(0, 0.478431, 0.478431, 0.0627451)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
 border_color = Color(0, 0.823529, 0.823529, 0.894118)
 border_blend = true
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ogvsp"]
-bg_color = Color(0, 0.478431, 0.478431, 0.141176)
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmnq4"]
 bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
@@ -128,16 +125,16 @@ corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xtxmh"]
 bg_color = Color(0, 0, 0, 0.184314)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
 border_color = Color(0, 0.823038, 0.823038, 0.894118)
 border_blend = true
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="GameOver" type="Control"]
 layout_mode = 3
@@ -150,7 +147,7 @@ script = ExtResource("1_cnrlt")
 
 [node name="BackgroundTexture" type="TextureRect" parent="."]
 unique_name_in_owner = true
-self_modulate = Color(0.281187, 0.281187, 0.281187, 1)
+self_modulate = Color(0.525101, 0.525101, 0.525101, 1)
 clip_contents = true
 layout_mode = 1
 anchors_preset = 15
@@ -158,7 +155,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_wpuc8")
+texture = ExtResource("2_jjkhf")
 expand_mode = 1
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="BackgroundTexture"]
@@ -205,7 +202,7 @@ anchor_bottom = 0.76
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("4_64gxq")
 theme_override_font_sizes/font_size = 16
-text = "Energy"
+text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 clip_text = true
@@ -267,10 +264,8 @@ metadata/_edit_use_anchors_ = true
 [node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 0
-offset_left = 14.0
-offset_top = 16.0
-offset_right = 74.0
-offset_bottom = 76.0
+offset_right = 68.0
+offset_bottom = 68.0
 
 [node name="CloseButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer2"]
 layout_mode = 2
@@ -281,9 +276,9 @@ texture_hover = ExtResource("6_ovqjx")
 [node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture"]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.148148
-anchor_right = 1.0
-anchor_bottom = 1.00185
+anchor_top = 0.124074
+anchor_right = 0.993333
+anchor_bottom = 0.977778
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
@@ -291,9 +286,8 @@ metadata/_edit_use_anchors_ = true
 [node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-texture = ExtResource("7_llh6l")
 expand_mode = 1
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer"]
 layout_mode = 2
@@ -307,20 +301,20 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_v6myh")
 [node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.0920097
-anchor_top = 0.0927419
-anchor_right = 0.940678
-anchor_bottom = 0.907258
+anchor_left = 0.0686937
+anchor_top = 0.0932755
+anchor_right = 0.940315
+anchor_bottom = 0.906725
 theme_override_styles/panel = SubResource("StyleBoxFlat_6p4tf")
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.0920097
-anchor_top = 0.0927419
-anchor_right = 0.939467
-anchor_bottom = 0.909274
+anchor_left = 0.0664414
+anchor_top = 0.0932755
+anchor_right = 0.939189
+anchor_bottom = 0.908894
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_2s2i2")
@@ -372,7 +366,7 @@ custom_minimum_size = Vector2(130, 30)
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
-theme_override_fonts/font = ExtResource("9_40tnt")
+theme_override_fonts/font = ExtResource("8_03vso")
 theme_override_font_sizes/font_size = 28
 text = "SCORE"
 vertical_alignment = 1
@@ -515,7 +509,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("10_xfc4x")
 theme_override_font_sizes/font_size = 60
 text = "989,755"
@@ -936,7 +929,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
-theme_override_fonts/font = ExtResource("17_g18gw")
+theme_override_fonts/font = ExtResource("8_03vso")
 theme_override_font_sizes/font_size = 28
 text = "GREAT JOB!"
 vertical_alignment = 1
@@ -1013,7 +1006,7 @@ size_flags_stretch_ratio = 2.0
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
-theme_override_fonts/font = ExtResource("11_qh0mn")
+theme_override_fonts/font = ExtResource("8_03vso")
 theme_override_font_sizes/font_size = 60
 text = "SSS"
 horizontal_alignment = 1
@@ -1056,8 +1049,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_cmnq4")
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.04
-anchor_right = 0.96
+anchor_left = 0.08
+anchor_top = -0.05
+anchor_right = 0.95
 anchor_bottom = 1.05
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.862745, 0.862745, 0.862745, 1)
@@ -1075,7 +1069,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
-theme_override_fonts/font = ExtResource("11_qh0mn")
+theme_override_fonts/font = ExtResource("8_03vso")
 theme_override_font_sizes/font_size = 55
 text = "9.9"
 horizontal_alignment = 1

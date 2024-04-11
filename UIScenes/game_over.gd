@@ -19,28 +19,28 @@ var artist: String = SONG.artist
 var difficulty: String = SONG.difficulty
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	display_score()
-	save_score_classic()
-	
-func display_score() -> void:
-	# VALUE STATS
-	score_label.text = format_scores(str(final_stats.score))
-	combo_label.text = format_scores(str(final_stats.combo))
-	max_combo_label.text = format_scores(str(final_stats.max_combo))
-	
-	var rounded_accuracy: float = snapped(final_stats.accuracy, 0.01)
-	accuracy_label.text = (str(rounded_accuracy) + "%")
-	
-	if !final_stats.finished:
-		finished_label.text = "TRY AGAIN!"
-		
-	#NOTES STATS
-	k_perfect_label.text = format_scores(str(note_stats.perfect))
-	very_good_label.text = format_scores(str(note_stats.very_good))
-	good_label.text = format_scores(str(note_stats.good))
-	bad_label.text = format_scores(str(note_stats.bad))
-	miss_label.text = format_scores(str(note_stats.miss))
+#func _ready() -> void:
+	#display_score()
+	#save_score_classic()
+	#
+#func display_score() -> void:
+	## VALUE STATS
+	#score_label.text = format_scores(str(final_stats.score))
+	#combo_label.text = format_scores(str(final_stats.combo))
+	#max_combo_label.text = format_scores(str(final_stats.max_combo))
+	#
+	#var rounded_accuracy: float = snapped(final_stats.accuracy, 0.01)
+	#accuracy_label.text = (str(rounded_accuracy) + "%")
+	#
+	#if !final_stats.finished:
+		#finished_label.text = "TRY AGAIN!"
+		#
+	##NOTES STATS
+	#k_perfect_label.text = format_scores(str(note_stats.perfect))
+	#very_good_label.text = format_scores(str(note_stats.very_good))
+	#good_label.text = format_scores(str(note_stats.good))
+	#bad_label.text = format_scores(str(note_stats.bad))
+	#miss_label.text = format_scores(str(note_stats.miss))
 
 func save_score_classic() -> void:
 	var highscore: bool = is_highscore()
