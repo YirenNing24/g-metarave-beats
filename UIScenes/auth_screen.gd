@@ -90,8 +90,6 @@ func _on_login_succeeded(result: Dictionary) -> void:
 		error_logger([result.error]) 
 		await animation_player2.animation_finished
 		init_visibility_control()
-		
-
 	else:
 		%ErrorPanel.visible = false
 		%TextureProgressBar.visible = false
@@ -99,7 +97,6 @@ func _on_login_succeeded(result: Dictionary) -> void:
 		init_visibility_control()
 		BKMRLogger.info("logged in as: " + str(BKMREngine.Auth.logged_in_player))
 		registration_success = false
-	
 		
 func _on_google_login_succeeded(result: Dictionary) -> void:
 	if "error" in result:

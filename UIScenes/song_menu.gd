@@ -131,7 +131,7 @@ func list_songs() -> void:
 		var songs: Control = song_display.instantiate()
 		songs.song = song
 		songs.name = song.audio.title
-		var song_title: String = 'UITextures/SongMenu/' + song.audio.title.to_lower() + '.png'
+		var song_title: String = 'UITextures/SongMenu/' + song.audio.title.to_lower().replace(' ', '') + '.png'
 		songs.get_node("TextureRect/SongArt").texture = load(song_title)
 		song_list_container.add_child(songs)
 		
@@ -141,17 +141,16 @@ func list_songs() -> void:
 		songs.song_canceled.connect(song_cancel)
 
 # Callback function to set the selected map when a song is chosen.
-func set_selected_map(audio_file: String) -> void:
+func set_selected_map(_audio_file: String) -> void:
 	if selected_map != SONG.map_selected.song_folder:
 		map_changed = true
 		selected_map = SONG.map_selected.song_folder
-		play_song(audio_file)
 
-# Previe Play the selected song.
-func play_song(path: String) -> void:
+# Preview Play the selected song.
+func play_preview(path: String) -> void:
 	var stream: AudioStreamOggVorbis = ResourceLoader.load(path)
 	audio_player.set_stream(stream)
-	#audio_player.play(stream.get_length() / 2)
+	audio_player.play(stream.get_length() / 2)
 
 # Callback function for the close button pressed signal.
 func _on_close_button_pressed() -> void:
@@ -162,11 +161,14 @@ func _on_close_button_pressed() -> void:
 	var _main_screen: int = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
 
 # Callable function for song selection in the UI.
-func song_selected(_song_display: Control) -> void:
+func song_selected(display: Control) -> void:
 	song_scroll_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var song_path: String = display.song.audio_file
+	play_preview(song_path)
 
 func song_cancel() -> void:
 	song_scroll_container.mouse_filter = Control.MOUSE_FILTER_PASS
+	audio_player.stop()
 
 func song_unfocused_selected(_song_display: Control, index: int) -> void:
 	song_scroll_container.song_unfocused_selected(index) 
@@ -175,7 +177,6 @@ func song_start(song_file: String) -> void:
 	SONG.difficulty = difficulty_mode
 	set_selected_map(song_file)  
 	var _game_scene: int = await LOADER.load_scene(self, "res://UIScenes/game_scene.tscn")
-	
 	
 func _on_left_difficulty_button_pressed() -> void:
 	var current_difficulty: int = difficulty.find(difficulty_mode)

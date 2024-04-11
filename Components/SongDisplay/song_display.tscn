@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Components/SongDisplay/song_display.gd" id="1_g74vl"]
 [ext_resource type="Texture2D" uid="uid://naup1ns6qyy" path="res://UITextures/PanelElements/song_display.png" id="2_yho8l"]
-[ext_resource type="Texture2D" uid="uid://crq85ijvocfbm" path="res://UITextures/SongMenu/antifragile.png" id="3_jkifp"]
+[ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="3_v45iq"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="4_5hrhr"]
 [ext_resource type="Texture2D" uid="uid://4euq5v0yi5wh" path="res://UITextures/Progress/song_exp.png" id="5_s462h"]
 [ext_resource type="Texture2D" uid="uid://d2liwvto7p64l" path="res://UITextures/Progress/player_exp_base.png" id="6_ip67h"]
@@ -52,6 +52,7 @@ mouse_filter = 1
 script = ExtResource("1_g74vl")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
 custom_minimum_size = Vector2(300, 200)
 layout_mode = 0
 anchor_right = 1.0
@@ -71,7 +72,6 @@ anchor_right = 0.963333
 anchor_bottom = 0.945
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_jkifp")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
@@ -87,24 +87,40 @@ metadata/_edit_use_anchors_ = true
 [node name="SongTitle" type="Label" parent="TextureRect/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("4_5hrhr")
+theme_override_fonts/font = ExtResource("3_v45iq")
 theme_override_font_sizes/font_size = 20
 text = "Title"
 horizontal_alignment = 1
 vertical_alignment = 2
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="SongTitle2" type="Label" parent="TextureRect/VBoxContainer"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+layout_mode = 2
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("3_v45iq")
+theme_override_font_sizes/font_size = 20
+text = "-"
+horizontal_alignment = 1
+vertical_alignment = 2
+uppercase = true
 metadata/_edit_use_anchors_ = true
 
 [node name="Artist" type="Label" parent="TextureRect/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("4_5hrhr")
+theme_override_fonts/font = ExtResource("3_v45iq")
 theme_override_font_sizes/font_size = 20
 text = "Title"
 horizontal_alignment = 1
+uppercase = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -165,7 +181,7 @@ offset_bottom = 38.0
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/TextureRect/TextureProgressBar/Bpm3"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("4_5hrhr")
 theme_override_font_sizes/font_size = 16
@@ -174,7 +190,7 @@ text = "BPM:"
 [node name="Bpm" type="Label" parent="VBoxContainer/HBoxContainer/TextureRect/TextureProgressBar/Bpm3"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("4_5hrhr")
 theme_override_font_sizes/font_size = 16
@@ -186,7 +202,7 @@ offset_left = 164.615
 offset_top = 40.7692
 offset_right = 222.615
 offset_bottom = 67.7692
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("4_5hrhr")
 theme_override_font_sizes/font_size = 16
@@ -208,7 +224,7 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 21)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("4_5hrhr")
 theme_override_font_sizes/font_size = 14
@@ -218,7 +234,7 @@ text = "HIGH SCORE:"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(139, 21)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("4_5hrhr")
 theme_override_font_sizes/font_size = 14

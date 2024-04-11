@@ -1,14 +1,14 @@
 {
    "audio":{
-	  "artist":"Blackpink",
-	  "title":"Antifragile"
+	  "artist":"X:IN",
+	  "title":"No Doubt"
    },
    "composer":"PAUL",
    "difficulty":"easy",
-   "audio_file":"Blackpink-Pink Venom.ogg",
+   "audio_file":"X:IN-No Doubt.ogg",
    "date":"2023-01-22",
    "tempo":50,
-   "song_folder":"songs/4245466901 Blackpink-Pink Venom",
+   "song_folder":"songs/4245466901 X:IN-No Doubt",
    "start_pos":0,
    "tracks":[
 	  {

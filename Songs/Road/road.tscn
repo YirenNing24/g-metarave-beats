@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cbhfcq0bjdlqy"]
+[gd_scene load_steps=19 format=3 uid="uid://cbhfcq0bjdlqy"]
 
 [ext_resource type="Script" path="res://Songs/Road/road.gd" id="1_fldoh"]
 [ext_resource type="PackedScene" uid="uid://ckxk82ja1e1qf" path="res://Songs/Road/road_surface.tscn" id="1_qjbxv"]
@@ -12,7 +12,7 @@
 [sub_resource type="PlaneMesh" id="PlaneMesh_kakxu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jiib6"]
-albedo_color = Color(0.745098, 1, 1, 1)
+albedo_color = Color(0, 0, 0, 1)
 albedo_texture = ExtResource("2_d84p4")
 metallic = 0.47
 metallic_specular = 0.56
@@ -61,6 +61,17 @@ emission = Color(0.219608, 0.537255, 0.556863, 1)
 emission_operator = 1
 emission_texture = SubResource("GradientTexture2D_04dtn")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qipll"]
+blend_mode = 1
+cull_mode = 2
+shading_mode = 2
+specular_mode = 2
+albedo_color = Color(0, 0, 0, 0)
+emission_enabled = true
+emission = Color(0.0588235, 0.827451, 0.85098, 1)
+emission_operator = 1
+emission_texture = SubResource("GradientTexture2D_04dtn")
+
 [node name="Road" type="Node3D"]
 script = ExtResource("1_fldoh")
 
@@ -75,7 +86,7 @@ mesh = SubResource("PlaneMesh_kakxu")
 surface_material_override/0 = SubResource("StandardMaterial3D_jiib6")
 
 [node name="SideRail2" type="MeshInstance3D" parent="."]
-transform = Transform3D(8.3, 0, 0, 0, 0.2, 0, 0, 0, 0.15, -4.09959, 0, -2.35274)
+transform = Transform3D(8.3, 0, 0, 0, 0.2, 0, 0, 0, 0.15, -4.1, 0, -2.32)
 mesh = SubResource("PlaneMesh_kakxu")
 surface_material_override/0 = SubResource("StandardMaterial3D_jiib6")
 
@@ -90,6 +101,30 @@ transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7
 gi_mode = 0
 mesh = SubResource("QuadMesh_mnigc")
 surface_material_override/0 = SubResource("StandardMaterial3D_jfrtm")
+
+[node name="Line5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, 2.22174)
+gi_mode = 0
+mesh = SubResource("QuadMesh_mnigc")
+surface_material_override/0 = SubResource("StandardMaterial3D_qipll")
+
+[node name="Line7" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, 2.51291)
+gi_mode = 0
+mesh = SubResource("QuadMesh_mnigc")
+surface_material_override/0 = SubResource("StandardMaterial3D_qipll")
+
+[node name="Line8" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, -2.45589)
+gi_mode = 0
+mesh = SubResource("QuadMesh_mnigc")
+surface_material_override/0 = SubResource("StandardMaterial3D_qipll")
+
+[node name="Line6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, -2.2063)
+gi_mode = 0
+mesh = SubResource("QuadMesh_mnigc")
+surface_material_override/0 = SubResource("StandardMaterial3D_qipll")
 
 [node name="Line2" type="MeshInstance3D" parent="."]
 transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, 0.44)
