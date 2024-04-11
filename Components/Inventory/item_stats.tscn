@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://d7lwkk74i4o1"]
 
 [ext_resource type="Script" path="res://Components/Inventory/item_stats.gd" id="1_4bbpx"]
-[ext_resource type="Texture2D" uid="uid://chc81ese1r40y" path="res://UITextures/Cards/yujin_lovedive_le_trainee.png" id="3_j0gsw"]
+[ext_resource type="Texture2D" uid="uid://ciso5gh08c3de" path="res://UITextures/BGTextures/Inventory/EmptySlot/hannah_empty_slot_bg.png" id="3_iotqp"]
 [ext_resource type="Texture2D" uid="uid://bsch6o78xyfv6" path="res://UITextures/BGTextures/item_stat_bg.png" id="3_yq227"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="4_3i6tk"]
 [ext_resource type="Texture2D" uid="uid://irgifod6546h" path="res://UITextures/Buttons/show_chat.png" id="5_nd6yq"]
@@ -44,7 +44,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_tc7v0")
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect2" type="TextureRect" parent="Panel"]
-self_modulate = Color(0.235294, 0.235294, 0.235294, 1)
+self_modulate = Color(0.0768358, 0.0768358, 0.0768358, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -99,7 +99,7 @@ clip_contents = true
 custom_minimum_size = Vector2(203.28, 310.73)
 layout_mode = 2
 size_flags_vertical = 0
-texture = ExtResource("3_j0gsw")
+texture = ExtResource("3_iotqp")
 expand_mode = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/TextureRect2/VBoxContainer/HBoxContainer2/HBoxContainer"]

@@ -69,7 +69,7 @@ func slot_data(card_data: Dictionary) -> Dictionary:
 	return card_datas as Dictionary
 	
 func equip() -> Dictionary:
-	BKMREngine.Inventory.card_inventory.inventoryCard[inv_slot]["Item"] = null
+	#BKMREngine.Inventory.card_inventory.inventoryCard[inv_slot]["Item"] = null
 	
 	var card_inventory: Dictionary = BKMREngine.Inventory.card_inventory
 	var _card_data: Dictionary = slot_data(card_inventory)

@@ -9,7 +9,7 @@ const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 const UUID: Script = preload("res://BeatsKMREngine/utils/UUID.gd")
 
 # Signals for various authentication and server interactions
-signal bkmr_login_complete
+signal bkmr_login_complete(result: Dictionary)
 signal bkmr_google_login_complete
 signal bkmr_logout_complete
 signal bkmr_registration_complete
@@ -156,7 +156,7 @@ func _on_ValidateSession_request_completed(_result: int, response_code: int, hea
 			refresh_token = json_body.refreshToken
 			login_type = json_body.loginType
 			
-			bkmr_login_complete.emit(json_body)
+			bkmr_login_complete.emit(result_body)
 			save_session(access_token, refresh_token, login_type)
 
 		# Trigger the completion of the session check with the result
@@ -177,7 +177,7 @@ func register_player(username: String, password: String ) -> Node:
 	var payload: Dictionary = { 
 		"userName": username, 
 		"password": password,
-		#"deviceId": OS.get_model_name()
+		"deviceId": OS.get_model_name()
 	}
 	
 	var request_url: String = host + "/api/register/beats"
@@ -316,8 +316,8 @@ func _on_LoginPlayer_request_completed(_result: int, response_code: int, headers
 	else:
 		# Handle cases where the JSON parsing fails or the server returns an unknown error
 		if JSON.parse_string(body.get_string_from_utf8()) != null:
-			var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
-			bkmr_login_complete.emit(json_body)
+			var _json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
+			bkmr_login_complete.emit({"error": "Unknown server error"})
 		else:
 			bkmr_google_login_complete.emit({"error": "Unknown server error"})
 

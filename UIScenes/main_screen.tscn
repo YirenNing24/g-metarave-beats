@@ -421,7 +421,7 @@ metadata/_edit_use_anchors_ = true
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.0425
+anchor_left = 0.0166667
 anchor_top = 0.275926
 anchor_right = 0.9875
 anchor_bottom = 0.996296
@@ -487,6 +487,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="TextureRect" type="TextureRect" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("11_ddq8t")
@@ -548,7 +549,7 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_fonts/font = ExtResource("15_ovxn5")
 theme_override_font_sizes/font_size = 24
-text = "CLASSIC"
+text = "Classic"
 horizontal_alignment = 1
 vertical_alignment = 1
 

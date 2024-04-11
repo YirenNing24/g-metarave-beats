@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="6_usbye"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="7_grflq"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="7_qpqmh"]
-[ext_resource type="Texture2D" uid="uid://bo2dc8yxqbqp4" path="res://UITextures/Buttons/PanelTextures/main_hero3.png" id="8_8b0sr"]
+[ext_resource type="Texture2D" uid="uid://clhoav6v6sxtn" path="res://UITextures/Buttons/PanelTextures/esha_hero.png" id="9_ln5re"]
 [ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="10_unem4"]
 
 [sub_resource type="Animation" id="Animation_y3bef"]
@@ -29,7 +29,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("TextureRect/VBoxContainer/HeroCharacter:modulate")
+tracks/1/path = NodePath("TextureRect/BackgroundTexture/TextureRect/HBoxContainer3/VBoxContainer/HBoxContainer/TextureRect4/VBoxContainer/HeroCharacter:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -66,37 +66,45 @@ metadata/_edit_use_anchors_ = true
 
 [node name="BackgroundTexture" type="TextureRect" parent="TextureRect"]
 unique_name_in_owner = true
-self_modulate = Color(0.823529, 0.823529, 0.823529, 0.494118)
+self_modulate = Color(0.650129, 0.650128, 0.650128, 1)
+custom_minimum_size = Vector2(1200, 540)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_left = -0.6
+anchor_top = -1.0
+anchor_right = 1.6
+anchor_bottom = 2.0
+offset_left = 720.0
+offset_top = 540.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_vxubm")
+metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="TextureRect/BackgroundTexture"]
 self_modulate = Color(0.345098, 0.345098, 0.345098, 1)
+custom_minimum_size = Vector2(1200, 540)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_right = 0.625
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_ky2cn")
 expand_mode = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/BackgroundTexture/TextureRect"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.00333333
 anchor_top = 0.17037
-anchor_right = 1.0
+anchor_right = 0.764667
 anchor_bottom = 1.0
 offset_left = 47.0
 offset_top = 0.000198364
-offset_right = 47.0
-offset_bottom = 0.000183105
+offset_right = -666.6
+offset_bottom = -356.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
@@ -437,28 +445,28 @@ clip_text = true
 text_overrun_behavior = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="HBoxContainer" parent="TextureRect"]
+[node name="VBoxContainer" type="HBoxContainer" parent="TextureRect/BackgroundTexture/TextureRect/HBoxContainer3/VBoxContainer/HBoxContainer/TextureRect4"]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -337.0
-offset_top = 93.0
-offset_right = 66.0
-offset_bottom = 113.0
+offset_left = 48.8
+offset_top = 248.0
+offset_right = 449.8
+offset_bottom = 769.0
 grow_horizontal = 0
 grow_vertical = 2
 alignment = 2
 
-[node name="HeroCharacter" type="TextureRect" parent="TextureRect/VBoxContainer"]
+[node name="HeroCharacter" type="TextureRect" parent="TextureRect/BackgroundTexture/TextureRect/HBoxContainer3/VBoxContainer/HBoxContainer/TextureRect4/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 560)
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("8_8b0sr")
+texture = ExtResource("9_ln5re")
 expand_mode = 1
-stretch_mode = 4
+stretch_mode = 6
 
 [node name="ScrollContainer2" type="ScrollContainer" parent="."]
 z_index = 2
@@ -472,10 +480,8 @@ horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer2"]
-custom_minimum_size = Vector2(0, 800)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 
 [node name="ItemGrid" type="GridContainer" parent="ScrollContainer2/VBoxContainer"]
 unique_name_in_owner = true

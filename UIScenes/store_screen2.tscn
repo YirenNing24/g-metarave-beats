@@ -1,0 +1,463 @@
+[gd_scene load_steps=10 format=3 uid="uid://d05oohu41yaxd"]
+
+[ext_resource type="Texture2D" uid="uid://bjpkh360v82aq" path="res://UITextures/BGTextures/store_bg.png" id="1_2tlno"]
+[ext_resource type="Script" path="res://UIScenes/store_screen_2.gd" id="1_24gne"]
+[ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="2_i6ng3"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_sqi3r"]
+[ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="4_3x0rp"]
+[ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="4_boi2e"]
+[ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="5_socof"]
+[ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="7_ypx8t"]
+[ext_resource type="Texture2D" uid="uid://clhoav6v6sxtn" path="res://UITextures/Buttons/PanelTextures/esha_hero.png" id="8_f5vyn"]
+
+[node name="StoreScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_24gne")
+
+[node name="BackgroundTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+self_modulate = Color(0.485703, 0.485704, 0.485703, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_2tlno")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00666667
+anchor_top = 0.0351852
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="BackgroundTexture/VBoxContainer"]
+auto_translate_mode = 1
+z_index = 3
+layout_mode = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/VBoxContainer/HBoxContainer3"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer/HBoxContainer3"]
+auto_translate_mode = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/VBoxContainer/HBoxContainer3/VBoxContainer"]
+auto_translate_mode = 1
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("2_i6ng3")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Native" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/TextureRect"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_sqi3r")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect2" type="TextureRect" parent="BackgroundTexture/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("2_i6ng3")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="BeatsBalance" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/TextureRect2"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_sqi3r")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect3" type="TextureRect" parent="BackgroundTexture/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("2_i6ng3")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="ThumpBalance" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/TextureRect3"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_sqi3r")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect4" type="TextureRect" parent="BackgroundTexture/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("2_i6ng3")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="KMR" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/TextureRect4"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_sqi3r")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer/HBoxContainer"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="TextureButton7" type="TextureButton" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer"]
+auto_translate_mode = 1
+self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+texture_normal = ExtResource("4_3x0rp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/TextureButton7"]
+auto_translate_mode = 1
+self_modulate = Color(0.87451, 0.87451, 0.87451, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.5
+offset_top = -15.5
+offset_right = 56.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_sqi3r")
+theme_override_font_sizes/font_size = 20
+text = "What's New?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer"]
+auto_translate_mode = 1
+self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+texture_normal = ExtResource("4_3x0rp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/TextureButton"]
+auto_translate_mode = 1
+self_modulate = Color(0.87451, 0.87451, 0.87451, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.5
+offset_top = -15.5
+offset_right = 56.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_sqi3r")
+theme_override_font_sizes/font_size = 20
+text = "Card Packs"
+vertical_alignment = 1
+
+[node name="CardsButton" type="TextureButton" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer"]
+auto_translate_mode = 1
+self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+texture_normal = ExtResource("4_3x0rp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/CardsButton"]
+auto_translate_mode = 1
+self_modulate = Color(0.87451, 0.87451, 0.87451, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.5
+offset_top = -15.5
+offset_right = 56.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_sqi3r")
+theme_override_font_sizes/font_size = 20
+text = "Cards"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton2" type="TextureButton" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer"]
+auto_translate_mode = 1
+self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+texture_normal = ExtResource("4_3x0rp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/TextureButton2"]
+auto_translate_mode = 1
+self_modulate = Color(0.87451, 0.87451, 0.87451, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.5
+offset_top = -15.5
+offset_right = 56.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_sqi3r")
+theme_override_font_sizes/font_size = 20
+text = "Tokens"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton3" type="TextureButton" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer"]
+auto_translate_mode = 1
+self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+texture_normal = ExtResource("4_3x0rp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/TextureButton3"]
+auto_translate_mode = 1
+self_modulate = Color(0.87451, 0.87451, 0.87451, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.5
+offset_top = -15.5
+offset_right = 56.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_sqi3r")
+theme_override_font_sizes/font_size = 20
+text = "Accesories"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton4" type="TextureButton" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer"]
+auto_translate_mode = 1
+self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+texture_normal = ExtResource("4_3x0rp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/TextureButton4"]
+auto_translate_mode = 1
+self_modulate = Color(0.87451, 0.87451, 0.87451, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.5
+offset_top = -15.5
+offset_right = 56.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_sqi3r")
+theme_override_font_sizes/font_size = 20
+text = "Power-ups"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton5" type="TextureButton" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer"]
+auto_translate_mode = 1
+self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+texture_normal = ExtResource("4_3x0rp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/TextureButton5"]
+auto_translate_mode = 1
+self_modulate = Color(0.87451, 0.87451, 0.87451, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.5
+offset_top = -15.5
+offset_right = 56.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_sqi3r")
+theme_override_font_sizes/font_size = 20
+text = "Limited"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BackgroundTexture/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer/HBoxContainer/ScrollContainer"]
+auto_translate_mode = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ItemGrid" type="GridContainer" parent="BackgroundTexture/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 325
+theme_override_constants/v_separation = 260
+columns = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(60, 60)
+offset_top = -1.0
+offset_right = 68.0
+offset_bottom = 67.0
+
+[node name="CloseButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer2"]
+auto_translate_mode = 1
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("4_boi2e")
+texture_hover = ExtResource("5_socof")
+
+[node name="CursorSpark" parent="." instance=ExtResource("7_ypx8t")]
+unique_name_in_owner = true
+
+[node name="VBoxContainer" type="HBoxContainer" parent="."]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -297.0
+offset_top = -1.0
+offset_right = 45.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 2
+
+[node name="HeroCharacter" type="TextureRect" parent="VBoxContainer"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("8_f5vyn")
+expand_mode = 1
+stretch_mode = 6

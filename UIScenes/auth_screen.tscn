@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://UIScenes/auth_screen.gd" id="1_fahu6"]
 [ext_resource type="Texture2D" uid="uid://beivc8jimuyqa" path="res://UITextures/BGTextures/blue_gradient.png" id="2_usyb0"]
-[ext_resource type="Texture2D" uid="uid://hbj7i3cw1i02" path="res://UITextures/BGTextures/auth_hero_xin.png" id="3_jxmbw"]
+[ext_resource type="Texture2D" uid="uid://grsujvs6d7s4" path="res://UITextures/BGTextures/esha_hero_auth.png" id="3_skcmq"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_wtii2"]
 [ext_resource type="StyleBox" uid="uid://dpaedph31g6t5" path="res://UITextures/CustomResource/auth_screen_normal.tres" id="6_0mn33"]
 [ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="6_33msh"]
@@ -404,7 +404,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.990833
 offset_top = 28.0
-offset_right = 5945.0
+offset_right = 9512.0
 offset_bottom = 28.0
 mouse_filter = 2
 alignment = 2
@@ -465,22 +465,26 @@ offset_right = 320.0
 offset_bottom = 482.0
 
 [node name="TextureRect" type="TextureRect" parent="BackgroundTexture/LoginModalContainer/Panel/HBoxContainer"]
+self_modulate = Color(0.89059, 0.89059, 0.89059, 1)
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
-texture = ExtResource("3_jxmbw")
+texture = ExtResource("3_skcmq")
 expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="BackgroundTexture/LoginModalContainer/Panel/HBoxContainer/TextureRect"]
-custom_minimum_size = Vector2(200, 56)
+custom_minimum_size = Vector2(253, 100)
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 7
 anchor_left = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-offset_left = -99.9996
-offset_top = -18.0
-offset_right = 100.0
-offset_bottom = 38.0
+anchor_bottom = 1.0
+offset_left = -127.0
+offset_top = -89.0
+offset_right = 126.0
+offset_bottom = 11.0
 grow_horizontal = 2
+grow_vertical = 0
 texture = ExtResource("15_7qkxq")
 expand_mode = 1
 stretch_mode = 5
@@ -715,6 +719,7 @@ stretch_mode = 6
 [node name="RegisterContainer" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2"]
 unique_name_in_owner = true
 visible = false
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer"]

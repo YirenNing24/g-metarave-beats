@@ -32,7 +32,7 @@ func _ready() -> void:
 	native_balance.text = PLAYER.native_balance
 	kmr_balance.text = PLAYER.kmr_balance
 	thump_balance.text = PLAYER.thump_balance
-	BKMREngine.Store.get_valid_cards_complete.connect(_on_get_cards_complete)
+	#BKMREngine.Store.get_valid_cards_complete.connect(_on_get_cards_complete)
 
 # Callback function when the "Texture Button 6" is pressed.
 func _on_texture_button_6_pressed() -> void:

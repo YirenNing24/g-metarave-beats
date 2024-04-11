@@ -68,7 +68,7 @@ custom_minimum_size = Vector2(1200, 540)
 layout_mode = 2
 texture = ExtResource("2_3347k")
 expand_mode = 1
-stretch_mode = 4
+stretch_mode = 6
 
 [node name="LoadingWheel" type="TextureProgressBar" parent="HBoxContainer/TextureRect"]
 unique_name_in_owner = true
@@ -115,6 +115,7 @@ text = "What Session"
 horizontal_alignment = 1
 
 [node name="Panel" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -124,6 +125,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gnicp")
 
 [node name="TextureRect" type="TextureRect" parent="Panel"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
