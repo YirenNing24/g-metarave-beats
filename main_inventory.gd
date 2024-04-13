@@ -2,8 +2,7 @@ extends Control
 
 @onready var beats_balance:Label = %BeatsBalance
 @onready var native_balance:Label = %Native
-@onready var kmr_balance:Label = %KMR
-@onready var thump_balance:Label = %ThumpBalance
+@onready var gmr_balance:Label = %KMR
 @onready var background_texture:TextureRect = %BackgroundTexture
 
 func _ready() -> void:
@@ -12,8 +11,7 @@ func _ready() -> void:
 func hud_data() -> void:
 	beats_balance.text = PLAYER.beats_balance
 	native_balance.text = PLAYER.native_balance
-	kmr_balance.text = PLAYER.kmr_balance
-	thump_balance.text = PLAYER.thump_balance
+	gmr_balance.text = PLAYER.gmr_balance
 
 func _on_card_inventory_pressed() -> void:
 	LOADER.previous_texture = background_texture.texture

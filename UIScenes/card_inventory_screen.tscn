@@ -1,7 +1,7 @@
 [gd_scene load_steps=32 format=3 uid="uid://gmllsb3bdm2u"]
 
 [ext_resource type="Script" path="res://UIScenes/card_inventory_screen.gd" id="1_2vffs"]
-[ext_resource type="Texture2D" uid="uid://nnvh5nlkvqym" path="res://UITextures/BGTextures/card_inventory_bg.png" id="2_3h75t"]
+[ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="2_poddd"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="3_kawcx"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="4_l46n7"]
 [ext_resource type="Script" path="res://UIScenes/InventoryScroll.gd" id="5_oujch"]
@@ -93,14 +93,14 @@ script = ExtResource("1_2vffs")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 unique_name_in_owner = true
-self_modulate = Color(0.32544, 0.325441, 0.325441, 1)
+self_modulate = Color(0.254902, 0.254902, 0.254902, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_3h75t")
+texture = ExtResource("2_poddd")
 expand_mode = 1
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="TextureRect"]

@@ -89,7 +89,6 @@ func _on_login_succeeded(result: Dictionary) -> void:
 		await animation_player2.animation_finished
 		error_logger([result.error]) 
 		await animation_player2.animation_finished
-		init_visibility_control()
 	else:
 		%ErrorPanel.visible = false
 		%TextureProgressBar.visible = false

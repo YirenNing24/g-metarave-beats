@@ -399,7 +399,7 @@ texture = ExtResource("3_uxccu")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="KMR" type="Label" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect4"]
+[node name="GMR" type="Label" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect4"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(93, 30)
 layout_mode = 1

@@ -6,7 +6,7 @@ var template_card_slot: PackedScene = preload("res://Components/Store/cards.tscn
 # UI elements
 @onready var beats_balance: Label = %BeatsBalance
 @onready var native_balance: Label = %Native
-@onready var kmr_balance: Label = %KMR
+@onready var gmr_balance: Label = %KMR
 @onready var thump_balance: Label = %ThumpBalance
 @onready var background_texture: TextureRect = %BackgroundTexture
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
@@ -30,8 +30,7 @@ func _ready() -> void:
 	# Initialize UI with player balances.
 	beats_balance.text = PLAYER.beats_balance
 	native_balance.text = PLAYER.native_balance
-	kmr_balance.text = PLAYER.kmr_balance
-	thump_balance.text = PLAYER.thump_balance
+	gmr_balance.text = PLAYER.gmr_balance
 	#BKMREngine.Store.get_valid_cards_complete.connect(_on_get_cards_complete)
 
 # Callback function when the "Texture Button 6" is pressed.

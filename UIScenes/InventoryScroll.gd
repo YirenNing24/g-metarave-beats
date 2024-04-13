@@ -29,15 +29,15 @@ func initialize_scrolling() -> void:
 		if cards.visible == true:
 			card_nodes.append(cards)
 
-			
+	if card_nodes.size() != 0:
 	# Calculate and store the x positions of cards.
-	for card: Control in card_nodes:
-		var card_pos_x: float = (margin_right + card.position.x) - ((size.x - card.size.x) / 2)
-		card.pivot_offset = (card.size / 2)
-		card_x_positions.append(card_pos_x)
-		# Set the initial scroll position to the position of the first card.
-		scroll_horizontal = card_x_positions[card_current_index]
-	scroll()
+		for card: Control in card_nodes:
+			var card_pos_x: float = (margin_right + card.position.x) - ((size.x - card.size.x) / 2)
+			card.pivot_offset = (card.size / 2)
+			card_x_positions.append(card_pos_x)
+			# Set the initial scroll position to the position of the first card.
+			scroll_horizontal = card_x_positions[card_current_index]
+		scroll()
 
 # Process method called on every frame.
 func _process(_delta: float) -> void:

@@ -9,7 +9,7 @@ extends Control
 
 @onready var energy_balance: Label = %EnergyBalance
 @onready var beats_balance: Label = %BeatsBalance
-@onready var kmr_balance: Label = %KMRBalance
+@onready var gmr_balance: Label = %KMRBalance
 
 @onready var difficulty_label: Label = %DifficultyLabel
 @onready var left_difficulty_button: TextureButton = %LeftDifficultyButton
@@ -51,7 +51,7 @@ func get_classic_high_score() -> void:
 func hud_data() -> void:
 	energy_balance.text = "0"
 	beats_balance.text = PLAYER.beats_balance
-	kmr_balance.text = PLAYER.kmr_balance
+	gmr_balance.text = PLAYER.gmr_balance
 
 # Parse the song files in the specified directory.
 func parse_song_files() -> void:

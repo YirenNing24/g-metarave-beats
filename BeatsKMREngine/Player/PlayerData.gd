@@ -7,7 +7,7 @@ var profile_pics: Array
 var username: String
 
 var wallet_address: String
-var kmr_balance: String
+var gmr_balance: String
 var native_balance: String
 var beats_balance: String
 var thump_balance: String
@@ -40,11 +40,8 @@ func populate_player_data(data: Dictionary) -> void:
 		var native: String = wallet_data.nativeBalance
 		native_balance = format_balance(native)
 		
-		var kmr: String  = wallet_data.kmrBalance
-		kmr_balance = format_balance(kmr)
-		
-		var thump: String = wallet_data.thumpBalance
-		thump_balance = format_balance(thump)
+		var gmr: String  = wallet_data.gmrBalance
+		gmr_balance = format_balance(gmr)
 		
 		username = data.username
 		

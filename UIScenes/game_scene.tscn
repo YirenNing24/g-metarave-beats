@@ -54,7 +54,7 @@ omni_attenuation = 0.435275
 unique_name_in_owner = true
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(-6.83914e-08, -1.11112, -1.89879, -4.74624e-08, 1.89879, -1.11112, 2.2, 6.4228e-09, -8.29988e-08, -22.1791, -11.6438, 0)
+transform = Transform3D(-6.83914e-08, -1.11112, -1.89879, -4.74624e-08, 1.89879, -1.11112, 2.2, 6.4228e-09, -8.29988e-08, -19.2123, -11.6438, 0)
 texture = ExtResource("6_0o2hm")
 
 [connection signal="song_finished" from="Music" to="CanvasLayer/UserHUD" method="_on_music_song_finished"]

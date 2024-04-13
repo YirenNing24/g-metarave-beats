@@ -17,12 +17,12 @@
 [ext_resource type="Texture2D" uid="uid://gjgvcsqa6t5f" path="res://UITextures/GameTextures/miss.png" id="16_fmltj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v6myh"]
-bg_color = Color(0, 0.121569, 0.121569, 0.435294)
+bg_color = Color(0, 0.121569, 0.121569, 0.266667)
 border_width_left = 10
 border_width_top = 10
 border_width_right = 10
 border_width_bottom = 10
-border_color = Color(0, 0.823529, 0.823529, 0.894118)
+border_color = Color(0, 0.823529, 0.823529, 1)
 border_blend = true
 corner_radius_top_left = 8
 corner_radius_top_right = 8
@@ -60,7 +60,7 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ogvsp"]
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(0, 0, 0, 0.321569)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmnq4"]
 bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
@@ -147,7 +147,7 @@ script = ExtResource("1_cnrlt")
 
 [node name="BackgroundTexture" type="TextureRect" parent="."]
 unique_name_in_owner = true
-self_modulate = Color(0.525101, 0.525101, 0.525101, 1)
+self_modulate = Color(0.254902, 0.254902, 0.254902, 1)
 clip_contents = true
 layout_mode = 1
 anchors_preset = 15

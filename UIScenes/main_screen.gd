@@ -15,7 +15,7 @@ signal mutuals_button_pressed
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var beats_balance: Label = %BeatsBalance
 @onready var native_balance: Label = %Native
-@onready var kmr_balance: Label = %KMR
+@onready var gmr_balance: Label = %GMR
 @onready var thump_balance: Label = %ThumpBalance
 @onready var stats_wheel: TextureProgressBar = %StatsWheel
 @onready var level: Label = %Level
@@ -78,8 +78,7 @@ func hud_data() -> void:
 	player_rank.text = PLAYER.player_rank
 	beats_balance.text = PLAYER.beats_balance
 	native_balance.text = PLAYER.native_balance
-	kmr_balance.text = PLAYER.kmr_balance
-	thump_balance.text = PLAYER.thump_balance
+	gmr_balance.text = PLAYER.gmr_balance
 	level.text = str(PLAYER.level)
 	BKMREngine.Profile.get_profile_pic()
 	animate_hud()

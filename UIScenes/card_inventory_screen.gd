@@ -19,7 +19,6 @@ var is_loading : bool = false
 
 func _ready() -> void:
 	BKMREngine.Inventory.open_card_inventory()
-	
 	BKMREngine.Inventory.get_card_inventory_complete.connect(card_inventory_open)
 	BKMREngine.Inventory.get_card_inventory_complete.connect(equipment_slot_open)
 	
@@ -53,7 +52,7 @@ func equipment_slot_open(equipment_slot_data: Dictionary) -> void:
 func _on_close_button_pressed() -> void:
 	# Attempt automatic login and wait for the session check to complete.
 	BKMREngine.Auth.auto_login_player()
-	BKMREngine.Inventory.update_inventory()
+	#BKMREngine.Inventory.update_inventory()
 	await BKMREngine.Auth.bkmr_session_check_complete
 
 	# Set the previous and next textures for scene transition.
