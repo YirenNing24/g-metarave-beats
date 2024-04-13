@@ -204,9 +204,7 @@ func _onUnfollow_request_completed(_result: int, response_code: int, headers: Ar
 		unfollow_complete.emit()
 
 # Function to retrieve mutual followers between the authenticated player and other users.
-# Returns:
-# - Node: Self reference for method chaining.
-func get_mutual() -> Node:
+func get_mutual() -> void:
 	# Prepare HTTP request resources.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	Mutual = prepared_http_req.request
@@ -221,11 +219,9 @@ func get_mutual() -> Node:
 	# Specify the request URL for retrieving mutual followers data.
 	var request_url: String = host + "/api/social/list/mutual"
 	
-	# Initiate the GET request and await its completion.
 	await BKMREngine.send_get_request(Mutual, request_url)
-	
-	# Return self for method chaining.
-	return self
+
+
 
 # Callback function invoked upon completion of the get_mutual request.
 func _onGetMutual_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
