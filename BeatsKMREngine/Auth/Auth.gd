@@ -280,18 +280,15 @@ func login_player(username: String, password: String) -> Node:
 
 # Callback function triggered upon completion of the player login request
 func _on_LoginPlayer_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
-	# Check the HTTP response status and free the request resources
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	
 	BKMREngine.free_request(wrLoginPlayer, LoginPlayer)
-	# Process the response based on the status check
 	if status_check:
 		# Parse the JSON body of the response
 		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
 		if json_body == null:
-			bkmr_google_login_complete.emit({})
+			bkmr_login_complete.emit({"error": "Unknown server error"})
 			return
-
+			
 		# Log additional information if present in the response
 		if "accessToken" in json_body.keys():
 			BKMRLogger.debug("Remember me access: " + str(json_body.accessToken))
@@ -303,12 +300,9 @@ func _on_LoginPlayer_request_completed(_result: int, response_code: int, headers
 			refresh_token  = json_body.refreshToken
 			login_type = json_body.loginType
 			save_session(access_token, refresh_token, login_type)
-			
 			var username: String = json_body.username
 			set_player_logged_in(username)
-			
 			bkmr_login_complete.emit(json_body)
-			
 		elif json_body.has("error"):
 			# Emit login failure if no token is present
 			bkmr_login_complete.emit({"error": json_body})

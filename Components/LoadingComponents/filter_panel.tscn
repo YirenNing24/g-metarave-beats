@@ -6,7 +6,6 @@
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_jj3if"]
 
 [node name="FilterPanel" type="Panel"]
-visible = false
 self_modulate = Color(0.0352941, 0.0352941, 0.0352941, 1)
 z_index = 2
 z_as_relative = false
@@ -18,6 +17,7 @@ grow_vertical = 2
 script = ExtResource("1_5lsxa")
 
 [node name="LoadingWheel" type="TextureProgressBar" parent="."]
+unique_name_in_owner = true
 z_index = 1
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 1
@@ -38,7 +38,6 @@ texture_under = ExtResource("1_x0ej8")
 texture_progress = ExtResource("2_kjlbp")
 
 [node name="Label" type="Label" parent="."]
-visible = false
 z_index = 2
 layout_mode = 1
 anchors_preset = 8
@@ -53,4 +52,4 @@ offset_bottom = 92.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_jj3if")
-text = "Loading..."
+text = "Loading"

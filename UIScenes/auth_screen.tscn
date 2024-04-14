@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cfnseobkn66fh"]
+[gd_scene load_steps=32 format=3 uid="uid://cfnseobkn66fh"]
 
 [ext_resource type="Script" path="res://UIScenes/auth_screen.gd" id="1_fahu6"]
 [ext_resource type="Texture2D" uid="uid://beivc8jimuyqa" path="res://UITextures/BGTextures/blue_gradient.png" id="2_usyb0"]
@@ -72,7 +72,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("FilterPanel:visible")
+tracks/2/path = NodePath("LoadingPanel:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -299,70 +299,6 @@ tracks/5/keys = {
 "values": [Color(0, 1, 1, 1), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_yy4rn"]
-resource_name = "registration_loading"
-length = 5.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("FilterPanel:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("FilterPanel/TextureProgressBar:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("FilterPanel/TextureProgressBar:value")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.9, 3.5, 5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 100.0, 0.0, 100.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("FilterPanel/Label:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [true, false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("FilterPanel/Label:text")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.8, 1.4, 2, 2.5, 3.5, 4.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": ["Loading", "Loading.", "Loading..", "Loading...", "Loading.", "Loading..", "Loading..."]
-}
-
 [sub_resource type="Animation" id="Animation_bjstk"]
 resource_name = "success"
 length = 0.8
@@ -385,7 +321,6 @@ _data = {
 "error_container": SubResource("Animation_igun7"),
 "login_container": SubResource("Animation_05gyf"),
 "register_container": SubResource("Animation_qng8j"),
-"registration_loading": SubResource("Animation_yy4rn"),
 "success": SubResource("Animation_bjstk")
 }
 
@@ -403,7 +338,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.990833
 offset_top = 28.0
-offset_right = 2378.0
+offset_right = 5945.0
 offset_bottom = 28.0
 mouse_filter = 2
 alignment = 2
@@ -932,8 +867,9 @@ libraries = {
 "": SubResource("AnimationLibrary_tnpq4")
 }
 
-[node name="FilterPanel" parent="." instance=ExtResource("16_0g07l")]
+[node name="LoadingPanel" parent="." instance=ExtResource("16_0g07l")]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(1200, 540)
 layout_mode = 0
 anchors_preset = 0

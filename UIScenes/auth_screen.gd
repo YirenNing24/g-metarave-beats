@@ -16,7 +16,9 @@ const error_list: PackedScene = preload("res://Components/Lists/auth_error.tscn"
 @onready var login_modal_container: VBoxContainer = %LoginModalContainer
 @onready var start_container: VBoxContainer = %StartContainer
 @onready var cursor_spark: GPUParticles2D = %CursorSpark
-@onready var loading_progress: TextureProgressBar = %TextureProgressBar
+
+@onready var loading_panel: Panel = %LoadingPanel
+
 
 var username: String
 var password: String
@@ -54,17 +56,14 @@ func init_visibility_control() -> void:
 		start_container.visible = false
 		login_modal_container.visible = false
 		animation_player.play('switch_start_screen')
-		
 	else:
-		%FilterPanel.visible = false
 		start_container.visible = false
 		login_modal_container.visible = true
 		login_container.visible = true
 		register_container.visible = false
-		
+
 # Method to play animations.
 func play_animations() -> void:
-	# Wait for the initial animation to finish before proceeding.
 	await(animation_player.animation_finished)
 	animation_player.play("hero_bg")
 #endregion
@@ -82,25 +81,25 @@ func _on_login_button_pressed() -> void:
 		error_logger([{"error": "Password is required"}])
 	else:
 		BKMREngine.Auth.login_player(userName, passWord)
-		animation_player2.play("registration_loading")
+		loading_panel.fake_loader()
 		
 func _on_login_succeeded(result: Dictionary) -> void:
 	if result.has("error"):
-		await animation_player2.animation_finished
-		error_logger([result.error]) 
-		await animation_player2.animation_finished
+		error_logger([{"error": result.error}]) 
+		loading_panel.tween_kill()
 	else:
 		%ErrorPanel.visible = false
 		BKMREngine.session = true
 		init_visibility_control()
 		BKMRLogger.info("logged in as: " + str(BKMREngine.Auth.logged_in_player))
 		registration_success = false
-		
+		loading_panel.tween_kill()
+	
 func _on_google_login_succeeded(result: Dictionary) -> void:
-	if "error" in result:
-		error_logger([result.error]) 
+	if result.has("error"):
+		error_logger([{"error": result.error}])  
 		google_registration_success = false
-		await animation_player2.animation_finished
+		loading_panel.tween_kill()
 	else:
 		%TextureProgressBar.visible = false
 		BKMREngine.session = true
@@ -108,6 +107,7 @@ func _on_google_login_succeeded(result: Dictionary) -> void:
 		login_modal_container.visible = false
 		animation_player.play('switch_start_screen')
 		google_registration_success = false
+		loading_panel.tween_kill()
 		
 #endregion
 
@@ -121,6 +121,7 @@ func google_authenticated(is_authenticated: bool) -> void:
 func _on_google_register_button_pressed() -> void:
 	google_register_pressed = true
 	SignInClient.request_server_side_access(BKMREngine.google_server_client_id, true)
+	loading_panel.fake_loader()
 	
 #endregion
 
@@ -138,33 +139,33 @@ func _on_registration_completed(result: Dictionary) -> void:
 		# If an error is present, play the error animation and log the error message.
 		animation_player2.play("error_container")
 		registration_success = false
-		error_logger([result.error])
+		error_logger([{"error": result.error}]) 
 	else:
 		registration_success = true
 		BKMREngine.Auth.login_player(username, password)
 	
 func _on_google_registration_completed(result: Dictionary) -> void:
 	# Check if there is an error in the registration result.
-	if "error" in result:
-		# If an error is present, play the error animation and log the error message.
+	if result.has("error"):
 		google_registration_success = false
-		error_logger([result.error])
+		error_logger([{"error": result.error}]) 
 		if result.error == "An account already exists":
-			error_logger(["You already have an account"])
-			await animation_player2.animation_finished
+			error_logger([{"error": "You already have an account"}])
 			google_registration_success = true
 			SignInClient.request_server_side_access(BKMREngine.google_server_client_id, true)
-			
+			loading_panel.fake_loader()
+		loading_panel.tween_kill()
 	else:
-		animation_player2.play_backwards("error_container")
+		error_container.visible = false
 		SignInClient.request_server_side_access(BKMREngine.google_server_client_id, true)
 		google_registration_success = true
-
+		loading_panel.tween_kill()
 # Function to submit user registration.
 func on_submit_registration(val_username: String, val_password: String)  -> void:
 	password = val_password
 	username = val_username
 	BKMREngine.Auth.register_player(val_username, val_password)
+	loading_panel.fake_loader()
 	
 func _on_register_button_pressed() -> void:
 	animation_player2.play("registration_loading")
@@ -216,7 +217,8 @@ func _on_register_button_pressed() -> void:
 		on_submit_registration(valid_username, valid_password)
 		animation_played = false
 		error_container.visible = false
-		
+	loading_panel.fake_loader()
+	
 #endregion
 
 #region event callback and utility functions
@@ -233,7 +235,7 @@ func _on_password_field_text_submitted(_new_text: String) -> void:
 	var userName:String = username
 	var passWord:String = password
 	BKMREngine.Auth.login_player(userName, passWord)
-	animation_player2.play("registration_loading")
+	loading_panel.fake_loader()
 	
 # Event handler for register toggle button press.
 func _on_register_toggle_pressed() -> void:

@@ -1,8 +1,5 @@
 extends Panel
 
-
-
-
 @onready var loading_wheel: TextureProgressBar = %LoadingWheel
 
 var tween: Tween
@@ -18,3 +15,4 @@ func fake_loader() -> void:
 	
 func tween_kill() -> void:
 	tween.kill()
+	visible = false
