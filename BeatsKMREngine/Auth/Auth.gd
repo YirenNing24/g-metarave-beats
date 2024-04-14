@@ -284,12 +284,10 @@ func _on_LoginPlayer_request_completed(_result: int, response_code: int, headers
 	BKMREngine.free_request(wrLoginPlayer, LoginPlayer)
 	if status_check:
 		# Parse the JSON body of the response
-		var json_body: Dictionary
-		if JSON.parse_string(body.get_string_from_utf8()) != null:
-			json_body = JSON.parse_string(body.get_string_from_utf8())
-			if json_body == null:
-				bkmr_login_complete.emit({"error": "Unknown server error"})
-				return
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body == null:
+			bkmr_login_complete.emit({"error": "Unknown server error"})
+			return
 			
 		# Log additional information if present in the response
 		if "accessToken" in json_body.keys():

@@ -84,6 +84,9 @@ func _on_login_button_pressed() -> void:
 		loading_panel.fake_loader()
 		
 func _on_login_succeeded(result: Dictionary) -> void:
+	
+	
+	print("taena: ", result)
 	if result.has("error"):
 		error_logger([{"error": result.error}]) 
 		loading_panel.tween_kill()
