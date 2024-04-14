@@ -36,11 +36,12 @@ static func get_data(path: String) -> Dictionary:
 	if FileAccess.file_exists(path):
 		var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 		var text_content: String = file.get_as_text()
-		var data: Variant = JSON.parse_string(text_content)
-		if typeof(data) == TYPE_DICTIONARY:
-			content = data
-		else:
-			BKMRELogger.debug("Invalid data in local storage")
+		if JSON.parse_string(text_content) != null:
+			var data: Variant = JSON.parse_string(text_content)
+			if typeof(data) == TYPE_DICTIONARY:
+				content = data
+			else:
+				BKMRELogger.debug("Invalid data in local storage")
 	else:
 		BKMRELogger.debug("Could not find any data at: " + str(path))
 	return content

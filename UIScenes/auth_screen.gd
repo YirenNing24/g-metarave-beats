@@ -133,9 +133,11 @@ func _on_google_token_generated(token: String) -> void:
 		BKMREngine.Auth.google_login_player(token)
 		
 #region Registration functions
+
+#Callback for native registration status
 func _on_registration_completed(result: Dictionary) -> void:
 	# Check if there is an error in the registration result.
-	if "error" in result:
+	if result.has("error"):
 		# If an error is present, play the error animation and log the error message.
 		animation_player2.play("error_container")
 		registration_success = false
@@ -143,7 +145,9 @@ func _on_registration_completed(result: Dictionary) -> void:
 	else:
 		registration_success = true
 		BKMREngine.Auth.login_player(username, password)
-	
+		loading_panel.fake_loader()
+
+#Callback for google registration status
 func _on_google_registration_completed(result: Dictionary) -> void:
 	# Check if there is an error in the registration result.
 	if result.has("error"):
@@ -160,6 +164,7 @@ func _on_google_registration_completed(result: Dictionary) -> void:
 		SignInClient.request_server_side_access(BKMREngine.google_server_client_id, true)
 		google_registration_success = true
 		loading_panel.tween_kill()
+		
 # Function to submit user registration.
 func on_submit_registration(val_username: String, val_password: String)  -> void:
 	password = val_password
