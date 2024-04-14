@@ -82,11 +82,9 @@ func _on_login_button_pressed() -> void:
 	else:
 		BKMREngine.Auth.login_player(userName, passWord)
 		loading_panel.fake_loader()
-		
+
+#Callback for login result
 func _on_login_succeeded(result: Dictionary) -> void:
-	
-	
-	print("taena: ", result)
 	if result.has("error"):
 		error_logger([{"error": result.error}]) 
 		loading_panel.tween_kill()
@@ -97,7 +95,8 @@ func _on_login_succeeded(result: Dictionary) -> void:
 		BKMRLogger.info("logged in as: " + str(BKMREngine.Auth.logged_in_player))
 		registration_success = false
 		loading_panel.tween_kill()
-	
+
+#Callback for google login
 func _on_google_login_succeeded(result: Dictionary) -> void:
 	if result.has("error"):
 		error_logger([{"error": result.error}])  

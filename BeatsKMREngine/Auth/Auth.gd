@@ -16,7 +16,7 @@ signal bkmr_registration_complete
 signal bkmr_google_registration_complete
 
 signal bkmr_session_check_complete(session: Dictionary)
-
+signal bkmr_token_renew_complete(tokens: Dictionary)
 
 # Variables to store authentication and session information
 var tmp_username: String
@@ -58,6 +58,10 @@ var wrGoogleRegisterPlayer: WeakRef
 
 var GoogleLoginPlayer: HTTPRequest
 var wrGoogleLoginPlayer: WeakRef
+
+var RenewToken: HTTPRequest
+var wrRenewToken: WeakRef
+
 # Timer variables for login timeout and session check wait
 var login_timeout: int = 0
 var login_timer: Timer
@@ -161,6 +165,7 @@ func _on_ValidateSession_request_completed(_result: int, response_code: int, hea
 
 		# Trigger the completion of the session check with the result
 		complete_session_check(result_body)
+		renew_access_token_timer()
 	else:
 		# Trigger the completion of the session check with an empty result in case of failure
 		complete_session_check({})
@@ -303,6 +308,7 @@ func _on_LoginPlayer_request_completed(_result: int, response_code: int, headers
 			var username: String = json_body.username
 			set_player_logged_in(username)
 			bkmr_login_complete.emit(json_body)
+			renew_access_token_timer()
 		elif json_body.has("error"):
 			# Emit login failure if no token is present
 			bkmr_login_complete.emit({"error": json_body})
@@ -378,6 +384,7 @@ func _on_GoogleLoginPlayer_request_completed(_result: int, response_code: int, h
 			var session_body: Dictionary = json_body
 			
 			complete_session_check(session_body)
+			renew_access_token_timer()
 		elif json_body.has("error"):
 			# Emit login failure if no token is present
 			bkmr_google_login_complete.emit(json_body)
@@ -438,8 +445,59 @@ func remove_stored_session() -> bool:
 
 #region Util functions
 
-func refresh_session() -> void:
-	pass
+func renew_access_token_timer() -> void:
+	# Create a timer that fires every 4 minutes (240 seconds)
+	var timer: SceneTreeTimer = get_tree().create_timer(240.0)
+	var _renew: int = timer.timeout.connect(renew_access_token_timer)
+	var _connect: int = timer.timeout.connect(request_new_access_token)
+	# Start the timer
+
+# Function to be called when the timer fires
+func request_new_access_token() -> void:
+	# This function will be called every 4 minutes
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	RenewToken = prepared_http_req.request
+	wrRenewToken = prepared_http_req.weakref
+	# Add your JWT decoding logic here
+	var _new_token_signal: int = RenewToken.request_completed.connect(_on_RequestNewAccessToken_completed)
+		# Log the initiation of player session validation
+	BKMRLogger.info("Calling BKMREngine to validate an existing player session")
+	# Create the payload with lookup and access tokens
+	var payload: Dictionary = {}
+	# Log the payload details
+	BKMRLogger.debug("Validate session payload: " + str(payload))
+	var request_url: String = host + "/api/renew/access"
+	# Send the POST request for session validation
+	BKMREngine.send_login_request(RenewToken, request_url, payload)
+	# Return the current script instance
+
+func _on_RequestNewAccessToken_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check the status of the HTTP response
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	# Free the request resources
+	BKMREngine.free_request(wrRenewToken, RenewToken)
+	# Handle the result based on the status check
+	if status_check:
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body == null:
+			bkmr_token_renew_complete.emit({})
+			return
+		if json_body.has("error"):
+			BKMRLogger.error("BKMREngine renew token failure: " + str(json_body.error))
+			return
+			
+		var result_body: Dictionary = json_body
+		var _bkmr_result: Dictionary = BKMREngine.build_result(result_body)
+		if "refreshToken" in json_body.keys():
+			BKMRLogger.debug("Remember me access: " + str(json_body.accessToken))
+			# Save the session and set the player as logged in
+			refresh_token = json_body.refreshToken
+			access_token = json_body.accessToken
+			save_session(access_token, refresh_token, login_type)
+			bkmr_token_renew_complete.emit(json_body)
+	else:
+		# Trigger the completion of the session check with an empty result in case of failure
+		bkmr_token_renew_complete.emit({})
 	
 # Complete the BKMREngine session check and emit the corresponding signal.
 func complete_session_check(session_check: Dictionary = {}) -> void:
