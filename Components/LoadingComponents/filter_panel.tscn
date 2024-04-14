@@ -17,8 +17,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5lsxa")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
-unique_name_in_owner = true
+[node name="LoadingWheel" type="TextureProgressBar" parent="."]
 z_index = 1
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 1

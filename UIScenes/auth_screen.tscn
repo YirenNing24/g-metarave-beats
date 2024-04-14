@@ -460,6 +460,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_keqlh")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel"]
 layout_mode = 0
+offset_top = -1.0
 offset_right = 320.0
 offset_bottom = 482.0
 
@@ -478,10 +479,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -123.0
+offset_left = -124.0
 offset_top = -90.0
-offset_right = 136.0
-offset_bottom = 9.99997
+offset_right = 134.0
+offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("15_7qkxq")
@@ -933,8 +934,16 @@ libraries = {
 
 [node name="FilterPanel" parent="." instance=ExtResource("16_0g07l")]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(1200, 540)
 layout_mode = 0
 anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 3.0
+offset_right = 963.0
+offset_bottom = 540.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="CursorSpark" parent="." instance=ExtResource("20_6nce6")]
 unique_name_in_owner = true

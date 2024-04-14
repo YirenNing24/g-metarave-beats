@@ -76,10 +76,10 @@ func _on_login_button_pressed() -> void:
 	var passWord: String = password
 	if userName == "":
 		animation_player2.play("error_container")
-		error_logger(["Username is required"])
+		error_logger([{"error": "Username is required"}])
 	elif passWord == "":
 		animation_player2.play("error_container")
-		error_logger(["Password is required"])
+		error_logger([{"error": "Password is required"}])
 	else:
 		BKMREngine.Auth.login_player(userName, passWord)
 		animation_player2.play("registration_loading")
@@ -91,7 +91,6 @@ func _on_login_succeeded(result: Dictionary) -> void:
 		await animation_player2.animation_finished
 	else:
 		%ErrorPanel.visible = false
-		%TextureProgressBar.visible = false
 		BKMREngine.session = true
 		init_visibility_control()
 		BKMRLogger.info("logged in as: " + str(BKMREngine.Auth.logged_in_player))
@@ -183,7 +182,7 @@ func _on_register_button_pressed() -> void:
 				"Username":
 					username = fields.text
 					if not is_valid_username(username):
-						errors.append("Invalid username format")
+						errors.append({"error": "Invalid username format"})
 						error_logger(errors)
 						return
 					else:
@@ -191,7 +190,7 @@ func _on_register_button_pressed() -> void:
 				"Password":
 					reg_password = fields.text
 					if not is_valid_password(reg_password):
-						errors.append("Invalid password format")
+						errors.append({"error": "Invalid password format"})
 						error_logger(errors)
 						return
 					else:
@@ -204,11 +203,10 @@ func _on_register_button_pressed() -> void:
 		return
 		
 	if password != confirmPassword:
-		errors.append("Password doesn't match")
+		errors.append({"error":"Password doesn't match"})
 		error_logger(errors) 
 	else:
 		valid_password = reg_password
-	
 	
 	if valid_username and valid_password != "":
 		for child: Control in error_container.get_children():
@@ -276,17 +274,18 @@ func error_logger(errors: Array) -> void:
 	for child: Control in error_container.get_children():
 		error_container.remove_child(child)
 		child.queue_free()
-	for error: String in errors:
-		if error not in unique_errors:
+	for error: Dictionary in errors:
+		var errors_string: String = error.error
+		if errors_string not in unique_errors:
 			unique_errors.append(error)
-	for err: String in unique_errors:
+	for err: Dictionary in unique_errors:
 		list_error = error_list.instantiate()
-		if err == "ConfirmPassword is required":
+		if err.error == "ConfirmPassword is required":
 			list_error.get_node("Label").set_text("Please confirm your password")
 			error_container.add_child(list_error)
-		elif err != "ConfirmPassword is required":
-			list_error.name = err
-			list_error.get_node("Label").set_text(err)
+		elif err.error != "ConfirmPassword is required":
+			list_error.name = err.error
+			list_error.get_node("Label").set_text(err.error)
 			error_container.add_child(list_error)
 #endregion
 
