@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3q3fqqfdkrw"]
+
+[ext_resource type="Script" path="res://Components/LoadingComponents/filter_panel.gd" id="1_5lsxa"]
+[ext_resource type="Texture2D" uid="uid://b7ss828fwkixd" path="res://UITextures/Progress/base.png" id="1_x0ej8"]
+[ext_resource type="Texture2D" uid="uid://3gu5u20frmdr" path="res://UITextures/Progress/progress.png" id="2_kjlbp"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_jj3if"]
+
+[node name="FilterPanel" type="Panel"]
+visible = false
+self_modulate = Color(0.0352941, 0.0352941, 0.0352941, 1)
+z_index = 2
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5lsxa")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+unique_name_in_owner = true
+z_index = 1
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -86.0
+offset_top = -87.5
+offset_right = 86.0
+offset_bottom = 87.5
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+fill_mode = 4
+texture_under = ExtResource("1_x0ej8")
+texture_progress = ExtResource("2_kjlbp")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.5
+offset_top = 69.0
+offset_right = 39.5
+offset_bottom = 92.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_jj3if")
+text = "Loading..."

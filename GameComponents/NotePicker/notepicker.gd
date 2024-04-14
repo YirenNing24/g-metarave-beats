@@ -43,12 +43,12 @@ func _process(_delta: float) -> void:
 		await fx_spark.finished
 		fx_spark.emitting = false
 
-func connect_notes() -> void:
-	for notes: Node3D in get_tree().get_nodes_in_group('ShortNote'):
-		notes.hit_feedback.connect(hit_feedback)
-		
-	for notes: Node3D in get_tree().get_nodes_in_group('LongNote'):
-		notes.hit_continued_feedback.connect(hit_continued_feedback)
+#func connect_notes() -> void:
+	#for notes: Node3D in get_tree().get_nodes_in_group('ShortNote'):
+		#notes.hit_feedback.connect(hit_feedback)
+		#
+	#for notes: Node3D in get_tree().get_nodes_in_group('LongNote'):
+		#notes.hit_continued_feedback.connect(hit_continued_feedback)
 
 # Handle screen touch events and update state variables.
 # Parameters:
@@ -106,28 +106,28 @@ func notepicker_3d_pos() -> Vector2:
 	var picker_position: Vector2 = camera.unproject_position(position)
 	return picker_position as Vector2
 
-func hit_feedback(note_accuracy: int, note_line: int) -> void:
-	if note_accuracy != 5:
-		if note_line == line:
-			fx_spark.emitting = true
-			fx_god_ray.emitting = true
-			fx_highlight.visible = false
-		else:
-			fx_spark.emitting = false
-			fx_god_ray.emitting = false
+#func hit_feedback(note_accuracy: int, note_line: int) -> void:
+	#if note_accuracy != 5:
+		#if note_line == line:
+			##fx_spark.emitting = true
+			##fx_god_ray.emitting = true
+			##fx_highlight.visible = false
+		#else:
+			#fx_spark.emitting = false
+			#fx_god_ray.emitting = false
 	
-func hit_continued_feedback(note_accuracy: int, note_line: int) -> void:
-	if note_accuracy != 5:
-		if note_line == line and is_collecting:
-			fx_spinner.play('vortex')
-			fx_highlight.visible = false
-		else:
-			fx_spinner.stop()
-			fx_spinner.frame = 0
-
-func combo_fx(_combo: int) -> void:
-	#fx_light_pillar.visible = true
-	fx_spark.emitting = true
+#func hit_continued_feedback(note_accuracy: int, note_line: int) -> void:
+	#if note_accuracy != 5:
+		#if note_line == line and is_collecting:
+			#fx_spinner.play('vortex')
+			#fx_highlight.visible = false
+		#else:
+			#fx_spinner.stop()
+			#fx_spinner.frame = 0
+#
+#func combo_fx(_combo: int) -> void:
+	##fx_light_pillar.visible = true
+	#fx_spark.emitting = true
 	
 	#await get_tree().create_timer(0.4).timeout
 	#fx_light_pillar.visible = false

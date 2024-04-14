@@ -53,6 +53,7 @@ func _on_SaveClassicHighScore_request_completed(_result: int, response_code: int
 	else:
 		pass
 
+# Send get highscore request
 func get_classic_high_score() -> Node:
 	# Prepare the HTTP request.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -68,14 +69,7 @@ func get_classic_high_score() -> Node:
 	await BKMREngine.send_get_request(GetClassicScore, request_url)
 	return self as Node
 	
-# Callback function triggered when the server responds to the stat points update request.
-# Parameters:
-# - _result (Dictionary): Result of the HTTP request.
-# - response_code (int): HTTP response code.
-# - headers (Array): Array of HTTP headers.
-# - body (PackedByteArray): Response body containing server data.
-# Returns:
-# - void
+# Callback function triggered when the server responds to the get high score request.
 func _on_GetClassicHighScore_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
@@ -85,7 +79,7 @@ func _on_GetClassicHighScore_request_completed(_result: int, response_code: int,
 
 	# Check if the server update was successful.
 	if status_check:
-		var json_body: Array = JSON.parse_string(body.get_string_from_utf8())
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
 		if json_body != null:
 			for score: Dictionary in json_body:
 				# Parse scoreStats and replace the original value
@@ -99,4 +93,7 @@ func _on_GetClassicHighScore_request_completed(_result: int, response_code: int,
 			# Emit the signal to indicate the completion of the get_mutual request.
 			get_classic_highscore_complete.emit(json_body)
 		else:
-			pass
+			get_classic_highscore_complete.emit([])
+			
+	else:
+		get_classic_highscore_complete.emit([])

@@ -311,15 +311,15 @@ func _on_LoginPlayer_request_completed(_result: int, response_code: int, headers
 			
 		elif json_body.has("error"):
 			# Emit login failure if no token is present
-			bkmr_login_complete.emit(json_body)
+			bkmr_login_complete.emit({"error": json_body})
 			BKMRLogger.error("BKMREngine login player failure: " + str(json_body.error))
 	else:
 		# Handle cases where the JSON parsing fails or the server returns an unknown error
-		if JSON.parse_string(body.get_string_from_utf8()) != null:
-			var _json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
+		if JSON.parse_string(body.get_string_from_utf8()) == null:
 			bkmr_login_complete.emit({"error": "Unknown server error"})
 		else:
-			bkmr_google_login_complete.emit({"error": "Unknown server error"})
+			var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
+			bkmr_google_login_complete.emit({"error": json_body})
 
 # Login function for google login
 func google_login_player(token: String) -> Node:

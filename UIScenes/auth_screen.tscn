@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cfnseobkn66fh"]
+[gd_scene load_steps=33 format=3 uid="uid://cfnseobkn66fh"]
 
 [ext_resource type="Script" path="res://UIScenes/auth_screen.gd" id="1_fahu6"]
 [ext_resource type="Texture2D" uid="uid://beivc8jimuyqa" path="res://UITextures/BGTextures/blue_gradient.png" id="2_usyb0"]
@@ -9,13 +9,12 @@
 [ext_resource type="StyleBox" uid="uid://b7dkk3cdsrviw" path="res://UITextures/CustomResource/auth_line_field.tres" id="6_w6605"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="8_1trul"]
 [ext_resource type="Texture2D" uid="uid://dw3fdixdhhqyl" path="res://UITextures/ThirdPartyTextures/google_logo.png" id="10_3x61y"]
-[ext_resource type="Texture2D" uid="uid://b7ss828fwkixd" path="res://UITextures/Progress/base.png" id="10_wwgtq"]
-[ext_resource type="Texture2D" uid="uid://3gu5u20frmdr" path="res://UITextures/Progress/progress.png" id="11_xngx2"]
 [ext_resource type="Texture2D" uid="uid://cxiv2m0fuhlsm" path="res://UITextures/ThirdPartyTextures/twitter_logo.png" id="12_oa1pb"]
 [ext_resource type="Texture2D" uid="uid://b6rw177m64jhq" path="res://UITextures/ThirdPartyTextures/tiktok_logo.png" id="13_oegc4"]
 [ext_resource type="Texture2D" uid="uid://b8cylcdl5mdv7" path="res://UITextures/AppTextures/gmetarave_splash_screen.png" id="15_6asnb"]
 [ext_resource type="Texture2D" uid="uid://did8ldxfqm2u8" path="res://UITextures/Buttons/PanelTextures/beats_logo2.png" id="15_7qkxq"]
 [ext_resource type="FontFile" uid="uid://c5fr5m8j4q1cg" path="res://UITextures/Fonts/HankenGrotesk-ExtraBoldItalic.ttf" id="15_outm7"]
+[ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="16_0g07l"]
 [ext_resource type="StyleBox" uid="uid://d4grcs3ey2rdr" path="res://UITextures/CustomResource/start_button.tres" id="16_6u3q1"]
 [ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="20_6nce6"]
 
@@ -34,8 +33,8 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
-shadow_size = 10
-shadow_offset = Vector2(5, 8)
+shadow_size = 4
+shadow_offset = Vector2(1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b3174"]
 
@@ -73,7 +72,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Panel:visible")
+tracks/2/path = NodePath("FilterPanel:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -306,7 +305,7 @@ length = 5.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Panel:visible")
+tracks/0/path = NodePath("FilterPanel:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -318,50 +317,50 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("TextureProgressBar:value")
+tracks/1/path = NodePath("FilterPanel/TextureProgressBar:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FilterPanel/TextureProgressBar:value")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0, 1.9, 3.5, 5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 100.0, 0.0, 100.0]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("TextureProgressBar:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Label:text")
+tracks/3/path = NodePath("FilterPanel/Label:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.8, 1.4, 2, 2.5, 3.5, 4.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": ["Loading", "Loading.", "Loading..", "Loading...", "Loading.", "Loading..", "Loading..."]
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [true, false]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Label:visible")
+tracks/4/path = NodePath("FilterPanel/Label:text")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
+"times": PackedFloat32Array(0, 0.8, 1.4, 2, 2.5, 3.5, 4.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": ["Loading", "Loading.", "Loading..", "Loading...", "Loading.", "Loading..", "Loading..."]
 }
 
 [sub_resource type="Animation" id="Animation_bjstk"]
@@ -404,7 +403,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.990833
 offset_top = 28.0
-offset_right = 21402.0
+offset_right = 2378.0
 offset_bottom = 28.0
 mouse_filter = 2
 alignment = 2
@@ -479,10 +478,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -127.0
-offset_top = -89.0
-offset_right = 126.0
-offset_bottom = 11.0
+offset_left = -123.0
+offset_top = -90.0
+offset_right = 136.0
+offset_bottom = 9.99997
 grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("15_7qkxq")
@@ -699,6 +698,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="TwitterRegisterButton" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(38, 38)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -708,6 +708,7 @@ ignore_texture_size = true
 stretch_mode = 6
 
 [node name="TiktokRegisterButton" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(38, 38)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -884,7 +885,7 @@ custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/StartContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(80, 0)
+custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="BackgroundTexture/StartContainer/HBoxContainer2"]
@@ -930,57 +931,10 @@ libraries = {
 "": SubResource("AnimationLibrary_tnpq4")
 }
 
-[node name="Panel" type="Panel" parent="."]
+[node name="FilterPanel" parent="." instance=ExtResource("16_0g07l")]
 unique_name_in_owner = true
-visible = false
-modulate = Color(0.0352941, 0.0352941, 0.0352941, 1)
-z_index = 2
-z_as_relative = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
-unique_name_in_owner = true
-visible = false
-z_index = 2
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-fill_mode = 4
-texture_under = ExtResource("10_wwgtq")
-texture_progress = ExtResource("11_xngx2")
-
-[node name="Label" type="Label" parent="."]
-visible = false
-z_index = 2
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = 69.0
-offset_right = 20.0
-offset_bottom = 92.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("3_wtii2")
-text = "Loading"
+layout_mode = 0
+anchors_preset = 0
 
 [node name="CursorSpark" parent="." instance=ExtResource("20_6nce6")]
 unique_name_in_owner = true

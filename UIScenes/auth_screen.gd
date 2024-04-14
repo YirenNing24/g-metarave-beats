@@ -56,7 +56,7 @@ func init_visibility_control() -> void:
 		animation_player.play('switch_start_screen')
 		
 	else:
-		%Panel.visible = false
+		%FilterPanel.visible = false
 		start_container.visible = false
 		login_modal_container.visible = true
 		login_container.visible = true
@@ -85,7 +85,7 @@ func _on_login_button_pressed() -> void:
 		animation_player2.play("registration_loading")
 		
 func _on_login_succeeded(result: Dictionary) -> void:
-	if "error" in result:
+	if result.has("error"):
 		await animation_player2.animation_finished
 		error_logger([result.error]) 
 		await animation_player2.animation_finished
