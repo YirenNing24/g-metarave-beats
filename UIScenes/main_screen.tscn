@@ -218,7 +218,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_5uujb")
 theme_override_font_sizes/font_size = 20
-text = "kaetaro13"
+text = "candyLand"
 vertical_alignment = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect/VBoxContainer"]
@@ -497,10 +497,10 @@ stretch_mode = 6
 [node name="ClassicHero" type="TextureRect" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.240933
-anchor_top = 0.666667
-anchor_right = 0.7134
-anchor_bottom = 1.87273
+anchor_left = 0.261659
+anchor_top = 0.745455
+anchor_right = 0.67454
+anchor_bottom = 1.89697
 offset_left = 7.99979
 offset_top = -280.0
 offset_right = 49.6277

@@ -75,4 +75,5 @@ func _on_gui_input(event: InputEvent) -> void:
 			tween.kill()
 		else:
 			# Initiate the scrolling animation on mouse button release.
-			scroll()
+			if card_nodes.size() != 0:
+				scroll()
