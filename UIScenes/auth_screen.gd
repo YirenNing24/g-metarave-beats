@@ -284,6 +284,8 @@ func error_logger(errors: Array) -> void:
 		error_container.remove_child(child)
 		child.queue_free()
 	for error: Dictionary in errors:
+		
+		print("yeah: ", error)
 		var errors_string: String = error.error
 		if errors_string not in unique_errors:
 			unique_errors.append(error)

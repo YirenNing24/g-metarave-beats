@@ -29,9 +29,7 @@ func card_inventory_open(inventory_data: Array) -> void:
 		var uri: String = card_data.keys()[0]
 
 		var card_name: String = card_data[uri]["name"].replace(" ", "_").to_lower()
-		var card_tier: String = card_data[uri]["tier"].to_lower()
-		var card_texture: Texture = load(
-			"res://UITextures/Cards/" + card_name + "_" + card_tier + ".png")
+		var card_texture: Texture = load("res://UITextures/Cards/" + card_name + ".png")
 		
 		card_inventory_slot.get_node('CardIcon').set_texture(card_texture)
 		card_inventory_container.add_child(card_inventory_slot)
@@ -43,10 +41,13 @@ func card_inventory_open(inventory_data: Array) -> void:
 	#Initialize the scroll animation in the card container once all cards have been added
 	inventory_scroll.initialize_scrolling()
 
-func equipment_slot_open(equipment_slot_data: Dictionary) -> void:
+func equipment_slot_open(inventory_data: Array) -> void:
 	for cardslots: TextureRect in get_tree().get_nodes_in_group('CardSlot'):
 		cardslots.data_card.connect(_on_equipment_pressed)
-		cardslots.slot_data(equipment_slot_data)
+		
+	for card_data: Dictionary in inventory_data:
+		for cardslots: TextureRect in get_tree().get_nodes_in_group('CardSlot'):
+			cardslots.slot_data(card_data)
 
 # Callback function for the close button pressed signal.
 func _on_close_button_pressed() -> void:
@@ -63,6 +64,8 @@ func _on_close_button_pressed() -> void:
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
 
 func _on_card_pressed(card_data: Dictionary) -> void:
+	
+	print(card_data)
 	if item_stats.is_open == false:
 		animation_player.play("item_stats_slide")
 		await animation_player.animation_finished

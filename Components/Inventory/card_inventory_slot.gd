@@ -8,36 +8,38 @@ var card_datas: Dictionary = {}
 
 
 func slot_data(card_data: Dictionary) -> Dictionary:
+	var uri: String = card_data.keys()[0]
 	card_data["node_name"] = get_parent().get_name()
 	card_data["origin_node"] = self
 	card_data["origin_panel"] = "CardInventory"
-	card_data["origin_item_id"] = card_data.uri
-	card_data["origin_equipment_slot"] = card_data.slot
+	card_data["origin_item_id"] = uri
+	card_data["origin_equipment_slot"] = card_data[uri].slot
 	
-	card_data["Name"] = card_data.name
-	card_data["Description"] = card_data.description
-	card_data["Group"] = card_data.group
-	card_data["Position"] = card_data.position
-	card_data["Position2"] = card_data.position2
-	card_data["Skill"] = card_data.skill
-	card_data["Era"] = card_data.era
-	card_data["Breakthrough"] = card_data.breakthrough
+	card_data["Name"] = card_data[uri].name
+	card_data["Description"] = card_data[uri].description
+	card_data["Group"] = card_data[uri].group
+	card_data["Position"] = card_data[uri].position
+	card_data["Position2"] = card_data[uri].position2
+	card_data["Skill"] = card_data[uri].skill
+	card_data["Era"] = card_data[uri].era
+	card_data["Breakthrough"] = card_data[uri].breakthrough
 	
-	card_data["Rarity"] = card_data.rarity
-	card_data["Level"] = card_data.level
-	card_data["Experience"] = card_data.experience
+	card_data["Rarity"] = card_data[uri].rarity
+	card_data["Level"] = card_data[uri].level
+	card_data["Experience"] = card_data[uri].experience
 
-	card_data["Scoreboost"] = card_data.scoreBoost
-	card_data["Healboost"] = card_data.healBoost
-	card_data["BoostCount"] = card_data.boostCount
-	card_data["AwakenCount"] = card_data.awakenCount
+	card_data["Scoreboost"] = card_data[uri].scoreboost
+	card_data["Healboost"] = card_data[uri].healboost
+	card_data["BoostCount"] = card_data[uri].boostCount
+	card_data["AwakenCount"] = card_data[uri].awakenCount
 
-	card_data["Tier"] = card_data.tier
-	card_data["Stars"] = card_data.stars
+	card_data["Tier"] = card_data[uri].tier
+	card_data["Stars"] = card_data[uri].stars
 	card_data["origin_texture"] = texture
-		
+	
+
 	if card_data.is_empty():
-		card_data["node_name"] = get_parent().name
+		card_data["node_name"] = get_parent().get_name()
 		card_data["origin_node"] = self
 		card_data["origin_panel"] = "CardInventory"
 		card_data["origin_item_id"] = null
@@ -64,8 +66,10 @@ func slot_data(card_data: Dictionary) -> Dictionary:
 		card_data["origin_texture"] = null
 			
 		get_parent().visible = false
+		card_datas = card_data
 		return card_datas as Dictionary
-		
+	
+	card_datas = card_data
 	return card_datas as Dictionary
 	
 func equip() -> Dictionary:

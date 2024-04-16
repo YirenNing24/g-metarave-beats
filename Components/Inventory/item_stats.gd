@@ -24,6 +24,8 @@ var is_open: bool = false
 
 #region Set UI Variables
 func _on_card_inventory_screen_item_stats_card_data(data_card: Dictionary) -> void:
+	
+	print(card_data)
 	is_open = true
 	card_data = data_card
 	populate_card_labels()

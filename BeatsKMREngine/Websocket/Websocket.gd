@@ -52,7 +52,7 @@ func _process(_delta: float) -> void:
 	if auth_header == []:
 		return
 	# Poll the WebSocket for incoming messages and update its state
-	socket.poll()
+	#socket.poll()
 
 	# Set authentication headers for the WebSocket handshake
 	socket.set_handshake_headers(auth_header)

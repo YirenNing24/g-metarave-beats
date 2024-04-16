@@ -311,7 +311,7 @@ func _on_LoginPlayer_request_completed(_result: int, response_code: int, headers
 			renew_access_token_timer()
 		elif json_body.has("error"):
 			# Emit login failure if no token is present
-			bkmr_login_complete.emit({"error": json_body})
+			bkmr_login_complete.emit(json_body)
 			BKMRLogger.error("BKMREngine login player failure: " + str(json_body.error))
 	else:
 		# Handle cases where the JSON parsing fails or the server returns an unknown error
