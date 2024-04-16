@@ -255,7 +255,7 @@ custom_minimum_size = Vector2(83.46, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Esha" groups=["CardSlot", "IveSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Esha" groups=["CardSlot", "XINSlot"]]
 self_modulate = Color(0.729412, 0.729412, 0.729412, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -292,7 +292,7 @@ custom_minimum_size = Vector2(83.46, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nizz" groups=["CardSlot", "IveSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nizz" groups=["CardSlot", "XINSlot"]]
 self_modulate = Color(0.729412, 0.729412, 0.729412, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -329,7 +329,7 @@ custom_minimum_size = Vector2(83.46, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Liz" groups=["CardSlot", "IveSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Liz" groups=["CardSlot", "XINSlot"]]
 self_modulate = Color(0.729412, 0.729412, 0.729412, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -408,7 +408,7 @@ custom_minimum_size = Vector2(83.46, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Hannah" groups=["CardSlot", "IveSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Hannah" groups=["CardSlot", "XINSlot"]]
 self_modulate = Color(0.686275, 0.686275, 0.686275, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -445,7 +445,7 @@ custom_minimum_size = Vector2(83.46, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Aria" groups=["CardSlot", "IveSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Aria" groups=["CardSlot", "XINSlot"]]
 self_modulate = Color(0.686275, 0.686275, 0.686275, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -612,14 +612,14 @@ layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="IVESkillIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer" groups=["IveSkill"]]
+[node name="XinSkillIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
 size_flags_horizontal = 4
 expand_mode = 1
 
-[node name="IVESkillIcon2" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer" groups=["IveSkill"]]
+[node name="XinSkillIcon2" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
@@ -630,7 +630,7 @@ expand_mode = 1
 layout_mode = 2
 alignment = 1
 
-[node name="IVESkillIcon3" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer2" groups=["IveSkill"]]
+[node name="XinSkillIcon3" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2

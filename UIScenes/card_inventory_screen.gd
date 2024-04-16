@@ -46,9 +46,19 @@ func equipment_slot_open(inventory_data: Array) -> void:
 		cardslots.data_card.connect(_on_equipment_pressed)
 		
 	for card_data: Dictionary in inventory_data:
+		var uri: String = card_data.keys()[0]
+		if card_data[uri].has("equipped") and card_data[uri]["equipped"] == true:
+			match card_data[uri].group:
+				"X:IN":
+					pass 
+		
 		for cardslots: TextureRect in get_tree().get_nodes_in_group('CardSlot'):
 			cardslots.slot_data(card_data)
 
+func x_in_equipped(card_data: Dictionary) -> void:
+	for cardslots: TextureRect in get_tree().get_nodes_in_group("XINSlot"):
+		cardslots.slot_data(card_data)
+	
 # Callback function for the close button pressed signal.
 func _on_close_button_pressed() -> void:
 	# Attempt automatic login and wait for the session check to complete.
