@@ -24,8 +24,6 @@ var is_open: bool = false
 
 #region Set UI Variables
 func _on_card_inventory_screen_item_stats_card_data(data_card: Dictionary) -> void:
-	
-	print(card_data)
 	is_open = true
 	card_data = data_card
 	populate_card_labels()
@@ -69,7 +67,7 @@ func populate_card_labels() -> void:
 			   card_scoreboost, card_healboost, card_tier, card_era,
 			   card_texture)
 			set_buttons(true, origin_node)
-			set_skill()
+			#set_skill()
 	
 func set_labels(card_name: String, group: String, position1: String, position2: String,
 				scoreboost: String, healboost: String, tier: String, era: String,
@@ -144,19 +142,19 @@ func unequip() -> void:
 #endregion
 
 #region Set Skill & Data
-func set_skill() -> void:
-	if card_data["Skill"] != null or "":
-		var skill_name: String = card_data["Skill"].to_lower()
-		var skill_texture: Texture = load("res://UITextures/Buttons/Skill/"+ skill_name + "_skill_texture" + ".png")
-		card_skill_button.texture_normal = skill_texture
-		card_skill_button.texture_pressed = skill_texture
-		
-		if card_data["SkillEquipped"] == false:
-			card_skill_button.modulate = Color(1, 1, 1, 0.435)
-			card_skill_button.button_pressed = false
-		else:
-			card_skill_button.modulate = "ffffff"
-			card_skill_button.button_pressed = true
+#func set_skill() -> void:
+	#if card_data["Skill"] != null or "":
+		#var skill_name: String = card_data["Skill"].to_lower()
+		#var skill_texture: Texture = load("res://UITextures/Buttons/Skill/"+ skill_name + "_skill_texture" + ".png")
+		#card_skill_button.texture_normal = skill_texture
+		#card_skill_button.texture_pressed = skill_texture
+		#
+		#if card_data["SkillEquipped"] == false:
+			#card_skill_button.modulate = Color(1, 1, 1, 0.435)
+			#card_skill_button.button_pressed = false
+		#else:
+			#card_skill_button.modulate = "ffffff"
+			#card_skill_button.button_pressed = true
 
 func _on_card_skill_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:

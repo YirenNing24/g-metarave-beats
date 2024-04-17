@@ -11,6 +11,8 @@ extends Control
 @onready var bad_label: Label = %BadLabel
 @onready var miss_label: Label = %MissLabel
 
+@onready var background_texture: TextureRect = %BackgroundTexture
+
 var final_stats: Dictionary  = SONG.map_done_score
 var note_stats: Dictionary = SONG .note_stats_score
 
@@ -59,7 +61,6 @@ func is_highscore() -> bool:
 		return true
 		
 	for scores: Dictionary in BKMREngine.Score.classic_scores:
-		print(scores)
 		if scores.scoreStats.finalStats.songName == song_name:
 			if final_stats.score > scores.scoreStats.finalStats.score:
 				return true
@@ -82,6 +83,9 @@ func format_scores(value: String) -> String:
 			digitCount = 0
 	return formattedWholePart
 
-
-
 # ADD HIGHSCORE BOOLEAN 
+
+func _on_close_button_pressed() -> void:
+	LOADER.previous_texture = background_texture.texture
+	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")
+	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")

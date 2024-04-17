@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="7_aj63t"]
 [ext_resource type="Script" path="res://Components/Inventory/xin_equipment_slot.gd" id="7_tqxdo"]
 [ext_resource type="Texture2D" uid="uid://dxna5sg0c5j0b" path="res://UITextures/BGTextures/Inventory/EmptySlot/nizz_empty_slot_bg.png" id="8_2isoq"]
-[ext_resource type="Texture2D" uid="uid://b0haj2xc8umdy" path="res://UITextures/BGTextures/Inventory/EmptySlot/x_in_nova_empty_slot.png" id="9_ilsqj"]
+[ext_resource type="Texture2D" uid="uid://qw6nc8elij7v" path="res://UITextures/BGTextures/Inventory/EmptySlot/nova_empty_slot_bg.png" id="9_ilsqj"]
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="10_qxlqx"]
 [ext_resource type="Texture2D" uid="uid://ciso5gh08c3de" path="res://UITextures/BGTextures/Inventory/EmptySlot/hannah_empty_slot_bg.png" id="11_06ato"]
 [ext_resource type="Texture2D" uid="uid://d1dwdfkwwmehg" path="res://UITextures/BGTextures/Inventory/EmptySlot/aria_empty_slot_bg.png" id="12_cp8mb"]
@@ -111,13 +111,6 @@ offset_bottom = 68.0
 mouse_filter = 0
 
 [node name="CloseButton" type="TextureButton" parent="TextureRect/VBoxContainer3"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture_normal = ExtResource("3_kawcx")
-texture_hover = ExtResource("4_l46n7")
-
-[node name="CloseButton2" type="TextureButton" parent="TextureRect/VBoxContainer3"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = ExtResource("3_kawcx")
@@ -324,12 +317,12 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w3ejl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rmk8c")
 flat = true
 
-[node name="Liz" type="Panel" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Nova" type="Panel" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(83.46, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Liz" groups=["CardSlot", "XINSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nova" groups=["CardSlot", "XINSlot"]]
 self_modulate = Color(0.729412, 0.729412, 0.729412, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -341,7 +334,7 @@ texture = ExtResource("9_ilsqj")
 expand_mode = 1
 script = ExtResource("7_tqxdo")
 
-[node name="Button" type="Button" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Liz"]
+[node name="Button" type="Button" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nova"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -673,7 +666,6 @@ libraries = {
 
 [connection signal="item_stats_card_data" from="." to="ItemStats" method="_on_card_inventory_screen_item_stats_card_data"]
 [connection signal="pressed" from="TextureRect/VBoxContainer3/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="pressed" from="TextureRect/VBoxContainer3/CloseButton2" to="." method="_on_close_button_pressed"]
 [connection signal="gui_input" from="TextureRect/VBoxContainer/Panel/HBoxContainer/InventoryScroll" to="TextureRect/VBoxContainer/Panel/HBoxContainer/InventoryScroll" method="_on_gui_input"]
 [connection signal="close_item_stats_pressed" from="ItemStats" to="." method="_on_item_stats_close_item_stats_pressed"]
 [connection signal="equip_unequip_pressed" from="ItemStats" to="." method="_on_item_stats_equip_unequip_pressed"]

@@ -24,7 +24,7 @@ func _ready() -> void:
 	
 func card_inventory_open(inventory_data: Array) -> void:
 	var card_inventory_slot: Control
-	for card_data: Dictionary in inventory_data:
+	for card_data: Dictionary in inventory_data[0]:
 		card_inventory_slot = inventory_slot_card.instantiate()
 		var uri: String = card_data.keys()[0]
 
@@ -36,25 +36,22 @@ func card_inventory_open(inventory_data: Array) -> void:
 		card_inventory_container.move_child(card_inventory_slot, 0)
 		
 		card_inventory_slot.get_node('CardIcon').slot_data(card_data)
-		card_inventory_slot.get_node('CardIcon').data_card.connect(_on_card_pressed)
+		card_inventory_slot.get_node('CardIcon').data_card.connect(_on_inventory_card_pressed)
 
 	#Initialize the scroll animation in the card container once all cards have been added
 	inventory_scroll.initialize_scrolling()
 
 func equipment_slot_open(inventory_data: Array) -> void:
-	for cardslots: TextureRect in get_tree().get_nodes_in_group('CardSlot'):
-		cardslots.data_card.connect(_on_equipment_pressed)
-		
-	for card_data: Dictionary in inventory_data:
+	for card_data: Dictionary in inventory_data[1]:
 		var uri: String = card_data.keys()[0]
-		if card_data[uri].has("equipped") and card_data[uri]["equipped"] == true:
-			match card_data[uri].group:
-				"X:IN":
-					pass 
+		match card_data[uri].group:
+			"X:IN":
+				x_in_equipped(card_data)
+	for cardslots: TextureRect in get_tree().get_nodes_in_group('CardSlot'):
+		cardslots.equipped_card_pressed.connect(_on_equipped_card_pressed)
+		cardslots.slot_data()
 		
-		for cardslots: TextureRect in get_tree().get_nodes_in_group('CardSlot'):
-			cardslots.slot_data(card_data)
-
+# Handle equipped cards with group "X:IN"
 func x_in_equipped(card_data: Dictionary) -> void:
 	for cardslots: TextureRect in get_tree().get_nodes_in_group("XINSlot"):
 		cardslots.slot_data(card_data)
@@ -73,20 +70,18 @@ func _on_close_button_pressed() -> void:
 	# Initiate the scene transition.
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
 
-func _on_card_pressed(card_data: Dictionary) -> void:
-	
-	print(card_data)
+func _on_inventory_card_pressed(card_data: Dictionary) -> void:
 	if item_stats.is_open == false:
 		animation_player.play("item_stats_slide")
 		await animation_player.animation_finished
 		
 	item_stats_card_data.emit(card_data)
 
-func _on_equipment_pressed(card_data: Dictionary) -> void:
+func _on_equipped_card_pressed(card_data: Dictionary) -> void:
 	if item_stats.is_open == false:
 		animation_player.play("item_stats_slide")
 		await animation_player.animation_finished
-		
+	
 	item_stats_card_data.emit(card_data)
 
 func _on_item_stats_equip_unequip_pressed() -> void:

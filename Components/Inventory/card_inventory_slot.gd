@@ -37,14 +37,11 @@ func slot_data(card_data: Dictionary) -> Dictionary:
 	card_data["Stars"] = card_data[uri].stars
 	card_data["origin_texture"] = texture
 	
-
 	if card_data.is_empty():
 		card_data["node_name"] = get_parent().get_name()
 		card_data["origin_node"] = self
 		card_data["origin_panel"] = "CardInventory"
-		card_data["origin_item_id"] = null
-		card_data["origin_equipment_slot"] = null
-		
+
 		card_data["Name"] = null
 		card_data["Group"] = null
 		card_data["Position"] = null

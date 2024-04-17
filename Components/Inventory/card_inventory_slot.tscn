@@ -1,6 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://ur5y4vq646w0"]
+[gd_scene load_steps=13 format=3 uid="uid://ur5y4vq646w0"]
 
 [ext_resource type="Script" path="res://Components/Inventory/card_inventory_slot.gd" id="2_uof06"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_il8gk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5de8k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ieg5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c731o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7ae0m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_om00e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fyicm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_46epb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_43ckp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3jgtu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6jaxv"]
 
 [node name="Inv1" type="Control"]
 custom_minimum_size = Vector2(83.46, 128.4)
@@ -23,6 +45,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_il8gk")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_5de8k")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2ieg5")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_c731o")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_7ae0m")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_om00e")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fyicm")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_46epb")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_43ckp")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_3jgtu")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6jaxv")
 flat = true
 
 [connection signal="pressed" from="Button" to="CardIcon" method="_on_button_pressed"]

@@ -146,4 +146,5 @@ func _on_user_hud_hit_display_data(_note_accuracy: int, _line: int, combo: int) 
 	# Check if combo is a positive multiple of 10
 	if combo > 0 and combo % 10 == 0:
 		for note_picker: Node3D in get_tree().get_nodes_in_group("Picker"):
-			note_picker.combo_fx(combo)
+			pass
+			#note_picker.combo_fx(combo)
