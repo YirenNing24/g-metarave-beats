@@ -60,7 +60,7 @@ func _onOpenCardInventory_request_completed(_result: int, response_code: int, he
 		get_card_inventory_complete.emit({"error": "Unable to retrieve inventory"})
 		
 
-func update_equipped_item(equipped: bool, uri: String) -> Node:
+func equip_item(equipped_item_data: Array) -> Node:
 	# Prepare an HTTP request for fetching private inbox data.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	UpdateEquippedItem = prepared_http_req.request
@@ -74,7 +74,7 @@ func update_equipped_item(equipped: bool, uri: String) -> Node:
 	
 	# Construct the request URL for fetching private inbox data for the specified user.
 	var request_url: String = host + "/api/card/inventory/update"
-	var payload: Dictionary = { "equipped": equipped, "uri": uri }
+	var payload: Array = equipped_item_data
 	# Send a GET request to retrieve the private inbox data.
 	await BKMREngine.send_post_request(UpdateEquippedItem, request_url, payload)
 	
