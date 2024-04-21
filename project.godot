@@ -86,7 +86,7 @@ project/assembly_name="kmr-godot-4"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GodotGetImage/plugin.cfg", "res://addons/GodotPlayGameServices/plugin.cfg")
+enabled=PackedStringArray("res://addons/GodotGetImage/plugin.cfg", "res://addons/GodotPlayGameServices/plugin.cfg", "res://addons/SmoothScroll/plugin.cfg")
 
 [input]
 

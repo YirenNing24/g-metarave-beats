@@ -6,8 +6,9 @@ const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 
 signal get_card_inventory_complete(card_inventory_data: Array)
 signal get_bag_inventory_complete(bag_inventory_data: Dictionary)
-signal update_equipped_item_complete(message: Dictionary)
 
+signal equip_item_complete(message: Dictionary)
+signal unequip_item_complete(message: Dictionary)
 var host: String = BKMREngine.host
 
 var OpenCardInventory: HTTPRequest
@@ -16,8 +17,11 @@ var wrOpenCardInventory: WeakRef
 var OpenBagInventory: HTTPRequest
 var wrOpenBagInventory: WeakRef
 
-var UpdateEquippedItem: HTTPRequest
-var wrUpdateEquippedItem: WeakRef
+var EquipItem: HTTPRequest
+var wrEquipItem: WeakRef
+
+var UnequipItem: HTTPRequest
+var wrUnequipItem: WeakRef
 
 var card_inventory: Dictionary
 var bag_inventory: Dictionary
@@ -58,48 +62,7 @@ func _onOpenCardInventory_request_completed(_result: int, response_code: int, he
 			get_card_inventory_complete.emit(json_body)
 	else:
 		get_card_inventory_complete.emit({"error": "Unable to retrieve inventory"})
-		
-
-func equip_item(equipped_item_data: Array) -> Node:
-	# Prepare an HTTP request for fetching private inbox data.
-	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
-	UpdateEquippedItem = prepared_http_req.request
-	wrUpdateEquippedItem = prepared_http_req.weakref
-	
-	# Connect the callback function to handle the completion of the private inbox data request.
-	var _cards: int = UpdateEquippedItem.request_completed.connect(_onUpdateEquippedItem_request_completed)
-	
-	# Log the initiation of the request to retrieve inbox messages.
-	BKMRLogger.info("Calling BKMREngine to get card inventory data")
-	
-	# Construct the request URL for fetching private inbox data for the specified user.
-	var request_url: String = host + "/api/card/inventory/update"
-	var payload: Array = equipped_item_data
-	# Send a GET request to retrieve the private inbox data.
-	await BKMREngine.send_post_request(UpdateEquippedItem, request_url, payload)
-	
-	# Return the current node for method chaining.
-	return self as Node
-
-func _onUpdateEquippedItem_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
-	# Check if the HTTP response indicates success.
-	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	
-	# Free the HTTP request resource if it is still valid.
-	if is_instance_valid(UpdateEquippedItem):
-		BKMREngine.free_request(wrUpdateEquippedItem, UpdateEquippedItem)
-	
-	# If the HTTP response indicates success, parse the JSON response body.
-	if status_check:
-		# Parse the JSON response body.
-		var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
-		if json_body.has("error"):
-			BKMRLogger.info(json_body.error)
-		else:
-			# Emit the 'get_inbox_messages_complete' signal to notify the completion of private inbox data retrieval.
-			update_equipped_item_complete.emit(json_body)
 #endregion
-
 
 #region Bag Inventory
 func open_bag_inventory() -> Node:
@@ -142,4 +105,88 @@ func _onOpenBagInventory_request_completed(_result: int, response_code: int, hea
 			# Emit the 'get_inbox_messages_complete' signal to notify the completion of private inbox data retrieval.
 			get_bag_inventory_complete.emit(json_body)
 			bag_inventory = json_body
+#endregion
+
+#region Equip / Unequip Item
+func equip_item(equip_item_data: Array) -> void:
+	# Prepare an HTTP request for fetching private inbox data.
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	EquipItem = prepared_http_req.request
+	wrEquipItem = prepared_http_req.weakref
+	
+	# Connect the callback function to handle the completion of the private inbox data request.
+	var _cards: int = EquipItem.request_completed.connect(_onEquipItem_request_completed)
+	
+	# Log the initiation of the request to retrieve inbox messages.
+	BKMRLogger.info("Calling BKMREngine to get card inventory data")
+	
+	# Construct the request URL for fetching private inbox data for the specified user.
+	var request_url: String = host + "/api/card/inventory/equip-item"
+	var payload: Array = equip_item_data
+	# Send a GET request to retrieve the private inbox data.
+	await BKMREngine.send_post_request(EquipItem, request_url, payload)
+	
+func _onEquipItem_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check if the HTTP response indicates success.
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	
+	# Free the HTTP request resource if it is still valid.
+	if is_instance_valid(EquipItem):
+		BKMREngine.free_request(wrEquipItem, EquipItem)
+	
+	# If the HTTP response indicates success, parse the JSON response body.
+	if status_check:
+		# Parse the JSON response body.
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body != null:
+			if json_body.has("error"):
+				BKMRLogger.info(json_body.error)
+			else:
+				# Emit the 'get_inbox_messages_complete' signal to notify the completion of private inbox data retrieval.
+				equip_item_complete.emit(json_body)
+		else:
+			equip_item_complete.emit({"error": "Unknown server error"})
+	else:
+		equip_item_complete.emit({"error": "Unknown server error"})
+
+func unequip_item(unequip_item_data: Array) -> void:
+	# Prepare an HTTP request for fetching private inbox data.
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	UnequipItem = prepared_http_req.request
+	wrUnequipItem = prepared_http_req.weakref
+	
+	# Connect the callback function to handle the completion of the private inbox data request.
+	var _cards: int = UnequipItem.request_completed.connect(_onUnequipItem_request_completed)
+	
+	# Log the initiation of the request to retrieve inbox messages.
+	BKMRLogger.info("Calling BKMREngine to get card inventory data")
+	
+	# Construct the request URL for fetching private inbox data for the specified user.
+	var request_url: String = host + "/api/card/inventory/unequip-item"
+	var payload: Array = unequip_item_data
+	# Send a GET request to retrieve the private inbox data.
+	await BKMREngine.send_post_request(UnequipItem, request_url, payload)
+
+func _onUnequipItem_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check if the HTTP response indicates success.
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	
+	# Free the HTTP request resource if it is still valid.
+	if is_instance_valid(UnequipItem):
+		BKMREngine.free_request(wrUnequipItem, UnequipItem)
+	
+	# If the HTTP response indicates success, parse the JSON response body.
+	if status_check:
+		# Parse the JSON response body.
+		var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
+		if json_body != null:
+			if json_body.has("error"):
+				BKMRLogger.info(json_body.error)
+			else:
+				# Emit the 'get_inbox_messages_complete' signal to notify the completion of private inbox data retrieval.
+				unequip_item_complete.emit(json_body)
+		else:
+			unequip_item_complete.emit({"error": "Unknown server error"})
+	else:
+		unequip_item_complete.emit({"error": "Unknown server error"})
 #endregion

@@ -129,7 +129,7 @@ func _on_store_button_pressed() -> void:
 	LOADER.next_texture = preload("res://UITextures/BGTextures/store_bg.png")
 
 	# Load the store screen scene asynchronously
-	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/store_screen.tscn")
+	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/store_screen2.tscn")
 
 	# Disable buttons in the 'MainButtons' group during the scene transition
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons'):

@@ -24,8 +24,10 @@ var is_open: bool = false
 
 #region Set UI Variables
 func _on_card_inventory_screen_item_stats_card_data(data_card: Dictionary) -> void:
+	clear_variables()
 	is_open = true
 	card_data = data_card
+	
 	populate_card_labels()
 	close_button.visible = true
 
@@ -93,7 +95,6 @@ func set_buttons(is_data: bool, origin: String) -> void:
 			equip_unequip_button.visible = true
 			equip_label.text = "Unequip"
 			powerup_button.visible = true
-			
 	elif origin == "CardInventory":
 		equip_unequip_button.visible = true
 		equip_label.text = "Equip"
@@ -105,38 +106,40 @@ func _on_close_button_pressed() -> void:
 	clear_variables()
 
 func clear_variables() -> void:
+	card_data = {}
 	close_button.visible = false
 	card_skill_button.texture_normal = null
+	equipped_icon.texture = null
 #endregion
 
 #region Item Equipped or Unequipped
 func _on_equip_unequip_button_pressed() -> void:
 	if card_data["origin_panel"] == "CardInventory":
 		equip()
-		equip_unequip_pressed.emit()
 	elif card_data["origin_panel"] == "CardSlot":
 		unequip()
 	equip_unequip_pressed.emit()
 	
 func equip() -> void:
-	var origin_node: TextureRect = card_data["origin_node"]
-	var slots_name: String = card_data["Group"].capitalize() + "Slot"
+	var inv_slot_node: TextureRect = card_data["origin_node"]
+	var slots_name: String = card_data["Group"].to_upper() + "Slot"
 	for slot: TextureRect in get_tree().get_nodes_in_group(slots_name):
-		if slot.card_data["origin_equipment_slot"] == card_data["origin_equipment_slot"]:
-			if slot.card_data["origin_item_id"] == null:
-				var origin_item_id: String = origin_node.card_data["origin_item_id"]
-				var inventory_data: Dictionary = await origin_node.equip()
-				slot.equip(inventory_data, origin_item_id)
+		if slot.cards_data["origin_equipment_slot"] == card_data["origin_equipment_slot"]:
+			if slot.cards_data["origin_item_id"] == null:
+				var origin_item_id: String = card_data["origin_item_id"]
+				slot.equip(origin_item_id, card_data)
+				inv_slot_node.equip_to_equip_slot()
 				
 	is_open = true
 	clear_variables()
 	
 func unequip() -> void:
-	var slots_name: String = card_data["Group"].capitalize() + "Slot"
+	var slots_name: String = card_data["Group"].to_upper() + "Slot"
 	for slot: TextureRect in get_tree().get_nodes_in_group(slots_name):
-		if slot.card_data["origin_equipment_slot"] == card_data["origin_equipment_slot"]:
-			slot.unequip()
-	
+		if slot.cards_data["origin_item_id"] != null:
+			if slot.cards_data["origin_equipment_slot"] == card_data["origin_equipment_slot"]:
+				slot.unequip(card_data)
+				
 	is_open = true
 	clear_variables()
 #endregion
@@ -174,6 +177,3 @@ func set_skill_data(is_equipped: bool) -> bool:
 			return is_added
 	return false
 #endregion
-
-
-	

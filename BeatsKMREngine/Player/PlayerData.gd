@@ -18,6 +18,7 @@ var player_rank: String
 var stat_points: int
 var stat_points_saved: Dictionary
 
+var inventory_size: int 
 # Function called when the node is ready.
 func _ready() -> void:
 	BKMREngine.Auth.bkmr_login_complete.connect(populate_player_data)
@@ -25,7 +26,7 @@ func _ready() -> void:
 	BKMREngine.Auth.bkmr_google_login_complete.connect(populate_player_data)
 
 func populate_player_data(data: Dictionary) -> void:
-	if data != {}:
+	if !data.is_empty():
 		if data.has("error"):
 			return
 		player_stats = data.playerStats
@@ -50,6 +51,7 @@ func populate_player_data(data: Dictionary) -> void:
 		player_rank = player_stats.rank
 		stat_points = player_stats.availStatPoints
 		stat_points_saved = player_stats.statPointsSaved
+		inventory_size = data.safeProperties.inventorySize.low
 	else:
 		return
 		

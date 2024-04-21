@@ -11,7 +11,6 @@ var inventory_slot_card: PackedScene = preload("res://Components/Inventory/card_
 
 @onready var background_texture: TextureRect = %TextureRect
 @onready var card_inventory_container: HBoxContainer = %CardInventoryContainer
-@onready var inventory_scroll: ScrollContainer = %InventoryScroll
 @onready var filter_panel: Panel = %FilterPanel
 @onready var equipment_slot_container: HBoxContainer = %EquipmentSlotContainer
 
@@ -21,7 +20,7 @@ func _ready() -> void:
 	BKMREngine.Inventory.open_card_inventory()
 	BKMREngine.Inventory.get_card_inventory_complete.connect(card_inventory_open)
 	BKMREngine.Inventory.get_card_inventory_complete.connect(equipment_slot_open)
-	
+
 func card_inventory_open(inventory_data: Array) -> void:
 	var card_inventory_slot: Control
 	for card_data: Dictionary in inventory_data[0]:
@@ -37,25 +36,32 @@ func card_inventory_open(inventory_data: Array) -> void:
 		
 		card_inventory_slot.get_node('CardIcon').slot_data(card_data)
 		card_inventory_slot.get_node('CardIcon').data_card.connect(_on_inventory_card_pressed)
-
-	#Initialize the scroll animation in the card container once all cards have been added
-	inventory_scroll.initialize_scrolling()
-
+		
+	var empty_card_inventory_slot: int = PLAYER.inventory_size - inventory_data[0].size()
+	for _i: int in empty_card_inventory_slot:
+		card_inventory_slot = inventory_slot_card.instantiate()
+		card_inventory_container.add_child(card_inventory_slot)
+		card_inventory_container.move_child(card_inventory_slot, 0)
+		card_inventory_slot.get_node('CardIcon').slot_data()
+		card_inventory_slot.get_node('CardIcon').data_card.connect(_on_inventory_card_pressed)
+		
 func equipment_slot_open(inventory_data: Array) -> void:
-	for card_data: Dictionary in inventory_data[1]:
-		var uri: String = card_data.keys()[0]
-		match card_data[uri].group:
-			"X:IN":
-				x_in_equipped(card_data)
 	for cardslots: TextureRect in get_tree().get_nodes_in_group('CardSlot'):
 		cardslots.equipped_card_pressed.connect(_on_equipped_card_pressed)
 		cardslots.slot_data()
 		
+	for card_data: Dictionary in inventory_data[1]:
+		var uri: String = card_data.keys()[0]
+		match card_data[uri].group:
+			"X:IN":
+				x_in_equipped(uri, card_data)
+				
 # Handle equipped cards with group "X:IN"
-func x_in_equipped(card_data: Dictionary) -> void:
-	for cardslots: TextureRect in get_tree().get_nodes_in_group("XINSlot"):
-		cardslots.slot_data(card_data)
-	
+func x_in_equipped(uri: String, card_data: Dictionary) -> void:
+	card_data.origin_equipment_slot = card_data[uri].slot
+	for cardslots: TextureRect in get_tree().get_nodes_in_group("X:INSlot"):
+		cardslots.equip(uri, card_data, "init")
+		
 # Callback function for the close button pressed signal.
 func _on_close_button_pressed() -> void:
 	# Attempt automatic login and wait for the session check to complete.
@@ -74,14 +80,12 @@ func _on_inventory_card_pressed(card_data: Dictionary) -> void:
 	if item_stats.is_open == false:
 		animation_player.play("item_stats_slide")
 		await animation_player.animation_finished
-		
 	item_stats_card_data.emit(card_data)
 
 func _on_equipped_card_pressed(card_data: Dictionary) -> void:
 	if item_stats.is_open == false:
 		animation_player.play("item_stats_slide")
 		await animation_player.animation_finished
-	
 	item_stats_card_data.emit(card_data)
 
 func _on_item_stats_equip_unequip_pressed() -> void:
