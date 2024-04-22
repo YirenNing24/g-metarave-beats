@@ -1,8 +1,8 @@
 [gd_scene load_steps=23 format=3 uid="uid://cff5li31pk0jx"]
 
-[ext_resource type="Texture2D" uid="uid://11abshdvuvyl" path="res://UITextures/Popups/store_modal_bg.png" id="1_axk2g"]
 [ext_resource type="Script" path="res://Components/Popups/store_item_modal.gd" id="1_ychtr"]
-[ext_resource type="Texture2D" uid="uid://bxb3fpjcokmy8" path="res://UITextures/Cards/leeseo_lovedive_le_trainee.png" id="2_2xad3"]
+[ext_resource type="Texture2D" uid="uid://0dhl6xcexh82" path="res://UITextures/Cards/esha_no_doubt_star.png" id="2_2xad3"]
+[ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_wygyw"]
 [ext_resource type="Texture2D" uid="uid://71ok60rxtq74" path="res://UITextures/Popups/info_panel.png" id="3_7ymp4"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="3_tsqrq"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="4_40xnu"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://ds0um88d71gmp" path="res://UITextures/Progress/prop_progress.png" id="6_sh0mv"]
 [ext_resource type="FontFile" uid="uid://vqx73un0cel7" path="res://UITextures/Fonts/HankenGrotesk-Italic-VariableFont_wght.ttf" id="7_vtv0g"]
 [ext_resource type="Texture2D" uid="uid://1ktjogd6a24l" path="res://UITextures/Buttons/buy_button.png" id="8_0vpge"]
+[ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="8_p2noh"]
 [ext_resource type="Texture2D" uid="uid://rf7crm8iniew" path="res://UITextures/Buttons/PanelTextures/store_loading_hero.png" id="11_iowjj"]
 [ext_resource type="Texture2D" uid="uid://fadyu86xt0om" path="res://UITextures/Progress/buy_base.png" id="12_jh3eo"]
 [ext_resource type="Texture2D" uid="uid://cam62c8r5h2y" path="res://UITextures/Progress/buy_progress.png" id="13_1eycr"]
@@ -78,27 +79,10 @@ tracks/0/keys = {
 "values": [Vector3(0, -0.0872665, 0), Vector3(0, 0.0872665, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_0jmui"]
-resource_name = "unwrap"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rnhn3"]
 _data = {
 "buy_loading": SubResource("Animation_6t2hi"),
-"halfspin": SubResource("Animation_5mc1f"),
-"unwrap": SubResource("Animation_0jmui")
+"halfspin": SubResource("Animation_5mc1f")
 }
 
 [node name="store_item_modal" type="Control"]
@@ -119,7 +103,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_axk2g")
+texture = ExtResource("2_wygyw")
+expand_mode = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture"]
 layout_mode = 1
@@ -157,6 +142,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 9.79
 
 [node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("3_7ymp4")
@@ -288,6 +274,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_vtv0g")
+theme_override_font_sizes/font_size = 14
 text = "LIMITED EDITION"
 
 [node name="SkillContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer"]
@@ -308,6 +295,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_vtv0g")
+theme_override_font_sizes/font_size = 14
 text = "DOUBLE UP"
 
 [node name="HBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer"]
@@ -319,14 +307,16 @@ unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0520446
-anchor_top = 0.064
+anchor_top = 0.0652741
 anchor_right = 0.920074
-anchor_bottom = 0.178667
+anchor_bottom = 0.180157
 offset_bottom = -8.0
-theme_override_fonts/font = ExtResource("5_5o5t1")
-theme_override_font_sizes/font_size = 30
+theme_override_fonts/font = ExtResource("8_p2noh")
+theme_override_font_sizes/font_size = 28
+text = "MUST BE LOVE"
 horizontal_alignment = 1
-vertical_alignment = 1
+vertical_alignment = 2
+uppercase = true
 metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
@@ -336,8 +326,10 @@ size_flags_stretch_ratio = 0.0
 alignment = 1
 
 [node name="TextureButton2" type="TextureButton" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(250, 90)
+self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
+custom_minimum_size = Vector2(250, 70)
 layout_mode = 2
+size_flags_vertical = 0
 texture_normal = ExtResource("8_0vpge")
 ignore_texture_size = true
 stretch_mode = 0
@@ -351,20 +343,24 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -52.0
-offset_top = -15.0
+offset_top = -9.0
 offset_right = 52.0
-offset_bottom = 9.0
+offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("5_5o5t1")
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("8_p2noh")
+theme_override_font_sizes/font_size = 12
 text = "SEND AS A GIFT"
 horizontal_alignment = 1
 vertical_alignment = 2
 
 [node name="BuyButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(250, 90)
+self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
+custom_minimum_size = Vector2(250, 70)
 layout_mode = 2
+size_flags_vertical = 0
 texture_normal = ExtResource("8_0vpge")
 ignore_texture_size = true
 stretch_mode = 0
@@ -373,8 +369,9 @@ stretch_mode = 0
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.112
+anchor_top = 0.0285714
 anchor_right = 0.884
-anchor_bottom = 0.944444
+anchor_bottom = 0.942857
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -382,7 +379,9 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer/BuyButton/HBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("5_5o5t1")
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("8_p2noh")
+theme_override_font_sizes/font_size = 12
 text = "BUY NOW"
 horizontal_alignment = 1
 vertical_alignment = 2
@@ -391,7 +390,9 @@ vertical_alignment = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("5_5o5t1")
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("8_p2noh")
+theme_override_font_sizes/font_size = 12
 vertical_alignment = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer"]

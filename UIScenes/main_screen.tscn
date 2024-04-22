@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://yfevho5xx5qg"]
+[gd_scene load_steps=32 format=3 uid="uid://yfevho5xx5qg"]
 
 [ext_resource type="Script" path="res://UIScenes/main_screen.gd" id="1_25j1r"]
 [ext_resource type="Texture2D" uid="uid://cj3g7l2prnd31" path="res://UITextures/PanelElements/player_panel.png" id="2_37prv"]
@@ -16,13 +16,14 @@
 [ext_resource type="PackedScene" uid="uid://b3eiw5d6jk827" path="res://Components/Chat/mutuals_box.tscn" id="12_b1h6r"]
 [ext_resource type="Texture2D" uid="uid://cyl1bqw5cea6d" path="res://UITextures/Buttons/mode_normal.png" id="13_cv2mc"]
 [ext_resource type="Texture2D" uid="uid://bru7x3llda33h" path="res://UITextures/Buttons/PanelTextures/classic_trophy.png" id="13_k2qiu"]
-[ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="15_ovxn5"]
 [ext_resource type="PackedScene" uid="uid://4hviwgrfsnfn" path="res://Components/Chat/chat_box.tscn" id="17_c2ldk"]
+[ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="17_dxh3f"]
 [ext_resource type="FontFile" uid="uid://cfpnum8trj6m7" path="res://UITextures/Fonts/HankenGrotesk-SemiBold.ttf" id="17_rffxp"]
 [ext_resource type="Texture2D" uid="uid://b1vri81ty6yl8" path="res://UITextures/Buttons/PanelTextures/x_in_hero_1.png" id="20_3dgv8"]
 [ext_resource type="Texture2D" uid="uid://irgifod6546h" path="res://UITextures/Buttons/show_chat.png" id="20_svq2r"]
 [ext_resource type="Texture2D" uid="uid://pillh3ktitlt" path="res://UITextures/GameTextures/particles/petal.png" id="21_vp18h"]
 [ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="22_6iiwn"]
+[ext_resource type="AudioStream" uid="uid://dtocxag21vt3n" path="res://GameTracks/BGTracks/Tue Apr 23 2024.mp3" id="24_8jsi5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtby7"]
 bg_color = Color(0.396078, 0.396078, 0.396078, 0.219608)
@@ -526,6 +527,7 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect"]
+self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.118863
@@ -547,9 +549,9 @@ offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
-theme_override_fonts/font = ExtResource("15_ovxn5")
+theme_override_fonts/font = ExtResource("17_dxh3f")
 theme_override_font_sizes/font_size = 24
-text = "Classic"
+text = "CLASSIC"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -587,7 +589,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
 theme_override_fonts/font = ExtResource("17_rffxp")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 22
 text = "Store"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -616,7 +618,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
 theme_override_fonts/font = ExtResource("17_rffxp")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 22
 text = "Missions"
 vertical_alignment = 1
 
@@ -644,7 +646,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
 theme_override_fonts/font = ExtResource("17_rffxp")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 22
 text = "Inventory"
 vertical_alignment = 1
 
@@ -672,7 +674,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
 theme_override_fonts/font = ExtResource("17_rffxp")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 22
 text = "Leaderboard"
 vertical_alignment = 1
 
@@ -802,17 +804,6 @@ libraries = {
 "": SubResource("AnimationLibrary_qe76f")
 }
 
-[node name="SakuraFX" type="GPUParticles2D" parent="."]
-modulate = Color(1, 0.745098, 1, 0.384314)
-z_index = 2
-position = Vector2(836, -12)
-emitting = false
-amount = 100
-process_material = SubResource("ParticleProcessMaterial_gfsdk")
-texture = ExtResource("21_vp18h")
-lifetime = 10.0
-speed_scale = 0.8
-
 [node name="SakuraFX2" type="GPUParticles2D" parent="."]
 modulate = Color(1, 0.745098, 1, 0.384314)
 z_index = 2
@@ -828,6 +819,13 @@ speed_scale = 0.8
 unique_name_in_owner = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("24_8jsi5")
+volume_db = -16.545
+autoplay = true
+stream_paused = true
+parameters/looping = true
 
 [connection signal="mutuals_button_pressed" from="." to="Panel/BackgroundTexture/MutualsBox" method="_on_main_screen_mutuals_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect/ProfileButton" to="." method="_on_profile_button_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d05oohu41yaxd"]
+[gd_scene load_steps=15 format=3 uid="uid://d05oohu41yaxd"]
 
 [ext_resource type="Texture2D" uid="uid://bjpkh360v82aq" path="res://UITextures/BGTextures/store_bg.png" id="1_2tlno"]
 [ext_resource type="Script" path="res://UIScenes/store_screen_2.gd" id="1_24gne"]
@@ -7,8 +7,23 @@
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="4_3x0rp"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="4_boi2e"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="5_socof"]
+[ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="6_ak7vr"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="6_cg2tr"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="7_cjpvt"]
 [ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="7_ypx8t"]
 [ext_resource type="Texture2D" uid="uid://clhoav6v6sxtn" path="res://UITextures/Buttons/PanelTextures/esha_hero.png" id="8_f5vyn"]
+
+[sub_resource type="Resource" id="Resource_1k74k"]
+script = ExtResource("7_cjpvt")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="Resource" id="Resource_wghnf"]
+script = ExtResource("7_cjpvt")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
 
 [node name="StoreScreen" type="Control"]
 layout_mode = 3
@@ -21,7 +36,7 @@ script = ExtResource("1_24gne")
 
 [node name="BackgroundTexture" type="TextureRect" parent="."]
 unique_name_in_owner = true
-self_modulate = Color(0.485703, 0.485704, 0.485703, 1)
+self_modulate = Color(0.29219, 0.29219, 0.29219, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -210,8 +225,8 @@ offset_bottom = 18.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_sqi3r")
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("6_ak7vr")
+theme_override_font_sizes/font_size = 15
 text = "What's New?"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -241,9 +256,10 @@ offset_bottom = 18.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_sqi3r")
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("6_ak7vr")
+theme_override_font_sizes/font_size = 15
 text = "Card Packs"
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CardsButton" type="TextureButton" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer"]
@@ -271,8 +287,8 @@ offset_bottom = 18.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_sqi3r")
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("6_ak7vr")
+theme_override_font_sizes/font_size = 15
 text = "Cards"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -302,8 +318,8 @@ offset_bottom = 18.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_sqi3r")
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("6_ak7vr")
+theme_override_font_sizes/font_size = 15
 text = "Tokens"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -333,8 +349,8 @@ offset_bottom = 18.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_sqi3r")
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("6_ak7vr")
+theme_override_font_sizes/font_size = 15
 text = "Accesories"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -364,8 +380,8 @@ offset_bottom = 18.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_sqi3r")
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("6_ak7vr")
+theme_override_font_sizes/font_size = 15
 text = "Power-ups"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -395,8 +411,8 @@ offset_bottom = 18.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_sqi3r")
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("6_ak7vr")
+theme_override_font_sizes/font_size = 15
 text = "Limited"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -404,6 +420,9 @@ vertical_alignment = 1
 [node name="ScrollContainer" type="ScrollContainer" parent="BackgroundTexture/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("6_cg2tr")
+wheel_scroll_damper = SubResource("Resource_1k74k")
+dragging_scroll_damper = SubResource("Resource_wghnf")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer/HBoxContainer/ScrollContainer"]
 auto_translate_mode = 1
@@ -424,6 +443,7 @@ columns = 3
 [node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture"]
 auto_translate_mode = 1
 custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
 offset_top = -1.0
 offset_right = 68.0
 offset_bottom = 67.0
@@ -461,3 +481,6 @@ size_flags_horizontal = 3
 texture = ExtResource("8_f5vyn")
 expand_mode = 1
 stretch_mode = 6
+
+[connection signal="pressed" from="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/CardsButton" to="." method="_on_cards_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/HBoxContainer2/CloseButton" to="." method="_on_close_button_pressed"]
