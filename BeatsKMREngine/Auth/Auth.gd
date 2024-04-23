@@ -131,7 +131,8 @@ func _on_ValidateSession_request_completed(_result: int, response_code: int, hea
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	
 	# Free the request resources
-	BKMREngine.free_request(wrValidateSession, ValidateSession)
+	if is_instance_valid(ValidateSession):
+		BKMREngine.free_request(wrValidateSession, ValidateSession)
 	# Handle the result based on the status check
 	if status_check:
 		# Parse the JSON body of the response

@@ -69,14 +69,10 @@ func buy_card(uri: String, listing_id: int) -> void:
 	BKMRLogger.info("Calling BKMREngine to buy a card")
 	
 	var payload: Dictionary = {"listingId": listing_id, "uri": uri}
-	print(payload)
-	#BKMRLogger.debug("Validate buy card payload: " + str(payload))
-#
-	#var request_url: String = host + "/api/store/cards/buy"
-	#
-	#BKMREngine.send_post_request(BuyCard, request_url, payload)
-	
-	# Return the current node
+	BKMRLogger.debug("Validate buy card payload: " + str(payload))
+
+	var request_url: String = host + "/api/store/cards/buy"
+	BKMREngine.send_post_request(BuyCard, request_url, payload)
 
 # Callback function triggered upon the completion of the buy card request.
 func _onBuyCard_request_completed(_result: Dictionary, response_code: int, headers: Array, body: PackedByteArray) -> void:

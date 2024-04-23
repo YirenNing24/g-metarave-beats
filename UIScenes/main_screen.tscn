@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://yfevho5xx5qg"]
+[gd_scene load_steps=33 format=3 uid="uid://yfevho5xx5qg"]
 
 [ext_resource type="Script" path="res://UIScenes/main_screen.gd" id="1_25j1r"]
 [ext_resource type="Texture2D" uid="uid://cj3g7l2prnd31" path="res://UITextures/PanelElements/player_panel.png" id="2_37prv"]
@@ -16,14 +16,15 @@
 [ext_resource type="PackedScene" uid="uid://b3eiw5d6jk827" path="res://Components/Chat/mutuals_box.tscn" id="12_b1h6r"]
 [ext_resource type="Texture2D" uid="uid://cyl1bqw5cea6d" path="res://UITextures/Buttons/mode_normal.png" id="13_cv2mc"]
 [ext_resource type="Texture2D" uid="uid://bru7x3llda33h" path="res://UITextures/Buttons/PanelTextures/classic_trophy.png" id="13_k2qiu"]
+[ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="17_b1nlu"]
 [ext_resource type="PackedScene" uid="uid://4hviwgrfsnfn" path="res://Components/Chat/chat_box.tscn" id="17_c2ldk"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="17_dxh3f"]
-[ext_resource type="FontFile" uid="uid://cfpnum8trj6m7" path="res://UITextures/Fonts/HankenGrotesk-SemiBold.ttf" id="17_rffxp"]
 [ext_resource type="Texture2D" uid="uid://b1vri81ty6yl8" path="res://UITextures/Buttons/PanelTextures/x_in_hero_1.png" id="20_3dgv8"]
 [ext_resource type="Texture2D" uid="uid://irgifod6546h" path="res://UITextures/Buttons/show_chat.png" id="20_svq2r"]
 [ext_resource type="Texture2D" uid="uid://pillh3ktitlt" path="res://UITextures/GameTextures/particles/petal.png" id="21_vp18h"]
 [ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="22_6iiwn"]
 [ext_resource type="AudioStream" uid="uid://dtocxag21vt3n" path="res://GameTracks/BGTracks/Tue Apr 23 2024.mp3" id="24_8jsi5"]
+[ext_resource type="AudioStream" uid="uid://xbmw1rvhaoyy" path="res://GameTracks/UITracks/abs-pointer-combine.mp3" id="24_jwt2b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtby7"]
 bg_color = Color(0.396078, 0.396078, 0.396078, 0.219608)
@@ -201,7 +202,7 @@ stretch_mode = 4
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.293333
-anchor_top = 0.291667
+anchor_top = 0.325
 anchor_right = 0.92
 anchor_bottom = 0.883333
 grow_horizontal = 2
@@ -588,8 +589,8 @@ offset_bottom = 19.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
-theme_override_fonts/font = ExtResource("17_rffxp")
-theme_override_font_sizes/font_size = 22
+theme_override_fonts/font = ExtResource("17_b1nlu")
+theme_override_font_sizes/font_size = 18
 text = "Store"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -617,8 +618,8 @@ offset_bottom = 19.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
-theme_override_fonts/font = ExtResource("17_rffxp")
-theme_override_font_sizes/font_size = 22
+theme_override_fonts/font = ExtResource("17_b1nlu")
+theme_override_font_sizes/font_size = 18
 text = "Missions"
 vertical_alignment = 1
 
@@ -645,8 +646,8 @@ offset_bottom = 19.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
-theme_override_fonts/font = ExtResource("17_rffxp")
-theme_override_font_sizes/font_size = 22
+theme_override_fonts/font = ExtResource("17_b1nlu")
+theme_override_font_sizes/font_size = 18
 text = "Inventory"
 vertical_alignment = 1
 
@@ -673,8 +674,8 @@ offset_bottom = 19.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
-theme_override_fonts/font = ExtResource("17_rffxp")
-theme_override_font_sizes/font_size = 22
+theme_override_fonts/font = ExtResource("17_b1nlu")
+theme_override_font_sizes/font_size = 18
 text = "Leaderboard"
 vertical_alignment = 1
 
@@ -819,12 +820,14 @@ speed_scale = 0.8
 unique_name_in_owner = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("24_jwt2b")
+volume_db = -15.0
+pitch_scale = 1.1
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("24_8jsi5")
-volume_db = -16.545
+volume_db = -5.0
 autoplay = true
-stream_paused = true
 parameters/looping = true
 
 [connection signal="mutuals_button_pressed" from="." to="Panel/BackgroundTexture/MutualsBox" method="_on_main_screen_mutuals_button_pressed"]

@@ -96,6 +96,10 @@ func animate_hud() -> void:
 		var _tween_callback: CallbackTweener = stats_tween.tween_callback(animate_hud)
 #endregion
 
+
+
+
+
 #region UI connected callbacks
 
 # Event handler for the profile button press.
@@ -139,6 +143,7 @@ func _on_store_button_pressed() -> void:
 
 # Open the inventory screen.
 func _on_inventory_button_pressed() -> void:
+	
 	# Kill the stat tween if it exists
 	if stats_tween: 
 		stats_tween.kill()
@@ -287,7 +292,13 @@ func _input(event: InputEvent) -> void:
 			var position_event: Vector2 = event.position
 			cursor_spark.position = position_event
 			cursor_spark.emitting = true
+			play_pointer_sfx()
 	elif event is InputEventScreenDrag:
 		var position_event: Vector2 = event.position
 		cursor_spark.position = position_event
 		cursor_spark.emitting = true
+	
+
+func play_pointer_sfx() -> void:
+	$AudioStreamPlayer.play()
+	await $AudioStreamPlayer.finished

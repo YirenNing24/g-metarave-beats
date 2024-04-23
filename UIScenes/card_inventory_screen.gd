@@ -67,7 +67,7 @@ func _on_close_button_pressed() -> void:
 	# Attempt automatic login and wait for the session check to complete.
 	BKMREngine.Auth.auto_login_player()
 	#BKMREngine.Inventory.update_inventory()
-	await BKMREngine.Auth.bkmr_session_check_complete
+
 
 	# Set the previous and next textures for scene transition.
 	LOADER.previous_texture = background_texture.texture
