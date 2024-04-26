@@ -20,8 +20,6 @@
                 "notes":[
                    {
                       "pos":690,
-                      "pos2": 1100,
-                      "bar2": 2,
                       "len":915,
                       "member":null,
                       "layer": 0
@@ -810,6 +808,9 @@
                    {
                       "pos":1150,
                       "len":115,
+                      "slanted": true,
+                      "slanted_bar_index": 0,
+                      "slanted_start_note_index": 0,
                       "member":null
                    }
                 ]
