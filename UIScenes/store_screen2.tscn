@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d05oohu41yaxd"]
+[gd_scene load_steps=16 format=3 uid="uid://d05oohu41yaxd"]
 
 [ext_resource type="Texture2D" uid="uid://bjpkh360v82aq" path="res://UITextures/BGTextures/store_bg.png" id="1_2tlno"]
 [ext_resource type="Script" path="res://UIScenes/store_screen_2.gd" id="1_24gne"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="7_cjpvt"]
 [ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="7_ypx8t"]
 [ext_resource type="Texture2D" uid="uid://clhoav6v6sxtn" path="res://UITextures/Buttons/PanelTextures/esha_hero.png" id="8_f5vyn"]
+[ext_resource type="AudioStream" uid="uid://dtocxag21vt3n" path="res://GameTracks/BGTracks/Tue Apr 23 2024.mp3" id="13_0ps5v"]
 
 [sub_resource type="Resource" id="Resource_1k74k"]
 script = ExtResource("7_cjpvt")
@@ -481,6 +482,12 @@ size_flags_horizontal = 3
 texture = ExtResource("8_f5vyn")
 expand_mode = 1
 stretch_mode = 6
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_0ps5v")
+volume_db = -5.0
+autoplay = true
+parameters/looping = true
 
 [connection signal="pressed" from="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/CardsButton" to="." method="_on_cards_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/HBoxContainer2/CloseButton" to="." method="_on_close_button_pressed"]

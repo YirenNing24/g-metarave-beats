@@ -15,6 +15,8 @@ var leaderboard_entry: PackedScene = preload("res://Components/Leaderboard/leade
 @onready var personal_name: Label = %PersonalName
 @onready var personal_score: Label = %PersonalScore
 
+@onready var background_texture: Texture = %BackgroundTexture.texture
+
 var song_matches: Array = []
 var songs: Array
 
@@ -195,3 +197,13 @@ func clear_entries() -> void:
 		for entry: Control in leaderboard_entry_container.get_children():
 			entry.queue_free()
 #endregion
+
+
+func _on_close_button_pressed() -> void:
+	# Perform actions on close button press.
+	BKMREngine.Auth.auto_login_player()
+
+	# Update scene transition textures and load the main screen scene.
+	LOADER.previous_texture = background_texture
+	LOADER.next_texture = preload("res://UITextures/BGTextures/main.png")
+	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")

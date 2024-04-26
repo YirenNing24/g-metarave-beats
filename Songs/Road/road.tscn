@@ -114,6 +114,12 @@ gi_mode = 0
 mesh = SubResource("QuadMesh_mnigc")
 surface_material_override/0 = SubResource("StandardMaterial3D_qipll")
 
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.33921e-08, -0.494397, 0.869236, -5.27407e-09, 0.869236, 0.494397, -1, 1.68685e-08, -4.03255e-08, 6.97966, 3.283, 0)
+keep_aspect = 0
+fov = 68.8
+near = 0.06
+
 [node name="Line8" type="MeshInstance3D" parent="."]
 transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, -2.45589)
 gi_mode = 0
@@ -148,22 +154,33 @@ surface_material_override/0 = SubResource("StandardMaterial3D_jfrtm")
 unique_name_in_owner = true
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 
-[node name="NotePicker" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
-transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.16087, 0.051, 1.79)
-line = 1
+[node name="NotePicker" parent="." instance=ExtResource("8_81ipa")]
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.35, 3.16258, 0.051, 1.78247)
 
-[node name="NotePicker2" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
-transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.16087, 0.051, 0.89)
-line = 2
+[node name="NotePicker2" parent="." instance=ExtResource("8_81ipa")]
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.35, 3.16258, 0.051, 0.888666)
 
-[node name="NotePicker3" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
-transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.16087, 0.051, 0)
-line = 3
+[node name="NotePicker3" parent="." instance=ExtResource("8_81ipa")]
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.35, 3.16258, 0.051, -0.217533)
 
 [node name="NotePicker4" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
-transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.16087, 0.051, -0.89)
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.16087, 0.051, -0.902847)
 line = 4
 
 [node name="NotePicker5" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
-transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.16087, 0.051, -1.79)
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.16087, 0.051, -1.80285)
 line = 5
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.87361, 21.8571, 0)
+light_color = Color(0.737255, 0.737255, 0.737255, 1)
+light_energy = 16.0
+omni_range = 47.404
+omni_attenuation = 0.435275
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5098, 21.8571, 0)
+light_color = Color(0.458824, 0.458824, 0.458824, 1)
+light_energy = 0.0
+omni_range = 47.404
+omni_attenuation = 0.435275

@@ -3,6 +3,7 @@ extends Node3D
 # Preload the short_note_scene and long_note_scene scenes.
 var short_note_scene: PackedScene = preload("res://GameComponents/Notes/short_note.tscn")
 var long_note_scene: PackedScene = preload("res://GameComponents/Notes/long_note.tscn")
+var long_note_slanted: PackedScene = preload("res://GameComponents/Notes/long_note_slanted.tscn")
 
 # Scale factor for the length of the notes.
 var note_scale: float
@@ -15,22 +16,11 @@ var speed: Vector3
 
 # Called when the node is ready.
 func _ready() -> void:
-	# Add musical notes to the scene.
 	add_notes()
 
 # Add musical notes to the scene based on the provided bar_data.
-#
-# This function iterates through each line's data in the bar_data array and adds individual notes to the scene.
-#
-# Parameters:
-# - No explicit parameters are passed to this function.
-#
-# Example usage:
-# ```gdscript
-# add_notes()
-# ```
 func add_notes() -> void:
-	# Initialize line variable to represent the musical staff lines.
+	# Initialize line variable to represent the road lines.
 	var line: int = 1
 	
 	# Iterate through each line's data in the bar_data array.
@@ -47,20 +37,14 @@ func add_notes() -> void:
 		line += 1 
 
 # Add an individual note to the scene.
-#
-# Parameters:
-# - line: The musical staff line on which the note should be placed.
-# - note_data: A dictionary containing information about the note.
-#
-# Example usage:
-# ```gdscript
-# add_note(line, note_data)
-# ```
 func add_note(line: int, note_data: Dictionary) -> void:
 	# Determine whether to use the short_note_scene or long_note_scene based on note_data length.
 	var note_scene: PackedScene
 	var note_data_length: int = note_data.len
-	if int(note_data_length) >= 400:
+
+	if note_data.has('pos2') and int(note_data_length) >= 400:
+		note_scene = long_note_slanted
+	elif int(note_data_length) >= 400:
 		note_scene = long_note_scene
 	else:
 		note_scene = short_note_scene
@@ -74,9 +58,17 @@ func add_note(line: int, note_data: Dictionary) -> void:
 	# Check if the note_data has a 'layer' property and set it if present.
 	if note_data.has('layer'):
 		note.layer = note_data.layer
-	
+		
+	if note_data.has('pos2'):
+		var note_position2: float = note_data.pos2
+		var bar2: float = note_data.bar2
+		
+		note.note_position2 = note_position2
+		note.bar2 = bar2
+		
 	# Set note position, length, length_scale, and speed properties.
 	var note_position: float = note_data.pos
+	
 	note.note_position = int(note_position)
 	var note_length: float = note_data.len
 	note.length = int(note_length)

@@ -70,14 +70,6 @@ func set_note_position() -> void:
 	position = Vector3(z, layer, -note_position * length_scale)
 
 # Handle the process logic for the note.
-# Parameters:
-# - _delta: The time elapsed since the last frame.
-#
-# Example usage:
-# ```gdscript
-# func _process(_delta: float) -> void:
-#     handle_note_process(_delta)
-# ```
 func _process(delta: float) -> void:
 	# Check if the picker is present or if the current note is being collected by another picker.
 	if not picker or (picker.note_collect != null and picker.note_collect != self): 
@@ -119,24 +111,11 @@ func _process(delta: float) -> void:
 			note_collecting = false
 
 # Handle the continued holding of a long note.
-#
-# Example usage:
-# ```gdscript
-# long_note_hold()
-# ```
 func long_note_hold() -> void:
 	hit_continued_feedback.emit(accuracy, line)
 	# ui.hit_continued_feedback(accuracy, line)
 
 # Collect the note and provide feedback.
-#
-# Parameters:
-# - is_miss: A boolean indicating whether the note was missed (default is false).
-#
-# Example usage:
-# ```gdscript
-# collect(true)
-# ```
 func collect(is_miss: bool = false) -> void:
 	note_mesh.visible = false
 	collected = true
@@ -150,15 +129,6 @@ func collect(is_miss: bool = false) -> void:
 	# ui.add_score()
 
 # Handle the area entered signal of the note.
-#
-# Parameters:
-# - area: An Area3D representing the area entered.
-#
-# Example usage:
-# ```gdscript
-# func _on_area_entered(area: Area3D) -> void:
-#     handle_area_entered(area)
-# ```
 func _on_area_entered(area: Area3D) -> void:
 	if collected:
 		return

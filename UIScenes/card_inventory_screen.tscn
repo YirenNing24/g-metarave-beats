@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://gmllsb3bdm2u"]
+[gd_scene load_steps=38 format=3 uid="uid://gmllsb3bdm2u"]
 
 [ext_resource type="Script" path="res://UIScenes/card_inventory_screen.gd" id="1_2vffs"]
 [ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="2_poddd"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://bhjbga7uh5w8m" path="res://UITextures/GroupLogo/x_in_logo.png" id="15_lx753"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="16_7ynqb"]
 [ext_resource type="PackedScene" uid="uid://d7lwkk74i4o1" path="res://Components/Inventory/item_stats.tscn" id="16_bcxqp"]
+[ext_resource type="AudioStream" uid="uid://dtocxag21vt3n" path="res://GameTracks/BGTracks/Tue Apr 23 2024.mp3" id="20_bxpih"]
 
 [sub_resource type="Resource" id="Resource_w5syg"]
 script = ExtResource("7_cb4dp")
@@ -698,6 +699,12 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_dwomd")
 }
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_bxpih")
+volume_db = -5.0
+autoplay = true
+parameters/looping = true
 
 [connection signal="item_stats_card_data" from="." to="ItemStats" method="_on_card_inventory_screen_item_stats_card_data"]
 [connection signal="pressed" from="TextureRect/VBoxContainer3/CloseButton" to="." method="_on_close_button_pressed"]

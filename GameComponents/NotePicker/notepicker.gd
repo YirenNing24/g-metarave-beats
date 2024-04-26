@@ -51,14 +51,6 @@ func _process(_delta: float) -> void:
 		#notes.hit_continued_feedback.connect(hit_continued_feedback)
 
 # Handle screen touch events and update state variables.
-# Parameters:
-# - event: An InputEvent representing the input event.
-#
-# Example usage:
-# ```gdscript
-# func _input(event: InputEvent) -> void:
-#     handle_touch_event(event)
-# ```
 func _input(event: InputEvent) -> void:
 	# Handle screen touch events.
 	if event is InputEventScreenTouch:
@@ -72,24 +64,29 @@ func _input(event: InputEvent) -> void:
 				is_pressed = true
 				is_collecting = true
 				fx_highlight.visible = true
-				
 		else:
 			is_pressed = false
 			is_collecting = false
 			note_collect = null
 			fx_highlight.visible = false
+	if event is InputEventScreenDrag:
+			# Check if the touch event is within the bounds of the notepicker node.
+			var _position_event: Vector2 = event.position
+			var touched_node: bool = true
+			
+			# Update state variables based on touch status.
+			if touched_node != false:
+				is_pressed = true
+				is_collecting = true
+				fx_highlight.visible = true
+			else:
+				is_pressed = false
+				is_collecting = false
+				note_collect = null
+				fx_highlight.visible = false
 
 			
 # Check if a touch event is within the bounds of the notepicker node.
-# Parameters:
-# - touch_position: A Vector2 representing the screen space position of the touch event.
-# Returns:
-# - A boolean indicating whether the touch event is within the bounds of the notepicker node.
-#
-# Example usage:
-# ```gdscript
-# var is_touched: bool = get_touched_node(touch_position)
-# ```
 func get_touched_node(touch_position: Vector2) -> bool:
 	# Check if the touch event is within the bounds of the notepicker node.
 	var picker_x: float = notepicker_position.x

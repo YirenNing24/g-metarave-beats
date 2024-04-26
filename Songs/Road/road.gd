@@ -8,7 +8,7 @@ signal song_finished
 @onready var user_hud: Control = get_node('../CanvasLayer/UserHUD')
 
 # PackedScene for the musical bar.
-var bar_scene: PackedScene = preload("res://GameComponents/Bar/bar.tscn")
+var bar_scene: PackedScene = load("res://GameComponents/Bar/bar.tscn")
 # Array to store the active musical bars.
 var bars: Array = []
 
@@ -33,14 +33,6 @@ var max_index: int
 var game: Node3D
 
 # Set up the musical bars for the game.
-#
-# Parameters:
-# - game_config: A Node3D representing the game configuration node.
-#
-# Example usage:
-# ```gdscript
-# setup(game_config)
-# ```
 func setup(game_config: Node3D) -> void:
 	game = game_config
 	var game_speed: float = game.speed
@@ -58,15 +50,6 @@ func setup(game_config: Node3D) -> void:
 	add_bars(scaled_bar_amount)
 
 # Process method called on every frame to update the position of musical bars.
-#
-# Parameters:
-# - delta: The time in seconds since the last frame.
-#
-# Example usage:
-# ```gdscript
-# func _process(delta: float) -> void:
-#     process_bars(delta)
-# ```
 func _process(delta: float) -> void:
 	bars_node.translate(speed * delta)
 
@@ -76,12 +59,6 @@ func _process(delta: float) -> void:
 			add_bar() 
 
 # Method to add a musical bar to the scene.
-#
-# Example usage:
-# ```gdscript  
-# func add_bar() -> void:
-#     add_bar()
-# ```
 func add_bar() -> void:
 	if (current_bar_index >= max_index):
 		return
@@ -97,12 +74,6 @@ func add_bar() -> void:
 	current_bar_index += 1
 
 # Method to retrieve the data for the current musical bar.
-#
-# Example usage:
-# ```gdscript
-# func get_bar_data() -> Array:
-#     var barData: Array = get_bar_data()
-# ```
 func get_bar_data() -> Array:
 	var irene_data: Dictionary = tracks_data[0].bars[current_bar_index]
 	var seulgi_data: Dictionary = tracks_data[1].bars[current_bar_index]
@@ -112,32 +83,13 @@ func get_bar_data() -> Array:
 	return [irene_data, seulgi_data, wendy_data, joy_data, yeri_data]
 
 # Method to remove a musical bar from the scene.
-#
-# Parameters:
-# - bar: The Node3D representing the musical bar to be removed.
-#
-# Example usage:
-# ```gdscript
-# func remove_bar(bar: Node3D) -> void:
-#     remove_bar(bar)
-# ``` 
 func remove_bar(bar: Node3D) -> void:
 	bar.queue_free()
 	bars.remove_at(0)
-	print(len(bars))
 	if (len(bars) == 0) and current_bar_index == max_index:
 		song_finished.emit()
 
 # Method to add a specified number of musical bars to the scene.
-#
-# Parameters:
-# - l: The number of musical bars to add.
-#
-# Example usage:
-# ```gdscript
-# func add_bars(l: float) -> void:
-#     add_bars(16)
-# ```
 func add_bars(length: float) -> void:
 	for _i: float in range(length):
 		add_bar()

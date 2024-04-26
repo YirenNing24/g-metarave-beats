@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmt8n4ktl7h0q"]
+
+[ext_resource type="Texture2D" uid="uid://y64yt3bd585j" path="res://UITextures/Cards/hannah_no_doubt_star.png" id="1_ipaaa"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gj8li"]
+bg_color = Color(0, 0, 0, 0.627451)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(6.54578e-06, 0.937761, 0.937761, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(156.2, 242)
+layout_mode = 0
+offset_right = 156.2
+offset_bottom = 270.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gj8li")
+
+[node name="Icon" type="TextureRect" parent="Panel"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+z_index = 1
+custom_minimum_size = Vector2(142.5, 220)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -71.1
+offset_top = -128.0
+offset_right = 71.4
+offset_bottom = 92.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ipaaa")
+expand_mode = 1
+stretch_mode = 6

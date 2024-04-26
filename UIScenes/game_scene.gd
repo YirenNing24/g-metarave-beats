@@ -57,7 +57,7 @@ func load_map() -> Dictionary:
 	var error: Error = json.parse(content)
 	if error == OK:
 		var result: Dictionary = json.data
-		return result
+		return result as Dictionary
 	else:
 		return {} as Dictionary
 

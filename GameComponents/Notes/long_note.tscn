@@ -20,7 +20,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.043945, 0.0260325, 0.000122905)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NoteArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00117154, 0)
+transform = Transform3D(1, 4.02216e-24, 0, 4.02215e-24, 1, 0, 0, 0, 1, -0.0454444, 0.00117154, 3.97267e-09)
 shape = SubResource("BoxShape3D_41odo")
 
 [node name="NoteMesh" parent="." instance=ExtResource("2_em3nd")]
