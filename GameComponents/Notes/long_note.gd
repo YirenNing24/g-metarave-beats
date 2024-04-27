@@ -52,6 +52,7 @@ func _ready() -> void:
 	print(beam.scale.z)
 # Set the position of the note based on the specified line and layer.
 func set_note_position() -> void:
+	
 	# Determine the z-coordinate based on the specified line.
 	var z: float
 	match line:
@@ -68,6 +69,7 @@ func set_note_position() -> void:
 	
 	# Set the position of the note in 3D space.
 	position = Vector3(z, layer, -note_position * length_scale)
+	print("global: ", global_position)
 
 # Handle the process logic for the note.
 func _process(delta: float) -> void:

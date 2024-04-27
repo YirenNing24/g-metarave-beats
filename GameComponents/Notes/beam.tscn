@@ -1,10 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://fl620scyryxd"]
+[gd_scene load_steps=4 format=3 uid="uid://fl620scyryxd"]
 
 [ext_resource type="Texture2D" uid="uid://dqbg0dsel3rq0" path="res://UITextures/3DTextures/NoteTextures/long_note.png" id="2_sa6ic"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qsm55"]
-transparency = 1
-albedo_color = Color(0.690196, 0, 0.486275, 0.294118)
 
 [sub_resource type="QuadMesh" id="QuadMesh_gq5vu"]
 
@@ -16,12 +12,6 @@ albedo_texture = ExtResource("2_sa6ic")
 albedo_texture_force_srgb = true
 
 [node name="Beam" type="Node3D"]
-
-[node name="fsf" type="CSGPolygon3D" parent="."]
-transform = Transform3D(0.805, 0, 0, 0, 1, 0, 0, 0, 1, 2.08189e-12, 2.08189e-12, 2.08189e-12)
-visible = false
-material_override = SubResource("StandardMaterial3D_qsm55")
-polygon = PackedVector2Array(0, 0, 2.08189e-12, 2.08189e-12, 2.08189e-12, 2.08189e-12, 1, 0, 0, 0)
 
 [node name="Beam" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true

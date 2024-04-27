@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cbhfcq0bjdlqy"]
+[gd_scene load_steps=20 format=3 uid="uid://cbhfcq0bjdlqy"]
 
 [ext_resource type="Script" path="res://Songs/Road/road.gd" id="1_fldoh"]
 [ext_resource type="PackedScene" uid="uid://ckxk82ja1e1qf" path="res://Songs/Road/road_surface.tscn" id="1_qjbxv"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://6nqow2sfbl2g" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_NORM.jpg" id="4_nadg5"]
 [ext_resource type="Texture2D" uid="uid://bvgtfwv5c7rgl" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_ROUGH.jpg" id="5_q8rnr"]
 [ext_resource type="PackedScene" uid="uid://cjx2qu2kdc3p2" path="res://GameComponents/NotePicker/notepicker.tscn" id="8_81ipa"]
+[ext_resource type="PackedScene" uid="uid://cuptil2ynsyxs" path="res://GameComponents/Notes/long_note_slanted.tscn" id="9_qr7r3"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_kakxu"]
 
@@ -184,3 +185,6 @@ light_color = Color(0.458824, 0.458824, 0.458824, 1)
 light_energy = 0.0
 omni_range = 47.404
 omni_attenuation = 0.435275
+
+[node name="LongNoteSlanted" parent="." instance=ExtResource("9_qr7r3")]
+transform = Transform3D(0.0193545, 0, -0.999813, 0, 1, 0, 0.999813, 0, 0.0193545, 0, 0, -0.0111583)

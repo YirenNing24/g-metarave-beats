@@ -772,7 +772,8 @@
                    {
                       "pos":1265,
                       "len":115,
-                      "member":null
+                      "member":null,
+                      "slanted": true
                    }
                 ]
              },

@@ -44,6 +44,9 @@ func add_note(line: int, note_data: Dictionary) -> void:
 
 	if note_data.has('pos2') and int(note_data_length) >= 400:
 		note_scene = long_note_slanted
+		
+	elif note_data.has("slanted"):
+		note_scene = long_note_slanted
 	elif int(note_data_length) >= 400:
 		note_scene = long_note_scene
 	else:
@@ -51,6 +54,7 @@ func add_note(line: int, note_data: Dictionary) -> void:
 		
 	# Instantiate the note from the chosen scene.
 	var note: Node3D = note_scene.instantiate()
+
 	
 	# Set note properties based on note_data.
 	note.line = line  # 1, 2, 3, 4, 5
@@ -59,12 +63,13 @@ func add_note(line: int, note_data: Dictionary) -> void:
 	if note_data.has('layer'):
 		note.layer = note_data.layer
 		
-	if note_data.has('pos2'):
-		var note_position2: float = note_data.pos2
-		var bar2: float = note_data.bar2
+	if note_data.has('slanted'):
+		#var note_position2: float = note_data.pos2
+		#var bar2: float = note_data.bar2
 		
-		note.note_position2 = note_position2
-		note.bar2 = bar2
+		#note.note_position2 = note_position2-1.79
+		#note.bar2 = bar2
+		note.draw_beam(-94, 0 , 1.79)
 		
 	# Set note position, length, length_scale, and speed properties.
 	var note_position: float = note_data.pos
