@@ -69,7 +69,7 @@ func add_note(line: int, note_data: Dictionary) -> void:
 		
 		#note.note_position2 = note_position2-1.79
 		#note.bar2 = bar2
-		note.draw_beam(-94, 0 , 1.79)
+		note.draw_beam(-6.045, 0 , 0.895)
 		
 	# Set note position, length, length_scale, and speed properties.
 	var note_position: float = note_data.pos

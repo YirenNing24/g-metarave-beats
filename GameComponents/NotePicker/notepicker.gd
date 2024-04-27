@@ -71,8 +71,8 @@ func _input(event: InputEvent) -> void:
 			fx_highlight.visible = false
 	if event is InputEventScreenDrag:
 			# Check if the touch event is within the bounds of the notepicker node.
-			var _position_event: Vector2 = event.position
-			var touched_node: bool = true
+			var position_event: Vector2 = event.position
+			var touched_node: bool = get_touched_node(position_event)
 			
 			# Update state variables based on touch status.
 			if touched_node != false:
@@ -85,7 +85,6 @@ func _input(event: InputEvent) -> void:
 				note_collect = null
 				fx_highlight.visible = false
 
-			
 # Check if a touch event is within the bounds of the notepicker node.
 func get_touched_node(touch_position: Vector2) -> bool:
 	# Check if the touch event is within the bounds of the notepicker node.

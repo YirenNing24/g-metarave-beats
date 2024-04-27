@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cbhfcq0bjdlqy"]
+[gd_scene load_steps=19 format=3 uid="uid://cbhfcq0bjdlqy"]
 
 [ext_resource type="Script" path="res://Songs/Road/road.gd" id="1_fldoh"]
 [ext_resource type="PackedScene" uid="uid://ckxk82ja1e1qf" path="res://Songs/Road/road_surface.tscn" id="1_qjbxv"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://6nqow2sfbl2g" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_NORM.jpg" id="4_nadg5"]
 [ext_resource type="Texture2D" uid="uid://bvgtfwv5c7rgl" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_ROUGH.jpg" id="5_q8rnr"]
 [ext_resource type="PackedScene" uid="uid://cjx2qu2kdc3p2" path="res://GameComponents/NotePicker/notepicker.tscn" id="8_81ipa"]
-[ext_resource type="PackedScene" uid="uid://cuptil2ynsyxs" path="res://GameComponents/Notes/long_note_slanted.tscn" id="9_qr7r3"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_kakxu"]
 
@@ -115,12 +114,6 @@ gi_mode = 0
 mesh = SubResource("QuadMesh_mnigc")
 surface_material_override/0 = SubResource("StandardMaterial3D_qipll")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.33921e-08, -0.494397, 0.869236, -5.27407e-09, 0.869236, 0.494397, -1, 1.68685e-08, -4.03255e-08, 6.97966, 3.283, 0)
-keep_aspect = 0
-fov = 68.8
-near = 0.06
-
 [node name="Line8" type="MeshInstance3D" parent="."]
 transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, -2.45589)
 gi_mode = 0
@@ -155,36 +148,17 @@ surface_material_override/0 = SubResource("StandardMaterial3D_jfrtm")
 unique_name_in_owner = true
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 
-[node name="NotePicker" parent="." instance=ExtResource("8_81ipa")]
-transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.35, 3.16258, 0.051, 1.78247)
+[node name="NotePicker" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.122, 0.051, 1.78)
 
-[node name="NotePicker2" parent="." instance=ExtResource("8_81ipa")]
-transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.35, 3.16258, 0.051, 0.888666)
+[node name="NotePicker2" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, 0.885936)
 
-[node name="NotePicker3" parent="." instance=ExtResource("8_81ipa")]
-transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.35, 3.16258, 0.051, -0.217533)
+[node name="NotePicker3" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, 0.00314426)
 
 [node name="NotePicker4" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
-transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.16087, 0.051, -0.902847)
-line = 4
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, -0.890361)
 
-[node name="NotePicker5" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
-transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.16087, 0.051, -1.80285)
-line = 5
-
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.87361, 21.8571, 0)
-light_color = Color(0.737255, 0.737255, 0.737255, 1)
-light_energy = 16.0
-omni_range = 47.404
-omni_attenuation = 0.435275
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5098, 21.8571, 0)
-light_color = Color(0.458824, 0.458824, 0.458824, 1)
-light_energy = 0.0
-omni_range = 47.404
-omni_attenuation = 0.435275
-
-[node name="LongNoteSlanted" parent="." instance=ExtResource("9_qr7r3")]
-transform = Transform3D(0.0193545, 0, -0.999813, 0, 1, 0, 0.999813, 0, 0.0193545, 0, 0, -0.0111583)
+[node name="NotePicker5" parent="." groups=["picker_area"] instance=ExtResource("8_81ipa")]
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, -1.78387)

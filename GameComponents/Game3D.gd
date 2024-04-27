@@ -1,9 +1,8 @@
 extends Node
 
 
-func draw_beam(bar_position: int, beam_layer: int, parent_note_position: int) -> void:
-	var point1: Vector3 = Vector3(bar_position, beam_layer, parent_note_position)
-	var point2: Vector3 = %NoteMesh.position.abs()
+func draw_beam(point1: Vector3, point2: Vector3) -> void:
+
 	#Draw a line from the position of the last point placed to the position of the second to last point placed
 	var _line: MeshInstance3D = await path_line(point2, point1)
 
@@ -30,7 +29,7 @@ func path_line(pos1: Vector3, pos2: Vector3, color: Color = Color.WHITE_SMOKE, p
 ## >1 -> Lasts X time duration.
 ## <1 -> Stays indefinitely
 func final_cleanup(mesh_instance: MeshInstance3D, persist_ms: float) -> MeshInstance3D:
-	add_child(mesh_instance)
+	get_tree().get_root().add_child(mesh_instance)
 	if persist_ms == 1:
 		await get_tree().physics_frame
 		mesh_instance.queue_free()

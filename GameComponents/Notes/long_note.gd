@@ -69,6 +69,8 @@ func set_note_position() -> void:
 	
 	# Set the position of the note in 3D space.
 	position = Vector3(z, layer, -note_position * length_scale)
+	var position_abs: Vector3= position.abs()
+	print("long: ", position_abs)
 	print("global: ", global_position)
 
 # Handle the process logic for the note.
