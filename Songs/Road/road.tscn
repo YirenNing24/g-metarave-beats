@@ -160,5 +160,5 @@ transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, 0.0031442
 [node name="NotePicker4" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
 transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, -0.890361)
 
-[node name="NotePicker5" parent="." groups=["picker_area"] instance=ExtResource("8_81ipa")]
+[node name="NotePicker5" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
 transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, -1.78387)

@@ -102,4 +102,5 @@ func song_unfocused_selected(index: int) -> void:
 	kill_tween()
 	
 func kill_tween() -> void:
-	tween.kill()
+	if tween:
+		tween.kill()

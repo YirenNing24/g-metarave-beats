@@ -37,6 +37,10 @@ var time: float = 0
 var hold: int = 0
 var captured: bool = false
 
+var slanted: bool
+var uid: int = -1
+
+
 # Initialize the note when ready.
 func _ready() -> void:
 	# Set the position of the note and add it to the "note" group.
@@ -49,7 +53,6 @@ func _ready() -> void:
 	curr_length_in_m = max(100, length - 100) * length_scale
 	beam.scale.z = curr_length_in_m
 	
-	print(beam.scale.z)
 # Set the position of the note based on the specified line and layer.
 func set_note_position() -> void:
 	
@@ -69,9 +72,9 @@ func set_note_position() -> void:
 	
 	# Set the position of the note in 3D space.
 	position = Vector3(z, layer, -note_position * length_scale)
-	var position_abs: Vector3= position.abs()
-	print("long: ", position_abs)
-	print("global: ", global_position)
+	#var position_abs: Vector3= position.abs()
+	#print("long: ", position_abs)
+	#print("global: ", global_position)
 
 # Handle the process logic for the note.
 func _process(delta: float) -> void:

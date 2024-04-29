@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://GameComponents/Bar/bar.gd" id="1_68j80"]
 
-[node name="Bar" type="Node3D"]
+[node name="Bar" type="Node3D" groups=["Bars"]]
 script = ExtResource("1_68j80")

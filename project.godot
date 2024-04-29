@@ -89,6 +89,13 @@ project/assembly_name="kmr-godot-4"
 
 enabled=PackedStringArray("res://addons/GodotGetImage/plugin.cfg", "res://addons/GodotPlayGameServices/plugin.cfg", "res://addons/SmoothScroll/plugin.cfg")
 
+[global_group]
+
+Bars=""
+Note=""
+LongNoteSlanted=""
+LongNote=""
+
 [input]
 
 ui_a={

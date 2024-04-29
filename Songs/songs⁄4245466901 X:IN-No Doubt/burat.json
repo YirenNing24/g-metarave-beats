@@ -22,7 +22,12 @@
                      "pos":690, 
                      "len":115,
                      "member":null,
-                     "layer": 0
+                     "layer": 0,
+                     "slanted": true,
+                     "next_slanted_bar_index": 2,
+                     "next_slanted_bar_pos": 1265,
+                     "next_slanted_note_uid": 66669,
+                     "uid": 14369
                      
                   }
                ]
@@ -773,8 +778,9 @@
                   {
                      "pos":1265,
                      "len":115,
-                     "member":null, 
-                     "slanted": true
+                     "member":null,
+                     "uid": 66669
+
                   }
                ]
             },

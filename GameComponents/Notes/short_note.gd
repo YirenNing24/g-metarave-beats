@@ -23,6 +23,8 @@ var speed: Vector3
 var accuracy: int
 # Multiplier for scoring.
 var multiplier: int = 1
+var slanted: bool
+var uid: int = -1
 
 # Flag indicating whether the note is currently colliding with the picker.
 var is_colliding: bool = false
@@ -76,7 +78,10 @@ func set_note_position() -> void:
 	elif line == 5:
 		z = 1.79
 	position = Vector3(z, layer , -note_position * length_scale)
-
+	#var position_abs: Vector3= position.abs()
+	#print("short: ", position_abs)
+	#print("global: ", global_position)
+	
 # Method to handle the area entered signal of the note.
 func _on_area_entered(area: Area3D) -> void:
 	if collected:
@@ -102,3 +107,5 @@ func _on_area_entered(area: Area3D) -> void:
 		is_colliding = false
 		picker = area.get_parent()
 		collect(true)
+
+

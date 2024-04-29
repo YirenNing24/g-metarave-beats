@@ -22,7 +22,7 @@ var speed: Vector3
 var note_scale: float
 
 # Index of the current musical bar.
-var current_bar_index: int
+var current_bar_index: int = 0
 # Data for the musical tracks.
 var tracks_data: Array
 # Scaled amount of bars to be displayed on the screen.
@@ -60,7 +60,7 @@ func _process(delta: float) -> void:
 
 # Method to add a musical bar to the scene.
 func add_bar() -> void:
-	if (current_bar_index >= max_index):
+	if current_bar_index >= max_index:
 		return
 	
 	var bar: Node3D = bar_scene.instantiate()
@@ -70,8 +70,10 @@ func add_bar() -> void:
 	bar.speed = speed
 	bars.append(bar)
 	bars_node.add_child(bar)
-	current_location += Vector3(0, 0, -bar_length_in_meters)
 	current_bar_index += 1
+	bar.bar_index = current_bar_index
+	current_location += Vector3(0, 0, -bar_length_in_meters)
+
 
 # Method to retrieve the data for the current musical bar.
 func get_bar_data() -> Array:
