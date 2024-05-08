@@ -97,9 +97,6 @@ func animate_hud() -> void:
 #endregion
 
 
-
-
-
 #region UI connected callbacks
 
 # Event handler for the profile button press.

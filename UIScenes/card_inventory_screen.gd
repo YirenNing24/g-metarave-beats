@@ -17,10 +17,10 @@ var inventory_slot_card: PackedScene = preload("res://Components/Inventory/card_
 var is_loading : bool = false
 
 func _ready() -> void:
-	BKMREngine.Inventory.open_card_inventory()
 	BKMREngine.Inventory.get_card_inventory_complete.connect(card_inventory_open)
 	BKMREngine.Inventory.get_card_inventory_complete.connect(equipment_slot_open)
-
+	BKMREngine.Inventory.open_card_inventory()
+	
 func card_inventory_open(inventory_data: Array) -> void:
 	var card_inventory_slot: Control
 	for card_data: Dictionary in inventory_data[0]:
@@ -76,7 +76,7 @@ func _on_close_button_pressed() -> void:
 	# Initiate the scene transition.
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
 
-func _on_inventory_card_pressed(card_data: Dictionary) -> void:
+func _on_inventory_card_pressed(card_data: Dictionary, _slot: Control) -> void:
 	if item_stats.is_open == false:
 		animation_player.play("item_stats_slide")
 		await animation_player.animation_finished

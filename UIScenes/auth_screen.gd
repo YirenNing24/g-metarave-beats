@@ -94,7 +94,7 @@ func _on_login_succeeded(result: Dictionary) -> void:
 		init_visibility_control()
 		BKMRLogger.info("logged in as: " + str(BKMREngine.Auth.logged_in_player))
 		registration_success = false
-		loading_panel.tween_kill()
+	loading_panel.tween_kill()
 
 #Callback for google login
 func _on_google_login_succeeded(result: Dictionary) -> void:
@@ -109,7 +109,7 @@ func _on_google_login_succeeded(result: Dictionary) -> void:
 		login_modal_container.visible = false
 		animation_player.play('switch_start_screen')
 		google_registration_success = false
-		loading_panel.tween_kill()
+	loading_panel.tween_kill()
 		
 #endregion
 
@@ -147,7 +147,6 @@ func _on_registration_completed(result: Dictionary) -> void:
 	else:
 		registration_success = true
 		BKMREngine.Auth.login_player(username, password)
-		loading_panel.fake_loader()
 
 #Callback for google registration status
 func _on_google_registration_completed(result: Dictionary) -> void:
@@ -175,7 +174,6 @@ func on_submit_registration(val_username: String, val_password: String)  -> void
 	loading_panel.fake_loader()
 	
 func _on_register_button_pressed() -> void:
-	animation_player2.play("registration_loading")
 	var errors: Array = []
 	
 	var found_empty_field: bool = false
@@ -224,7 +222,6 @@ func _on_register_button_pressed() -> void:
 		on_submit_registration(valid_username, valid_password)
 		animation_played = false
 		error_container.visible = false
-	loading_panel.fake_loader()
 	
 #endregion
 

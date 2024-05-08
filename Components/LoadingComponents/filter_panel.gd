@@ -14,5 +14,6 @@ func fake_loader() -> void:
 	var _loader_fake: CallbackTweener = tween.tween_callback(fake_loader)
 	
 func tween_kill() -> void:
-	tween.kill()
+	if tween:
+		tween.kill()
 	visible = false

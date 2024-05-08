@@ -17,9 +17,14 @@ func _on_card_inventory_pressed() -> void:
 	LOADER.previous_texture = background_texture.texture
 	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/card_inventory_screen.tscn")
+	
+func _on_card_upgrade_pressed() -> void:
+	LOADER.previous_texture = background_texture.texture
+	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")
+	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/card_upgrade.tscn")
 
 func _on_close_button_pressed() -> void:
 	BKMREngine.Auth.auto_login_player()
 	LOADER.previous_texture = background_texture.texture
-	LOADER.next_texture = preload("res://UITextures/BGTextures/main.png")
+	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")

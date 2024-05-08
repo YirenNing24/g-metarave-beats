@@ -1,5 +1,8 @@
 extends Control
 
+signal store_item_buy_pressed
+
+
 #UI Elements
 @onready var viewport: Viewport = %SubViewport
 @onready var card_texture: Sprite2D = %CardSprite
@@ -34,9 +37,6 @@ var nft_name: String
 	
 # Handle initialization and setup when the node is ready.
 func _ready() -> void:
-	# Connect the "buy_card_complete" signal to the "_on_buy_completed" function
-	var _connect: int = BKMREngine.Store.connect("buy_card_complete", _on_buy_completed)
-
 	# Play the halfspin animation
 	animation_player.play('halfspin')
 
@@ -77,15 +77,8 @@ func _on_close_button_pressed() -> void:
 # Handle buy button press.
 func _on_buy_button_pressed() -> void:
 	loading_filter.visible = true
-	animation_player.play("buy_loading")
 	BKMREngine.Store.buy_card(card_uri, int(listing_id))
-
-# Handle buy completion.
-func _on_buy_completed(data: Dictionary) -> void:
-	if data.has("success"):
-		purchase_label.text = "Purchase Completed"
-	else:
-		purchase_label.text = data.error
+	store_item_buy_pressed.emit()
 
 # Handle close transaction button press.
 func _on_close_transaction_pressed() -> void:

@@ -74,12 +74,13 @@ func equip_to_equip_slot() -> void:
 	
 func unequip_from_equip_slot(card_data: Dictionary, equip_slot_texture: Texture) -> void:
 	var _inv_slot: String = get_parent().name
-	var _card: Dictionary = slot_data(card_data)
 	texture = equip_slot_texture
+	var _card: Dictionary = slot_data(card_data)
+	
 	get_parent().visible = true
 	
 func _on_button_pressed() -> void:
-	data_card.emit(cards_data)
+	data_card.emit(cards_data, self)
 
 func filter_cards() -> void:
 	pass

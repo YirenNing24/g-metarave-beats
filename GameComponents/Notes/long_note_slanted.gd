@@ -52,7 +52,7 @@ func _ready() -> void:
 	var _note_connect: int = note_area.area_entered.connect(_on_area_entered)
 	
 	curr_length_in_m = max(100, length - 100) * 10
-	beam.scale.z = curr_length_in_m
+
 
 func set_note_position() -> void:
 	var z: float
@@ -162,11 +162,12 @@ func _on_area_entered(area: Area3D) -> void:
 func draw_beam(point_2: Vector3) -> void:
 	var point1: Vector3 =  %NoteMesh.position.abs()
 	#Draw a line from the position of the last point placed to the position of the second to last point placed
-	#var bar_pos: float = get_slanted_note_position(line)
+	@warning_ignore("narrowing_conversion")
 	var z_point2: int = (point_2.z / 2.0)
 	
 	var points2: Vector3 = Vector3(-point2.x, 0, z_point2)
 	var _line: MeshInstance3D = await path_line(point1, points2)
+	print(_line.scale)
 
 func get_point2() -> Vector3: 
 	for note: Node3D in get_tree().get_nodes_in_group("Note"):
@@ -174,7 +175,6 @@ func get_point2() -> Vector3:
 			var point2_pos: Vector3 = note.position.abs()
 			point2 = point2_pos
 			return point2_pos
-			#return point2_pos as Vector3
 
 	return Vector3(0,0,0)
 
@@ -194,7 +194,8 @@ func path_line(pos1: Vector3, pos2: Vector3, color: Color = Color.WHITE_SMOKE, p
 
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	material.albedo_color = color
-
+	
+	
 	return await final_cleanup(mesh_instance, persist_ms) as MeshInstance3D
 	
 ## 1 -> Lasts ONLY for current physics frame
@@ -210,6 +211,7 @@ func final_cleanup(mesh_instance: MeshInstance3D, persist_ms: float) -> MeshInst
 		mesh_instance.queue_free()
 	else:
 		return mesh_instance as MeshInstance3D
+
 	return mesh_instance as MeshInstance3D
 
 

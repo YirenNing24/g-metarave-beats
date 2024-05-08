@@ -5,7 +5,8 @@ const BKMRUtils: Script = preload("res://BeatsKMREngine/utils/BKMRUtils.gd")
 const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 
 signal get_card_inventory_complete(card_inventory_data: Array)
-signal get_bag_inventory_complete(bag_inventory_data: Dictionary)
+signal get_bag_inventory_complete(bag_inventory_data: Array)
+signal get_card_upgrade_inventory_complete(upgrade_inventory_data: Array)
 
 signal equip_item_complete(message: Dictionary)
 signal unequip_item_complete(message: Dictionary)
@@ -13,6 +14,9 @@ var host: String = BKMREngine.host
 
 var OpenCardInventory: HTTPRequest
 var wrOpenCardInventory: WeakRef
+
+var OpenCardUpgradeInventory: HTTPRequest
+var wrOpenCardUpgradeInventory: WeakRef
 
 var OpenBagInventory: HTTPRequest
 var wrOpenBagInventory: WeakRef
@@ -62,6 +66,41 @@ func _onOpenCardInventory_request_completed(_result: int, response_code: int, he
 			get_card_inventory_complete.emit(json_body)
 	else:
 		get_card_inventory_complete.emit({"error": "Unable to retrieve inventory"})
+#endregion
+
+func open_card_upgrade_inventory() -> void:
+	# Prepare an HTTP request for fetching private inbox data.
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	OpenCardUpgradeInventory = prepared_http_req.request
+	wrOpenCardUpgradeInventory  = prepared_http_req.weakref
+	
+	# Connect the callback function to handle the completion of the private inbox data request.
+	var _cards: int = OpenCardUpgradeInventory.request_completed.connect(_onOpenCardUpgradeInventory_request_completed)
+	
+	# Log the initiation of the request to retrieve inbox messages.
+	BKMRLogger.info("Calling BKMREngine to get card inventory data")
+	
+	# Construct the request URL for fetching private inbox data for the specified user.
+	var request_url: String = host + "/api/upgrade/inventory/open"
+	
+	# Send a GET request to retrieve the card upgrade items
+	BKMREngine.send_get_request(OpenCardUpgradeInventory, request_url)
+	
+# Callback function to handle the completion of the private inbox data retrieval request.
+func _onOpenCardUpgradeInventory_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check if the HTTP response indicates success.
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	if is_instance_valid(OpenCardUpgradeInventory):
+		BKMREngine.free_request(wrOpenCardUpgradeInventory, OpenCardUpgradeInventory)
+	if status_check:
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body.has("error"):
+			BKMRLogger.info(json_body.error)
+			get_card_upgrade_inventory_complete.emit({"error": json_body.error})
+		else:
+			get_card_upgrade_inventory_complete.emit(json_body)
+	else:
+		get_card_upgrade_inventory_complete.emit({"error": "Unable to retrieve inventory"})
 #endregion
 
 #region Bag Inventory

@@ -2,7 +2,7 @@ extends TextureRect
 
 signal equipped_card_pressed(card_data: Dictionary)
 #signal create_card_inventory_slot
-signal unequipped
+
 
 @onready var button: Button = get_parent().get_node("Button")
 @onready var skill_icon1: TextureRect = %XinSkillIcon
@@ -102,12 +102,12 @@ func unequip(_equipment_data: Dictionary = {}) -> void:
 			var _unequip: Dictionary = slot_data({})
 			return
 	
-func _on_create_empty_card() -> void:
-	for slots: TextureRect in get_tree().get_nodes_in_group('InventorySlot'):
-		if slots.cards_data["origin_item_id"] == null or "":
-			slots.unequip_from_equip_slot(cards_data, texture)
-			unequipped.emit()
-			return
+#func _on_create_empty_card() -> void:
+	#for slots: TextureRect in get_tree().get_nodes_in_group('InventorySlot'):
+		#if slots.cards_data["origin_item_id"] == null or "":
+			#slots.unequip_from_equip_slot(cards_data, texture)
+			#unequipped.emit()
+			#return
 
 #func set_skill_data(is_equipped: bool) -> bool:
 	#var equipment_slot: String = get_parent().name

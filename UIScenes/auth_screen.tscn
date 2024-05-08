@@ -338,7 +338,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.990833
 offset_top = 28.0
-offset_right = 13079.0
+offset_right = 15457.0
 offset_bottom = 28.0
 mouse_filter = 2
 alignment = 2
@@ -870,7 +870,6 @@ libraries = {
 [node name="LoadingPanel" parent="." instance=ExtResource("16_0g07l")]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(1200, 540)
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0

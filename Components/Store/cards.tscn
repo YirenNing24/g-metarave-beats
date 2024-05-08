@@ -1,82 +1,135 @@
-[gd_scene load_steps=5 format=3 uid="uid://bnn0beghg08qk"]
+[gd_scene load_steps=6 format=3 uid="uid://bnn0beghg08qk"]
 
-[ext_resource type="Texture2D" uid="uid://duvn5qt3kq5k1" path="res://UITextures/PanelElements/Selected.png" id="1_aq242"]
 [ext_resource type="Script" path="res://Components/Store/cards.gd" id="1_xdj0r"]
-[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_245a4"]
-[ext_resource type="Texture2D" uid="uid://mqkk4t4fmk8r" path="res://UITextures/PanelElements/backdrop.png" id="4_ntxt2"]
+[ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="2_5mv1l"]
+[ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="3_pe827"]
+[ext_resource type="Texture2D" uid="uid://1se5bq5gv7v4" path="res://UITextures/Icons/coins_icon.png" id="4_osj3a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_26s2p"]
+bg_color = Color(0, 0, 0, 0.8)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0.721569, 0.721569, 0.529412)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="cards" type="Control"]
+custom_minimum_size = Vector2(150, 243)
 layout_mode = 3
-anchor_right = 0.3
-anchor_bottom = 0.485185
+anchor_right = 0.125
+anchor_bottom = 0.45
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xdj0r")
 metadata/_edit_use_anchors_ = true
 
-[node name="Panel" type="TextureRect" parent="."]
-clip_contents = true
-layout_mode = 0
-anchor_right = 1.10511
-anchor_bottom = 1.09886
-texture = ExtResource("1_aq242")
-metadata/_edit_use_anchors_ = true
-
-[node name="Icon" type="TextureRect" parent="Panel"]
-unique_name_in_owner = true
-z_index = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.364467
-anchor_top = 0.100729
-anchor_right = 0.710301
-anchor_bottom = 0.810653
-offset_right = 4.91333
-offset_bottom = 15.6122
-grow_horizontal = 2
-grow_vertical = 2
-expand_mode = 1
-stretch_mode = 6
-metadata/_edit_use_anchors_ = true
-
-[node name="CardName" type="Label" parent="Panel"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -87.9198
-offset_top = -4.90137
-offset_right = 129.08
-offset_bottom = 30.0986
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("3_245a4")
-theme_override_font_sizes/font_size = 20
-text = "Leeseo Love Dive LE"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="CardButton" type="TextureButton" parent="Panel"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.0427308
-anchor_top = 0.0138936
-anchor_right = 0.980295
-anchor_bottom = 0.941295
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="TextureRect" type="TextureRect" parent="Panel"]
-self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
+[node name="Panel2" type="Panel" parent="."]
+auto_translate_mode = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("4_ntxt2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_26s2p")
+
+[node name="Icon" type="TextureRect" parent="Panel2"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+custom_minimum_size = Vector2(55, 85)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -108.5
+offset_right = 61.0
+offset_bottom = 67.5
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CardButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0333333
+anchor_top = 0.0205761
+anchor_right = 0.973333
+anchor_bottom = 0.720165
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.0
+offset_top = 51.5
+offset_right = 66.0
+offset_bottom = 78.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
+theme_override_fonts/font = ExtResource("2_5mv1l")
+theme_override_font_sizes/font_size = 11
+text = "Esha  No Doubt Star"
+vertical_alignment = 1
+uppercase = true
+
+[node name="BuyButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -46.0
+offset_right = -5.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("3_pe827")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BuyButton"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 11.0
+offset_right = 128.0
+offset_bottom = 32.0
+
+[node name="Price" type="Label" parent="BuyButton/HBoxContainer"]
+custom_minimum_size = Vector2(85, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_5mv1l")
+theme_override_font_sizes/font_size = 15
+text = "5000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="BuyButton/HBoxContainer"]
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_osj3a")
+expand_mode = 1
+stretch_mode = 4
+flip_h = true
