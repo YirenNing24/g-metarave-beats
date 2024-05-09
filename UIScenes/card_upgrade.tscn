@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://boius17dlwxko"]
+[gd_scene load_steps=22 format=3 uid="uid://boius17dlwxko"]
 
 [ext_resource type="Script" path="res://UIScenes/card_upgrade.gd" id="1_wl0jl"]
 [ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="2_3g6qy"]
@@ -13,6 +13,7 @@
 [ext_resource type="FontFile" uid="uid://cak36l0bes2dv" path="res://UITextures/Fonts/argentum-sans.medium.ttf" id="11_7yqjr"]
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="11_erhrs"]
 [ext_resource type="AudioStream" uid="uid://dtocxag21vt3n" path="res://GameTracks/BGTracks/Tue Apr 23 2024.mp3" id="12_m8hf6"]
+[ext_resource type="Script" path="res://UIScenes/card_upgrade_item_slot.gd" id="13_sp77r"]
 
 [sub_resource type="Resource" id="Resource_k3ety"]
 script = ExtResource("8_kp6ro")
@@ -565,9 +566,11 @@ layout_mode = 2
 theme_override_constants/separation = 6
 alignment = 1
 
-[node name="CardUpgradeItemSlot" type="Control" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="CardUpgradeItemSlot" type="Control" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer" groups=["CardUpgradeSlot"]]
+visible = false
 custom_minimum_size = Vector2(61, 61)
 layout_mode = 2
+script = ExtResource("13_sp77r")
 
 [node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot"]
 custom_minimum_size = Vector2(61, 61)
@@ -591,19 +594,28 @@ grow_vertical = 2
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot"]
+[node name="Quantity" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot"]
 layout_mode = 0
 offset_left = 40.0
-offset_top = 37.0
+offset_top = -3.0
 offset_right = 64.0
-offset_bottom = 60.0
+offset_bottom = 20.0
 theme_override_font_sizes/font_size = 12
-horizontal_alignment = 1
-vertical_alignment = 2
+horizontal_alignment = 2
 
-[node name="CardUpgradeItemSlot2" type="Control" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="Button" type="TextureButton" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardUpgradeItemSlot2" type="Control" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer" groups=["CardUpgradeSlot"]]
+visible = false
 custom_minimum_size = Vector2(61, 61)
 layout_mode = 2
+script = ExtResource("13_sp77r")
 
 [node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot2"]
 custom_minimum_size = Vector2(61, 61)
@@ -627,19 +639,28 @@ grow_vertical = 2
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot2"]
+[node name="Quantity" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot2"]
 layout_mode = 0
 offset_left = 40.0
-offset_top = 37.0
+offset_top = -3.0
 offset_right = 64.0
-offset_bottom = 60.0
+offset_bottom = 20.0
 theme_override_font_sizes/font_size = 12
-horizontal_alignment = 1
-vertical_alignment = 2
+horizontal_alignment = 2
 
-[node name="CardUpgradeItemSlot3" type="Control" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="Button" type="TextureButton" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardUpgradeItemSlot3" type="Control" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer" groups=["CardUpgradeSlot"]]
+visible = false
 custom_minimum_size = Vector2(61, 61)
 layout_mode = 2
+script = ExtResource("13_sp77r")
 
 [node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot3"]
 custom_minimum_size = Vector2(61, 61)
@@ -663,19 +684,28 @@ grow_vertical = 2
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot3"]
+[node name="Quantity" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot3"]
 layout_mode = 0
 offset_left = 40.0
-offset_top = 37.0
+offset_top = -3.0
 offset_right = 64.0
-offset_bottom = 60.0
+offset_bottom = 20.0
 theme_override_font_sizes/font_size = 12
-horizontal_alignment = 1
-vertical_alignment = 2
+horizontal_alignment = 2
 
-[node name="CardUpgradeItemSlot4" type="Control" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="Button" type="TextureButton" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardUpgradeItemSlot4" type="Control" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer" groups=["CardUpgradeSlot"]]
+visible = false
 custom_minimum_size = Vector2(61, 61)
 layout_mode = 2
+script = ExtResource("13_sp77r")
 
 [node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot4"]
 custom_minimum_size = Vector2(61, 61)
@@ -699,19 +729,28 @@ grow_vertical = 2
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot4"]
+[node name="Quantity" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot4"]
 layout_mode = 0
 offset_left = 40.0
-offset_top = 37.0
+offset_top = -3.0
 offset_right = 64.0
-offset_bottom = 60.0
+offset_bottom = 20.0
 theme_override_font_sizes/font_size = 12
-horizontal_alignment = 1
-vertical_alignment = 2
+horizontal_alignment = 2
 
-[node name="CardUpgradeItemSlot5" type="Control" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="Button" type="TextureButton" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardUpgradeItemSlot5" type="Control" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer" groups=["CardUpgradeSlot"]]
+visible = false
 custom_minimum_size = Vector2(61, 61)
 layout_mode = 2
+script = ExtResource("13_sp77r")
 
 [node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot5"]
 custom_minimum_size = Vector2(61, 61)
@@ -735,15 +774,26 @@ grow_vertical = 2
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot5"]
+[node name="Quantity" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot5"]
 layout_mode = 0
 offset_left = 40.0
-offset_top = 37.0
+offset_top = -3.0
 offset_right = 64.0
-offset_bottom = 60.0
+offset_bottom = 20.0
 theme_override_font_sizes/font_size = 12
-horizontal_alignment = 1
-vertical_alignment = 2
+horizontal_alignment = 2
+
+[node name="Button" type="TextureButton" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/CardUpgradeItemSlot5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 61)
+layout_mode = 2
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer"]
 layout_mode = 2
