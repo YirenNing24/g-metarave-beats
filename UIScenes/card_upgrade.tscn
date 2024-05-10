@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://boius17dlwxko"]
+[gd_scene load_steps=24 format=3 uid="uid://boius17dlwxko"]
 
 [ext_resource type="Script" path="res://UIScenes/card_upgrade.gd" id="1_wl0jl"]
 [ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="2_3g6qy"]
@@ -14,6 +14,8 @@
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="11_erhrs"]
 [ext_resource type="AudioStream" uid="uid://dtocxag21vt3n" path="res://GameTracks/BGTracks/Tue Apr 23 2024.mp3" id="12_m8hf6"]
 [ext_resource type="Script" path="res://UIScenes/card_upgrade_item_slot.gd" id="13_sp77r"]
+[ext_resource type="Texture2D" uid="uid://d2liwvto7p64l" path="res://UITextures/Progress/player_exp_base.png" id="14_3uib5"]
+[ext_resource type="Texture2D" uid="uid://74d22xpi5g4s" path="res://UITextures/Progress/player_exp_progress.png" id="15_ll3ts"]
 
 [sub_resource type="Resource" id="Resource_k3ety"]
 script = ExtResource("8_kp6ro")
@@ -791,9 +793,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(0, 61)
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+value = 50.0
+nine_patch_stretch = true
+texture_under = ExtResource("14_3uib5")
+texture_progress = ExtResource("15_ll3ts")
+metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer"]
 layout_mode = 2
