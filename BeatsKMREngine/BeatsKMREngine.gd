@@ -34,7 +34,7 @@ const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 @onready var Social: Node = Node.new()
 @onready var Score: Node = Node.new()
 @onready var Leaderboard: Node = Node.new()
-
+@onready var Upgrade: Node = Node.new()
 # Configuration dictionaries
 @onready var config: Dictionary = {}
 var auth_config: Dictionary = {
@@ -51,8 +51,9 @@ var social_script: Script = load("res://BeatsKMREngine/Social/Social.gd")
 var store_script: Script = load("res://BeatsKMREngine/Store/Store.gd")
 var score_script: Script = load("res://BeatsKMREngine/Score/Score.gd")
 var leaderboard_script: Script = load("res://BeatsKMREngine/Leaderboard/Leaderboard.gd")
+var upgrade_script: Script = load("res://BeatsKMREngine/Upgrade/Upgrade.gd")
 
-# Called when the node is added to the scene tree
+
 func _ready() -> void:
 	# Wait for environment variable completion
 	await ENV_VAR.completed
@@ -79,6 +80,7 @@ func initialize_script() -> void:
 	Social.set_script(social_script)
 	Score.set_script(score_script)
 	Leaderboard.set_script(leaderboard_script)
+	Upgrade.set_script(upgrade_script)
 
 func add_child_nodes() -> void:
 	#Add child nodes for different modules
@@ -90,7 +92,7 @@ func add_child_nodes() -> void:
 	add_child(Social)
 	add_child(Score)
 	add_child(Leaderboard)
-	
+	add_child(Upgrade)
 	# Print end timestamp for debugging purposes
 	print("BKMR ready end timestamp: " + str(BKMRUtils.get_timestamp()))
 	
@@ -106,38 +108,11 @@ func get_server_time() -> void:
 	#ping = latency
 	
 # Frees an HTTP request object using a WeakRef.
-# 
-# This function checks if the WeakRef is still valid before freeing the associated HTTP request object.
-# It helps manage the memory by ensuring that the object is only freed if it hasn't been already.
-#
-# Parameters:
-# - `weak_ref`: The WeakRef associated with the HTTP request object.
-# - `object`: The Node (HTTP request object) to be freed.
-#
-# Example usage:
-# ```gdscript
-# free_request(wrGetCards, GetCards)
-# ```
 func free_request(weak_ref: Variant, object: HTTPRequest) -> void:
 	if (weak_ref.get_ref()):
 		object.queue_free()
 
 # Prepares an HTTP request and returns a dictionary containing the request object and its WeakRef.
-# 
-# This function creates an HTTPRequest object, sets its properties, and adds it as a child to the scene.
-# It returns a dictionary with the HTTP request object and a WeakRef associated with it.
-#
-# Returns:
-# - A dictionary with the keys:
-#   - "request": The HTTPRequest object.
-#   - "weakref": The WeakRef associated with the HTTPRequest object.
-#
-# Example usage:
-# ```gdscript
-# var prepared_http_req: Dictionary = prepare_http_request()
-# var http_request: HTTPRequest = prepared_http_req.request
-# var weak_ref: WeakRef = prepared_http_req.weakref
-# ```
 func prepare_http_request() -> Dictionary:
 	var request: HTTPRequest = HTTPRequest.new()
 	var weak_ref: WeakRef = weakref(request)
@@ -222,45 +197,12 @@ func add_jwt_refresh_token_headers(headers: Array = []) -> Array:
 	return headers as Array
 
 # Checks if a specified string is present in the given URL.
-#
-# This function takes a test string and a URL as parameters and returns a boolean value indicating 
-# whether the test string is present in the URL or not. It uses the 'in' operator to perform the
-# substring check.
-#
-# Parameters:
-# - test_string: The string to be checked for presence in the URL.
-# - url: The URL in which the presence of the test string is checked.
-#
-# Returns:
-# - A boolean value indicating whether the test string is present in the URL (true) or not (false).
-#
-# Example usage:
-# ```gdscript
-# var is_present: bool = check_string_in_url("example", "https://www.example.com")
-# ```
 func check_string_in_url(test_string: String, url: String) -> bool:
 	return test_string in url
 
 
 
 # Builds a result dictionary based on the response body.
-#
-# This function takes a response body dictionary as input and constructs a result dictionary
-# with 'success' and 'error' fields. If the response body contains an 'error' field, it is assigned
-# to the 'error' field in the result dictionary. Similarly, if the response body contains a 'success'
-# field, it is assigned to the 'success' field in the result dictionary.
-#
-# Parameters:
-# - body: The dictionary representing the response body.
-#
-# Returns:
-# - A dictionary with 'success' and 'error' fields based on the response body.
-#
-# Example usage:
-# ```gdscript
-# var response_body: Dictionary = { "success": "Operation successful" }
-# var result: Dictionary = build_result(response_body)
-# ```
 func build_result(body: Dictionary) -> Dictionary:
 	var error: String
 	var success: String
@@ -274,17 +216,6 @@ func build_result(body: Dictionary) -> Dictionary:
 	}
 
 # Checks if the authentication module is ready.
-#
-# This function verifies whether the authentication module (Auth) has been initialized and is ready for use.
-# If the authentication module is not ready, it waits for a small duration before proceeding.
-#
-# Returns:
-# - This function does not return a value; it operates by checking and potentially waiting for the authentication module to be ready.
-#
-# Example usage:
-# ```gdscript
-# check_auth_ready()
-# ```
 func check_auth_ready() -> void:
 	if !Auth:
 		await get_tree().create_timer(0.01).timeout

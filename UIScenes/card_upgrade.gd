@@ -202,22 +202,18 @@ func _on_close_button_pressed() -> void:
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
 
 func _on_card_upgrade_submit_pressed() -> void:
-	var card_upgrade: Array = []
-	for slot: Control in get_tree().get_nodes_in_group("CardUpgradeSlot"):
-		if !slot.card_upgrade_slot_data.is_empty():
-			var card_upgrade_item: Dictionary = {
-				"uri": slot.card_upgrade_slot_data.uri,
-				"id": slot.card_upgrade_slot_data.id,
-				"quantityConsumed": int(slot.get_node("Quantity").text)
-			}
-			card_upgrade.append(card_upgrade_item)
-	print(card_upgrade)
-	#if !equipped_card_data.is_empty():
-		#var _card_upgrade_submit_data: Dictionary = {
-			#"cardUri": equipped_card_data.uri,
-			#"cardUpgrade": [{
-				#"cardUpgradeUri":
-			#}
-				#
-			#]
-		#}
+	if !equipped_card_data.is_empty():
+		var card_upgrade: Array = []
+		for slot: Control in get_tree().get_nodes_in_group("CardUpgradeSlot"):
+			if !slot.card_upgrade_slot_data.is_empty():
+				var card_upgrade_item: Dictionary = {
+					"uri": slot.card_upgrade_slot_data.uri,
+					"id": slot.card_upgrade_slot_data.id,
+					"quantityConsumed": int(slot.get_node("Quantity").text)
+				}
+				card_upgrade.append(card_upgrade_item)
+	
+		var card_upgrade_data: Dictionary = {
+			"cardUri": equipped_card_data.uri,
+			"cardUpgrade": card_upgrade
+		}
