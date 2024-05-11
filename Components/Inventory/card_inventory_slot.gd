@@ -28,7 +28,7 @@ func slot_data(card_data: Dictionary = {}) -> Dictionary:
 		card_data["Rarity"] = card_data[uri].rarity
 		card_data["Level"] = card_data[uri].level
 		card_data["Experience"] = card_data[uri].experience
-
+		
 		card_data["Scoreboost"] = card_data[uri].scoreboost
 		card_data["Healboost"] = card_data[uri].healboost
 		card_data["BoostCount"] = card_data[uri].boostCount

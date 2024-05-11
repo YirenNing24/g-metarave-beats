@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://boius17dlwxko"]
+[gd_scene load_steps=26 format=3 uid="uid://boius17dlwxko"]
 
 [ext_resource type="Script" path="res://UIScenes/card_upgrade.gd" id="1_wl0jl"]
 [ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="2_3g6qy"]
@@ -16,6 +16,8 @@
 [ext_resource type="Script" path="res://UIScenes/card_upgrade_item_slot.gd" id="13_sp77r"]
 [ext_resource type="Texture2D" uid="uid://d2liwvto7p64l" path="res://UITextures/Progress/player_exp_base.png" id="14_3uib5"]
 [ext_resource type="Texture2D" uid="uid://74d22xpi5g4s" path="res://UITextures/Progress/player_exp_progress.png" id="15_ll3ts"]
+[ext_resource type="FontFile" uid="uid://cbqgl5ybh1snb" path="res://UITextures/Fonts/argentum-sans.vf-regular.ttf" id="15_qwhhu"]
+[ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="17_4woi3"]
 
 [sub_resource type="Resource" id="Resource_k3ety"]
 script = ExtResource("8_kp6ro")
@@ -404,7 +406,6 @@ size_flags_vertical = 3
 layout_mode = 2
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_fonts/font = ExtResource("11_erhrs")
-text = "HANNAH X:IN NO DOUBT STAR"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -449,6 +450,7 @@ text = "Healboost"
 vertical_alignment = 1
 
 [node name="Label5" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_fonts/font = ExtResource("11_7yqjr")
@@ -457,6 +459,7 @@ text = "BoostCount"
 vertical_alignment = 1
 
 [node name="Label6" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_fonts/font = ExtResource("11_7yqjr")
@@ -465,6 +468,7 @@ text = "AwakenCount"
 vertical_alignment = 1
 
 [node name="Label7" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_fonts/font = ExtResource("11_7yqjr")
@@ -473,6 +477,7 @@ text = "Skill"
 vertical_alignment = 1
 
 [node name="Label8" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_fonts/font = ExtResource("11_7yqjr")
@@ -492,62 +497,162 @@ theme_override_font_sizes/font_size = 14
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Level" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2" groups=["CardValues"]]
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Level" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer" groups=["CardValues"]]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_fonts/font = ExtResource("11_erhrs")
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Scoreboost" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2" groups=["CardValues"]]
+[node name="NewLevel" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer" groups=["CardValues"]]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_fonts/font = ExtResource("11_erhrs")
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Healboost" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2" groups=["CardValues"]]
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
+
+[node name="Scoreboost" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2" groups=["CardValues"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_fonts/font = ExtResource("11_erhrs")
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="BoostCount" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2" groups=["CardValues"]]
+[node name="NewScoreBoost" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2" groups=["CardValues"]]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_fonts/font = ExtResource("11_erhrs")
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="AwakenCount" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2" groups=["CardValues"]]
-unique_name_in_owner = true
+[node name="HBoxContainer3" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
+
+[node name="Healboost" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3" groups=["CardValues"]]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_fonts/font = ExtResource("11_erhrs")
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Skill" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2" groups=["CardValues"]]
+[node name="NewHealboost" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3" groups=["CardValues"]]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_fonts/font = ExtResource("11_erhrs")
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Breakthrough" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2" groups=["CardValues"]]
+[node name="HBoxContainer4" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+visible = false
+layout_mode = 2
+
+[node name="BoostCount" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer4" groups=["CardValues"]]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("11_erhrs")
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="NewBoostCount" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer4" groups=["CardValues"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("11_erhrs")
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+visible = false
+layout_mode = 2
+
+[node name="AwakenCount" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer5" groups=["CardValues"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("11_erhrs")
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="NewAwakenCount" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer5" groups=["CardValues"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("11_erhrs")
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+visible = false
+layout_mode = 2
+
+[node name="Skill" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer7" groups=["CardValues"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("11_erhrs")
+theme_override_font_sizes/font_size = 14
+vertical_alignment = 1
+
+[node name="Skill2" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer7" groups=["CardValues"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("11_erhrs")
+theme_override_font_sizes/font_size = 14
+vertical_alignment = 1
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+visible = false
+layout_mode = 2
+
+[node name="Breakthrough" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer6" groups=["CardValues"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("11_erhrs")
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="NewBreakthrough" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer6" groups=["CardValues"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_fonts/font = ExtResource("11_erhrs")
 theme_override_font_sizes/font_size = 14
@@ -793,20 +898,102 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="CardProgressContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
+size_flags_vertical = 4
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer"]
-custom_minimum_size = Vector2(0, 5)
+[node name="CardLevelProgress" type="TextureProgressBar" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/CardProgressContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
-value = 50.0
 nine_patch_stretch = true
 texture_under = ExtResource("14_3uib5")
 texture_progress = ExtResource("15_ll3ts")
 metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/CardProgressContainer/CardLevelProgress"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -36.9998
+offset_bottom = -19.9998
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="CurrentExp" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/CardProgressContainer/CardLevelProgress/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("15_qwhhu")
+theme_override_font_sizes/font_size = 9
+text = "0"
+horizontal_alignment = 2
+uppercase = true
+
+[node name="Label2" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/CardProgressContainer/CardLevelProgress/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("15_qwhhu")
+theme_override_font_sizes/font_size = 9
+text = "/"
+horizontal_alignment = 2
+uppercase = true
+
+[node name="RequiredExp" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/CardProgressContainer/CardLevelProgress/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("15_qwhhu")
+theme_override_font_sizes/font_size = 9
+text = "0"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="CardUpgradeSubmit" type="TextureButton" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/CardProgressContainer/CardLevelProgress"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15942
+anchor_top = 0.755556
+anchor_right = 0.884058
+anchor_bottom = 1.36667
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("17_4woi3")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/CardProgressContainer/CardLevelProgress/CardUpgradeSubmit"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -15.0
+offset_right = 85.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("9_gotak")
+theme_override_font_sizes/font_size = 17
+text = "SUBMIT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+alignment = 1
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer"]
 layout_mode = 2
@@ -854,3 +1041,4 @@ parameters/looping = true
 [connection signal="pressed" from="BackgroundTexture/HBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="gui_input" from="BackgroundTexture/VBoxContainer/Panel/HBoxContainer/InventoryScroll" to="BackgroundTexture/VBoxContainer/Panel/HBoxContainer/InventoryScroll" method="_on_gui_input"]
 [connection signal="pressed" from="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer2/Background/EquippedCardButton" to="." method="_on_equipped_card_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer2/CardProgressContainer/CardLevelProgress/CardUpgradeSubmit" to="." method="_on_card_upgrade_submit_pressed"]
