@@ -85,20 +85,16 @@ func buy_card(uri: String, listing_id: int) -> void:
 
 # Callback function triggered upon the completion of the buy card request.
 func _onBuyCard_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
-	# Check the HTTP response status
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	
-	# Process the result if the response is successful
 	if status_check:
-		# Parse the JSON response body
 		var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
-		
-		# Build a result dictionary using BKMREngine utility function
 		var _bkmr_result: Dictionary = BKMREngine.build_result(json_body)
-		
 		# Check if the purchase was successful and log accordingly
 		if json_body.success:
+			buy_card_complete.emit(json_body)
 			BKMRLogger.info("Purchase was successful.")
+			
 		else:
 			BKMRLogger.error("Purchase failed: " + str(json_body.error))
 		

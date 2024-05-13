@@ -1,7 +1,6 @@
 [gd_scene load_steps=23 format=3 uid="uid://cff5li31pk0jx"]
 
 [ext_resource type="Script" path="res://Components/Popups/store_item_modal.gd" id="1_ychtr"]
-[ext_resource type="Texture2D" uid="uid://0dhl6xcexh82" path="res://UITextures/Cards/esha_no_doubt_star.png" id="2_2xad3"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_wygyw"]
 [ext_resource type="Texture2D" uid="uid://71ok60rxtq74" path="res://UITextures/Popups/info_panel.png" id="3_7ymp4"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="3_tsqrq"]
@@ -15,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://rf7crm8iniew" path="res://UITextures/Buttons/PanelTextures/store_loading_hero.png" id="11_iowjj"]
 [ext_resource type="Texture2D" uid="uid://fadyu86xt0om" path="res://UITextures/Progress/buy_base.png" id="12_jh3eo"]
 [ext_resource type="Texture2D" uid="uid://cam62c8r5h2y" path="res://UITextures/Progress/buy_progress.png" id="13_1eycr"]
+[ext_resource type="Texture2D" uid="uid://daepxh6fg1l01" path="res://UITextures/Cards/hannah_no_doubt_star.png" id="15_psqku"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_fvuja"]
 viewport_path = NodePath("SubViewport")
@@ -24,14 +24,14 @@ viewport_path = NodePath("SubViewport")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5k46n"]
 transparency = 1
 vertex_color_is_srgb = true
-albedo_texture = ExtResource("2_2xad3")
+albedo_texture = ExtResource("15_psqku")
 metallic = 1.0
 metallic_specular = 0.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_vfpk8"]
 material = SubResource("StandardMaterial3D_5k46n")
 uv2_padding = 1.0
-size = Vector2(110, 170)
+size = Vector2(119.5, 150)
 
 [sub_resource type="Animation" id="Animation_6t2hi"]
 resource_name = "buy_loading"
@@ -393,6 +393,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_fonts/font = ExtResource("8_p2noh")
 theme_override_font_sizes/font_size = 12
+horizontal_alignment = 2
 vertical_alignment = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer"]

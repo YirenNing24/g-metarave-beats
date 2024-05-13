@@ -36,7 +36,7 @@ func _onUpgradeCard_request_completed(_result: int, response_code: int, headers:
 	# Process the result if the response is successful
 	if status_check:
 		# Parse the JSON response body
-		var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
 		
 		# Build a result dictionary using BKMREngine utility function
 		var _bkmr_result: Dictionary = BKMREngine.build_result(json_body)

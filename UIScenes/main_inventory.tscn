@@ -8,9 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="4_v34na"]
 [ext_resource type="Texture2D" uid="uid://brt2d817g34ji" path="res://UITextures/Buttons/PanelTextures/main_inventory_hero.png" id="5_pua5d"]
 [ext_resource type="Texture2D" uid="uid://c77ras2lgiqbf" path="res://UITextures/PanelElements/inventory_selection.png" id="6_bbjlk"]
-[ext_resource type="Texture2D" uid="uid://cnjoei80ls8fo" path="res://UITextures/Bundles/large_loot_box.png" id="8_5tdu4"]
 [ext_resource type="Texture2D" uid="uid://dqnqqawvspdxo" path="res://UITextures/Buttons/PanelTextures/accessories_texture.png" id="8_sxcys"]
-[ext_resource type="Texture2D" uid="uid://0dhl6xcexh82" path="res://UITextures/Cards/esha_no_doubt_star.png" id="9_tm5qj"]
+[ext_resource type="Texture2D" uid="uid://daepxh6fg1l01" path="res://UITextures/Cards/hannah_no_doubt_star.png" id="9_msef7"]
+[ext_resource type="Texture2D" uid="uid://cvbjb7aump7p3" path="res://UITextures/CardUpgrades/upgrade_image.png" id="11_2v14h"]
 
 [node name="main_inventory" type="Control"]
 layout_mode = 3
@@ -189,14 +189,18 @@ stretch_mode = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.0716667
-anchor_top = 0.301852
-anchor_right = 0.746667
-anchor_bottom = 0.959259
-offset_right = -6.10352e-05
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -246.0
+offset_top = -133.0
+offset_right = 294.0
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 0
-metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -245,17 +249,18 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -74.0
-offset_top = -104.0
-offset_right = 74.0
-offset_bottom = 104.0
+offset_left = -84.5
+offset_top = -121.0
+offset_right = 85.5
+offset_bottom = 122.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("9_tm5qj")
+texture = ExtResource("9_msef7")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="TextureRect3" type="TextureRect" parent="VBoxContainer/HBoxContainer2"]
+visible = false
 layout_mode = 2
 texture = ExtResource("6_bbjlk")
 
@@ -355,12 +360,13 @@ offset_right = 95.5
 offset_bottom = 122.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_5tdu4")
+texture = ExtResource("11_2v14h")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="TextureRect4" type="TextureRect" parent="VBoxContainer/HBoxContainer2"]
 auto_translate_mode = 1
+visible = false
 layout_mode = 2
 texture = ExtResource("6_bbjlk")
 
@@ -441,6 +447,7 @@ text = "Upgrade"
 horizontal_alignment = 1
 
 [node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -452,6 +459,7 @@ horizontal_alignment = 1
 
 [node name="Label4" type="Label" parent="VBoxContainer/HBoxContainer"]
 auto_translate_mode = 1
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1

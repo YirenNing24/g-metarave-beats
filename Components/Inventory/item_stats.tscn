@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://d7lwkk74i4o1"]
+[gd_scene load_steps=8 format=3 uid="uid://d7lwkk74i4o1"]
 
 [ext_resource type="Script" path="res://Components/Inventory/item_stats.gd" id="1_4bbpx"]
-[ext_resource type="Texture2D" uid="uid://ciso5gh08c3de" path="res://UITextures/BGTextures/Inventory/EmptySlot/hannah_empty_slot_bg.png" id="3_iotqp"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="3_x8rl0"]
 [ext_resource type="Texture2D" uid="uid://bsch6o78xyfv6" path="res://UITextures/BGTextures/item_stat_bg.png" id="3_yq227"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="4_3i6tk"]
@@ -99,10 +98,9 @@ size_flags_horizontal = 3
 [node name="EquippedIcon" type="TextureRect" parent="Panel/TextureRect2/VBoxContainer/HBoxContainer2/HBoxContainer"]
 unique_name_in_owner = true
 clip_contents = true
-custom_minimum_size = Vector2(203.28, 310.73)
+custom_minimum_size = Vector2(247, 310.73)
 layout_mode = 2
 size_flags_vertical = 0
-texture = ExtResource("3_iotqp")
 expand_mode = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/TextureRect2/VBoxContainer/HBoxContainer2/HBoxContainer"]

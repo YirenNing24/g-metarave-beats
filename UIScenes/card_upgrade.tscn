@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://boius17dlwxko"]
+[gd_scene load_steps=28 format=3 uid="uid://boius17dlwxko"]
 
 [ext_resource type="Script" path="res://UIScenes/card_upgrade.gd" id="1_wl0jl"]
 [ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="2_3g6qy"]
@@ -7,9 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="5_jug6g"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="6_sa0ks"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="7_6kli6"]
-[ext_resource type="Texture2D" uid="uid://l4hvfg5htsyu" path="res://UITextures/BGTextures/Inventory/EmptySlot/esha_empty_slot_bg.png" id="8_3tn8j"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="8_kp6ro"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="9_gotak"]
+[ext_resource type="Texture2D" uid="uid://cvbjb7aump7p3" path="res://UITextures/CardUpgrades/upgrade_image.png" id="9_ptofa"]
 [ext_resource type="FontFile" uid="uid://cak36l0bes2dv" path="res://UITextures/Fonts/argentum-sans.medium.ttf" id="11_7yqjr"]
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="11_erhrs"]
 [ext_resource type="AudioStream" uid="uid://dtocxag21vt3n" path="res://GameTracks/BGTracks/Tue Apr 23 2024.mp3" id="12_m8hf6"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://74d22xpi5g4s" path="res://UITextures/Progress/player_exp_progress.png" id="15_ll3ts"]
 [ext_resource type="FontFile" uid="uid://cbqgl5ybh1snb" path="res://UITextures/Fonts/argentum-sans.vf-regular.ttf" id="15_qwhhu"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="17_4woi3"]
+[ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="19_svn6n"]
 
 [sub_resource type="Resource" id="Resource_k3ety"]
 script = ExtResource("8_kp6ro")
@@ -65,6 +66,9 @@ script = ExtResource("8_kp6ro")
 friction = 4.0
 minimum_velocity = 0.4
 rebound_strength = 7.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_henrb"]
+bg_color = Color(0, 0, 0, 0.945098)
 
 [node name="CardUpgrade" type="Control"]
 auto_translate_mode = 1
@@ -353,12 +357,12 @@ mouse_filter = 0
 
 [node name="Background" type="TextureRect" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer2"]
 auto_translate_mode = 1
-self_modulate = Color(1, 1, 1, 0.807843)
+self_modulate = Color(0.462291, 0.462291, 0.462291, 0.658824)
 clip_contents = true
-custom_minimum_size = Vector2(177, 0)
+custom_minimum_size = Vector2(217, 0)
 layout_mode = 2
 mouse_filter = 2
-texture = ExtResource("8_3tn8j")
+texture = ExtResource("9_ptofa")
 expand_mode = 1
 
 [node name="CardImage" type="TextureRect" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer2/Background"]
@@ -434,6 +438,7 @@ text = "Level"
 vertical_alignment = 1
 
 [node name="Label3" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_fonts/font = ExtResource("11_7yqjr")
@@ -442,6 +447,7 @@ text = "Scoreboost"
 vertical_alignment = 1
 
 [node name="Label4" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_fonts/font = ExtResource("11_7yqjr")
@@ -525,6 +531,7 @@ layout_mode = 2
 
 [node name="Scoreboost" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2" groups=["CardValues"]]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
@@ -535,6 +542,7 @@ vertical_alignment = 1
 
 [node name="NewScoreBoost" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2" groups=["CardValues"]]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
@@ -547,6 +555,7 @@ vertical_alignment = 1
 layout_mode = 2
 
 [node name="Healboost" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3" groups=["CardValues"]]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
@@ -557,6 +566,7 @@ vertical_alignment = 1
 
 [node name="NewHealboost" type="Label" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3" groups=["CardValues"]]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
@@ -661,7 +671,7 @@ vertical_alignment = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer2/Panel/HBoxContainer/HBoxContainer"]
 auto_translate_mode = 1
-custom_minimum_size = Vector2(345, 0)
+custom_minimum_size = Vector2(304, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.7
@@ -957,9 +967,9 @@ uppercase = true
 custom_minimum_size = Vector2(250, 50)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.15942
-anchor_top = 0.755556
-anchor_right = 0.884058
+anchor_left = 0.108553
+anchor_top = 0.755558
+anchor_right = 0.930921
 anchor_bottom = 1.36667
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -1037,6 +1047,20 @@ stream = ExtResource("12_m8hf6")
 volume_db = -5.0
 autoplay = true
 parameters/looping = true
+
+[node name="LoadingPanel" parent="." instance=ExtResource("19_svn6n")]
+unique_name_in_owner = true
+visible = false
+z_index = 4
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 1200.0
+offset_bottom = 540.0
+grow_horizontal = 1
+grow_vertical = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_henrb")
 
 [connection signal="pressed" from="BackgroundTexture/HBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="gui_input" from="BackgroundTexture/VBoxContainer/Panel/HBoxContainer/InventoryScroll" to="BackgroundTexture/VBoxContainer/Panel/HBoxContainer/InventoryScroll" method="_on_gui_input"]

@@ -446,6 +446,8 @@ vertical_alignment = 1
 [node name="ScrollContainer" type="ScrollContainer" parent="BackgroundTexture/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
 script = ExtResource("6_cg2tr")
 wheel_scroll_damper = SubResource("Resource_1k74k")
 dragging_scroll_damper = SubResource("Resource_wghnf")

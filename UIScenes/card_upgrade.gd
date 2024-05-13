@@ -20,6 +20,8 @@ var inventory_slot_card: PackedScene = preload("res://Components/Inventory/card_
 @onready var equipped_card_button: TextureButton = %EquippedCardButton
 @onready var card_progress_container: VBoxContainer = %CardProgressContainer
 
+@onready var loading_panel: Panel = %LoadingPanel
+
 var equipped_card_data: Dictionary = {}
 
 var card_level: int = 0
@@ -30,6 +32,7 @@ var card_experience: int
 var card_scoreboost: int = 0
 var card_healboost: int = 0
 
+var old_level: int
 
 
 var card_level_tween: Tween
@@ -44,6 +47,7 @@ func _ready() -> void:
 func signal_connect() -> void:
 	BKMREngine.Inventory.get_card_upgrade_inventory_complete.connect(_on_get_card_upgrade_inventory_complete)
 	BKMREngine.Inventory.get_card_inventory_complete.connect(card_inventory_open)
+	BKMREngine.Upgrade.upgrade_card_complete.connect(_on_upgrade_card_complete)
 
 func hud_data() -> void:
 	beats_balance.text = PLAYER.beats_balance
@@ -103,6 +107,7 @@ func _on_card_inventory_slot_pressed(card_data: Dictionary, card_inventory_slot:
 	equipped_card_data = card_data
 	
 	card_level = int(equipped_card_data["Level"])
+	old_level = int(equipped_card_data["Level"])
 	card_experience = int(equipped_card_data["Experience"])
 
 	card_progress_container.visible = true
@@ -152,13 +157,9 @@ func card_gain_experience(amount: int) -> void:
 	while card_experience >= card_experience_required:
 		card_experience -= card_experience_required
 		level_up()
-		
-
-
+	
 	current_experience.text = str("Current EXP: ", card_experience)
 	required_experience.text = str("Required EXP: ", card_experience_required)
-	
-
 	
 	card_level_tween = get_tree().create_tween()
 	var _tween_property: PropertyTweener = card_level_tween.tween_property(
@@ -173,7 +174,8 @@ func level_up() -> void:
 	card_healboost += 1
 	card_experience_required = get_required_card_experience(card_level + 1)
 	
-	%NewLevel.text = str("+ ", card_level - 1)
+	var yes: int = card_level - old_level
+	%NewLevel.text = str("+ ", yes)
 	%NewScoreBoost.text = str("+ ",card_scoreboost)
 	%NewHealboost.text = str("+ ",card_healboost)
 
@@ -185,14 +187,14 @@ func _on_card_upgrade_item_button_pressed(card_upgrade_slot_data: Dictionary) ->
 						slot.slot_data(card_upgrade_slot_data)
 						var current_quantity: int = int(slot.get_node("Quantity").text)
 						slot.get_node("Quantity").text = str(current_quantity + 1)
-						card_gain_experience(card_upgrade_slot_data.experience - 49)
+						card_gain_experience(card_upgrade_slot_data.experience)
 						return
 			else:
 				if slot.get_node("Quantity").text != "20":
 					if slot.card_upgrade_slot_data.id == card_upgrade_slot_data.id:
 						var current_quantity: int = int(slot.get_node("Quantity").text)
 						slot.get_node("Quantity").text = str(current_quantity + 1)
-						card_gain_experience(card_upgrade_slot_data.experience - 49)
+						card_gain_experience(card_upgrade_slot_data.experience)
 						return
 
 func _on_close_button_pressed() -> void:
@@ -202,6 +204,7 @@ func _on_close_button_pressed() -> void:
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
 
 func _on_card_upgrade_submit_pressed() -> void:
+	print(equipped_card_data)
 	if !equipped_card_data.is_empty():
 		var card_upgrade: Array = []
 		for slot: Control in get_tree().get_nodes_in_group("CardUpgradeSlot"):
@@ -212,8 +215,19 @@ func _on_card_upgrade_submit_pressed() -> void:
 					"quantityConsumed": int(slot.get_node("Quantity").text)
 				}
 				card_upgrade.append(card_upgrade_item)
-	
 		var card_upgrade_data: Dictionary = {
-			"cardUri": equipped_card_data.uri,
-			"cardUpgrade": card_upgrade
+			"cardUri": equipped_card_data.origin_item_id,
+			"cardId": equipped_card_data.card_id,
+			"cardUpgrade": card_upgrade,
 		}
+
+		BKMREngine.Upgrade.upgrade_card(card_upgrade_data)
+		loading_panel.fake_loader()
+
+func _on_upgrade_card_complete(_message: Dictionary) -> void:
+	loading_panel.tween_kill()
+	var new_level: int = int(%NewLevel.text)
+	var level: int = int(%Level.text)
+	
+	%Level.text = str(new_level + level)
+	%NewLevel.text = ""

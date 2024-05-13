@@ -93,22 +93,28 @@ func _on_get_valid_cards_buy_button_pressed(item_data: Dictionary, type: String)
 	confirm_label.text = "Are you sure you want to buy Card Upgrade " + item_data.tier.to_upper()
 		
 func _on_yes_button_pressed(item_data: Dictionary, item_type: String) -> void:
-	
 	match item_type:
 		"CardUpgrade":
 			buy_card_upgrade(item_data)
 		"Card":
-			pass
+			buy_card(item_data)
 		
 func buy_card(item_data: Dictionary) -> void:
-	var listingId: int = item_data.ListingId
+	var listingId: int = item_data.listingId
 	BKMREngine.Store.buy_card(item_data.uri, listingId)
+	%LoadingPanel.fake_loader()
 		
-func _on_buy_card_complete() -> void:
+func _on_buy_card_complete(_message: Dictionary) -> void:
+	if store_item_modal.visible:
+		store_item_modal.visible = false
 	%LoadingPanel.tween_kill()
-
+	%FilterPanel.visible = false
+	var current_beats_balance: int = int(beats_balance.text)
+	var price: int = 1500
+	beats_balance.text = format_balance(str(current_beats_balance - price))
+	BKMREngine.Store.get_valid_cards()
+	
 func _on_store_item_modal_buy_pressed() -> void:
-
 	%LoadingPanel.fake_loader()
 
 func buy_card_upgrade(item_data: Dictionary) -> void:
@@ -151,12 +157,9 @@ func _input(event: InputEvent) -> void:
 		cursor_spark.emitting = true
 
 func _on_close_button_pressed() -> void:
-	# Perform actions on close button press.
 	BKMREngine.Auth.auto_login_player()
-
 	if is_transaction:
 		await BKMREngine.Auth.bkmr_session_check_complete
-	
 	# Update scene transition textures and load the main screen scene.
 	LOADER.previous_texture = background_texture.texture
 	LOADER.next_texture = preload("res://UITextures/BGTextures/main.png")
