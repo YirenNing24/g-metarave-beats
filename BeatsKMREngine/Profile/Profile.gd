@@ -20,6 +20,15 @@ var UpdateStatPointsSaved: HTTPRequest = null
 var wrUpdateStatPointsSaved: WeakRef = null
 signal stat_update_complete(data: String)
 
+# HTTPRequest object for updating saved preferences.
+var SavePreference: HTTPRequest = null
+var wrSavePreference: WeakRef = null
+signal preference_save_complete(data: String)
+
+var GetPreference: HTTPRequest = null
+var wrGetPreference: WeakRef = null
+signal preference_get_complete(data: String)
+
 # Host URL for server communication.
 var host: String = BKMREngine.host
 
@@ -66,7 +75,7 @@ func _on_UpdateStatPointsSaved_request_completed(_result: int, response_code: in
 			stat_update_complete.emit(json_body)
 		else:
 			# Print the JSON body if the update was not successful.
-			print(json_body)
+			stat_update_complete.emit({"Error": "Unknown Server Error"})
 #endregion
 
 #region for Profile Pic
@@ -114,10 +123,10 @@ func _on_ProfilePictureUpload_request_completed(_result: int, response_code: int
 			#PLAYER.profile_pics = json_body.profilePics
 			profile_pic_upload_complete.emit(json_body)
 		else:
-			profile_pic_upload_complete.emit(json_body.error)	
+			profile_pic_upload_complete.emit(json_body.error)
 
 # Function to retrive profile pic from the server.
-func get_profile_pic() -> Node:
+func get_profile_pic() -> void:
 	# Prepare an HTTP request for fetching private inbox data.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	GetProfilePicture = prepared_http_req.request
@@ -133,11 +142,9 @@ func get_profile_pic() -> Node:
 	var request_url: String = host + "/api/open/profilepic"
 	
 	# Send a GET request to retrieve the private inbox data.
-	await BKMREngine.send_get_request(GetProfilePicture, request_url)
+	BKMREngine.send_get_request(GetProfilePicture, request_url)
 	
 	# Return the current node for method chaining.
-	return self as Node
-
 # Callback function to handle the completion of the private inbox data retrieval request.
 func _onGetProfilePicture_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check if the HTTP response indicates success.
@@ -153,7 +160,72 @@ func _onGetProfilePicture_request_completed(_result: int, response_code: int, he
 		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
 		if json_body.has("error"):
 			BKMRLogger.info(json_body.error)
+			open_profile_pic_complete.emit(json_body.error)
 		else:
 			open_profile_pic_complete.emit(json_body)
-			profile_pics = json_body
+	else:
+		open_profile_pic_complete.emit({"Error:": "Unknown Server Error" })
 #endregion
+
+func save_preference(preferences_data: Dictionary) -> void:
+	# Prepare the HTTP request.
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	SavePreference = prepared_http_req.request
+	wrSavePreference = prepared_http_req.weakref
+	
+	# Connect the request completion signal to the callback function.
+	var _update_stat_points: int = SavePreference.request_completed.connect(_on_SavePreference_request_completed)
+	
+	# Set the payload and request URL for updating stat points.
+	var payload: Dictionary = preferences_data
+	var request_url: String = host + "/api/profile/preference"
+	
+	# Send the POST request to update stat points on the server.
+	BKMREngine.send_post_request(SavePreference, request_url, payload)
+
+func _on_SavePreference_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check the HTTP response status.
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	BKMREngine.free_request(wrSavePreference, SavePreference)
+	
+	# Parse the JSON body received from the server.
+	var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+	if status_check:
+		if json_body.has("success"):
+			BKMRLogger.info("BKMREngine stat update successful")
+			preference_save_complete.emit(json_body)
+		else:
+			# Print the JSON body if the update was not successful.
+			preference_save_complete.emit(json_body.error)
+	else:
+		preference_save_complete.emit({"Error": "Unknown Server Error"})
+
+func get_soul() -> void:
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	GetPreference = prepared_http_req.request
+	wrGetPreference  = prepared_http_req.weakref
+	
+	BKMRLogger.info("Calling BKMREngine to get preferences")
+	
+	# Connect the callback function to handle the completion of the private inbox data request.
+	var _soul: int = GetPreference.request_completed.connect(_onGetSoul_request_completed)
+	var request_url: String = host + "/api/profile/preference/soul"
+	BKMREngine.send_get_request(GetPreference, request_url)
+
+func _onGetSoul_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check if the HTTP response indicates success.
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	
+	# Free the HTTP request resource if it is still valid.
+	if is_instance_valid(GetPreference):
+		BKMREngine.free_request(wrGetPreference, GetPreference)
+	
+	if status_check:
+		var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
+		if json_body.has("error"):
+			BKMRLogger.info(json_body.error)
+			preference_get_complete.emit(json_body.error)
+		else:
+			preference_get_complete.emit(json_body)
+	else:
+		preference_get_complete.emit({"Error:": "Unknown Server Error" })

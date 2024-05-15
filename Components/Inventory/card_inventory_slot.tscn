@@ -29,6 +29,8 @@
 custom_minimum_size = Vector2(83.46, 128.4)
 layout_mode = 3
 anchors_preset = 0
+offset_right = 103.0
+offset_bottom = 128.4
 
 [node name="CardIcon" type="TextureRect" parent="." groups=["InventorySlot"]]
 custom_minimum_size = Vector2(102.3, 128.4)

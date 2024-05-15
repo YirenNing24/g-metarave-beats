@@ -64,7 +64,7 @@ func _on_card_slot_buy_button_pressed(card_data: Dictionary) -> void:
 	you want to buy " + card_data.name.to_upper() + " " + str(card_data.pricePerToken) + " BEATS" + "?"
 	var _connected: bool = confirm_yes_button.pressed.is_connected(_on_yes_button_pressed)
 	if _connected == false:
-		var _connect: int = confirm_yes_button.pressed.connect(_on_yes_button_pressed. bind(card_data, "Card"))
+		var _connect: int = confirm_yes_button.pressed.connect(_on_yes_button_pressed.bind(card_data, "Card"))
 
 func _on_get_valid_card_upgrades_complete(upgrades: Array) -> void:
 	clear_grid()

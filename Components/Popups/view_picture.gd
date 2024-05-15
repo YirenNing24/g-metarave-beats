@@ -31,7 +31,6 @@ func get_pictures() -> void:
 
 # Display the first picture and handles the switching to other pictures available 
 func display_picture() -> void:
-	print(profile_pictures.size())
 	if profile_pictures != []:
 		display_picture_texture.texture = profile_pictures[current_picture_index]
 		

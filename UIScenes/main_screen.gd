@@ -80,7 +80,7 @@ func hud_data() -> void:
 	native_balance.text = PLAYER.native_balance
 	gmr_balance.text = PLAYER.gmr_balance
 	level.text = str(PLAYER.level)
-	BKMREngine.Profile.get_profile_pic()
+	#BKMREngine.Profile.get_profile_pic()
 	animate_hud()
 	
 func animate_hud() -> void:

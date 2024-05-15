@@ -1,0 +1,509 @@
+[gd_scene load_steps=24 format=3 uid="uid://dm87xj4otq4ex"]
+
+[ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="1_86w50"]
+[ext_resource type="Script" path="res://Components/Popups/preferences.gd" id="1_celax"]
+[ext_resource type="Texture2D" uid="uid://qdry0xjd34tv" path="res://UITextures/Buttons/check box active.png" id="2_hdhbo"]
+[ext_resource type="Texture2D" uid="uid://dl1sv6u8usw2o" path="res://UITextures/Buttons/check box default.png" id="3_g3dvk"]
+[ext_resource type="FontFile" uid="uid://cak36l0bes2dv" path="res://UITextures/Fonts/argentum-sans.medium.ttf" id="4_4r00f"]
+[ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="6_arexj"]
+[ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="7_lkfq7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_awhbq"]
+bg_color = Color(0, 0, 0, 0.933333)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u83jm"]
+bg_color = Color(0.00392157, 0.0588235, 0.0588235, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 2
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="Image" id="Image_1n48y"]
+data = {
+"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 13, 255, 255, 255, 96, 255, 255, 255, 136, 255, 255, 255, 173, 255, 255, 255, 173, 255, 255, 255, 136, 255, 255, 255, 95, 255, 255, 255, 11, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 56, 255, 255, 255, 171, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 255, 255, 255, 168, 255, 255, 255, 51, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 56, 255, 255, 255, 191, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 255, 255, 255, 190, 255, 255, 255, 50, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 12, 255, 255, 255, 171, 198, 198, 198, 255, 198, 198, 198, 255, 176, 176, 176, 255, 81, 81, 81, 255, 43, 43, 43, 255, 43, 43, 43, 255, 83, 83, 83, 255, 177, 177, 177, 255, 198, 198, 198, 255, 198, 198, 198, 255, 255, 255, 255, 168, 255, 255, 255, 10, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 97, 198, 198, 198, 255, 198, 198, 198, 255, 176, 176, 176, 255, 37, 37, 37, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 39, 39, 39, 255, 179, 179, 179, 255, 198, 198, 198, 255, 198, 198, 198, 255, 255, 255, 255, 96, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 137, 198, 198, 198, 255, 198, 198, 198, 255, 81, 81, 81, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 86, 86, 86, 255, 198, 198, 198, 255, 198, 198, 198, 255, 255, 255, 255, 154, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 174, 198, 198, 198, 255, 198, 198, 198, 255, 43, 43, 43, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 43, 43, 43, 255, 198, 198, 198, 255, 198, 198, 198, 255, 255, 255, 255, 180, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 173, 198, 198, 198, 255, 198, 198, 198, 255, 43, 43, 43, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 44, 44, 44, 255, 198, 198, 198, 255, 198, 198, 198, 255, 255, 255, 255, 180, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 136, 198, 198, 198, 255, 198, 198, 198, 255, 83, 83, 83, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 88, 88, 88, 255, 198, 198, 198, 255, 198, 198, 198, 255, 255, 255, 255, 152, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 95, 198, 198, 198, 255, 198, 198, 198, 255, 178, 178, 178, 255, 39, 39, 39, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 26, 26, 26, 255, 42, 42, 42, 255, 181, 181, 181, 255, 198, 198, 198, 255, 198, 198, 198, 255, 255, 255, 255, 94, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 11, 255, 255, 255, 169, 198, 198, 198, 255, 198, 198, 198, 255, 179, 179, 179, 255, 86, 86, 86, 255, 43, 43, 43, 255, 44, 44, 44, 255, 88, 88, 88, 255, 181, 181, 181, 255, 198, 198, 198, 255, 198, 198, 198, 255, 255, 255, 255, 165, 255, 255, 255, 9, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 52, 255, 255, 255, 190, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 255, 255, 255, 189, 255, 255, 255, 46, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 50, 255, 255, 255, 168, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 198, 198, 198, 255, 255, 255, 255, 165, 255, 255, 255, 46, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 10, 255, 255, 255, 96, 255, 255, 255, 154, 255, 255, 255, 180, 255, 255, 255, 180, 255, 255, 255, 152, 255, 255, 255, 94, 255, 255, 255, 9, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
+"format": "RGBA8",
+"height": 16,
+"mipmaps": false,
+"width": 16
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_6m7m2"]
+image = SubResource("Image_1n48y")
+
+[sub_resource type="Image" id="Image_3bmac"]
+data = {
+"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 9, 255, 255, 255, 49, 255, 255, 255, 77, 255, 255, 255, 90, 255, 255, 255, 90, 255, 255, 255, 77, 255, 255, 255, 49, 255, 255, 255, 9, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 32, 255, 255, 255, 90, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 90, 255, 255, 255, 31, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 32, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 31, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 9, 255, 255, 255, 90, 255, 255, 255, 94, 255, 255, 255, 94, 224, 224, 224, 104, 124, 124, 124, 148, 97, 97, 97, 168, 97, 97, 97, 168, 125, 125, 125, 147, 224, 224, 224, 104, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 89, 255, 255, 255, 8, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 49, 255, 255, 255, 94, 255, 255, 255, 94, 224, 224, 224, 104, 94, 94, 94, 170, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 95, 95, 95, 169, 224, 224, 224, 104, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 48, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 77, 255, 255, 255, 94, 255, 255, 255, 94, 124, 124, 124, 148, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 125, 125, 125, 147, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 77, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 90, 255, 255, 255, 94, 255, 255, 255, 94, 97, 97, 97, 168, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 97, 97, 97, 168, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 90, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 90, 255, 255, 255, 94, 255, 255, 255, 94, 97, 97, 97, 168, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 98, 98, 98, 167, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 89, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 77, 255, 255, 255, 94, 255, 255, 255, 94, 125, 125, 125, 147, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 127, 127, 127, 147, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 76, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 49, 255, 255, 255, 94, 255, 255, 255, 94, 224, 224, 224, 104, 95, 95, 95, 169, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 87, 87, 87, 175, 95, 95, 95, 169, 226, 226, 226, 103, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 48, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 9, 255, 255, 255, 90, 255, 255, 255, 94, 255, 255, 255, 94, 224, 224, 224, 104, 125, 125, 125, 147, 97, 97, 97, 168, 98, 98, 98, 167, 127, 127, 127, 147, 226, 226, 226, 103, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 89, 255, 255, 255, 8, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 31, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 30, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 31, 255, 255, 255, 89, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 89, 255, 255, 255, 30, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 8, 255, 255, 255, 48, 255, 255, 255, 77, 255, 255, 255, 90, 255, 255, 255, 89, 255, 255, 255, 76, 255, 255, 255, 48, 255, 255, 255, 8, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
+"format": "RGBA8",
+"height": 16,
+"mipmaps": false,
+"width": 16
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_3d0xn"]
+image = SubResource("Image_3bmac")
+
+[sub_resource type="Image" id="Image_xg8x6"]
+data = {
+"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 42, 42, 42, 12, 26, 26, 26, 67, 26, 26, 26, 105, 27, 27, 27, 122, 27, 27, 27, 122, 26, 26, 26, 105, 27, 27, 27, 66, 46, 46, 46, 11, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 29, 29, 29, 44, 27, 27, 27, 122, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 27, 27, 27, 122, 30, 30, 30, 42, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 29, 29, 29, 44, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 30, 30, 30, 42, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 42, 42, 42, 12, 27, 27, 27, 122, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 27, 27, 27, 121, 46, 46, 46, 11, 255, 255, 255, 0, 255, 255, 255, 0, 26, 26, 26, 67, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 27, 27, 27, 65, 255, 255, 255, 0, 255, 255, 255, 0, 26, 26, 26, 105, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 27, 27, 27, 104, 255, 255, 255, 0, 255, 255, 255, 0, 27, 27, 27, 122, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 27, 27, 27, 122, 255, 255, 255, 0, 255, 255, 255, 0, 27, 27, 27, 122, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 27, 27, 27, 121, 255, 255, 255, 0, 255, 255, 255, 0, 26, 26, 26, 105, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 27, 27, 27, 103, 255, 255, 255, 0, 255, 255, 255, 0, 27, 27, 27, 66, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 27, 27, 27, 65, 255, 255, 255, 0, 255, 255, 255, 0, 46, 46, 46, 11, 27, 27, 27, 122, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 27, 27, 27, 121, 51, 51, 51, 10, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 30, 30, 30, 42, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 31, 31, 31, 41, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 30, 30, 30, 42, 27, 27, 27, 121, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 26, 26, 26, 128, 27, 27, 27, 121, 31, 31, 31, 41, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 46, 46, 46, 11, 27, 27, 27, 65, 27, 27, 27, 104, 27, 27, 27, 122, 27, 27, 27, 121, 27, 27, 27, 103, 27, 27, 27, 65, 51, 51, 51, 10, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
+"format": "RGBA8",
+"height": 16,
+"mipmaps": false,
+"width": 16
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_qdvw8"]
+image = SubResource("Image_xg8x6")
+
+[sub_resource type="Image" id="Image_p678k"]
+data = {
+"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 42, 42, 42, 6, 30, 30, 30, 34, 28, 28, 28, 53, 29, 29, 29, 61, 29, 29, 29, 61, 28, 28, 28, 53, 31, 31, 31, 33, 42, 42, 42, 6, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 34, 34, 34, 22, 29, 29, 29, 61, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 29, 29, 29, 61, 36, 36, 36, 21, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 34, 34, 34, 22, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 36, 36, 36, 21, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 42, 42, 42, 6, 29, 29, 29, 61, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 29, 29, 29, 61, 42, 42, 42, 6, 255, 255, 255, 0, 255, 255, 255, 0, 30, 30, 30, 34, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 31, 31, 31, 33, 255, 255, 255, 0, 255, 255, 255, 0, 28, 28, 28, 53, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 29, 29, 29, 52, 255, 255, 255, 0, 255, 255, 255, 0, 29, 29, 29, 61, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 29, 29, 29, 61, 255, 255, 255, 0, 255, 255, 255, 0, 29, 29, 29, 61, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 29, 29, 29, 61, 255, 255, 255, 0, 255, 255, 255, 0, 28, 28, 28, 53, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 29, 29, 29, 52, 255, 255, 255, 0, 255, 255, 255, 0, 31, 31, 31, 33, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 31, 31, 31, 33, 255, 255, 255, 0, 255, 255, 255, 0, 42, 42, 42, 6, 29, 29, 29, 61, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 29, 29, 29, 61, 51, 51, 51, 5, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 36, 36, 36, 21, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 36, 36, 36, 21, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 36, 36, 36, 21, 29, 29, 29, 61, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 29, 29, 29, 61, 36, 36, 36, 21, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 42, 42, 42, 6, 31, 31, 31, 33, 29, 29, 29, 52, 29, 29, 29, 61, 29, 29, 29, 61, 29, 29, 29, 52, 31, 31, 31, 33, 51, 51, 51, 5, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
+"format": "RGBA8",
+"height": 16,
+"mipmaps": false,
+"width": 16
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_57134"]
+image = SubResource("Image_p678k")
+
+[sub_resource type="Image" id="Image_p2igf"]
+data = {
+"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 42, 42, 42, 12, 29, 29, 29, 52, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 30, 30, 30, 51, 46, 46, 46, 11, 255, 255, 255, 0, 255, 255, 255, 0, 29, 29, 29, 52, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 30, 30, 30, 51, 255, 255, 255, 0, 255, 255, 255, 0, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 255, 255, 255, 0, 255, 255, 255, 0, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 255, 255, 255, 0, 255, 255, 255, 0, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 255, 255, 255, 0, 255, 255, 255, 0, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 255, 255, 255, 0, 255, 255, 255, 0, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 255, 255, 255, 0, 255, 255, 255, 0, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 255, 255, 255, 0, 255, 255, 255, 0, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 255, 255, 255, 0, 255, 255, 255, 0, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 255, 255, 255, 0, 255, 255, 255, 0, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 255, 255, 255, 0, 255, 255, 255, 0, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 255, 255, 255, 0, 255, 255, 255, 0, 30, 30, 30, 51, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 30, 30, 30, 50, 255, 255, 255, 0, 255, 255, 255, 0, 46, 46, 46, 11, 30, 30, 30, 51, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 28, 28, 28, 64, 30, 30, 30, 50, 46, 46, 46, 11, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
+"format": "RGBA8",
+"height": 16,
+"mipmaps": false,
+"width": 16
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_wrsos"]
+image = SubResource("Image_p2igf")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jbflt"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xqixf"]
+
+[sub_resource type="Theme" id="Theme_ojkqu"]
+default_font = ExtResource("4_4r00f")
+CheckBox/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+CheckBox/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+CheckBox/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+CheckBox/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+CheckBox/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+CheckBox/colors/font_outline_color = Color(0, 0, 0, 1)
+CheckBox/colors/font_pressed_color = Color(1, 1, 1, 1)
+CheckBox/constants/check_v_offset = -1
+CheckBox/constants/h_separation = -5
+CheckBox/constants/outline_size = 0
+CheckBox/font_sizes/font_size = 12
+CheckBox/fonts/font = ExtResource("4_4r00f")
+CheckBox/icons/checked = ExtResource("2_hdhbo")
+CheckBox/icons/checked_disabled = ExtResource("2_hdhbo")
+CheckBox/icons/radio_checked = SubResource("ImageTexture_6m7m2")
+CheckBox/icons/radio_checked_disabled = SubResource("ImageTexture_3d0xn")
+CheckBox/icons/radio_unchecked = SubResource("ImageTexture_qdvw8")
+CheckBox/icons/radio_unchecked_disabled = SubResource("ImageTexture_57134")
+CheckBox/icons/unchecked = ExtResource("3_g3dvk")
+CheckBox/icons/unchecked_disabled = SubResource("ImageTexture_wrsos")
+CheckBox/styles/disabled = SubResource("StyleBoxEmpty_jbflt")
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_xqixf")
+CheckBox/styles/hover = SubResource("StyleBoxEmpty_jbflt")
+CheckBox/styles/hover_pressed = SubResource("StyleBoxEmpty_jbflt")
+CheckBox/styles/normal = SubResource("StyleBoxEmpty_jbflt")
+CheckBox/styles/pressed = SubResource("StyleBoxEmpty_jbflt")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cddbt"]
+
+[node name="Preferences" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_celax")
+
+[node name="Panel" type="Panel" parent="."]
+z_index = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_awhbq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(360, 274)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -137.0
+offset_right = 180.0
+offset_bottom = 137.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_u83jm")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0138889
+anchor_top = 0.0328467
+anchor_right = 0.986111
+anchor_bottom = 0.952555
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_86w50")
+theme_override_font_sizes/font_size = 16
+text = "my FAVES"
+horizontal_alignment = 1
+vertical_alignment = 2
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_86w50")
+theme_override_font_sizes/font_size = 11
+text = "   My Genres - Choose 3"
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Genres" type="HBoxContainer" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/Genres"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="CheckBox" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/Genres/VBoxContainer" groups=["Genres", "Preferences"]]
+layout_mode = 2
+size_flags_vertical = 0
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+keep_pressed_outside = true
+text = "Hiphop"
+
+[node name="CheckBox2" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/Genres/VBoxContainer" groups=["Genres", "Preferences"]]
+layout_mode = 2
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "R&B"
+
+[node name="CheckBox3" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/Genres/VBoxContainer" groups=["Genres", "Preferences"]]
+layout_mode = 2
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Rock"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/Genres"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="CheckBox" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/Genres/VBoxContainer2" groups=["Genres", "Preferences"]]
+layout_mode = 2
+size_flags_vertical = 0
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Pop"
+
+[node name="CheckBox2" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/Genres/VBoxContainer2" groups=["Genres", "Preferences"]]
+layout_mode = 2
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Electro"
+
+[node name="CheckBox3" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/Genres/VBoxContainer2" groups=["Genres", "Preferences"]]
+layout_mode = 2
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Classical"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CardName" type="Label" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_86w50")
+theme_override_font_sizes/font_size = 11
+text = "    Fave Animal - Choose 3"
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="CheckBox" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer" groups=["Animals", "Preferences"]]
+layout_mode = 2
+size_flags_vertical = 0
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Dog"
+
+[node name="CheckBox2" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer" groups=["Animals", "Preferences"]]
+layout_mode = 2
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Cat"
+
+[node name="CheckBox3" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer" groups=["Animals", "Preferences"]]
+layout_mode = 2
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Bird"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="CheckBox" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2" groups=["Animals", "Preferences"]]
+layout_mode = 2
+size_flags_vertical = 0
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Fish"
+
+[node name="CheckBox2" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2" groups=["Animals", "Preferences"]]
+layout_mode = 2
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Rabbit"
+
+[node name="CheckBox3" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2" groups=["Animals", "Preferences"]]
+layout_mode = 2
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Others"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CardName" type="Label" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_86w50")
+theme_override_font_sizes/font_size = 11
+text = "   My Horoscope"
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="CheckBox" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3/HBoxContainer/VBoxContainer" groups=["Horoscope", "Preferences"]]
+layout_mode = 2
+size_flags_vertical = 0
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Aries"
+
+[node name="CheckBox2" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3/HBoxContainer/VBoxContainer" groups=["Horoscope", "Preferences"]]
+layout_mode = 2
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Taurus"
+
+[node name="CheckBox3" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3/HBoxContainer/VBoxContainer" groups=["Horoscope", "Preferences"]]
+layout_mode = 2
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Gemini"
+
+[node name="CheckBox4" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3/HBoxContainer/VBoxContainer" groups=["Horoscope", "Preferences"]]
+layout_mode = 2
+size_flags_vertical = 0
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Cancer"
+
+[node name="CheckBox5" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3/HBoxContainer/VBoxContainer" groups=["Horoscope", "Preferences"]]
+layout_mode = 2
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Leo"
+
+[node name="CheckBox6" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3/HBoxContainer/VBoxContainer" groups=["Horoscope", "Preferences"]]
+layout_mode = 2
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Virgo"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="CheckBox" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3/HBoxContainer/VBoxContainer2" groups=["Horoscope", "Preferences"]]
+layout_mode = 2
+size_flags_vertical = 0
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Libra"
+
+[node name="CheckBox2" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3/HBoxContainer/VBoxContainer2" groups=["Horoscope", "Preferences"]]
+layout_mode = 2
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Scorpio"
+
+[node name="CheckBox3" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3/HBoxContainer/VBoxContainer2" groups=["Horoscope", "Preferences"]]
+layout_mode = 2
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Sagitarrius"
+
+[node name="CheckBox4" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3/HBoxContainer/VBoxContainer2" groups=["Horoscope", "Preferences"]]
+layout_mode = 2
+size_flags_vertical = 0
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Capricorn"
+
+[node name="CheckBox5" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3/HBoxContainer/VBoxContainer2" groups=["Horoscope", "Preferences"]]
+layout_mode = 2
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Aquarius"
+
+[node name="CheckBox6" type="CheckBox" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3/HBoxContainer/VBoxContainer2" groups=["Horoscope", "Preferences"]]
+layout_mode = 2
+theme = SubResource("Theme_ojkqu")
+theme_override_fonts/font = ExtResource("4_4r00f")
+theme_override_font_sizes/font_size = 9
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cddbt")
+text = "Pisces"
+
+[node name="SaveButton" type="TextureButton" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3"]
+unique_name_in_owner = true
+modulate = Color(0.899258, 0.899258, 0.899258, 1)
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+texture_normal = ExtResource("6_arexj")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3/SaveButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.5
+offset_top = -12.0
+offset_right = 46.5
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
+theme_override_fonts/font = ExtResource("7_lkfq7")
+theme_override_font_sizes/font_size = 14
+text = "Save"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]
+[connection signal="pressed" from="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer3/SaveButton" to="." method="_on_save_button_pressed"]

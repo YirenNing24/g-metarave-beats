@@ -12,6 +12,7 @@ extends Control
 
 # Modals
 @onready var view_picture: Control = %ViewPicture
+@onready var preferences: Control = %Preferences
 
 #Get image plugin
 var get_image: Object
@@ -155,3 +156,5 @@ func _on_dp_panel_gui_input(event: InputEvent) -> void:
 func _on_view_picture_view_picture_close() -> void:
 	visible = true
 
+func _on_my_faves_button_pressed() -> void:
+	preferences.visible = true

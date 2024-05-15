@@ -368,6 +368,14 @@ clip_text = true
 text_overrun_behavior = 3
 metadata/_edit_use_anchors_ = true
 
+[node name="BeatsTokenIcon" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect2"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = -9.00002
+offset_right = 58.0
+offset_bottom = 53.0
+expand_mode = 1
+
 [node name="TextureRect3" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
 self_modulate = Color(0.737193, 0.737193, 0.737193, 1)
 custom_minimum_size = Vector2(175, 50)
