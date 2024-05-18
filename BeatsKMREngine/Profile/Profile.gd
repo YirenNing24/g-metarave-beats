@@ -23,11 +23,20 @@ signal stat_update_complete(data: String)
 # HTTPRequest object for updating saved preferences.
 var SavePreference: HTTPRequest = null
 var wrSavePreference: WeakRef = null
-signal preference_save_complete(data: String)
+signal preference_save_complete(data: Dictionary)
 
 var GetPreference: HTTPRequest = null
 var wrGetPreference: WeakRef = null
-signal preference_get_complete(data: String)
+signal preference_get_complete(data: Dictionary)
+
+var GetCardCount: HTTPRequest = null
+var wrGetCardCount: WeakRef = null
+signal card_count_get_complete(data: Dictionary)
+
+var GetCardCollection: HTTPRequest = null
+var wrGetCardCollection: WeakRef = null
+signal card_collection_get_complete(data: Dictionary)
+
 
 # Host URL for server communication.
 var host: String = BKMREngine.host
@@ -229,3 +238,54 @@ func _onGetSoul_request_completed(_result: int, response_code: int, headers: Arr
 			preference_get_complete.emit(json_body)
 	else:
 		preference_get_complete.emit({"Error:": "Unknown Server Error" })
+
+
+func get_card_count() -> void:
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	GetCardCount = prepared_http_req.request
+	wrGetCardCount  = prepared_http_req.weakref
+	
+	BKMRLogger.info("Calling BKMREngine to get preferences")
+	var _count: int = GetCardCount.request_completed.connect(_onGetCardCount_request_completed)
+	var request_url: String = host + "/api/profile/card/count"
+	BKMREngine.send_get_request(GetCardCount, request_url)
+	
+func _onGetCardCount_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	if is_instance_valid(GetCardCount):
+		BKMREngine.free_request(wrGetCardCount, GetCardCount)
+	
+	if status_check:
+		var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
+		if json_body.has("error"):
+			BKMRLogger.info(json_body.error)
+			card_count_get_complete.emit(json_body.error)
+		else:
+			card_count_get_complete.emit(json_body)
+	else:
+		card_count_get_complete.emit({"Error:": "Unknown Server Error" })
+
+func get_card_collection() -> void:
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	GetCardCollection = prepared_http_req.request
+	wrGetCardCollection = prepared_http_req.weakref
+	
+	BKMRLogger.info("Calling BKMREngine to get preferences")
+	var _count: int = GetCardCollection.request_completed.connect(_onGetCardCollection_request_completed)
+	var request_url: String = host + "/api/profile/card/collection"
+	BKMREngine.send_get_request(GetCardCollection, request_url)
+	
+func _onGetCardCollection_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	if is_instance_valid(GetCardCount):
+		BKMREngine.free_request(wrGetCardCollection, GetCardCollection)
+	
+	if status_check:
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body.has("error"):
+			BKMRLogger.info(json_body.error)
+			card_collection_get_complete.emit(json_body.error)
+		else:
+			card_collection_get_complete.emit(json_body)
+	else:
+		card_collection_get_complete.emit({"Error:": "Unknown Server Error" })

@@ -1,0 +1,322 @@
+[gd_scene load_steps=21 format=3 uid="uid://kpun4sk7hxjv"]
+
+[ext_resource type="Script" path="res://UIScenes/my_profile.gd" id="1_0eu0s"]
+[ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="1_gebit"]
+[ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="2_tgqgn"]
+[ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="3_0vhc0"]
+[ext_resource type="FontFile" uid="uid://cak36l0bes2dv" path="res://UITextures/Fonts/argentum-sans.medium.ttf" id="5_0bqpn"]
+[ext_resource type="StyleBox" uid="uid://chv57rdd2b5s" path="res://UITextures/CustomResource/chat_box_tab.tres" id="5_ykroo"]
+[ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="6_45850"]
+[ext_resource type="PackedScene" uid="uid://dm87xj4otq4ex" path="res://Components/Popups/preferences.tscn" id="7_iuhv0"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="8_qnspf"]
+[ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="9_fe3dm"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="9_mhd7h"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="10_bliyp"]
+[ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="13_g4ey3"]
+[ext_resource type="AudioStream" uid="uid://xbmw1rvhaoyy" path="res://GameTracks/UITracks/abs-pointer-combine.mp3" id="14_0tnpr"]
+[ext_resource type="PackedScene" uid="uid://b5md4ncm41wts" path="res://Components/Popups/card_collection_modal.tscn" id="15_y1a5g"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_awb3n"]
+texture = ExtResource("6_45850")
+texture_margin_left = 60.0
+texture_margin_top = 20.0
+texture_margin_right = 60.0
+texture_margin_bottom = 20.0
+modulate_color = Color(1, 1, 1, 0.380392)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cf88i"]
+bg_color = Color(0, 0, 0, 0.541176)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kt6l8"]
+bg_color = Color(0.0823529, 0.478431, 0.478431, 1)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0823529, 0.478431, 0.478431, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Resource" id="Resource_n6hrw"]
+script = ExtResource("9_mhd7h")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="Resource" id="Resource_6w2ng"]
+script = ExtResource("9_mhd7h")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[node name="MyProfile" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0eu0s")
+
+[node name="BackgroundTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+self_modulate = Color(0.255659, 0.255659, 0.255659, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("1_gebit")
+expand_mode = 1
+
+[node name="CloseButton" type="TextureButton" parent="BackgroundTexture"]
+auto_translate_mode = 1
+layout_mode = 0
+size_flags_horizontal = 3
+texture_normal = ExtResource("2_tgqgn")
+texture_hover = ExtResource("3_0vhc0")
+
+[node name="ProfileTab" type="TabContainer" parent="BackgroundTexture"]
+unique_name_in_owner = true
+self_modulate = Color(0.113725, 0.0980392, 0.2, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 69.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("5_0bqpn")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/tab_focus = ExtResource("5_ykroo")
+theme_override_styles/tab_selected = ExtResource("5_ykroo")
+theme_override_styles/tab_hovered = ExtResource("5_ykroo")
+theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_awb3n")
+tab_alignment = 1
+current_tab = 0
+tabs_position = 1
+
+[node name="Collections" type="TabBar" parent="BackgroundTexture/ProfileTab"]
+layout_mode = 2
+tab_alignment = 1
+metadata/_tab_index = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/ProfileTab/Collections"]
+custom_minimum_size = Vector2(760, 412)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/ProfileTab/Collections/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_cf88i")
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/ProfileTab/Collections/HBoxContainer/Panel"]
+custom_minimum_size = Vector2(760, 411)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = -205.5
+offset_right = 380.0
+offset_bottom = 205.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kt6l8")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BackgroundTexture/ProfileTab/Collections/HBoxContainer/Panel/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0144737
+anchor_top = 0.0243309
+anchor_right = 0.986842
+anchor_bottom = 0.975669
+grow_horizontal = 2
+grow_vertical = 2
+vertical_scroll_mode = 3
+script = ExtResource("8_qnspf")
+wheel_scroll_damper = SubResource("Resource_n6hrw")
+dragging_scroll_damper = SubResource("Resource_6w2ng")
+metadata/_edit_use_anchors_ = true
+
+[node name="GridContainer" type="GridContainer" parent="BackgroundTexture/ProfileTab/Collections/HBoxContainer/Panel/Panel/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 12
+columns = 4
+
+[node name="Spaces" type="TabBar" parent="BackgroundTexture/ProfileTab"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="My Faves" type="TabBar" parent="BackgroundTexture/ProfileTab"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="Preferences" parent="BackgroundTexture/ProfileTab/My Faves" instance=ExtResource("7_iuhv0")]
+layout_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -734.0
+offset_top = 8.0
+offset_right = -19.0
+offset_bottom = 66.0
+grow_horizontal = 0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/VBoxContainer/HBoxContainer"]
+self_modulate = Color(0.737193, 0.737193, 0.737193, 1)
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("9_fe3dm")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Native" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer/TextureRect"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("10_bliyp")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect2" type="TextureRect" parent="BackgroundTexture/VBoxContainer/HBoxContainer"]
+self_modulate = Color(0.737193, 0.737193, 0.737193, 1)
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("9_fe3dm")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="BeatsBalance" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer/TextureRect2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("10_bliyp")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="BeatsTokenIcon" type="TextureRect" parent="BackgroundTexture/VBoxContainer/HBoxContainer/TextureRect2"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = -9.00002
+offset_right = 58.0
+offset_bottom = 53.0
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="BackgroundTexture/VBoxContainer/HBoxContainer"]
+self_modulate = Color(0.737193, 0.737193, 0.737193, 1)
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("9_fe3dm")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="ThumpBalance" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer/TextureRect3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("10_bliyp")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect4" type="TextureRect" parent="BackgroundTexture/VBoxContainer/HBoxContainer"]
+self_modulate = Color(0.737193, 0.737193, 0.737193, 1)
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("9_fe3dm")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="GMR" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer/TextureRect4"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("10_bliyp")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="CursorSpark" parent="." instance=ExtResource("13_g4ey3")]
+unique_name_in_owner = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_0tnpr")
+volume_db = -15.0
+pitch_scale = 1.1
+
+[node name="CardCollectionModal" parent="." instance=ExtResource("15_y1a5g")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="BackgroundTexture/CloseButton" to="." method="_on_close_button_pressed"]

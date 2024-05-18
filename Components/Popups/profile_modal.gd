@@ -12,7 +12,6 @@ extends Control
 
 # Modals
 @onready var view_picture: Control = %ViewPicture
-@onready var preferences: Control = %Preferences
 
 #Get image plugin
 var get_image: Object
@@ -156,5 +155,7 @@ func _on_dp_panel_gui_input(event: InputEvent) -> void:
 func _on_view_picture_view_picture_close() -> void:
 	visible = true
 
-func _on_my_faves_button_pressed() -> void:
-	preferences.visible = true
+
+func _on_my_profile_button_pressed() -> void:
+	# Load the main inventory scene asynchronously
+	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/my_profile.tscn")

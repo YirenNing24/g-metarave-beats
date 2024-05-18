@@ -1,0 +1,422 @@
+[gd_scene load_steps=13 format=3 uid="uid://b5md4ncm41wts"]
+
+[ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="1_qdlb8"]
+[ext_resource type="Script" path="res://Components/Popups/card_collection_modal.gd" id="1_qqtrc"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="2_2a16y"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="3_2y4bk"]
+[ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="4_a3fcm"]
+[ext_resource type="Texture2D" uid="uid://ch5h1o82gkllb" path="res://UITextures/Cards/nizz_no_doubt_star.png" id="5_hg32k"]
+[ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="7_mpojd"]
+[ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="8_nhdox"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xd7y0"]
+bg_color = Color(0, 0, 0, 0.541176)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wrih"]
+bg_color = Color(0.0823529, 0.478431, 0.478431, 1)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0823529, 0.478431, 0.478431, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Resource" id="Resource_7dqel"]
+script = ExtResource("3_2y4bk")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="Resource" id="Resource_wj1y0"]
+script = ExtResource("3_2y4bk")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[node name="CardCollectionModal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qqtrc")
+
+[node name="BackgroundTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+self_modulate = Color(0.133196, 0.133196, 0.133196, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("1_qdlb8")
+expand_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture"]
+custom_minimum_size = Vector2(760, 412)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_xd7y0")
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/Panel"]
+custom_minimum_size = Vector2(760, 411)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -541.0
+offset_top = -191.0
+offset_right = 544.0
+offset_bottom = 264.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7wrih")
+
+[node name="SmoothScrollContainer" type="ScrollContainer" parent="BackgroundTexture/HBoxContainer/Panel/Panel"]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0125112
+anchor_top = 0.0235294
+anchor_right = 0.989276
+anchor_bottom = 0.974118
+grow_horizontal = 2
+grow_vertical = 2
+vertical_scroll_mode = 3
+script = ExtResource("2_2a16y")
+wheel_scroll_damper = SubResource("Resource_7dqel")
+dragging_scroll_damper = SubResource("Resource_wj1y0")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GroupName" type="Label" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("4_a3fcm")
+theme_override_font_sizes/font_size = 28
+text = "x:in cARD COLLECTION"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="CardTier" type="Label" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+mouse_filter = 1
+text = "GENESIS LIMITED EDITION"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="CardCollectionSlot" type="Control" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(159.36, 200)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot"]
+self_modulate = Color(1, 1, 1, 0.298039)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_hg32k")
+expand_mode = 1
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot/TextureRect"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.3647
+offset_right = -0.360001
+offset_bottom = -1.36472
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="CardOwnedCount" type="Label" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot/TextureRect/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_font_sizes/font_size = 12
+text = "10 / 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="CardCollectionSlot2" type="Control" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(159.36, 200)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot2"]
+self_modulate = Color(1, 1, 1, 0.298039)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_hg32k")
+expand_mode = 1
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot2/TextureRect"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.3647
+offset_right = -0.360001
+offset_bottom = -1.36472
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="CardOwnedCount" type="Label" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot2/TextureRect/Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_font_sizes/font_size = 12
+text = "10 / 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="CardCollectionSlot3" type="Control" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(159.36, 200)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot3"]
+self_modulate = Color(1, 1, 1, 0.298039)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_hg32k")
+expand_mode = 1
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot3/TextureRect"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.3647
+offset_right = -0.360001
+offset_bottom = -1.36472
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="CardOwnedCount" type="Label" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot3/TextureRect/Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_font_sizes/font_size = 12
+text = "10 / 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="CardCollectionSlot4" type="Control" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(159.36, 200)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot4"]
+self_modulate = Color(1, 1, 1, 0.298039)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_hg32k")
+expand_mode = 1
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot4/TextureRect"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.3647
+offset_right = -0.360001
+offset_bottom = -1.36472
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="CardOwnedCount" type="Label" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot4/TextureRect/Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_font_sizes/font_size = 12
+text = "10 / 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="CardCollectionSlot5" type="Control" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(159.36, 200)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot5"]
+self_modulate = Color(1, 1, 1, 0.298039)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_hg32k")
+expand_mode = 1
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot5/TextureRect"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.3647
+offset_right = -0.360001
+offset_bottom = -1.36472
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="CardOwnedCount" type="Label" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot5/TextureRect/Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_font_sizes/font_size = 12
+text = "10 / 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="CloseButton" type="TextureButton" parent="BackgroundTexture"]
+auto_translate_mode = 1
+size_flags_horizontal = 3
+texture_normal = ExtResource("7_mpojd")
+texture_hover = ExtResource("8_nhdox")
+
+[connection signal="pressed" from="BackgroundTexture/CloseButton" to="." method="_on_close_button_pressed"]

@@ -1,0 +1,90 @@
+[gd_scene load_steps=4 format=3 uid="uid://wndln7vo5eq8"]
+
+[ext_resource type="Script" path="res://Components/MyProfile/group_collection.gd" id="1_5n4ga"]
+[ext_resource type="FontFile" uid="uid://cbqgl5ybh1snb" path="res://UITextures/Fonts/argentum-sans.vf-regular.ttf" id="2_wwty0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jnmvb"]
+bg_color = Color(0.362829, 0.362829, 0.362829, 0.176471)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 2
+shadow_offset = Vector2(3, 3)
+
+[node name="GroupCollection" type="Control"]
+custom_minimum_size = Vector2(175, 175)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("1_5n4ga")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_jnmvb")
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+custom_minimum_size = Vector2(150, 76)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0714286
+anchor_top = 0.168571
+anchor_right = 0.928571
+anchor_bottom = 0.602857
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="OwnedCardCount" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0342857
+anchor_top = 0.737143
+anchor_right = 0.971429
+anchor_bottom = 0.822858
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_wwty0")
+theme_override_font_sizes/font_size = 12
+text = "80 / 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="OwnedCardCount2" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0342857
+anchor_top = 0.828571
+anchor_right = 0.971429
+anchor_bottom = 0.914286
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_wwty0")
+theme_override_font_sizes/font_size = 10
+text = "Cards Collected"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="OpenCollectionButton" type="TextureButton" parent="."]
+layout_mode = 0
+anchor_top = 0.00571429
+anchor_right = 1.00571
+anchor_bottom = 0.771429
+mouse_filter = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="OpenCollectionButton" to="." method="_on_open_collection_button_pressed"]

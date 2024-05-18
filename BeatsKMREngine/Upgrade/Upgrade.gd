@@ -13,7 +13,7 @@ signal upgrade_card_complete
 var host: String = BKMREngine.host
 
 # Function to initiate the purchase of a card from the store.
-func upgrade_card(upgrade_card: Dictionary) -> void:
+func upgrade_card(upgrade_cards: Dictionary) -> void:
 	# Prepare HTTP request
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	UpgradeCard = prepared_http_req.request
@@ -22,7 +22,7 @@ func upgrade_card(upgrade_card: Dictionary) -> void:
 	var _connect: int = UpgradeCard.request_completed.connect(_onUpgradeCard_request_completed)
 	BKMRLogger.info("Calling BKMREngine to buy a card")
 	
-	var payload: Dictionary = upgrade_card
+	var payload: Dictionary = upgrade_cards
 	BKMRLogger.debug("Validate buy card payload: " + str(payload))
 
 	var request_url: String = host + "/api/upgrade/card"
@@ -36,7 +36,7 @@ func _onUpgradeCard_request_completed(_result: int, response_code: int, headers:
 	# Process the result if the response is successful
 	if status_check:
 		# Parse the JSON response body
-		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
 		
 		# Build a result dictionary using BKMREngine utility function
 		var _bkmr_result: Dictionary = BKMREngine.build_result(json_body)

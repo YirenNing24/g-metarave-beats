@@ -274,6 +274,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="General" type="TabBar" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2/MessageTab"]
 layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="AllMessageScroll" type="ScrollContainer" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2/MessageTab/General"]
 unique_name_in_owner = true
@@ -301,6 +302,7 @@ alignment = 2
 [node name="Mutual" type="TabBar" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2/MessageTab"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="MutualMessageScroll" type="ScrollContainer" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2/MessageTab/Mutual"]
 unique_name_in_owner = true
@@ -327,6 +329,7 @@ alignment = 2
 [node name="Spaces" type="TabBar" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2/MessageTab"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 2
 
 [node name="CloseButton" type="TextureButton" parent="."]
 layout_mode = 1
