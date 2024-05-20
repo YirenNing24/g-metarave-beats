@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bye8que6kukfh"]
+
+[ext_resource type="FontFile" uid="uid://cak36l0bes2dv" path="res://UITextures/Fonts/argentum-sans.medium.ttf" id="1_obuhx"]
+
+[node name="TriviaLabel" type="Label"]
+custom_minimum_size = Vector2(104, 0)
+size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("1_obuhx")
+theme_override_font_sizes/font_size = 14
+text = "Hannah is from Seoul, South Korea."
+vertical_alignment = 2
+autowrap_mode = 2

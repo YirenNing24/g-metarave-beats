@@ -5,8 +5,8 @@
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="2_2a16y"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="3_2y4bk"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="4_a3fcm"]
-[ext_resource type="Texture2D" uid="uid://ch5h1o82gkllb" path="res://UITextures/Cards/nizz_no_doubt_star.png" id="5_hg32k"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="7_mpojd"]
+[ext_resource type="PackedScene" uid="uid://bkdp5d21f2370" path="res://Components/Popups/card_artist_modal.tscn" id="8_g8cga"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="8_nhdox"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xd7y0"]
@@ -104,6 +104,7 @@ anchor_right = 0.989276
 anchor_bottom = 0.974118
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 script = ExtResource("2_2a16y")
 wheel_scroll_damper = SubResource("Resource_7dqel")
@@ -137,286 +138,23 @@ text = "GENESIS LIMITED EDITION"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 50
-alignment = 1
-
-[node name="CardCollectionSlot" type="Control" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(159.36, 200)
-layout_mode = 2
-mouse_filter = 1
-
-[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot"]
-self_modulate = Color(1, 1, 1, 0.298039)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_hg32k")
-expand_mode = 1
-
-[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot/TextureRect"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.3647
-offset_right = -0.360001
-offset_bottom = -1.36472
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 1
-
-[node name="CardOwnedCount" type="Label" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot/TextureRect/Panel"]
+[node name="GenesisContainer" type="GridContainer" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme_override_font_sizes/font_size = 12
-text = "10 / 10"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TextureButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-
-[node name="CardCollectionSlot2" type="Control" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(159.36, 200)
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-mouse_filter = 1
-
-[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot2"]
-self_modulate = Color(1, 1, 1, 0.298039)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_hg32k")
-expand_mode = 1
-
-[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot2/TextureRect"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.3647
-offset_right = -0.360001
-offset_bottom = -1.36472
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 1
-
-[node name="CardOwnedCount" type="Label" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot2/TextureRect/Panel"]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme_override_font_sizes/font_size = 12
-text = "10 / 10"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TextureButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-
-[node name="CardCollectionSlot3" type="Control" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(159.36, 200)
-layout_mode = 2
-mouse_filter = 1
-
-[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot3"]
-self_modulate = Color(1, 1, 1, 0.298039)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_hg32k")
-expand_mode = 1
-
-[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot3/TextureRect"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.3647
-offset_right = -0.360001
-offset_bottom = -1.36472
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 1
-
-[node name="CardOwnedCount" type="Label" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot3/TextureRect/Panel"]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme_override_font_sizes/font_size = 12
-text = "10 / 10"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TextureButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot3"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-
-[node name="CardCollectionSlot4" type="Control" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(159.36, 200)
-layout_mode = 2
-mouse_filter = 1
-
-[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot4"]
-self_modulate = Color(1, 1, 1, 0.298039)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_hg32k")
-expand_mode = 1
-
-[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot4/TextureRect"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.3647
-offset_right = -0.360001
-offset_bottom = -1.36472
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 1
-
-[node name="CardOwnedCount" type="Label" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot4/TextureRect/Panel"]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme_override_font_sizes/font_size = 12
-text = "10 / 10"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TextureButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot4"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-
-[node name="CardCollectionSlot5" type="Control" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(159.36, 200)
-layout_mode = 2
-mouse_filter = 1
-
-[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot5"]
-self_modulate = Color(1, 1, 1, 0.298039)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_hg32k")
-expand_mode = 1
-
-[node name="Panel" type="Panel" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot5/TextureRect"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.3647
-offset_right = -0.360001
-offset_bottom = -1.36472
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 1
-
-[node name="CardOwnedCount" type="Label" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot5/TextureRect/Panel"]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme_override_font_sizes/font_size = 12
-text = "10 / 10"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TextureButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer/Panel/Panel/SmoothScrollContainer/VBoxContainer/HBoxContainer/CardCollectionSlot5"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
+theme_override_constants/h_separation = 65
+columns = 5
 
 [node name="CloseButton" type="TextureButton" parent="BackgroundTexture"]
 auto_translate_mode = 1
+layout_mode = 0
 size_flags_horizontal = 3
 texture_normal = ExtResource("7_mpojd")
 texture_hover = ExtResource("8_nhdox")
+
+[node name="CardArtistModal" parent="." instance=ExtResource("8_g8cga")]
+visible = false
+z_index = 1
+layout_mode = 1
 
 [connection signal="pressed" from="BackgroundTexture/CloseButton" to="." method="_on_close_button_pressed"]

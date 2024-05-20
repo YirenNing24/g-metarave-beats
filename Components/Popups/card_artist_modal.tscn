@@ -1,16 +1,37 @@
-[gd_scene load_steps=10 format=3 uid="uid://bkdp5d21f2370"]
+[gd_scene load_steps=19 format=3 uid="uid://bkdp5d21f2370"]
 
 [ext_resource type="Script" path="res://Components/Popups/card_artist_modal.gd" id="1_f064n"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="1_ucaxk"]
-[ext_resource type="Texture2D" uid="uid://di5t54yupxijp" path="res://UITextures/CardArtistTextures/card_artist_hero.png" id="2_5svcr"]
+[ext_resource type="Texture2D" uid="uid://brw2ow36nw41d" path="res://UITextures/CardArtistTextures/hannah_card_artist_hero.png" id="3_h3bii"]
 [ext_resource type="Texture2D" uid="uid://71ok60rxtq74" path="res://UITextures/Popups/info_panel.png" id="3_x8uou"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="4_i4r0j"]
 [ext_resource type="FontFile" uid="uid://cak36l0bes2dv" path="res://UITextures/Fonts/argentum-sans.medium.ttf" id="5_7holh"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="6_e6ba2"]
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="7_ro303"]
+[ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="9_mdwmf"]
+[ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="10_02v3c"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="11_limcq"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="12_dpqnw"]
+[ext_resource type="Texture2D" uid="uid://cfqt007qf2ge6" path="res://UITextures/PanelElements/reward_panel.png" id="13_4i3pl"]
+[ext_resource type="Texture2D" uid="uid://mwrbk6jlyh12" path="res://UITextures/RewardTextures/hannah_ownership.png" id="14_yy6dh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0nnd"]
 bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8h4cx"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_2fiee"]
+script = ExtResource("12_dpqnw")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="Resource" id="Resource_d7ay1"]
+script = ExtResource("12_dpqnw")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
 
 [node name="CardArtistModal" type="Control"]
 layout_mode = 3
@@ -67,7 +88,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 500)
 layout_mode = 2
 size_flags_vertical = 10
-texture = ExtResource("2_5svcr")
+texture = ExtResource("3_h3bii")
 expand_mode = 1
 stretch_mode = 5
 
@@ -161,7 +182,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="StageName" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
@@ -169,7 +191,8 @@ theme_override_font_sizes/font_size = 14
 text = "Hannah"
 vertical_alignment = 2
 
-[node name="Label2" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="BirthName" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
@@ -177,7 +200,8 @@ theme_override_font_sizes/font_size = 14
 text = "Kang Minkyung"
 vertical_alignment = 2
 
-[node name="Label3" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="Position" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
@@ -185,7 +209,8 @@ theme_override_font_sizes/font_size = 14
 text = "Vocalist, Rapper"
 vertical_alignment = 2
 
-[node name="Label4" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="Birthday" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
@@ -216,7 +241,7 @@ custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
 theme_override_font_sizes/font_size = 14
-text = "Weight:"
+text = "Zodiac:"
 vertical_alignment = 2
 
 [node name="Label3" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/VBoxContainer"]
@@ -240,7 +265,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/VBoxContainer2"]
+[node name="Height" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/VBoxContainer2"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
@@ -248,7 +274,8 @@ theme_override_font_sizes/font_size = 14
 text = "5'4"
 vertical_alignment = 2
 
-[node name="Label2" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/VBoxContainer2"]
+[node name="Zodiac" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/VBoxContainer2"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
@@ -256,7 +283,8 @@ theme_override_font_sizes/font_size = 14
 text = "N/A"
 vertical_alignment = 2
 
-[node name="Label3" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/VBoxContainer2"]
+[node name="BloodType" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/VBoxContainer2"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
@@ -264,7 +292,8 @@ theme_override_font_sizes/font_size = 14
 text = "A"
 vertical_alignment = 2
 
-[node name="Label4" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/VBoxContainer2"]
+[node name="Nationality" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/VBoxContainer2"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
@@ -274,7 +303,7 @@ vertical_alignment = 2
 
 [node name="CardName2" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_i4r0j")
 theme_override_font_sizes/font_size = 20
@@ -283,42 +312,19 @@ vertical_alignment = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 220)
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/ScrollContainer"]
+[node name="TriviaContainer" type="VBoxContainer" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Label" type="Label" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(104, 0)
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("5_7holh")
-theme_override_font_sizes/font_size = 14
-text = "– Hannah is from Seoul, South Korea.
-– She joined the group on July 8, 2023.
-– Her nickname is Minky.
-– If she was stranded on an island and had to take 1 object and 1 member, she would choose Nova because she’s not afraid of insects, so whenever she encounters one, she can call Nova.
-– Hannah was a member of YOURS.
-– A couple of her favorite colors are green, pink, black, and yellow.
-– If she could choose a super power, she would choose teleportation.
-– She attended School of Performing Arts Seoul.
-– Her lucky number is 7.
-– Hannah’s favorite food is fruit.
-– Some of her hobbies are exercising, listening to music, and dancing.
-– She took vocal/dance classes at Pick Planet Academy.
-– Hannah passed the final audition for ESCROW Entertainment on May 29, 2023.
-– If she could collaborate with anyone, she would collaborate with The Weeknd.
-– When asked what food she would pick to eat for the rest of her life and only that, she picked Greek yogurt."
-vertical_alignment = 2
-autowrap_mode = 2
+theme_override_constants/separation = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="TextureButton2" type="TextureButton" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -343,7 +349,7 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
 theme_override_fonts/font = ExtResource("7_ro303")
 theme_override_font_sizes/font_size = 14
-text = "Check Badges"
+text = "Achievements"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -373,3 +379,120 @@ theme_override_font_sizes/font_size = 14
 text = "Claim Rewards"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="CloseButton" type="TextureButton" parent="BackgroundTexture"]
+auto_translate_mode = 1
+layout_mode = 0
+size_flags_horizontal = 3
+texture_normal = ExtResource("9_mdwmf")
+texture_hover = ExtResource("10_02v3c")
+
+[node name="RewardsPanel" type="Panel" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="RewardsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 481.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8h4cx")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="RewardsPanel/Panel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -717.0
+offset_top = -267.0
+offset_bottom = 270.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="RewardsPanel/Panel/VBoxContainer2"]
+self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_x8uou")
+flip_h = true
+
+[node name="SmoothScrollContainer" type="ScrollContainer" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect"]
+custom_minimum_size = Vector2(632, 466)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -327.0
+offset_top = -231.0
+offset_right = 305.0
+offset_bottom = 235.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("11_limcq")
+wheel_scroll_damper = SubResource("Resource_2fiee")
+dragging_scroll_damper = SubResource("Resource_d7ay1")
+allow_horizontal_scroll = false
+
+[node name="GridContainer" type="GridContainer" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 3
+
+[node name="Control" type="Control" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(207, 60)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="TextureRect" type="TextureRect" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/GridContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_4i3pl")
+expand_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/GridContainer/Control/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0193237
+anchor_top = 0.0666667
+anchor_right = 0.985507
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/GridContainer/Control/TextureRect/HBoxContainer"]
+custom_minimum_size = Vector2(51, 0)
+layout_mode = 2
+texture = ExtResource("14_yy6dh")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/GridContainer/Control/TextureRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 1
+
+[connection signal="pressed" from="BackgroundTexture/CloseButton" to="." method="_on_close_button_pressed"]

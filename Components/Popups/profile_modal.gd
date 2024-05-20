@@ -24,10 +24,10 @@ func _ready() -> void:
 	# Display player statistics
 	stat_display()
 	load_plugin()
-	
 	#It connects the logout complete signal to the _on_Logout_Complete function for handling logout events.
 	BKMREngine.Auth.bkmr_logout_complete.connect(_on_logout_complete)
 	BKMREngine.Profile.open_profile_pic_complete.connect(_on_get_profile_pic_complete)
+	BKMREngine.Reward.get_available_card_reward()
 	
 #region UI Functions
 # Display player statistics.

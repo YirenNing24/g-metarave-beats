@@ -187,7 +187,7 @@ func save_preference(preferences_data: Dictionary) -> void:
 	
 	# Set the payload and request URL for updating stat points.
 	var payload: Dictionary = preferences_data
-	var request_url: String = host + "/api/profile/preference"
+	var request_url: String = host + "/api/profile/preference/save"
 	
 	# Send the POST request to update stat points on the server.
 	BKMREngine.send_post_request(SavePreference, request_url, payload)

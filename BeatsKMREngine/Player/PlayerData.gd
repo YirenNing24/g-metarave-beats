@@ -19,11 +19,19 @@ var stat_points: int
 var stat_points_saved: Dictionary
 
 var inventory_size: int 
-# Function called when the node is ready.
+var card_reward: Array
+
+
+
+
 func _ready() -> void:
 	BKMREngine.Auth.bkmr_login_complete.connect(populate_player_data)
 	BKMREngine.Auth.bkmr_session_check_complete.connect(populate_player_data)
 	BKMREngine.Auth.bkmr_google_login_complete.connect(populate_player_data)
+	BKMREngine.Reward.get_available_card_reward_completed.connect(_on_get_available_card_reward)
+
+func _on_get_available_card_reward(reward_data: Array) -> void:
+	card_reward = reward_data
 
 func populate_player_data(data: Dictionary) -> void:
 	if !data.is_empty():

@@ -14,6 +14,7 @@ func _ready() -> void:
 	connect_signal() 
 	BKMREngine.Profile.get_card_count()
 	BKMREngine.Profile.get_card_collection()
+
 	
 func connect_signal() -> void:
 	BKMREngine.Profile.card_count_get_complete.connect(_on_get_card_count_complete)
@@ -42,8 +43,8 @@ func _on_get_card_count_complete(card_count_data: Dictionary) -> void:
 		group_grid.add_child(group_collection)
 		
 func _on_open_collection_button_pressed(group: String) -> void:
-	card_collection_modal.load_cards(group, card_collection)
-		
+	card_collection_modal.load_card_collection(group, card_collection)
+
 func _input(event: InputEvent) -> void:
 	# Handle screen touch events.
 	if event is InputEventScreenTouch:
