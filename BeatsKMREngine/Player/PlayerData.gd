@@ -19,18 +19,15 @@ var stat_points: int
 var stat_points_saved: Dictionary
 
 var inventory_size: int 
-var card_reward: Array
-
-
-
+var card_reward: Dictionary
 
 func _ready() -> void:
+	BKMREngine.Reward.get_available_card_reward_completed.connect(_on_get_available_card_reward)
 	BKMREngine.Auth.bkmr_login_complete.connect(populate_player_data)
 	BKMREngine.Auth.bkmr_session_check_complete.connect(populate_player_data)
 	BKMREngine.Auth.bkmr_google_login_complete.connect(populate_player_data)
-	BKMREngine.Reward.get_available_card_reward_completed.connect(_on_get_available_card_reward)
-
-func _on_get_available_card_reward(reward_data: Array) -> void:
+	
+func _on_get_available_card_reward(reward_data: Dictionary) -> void:
 	card_reward = reward_data
 
 func populate_player_data(data: Dictionary) -> void:

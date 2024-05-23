@@ -1,9 +1,9 @@
 extends Control
 
+
 var trivia_label_scene: PackedScene = preload("res://Components/MyProfile/trivia_label.tscn")
 
 @onready var trivia_container: VBoxContainer = %TriviaContainer
-
 @onready var card_name: Label = %CardName
 @onready var birth_name: Label = %BirthName
 @onready var member_position: Label = %Position
@@ -13,9 +13,24 @@ var trivia_label_scene: PackedScene = preload("res://Components/MyProfile/trivia
 @onready var blood_type: Label = %BloodType
 @onready var nationality: Label = %Nationality
 
+@onready var rewards_panel: Panel = %RewardsPanel
+@onready var rewards_container: GridContainer = %RewardsContainer
 
+@onready var idol_hero_image: TextureRect = %IdolHeroImage
+
+var original_card_name: String
+var zodiac_card: String
+
+func _ready() -> void:
+	connect_signal()
+	
 func card_data(data: Dictionary) -> void:
 	display_artist_data(data)
+	set_claimable_rewards()
+	set_horoscope_reward() 
+
+func connect_signal() -> void:
+	BKMREngine.Reward.claim_card_ownership_reward_completed.connect(_on_claim_card_ownership_reward_completed)
 
 func _on_close_button_pressed() -> void:
 	visible = false
@@ -28,6 +43,9 @@ func display_artist_data(data: Dictionary) -> void:
 	var card_artist_trivia: Dictionary = data.card.trivia
 	display_artist_trivia(card_artist_trivia)
 	
+	original_card_name = data.name
+	
+	
 	card_name.text =  card_artist_data.artist + " - " +  card_artist_data.group
 	birth_name.text = card_artist_data.birthName
 	birthday.text = card_artist_data.birthday
@@ -36,10 +54,80 @@ func display_artist_data(data: Dictionary) -> void:
 	blood_type.text = card_artist_data.bloodType
 	nationality.text = card_artist_data.nationality
 	
+	var artist_texture_name: String = card_artist_data.artist.to_lower() + "_card_artist_hero.png"
+	var artist_texture: Texture = load("res://UITextures/CardArtistTextures/" + artist_texture_name)
+	idol_hero_image.texture = artist_texture
+	
+	for icons: TextureRect in get_tree().get_nodes_in_group("RewardIcon"):
+		var icon_texture_name: String = card_artist_data.artist.to_lower() +"_ownership.png"
+		var icon_texture: Texture = load("res://UITextures/RewardTextures/" + icon_texture_name)
+		icons.texture = icon_texture
+		
+	%RewardDescription.text = original_card_name
+	%RewardDescription2.text = "Born under " + card_artist_data.zodiac.capitalize()
+	
 func display_artist_trivia(trivias: Dictionary) -> void:
 	var trivia_label: Label 
 	for trivia: String in trivias.keys():
 		trivia_label = trivia_label_scene.instantiate()
 		trivia_label.text = "- " + trivias[trivia]
-	
 		trivia_container.add_child(trivia_label)
+
+func _on_close_rewards_panel_button_pressed() -> void:
+	if rewards_panel.visible:
+		rewards_panel.visible = false
+
+func _on_claim_rewards_button_pressed() -> void:
+	if !rewards_panel.visible:
+		rewards_panel.visible = true
+
+func set_claimable_rewards() -> void:
+	var ownership_card_reward_list: Array = PLAYER.card_reward.cards
+	var claimed_ownership: Array = PLAYER.card_reward.soul.ownership
+	var is_claimable: bool = false
+	
+	# Check if the card is in the ownership reward list
+	for card_names: Dictionary in ownership_card_reward_list:
+		if card_names.name == original_card_name:
+			is_claimable = true
+			%OwnershipReward.modulate = "ffffff"
+			break
+	
+	# Check if the card is already claimed
+	if is_claimable:
+		for names: String in claimed_ownership:
+			if name == original_card_name:
+				is_claimable = false
+				%OwnershipReward.modulate = "ffffff42"
+				break
+	else:
+		%OwnershipReward.modulate = "ffffff42"
+		
+	# Set the button state based on the checks
+	%OwnershipButton.disabled = not is_claimable
+
+	# Connect the button press signal if it's enabled
+	if is_claimable:
+		%OwnershipButton.pressed.connect(_on_ownership_button_pressed)
+	else:
+		%OwnershipButton.disabled = true
+
+func set_horoscope_reward() -> void:
+	var card_artist_zodiac: String = zodiac.text
+	var player_zodiac: String = PLAYER.card_reward.soul.horoscope
+	if card_artist_zodiac == player_zodiac:
+		%ZodiacButton.disabled = false
+		%ZodiacReward.modulate = "ffffff"
+	else: 
+		%ZodiacButton.disabled = true
+		%ZodiacReward.modulate = "ffffff42"
+
+func _on_ownership_button_pressed() -> void:
+	BKMREngine.Reward.claim_card_ownership_reward(original_card_name)
+	$FilterPanel.fake_loader()
+
+func _on_claim_card_ownership_reward_completed(message: Dictionary) -> void:
+	if message.success:
+		%OwnershipReward.modulate = "ffffff42"
+		%OwnershipButton.disabled = true
+	$FilterPanel.tween_kill()

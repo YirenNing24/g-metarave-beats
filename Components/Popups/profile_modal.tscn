@@ -296,6 +296,7 @@ size_flags_vertical = 3
 theme_override_constants/separation = 0
 
 [node name="Panel" type="Panel" parent="Panel/VBoxContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ib3y8")
@@ -339,7 +340,16 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_fonts/font = ExtResource("4_tyy1t")
 theme_override_font_sizes/font_size = 12
-text = "You acquired a new badge!"
+text = "YOUR BADGES"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="BadgeContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

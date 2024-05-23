@@ -9,7 +9,6 @@ var card_collection_slot_scene: PackedScene = preload("res://Components/MyProfil
 @onready var genesis_container: GridContainer = %GenesisContainer
 
 
-
 func load_card_collection(group: String, card_collection: Array) -> void:
 	var card_collection_slot: Control
 	var group_name: String = group.to_lower().replace(":", "_").replace(" ", "_")

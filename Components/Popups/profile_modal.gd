@@ -1,5 +1,10 @@
 extends Control
 
+#a8923e
+#e23be1
+
+var badge_scene: PackedScene = preload("res://Components/MyProfile/badge.tscn")
+
 # Player UI elements
 @onready var player_name: Label =  %PlayerName
 @onready var level: Label = %Level
@@ -9,6 +14,7 @@ extends Control
 @onready var profile_pic: TextureRect = %ProfilePic
 @onready var dp_option_panel: Panel = %DPOptionPanel
 @onready var dp_panel: Panel = %DPPanel
+@onready var badge_container: HBoxContainer = %BadgeContainer
 
 # Modals
 @onready var view_picture: Control = %ViewPicture
@@ -21,12 +27,15 @@ var is_upload: bool = false
 
 # Initialization function called when the node is ready.
 func _ready() -> void:
-	# Display player statistics
+	signal_connect()
 	stat_display()
 	load_plugin()
+	
+func signal_connect() -> void:
 	#It connects the logout complete signal to the _on_Logout_Complete function for handling logout events.
 	BKMREngine.Auth.bkmr_logout_complete.connect(_on_logout_complete)
 	BKMREngine.Profile.open_profile_pic_complete.connect(_on_get_profile_pic_complete)
+	BKMREngine.Profile.preference_get_complete.connect(_on_get_preference_complete)
 	BKMREngine.Reward.get_available_card_reward()
 	
 #region UI Functions
@@ -40,10 +49,12 @@ func stat_display() -> void:
 # Handle visibility change.
 func _on_visibility_changed() -> void:
 	if visible:
+		BKMREngine.Profile.get_soul()
 		if is_upload == false:
 			BKMREngine.Profile.get_profile_pic()
 		animation_player.play("fade-in")
-		
+		return
+	
 # Handle logout button press.
 func _on_logout_button_pressed() -> void:
 	# Logout the player and quit the game
@@ -150,12 +161,24 @@ func _on_dp_panel_gui_input(event: InputEvent) -> void:
 			animation_player.play_backwards('dp_options')
 #endregion
 
-
 #region View Pictuer callback
 func _on_view_picture_view_picture_close() -> void:
 	visible = true
 
-
 func _on_my_profile_button_pressed() -> void:
 	# Load the main inventory scene asynchronously
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/my_profile.tscn")
+
+func _on_get_preference_complete(soul_data: Dictionary) -> void:
+	for badge: Control in badge_container.get_children():
+		badge.queue_free()
+		
+	var badge_created: bool = false
+	var soul_data_ownership: Array = soul_data.ownership
+	for card: String in soul_data_ownership:
+		if "No Doubt" in card and not badge_created:
+			var badge: Control = badge_scene.instantiate()
+			badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x_in_owner_badge.png")
+			badge_container.add_child(badge)
+			badge_created = true  # Set the flag to true to indicate a badge has been created
+			break  # Exit the loop since we only need one badge

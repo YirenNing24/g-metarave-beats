@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://cooapyul7v24o"]
+
+[ext_resource type="Texture2D" uid="uid://c6fmgh1ccugst" path="res://UITextures/BadgeTextures/x_in_capricorn.png" id="1_s3ja7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c8ipn"]
+bg_color = Color(0.887782, 0.233323, 0.883842, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Badge" type="Control"]
+custom_minimum_size = Vector2(74, 0)
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c8ipn")
+
+[node name="BadgeIcon" type="TextureRect" parent="Panel"]
+custom_minimum_size = Vector2(57, 57)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.5
+offset_top = -29.5
+offset_right = 28.5
+offset_bottom = 29.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_s3ja7")
+expand_mode = 1
