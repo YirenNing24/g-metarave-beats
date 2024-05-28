@@ -21,41 +21,47 @@ var artist: String = SONG.artist
 var difficulty: String = SONG.difficulty
 
 # Called when the node enters the scene tree for the first time.
-#func _ready() -> void:
-	#display_score()
-	#save_score_classic()
-	#
-#func display_score() -> void:
-	## VALUE STATS
-	#score_label.text = format_scores(str(final_stats.score))
-	#combo_label.text = format_scores(str(final_stats.combo))
-	#max_combo_label.text = format_scores(str(final_stats.max_combo))
-	#
-	#var rounded_accuracy: float = snapped(final_stats.accuracy, 0.01)
-	#accuracy_label.text = (str(rounded_accuracy) + "%")
-	#
-	#if !final_stats.finished:
-		#finished_label.text = "TRY AGAIN!"
-		#
-	##NOTES STATS
-	#k_perfect_label.text = format_scores(str(note_stats.perfect))
-	#very_good_label.text = format_scores(str(note_stats.very_good))
-	#good_label.text = format_scores(str(note_stats.good))
-	#bad_label.text = format_scores(str(note_stats.bad))
-	#miss_label.text = format_scores(str(note_stats.miss))
-
-func save_score_classic() -> void:
-	var highscore: bool = is_highscore()
-	var classic_score_stats: Dictionary = {
-		difficulty = SONG.difficulty,
-		score = final_stats.score,
-		highscore = highscore,
-		finalStats = final_stats,
-		note_stats = note_stats
-	}
+func _ready() -> void:
+	display_score()
 	
+func display_score() -> void:
+	## VALUE STATS
+	score_label.text = format_scores(str(final_stats.score))
+	combo_label.text = format_scores(str(final_stats.combo))
+	max_combo_label.text = format_scores(str(final_stats.max_combo))
+	
+	var rounded_accuracy: float = snapped(final_stats.accuracy, 0.01)
+	accuracy_label.text = (str(rounded_accuracy) + "%")
+	
+	if !final_stats.finished:
+		finished_label.text = "TRY AGAIN!"
+		
+	#NOTES STATS
+	k_perfect_label.text = format_scores(str(note_stats.perfect))
+	very_good_label.text = format_scores(str(note_stats.very_good))
+	good_label.text = format_scores(str(note_stats.good))
+	bad_label.text = format_scores(str(note_stats.bad))
+	miss_label.text = format_scores(str(note_stats.miss))
+	save_score_classic()
+	
+func save_score_classic() -> void:
+	var classic_score_stats: Dictionary = {
+		"difficulty": SONG.difficulty,
+		"score":final_stats.score,
+		"combo": final_stats.combo,
+		"maxCombo":  final_stats.max_combo,
+		"accuracy":  final_stats.accuracy,
+		"finished":  final_stats.finished,
+		"songName":  final_stats.songName,
+		"artist": SONG.artist,
+		"perfect":  note_stats.perfect,
+		"veryGood":  note_stats.very_good,
+		"good":  note_stats.good,
+		"bad":  note_stats.bad,
+		"miss":  note_stats.miss
+	}
 	BKMREngine.Score.save_classic_high_score(classic_score_stats)
-
+	
 func is_highscore() -> bool:
 	if BKMREngine.Score.classic_scores == []:
 		return true

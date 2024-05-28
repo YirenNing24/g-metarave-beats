@@ -19,26 +19,18 @@ var wrSaveClassicHighScore: WeakRef
 var classic_scores: Array
 
 
-func save_classic_high_score(classic_score_stats: Dictionary) -> Node:
-	# Prepare an HTTP request for fetching private inbox data.
+func save_classic_high_score(classic_score_stats: Dictionary) -> void:
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	SaveClassicHighScore = prepared_http_req.request
 	wrSaveClassicHighScore  = prepared_http_req.weakref
 	
-	# Connect the callback function to handle the completion of the private inbox data request.
 	var _connect: int = SaveClassicHighScore.request_completed.connect(_on_SaveClassicHighScore_request_completed)
 	
-	# Log the initiation of the request to retrieve inbox messages.
-	BKMRLogger.info("Calling BKMREngine to get card inventory data")
-	
-	# Construct the request URL for fetching private inbox data for the specified user.
 	var request_url: String = host + "/api/save/score/classic"
 	var payload: Dictionary = classic_score_stats
-	# Send a GET request to retrieve the private inbox data.
-	await BKMREngine.send_post_request(SaveClassicHighScore, request_url, payload)
 	
-	# Return the current node for method chaining.
-	return self as Node
+	BKMREngine.send_post_request(SaveClassicHighScore, request_url, payload)
+
 
 func _on_SaveClassicHighScore_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.

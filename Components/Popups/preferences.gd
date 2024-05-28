@@ -68,9 +68,7 @@ func _on_save_button_pressed() -> void:
 
 func _on_preference_get_complete(preference_data: Dictionary) -> void:
 	for preference_key: String in preference_data.keys():
-		if preference_key != "ownership":
-			print("keyyy", preference_key)
-			print("Dataaaa: ", preference_data)
+		if preference_key != "ownership" and preference_key != "horoscopeMatch" and preference_key != "animalMatch":
 			var preference_value: String = preference_data[preference_key]
 			for check_box: CheckBox in get_tree().get_nodes_in_group("Preferences"):
 				if check_box.text == preference_value:
@@ -78,5 +76,4 @@ func _on_preference_get_complete(preference_data: Dictionary) -> void:
 			animals_selection()
 			horoscope_selection()
 			genres_selection()
-	
 

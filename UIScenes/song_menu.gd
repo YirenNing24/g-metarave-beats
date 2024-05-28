@@ -27,11 +27,11 @@ var difficulty_mode: String = "easy" #default
 # Ready function called when the node and its children are added to the scene.
 func _ready() -> void:
 	# Initialize and set up the UI elements, connect signals.
-	BKMREngine.Score.get_classic_highscore_complete.connect(on_get_classic_high_score_complete)
+
 	parse_song_files()
 	list_songs()
 	hud_data()
-	get_classic_high_score()
+	#get_classic_high_score()
 	
 	left_difficulty_button.disabled = true
 	left_difficulty_button.modulate = "ffffff68"
@@ -44,8 +44,8 @@ func on_get_classic_high_score_complete(high_scores: Array) -> void:
 				var formatted_high_score: String = format_scores(high_score)
 				song.get_node("HBoxContainer2/HBoxContainer/HighScoreLabel").text = formatted_high_score
 				
-func get_classic_high_score() -> void:
-	BKMREngine.Score.get_classic_high_score()
+#func get_classic_high_score() -> void:
+	#BKMREngine.Score.get_classic_high_score()
 
 # Initialize HUD data, such as energy, beats, and kmr balances.
 func hud_data() -> void:

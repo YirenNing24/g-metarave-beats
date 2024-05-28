@@ -152,7 +152,7 @@ size_flags_vertical = 0
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "Stage Name:"
 vertical_alignment = 2
 
@@ -160,7 +160,7 @@ vertical_alignment = 2
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "Birth Name:"
 vertical_alignment = 2
 
@@ -168,7 +168,7 @@ vertical_alignment = 2
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "Position:"
 vertical_alignment = 2
 
@@ -176,7 +176,7 @@ vertical_alignment = 2
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "Birthday :"
 vertical_alignment = 2
 
@@ -190,7 +190,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "Hannah"
 vertical_alignment = 2
 
@@ -199,7 +199,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "Kang Minkyung"
 vertical_alignment = 2
 
@@ -208,7 +208,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "Vocalist, Rapper"
 vertical_alignment = 2
 
@@ -217,7 +217,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "January 4, 2003"
 vertical_alignment = 2
 
@@ -235,7 +235,7 @@ size_flags_vertical = 0
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "Height:"
 vertical_alignment = 2
 
@@ -243,7 +243,7 @@ vertical_alignment = 2
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "Zodiac:"
 vertical_alignment = 2
 
@@ -251,7 +251,7 @@ vertical_alignment = 2
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "Blood Type:"
 vertical_alignment = 2
 
@@ -259,7 +259,7 @@ vertical_alignment = 2
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "Nationality:"
 vertical_alignment = 2
 
@@ -273,7 +273,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "5'4"
 vertical_alignment = 2
 
@@ -282,7 +282,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "N/A"
 vertical_alignment = 2
 
@@ -291,7 +291,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "A"
 vertical_alignment = 2
 
@@ -300,7 +300,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_7holh")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "Korean"
 vertical_alignment = 2
 
@@ -392,7 +392,6 @@ texture_hover = ExtResource("10_02v3c")
 
 [node name="RewardsPanel" type="Panel" parent="."]
 unique_name_in_owner = true
-visible = false
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -441,10 +440,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -327.0
-offset_top = -231.0
-offset_right = 305.0
-offset_bottom = 235.0
+offset_left = -327.5
+offset_top = -230.5
+offset_right = 305.5
+offset_bottom = 235.5
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
@@ -632,6 +631,95 @@ text = "250"
 vertical_alignment = 1
 
 [node name="ZodiacButton" type="TextureButton" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/RewardsContainer/ZodiacReward"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="CommonAnimalReward" type="Control" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/RewardsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(207, 60)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="TextureRect" type="TextureRect" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/RewardsContainer/CommonAnimalReward"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_4i3pl")
+expand_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/RewardsContainer/CommonAnimalReward/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0241546
+anchor_top = 0.0833333
+anchor_right = 0.990338
+anchor_bottom = 0.966667
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 7
+metadata/_edit_use_anchors_ = true
+
+[node name="RewardIcon" type="TextureRect" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/RewardsContainer/CommonAnimalReward/TextureRect/HBoxContainer" groups=["RewardIcon"]]
+custom_minimum_size = Vector2(51, 0)
+layout_mode = 2
+texture = ExtResource("14_yy6dh")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/RewardsContainer/CommonAnimalReward/TextureRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 1
+
+[node name="RewardName" type="Label" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/RewardsContainer/CommonAnimalReward/TextureRect/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
+theme_override_fonts/font = ExtResource("7_ro303")
+theme_override_font_sizes/font_size = 12
+text = "Favorite Animal"
+vertical_alignment = 1
+
+[node name="RewardDescription3" type="Label" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/RewardsContainer/CommonAnimalReward/TextureRect/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
+theme_override_fonts/font = ExtResource("7_ro303")
+theme_override_font_sizes/font_size = 9
+text = "Cat lover"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/RewardsContainer/CommonAnimalReward/TextureRect/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/RewardsContainer/CommonAnimalReward/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_vertical = 0
+texture = ExtResource("16_51ai8")
+expand_mode = 1
+
+[node name="RewardAmount" type="Label" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/RewardsContainer/CommonAnimalReward/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
+theme_override_fonts/font = ExtResource("7_ro303")
+theme_override_font_sizes/font_size = 15
+text = "350"
+vertical_alignment = 1
+
+[node name="AnimalButton" type="TextureButton" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/RewardsContainer/CommonAnimalReward"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15

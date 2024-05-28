@@ -128,7 +128,7 @@ func prepare_http_request() -> Dictionary:
 		"request": request, 
 		"weakref": weak_ref
 	}
-	return return_dict
+	return return_dict as Dictionary
 
 # Sends a GET request using the provided HTTPRequest object to the specified URL.
 func send_get_request(http_node: HTTPRequest, request_url: String) -> void:
@@ -147,8 +147,6 @@ func send_get_request(http_node: HTTPRequest, request_url: String) -> void:
 	BKMRLogger.debug("headers: " + str(headers))
 	var _get_request_send: Error = http_node.request(request_url, headers, HTTPClient.METHOD_GET) 
 	
-#localhost:8081/api/social/mutual/nashar2
-
 # Sends a POST request using the provided HTTPRequest object to the specified URL with the given payload.
 func send_post_request(http_node: HTTPRequest, request_url: String, payload: Variant) -> void:
 	var headers: Array = [

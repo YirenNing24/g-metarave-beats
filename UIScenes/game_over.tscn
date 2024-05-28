@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="6_ovqjx"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="8_03vso"]
 [ext_resource type="Texture2D" uid="uid://c7qlt18wu7138" path="res://UITextures/BGTextures/dark_panel.png" id="9_2s2i2"]
-[ext_resource type="FontFile" uid="uid://c18nds4rmo5gg" path="res://UITextures/Fonts/SofaChromeItalic.otf" id="10_bscnk"]
+[ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="10_bscnk"]
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="10_xfc4x"]
 [ext_resource type="Texture2D" uid="uid://dmxpmc3ckn6tt" path="res://UITextures/GameTextures/kperfect.png" id="12_loamo"]
 [ext_resource type="Texture2D" uid="uid://do8jreuy76wp2" path="res://UITextures/GameTextures/verygood.png" id="13_2yhbe"]

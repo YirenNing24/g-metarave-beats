@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c6fmgh1ccugst" path="res://UITextures/BadgeTextures/x_in_capricorn.png" id="1_s3ja7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c8ipn"]
-bg_color = Color(0.887782, 0.233323, 0.883842, 1)
+bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10

@@ -16,6 +16,15 @@ var ClaimCardOwnershipReward: HTTPRequest
 var wrClaimCardOwnershipReward: WeakRef
 signal claim_card_ownership_reward_completed(message: Dictionary)
 
+
+var ClaimHoroscopeMatchReward: HTTPRequest
+var wrClaimHoroscopeMatchReward: WeakRef
+signal claim_horoscope_match_reward_completed(message: Dictionary)
+
+var ClaimAnimalMatchReward: HTTPRequest
+var wrClaimAnimalMatchReward: WeakRef
+signal claim_animal_match_reward_completed(message: Dictionary)
+
 func get_available_card_reward() -> void:
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	GetAvailableCardReward = prepared_http_req.request
@@ -72,3 +81,59 @@ func _on_ClaimCardOwnerShipReward_request_completed(_result: int, response_code:
 			claim_card_ownership_reward_completed.emit(json_body)
 	else:
 		claim_card_ownership_reward_completed.emit({"Error:": "Unknown Server Error" })
+
+func claim_horoscope_match_reward(card_name: String) -> void:
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	ClaimHoroscopeMatchReward = prepared_http_req.request
+	wrClaimHoroscopeMatchReward = prepared_http_req.weakref
+
+	var _connect: int = ClaimHoroscopeMatchReward.request_completed.connect(_on_ClaimHoroscopeMatchReward_request_completed)
+	BKMRLogger.info("Calling BKMREngine to get card inventory data")
+
+	var request_url: String = host + "/api/reward/claim/zodiac"
+	var payload: Dictionary = { "name": card_name }
+	BKMREngine.send_post_request(ClaimHoroscopeMatchReward, request_url, payload)
+
+func _on_ClaimHoroscopeMatchReward_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	
+	if is_instance_valid(ClaimHoroscopeMatchReward):
+		BKMREngine.free_request(wrClaimHoroscopeMatchReward, ClaimHoroscopeMatchReward)
+	
+	if status_check:
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body.has("error"):
+			BKMRLogger.info(json_body.error)
+			claim_horoscope_match_reward_completed.emit(json_body.error)
+		else:
+			claim_horoscope_match_reward_completed.emit(json_body)
+	else:
+		claim_horoscope_match_reward_completed.emit({"Error:": "Unknown Server Error" })
+
+func claim_animal_match_reward(animal: String) -> void:
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	ClaimAnimalMatchReward = prepared_http_req.request
+	wrClaimAnimalMatchReward = prepared_http_req.weakref
+
+	var _connect: int = ClaimAnimalMatchReward.request_completed.connect(_on_ClaimAnimalMatchReward_request_completed)
+	BKMRLogger.info("Calling BKMREngine to get card inventory data")
+
+	var request_url: String = host + "/api/reward/claim/animal"
+	var payload: Dictionary = { "name": animal }
+	BKMREngine.send_post_request(ClaimAnimalMatchReward, request_url, payload)
+
+func _on_ClaimAnimalMatchReward_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	
+	if is_instance_valid(ClaimAnimalMatchReward):
+		BKMREngine.free_request(wrClaimAnimalMatchReward, ClaimAnimalMatchReward)
+	
+	if status_check:
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body.has("error"):
+			BKMRLogger.info(json_body.error)
+			claim_animal_match_reward_completed.emit(json_body.error)
+		else:
+			claim_animal_match_reward_completed.emit(json_body)
+	else:
+		claim_animal_match_reward_completed.emit({"Error:": "Unknown Server Error" })

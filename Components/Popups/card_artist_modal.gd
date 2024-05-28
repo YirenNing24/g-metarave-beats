@@ -28,10 +28,13 @@ func card_data(data: Dictionary) -> void:
 	display_artist_data(data)
 	set_claimable_rewards()
 	set_horoscope_reward() 
-
+	set_animal_reward()
+	
 func connect_signal() -> void:
 	BKMREngine.Reward.claim_card_ownership_reward_completed.connect(_on_claim_card_ownership_reward_completed)
-
+	BKMREngine.Reward.claim_horoscope_match_reward_completed.connect(_on_claim_horoscope_match_reward_completed)
+	BKMREngine.Reward.claim_animal_match_reward_completed.connect(_claim_animal_match_reward_completed)
+	
 func _on_close_button_pressed() -> void:
 	visible = false
 	for trivia: Label in trivia_container.get_children():
@@ -44,7 +47,6 @@ func display_artist_data(data: Dictionary) -> void:
 	display_artist_trivia(card_artist_trivia)
 	
 	original_card_name = data.name
-	
 	
 	card_name.text =  card_artist_data.artist + " - " +  card_artist_data.group
 	birth_name.text = card_artist_data.birthName
@@ -65,6 +67,7 @@ func display_artist_data(data: Dictionary) -> void:
 		
 	%RewardDescription.text = original_card_name
 	%RewardDescription2.text = "Born under " + card_artist_data.zodiac.capitalize()
+	%RewardDescription3.text = card_artist_data.animal.capitalize() + " lover"
 	
 func display_artist_trivia(trivias: Dictionary) -> void:
 	var trivia_label: Label 
@@ -96,7 +99,7 @@ func set_claimable_rewards() -> void:
 	# Check if the card is already claimed
 	if is_claimable:
 		for names: String in claimed_ownership:
-			if name == original_card_name:
+			if names == original_card_name:
 				is_claimable = false
 				%OwnershipReward.modulate = "ffffff42"
 				break
@@ -108,26 +111,94 @@ func set_claimable_rewards() -> void:
 
 	# Connect the button press signal if it's enabled
 	if is_claimable:
-		%OwnershipButton.pressed.connect(_on_ownership_button_pressed)
+		if !%OwnershipButton.pressed.is_connected(_on_ownership_button_pressed):
+			%OwnershipButton.pressed.connect(_on_ownership_button_pressed)
 	else:
 		%OwnershipButton.disabled = true
 
 func set_horoscope_reward() -> void:
 	var card_artist_zodiac: String = zodiac.text
 	var player_zodiac: String = PLAYER.card_reward.soul.horoscope
+	var claimed_horoscope_matches: Array = PLAYER.card_reward.soul.horoscopeMatch
+	
 	if card_artist_zodiac == player_zodiac:
 		%ZodiacButton.disabled = false
 		%ZodiacReward.modulate = "ffffff"
 	else: 
 		%ZodiacButton.disabled = true
 		%ZodiacReward.modulate = "ffffff42"
+		
+	for names: String in claimed_horoscope_matches:
+		if names == original_card_name:
+			%ZodiacButton.disabled = true
+			%ZodiacReward.modulate = "ffffff42"
+			
+	if %ZodiacButton.disabled == false:
+		%ZodiacButton.pressed.connect(_on_zodiac_button_pressed)
+
+func set_animal_reward() -> void:
+	var is_claimable: bool = false
+	var player_animals: Array = []
+	
+	var claimed_animal_reward_list: Array = PLAYER.card_reward.soul.animalMatch
+	# Collect the player's animals from the card reward
+	for key: String in ["animal1", "animal2", "animal3"]:
+		if key in PLAYER.card_reward.soul:
+			player_animals.append(PLAYER.card_reward.soul[key].to_lower().replace(" ", ""))
+			
+	var card_animal: String = %RewardDescription3.text.replace("lover", "").to_lower().replace(" ", "")
+	# Check if any of the player's animals match the card animal
+	for animal: String in player_animals:
+		if animal == card_animal:
+			is_claimable = true
+			break
+
+	# Check if the card is in the claimed animal reward list
+	for card_names: String in claimed_animal_reward_list:
+		if card_names == original_card_name:
+			is_claimable = false
+			%AnimalButton.modulate = "ffffff42"
+			break
+			
+	# Set the reward button and modulate the common animal reward
+	if is_claimable:
+		%AnimalButton.disabled = false
+		%CommonAnimalReward.modulate = Color(1, 1, 1, 1)  # Fully opaque white
+		
+		if !%AnimalButton.pressed.is_connected(_on_animal_button_pressed):
+			%AnimalButton.pressed.connect(_on_animal_button_pressed)
+	else:
+		%CommonAnimalReward.modulate = Color(1, 1, 1, 0.26)  # Semi-transparent white
+	
+	# Set the ownership button state based on the claimable status
+	%AnimalButton.disabled = not is_claimable
 
 func _on_ownership_button_pressed() -> void:
 	BKMREngine.Reward.claim_card_ownership_reward(original_card_name)
 	$FilterPanel.fake_loader()
 
+func _on_zodiac_button_pressed() -> void:
+	BKMREngine.Reward.claim_horoscope_match_reward(original_card_name)
+	$FilterPanel.fake_loader()
+	
+func _on_animal_button_pressed() -> void:
+	BKMREngine.Reward.claim_animal_match_reward(original_card_name)
+	$FilterPanel.fake_loader()
+	
 func _on_claim_card_ownership_reward_completed(message: Dictionary) -> void:
 	if message.success:
 		%OwnershipReward.modulate = "ffffff42"
 		%OwnershipButton.disabled = true
+	$FilterPanel.tween_kill()
+
+func _on_claim_horoscope_match_reward_completed(message: Dictionary) -> void:
+	if message.success:
+		%ZodiacReward.modulate = "ffffff42"
+		%ZodiacButton.disabled = true
+	$FilterPanel.tween_kill()
+	
+func _claim_animal_match_reward_completed(message: Dictionary) -> void:
+	if message.success:
+		%CommonAnimalReward.modulate = "ffffff42"
+		%AnimalButton.disabled = true
 	$FilterPanel.tween_kill()

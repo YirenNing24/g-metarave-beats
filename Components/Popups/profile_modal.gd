@@ -1,7 +1,5 @@
 extends Control
 
-#a8923e
-#e23be1
 
 var badge_scene: PackedScene = preload("res://Components/MyProfile/badge.tscn")
 
@@ -170,11 +168,16 @@ func _on_my_profile_button_pressed() -> void:
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/my_profile.tscn")
 
 func _on_get_preference_complete(soul_data: Dictionary) -> void:
+	
+	print("SOOOULLL: ", soul_data)
 	for badge: Control in badge_container.get_children():
 		badge.queue_free()
 		
 	var badge_created: bool = false
 	var soul_data_ownership: Array = soul_data.ownership
+	var soul_data_horoscope_match: Array = soul_data.horoscopeMatch
+	var soul_data_animal_match: Array = soul_data.animalMatch
+	
 	for card: String in soul_data_ownership:
 		if "No Doubt" in card and not badge_created:
 			var badge: Control = badge_scene.instantiate()
@@ -182,3 +185,21 @@ func _on_get_preference_complete(soul_data: Dictionary) -> void:
 			badge_container.add_child(badge)
 			badge_created = true  # Set the flag to true to indicate a badge has been created
 			break  # Exit the loop since we only need one badge
+	for card: String in soul_data_horoscope_match:
+		if "No Doubt" in card:
+			var badge: Control = badge_scene.instantiate()
+			badge.get_node("Panel").modulate = "a8923e"
+			badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x_in_capricorn.png")
+			badge_container.add_child(badge)
+			badge_created = true  # Set the flag to true to indicate a badge has been created
+			break  # Exit the loop since we only need one badge
+	for card: String in soul_data_animal_match:
+		if "No Doubt" in card:
+			var badge: Control = badge_scene.instantiate()
+			badge.get_node("Panel").modulate = "46ff45"
+			badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x_in_animal.png")
+			badge_container.add_child(badge)
+			badge_created = true  # Set the flag to true to indicate a badge has been created
+			break  # Exit the loop since we only need one badge
+		
+		

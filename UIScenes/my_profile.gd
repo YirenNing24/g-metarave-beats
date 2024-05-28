@@ -15,7 +15,6 @@ func _ready() -> void:
 	BKMREngine.Profile.get_card_count()
 	BKMREngine.Profile.get_card_collection()
 
-	
 func connect_signal() -> void:
 	BKMREngine.Profile.card_count_get_complete.connect(_on_get_card_count_complete)
 	BKMREngine.Profile.card_collection_get_complete.connect(_on_get_card_collection_complete)
