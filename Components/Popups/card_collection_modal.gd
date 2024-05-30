@@ -26,7 +26,6 @@ func load_card_collection(group: String, card_collection: Array) -> void:
 		card_collection_slot.set_collection_card_data(card)
 		card_collection_slot.card_collection_button_pressed.connect(_on_card_collection_slot_pressed)
 		genesis_container.add_child(card_collection_slot)
-		
 	visible = true
 
 func _on_card_collection_slot_pressed(card_data: Dictionary) -> void:

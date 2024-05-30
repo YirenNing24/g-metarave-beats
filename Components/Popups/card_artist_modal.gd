@@ -172,11 +172,20 @@ func set_animal_reward() -> void:
 	
 	# Set the ownership button state based on the claimable status
 	%AnimalButton.disabled = not is_claimable
+	set_reward_notification_active()
+
+func set_reward_notification_active() -> void:
+	for button: TextureButton in get_tree().get_nodes_in_group("ClaimRewardButton"):
+		if button.disabled == false:
+			%ActiveRewards.visible  = true
+			break
+		else:
+			%ActiveRewards.visible = false
 
 func _on_ownership_button_pressed() -> void:
 	BKMREngine.Reward.claim_card_ownership_reward(original_card_name)
 	$FilterPanel.fake_loader()
-
+	
 func _on_zodiac_button_pressed() -> void:
 	BKMREngine.Reward.claim_horoscope_match_reward(original_card_name)
 	$FilterPanel.fake_loader()
@@ -190,15 +199,21 @@ func _on_claim_card_ownership_reward_completed(message: Dictionary) -> void:
 		%OwnershipReward.modulate = "ffffff42"
 		%OwnershipButton.disabled = true
 	$FilterPanel.tween_kill()
-
+	set_reward_notification_active()
+	%AnimationPlayer.play("RewardClaimed")
+	
 func _on_claim_horoscope_match_reward_completed(message: Dictionary) -> void:
 	if message.success:
 		%ZodiacReward.modulate = "ffffff42"
 		%ZodiacButton.disabled = true
 	$FilterPanel.tween_kill()
+	set_reward_notification_active()
+	%AnimationPlayer.play("RewardClaimed")
 	
 func _claim_animal_match_reward_completed(message: Dictionary) -> void:
 	if message.success:
 		%CommonAnimalReward.modulate = "ffffff42"
 		%AnimalButton.disabled = true
 	$FilterPanel.tween_kill()
+	set_reward_notification_active()
+	%AnimationPlayer.play("RewardClaimed")

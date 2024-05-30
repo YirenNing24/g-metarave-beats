@@ -239,7 +239,7 @@ func _on_leaderboard_button_pressed() -> void:
 
 	# Set previous and next textures for scene transition
 	LOADER.previous_texture = background_texture.texture
-	LOADER.next_texture = preload("res://UITextures/BGTextures/leaderboard_screen_bg.png")
+	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")
 
 	# Load the main inventory scene asynchronously
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/leaderboard_screen.tscn")
@@ -295,7 +295,6 @@ func _input(event: InputEvent) -> void:
 		cursor_spark.position = position_event
 		cursor_spark.emitting = true
 	
-
 func play_pointer_sfx() -> void:
 	$AudioStreamPlayer.play()
 	await $AudioStreamPlayer.finished

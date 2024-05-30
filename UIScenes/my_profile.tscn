@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://kpun4sk7hxjv"]
+[gd_scene load_steps=24 format=3 uid="uid://kpun4sk7hxjv"]
 
 [ext_resource type="Script" path="res://UIScenes/my_profile.gd" id="1_0eu0s"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="1_gebit"]
@@ -55,6 +55,52 @@ script = ExtResource("9_mhd7h")
 friction = 4.0
 minimum_velocity = 0.4
 rebound_strength = 7.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r34bc"]
+bg_color = Color(0, 0.866667, 0.866667, 0.12549)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.219608, 0.8, 0.8, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 2
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="Animation" id="Animation_ue2hv"]
+resource_name = "RewardClaimed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ClaimNotice:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2997),
+"transitions": PackedFloat32Array(3.86374, 14.42),
+"update": 0,
+"values": [Vector2(510, 543), Vector2(510, 237)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ClaimNotice:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(6.06287, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cbvrg"]
+_data = {
+"RewardClaimed": SubResource("Animation_ue2hv")
+}
 
 [node name="MyProfile" type="Control"]
 layout_mode = 3
@@ -318,5 +364,51 @@ pitch_scale = 1.1
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
+
+[node name="ClaimNotice" type="Panel" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = 273.0
+offset_right = 90.0
+offset_bottom = 319.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r34bc")
+
+[node name="Label" type="Label" parent="ClaimNotice"]
+custom_minimum_size = Vector2(126, 30)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -63.0
+offset_top = -15.0
+offset_right = 63.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("10_bliyp")
+theme_override_font_sizes/font_size = 14
+text = "Reward Claimed!"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_cbvrg")
+}
 
 [connection signal="pressed" from="BackgroundTexture/CloseButton" to="." method="_on_close_button_pressed"]

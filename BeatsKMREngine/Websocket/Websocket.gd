@@ -21,10 +21,10 @@ signal server_time(server_time: Dictionary, latency: Dictionary)
 # Variables to configure the WebSocketClient
 var host: String = BKMREngine.host_ip
 var port: String = BKMREngine.port
-var url: String = "ws://" + host + "/api/ws"
+#var url: String = "ws://" + host + "/api/ws"
 #var url: String = "ws://" + host + port + "/api/ws"
 
-#var url: String = "ws://" + "localhost" + port + "/api/ws"
+var url: String = "ws://" + "localhost" + port + "/api/ws"
 
 var http_host: String = BKMREngine.host
 
@@ -52,8 +52,8 @@ func _process(_delta: float) -> void:
 	if auth_header == []:
 		return
 	# Poll the WebSocket for incoming messages and update its state
-	#socket.poll()
-
+	socket.poll()
+	
 	# Set authentication headers for the WebSocket handshake
 	socket.set_handshake_headers(auth_header)
 
@@ -72,6 +72,7 @@ func _process(_delta: float) -> void:
 			var json: JSON = JSON.new()
 			var error: Error = json.parse(message)
 			if error == OK:
+				print(message)
 				if json.data.has("chat"):
 					receive_chat(json)
 				elif json.data.has("roomId"):
@@ -121,6 +122,8 @@ func receive_chat(json: JSON) -> void:
 			counter = 1
 		1:
 			var single_message: Dictionary = json.data
+			
+			print(single_message)
 			chat_single.emit(single_message)
 			
 			

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bkdp5d21f2370"]
+[gd_scene load_steps=26 format=3 uid="uid://bkdp5d21f2370"]
 
 [ext_resource type="Script" path="res://Components/Popups/card_artist_modal.gd" id="1_f064n"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="1_ucaxk"]
@@ -8,6 +8,7 @@
 [ext_resource type="FontFile" uid="uid://cak36l0bes2dv" path="res://UITextures/Fonts/argentum-sans.medium.ttf" id="5_7holh"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="6_e6ba2"]
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="7_ro303"]
+[ext_resource type="Texture2D" uid="uid://cwohbn8trwaql" path="res://UITextures/Buttons/active_button.png" id="9_3pdgl"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="9_mdwmf"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="10_02v3c"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="11_limcq"]
@@ -16,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://mwrbk6jlyh12" path="res://UITextures/RewardTextures/hannah_ownership.png" id="14_yy6dh"]
 [ext_resource type="Texture2D" uid="uid://1se5bq5gv7v4" path="res://UITextures/Icons/coins_icon.png" id="16_51ai8"]
 [ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="16_o6dhi"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="18_a5x2v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0nnd"]
 bg_color = Color(0, 0, 0, 0)
@@ -34,6 +36,52 @@ script = ExtResource("12_dpqnw")
 friction = 4.0
 minimum_velocity = 0.4
 rebound_strength = 7.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ikm8a"]
+bg_color = Color(0, 0.866667, 0.866667, 0.12549)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.219608, 0.8, 0.8, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 2
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="Animation" id="Animation_7nd0p"]
+resource_name = "RewardClaimed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ClaimNotice:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4995),
+"transitions": PackedFloat32Array(3.36359, 1),
+"update": 0,
+"values": [Vector2(510, 543), Vector2(510, 235)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ClaimNotice:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4995, 0.9657),
+"transitions": PackedFloat32Array(3.4822, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f2f62"]
+_data = {
+"RewardClaimed": SubResource("Animation_7nd0p")
+}
 
 [node name="CardArtistModal" type="Control"]
 layout_mode = 3
@@ -383,6 +431,25 @@ text = "Claim Rewards"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ActiveRewards" type="TextureRect" parent="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/HBoxContainer/ClaimRewardsButton"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 0, 1)
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -257.0
+offset_top = -54.0
+offset_right = -206.0
+offset_bottom = -1.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("9_3pdgl")
+expand_mode = 1
+
 [node name="CloseButton" type="TextureButton" parent="BackgroundTexture"]
 auto_translate_mode = 1
 layout_mode = 0
@@ -392,6 +459,7 @@ texture_hover = ExtResource("10_02v3c")
 
 [node name="RewardsPanel" type="Panel" parent="."]
 unique_name_in_owner = true
+visible = false
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -541,7 +609,7 @@ theme_override_font_sizes/font_size = 15
 text = "100"
 vertical_alignment = 1
 
-[node name="OwnershipButton" type="TextureButton" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/RewardsContainer/OwnershipReward"]
+[node name="OwnershipButton" type="TextureButton" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/RewardsContainer/OwnershipReward" groups=["ClaimRewardButton"]]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -630,7 +698,7 @@ theme_override_font_sizes/font_size = 15
 text = "250"
 vertical_alignment = 1
 
-[node name="ZodiacButton" type="TextureButton" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/RewardsContainer/ZodiacReward"]
+[node name="ZodiacButton" type="TextureButton" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/RewardsContainer/ZodiacReward" groups=["ClaimRewardButton"]]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -719,7 +787,7 @@ theme_override_font_sizes/font_size = 15
 text = "350"
 vertical_alignment = 1
 
-[node name="AnimalButton" type="TextureButton" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/RewardsContainer/CommonAnimalReward"]
+[node name="AnimalButton" type="TextureButton" parent="RewardsPanel/Panel/VBoxContainer2/TextureRect/SmoothScrollContainer/RewardsContainer/CommonAnimalReward" groups=["ClaimRewardButton"]]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -746,6 +814,52 @@ offset_right = 1200.0
 offset_bottom = 540.0
 grow_horizontal = 1
 grow_vertical = 1
+
+[node name="ClaimNotice" type="Panel" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = 273.0
+offset_right = 90.0
+offset_bottom = 319.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ikm8a")
+
+[node name="Label" type="Label" parent="ClaimNotice"]
+custom_minimum_size = Vector2(126, 30)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -63.0
+offset_top = -15.0
+offset_right = 63.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("18_a5x2v")
+theme_override_font_sizes/font_size = 14
+text = "Reward Claimed!"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_f2f62")
+}
 
 [connection signal="pressed" from="BackgroundTexture/Panel/HBoxContainer/VBoxContainer2/TextureRect/VBoxContainer/HBoxContainer/ClaimRewardsButton" to="." method="_on_claim_rewards_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/CloseButton" to="." method="_on_close_button_pressed"]
