@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d1npeiphqn521"]
+[gd_scene load_steps=18 format=3 uid="uid://d1npeiphqn521"]
 
 [ext_resource type="Script" path="res://Components/Chat/gifting_window.gd" id="1_vpabg"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_h5h7v"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="7_6fd62"]
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="8_dfoyt"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="9_pj4nc"]
+[ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="10_hc33m"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wcy7i"]
 content_margin_bottom = 0.0
@@ -69,7 +70,6 @@ grow_vertical = 2
 script = ExtResource("1_vpabg")
 
 [node name="BackgroundTexture" type="TextureRect" parent="."]
-unique_name_in_owner = true
 self_modulate = Color(0.255659, 0.255659, 0.255659, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -82,7 +82,6 @@ texture = ExtResource("2_h5h7v")
 expand_mode = 1
 
 [node name="CloseButton" type="TextureButton" parent="BackgroundTexture"]
-auto_translate_mode = 1
 layout_mode = 0
 size_flags_horizontal = 3
 texture_normal = ExtResource("3_7ypuh")
@@ -171,6 +170,7 @@ metadata/_tab_index = 2
 
 [node name="FilterPanel" type="Panel" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -281,6 +281,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
+[node name="FilterPanel2" parent="." instance=ExtResource("10_hc33m")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="BackgroundTexture/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="gui_input" from="FilterPanel" to="." method="_on_filter_panel_gui_input"]
 [connection signal="pressed" from="FilterPanel/Panel/VBoxContainer/VBoxContainer/HBoxContainer/NoButton" to="." method="_on_no_button_pressed"]
+[connection signal="pressed" from="FilterPanel/Panel/VBoxContainer/VBoxContainer/HBoxContainer/YesButton" to="." method="_on_yes_button_pressed"]

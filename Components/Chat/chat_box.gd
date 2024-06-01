@@ -277,8 +277,6 @@ func _on_mutuals_box_chat_button_pressed(conversing_username: String) -> void:
 	# Set the current room, conversing username, and switch to the chat tab
 	username_conversing = conversing_username
 	
-	print("tracy:", username_conversing)
-	
 	for slot: Control in chat_mutual_vbox.get_children():
 		if slot.name == current_room:
 			slot.get_node('Button').modulate = "ffffff00"
@@ -398,10 +396,9 @@ func display_received_messages(private_messages: Array) -> void:
 			mutual_chat_vbox.add_child(conversing_message)
 
 func _on_gift_button_pressed() -> void:
-	pass
+	$GiftingWindow.visible = true
 	
-	#var _gift_card_data: Dictionary = {
-		#"cardName": "pass",
-		#"id": "id",
-		#"receiver": "receiver"
-	#}
+func _on_gifting_window_gift_card_data(gift_card_data: Dictionary) -> void:
+	gift_card_data.receiver = username_conversing
+	print(gift_card_data)
+	BKMREngine.Social.gift_card(gift_card_data)

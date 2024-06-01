@@ -357,6 +357,7 @@ texture_normal = ExtResource("9_qeh5r")
 texture_hover = ExtResource("10_h2v5f")
 
 [node name="GiftingWindow" parent="." instance=ExtResource("12_e28hi")]
+visible = false
 layout_mode = 1
 
 [connection signal="text_submitted" from="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer/VBoxContainer/MessageInputLine" to="." method="_on_message_line_text_submitted"]
@@ -364,3 +365,4 @@ layout_mode = 1
 [connection signal="pressed" from="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer2/GiftButton" to="." method="_on_gift_button_pressed"]
 [connection signal="tab_changed" from="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2/MessageTab" to="." method="_on_message_tab_tab_changed"]
 [connection signal="button_up" from="CloseButton" to="." method="_on_close_button_button_up"]
+[connection signal="gift_card_data" from="GiftingWindow" to="." method="_on_gifting_window_gift_card_data"]

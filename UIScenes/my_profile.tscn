@@ -125,7 +125,6 @@ texture = ExtResource("1_gebit")
 expand_mode = 1
 
 [node name="CloseButton" type="TextureButton" parent="BackgroundTexture"]
-auto_translate_mode = 1
 layout_mode = 0
 size_flags_horizontal = 3
 texture_normal = ExtResource("2_tgqgn")

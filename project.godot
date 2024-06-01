@@ -26,13 +26,13 @@ ENV_VAR="*res://BeatsKMREngine/bkmrenv/scripts/env.gd"
 LOADER="*res://UIScenes/GameLoader.gd"
 PLAYER="*res://BeatsKMREngine/Player/PlayerData.gd"
 SONG="*res://Songs/Song.gd"
+Game3D="*res://GameComponents/Game3D.gd"
 GodotPlayGameServices="*res://addons/GodotPlayGameServices/autoloads/godot_play_game_services.gd"
 SignInClient="*res://addons/GodotPlayGameServices/autoloads/sign_in_client.gd"
 AchievementsClient="*res://addons/GodotPlayGameServices/autoloads/achievements_client.gd"
 LeaderboardsClient="*res://addons/GodotPlayGameServices/autoloads/leaderboards_client.gd"
 PlayersClient="*res://addons/GodotPlayGameServices/autoloads/players_client.gd"
 SnapshotsClient="*res://addons/GodotPlayGameServices/autoloads/snapshots_client.gd"
-Game3D="*res://GameComponents/Game3D.gd"
 
 [debug]
 
@@ -48,6 +48,9 @@ gdscript/warnings/unreachable_pattern=2
 gdscript/warnings/standalone_expression=2
 gdscript/warnings/standalone_ternary=2
 gdscript/warnings/incompatible_ternary=2
+gdscript/warnings/property_used_as_function=2
+gdscript/warnings/constant_used_as_function=2
+gdscript/warnings/function_used_as_property=2
 gdscript/warnings/untyped_declaration=2
 gdscript/warnings/inferred_declaration=2
 gdscript/warnings/unsafe_cast=1
@@ -67,9 +70,6 @@ gdscript/warnings/deprecated_keyword=2
 gdscript/warnings/confusable_identifier=2
 gdscript/warnings/confusable_local_declaration=2
 gdscript/warnings/confusable_local_usage=2
-gdscript/warnings/property_used_as_function=2
-gdscript/warnings/constant_used_as_function=2
-gdscript/warnings/function_used_as_property=2
 
 [display]
 
@@ -87,7 +87,7 @@ project/assembly_name="kmr-godot-4"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GodotGetImage/plugin.cfg", "res://addons/GodotPlayGameServices/plugin.cfg", "res://addons/SmoothScroll/plugin.cfg")
+enabled=PackedStringArray("res://addons/GodotGetImage/plugin.cfg", "res://addons/GodotPlayGameServices/plugin.cfg")
 
 [global_group]
 

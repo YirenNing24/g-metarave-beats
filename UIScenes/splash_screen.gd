@@ -16,12 +16,13 @@ var tween: Tween
 
 # Ready function called when the node and its children are added to the scene.
 func _ready() -> void:
-	google_auth()
+
+	#google_auth()
 	fake_loader()
-	BKMREngine.Auth.bkmr_session_check_complete.connect(_on_session_check)
 	BKMREngine.Auth.auto_login_player()
+	BKMREngine.Auth.bkmr_session_check_complete.connect(_on_session_check)
 	
-	%LoadingLabel2.text = BKMREngine.Auth.last_login_type
+	#%LoadingLabel2.text = BKMREngine.Auth.last_login_type
 
 func google_auth() -> void: 
 	var _token: int = SignInClient.server_side_access_requested.connect(_on_google_token_generated)
