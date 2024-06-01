@@ -66,6 +66,7 @@ metadata/_edit_use_anchors_ = true
 visible = false
 layout_mode = 2
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_qmsnq")
+metadata/_tab_index = 0
 
 [node name="OnlineListScroll" type="ScrollContainer" parent="VBoxContainer/TabContainer/Online"]
 unique_name_in_owner = true
@@ -90,6 +91,7 @@ theme_override_constants/separation = 10
 
 [node name="Mutual" type="TabBar" parent="VBoxContainer/TabContainer"]
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="MutualsScroll" type="ScrollContainer" parent="VBoxContainer/TabContainer/Mutual"]
 unique_name_in_owner = true
@@ -116,6 +118,7 @@ theme_override_constants/separation = 0
 visible = false
 layout_mode = 2
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_twf0d")
+metadata/_tab_index = 2
 
 [node name="SlideButton" type="TextureButton" parent="."]
 custom_minimum_size = Vector2(60, 60)

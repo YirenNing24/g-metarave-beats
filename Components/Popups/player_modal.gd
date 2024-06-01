@@ -1,6 +1,7 @@
 extends Control
 
 # UI Elements
+var badge_scene: PackedScene = preload("res://Components/MyProfile/badge.tscn")
 
 const followed_color: Color = Color("#89898994")
 const default_color: Color = Color("#ffffff")
@@ -14,6 +15,8 @@ const default_color: Color = Color("#ffffff")
 @onready var follow_button_label: Label = %FollowLabel
 @onready var follow_status_label: Label = %FollowStatusLabel
 
+
+@onready var badge_container: HBoxContainer = %BadgeContainer
 # Variables
 var player_profile: Dictionary
 var player_username: String
@@ -31,8 +34,7 @@ func _on_stat_display() -> void:
 	
 	# Check if the player profile is available
 	if player_profile:
-		var playerStats: String = player_profile.playerStats
-		var player_stats: Dictionary = JSON.parse_string(playerStats)
+		var player_stats: Dictionary = player_profile.playerStats
 		
 		# Update follow/unfollow button and label based on user relationships
 		if player_profile.followsUser:
@@ -59,7 +61,57 @@ func _on_stat_display() -> void:
 		player_rank.text = player_stats.rank
 		
 		player_username = player_profile.username
-		
+	
+	if player_profile.username == "GreenPill":
+		%ProfilePic.texture = load("res://UITextures/Bundles/green_pill.png")
+	else:
+		%ProfilePic.texture = load("res://UITextures/Bundles/beats_logo.png")
+	_on_get_preference_complete()
+	
+func _on_get_preference_complete() -> void:
+	
+	var soul_data: Dictionary = player_profile.userSoul
+	for badge: Control in badge_container.get_children():
+		badge.queue_free()
+	if !soul_data.is_empty():
+		var badge_created: bool = false
+		var soul_data_ownership: Array = soul_data.ownership
+		var soul_data_horoscope_match: Array = soul_data.horoscopeMatch
+		var soul_data_animal_match: Array = soul_data.animalMatch
+		var soul_data_weekly_first: Array = soul_data.weeklyFirst
+	
+		for card: String in soul_data_ownership:
+			if "No Doubt" in card and not badge_created:
+				var badge: Control = badge_scene.instantiate()
+				badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x_in_owner_badge.png")
+				badge_container.add_child(badge)
+				badge_created = true  # Set the flag to true to indicate a badge has been created
+				break  # Exit the loop since we only need one badge
+		for card: String in soul_data_horoscope_match:
+			if "No Doubt" in card:
+				var badge: Control = badge_scene.instantiate()
+				badge.get_node("Panel").modulate = "a8923e"
+				badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x_in_capricorn.png")
+				badge_container.add_child(badge)
+				badge_created = true  # Set the flag to true to indicate a badge has been created
+				break  # Exit the loop since we only need one badge
+		for card: String in soul_data_animal_match:
+			if "No Doubt" in card:
+				var badge: Control = badge_scene.instantiate()
+				badge.get_node("Panel").modulate = "46ff45"
+				badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x_in_animal.png")
+				badge_container.add_child(badge)
+				badge_created = true  # Set the flag to true to indicate a badge has been created
+				break  # Exit the loop since we only need one badge
+		for song: String in soul_data_weekly_first:
+			if "No Doubt" in song:
+				var badge: Control = badge_scene.instantiate()
+				badge.get_node("Panel").self_modulate = "8f8f8f"
+				badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x:in_award.png")
+				badge_container.add_child(badge)
+				badge_created = true  # Set the flag to true to indicate a badge has been created
+				break  # Exit the loop since we only need one badge
+				
 # Handle visibility changes for the control.
 func _on_visibility_changed() -> void:
 	# Play fade-in animation when the control becomes visible

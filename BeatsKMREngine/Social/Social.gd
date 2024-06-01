@@ -9,6 +9,7 @@ signal view_profile_complete
 signal follow_complete
 signal unfollow_complete
 signal get_mutual_complete(mutual_list: Array)
+signal gift_card_complete
 #signal set_status_online_complete
 signal get_mutual_status_complete
 
@@ -34,6 +35,9 @@ var wrOnlineStatus: WeakRef
 var MutualStatus: HTTPRequest
 var wrMutualStatus: WeakRef
 
+var GiftCard: HTTPRequest
+var wrGiftCard: WeakRef
+
 # Data containers for player profile, follow response, and mutual followers.
 var player_profile: Dictionary 
 var follow_response: Dictionary
@@ -41,11 +45,7 @@ var mutual_status: Array
 var mutual_followers: Array
 
 # Function to view a player's profile.
-# Parameters:
-# - username: The username of the player whose profile is to be viewed.
-# Returns:
-# - Node: The current Node.
-func view_profile(username: String) -> Node:
+func view_profile(username: String) -> void:
 	# Prepare HTTP request for viewing a player's profile.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	ViewProfile = prepared_http_req.request
@@ -64,17 +64,8 @@ func view_profile(username: String) -> Node:
 	await BKMREngine.send_get_request(ViewProfile, request_url)
 	
 	# Return the current Node.
-	return self
-
 
 # Callback function executed when the view profile request is completed.
-# Parameters:
-# - _result: The result of the request.
-# - response_code: The HTTP response code received.
-# - headers: An array containing the headers of the response.
-# - body: PackedByteArray containing the response body.
-# Returns:
-# - void
 func _onViewProfile_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
@@ -94,12 +85,7 @@ func _onViewProfile_request_completed(_result: int, response_code: int, headers:
 		# Emit a signal indicating that the profile view is complete.
 		view_profile_complete.emit()
 
-# Function to initiate a follow action for a player.
-# Parameters:
-# - follower: The username of the follower initiating the follow action.
-# - to_follow: The username of the player to be followed.
-# Returns:
-# - Node: The current node for method chaining.
+# Function to initiate a follow action for a player..
 func follow(follower: String, to_follow: String) -> Node:
 	# Prepare the HTTP request.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -123,13 +109,6 @@ func follow(follower: String, to_follow: String) -> Node:
 
 	
 # Callback function triggered when a follow request is completed.
-# Parameters:
-# - _result: The result of the request (not used in the function).
-# - response_code: The HTTP response code received.
-# - headers: The array of HTTP headers received.
-# - body: The packed byte array containing the response body.
-# Returns:
-# - void
 func _onFollow_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
@@ -150,11 +129,6 @@ func _onFollow_request_completed(_result: int, response_code: int, headers: Arra
 		follow_complete.emit()
 
 # Function to send a request to unfollow a player.
-# Parameters:
-# - follower: The username of the follower initiating the unfollow action.
-# - toUnfollow: The username of the player to be unfollowed.
-# Returns:
-# - Node: The current node.
 func unfollow(follower: String, toUnfollow: String) -> Node:
 	# Prepare the HTTP request.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -177,13 +151,6 @@ func unfollow(follower: String, toUnfollow: String) -> Node:
 	return self
 
 # Callback function triggered when the unfollow request is completed.
-# Parameters:
-# - _result: The result of the request.
-# - response_code: The HTTP response code.
-# - headers: An array containing the HTTP headers.
-# - body: PackedByteArray containing the response body.
-# Returns:
-# - void
 func _onUnfollow_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
@@ -220,8 +187,6 @@ func get_mutual() -> void:
 	var request_url: String = host + "/api/social/list/mutual"
 	
 	await BKMREngine.send_get_request(Mutual, request_url)
-
-
 
 # Callback function invoked upon completion of the get_mutual request.
 func _onGetMutual_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
@@ -281,8 +246,7 @@ func _onSetStatus_Online_request_completed(_result: int, response_code: int, hea
 	if status_check:
 		pass
 
-
-func get_mutual_status() -> Node:
+func get_mutual_status() -> void:
 	# Prepare HTTP request resources.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	MutualStatus = prepared_http_req.request
@@ -290,22 +254,12 @@ func get_mutual_status() -> Node:
 	
 	# Connect the callback function for handling mutual followers request completion.
 	var _mutuals_status: int = MutualStatus.request_completed.connect(_on_MutualStatus_request_completed)
-	
-	# Specify the request URL for retrieving mutual followers data.
 	var request_url: String = host + "/api/social/mutual/online"
 	
 	# Initiate the GET request and await its completion.
 	await BKMREngine.send_get_request(MutualStatus, request_url)
 	
-	# Return self for method chaining.
-	return self
-
 # Callback function invoked upon completion of the get_mutual request.
-# Parameters:
-# - _result (int): The result of the HTTP request.
-# - response_code (int): The HTTP response code.
-# - headers (Array): An array containing the HTTP response headers.
-# - body (PackedByteArray): The packed byte array containing the response body.
 func _on_MutualStatus_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
@@ -320,8 +274,39 @@ func _on_MutualStatus_request_completed(_result: int, response_code: int, header
 		if json_body != null:
 			# Assign the parsed data to the mutual_followers variable.
 			mutual_status = json_body
-			
-			# Emit the signal to indicate the completion of the get_mutual request.
 			get_mutual_status_complete.emit()
 		else:
 			pass
+
+func gift_card(card_gift_data: Dictionary) -> void:
+	# Prepare the HTTP request.
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	GiftCard = prepared_http_req.request
+	wrGiftCard = prepared_http_req.weakref
+	
+	# Connect the callback function to handle the completion of the follow request.
+	var _gift_card: int = GiftCard.request_completed.connect(_onGiftCard_request_completed)
+	var payload: Dictionary = card_gift_data
+	
+	# Construct the request URL.
+	var request_url: String = host + "/api/social/gift/card"
+	BKMREngine.send_post_request(GiftCard, request_url, payload)
+	
+# Callback function triggered when a follow request is completed.
+func _onGiftCard_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check the HTTP response status.
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	
+	# Free the request resources if the HTTP response is valid.
+	if is_instance_valid(GiftCard):
+		BKMREngine.free_request(wrGiftCard, GiftCard)
+	
+	# Process the response body if the HTTP status check is successful.
+	if status_check:
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body != null:
+			gift_card_complete.emit(json_body)
+		else:
+			gift_card_complete.emit({ "error": "Unknown server error"})
+	else:
+		gift_card_complete.emit({ "error": "Unknown server error"})

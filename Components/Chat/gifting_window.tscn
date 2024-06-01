@@ -1,0 +1,286 @@
+[gd_scene load_steps=17 format=3 uid="uid://d1npeiphqn521"]
+
+[ext_resource type="Script" path="res://Components/Chat/gifting_window.gd" id="1_vpabg"]
+[ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_h5h7v"]
+[ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="3_7ypuh"]
+[ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="4_fmdfk"]
+[ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="5_okutv"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="6_hbyts"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="7_6fd62"]
+[ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="8_dfoyt"]
+[ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="9_pj4nc"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wcy7i"]
+content_margin_bottom = 0.0
+texture = ExtResource("5_okutv")
+texture_margin_left = 60.0
+texture_margin_right = 60.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mcfyt"]
+texture = ExtResource("5_okutv")
+texture_margin_left = 60.0
+texture_margin_right = 60.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rvajj"]
+texture = ExtResource("5_okutv")
+texture_margin_left = 60.0
+texture_margin_right = 60.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l7ob3"]
+content_margin_top = 6.0
+texture = ExtResource("5_okutv")
+texture_margin_left = 60.0
+texture_margin_right = 60.0
+texture_margin_bottom = 12.0
+expand_margin_bottom = 5.0
+modulate_color = Color(1, 1, 1, 0.380392)
+
+[sub_resource type="Resource" id="Resource_qu2wv"]
+script = ExtResource("7_6fd62")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="Resource" id="Resource_u3obg"]
+script = ExtResource("7_6fd62")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_doy54"]
+bg_color = Color(0.0705882, 0.0705882, 0.0705882, 0.494118)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.184314, 0.8, 0.8, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="GiftingWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vpabg")
+
+[node name="BackgroundTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+self_modulate = Color(0.255659, 0.255659, 0.255659, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("2_h5h7v")
+expand_mode = 1
+
+[node name="CloseButton" type="TextureButton" parent="BackgroundTexture"]
+auto_translate_mode = 1
+layout_mode = 0
+size_flags_horizontal = 3
+texture_normal = ExtResource("3_7ypuh")
+texture_hover = ExtResource("4_fmdfk")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 73.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MessageTab" type="TabContainer" parent="BackgroundTexture/VBoxContainer"]
+self_modulate = Color(0.113725, 0.0980392, 0.2, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/tab_focus = SubResource("StyleBoxTexture_wcy7i")
+theme_override_styles/tab_selected = SubResource("StyleBoxTexture_mcfyt")
+theme_override_styles/tab_hovered = SubResource("StyleBoxTexture_rvajj")
+theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_l7ob3")
+current_tab = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Cards" type="TabBar" parent="BackgroundTexture/VBoxContainer/MessageTab"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="CardsScroll" type="ScrollContainer" parent="BackgroundTexture/VBoxContainer/MessageTab/Cards"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 22.0
+offset_top = 50.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("6_hbyts")
+wheel_scroll_damper = SubResource("Resource_qu2wv")
+dragging_scroll_damper = SubResource("Resource_u3obg")
+hide_scrollbar_over_time = true
+
+[node name="CardsContainer" type="GridContainer" parent="BackgroundTexture/VBoxContainer/MessageTab/Cards/CardsScroll"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 8
+columns = 10
+
+[node name="Upgrades" type="TabBar" parent="BackgroundTexture/VBoxContainer/MessageTab"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="UpgradesScroll" type="ScrollContainer" parent="BackgroundTexture/VBoxContainer/MessageTab/Upgrades"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="UpgradesVbox" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer/MessageTab/Upgrades/UpgradesScroll"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="Misc" type="TabBar" parent="BackgroundTexture/VBoxContainer/MessageTab"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="FilterPanel" type="Panel" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="FilterPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -138.0
+offset_top = -78.0
+offset_right = 139.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_doy54")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FilterPanel/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 11.0
+offset_right = -19.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="FilterPanel/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
+theme_override_fonts/font = ExtResource("8_dfoyt")
+theme_override_font_sizes/font_size = 14
+text = "Are you sure you want to send this card as a gift?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FilterPanel/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FilterPanel/Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NoButton" type="TextureButton" parent="FilterPanel/Panel/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0.388235)
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("9_pj4nc")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="FilterPanel/Panel/VBoxContainer/VBoxContainer/HBoxContainer/NoButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 6.0
+offset_right = -5.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
+theme_override_fonts/font = ExtResource("8_dfoyt")
+theme_override_font_sizes/font_size = 12
+text = "No"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="YesButton" type="TextureButton" parent="FilterPanel/Panel/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("9_pj4nc")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="FilterPanel/Panel/VBoxContainer/VBoxContainer/HBoxContainer/YesButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 6.0
+offset_right = -5.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
+theme_override_fonts/font = ExtResource("8_dfoyt")
+theme_override_font_sizes/font_size = 12
+text = "Yes"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="gui_input" from="FilterPanel" to="." method="_on_filter_panel_gui_input"]
+[connection signal="pressed" from="FilterPanel/Panel/VBoxContainer/VBoxContainer/HBoxContainer/NoButton" to="." method="_on_no_button_pressed"]

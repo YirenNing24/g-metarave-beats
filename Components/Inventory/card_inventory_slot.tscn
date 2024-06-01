@@ -26,10 +26,10 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6jaxv"]
 
 [node name="Inv1" type="Control"]
-custom_minimum_size = Vector2(83.46, 128.4)
+custom_minimum_size = Vector2(102.3, 128.4)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 103.0
+offset_right = 102.0
 offset_bottom = 128.4
 
 [node name="CardIcon" type="TextureRect" parent="." groups=["InventorySlot"]]
@@ -43,6 +43,7 @@ script = ExtResource("2_uof06")
 
 [node name="Button" type="Button" parent="."]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(102.3, 128.4)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

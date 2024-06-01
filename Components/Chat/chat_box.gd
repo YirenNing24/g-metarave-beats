@@ -5,7 +5,7 @@ extends Control
 #TODO: Bug. unable to conitnue chat when chat window is closed 
 
 # PACKED SCENES
-@onready var message_slot: PackedScene = preload("res://Components/Chat/chat_message.tscn")
+@onready var message_slot: PackedScene = preload("res://Components/Chat/chat_message2.tscn")
 @onready var conversing_message_slot: PackedScene = preload("res://Components/Chat/conversing_message.tscn")
 @onready var chat_mutual_panel: PackedScene = preload("res://Components/Chat/chat_mutual_panel.tscn")
 
@@ -87,14 +87,20 @@ func add_message_to_container(received_message: Dictionary) -> void:
 	var ts_seconds: int = roundi(ts_milliseconds / 1000)
 	
 	# Convert unix timestamp to ISO 8601 time string (HH:MM:SS)
-	var timestamp: String = Time.get_time_string_from_unix_time(ts_seconds)
+	var _timestamp: String = Time.get_time_string_from_unix_time(ts_seconds)
 	# Instantiate a new message slot control
 	var slot_message: Control = message_slot.instantiate()
 
 	# Set the text of UI elements in the message slot based on the received message
 	slot_message.get_node('VBoxContainer/HBoxContainer/UsernameLabel').text = sender_username
-	slot_message.get_node('VBoxContainer/HBoxContainer/TimestampLabel').text = timestamp
+	#slot_message.get_node('VBoxContainer/HBoxContainer/TimestampLabel').text = timestamp
 	slot_message.get_node('VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/MessageLabel').text = message_text
+	
+	
+	if sender_username == "GreenPill":
+		slot_message.get_node("VBoxContainer/TextureRect/HBoxContainer/DPIcon").texture = load("res://UITextures/Bundles/green_pill.png")
+	else:
+		slot_message.get_node("VBoxContainer/TextureRect/HBoxContainer/DPIcon").texture = load("res://UITextures/Bundles/beats_logo.png")
 	
 	# Determine the destination container based on the room and sender
 	if received_message.roomId == "all":
@@ -109,10 +115,12 @@ func add_message_to_container(received_message: Dictionary) -> void:
 			# Instantiate a new message slot for the other user the player is having a chat with
 			var conversing_message: Control = conversing_message_slot.instantiate()
 			conversing_message.get_node('VBoxContainer/HBoxContainer/UsernameLabel').text = sender_username
-			conversing_message.get_node('VBoxContainer/HBoxContainer/TimestampLabel').text = timestamp
+			#conversing_message.get_node('VBoxContainer/HBoxContainer/TimestampLabel').text = timestamp
 			conversing_message.get_node('VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/MessageLabel').text = message_text
 			mutual_chat_vbox.add_child(conversing_message)
 
+	
+	
 func remove_excess_message(message_vbox: VBoxContainer, limit: int) -> void:
 	# Check if the number of child messages exceeds the specified limit
 	if message_vbox.get_child_count() > limit:
@@ -146,19 +154,23 @@ func on_all_messages_opened() -> void:
 			# Extract information from the message
 			var sender_username: String = messages.username
 			var message: String = messages.message
-			var ts: float = messages.ts
+			var _ts: float = messages.ts
 			# Convert milliseconds to seconds
-			var ts_seconds: int = roundi(ts/ 1000)
-			
+			var _ts_seconds: int = roundi(_ts/ 1000)
+			if sender_username == "GreenPill":
+				all_message_slot.get_node("VBoxContainer/TextureRect/HBoxContainer/DPIcon").texture = load("res://UITextures/Bundles/green_pill.png")
+			else:
+				all_message_slot.get_node("VBoxContainer/TextureRect/HBoxContainer/DPIcon").texture = load("res://UITextures/Bundles/beats_logo.png")
 			# Disable the button if the message sender is the logged-in player
 			if PLAYER.username == sender_username:
+				
 				all_message_slot.get_node("VBoxContainer/HBoxContainer/UsernameLabel/Button").disabled = true
 			
 			# Convert unix timestamp to ISO 8601 time string (HH:MM:SS)
-			var timestamp: String = Time.get_time_string_from_unix_time(ts_seconds)
+			#var timestamp: String = Time.get_time_string_from_unix_time(ts_seconds)
 			
 			all_message_slot.get_node('VBoxContainer/HBoxContainer/UsernameLabel').text = sender_username
-			all_message_slot.get_node('VBoxContainer/HBoxContainer/TimestampLabel').text = timestamp
+			#all_message_slot.get_node('VBoxContainer/HBoxContainer/TimestampLabel').text = timestamp
 			all_message_slot.get_node('VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/MessageLabel').text = message
 			
 			# Connect the button press to view the sender's profile
@@ -385,3 +397,11 @@ func display_received_messages(private_messages: Array) -> void:
 			conversing_message.get_node('VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/MessageLabel').text = message_text
 			mutual_chat_vbox.add_child(conversing_message)
 
+func _on_gift_button_pressed() -> void:
+	pass
+	
+	#var _gift_card_data: Dictionary = {
+		#"cardName": "pass",
+		#"id": "id",
+		#"receiver": "receiver"
+	#}

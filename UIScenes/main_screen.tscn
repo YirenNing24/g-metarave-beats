@@ -848,6 +848,7 @@ parameters/looping = true
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/InventoryButton" to="." method="_on_inventory_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
 [connection signal="close_pressed" from="Panel/BackgroundTexture/ChatBox" to="." method="_on_chat_box_close_pressed"]
+[connection signal="view_profile_pressed" from="Panel/BackgroundTexture/ChatBox" to="." method="_on_chat_box_view_profile_pressed"]
 [connection signal="chat_button_pressed" from="Panel/BackgroundTexture/MutualsBox" to="." method="_on_mutuals_box_chat_button_pressed"]
 [connection signal="chat_button_pressed" from="Panel/BackgroundTexture/MutualsBox" to="Panel/BackgroundTexture/ChatBox" method="_on_mutuals_box_chat_button_pressed"]
 [connection signal="slide_pressed" from="Panel/BackgroundTexture/MutualsBox" to="." method="_on_mutuals_box_slide_pressed"]

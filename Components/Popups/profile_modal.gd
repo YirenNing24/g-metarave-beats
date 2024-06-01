@@ -137,7 +137,10 @@ func _on_get_profile_pic_complete(profile_pics: Array) -> void:
 		else:
 			var display_pic: Texture =  ImageTexture.create_from_image(image)
 			profile_pic.texture = display_pic
-			
+	if PLAYER.username == "GreenPill":
+		profile_pic.texture = load("res://UITextures/Bundles/green_pill.png")
+	else:
+		profile_pic.texture = load("res://UITextures/Bundles/beats_logo.png")
 			
 func _on_get_image_error(_error: String) -> void:
 	pass

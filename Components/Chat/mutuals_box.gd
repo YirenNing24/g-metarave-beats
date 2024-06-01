@@ -36,11 +36,13 @@ func set_status_and_activity() -> void:
 	
 # Function to populate the mutuals list in the UI.
 func populate_mutuals_list(mutuals_list: Array) -> void:
+	
+	for mutual: Control in mutual_vbox.get_children():
+		mutual.queue_free()
 	# Iterate through mutual followers and create UI slots for each
 	for mutuals: Dictionary in mutuals_list:
 		var slot_mutuals: Control = mutual_slot.instantiate()
-		var playerStats: String = mutuals.playerStats
-		var player_stats: Dictionary = JSON.parse_string(playerStats)
+		var player_stats: Dictionary = mutuals.playerStats
 
 		var level: String = str(player_stats.level)
 		conversing_username = mutuals.username
@@ -56,7 +58,7 @@ func populate_mutuals_list(mutuals_list: Array) -> void:
 
 # Function to handle the slide button press event.
 func _on_slide_button_pressed() -> void:
-	print("yehey")
+	BKMREngine.Social.get_mutual()
 	slide_button.disabled = true
 	# Emit signal to toggle the visibility of the mutuals window
 	slide_pressed.emit(is_opened)

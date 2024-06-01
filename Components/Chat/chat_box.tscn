@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://4hviwgrfsnfn"]
+[gd_scene load_steps=20 format=3 uid="uid://4hviwgrfsnfn"]
 
 [ext_resource type="Script" path="res://Components/Chat/chat_box.gd" id="1_76hnh"]
 [ext_resource type="Texture2D" uid="uid://c7qlt18wu7138" path="res://UITextures/BGTextures/dark_panel.png" id="1_m3mo4"]
@@ -8,8 +8,10 @@
 [ext_resource type="StyleBox" uid="uid://bc563j8sgc75v" path="res://UITextures/CustomResource/chat_box_sender.tres" id="5_7vedd"]
 [ext_resource type="StyleBox" uid="uid://chv57rdd2b5s" path="res://UITextures/CustomResource/chat_box_tab.tres" id="5_ojsyq"]
 [ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="5_tml6f"]
+[ext_resource type="Texture2D" uid="uid://581x1s0kpgn3" path="res://UITextures/Buttons/gift_button.png" id="7_4oass"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="9_qeh5r"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="10_h2v5f"]
+[ext_resource type="PackedScene" uid="uid://d1npeiphqn521" path="res://Components/Chat/gifting_window.tscn" id="12_e28hi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55g5g"]
 bg_color = Color(0.0235294, 0.0235294, 0.0235294, 1)
@@ -68,10 +70,12 @@ border_color = Color(0.564706, 0.47451, 0.643137, 1)
 border_blend = true
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l7ob3"]
+content_margin_top = 6.0
 texture = ExtResource("5_tml6f")
 texture_margin_left = 60.0
 texture_margin_right = 60.0
 texture_margin_bottom = 12.0
+expand_margin_bottom = 5.0
 modulate_color = Color(1, 1, 1, 0.380392)
 
 [node name="ChatBox" type="Control"]
@@ -211,6 +215,15 @@ stretch_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="GiftButton" type="TextureButton" parent="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 4
+texture_normal = ExtResource("7_4oass")
+ignore_texture_size = true
+stretch_mode = 0
+
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel2/VBoxContainer/TextureRect"]
 layout_mode = 1
 anchors_preset = -1
@@ -269,10 +282,11 @@ theme_override_styles/tab_focus = ExtResource("5_ojsyq")
 theme_override_styles/tab_selected = ExtResource("5_ojsyq")
 theme_override_styles/tab_hovered = ExtResource("5_ojsyq")
 theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_l7ob3")
-current_tab = 0
+current_tab = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="General" type="TabBar" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2/MessageTab"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -327,7 +341,6 @@ theme_override_constants/separation = 10
 alignment = 2
 
 [node name="Spaces" type="TabBar" parent="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2/MessageTab"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
@@ -343,7 +356,11 @@ size_flags_horizontal = 3
 texture_normal = ExtResource("9_qeh5r")
 texture_hover = ExtResource("10_h2v5f")
 
+[node name="GiftingWindow" parent="." instance=ExtResource("12_e28hi")]
+layout_mode = 1
+
 [connection signal="text_submitted" from="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer/VBoxContainer/MessageInputLine" to="." method="_on_message_line_text_submitted"]
 [connection signal="pressed" from="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/SendMessageButton" to="." method="_on_send_message_button_pressed"]
+[connection signal="pressed" from="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer2/GiftButton" to="." method="_on_gift_button_pressed"]
 [connection signal="tab_changed" from="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2/MessageTab" to="." method="_on_message_tab_tab_changed"]
 [connection signal="button_up" from="CloseButton" to="." method="_on_close_button_button_up"]

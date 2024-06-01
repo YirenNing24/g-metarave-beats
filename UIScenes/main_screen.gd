@@ -59,6 +59,7 @@ func add_components() -> void:
 	filter_panel.add_child(profile_modal)
 	filter_panel.add_child(player_modal)
 	filter_panel.add_child(stats_modal)
+	stats_modal.visible = false
 
 # Connect chat signals to their respective handlers.
 func signal_connect() -> void:
@@ -183,6 +184,7 @@ func _on_stat_button_pressed() -> void:
 	
 # View the profile from the chat box.
 func _on_chat_box_view_profile_pressed(_player_profile: Dictionary) -> void:
+	profile_modal.visible = false
 	player_modal.visible = true
 	filter_panel.visible = true
 
@@ -298,3 +300,4 @@ func _input(event: InputEvent) -> void:
 func play_pointer_sfx() -> void:
 	$AudioStreamPlayer.play()
 	await $AudioStreamPlayer.finished
+

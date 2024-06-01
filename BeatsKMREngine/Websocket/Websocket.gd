@@ -72,7 +72,6 @@ func _process(_delta: float) -> void:
 			var json: JSON = JSON.new()
 			var error: Error = json.parse(message)
 			if error == OK:
-				print(message)
 				if json.data.has("chat"):
 					receive_chat(json)
 				elif json.data.has("roomId"):
