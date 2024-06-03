@@ -6,7 +6,6 @@ var card_inventory_slot_scene: PackedScene = preload("res://Components/Inventory
 
 @onready var loading_panel: Panel = %FilterPanel2
 
-
 @onready var yes_button: TextureButton = %YesButton
 @onready var no_button: TextureButton = %NoButton
 @onready var filter_panel: Panel = %FilterPanel
@@ -18,14 +17,14 @@ func _ready() -> void:
 	BKMREngine.Inventory.open_card_inventory()
 	
 func connect_signal() -> void:
-	BKMREngine.Inventory.get_card_inventory_complete.connect(card_inventory_open)
+	BKMREngine.Inventory.get_card_inventory_complete.connect(_card_inventory_open)
 	BKMREngine.Social.gift_card_complete.connect(_on_gift_card_complete)
 
 func _on_visibility_changed() -> void:
 	if visible:
 		BKMREngine.Inventory.open_card_inventory()
 
-func card_inventory_open(inventory_data: Array) -> void:
+func _card_inventory_open(inventory_data: Array) -> void:
 	for card: Control in %CardsContainer.get_children():
 		card.queue_free()
 	var card_inventory_slot: Control
@@ -47,8 +46,6 @@ func _on_inventory_card_pressed(card_data: Dictionary, _card: Control) -> void:
 	filter_panel.visible = true
 	picked_card = card_data
 
-
-	
 func _on_filter_panel_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if filter_panel.visible:

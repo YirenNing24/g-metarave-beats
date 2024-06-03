@@ -400,5 +400,4 @@ func _on_gift_button_pressed() -> void:
 	
 func _on_gifting_window_gift_card_data(gift_card_data: Dictionary) -> void:
 	gift_card_data.receiver = username_conversing
-	print(gift_card_data)
 	BKMREngine.Social.gift_card(gift_card_data)

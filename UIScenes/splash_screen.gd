@@ -1,28 +1,26 @@
 extends Control
 
 # Reference to the loading wheel and label in the scene.
-@onready var animation_player: AnimationPlayer = %AnimationPlayer
+#@onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var loading_wheel: TextureProgressBar = %LoadingWheel
 @onready var loading_label: Label = %LoadingLabel
 @onready var player: String  # Reference to a player (type not specified).
 @onready var transition_texture: TextureRect = %TextureRect  # Reference to a transition texture.
-@onready var cursor_spark: GPUParticles2D = %CursorSpark
+#@onready var cursor_spark: GPUParticles2D = %CursorSpark
 
 # Reference to the update popup scene.
-var app_update: PackedScene = preload("res://Components/Popups/update_popup.tscn")
+#var app_update: PackedScene = preload("res://Components/Popups/update_popup.tscn")
 var google_sign_in_retries: int = 5
 # Tween object for animations.
 var tween: Tween
 
 # Ready function called when the node and its children are added to the scene.
 func _ready() -> void:
-
-	#google_auth()
 	fake_loader()
+	google_auth()
 	BKMREngine.Auth.auto_login_player()
 	BKMREngine.Auth.bkmr_session_check_complete.connect(_on_session_check)
-	
-	#%LoadingLabel2.text = BKMREngine.Auth.last_login_type
+	%LoadingLabel2.text = BKMREngine.Auth.last_login_type
 
 func google_auth() -> void: 
 	var _token: int = SignInClient.server_side_access_requested.connect(_on_google_token_generated)
@@ -69,7 +67,7 @@ func change_to_auth_scene() -> void:
 	# Load the authentication scene.
 	var _load_scene: bool = await LOADER.load_scene(self, "res://UIScenes/auth_screen.tscn")
 	LOADER.previous_texture = transition_texture.texture
-	LOADER.next_texture = preload("res://UITextures/BGTextures/auth.png")
+	LOADER.next_texture = preload("res://UITextures/BGTextures/blue_gradient.png")
 
 # Simulate a loading animation.
 func fake_loader() -> void:
@@ -82,15 +80,15 @@ func fake_loader() -> void:
 	# Schedule a callback for fake_loader after the animation completes.
 	var _loader_fake: CallbackTweener = tween.tween_callback(fake_loader)
 
-func _input(event: InputEvent) -> void:
-	# Handle screen touch events.
-	if event is InputEventScreenTouch:
-		if event.pressed:
-			# Check if the touch event is within the bounds of the notepicker node.
-			var position_event: Vector2 = event.position
-			cursor_spark.position = position_event
-			cursor_spark.emitting = true
-	elif event is InputEventScreenDrag:
-		var position_event: Vector2 = event.position
-		cursor_spark.position = position_event
-		cursor_spark.emitting = true
+#func _input(event: InputEvent) -> void:
+	## Handle screen touch events.
+	#if event is InputEventScreenTouch:
+		#if event.pressed:
+			## Check if the touch event is within the bounds of the notepicker node.
+			#var position_event: Vector2 = event.position
+			#cursor_spark.position = position_event
+			#cursor_spark.emitting = true
+	#elif event is InputEventScreenDrag:
+		#var position_event: Vector2 = event.position
+		#cursor_spark.position = position_event
+		#cursor_spark.emitting = true

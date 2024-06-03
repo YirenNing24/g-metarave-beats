@@ -19,7 +19,6 @@ const error_list: PackedScene = preload("res://Components/Lists/auth_error.tscn"
 
 @onready var loading_panel: Panel = %LoadingPanel
 
-
 var username: String
 var password: String
 var animation_played: bool = false
@@ -38,7 +37,6 @@ func _ready() -> void:
 	signal_connect()
 	init_visibility_control()
 	google_auth()
-	#play_animations() 
 	
 func signal_connect() -> void:
 	BKMREngine.Auth.bkmr_registration_complete.connect(_on_registration_completed)
@@ -61,11 +59,6 @@ func init_visibility_control() -> void:
 		login_modal_container.visible = true
 		login_container.visible = true
 		register_container.visible = false
-
-# Method to play animations.
-func play_animations() -> void:
-	await(animation_player.animation_finished)
-	animation_player.play("hero_bg")
 #endregion
 
 #region Login functions
@@ -251,7 +244,7 @@ func _on_login_toggle_pressed() -> void:
 	
 func _on_start_button_pressed() -> void:
 	LOADER.previous_texture = background_texture.texture
-	LOADER.next_texture = preload("res://UITextures/BGTextures/main.png")
+	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")
 	var _change_scene:bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
 
 # Function to check the validity of a username.
