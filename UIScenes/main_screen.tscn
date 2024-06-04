@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://yfevho5xx5qg"]
+[gd_scene load_steps=34 format=3 uid="uid://yfevho5xx5qg"]
 
 [ext_resource type="Script" path="res://UIScenes/main_screen.gd" id="1_25j1r"]
 [ext_resource type="Texture2D" uid="uid://cj3g7l2prnd31" path="res://UITextures/PanelElements/player_panel.png" id="2_37prv"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://74d22xpi5g4s" path="res://UITextures/Progress/player_exp_progress.png" id="9_s07bm"]
 [ext_resource type="Texture2D" uid="uid://clu717sjyfm4r" path="res://UITextures/Buttons/message_button.png" id="11_a2u7i"]
 [ext_resource type="Texture2D" uid="uid://dir30ha1xy1ee" path="res://UITextures/PanelElements/Square slot 4.png" id="11_ddq8t"]
+[ext_resource type="Texture2D" uid="uid://ym02txfwpfvg" path="res://UITextures/Icons/beats_icon.png" id="11_jl1ep"]
 [ext_resource type="PackedScene" uid="uid://b3eiw5d6jk827" path="res://Components/Chat/mutuals_box.tscn" id="12_b1h6r"]
 [ext_resource type="Texture2D" uid="uid://cyl1bqw5cea6d" path="res://UITextures/Buttons/mode_normal.png" id="13_cv2mc"]
 [ext_resource type="Texture2D" uid="uid://bru7x3llda33h" path="res://UITextures/Buttons/PanelTextures/classic_trophy.png" id="13_k2qiu"]
@@ -370,10 +371,11 @@ metadata/_edit_use_anchors_ = true
 
 [node name="BeatsTokenIcon" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect2"]
 layout_mode = 0
-offset_left = -4.0
-offset_top = -9.00002
-offset_right = 58.0
-offset_bottom = 53.0
+offset_left = 8.0
+offset_top = 6.99998
+offset_right = 39.0
+offset_bottom = 38.0
+texture = ExtResource("11_jl1ep")
 expand_mode = 1
 
 [node name="TextureRect3" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
