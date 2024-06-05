@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://d3525s8khlmqy"]
+[gd_scene load_steps=10 format=3 uid="uid://d3525s8khlmqy"]
 
 [ext_resource type="Script" path="res://Components/Popups/player_modal.gd" id="1_1wv2s"]
-[ext_resource type="Texture2D" uid="uid://d3gybnopjgs8s" path="res://UITextures/BGTextures/auth.png" id="1_x7hnd"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="2_lk40d"]
 [ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="3_fki7l"]
 [ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="4_61bi6"]
@@ -92,7 +91,6 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
-texture = ExtResource("1_x7hnd")
 expand_mode = 1
 stretch_mode = 5
 

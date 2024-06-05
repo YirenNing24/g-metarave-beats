@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dpnba3xg218sm"]
+[gd_scene load_steps=13 format=3 uid="uid://btksbk6w2h57e"]
 
 [ext_resource type="Script" path="res://UIScenes/store.gd" id="1_whek4"]
 [ext_resource type="Texture2D" uid="uid://bjpkh360v82aq" path="res://UITextures/BGTextures/store_bg.png" id="2_vxubm"]

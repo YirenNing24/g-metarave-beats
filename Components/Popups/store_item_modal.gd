@@ -7,8 +7,7 @@ signal store_item_buy_pressed
 @onready var viewport: Viewport = %SubViewport
 @onready var card_texture: Sprite2D = %CardSprite
 @onready var animation_player:AnimationPlayer = %AnimationPlayer
-@onready var loading_filter: Panel = %Panel2
-@onready var purchase_label: Label = %PurchaseLabel
+@onready var loading_filter: Panel = %FilterPanel
 
 @onready var card_name: Label = %CardName
 @onready var score_boost: Label = %ScoreBoost

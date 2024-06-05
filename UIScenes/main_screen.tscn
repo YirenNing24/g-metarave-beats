@@ -20,10 +20,10 @@
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="17_b1nlu"]
 [ext_resource type="PackedScene" uid="uid://4hviwgrfsnfn" path="res://Components/Chat/chat_box.tscn" id="17_c2ldk"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="17_dxh3f"]
-[ext_resource type="Texture2D" uid="uid://b1vri81ty6yl8" path="res://UITextures/Buttons/PanelTextures/x_in_hero_1.png" id="20_3dgv8"]
 [ext_resource type="Texture2D" uid="uid://irgifod6546h" path="res://UITextures/Buttons/show_chat.png" id="20_svq2r"]
 [ext_resource type="Texture2D" uid="uid://pillh3ktitlt" path="res://UITextures/GameTextures/particles/petal.png" id="21_vp18h"]
 [ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="22_6iiwn"]
+[ext_resource type="Texture2D" uid="uid://brw2ow36nw41d" path="res://UITextures/CardArtistTextures/hannah_card_artist_hero.png" id="22_um242"]
 [ext_resource type="AudioStream" uid="uid://dtocxag21vt3n" path="res://GameTracks/BGTracks/Tue Apr 23 2024.mp3" id="24_8jsi5"]
 [ext_resource type="AudioStream" uid="uid://xbmw1rvhaoyy" path="res://GameTracks/UITracks/abs-pointer-combine.mp3" id="24_jwt2b"]
 
@@ -59,7 +59,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect/ClassicHero:position")
+tracks/0/path = NodePath("Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect/ClassicTexture:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -507,18 +507,14 @@ texture = ExtResource("11_ddq8t")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="ClassicHero" type="TextureRect" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect"]
-visible = false
+[node name="ClassicTexture" type="TextureRect" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.261659
-anchor_top = 0.745455
-anchor_right = 0.67454
-anchor_bottom = 1.89697
-offset_left = 7.99979
-offset_top = -280.0
-offset_right = 49.6277
-offset_bottom = -396.0
+anchor_left = 0.248705
+anchor_top = -0.193939
+anchor_right = 0.76943
+anchor_bottom = 0.69697
+offset_bottom = 1.52588e-05
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("13_k2qiu")
@@ -753,7 +749,7 @@ custom_minimum_size = Vector2(0, 560)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
-texture = ExtResource("20_3dgv8")
+texture = ExtResource("22_um242")
 expand_mode = 1
 stretch_mode = 4
 

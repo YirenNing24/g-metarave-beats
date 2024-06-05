@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dbebu2yc0n0wy"]
+[gd_scene load_steps=11 format=3 uid="uid://dbebu2yc0n0wy"]
 
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="1_0wty4"]
 [ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="2_0n7da"]
 [ext_resource type="Texture2D" uid="uid://bfbv6cy714jg3" path="res://UITextures/Buttons/stat_button.png" id="3_j2m63"]
 [ext_resource type="Texture2D" uid="uid://bmo2tkxhc1hci" path="res://UITextures/Progress/prop_base2.png" id="4_aj5qw"]
 [ext_resource type="Texture2D" uid="uid://d20dujwh8ic6l" path="res://UITextures/Progress/prop_progress2.png" id="5_aefwb"]
-[ext_resource type="Texture2D" uid="uid://b0nji0srtvb14" path="res://UITextures/Buttons/PanelTextures/main_hero1.png" id="6_qlaxm"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="7_qul76"]
 
 [sub_resource type="GDScript" id="GDScript_2xrb2"]
@@ -956,7 +955,6 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource("6_qlaxm")
 expand_mode = 1
 stretch_mode = 5
 

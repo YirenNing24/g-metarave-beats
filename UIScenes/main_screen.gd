@@ -300,4 +300,3 @@ func _input(event: InputEvent) -> void:
 func play_pointer_sfx() -> void:
 	$AudioStreamPlayer.play()
 	await $AudioStreamPlayer.finished
-

@@ -67,7 +67,7 @@ func _on_logout_button_pressed() -> void:
 func _on_logout_complete() -> void:
 	# Set textures for scene transition
 	LOADER.previous_texture = load("res://UITextures/BGTextures/main.png")
-	LOADER.next_texture = load("res://UITextures/BGTextures/auth.png")
+	LOADER.next_texture = load("res://UITextures/BGTextures/blue_gradient.png")
 #endregion
 
 #region Get Image from Server

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cff5li31pk0jx"]
+[gd_scene load_steps=20 format=3 uid="uid://cff5li31pk0jx"]
 
 [ext_resource type="Script" path="res://Components/Popups/store_item_modal.gd" id="1_ychtr"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_wygyw"]
@@ -11,15 +11,11 @@
 [ext_resource type="FontFile" uid="uid://vqx73un0cel7" path="res://UITextures/Fonts/HankenGrotesk-Italic-VariableFont_wght.ttf" id="7_vtv0g"]
 [ext_resource type="Texture2D" uid="uid://1ktjogd6a24l" path="res://UITextures/Buttons/buy_button.png" id="8_0vpge"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="8_p2noh"]
-[ext_resource type="Texture2D" uid="uid://rf7crm8iniew" path="res://UITextures/Buttons/PanelTextures/store_loading_hero.png" id="11_iowjj"]
-[ext_resource type="Texture2D" uid="uid://fadyu86xt0om" path="res://UITextures/Progress/buy_base.png" id="12_jh3eo"]
-[ext_resource type="Texture2D" uid="uid://cam62c8r5h2y" path="res://UITextures/Progress/buy_progress.png" id="13_1eycr"]
+[ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="13_sdllf"]
 [ext_resource type="Texture2D" uid="uid://daepxh6fg1l01" path="res://UITextures/Cards/hannah_no_doubt_star.png" id="15_psqku"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_fvuja"]
 viewport_path = NodePath("SubViewport")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dclw3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5k46n"]
 transparency = 1
@@ -37,30 +33,6 @@ size = Vector2(119.5, 150)
 resource_name = "buy_loading"
 length = 3.0
 loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BackgroundTexture/Panel2/VBoxContainer/PurchaseProgress:value")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [14.3, 28.3, 28.5, 43.0, 56.0, 70.0, 100.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BackgroundTexture/Panel2/VBoxContainer/PurchaseLabel:text")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": ["CONFIRMING YOUR PURCHASE, PLEASE WAIT", "CONFIRMING YOUR PURCHASE, PLEASE WAIT.", "CONFIRMING YOUR PURCHASE, PLEASE WAIT..", "CONFIRMING YOUR PURCHASE, PLEASE WAIT...", "CONFIRMING YOUR PURCHASE, PLEASE WAIT", "CONFIRMING YOUR PURCHASE, PLEASE WAIT.", "CONFIRMING YOUR PURCHASE, PLEASE WAIT.."]
-}
 
 [sub_resource type="Animation" id="Animation_5mc1f"]
 resource_name = "halfspin"
@@ -414,81 +386,6 @@ size_flags_horizontal = 3
 texture_normal = ExtResource("3_tsqrq")
 texture_hover = ExtResource("4_40xnu")
 
-[node name="Panel2" type="Panel" parent="BackgroundTexture"]
-unique_name_in_owner = true
-visible = false
-self_modulate = Color(0.0509804, 0.0509804, 0.0509804, 0.917647)
-z_index = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_dclw3")
-
-[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/Panel2"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -421.0
-offset_top = -267.0
-offset_right = -17.0
-offset_bottom = 271.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("11_iowjj")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/Panel2"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.443333
-anchor_top = 0.214815
-anchor_right = 0.78
-anchor_bottom = 0.568518
-grow_horizontal = 0
-metadata/_edit_use_anchors_ = true
-
-[node name="PurchaseProgress" type="TextureProgressBar" parent="BackgroundTexture/Panel2/VBoxContainer"]
-custom_minimum_size = Vector2(0, 80)
-layout_mode = 2
-value = 14.0
-nine_patch_stretch = true
-texture_under = ExtResource("12_jh3eo")
-texture_progress = ExtResource("13_1eycr")
-
-[node name="PurchaseLabel" type="Label" parent="BackgroundTexture/Panel2/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(104, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("5_5o5t1")
-text = "CONFIRMING YOUR PURCHASE, PLEASE WAIT"
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/Panel2/VBoxContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/Panel2"]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 0
-offset_left = 14.0
-offset_top = 16.0
-offset_right = 74.0
-offset_bottom = 76.0
-
-[node name="CloseTransaction" type="TextureButton" parent="BackgroundTexture/Panel2/HBoxContainer2"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-texture_normal = ExtResource("3_tsqrq")
-texture_hover = ExtResource("4_40xnu")
-
 [node name="SubViewport" type="SubViewport" parent="."]
 unique_name_in_owner = true
 transparent_bg = true
@@ -535,6 +432,11 @@ libraries = {
 }
 autoplay = "halfspin"
 
+[node name="FilterPanel" parent="." instance=ExtResource("13_sdllf")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+anchors_preset = 0
+
 [connection signal="pressed" from="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer/BuyButton" to="." method="_on_buy_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/HBoxContainer2/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="pressed" from="BackgroundTexture/Panel2/HBoxContainer2/CloseTransaction" to="." method="_on_close_transaction_pressed"]

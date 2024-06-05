@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cmtydmadawqy8"]
+[gd_scene load_steps=11 format=3 uid="uid://cmtydmadawqy8"]
 
 [ext_resource type="Script" path="res://main_inventory.gd" id="1_imm7e"]
 [ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="2_quowf"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="3_vofqu"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="4_7x11s"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="4_v34na"]
-[ext_resource type="Texture2D" uid="uid://brt2d817g34ji" path="res://UITextures/Buttons/PanelTextures/main_inventory_hero.png" id="5_pua5d"]
 [ext_resource type="Texture2D" uid="uid://c77ras2lgiqbf" path="res://UITextures/PanelElements/inventory_selection.png" id="6_bbjlk"]
 [ext_resource type="Texture2D" uid="uid://dqnqqawvspdxo" path="res://UITextures/Buttons/PanelTextures/accessories_texture.png" id="8_sxcys"]
 [ext_resource type="Texture2D" uid="uid://daepxh6fg1l01" path="res://UITextures/Cards/hannah_no_doubt_star.png" id="9_msef7"]
@@ -175,17 +174,6 @@ grow_vertical = 2
 mouse_filter = 2
 alignment = 2
 metadata/_edit_use_anchors_ = true
-
-[node name="Hero" type="TextureRect" parent="BackgroundTexture/VBoxContainer"]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(0, 560)
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-texture = ExtResource("5_pua5d")
-expand_mode = 1
-stretch_mode = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

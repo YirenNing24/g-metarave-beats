@@ -89,7 +89,7 @@ func _on_UpdateStatPointsSaved_request_completed(_result: int, response_code: in
 
 #region for Profile Pic
 # Function called to upload a profile picture.
-func upload_profile_pic(image_buffer: PackedByteArray) -> Node:
+func upload_profile_pic(image_buffer: PackedByteArray) -> void:
 	# Prepare the HTTP request and associated resources.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	UploadProfilePicture = prepared_http_req.request
@@ -99,7 +99,7 @@ func upload_profile_pic(image_buffer: PackedByteArray) -> Node:
 	var _upload: int = UploadProfilePicture.request_completed.connect(_on_ProfilePictureUpload_request_completed)
 	
 	# Prepare the payload with the image data.
-	var payload: Dictionary = {"bufferData": image_buffer}
+	var payload: Dictionary = { "bufferData": image_buffer }
 	
 	# Specify the request URL for profile picture upload.
 	var request_url: String = host + "/api/upload/dp/"
@@ -107,9 +107,6 @@ func upload_profile_pic(image_buffer: PackedByteArray) -> Node:
 	# Send a POST request to upload the profile picture.
 	BKMREngine.send_post_request(UploadProfilePicture, request_url, payload)
 	
-	# Return the current instance of the Node.
-	return self
-
 # Callback function triggered when the profile picture upload request is completed.
 func _on_ProfilePictureUpload_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
@@ -120,20 +117,19 @@ func _on_ProfilePictureUpload_request_completed(_result: int, response_code: int
 	
 	# Parse the response body as a JSON dictionary.
 	var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
-	var _bkmr_result: Dictionary
-	
+
 	# Check if the upload was successful based on the JSON response.
 	if status_check:
-		if json_body.success:
-			_bkmr_result = {"success": "Profile picture upload successful"}
-			BKMRLogger.info("BKMREngine profile picture upload successful")
-			# Update profile picture URLs and emit a signal to notify completion.
-			#profilePicURLs = json_body.profilePics
-			#PLAYER.profile_pics = json_body.profilePics
+		if json_body.has("success"):
+			BKMRLogger.info(json_body.success)
 			profile_pic_upload_complete.emit(json_body)
-		else:
+		elif json_body.has("error"):
 			profile_pic_upload_complete.emit(json_body.error)
-
+		else:
+			profile_pic_upload_complete.emit({ "error": "Unknown Server Error" })
+	else:
+		profile_pic_upload_complete.emit({ "error": "Unknown Server Error" })
+		
 # Function to retrive profile pic from the server.
 func get_profile_pic() -> void:
 	# Prepare an HTTP request for fetching private inbox data.

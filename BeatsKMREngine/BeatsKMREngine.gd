@@ -8,12 +8,12 @@ var godot_version: String = Engine.get_version_info().string
 
 # Configuration variables
 #var host_ip: String = "localhost"
-var host_ip: String = "api.gmetarave.art"
+#var host_ip: String = "api.gmetarave.art"
+var host_ip: String = "192.168.2.61"
 var port: String = ":8085"
-#var host: String = "http://" + host_ip
 
 var google_server_client_id: String = "484949065971-ujoksdio9417hnvd5goaclrvlnsv6704.apps.googleusercontent.com"
-var host: String = "http://" + "localhost" + port
+var host: String = "http://" + host_ip + port
 
 var session: bool = false
 
