@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://cold1qd0j30y2"]
+
+[ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="1_18c4f"]
+[ext_resource type="FontFile" uid="uid://cbqgl5ybh1snb" path="res://UITextures/Fonts/argentum-sans.vf-regular.ttf" id="2_go1bc"]
+
+[node name="CommentPreview" type="Control"]
+custom_minimum_size = Vector2(273, 17)
+layout_mode = 3
+anchors_preset = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(273, 17)
+layout_mode = 0
+
+[node name="CommentUsername" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.788235, 0.623529, 0.309804, 1)
+theme_override_fonts/font = ExtResource("1_18c4f")
+theme_override_font_sizes/font_size = 12
+text = "Bluemoon:"
+vertical_alignment = 2
+autowrap_mode = 2
+justification_flags = 0
+
+[node name="Comment" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("2_go1bc")
+theme_override_font_sizes/font_size = 10
+text = "Let's go!"
+vertical_alignment = 1
+autowrap_mode = 2
+justification_flags = 0
+clip_text = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://yfevho5xx5qg"]
+[gd_scene load_steps=40 format=3 uid="uid://yfevho5xx5qg"]
 
 [ext_resource type="Script" path="res://UIScenes/main_screen.gd" id="1_25j1r"]
 [ext_resource type="Texture2D" uid="uid://cj3g7l2prnd31" path="res://UITextures/PanelElements/player_panel.png" id="2_37prv"]
@@ -14,15 +14,21 @@
 [ext_resource type="Texture2D" uid="uid://clu717sjyfm4r" path="res://UITextures/Buttons/message_button.png" id="11_a2u7i"]
 [ext_resource type="Texture2D" uid="uid://dir30ha1xy1ee" path="res://UITextures/PanelElements/Square slot 4.png" id="11_ddq8t"]
 [ext_resource type="Texture2D" uid="uid://ym02txfwpfvg" path="res://UITextures/Icons/beats_icon.png" id="11_jl1ep"]
+[ext_resource type="PackedScene" uid="uid://cdxx8kvromwib" path="res://Components/MyNotes/MyNotes.tscn" id="12_8ev20"]
 [ext_resource type="PackedScene" uid="uid://b3eiw5d6jk827" path="res://Components/Chat/mutuals_box.tscn" id="12_b1h6r"]
 [ext_resource type="Texture2D" uid="uid://cyl1bqw5cea6d" path="res://UITextures/Buttons/mode_normal.png" id="13_cv2mc"]
 [ext_resource type="Texture2D" uid="uid://bru7x3llda33h" path="res://UITextures/Buttons/PanelTextures/classic_trophy.png" id="13_k2qiu"]
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="17_b1nlu"]
 [ext_resource type="PackedScene" uid="uid://4hviwgrfsnfn" path="res://Components/Chat/chat_box.tscn" id="17_c2ldk"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="17_dxh3f"]
+[ext_resource type="Texture2D" uid="uid://jnwvxlu6vqt3" path="res://UITextures/Icons/mission_icon.png" id="20_10uvs"]
+[ext_resource type="Texture2D" uid="uid://cjc0515n8purx" path="res://UITextures/Icons/inventory_icon.png" id="20_33vu5"]
+[ext_resource type="Texture2D" uid="uid://76exus1tbbc7" path="res://UITextures/Icons/store_icon.png" id="20_i5os4"]
 [ext_resource type="Texture2D" uid="uid://irgifod6546h" path="res://UITextures/Buttons/show_chat.png" id="20_svq2r"]
+[ext_resource type="Texture2D" uid="uid://bf6us288ky7tu" path="res://UITextures/Icons/leaderboard_icon.png" id="21_1piko"]
 [ext_resource type="Texture2D" uid="uid://pillh3ktitlt" path="res://UITextures/GameTextures/particles/petal.png" id="21_vp18h"]
 [ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="22_6iiwn"]
+[ext_resource type="PackedScene" uid="uid://bcfgl37ibygf2" path="res://Components/Moments/moments.tscn" id="22_6yhbc"]
 [ext_resource type="Texture2D" uid="uid://brw2ow36nw41d" path="res://UITextures/CardArtistTextures/hannah_card_artist_hero.png" id="22_um242"]
 [ext_resource type="AudioStream" uid="uid://dtocxag21vt3n" path="res://GameTracks/BGTracks/Tue Apr 23 2024.mp3" id="24_8jsi5"]
 [ext_resource type="AudioStream" uid="uid://xbmw1rvhaoyy" path="res://GameTracks/UITracks/abs-pointer-combine.mp3" id="24_jwt2b"]
@@ -430,6 +436,18 @@ clip_text = true
 text_overrun_behavior = 3
 metadata/_edit_use_anchors_ = true
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MyNotes" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer" instance=ExtResource("12_8ev20")]
+layout_mode = 2
+
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/BackgroundTexture"]
 unique_name_in_owner = true
 layout_mode = 1
@@ -452,6 +470,10 @@ mouse_filter = 0
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
@@ -510,11 +532,10 @@ stretch_mode = 6
 [node name="ClassicTexture" type="TextureRect" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.248705
-anchor_top = -0.193939
-anchor_right = 0.76943
-anchor_bottom = 0.69697
-offset_bottom = 1.52588e-05
+anchor_left = 0.251295
+anchor_top = -0.112121
+anchor_right = 0.772021
+anchor_bottom = 0.712121
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("13_k2qiu")
@@ -557,6 +578,7 @@ offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("17_dxh3f")
 theme_override_font_sizes/font_size = 24
 text = "CLASSIC"
@@ -591,16 +613,26 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -46.0
 offset_top = -14.5
-offset_right = 47.0
+offset_right = 69.0
 offset_bottom = 19.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
 theme_override_fonts/font = ExtResource("17_b1nlu")
 theme_override_font_sizes/font_size = 18
-text = "Store"
+text = "Marketplace"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/StoreButton"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 0
+offset_left = 7.99997
+offset_top = 2.00006
+offset_right = 53.0
+offset_bottom = 47.0001
+texture = ExtResource("20_i5os4")
+expand_mode = 1
 
 [node name="MissionsButton" type="TextureButton" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3" groups=["MainButtons"]]
 self_modulate = Color(0.775064, 0.775063, 0.775063, 1)
@@ -630,6 +662,16 @@ theme_override_font_sizes/font_size = 18
 text = "Missions"
 vertical_alignment = 1
 
+[node name="TextureRect" type="TextureRect" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/MissionsButton"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 0
+offset_left = 7.99997
+offset_top = 2.00006
+offset_right = 53.0
+offset_bottom = 47.0001
+texture = ExtResource("20_10uvs")
+expand_mode = 1
+
 [node name="InventoryButton" type="TextureButton" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3" groups=["MainButtons"]]
 self_modulate = Color(0.775064, 0.775063, 0.775063, 1)
 custom_minimum_size = Vector2(220, 55)
@@ -653,10 +695,23 @@ offset_bottom = 19.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("17_b1nlu")
 theme_override_font_sizes/font_size = 18
 text = "Inventory"
 vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/InventoryButton"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 0
+offset_left = 7.99997
+offset_top = 6.00815e-05
+offset_right = 53.0
+offset_bottom = 45.0001
+texture = ExtResource("20_33vu5")
+expand_mode = 1
 
 [node name="LeaderboardButton" type="TextureButton" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3" groups=["MainButtons"]]
 self_modulate = Color(0.775064, 0.775063, 0.775063, 1)
@@ -676,7 +731,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -46.0
 offset_top = -14.5
-offset_right = 47.0
+offset_right = 70.0
 offset_bottom = 19.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -685,6 +740,16 @@ theme_override_fonts/font = ExtResource("17_b1nlu")
 theme_override_font_sizes/font_size = 18
 text = "Leaderboard"
 vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/LeaderboardButton"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 2.00006
+offset_right = 53.0
+offset_bottom = 47.0001
+texture = ExtResource("21_1piko")
+expand_mode = 1
 
 [node name="ChatBox" parent="Panel/BackgroundTexture" instance=ExtResource("17_c2ldk")]
 z_index = 1
@@ -709,6 +774,10 @@ anchor_right = 1.00333
 anchor_bottom = 1.0
 offset_top = 0.0
 offset_bottom = 0.0
+
+[node name="Moments" parent="Panel/BackgroundTexture" instance=ExtResource("22_6yhbc")]
+visible = false
+layout_mode = 1
 
 [node name="MutualsButton" type="TextureButton" parent="Panel/BackgroundTexture" groups=["MainButtons"]]
 unique_name_in_owner = true
@@ -806,12 +875,6 @@ libraries = {
 "": SubResource("AnimationLibrary_qe76f")
 }
 
-[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
-unique_name_in_owner = true
-libraries = {
-"": SubResource("AnimationLibrary_qe76f")
-}
-
 [node name="SakuraFX2" type="GPUParticles2D" parent="."]
 modulate = Color(1, 0.745098, 1, 0.384314)
 z_index = 2
@@ -825,6 +888,8 @@ speed_scale = 0.8
 
 [node name="CursorSpark" parent="." instance=ExtResource("22_6iiwn")]
 unique_name_in_owner = true
+z_index = 20
+z_as_relative = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("24_jwt2b")
@@ -834,7 +899,6 @@ pitch_scale = 1.1
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("24_8jsi5")
 volume_db = -5.0
-autoplay = true
 parameters/looping = true
 
 [connection signal="mutuals_button_pressed" from="." to="Panel/BackgroundTexture/MutualsBox" method="_on_main_screen_mutuals_button_pressed"]
@@ -846,7 +910,6 @@ parameters/looping = true
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/InventoryButton" to="." method="_on_inventory_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
 [connection signal="close_pressed" from="Panel/BackgroundTexture/ChatBox" to="." method="_on_chat_box_close_pressed"]
-[connection signal="view_profile_pressed" from="Panel/BackgroundTexture/ChatBox" to="." method="_on_chat_box_view_profile_pressed"]
 [connection signal="chat_button_pressed" from="Panel/BackgroundTexture/MutualsBox" to="." method="_on_mutuals_box_chat_button_pressed"]
 [connection signal="chat_button_pressed" from="Panel/BackgroundTexture/MutualsBox" to="Panel/BackgroundTexture/ChatBox" method="_on_mutuals_box_chat_button_pressed"]
 [connection signal="slide_pressed" from="Panel/BackgroundTexture/MutualsBox" to="." method="_on_mutuals_box_slide_pressed"]

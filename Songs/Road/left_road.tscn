@@ -1,0 +1,202 @@
+[gd_scene load_steps=23 format=3 uid="uid://by3eu0c1wu460"]
+
+[ext_resource type="Script" path="res://Songs/Road/left_road.gd" id="1_7ihg8"]
+[ext_resource type="PackedScene" uid="uid://ckxk82ja1e1qf" path="res://Songs/Road/road_surface.tscn" id="1_np8nn"]
+[ext_resource type="Texture2D" uid="uid://bfct8g5meu08d" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_COLOR.jpg" id="2_xlccs"]
+[ext_resource type="Texture2D" uid="uid://dubt54coayt3a" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_OCC.jpg" id="3_cii7a"]
+[ext_resource type="Texture2D" uid="uid://cgxvigqrsd5b1" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_DISP.png" id="4_2ihvf"]
+[ext_resource type="Texture2D" uid="uid://6nqow2sfbl2g" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_NORM.jpg" id="5_13qd0"]
+[ext_resource type="Texture2D" uid="uid://bvgtfwv5c7rgl" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_ROUGH.jpg" id="6_wny1h"]
+[ext_resource type="Shader" path="res://Songs/Road/hit_area.gdshader" id="7_7c51b"]
+[ext_resource type="PackedScene" uid="uid://cjx2qu2kdc3p2" path="res://GameComponents/NotePicker/notepicker.tscn" id="8_ymljb"]
+[ext_resource type="Script" path="res://GameComponents/NotePicker/left_notepicker.gd" id="10_8xr12"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kakxu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jiib6"]
+albedo_color = Color(0, 0, 0, 1)
+albedo_texture = ExtResource("2_xlccs")
+metallic = 0.47
+metallic_specular = 0.56
+metallic_texture = ExtResource("4_2ihvf")
+roughness_texture = ExtResource("6_wny1h")
+normal_enabled = true
+normal_texture = ExtResource("5_13qd0")
+ao_enabled = true
+ao_texture = ExtResource("3_cii7a")
+
+[sub_resource type="QuadMesh" id="QuadMesh_mnigc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qy708"]
+render_priority = 0
+shader = ExtResource("7_7c51b")
+shader_parameter/character_position = null
+shader_parameter/fade_distance = 20.0
+shader_parameter/color = Color(0.94, 0.54, 0.15, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_avrcq"]
+render_priority = 0
+shader = ExtResource("7_7c51b")
+shader_parameter/character_position = null
+shader_parameter/fade_distance = null
+shader_parameter/color = Color(0.94, 0.54, 0.15, 1)
+
+[sub_resource type="Gradient" id="Gradient_08vfv"]
+offsets = PackedFloat32Array(0.248062, 0.514839, 0.767442)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_k4xem"]
+gradient = SubResource("Gradient_08vfv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ls6m4"]
+blend_mode = 1
+cull_mode = 2
+no_depth_test = true
+shading_mode = 2
+specular_mode = 2
+albedo_color = Color(0, 0, 0, 0)
+emission_enabled = true
+emission = Color(0.560784, 0.894118, 0.909804, 1)
+emission_operator = 1
+emission_texture = SubResource("GradientTexture2D_k4xem")
+
+[sub_resource type="Gradient" id="Gradient_n7goa"]
+offsets = PackedFloat32Array(0.483871, 0.514839, 0.539171)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_04dtn"]
+gradient = SubResource("Gradient_n7goa")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jfrtm"]
+blend_mode = 1
+cull_mode = 2
+shading_mode = 2
+specular_mode = 2
+albedo_color = Color(0, 0, 0, 0)
+emission_enabled = true
+emission = Color(0.219608, 0.537255, 0.556863, 1)
+emission_operator = 1
+emission_texture = SubResource("GradientTexture2D_04dtn")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qipll"]
+blend_mode = 1
+cull_mode = 2
+shading_mode = 2
+specular_mode = 2
+albedo_color = Color(0, 0, 0, 0)
+emission_enabled = true
+emission = Color(0.0588235, 0.827451, 0.85098, 1)
+emission_operator = 1
+emission_texture = SubResource("GradientTexture2D_04dtn")
+
+[node name="LeftRoad" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 0.451036, 0, -1, -1.97154e-08, 0, 0.990899, 2.5191)
+script = ExtResource("1_7ihg8")
+
+[node name="RoadSurface" parent="." instance=ExtResource("1_np8nn")]
+
+[node name="RoadSurface2" parent="." instance=ExtResource("1_np8nn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.38488, 0, 0)
+
+[node name="SideRail" type="MeshInstance3D" parent="."]
+transform = Transform3D(8.3, 0, 0, 0, 0.2, 0, 0, 0, 0.15, -4.10749, 0, 2.34869)
+mesh = SubResource("PlaneMesh_kakxu")
+surface_material_override/0 = SubResource("StandardMaterial3D_jiib6")
+
+[node name="HitArea" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-0.6, -3.8466e-07, 4.37114e-08, 2.62268e-08, 8.40702e-15, 1, -5.24537e-08, 4.4, 1.91069e-15, 3.36304, 0.0566458, 0)
+visible = false
+gi_mode = 0
+mesh = SubResource("QuadMesh_mnigc")
+surface_material_override/0 = SubResource("ShaderMaterial_qy708")
+
+[node name="HitArea2" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-0.6, -3.8466e-07, 4.37114e-08, 2.62268e-08, 8.40702e-15, 1, -5.24537e-08, 4.4, 1.91069e-15, 3.36304, -0.00652528, 0.0077635)
+material_overlay = SubResource("ShaderMaterial_avrcq")
+gi_mode = 0
+mesh = SubResource("QuadMesh_mnigc")
+surface_material_override/0 = SubResource("StandardMaterial3D_ls6m4")
+
+[node name="Line" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, 1.33)
+gi_mode = 0
+mesh = SubResource("QuadMesh_mnigc")
+surface_material_override/0 = SubResource("StandardMaterial3D_jfrtm")
+
+[node name="Line5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, 2.21192)
+gi_mode = 0
+mesh = SubResource("QuadMesh_mnigc")
+surface_material_override/0 = SubResource("StandardMaterial3D_qipll")
+
+[node name="Line7" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, 2.51291)
+gi_mode = 0
+mesh = SubResource("QuadMesh_mnigc")
+surface_material_override/0 = SubResource("StandardMaterial3D_qipll")
+
+[node name="SideRail2" type="MeshInstance3D" parent="."]
+transform = Transform3D(8.3, 0, 0, 0, 0.2, 0, 0, 0, 0.15, -4.10749, 0, -2.32681)
+mesh = SubResource("PlaneMesh_kakxu")
+surface_material_override/0 = SubResource("StandardMaterial3D_jiib6")
+
+[node name="Line6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, -2.45376)
+gi_mode = 0
+mesh = SubResource("QuadMesh_mnigc")
+surface_material_override/0 = SubResource("StandardMaterial3D_qipll")
+
+[node name="Line8" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, -2.16259)
+gi_mode = 0
+mesh = SubResource("QuadMesh_mnigc")
+surface_material_override/0 = SubResource("StandardMaterial3D_qipll")
+
+[node name="Line2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, 0.44)
+gi_mode = 0
+mesh = SubResource("QuadMesh_mnigc")
+surface_material_override/0 = SubResource("StandardMaterial3D_jfrtm")
+
+[node name="Line3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, -0.445)
+gi_mode = 0
+mesh = SubResource("QuadMesh_mnigc")
+surface_material_override/0 = SubResource("StandardMaterial3D_jfrtm")
+
+[node name="Line4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, -1.34)
+gi_mode = 0
+mesh = SubResource("QuadMesh_mnigc")
+surface_material_override/0 = SubResource("StandardMaterial3D_jfrtm")
+
+[node name="BarsNode" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="6" parent="." groups=["Picker"] instance=ExtResource("8_ymljb")]
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.122, 0.051, 1.78)
+script = ExtResource("10_8xr12")
+line = 6
+
+[node name="7" parent="." groups=["Picker"] instance=ExtResource("8_ymljb")]
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, 0.885936)
+script = ExtResource("10_8xr12")
+line = 7
+
+[node name="8" parent="." groups=["Picker"] instance=ExtResource("8_ymljb")]
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, 0.00314426)
+script = ExtResource("10_8xr12")
+line = 8
+
+[node name="9" parent="." groups=["Picker"] instance=ExtResource("8_ymljb")]
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, -0.890361)
+script = ExtResource("10_8xr12")
+line = 9
+
+[node name="10" parent="." groups=["Picker"] instance=ExtResource("8_ymljb")]
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, -1.78387)
+script = ExtResource("10_8xr12")
+line = 10

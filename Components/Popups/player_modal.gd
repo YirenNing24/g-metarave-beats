@@ -10,28 +10,33 @@ const default_color: Color = Color("#ffffff")
 @onready var player_rank: Label = %PlayerRank
 @onready var player_level: Label = %Level
 @onready var status: Label = %Status
-@onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var follow_unfollow_button: TextureButton = %FollowUnfollowButton
 @onready var follow_button_label: Label = %FollowLabel
 @onready var follow_status_label: Label = %FollowStatusLabel
 
+# Modals
+@onready var view_player_picture: Control = %ViewPlayerPicture
+@onready var profile_pic: TextureRect = %ProfilePic
 
 @onready var badge_container: HBoxContainer = %BadgeContainer
 # Variables
-var player_profile: Dictionary
-var player_username: String
 
+var player_username: String
+var profile_player: Dictionary
 
 # This function is called when the node is ready to perform initial setup. In this case, it connects``
 func _ready() -> void:
-	# Connect signal for displaying player stats
-	BKMREngine.Social.view_profile_complete.connect(_on_stat_display)
+	signal_connect()
 
-# Handle the display of player statistics.
-func _on_stat_display() -> void:
-	# Retrieve player stats from the player profile
-	player_profile = BKMREngine.Social.player_profile
+func signal_connect() -> void:
+	BKMREngine.Social.view_profile_complete.connect(_on_stat_display)
+	BKMREngine.Social.follow_complete.connect(_on_follow_complete)
+	BKMREngine.Social.unfollow_complete.connect(_on_unfollow_complete)
+	BKMREngine.Profile.get_player_profile_pic_complete.connect(_on_get_player_profile_pic_complete)
 	
+# Handle the display of player statistics.
+func _on_stat_display(player_profile: Dictionary) -> void:
+	profile_player = player_profile
 	# Check if the player profile is available
 	if player_profile:
 		var player_stats: Dictionary = player_profile.playerStats
@@ -59,16 +64,14 @@ func _on_stat_display() -> void:
 		player_name.text = player_profile.username
 		player_level.text = str(player_stats.level)
 		player_rank.text = player_stats.rank
-		
-		player_username = player_profile.username
+	_on_get_preference_complete(player_profile)
+	_on_chat_box_view_profile_pressed()
+
+func _on_chat_box_view_profile_pressed() -> void:
+	BKMREngine.Profile.get_player_profile_pic(profile_player.username)
+	visible = true
 	
-	if player_profile.username == "GreenPill":
-		%ProfilePic.texture = load("res://UITextures/Bundles/green_pill.png")
-	else:
-		%ProfilePic.texture = load("res://UITextures/Bundles/beats_logo.png")
-	_on_get_preference_complete()
-	
-func _on_get_preference_complete() -> void:
+func _on_get_preference_complete(player_profile: Dictionary) -> void:
 	
 	var soul_data: Dictionary = player_profile.userSoul
 	for badge: Control in badge_container.get_children():
@@ -111,28 +114,55 @@ func _on_get_preference_complete() -> void:
 				badge_container.add_child(badge)
 				badge_created = true  # Set the flag to true to indicate a badge has been created
 				break  # Exit the loop since we only need one badge
-				
-# Handle visibility changes for the control.
-func _on_visibility_changed() -> void:
-	# Play fade-in animation when the control becomes visible
-	if visible:
-		animation_player.play("fade-in")
 
-# Handle follow/unfollow button press.
 func _on_follow_unfollow_button_pressed() -> void:
-	if player_profile.followsUser:
+	if profile_player.followsUser:
 		follow_unfollow_button.disabled = true
-		BKMREngine.Social.unfollow(BKMREngine.Auth.logged_in_player, player_username)
-		await BKMREngine.Social.unfollow_complete
-		player_profile.followsUser = false
-		follow_button_label.text = "FOLLOW"
-		follow_unfollow_button.modulate = "#ffffff"
-		follow_unfollow_button.disabled = false
+		BKMREngine.Social.unfollow(player_username)
 	else:
 		follow_unfollow_button.disabled = true
-		BKMREngine.Social.follow(BKMREngine.Auth.logged_in_player, player_username)
-		await BKMREngine.Social.follow_complete
-		player_profile.followsUser = true
+		BKMREngine.Social.follow(player_username)
+
+func _on_follow_complete(message: Dictionary) -> void:
+	if message.has("error"):
+		follow_unfollow_button.button_pressed = false
+	else:
 		follow_button_label.text = "UNFOLLOW"
 		follow_unfollow_button.modulate = "#89898994"
-		follow_unfollow_button.disabled = false
+		profile_player.followsUser = true
+	follow_unfollow_button.disabled = false
+	
+func _on_unfollow_complete(message: Dictionary) -> void:
+	if message.has("error"):
+		follow_unfollow_button.button_pressed = true
+	else:
+		follow_button_label.text = "FOLLOW"
+		follow_unfollow_button.modulate = "#ffffff"
+		profile_player.followsUser = false
+	follow_unfollow_button.disabled = false
+	
+func _on_profile_pic_options_button_pressed() -> void:
+	if view_player_picture.profile_pics_data.size() == 0:
+		return
+	view_player_picture.visible = true
+
+func _on_get_player_profile_pic_complete(profile_pics: Variant) -> void:
+	if typeof(profile_pics) != TYPE_ARRAY:
+		return
+	for pic: Dictionary in profile_pics:
+		var image: Image = Image.new()
+		var first_image: String = profile_pics[0].profilePicture
+		var display_image: PackedByteArray = JSON.parse_string(first_image)
+		var error: Error = image.load_png_from_buffer(display_image)
+		if error != OK:
+			print("Error loading image", error)
+		else:
+			var display_pic: Texture =  ImageTexture.create_from_image(image)
+			profile_pic.texture = display_pic
+		view_player_picture.profile_pics_data = profile_pics
+		view_player_picture.display_picture()
+
+func _on_panel_2_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if visible:
+			visible = false

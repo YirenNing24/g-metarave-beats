@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cbhfcq0bjdlqy"]
+[gd_scene load_steps=22 format=3 uid="uid://cbhfcq0bjdlqy"]
 
 [ext_resource type="Script" path="res://Songs/Road/road.gd" id="1_fldoh"]
 [ext_resource type="PackedScene" uid="uid://ckxk82ja1e1qf" path="res://Songs/Road/road_surface.tscn" id="1_qjbxv"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://6nqow2sfbl2g" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_NORM.jpg" id="4_nadg5"]
 [ext_resource type="Texture2D" uid="uid://bvgtfwv5c7rgl" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_ROUGH.jpg" id="5_q8rnr"]
 [ext_resource type="PackedScene" uid="uid://cjx2qu2kdc3p2" path="res://GameComponents/NotePicker/notepicker.tscn" id="8_81ipa"]
+[ext_resource type="Shader" path="res://Songs/Road/hit_area.gdshader" id="8_ldstf"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_kakxu"]
 
@@ -25,6 +26,20 @@ ao_texture = ExtResource("3_4y7eo")
 
 [sub_resource type="QuadMesh" id="QuadMesh_mnigc"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qy708"]
+render_priority = 0
+shader = ExtResource("8_ldstf")
+shader_parameter/character_position = null
+shader_parameter/fade_distance = 20.0
+shader_parameter/color = Color(0.94, 0.54, 0.15, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_avrcq"]
+render_priority = 0
+shader = ExtResource("8_ldstf")
+shader_parameter/character_position = null
+shader_parameter/fade_distance = null
+shader_parameter/color = Color(0.94, 0.54, 0.15, 1)
+
 [sub_resource type="Gradient" id="Gradient_08vfv"]
 offsets = PackedFloat32Array(0.248062, 0.514839, 0.767442)
 colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
@@ -35,6 +50,7 @@ gradient = SubResource("Gradient_08vfv")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ls6m4"]
 blend_mode = 1
 cull_mode = 2
+no_depth_test = true
 shading_mode = 2
 specular_mode = 2
 albedo_color = Color(0, 0, 0, 0)
@@ -85,13 +101,18 @@ transform = Transform3D(8.3, 0, 0, 0, 0.2, 0, 0, 0, 0.15, -4.10749, 0, 2.34869)
 mesh = SubResource("PlaneMesh_kakxu")
 surface_material_override/0 = SubResource("StandardMaterial3D_jiib6")
 
-[node name="SideRail2" type="MeshInstance3D" parent="."]
-transform = Transform3D(8.3, 0, 0, 0, 0.2, 0, 0, 0, 0.15, -4.1, 0, -2.32)
-mesh = SubResource("PlaneMesh_kakxu")
-surface_material_override/0 = SubResource("StandardMaterial3D_jiib6")
-
 [node name="HitArea" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.6, -3.8466e-07, 4.37114e-08, 2.62268e-08, 8.40702e-15, 1, -5.24537e-08, 4.4, 1.91069e-15, 3.36304, 0.0160047, 0)
+unique_name_in_owner = true
+transform = Transform3D(-0.6, -3.8466e-07, 4.37114e-08, 2.62268e-08, 8.40702e-15, 1, -5.24537e-08, 4.4, 1.91069e-15, 3.36304, 0.0566458, 0)
+visible = false
+gi_mode = 0
+mesh = SubResource("QuadMesh_mnigc")
+surface_material_override/0 = SubResource("ShaderMaterial_qy708")
+
+[node name="HitArea2" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-0.6, -6.64382e-07, -6.60024e-15, 0, -1.9233e-07, 1, -9.05975e-08, 4.4, 4.37114e-08, 3.36304, -0.00652528, 0.0077635)
+material_overlay = SubResource("ShaderMaterial_avrcq")
 gi_mode = 0
 mesh = SubResource("QuadMesh_mnigc")
 surface_material_override/0 = SubResource("StandardMaterial3D_ls6m4")
@@ -103,7 +124,7 @@ mesh = SubResource("QuadMesh_mnigc")
 surface_material_override/0 = SubResource("StandardMaterial3D_jfrtm")
 
 [node name="Line5" type="MeshInstance3D" parent="."]
-transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, 2.22174)
+transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, 2.21192)
 gi_mode = 0
 mesh = SubResource("QuadMesh_mnigc")
 surface_material_override/0 = SubResource("StandardMaterial3D_qipll")
@@ -114,14 +135,19 @@ gi_mode = 0
 mesh = SubResource("QuadMesh_mnigc")
 surface_material_override/0 = SubResource("StandardMaterial3D_qipll")
 
-[node name="Line8" type="MeshInstance3D" parent="."]
-transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, -2.45589)
+[node name="SideRail2" type="MeshInstance3D" parent="."]
+transform = Transform3D(8.3, 0, 0, 0, 0.2, 0, 0, 0, 0.15, -4.10749, 0, -2.36789)
+mesh = SubResource("PlaneMesh_kakxu")
+surface_material_override/0 = SubResource("StandardMaterial3D_jiib6")
+
+[node name="Line6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, -2.4931)
 gi_mode = 0
 mesh = SubResource("QuadMesh_mnigc")
 surface_material_override/0 = SubResource("StandardMaterial3D_qipll")
 
-[node name="Line6" type="MeshInstance3D" parent="."]
-transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, -2.2063)
+[node name="Line8" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.0598e-08, -17, -4.37114e-08, 0, -7.43094e-07, 1, -0.7, 7.43094e-07, 1.91069e-15, -4.2679, 0.016, -2.19076)
 gi_mode = 0
 mesh = SubResource("QuadMesh_mnigc")
 surface_material_override/0 = SubResource("StandardMaterial3D_qipll")
@@ -148,17 +174,22 @@ surface_material_override/0 = SubResource("StandardMaterial3D_jfrtm")
 unique_name_in_owner = true
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 
-[node name="NotePicker" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
+[node name="1" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
 transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.122, 0.051, 1.78)
+line = 1
 
-[node name="NotePicker2" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
+[node name="2" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
 transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, 0.885936)
+line = 2
 
-[node name="NotePicker3" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
+[node name="3" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
 transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, 0.00314426)
+line = 3
 
-[node name="NotePicker4" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
+[node name="4" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
 transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, -0.890361)
+line = 4
 
-[node name="NotePicker5" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
+[node name="5" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
 transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, -1.78387)
+line = 5

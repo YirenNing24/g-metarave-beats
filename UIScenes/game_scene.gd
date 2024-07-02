@@ -1,6 +1,3 @@
-
-
-# Class extending Node3D to manage the gameplay environment.
 extends Node3D
 
 # Reference to the road Node3D.
@@ -69,4 +66,3 @@ func setup_nodes() -> void:
 # Placeholder function for building the game map.
 func build_map(_empty: String) -> void:
 	pass
-

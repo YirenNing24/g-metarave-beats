@@ -1,10 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkw4i4wmj2ike"]
+[gd_scene load_steps=10 format=3 uid="uid://dkw4i4wmj2ike"]
 
 [ext_resource type="Script" path="res://Components/Popups/view_picture.gd" id="1_yuyeb"]
+[ext_resource type="Texture2D" uid="uid://cwkvcqhvukyk8" path="res://UITextures/Icons/change_pic_icon.png" id="2_8kkft"]
 [ext_resource type="Texture2D" uid="uid://df4ks21hiueoy" path="res://UITextures/Buttons/next_prev_button.png" id="2_fgglm"]
+[ext_resource type="Texture2D" uid="uid://lmqc02xq1shh" path="res://UITextures/Buttons/like_empty.png" id="2_jwwya"]
+[ext_resource type="Texture2D" uid="uid://kkrprjr0qi2e" path="res://UITextures/Buttons/like_full.png" id="3_836hn"]
+[ext_resource type="FontFile" uid="uid://cbqgl5ybh1snb" path="res://UITextures/Fonts/argentum-sans.vf-regular.ttf" id="4_jer3s"]
+[ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="6_p6xrc"]
+[ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="7_aclns"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lsll3"]
-bg_color = Color(0, 0, 0, 0.933333)
+bg_color = Color(0, 0, 0, 0.929412)
 
 [node name="ViewPicture" type="Control"]
 z_index = 5
@@ -33,6 +39,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 20
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
@@ -46,6 +53,74 @@ custom_minimum_size = Vector2(350, 350)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
+
+[node name="ChangeProfilePicButton" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/DisplayPictureTexture"]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0.639216)
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -37.0
+offset_top = -38.0
+offset_right = -7.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("2_8kkft")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(600, 60)
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LikeButton" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+size_flags_horizontal = 0
+toggle_mode = true
+texture_normal = ExtResource("2_jwwya")
+texture_pressed = ExtResource("3_836hn")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="LikeCountLabel" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_jer3s")
+theme_override_font_sizes/font_size = 13
+text = "999"
+horizontal_alignment = 1
+
+[node name="LikersLabel" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_jer3s")
+theme_override_font_sizes/font_size = 13
+text = "Liked by"
 
 [node name="VBoxContainer2" type="HBoxContainer" parent="Panel"]
 custom_minimum_size = Vector2(0, 70)
@@ -88,7 +163,15 @@ texture_normal = ExtResource("2_fgglm")
 ignore_texture_size = true
 stretch_mode = 5
 
-[connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]
-[connection signal="visibility_changed" from="Panel/VBoxContainer/HBoxContainer/DisplayPictureTexture" to="." method="_on_display_picture_texture_visibility_changed"]
+[node name="CloseButton" type="TextureButton" parent="Panel"]
+layout_mode = 0
+size_flags_horizontal = 3
+texture_normal = ExtResource("6_p6xrc")
+texture_hover = ExtResource("7_aclns")
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/DisplayPictureTexture/ChangeProfilePicButton" to="." method="_on_change_profile_pic_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer/LikeButton" to="." method="_on_like_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer2/LeftButton" to="." method="_on_left_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer2/RightButton" to="." method="_on_right_button_pressed"]
+[connection signal="pressed" from="Panel/CloseButton" to="." method="_on_close_button_pressed"]

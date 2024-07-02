@@ -43,10 +43,7 @@ var uid: int = -1
 
 # Initialize the note when ready.
 func _ready() -> void:
-	# Set the position of the note and add it to the "note" group.
-	set_note_position() 
-	
-	# Connect the _on_area_entered function to the area_entered signal.
+	set_note_position()
 	var _note_connect: int = note_area.area_entered.connect(_on_area_entered)
 	
 	# Calculate and set the current length of the note and update the beam scale.
@@ -54,73 +51,64 @@ func _ready() -> void:
 	beam.scale.z = curr_length_in_m
 	
 # Set the position of the note based on the specified line and layer.
+# Method to set the position of the note based on the line and layer.
 func set_note_position() -> void:
-	
-	# Determine the z-coordinate based on the specified line.
+	var z_values: Array[float] = [-1.79, -0.89, 0, 0.89, 1.79]
 	var z: float
-	match line:
-		1:
-			z = -1.79
-		2:
-			z = -0.89
-		3:
-			z = 0
-		4:
-			z = 0.89
-		5:
-			z = 1.79
-	
-	# Set the position of the note in 3D space.
+
+	if line in [1, 2, 3, 4, 5]:
+		z = z_values[line - 1]
+	elif line in [6, 7, 8, 9, 10, 11, 12, 13, 14, 15]:
+		rotation.y = 90
+		z = z_values[line - 6]
 	position = Vector3(z, layer, -note_position * length_scale)
-	#var position_abs: Vector3= position.abs()
-	#print("long: ", position_abs)
-	#print("global: ", global_position)
 
 # Handle the process logic for the note.
 func _process(delta: float) -> void:
 	# Check if the picker is present or if the current note is being collected by another picker.
-	if not picker or (picker.note_collect != null and picker.note_collect != self): 
+	if not picker or (picker.note_collect != null and picker.note_collect != self):
 		return
 
-	# Check if the note is colliding.
 	if is_colliding:
-		# Check if the picker is collecting the note and the note has not been collected.
-		if picker.is_collecting and not collected:
-			collect()
-			hold_started = true
-			picker.note_collect = self
-		# Check if the picker stopped collecting and the hold was started and the note has been collected.
-		elif not picker.is_collecting and hold_started and collected:
-			hold_canceled = true
-			picker.note_collect = null
-			picker.is_collecting = false
+		handle_collision()
 	else:
-		# If the hold was started and not canceled, trigger long_note_hold.
+		# If the hold was started and not canceled, trigger long_note_hold once.
 		if hold_started and not hold_canceled:
 			long_note_hold()
-			hold_canceled = true  # Ensure it's only triggered once.
+			hold_canceled = true
 
 	# Check if the hold is started and not canceled.
 	if hold_started and not hold_canceled:
-		# Update the current length of the note.
-		curr_length_in_m -= speed.z * delta
-		note_collecting = true
+		# Update the current length of the note and handle note collecting.
+		handle_note_collecting(delta)
 
-		#beam.scale.z -= delta
-		# Check if the note is still collecting and the current length is greater than 0.
-		if note_collecting and curr_length_in_m > 0:
-			# Update the time and trigger the long note hold if the time delay is reached.
-			time += delta
-			if time > time_delay:
-				long_note_hold()
-				time = 0
-		else:
-			note_collecting = false
+func handle_collision() -> void:
+	if picker.is_collecting and not collected:
+		collect()
+		hold_started = true
+		picker.note_collect = self
+	elif not picker.is_collecting and hold_started and collected:
+		hold_canceled = true
+		picker.note_collect = null
+		picker.is_collecting = false
+
+func handle_note_collecting(delta: float) -> void:
+	# Update the current length of the note.
+	curr_length_in_m -= speed.z * delta
+	note_collecting = true
+
+	if note_collecting and curr_length_in_m > 0:
+		# Update the time and trigger the long note hold if the time delay is reached.
+		time += delta
+		if time > time_delay:
+			long_note_hold()
+			time = 0
+	else:
+		note_collecting = false
 
 # Handle the continued holding of a long note.
 func long_note_hold() -> void:
 	hit_continued_feedback.emit(accuracy, line)
-	# ui.hit_continued_feedback(accuracy, line)
 
 # Collect the note and provide feedback.
 func collect(is_miss: bool = false) -> void:
@@ -130,34 +118,19 @@ func collect(is_miss: bool = false) -> void:
 	if is_miss and beam != null:
 		pass
 	hit_feedback.emit(accuracy, line)
-		# "%Beam".get_node("Particles").hide()
-
-	# ui.hit_feedback(accuracy, line)
-	# ui.add_score()
 
 # Handle the area entered signal of the note.
 func _on_area_entered(area: Area3D) -> void:
 	if collected:
 		return
+	var area_groups: Array[String] = ["perfect_area", "verygood_area", "good_area", "bad_area", "miss_area"]
+	var area_accuracy: Array[int]  = [1, 2, 3, 4, 5]
 	
-	if area.is_in_group("perfect_area"):
-		accuracy = 1
-		is_colliding = true
-		picker = area.get_parent()
-	elif area.is_in_group("verygood_area"):
-		accuracy = 2
-		is_colliding = true
-		picker = area.get_parent()
-	elif area.is_in_group("good_area"):
-		accuracy = 3
-		is_colliding = true
-		picker = area.get_parent()
-	elif area.is_in_group("bad_area"):
-		accuracy = 4
-		is_colliding = true
-		picker = area.get_parent()
-	elif area.is_in_group("miss_area"):
-		accuracy = 5
-		is_colliding = false
-		picker = area.get_parent()
-		collect(true)
+	for i: int in range(area_groups.size()):
+		if area.is_in_group(area_groups[i]):
+			accuracy = area_accuracy[i]
+			is_colliding = (accuracy != 5)
+			picker = area.get_parent()
+			if accuracy == 5:
+				collect(true)
+			break

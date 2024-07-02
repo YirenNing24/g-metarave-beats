@@ -3,12 +3,16 @@
 [ext_resource type="Texture2D" uid="uid://clu717sjyfm4r" path="res://UITextures/Buttons/message_button.png" id="1_wky12"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pkqk1"]
-bg_color = Color(0.105882, 0.0980392, 0.160784, 1)
+bg_color = Color(0, 0.0588235, 0.0588235, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.564706, 0.47451, 0.643137, 1)
+border_color = Color(0.152941, 0.8, 0.8, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="MutualSlot" type="Control"]
 custom_minimum_size = Vector2(0, 113)
@@ -22,7 +26,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 2.0
+offset_right = 0.000396729
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_pkqk1")
@@ -59,6 +63,12 @@ custom_minimum_size = Vector2(83, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.48
+
+[node name="DPIcon" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+expand_mode = 1
+stretch_mode = 5
 
 [node name="HBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer"]
 layout_mode = 2

@@ -1,6 +1,6 @@
 extends Node3D
 
-signal song_finished
+#signal song_finished
 
 # Reference to the node containing musical bars.
 @onready var bars_node: Node3D = %BarsNode
@@ -10,7 +10,7 @@ signal song_finished
 # PackedScene for the musical bar.
 var bar_scene: PackedScene = load("res://GameComponents/Bar/bar.tscn")
 # Array to store the active musical bars.
-var bars: Array = []
+var bars: Array[Node3D] = []
 
 # Length of a musical bar in meters.
 var bar_length_in_meters: float
@@ -52,7 +52,6 @@ func setup(game_config: Node3D) -> void:
 # Process method called on every frame to update the position of musical bars.
 func _process(delta: float) -> void:
 	bars_node.translate(speed * delta)
-
 	for bar: Node3D in bars: 
 		if bar.position.z + bars_node.position.x >= bar_length_in_meters * 2:
 			remove_bar(bar)
@@ -74,7 +73,6 @@ func add_bar() -> void:
 	bar.bar_index = current_bar_index
 	current_location += Vector3(0, 0, -bar_length_in_meters)
 
-
 # Method to retrieve the data for the current musical bar.
 func get_bar_data() -> Array:
 	var irene_data: Dictionary = tracks_data[0].bars[current_bar_index]
@@ -82,23 +80,17 @@ func get_bar_data() -> Array:
 	var wendy_data: Dictionary = tracks_data[2].bars[current_bar_index]
 	var joy_data: Dictionary = tracks_data[3].bars[current_bar_index]
 	var yeri_data: Dictionary = tracks_data[4].bars[current_bar_index]
-	return [irene_data, seulgi_data, wendy_data, joy_data, yeri_data]
+	return [irene_data, seulgi_data, wendy_data, joy_data, yeri_data] as Array
 
 # Method to remove a musical bar from the scene.
 func remove_bar(bar: Node3D) -> void:
 	bar.queue_free()
 	bars.remove_at(0)
 	if (len(bars) == 0) and current_bar_index == max_index:
-		song_finished.emit()
+		pass
+		#song_finished.emit()
 
 # Method to add a specified number of musical bars to the scene.
 func add_bars(length: float) -> void:
 	for _i: float in range(length):
 		add_bar()
-
-func _on_user_hud_hit_display_data(_note_accuracy: int, _line: int, combo: int) -> void:
-	# Check if combo is a positive multiple of 10
-	if combo > 0 and combo % 10 == 0:
-		for note_picker: Node3D in get_tree().get_nodes_in_group("Picker"):
-			pass
-			#note_picker.combo_fx(combo)

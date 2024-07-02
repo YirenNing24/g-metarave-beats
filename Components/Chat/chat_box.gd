@@ -12,7 +12,7 @@ extends Control
 # SIGNALS
 signal all_message_received(received_message: Dictionary)
 signal close_pressed
-signal view_profile_pressed(player_profile: Dictionary)
+#signal view_profile_pressed(player_profile: Dictionary)
 
 # SCENE NODES
 @onready var message_tab: TabContainer = %MessageTab
@@ -49,6 +49,7 @@ var username_conversing: String
 func _ready() -> void: 
 	# Connect signals to their corresponding functions
 	BKMREngine.Websocket.chat_single.connect(_on_message_received)
+
 	on_all_messages_opened()
 	
 	# Connect signals for vertical scroll changes in different containers
@@ -119,8 +120,6 @@ func add_message_to_container(received_message: Dictionary) -> void:
 			conversing_message.get_node('VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/MessageLabel').text = message_text
 			mutual_chat_vbox.add_child(conversing_message)
 
-	
-	
 func remove_excess_message(message_vbox: VBoxContainer, limit: int) -> void:
 	# Check if the number of child messages exceeds the specified limit
 	if message_vbox.get_child_count() > limit:
@@ -174,19 +173,21 @@ func on_all_messages_opened() -> void:
 			all_message_slot.get_node('VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/MessageLabel').text = message
 			
 			# Connect the button press to view the sender's profile
-			all_message_slot.get_node("VBoxContainer/HBoxContainer/UsernameLabel/Button").pressed.connect(_on_view_profile.bind(sender_username))
+			if all_message_slot.get_node("VBoxContainer/HBoxContainer/UsernameLabel/Button").pressed.is_connected(_on_view_profile_pressed):
+				all_message_slot.get_node("VBoxContainer/HBoxContainer/UsernameLabel/Button").pressed.disconnect(_on_view_profile_pressed)
+				
+			all_message_slot.get_node("VBoxContainer/HBoxContainer/UsernameLabel/Button").pressed.connect(_on_view_profile_pressed.bind(sender_username))
 			
 			# Add the message slot to the "All Messages" container
 			all_chat_vbox.add_child(all_message_slot)
 
-func _on_view_profile(username: String) -> void:
-	# View the profile of the specified username through the Social engine
+func _on_view_profile_pressed(username: String) -> void:
 	BKMREngine.Social.view_profile(username)
-	
-	# Emit a signal indicating that the "View Profile" button was pressed, passing the player profile
-	view_profile_pressed.emit(BKMREngine.Social.player_profile)
 
 func _on_message_line_text_submitted(message: String) -> void:
+
+	
+
 	if username_conversing != "":
 		current_room = username_conversing
 	var stripped_message: String = message.strip_edges()
@@ -217,12 +218,43 @@ func _on_message_line_text_submitted(message: String) -> void:
 				"receiver": username_conversing,
 				"seen": false
 			}
-	# Send the message through the chat socket
 	BKMREngine.Websocket.send_chat(message_data)
-	
 	# Clear the input line after sending the message
 	message_input_line.text = ""
 
+func _on_voice_recording_button_toggled(is_recording: bool) -> void:
+	var recorder_bus: int = AudioServer.get_bus_index("Record")
+	var effect: AudioEffectRecord = AudioServer.get_bus_effect(recorder_bus, 0) as AudioEffectRecord
+	var timer: SceneTreeTimer
+	if is_recording:
+		effect.set_recording_active(true)
+		%AudioStreamPlayer.play()
+		# Create a one-shot timer that will stop the recording after 5 seconds
+		timer = get_tree().create_timer(5.0)
+		var _connect: int = timer.timeout.connect(_stop_recording)
+	else:
+		_stop_recording()
+
+func _stop_recording() -> void:
+	var recorder_bus: int = AudioServer.get_bus_index("Record")
+	var effect: AudioEffectRecord = AudioServer.get_bus_effect(recorder_bus, 0) as AudioEffectRecord
+	
+	effect.set_recording_active(false)
+	var _record_data: AudioStreamWAV = effect.get_recording()
+	%AudioStreamPlayer.stop()
+	#send_voice_recording(record_data.data)
+		
+func send_voice_recording(recording_data: PackedByteArray) -> void:
+	if username_conversing != "" or !current_room == "all":
+		# Private message to a specific user
+		var _message_data: Dictionary = { 
+			"roomId": PLAYER.username, 
+			"sender": PLAYER.username,
+			"message": "",
+			"voiceRecording": recording_data,
+			"receiver": username_conversing,
+			"seen": false
+		}
 
 func _on_message_tab_tab_changed(tab: int) -> void:
 	# Check which tab is selected in the message tab container
@@ -257,7 +289,6 @@ func _on_close_button_button_up() -> void:
 	message_tab.current_tab = 0
 	for message: Control in mutual_chat_vbox.get_children():
 		message.queue_free()
-		
 	close_pressed.emit()
 	
 func _on_mutuals_box_chat_button_pressed(conversing_username: String) -> void:
@@ -298,6 +329,9 @@ func add_chat_panel_from_mutual_box(conversing_username: String) -> void:
 	panel_chat_mutual.name = conversing_username
 	panel_chat_mutual.get_node('Panel/VBoxContainer/Username').text = conversing_username
 	panel_chat_mutual.get_node('Button').modulate = "ffffff00"
+	
+	if panel_chat_mutual.get_node('Button').pressed.is_connected(_on_panel_chat_mutual_pressed):
+		panel_chat_mutual.get_node('Button').pressed.disconnect(_on_panel_chat_mutual_pressed)
 	panel_chat_mutual.get_node('Button').pressed.connect(_on_panel_chat_mutual_pressed.bind(conversing_username))
 	
 	chat_mutual_vbox.add_child(panel_chat_mutual)
@@ -324,12 +358,11 @@ func _on_panel_chat_mutual_pressed(conversing_username: String) -> void:
 			slot.get_node('Button').modulate = "ffffff"
 			
 	username_conversing = conversing_username
-	print("tracyaaa:", username_conversing)
 
 func _on_send_message_button_pressed() -> void:
 	if username_conversing != "":
 		current_room = username_conversing
-		
+
 	# Get the message from the input line
 	var message: String = message_input_line.text
 	
@@ -337,12 +370,20 @@ func _on_send_message_button_pressed() -> void:
 	# Check if the stripped message is empty; if so, return without sending
 	if stripped_message == "":
 		return
+	
+	# Call the send_message function to handle sending the message
+	send_message(message)
+
+	# Clear the input line after sending the message
+	message_input_line.text = ""
+
+func prepare_message_data(message: String) -> Dictionary:
 	# Prepare message data based on the current room
 	var message_data: Dictionary = {}
 	
 	match current_room:
 		"":
-			return
+			return {}
 		"all":
 			# Public chat room message
 			message_data = { 
@@ -360,12 +401,19 @@ func _on_send_message_button_pressed() -> void:
 				"receiver": username_conversing,
 				"seen": false
 			}
-			
+	
+	return message_data
+
+func send_message(message: String) -> void:
+	# Get the prepared message data
+	var message_data: Dictionary = prepare_message_data(message)
+	
+	# If message_data is empty, return without sending
+	if message_data.is_empty():
+		return
+	
 	# Send the message through the chat socket
 	BKMREngine.Websocket.send_chat(message_data)
-	
-	# Clear the input line after sending the message
-	message_input_line.text = ""
 
 func display_received_messages(private_messages: Array) -> void:
 	# Iterate through each received message in the private_messages array

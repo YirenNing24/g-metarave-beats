@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://j1ox362pqin7"]
+[gd_scene load_steps=8 format=3 uid="uid://j1ox362pqin7"]
 
 [ext_resource type="Script" path="res://GameComponents/UserHUD/userhud.gd" id="1_5118n"]
 [ext_resource type="Texture2D" uid="uid://4euq5v0yi5wh" path="res://UITextures/Progress/song_exp.png" id="1_jofs5"]
 [ext_resource type="Texture2D" uid="uid://d2liwvto7p64l" path="res://UITextures/Progress/player_exp_base.png" id="2_j4g7n"]
 [ext_resource type="Texture2D" uid="uid://74d22xpi5g4s" path="res://UITextures/Progress/player_exp_progress.png" id="3_3qn4g"]
 [ext_resource type="Texture2D" uid="uid://dqvuj8xqovy43" path="res://UITextures/Progress/score_progress.png" id="5_wco1r"]
+[ext_resource type="Texture2D" uid="uid://daepxh6fg1l01" path="res://UITextures/Cards/hannah_no_doubt_star.png" id="6_hjbmm"]
 [ext_resource type="Texture2D" uid="uid://bo2cod3i2s70d" path="res://UITextures/Buttons/Skill/heal_skill_texture.png" id="6_qr71n"]
 
 [node name="UserHUD" type="Control"]
@@ -21,11 +22,12 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 110)
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
@@ -78,8 +80,12 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/separation = 10
+alignment = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(300, 150)
@@ -130,34 +136,46 @@ text = "WARMING UP!"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(0, 300)
-layout_mode = 2
+layout_mode = 0
+offset_left = 9.0
+offset_top = 152.0
+offset_right = 1106.0
+offset_bottom = 511.0
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer2"]
 custom_minimum_size = Vector2(1095, 0)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer2/VBoxContainer2"]
+visible = false
+custom_minimum_size = Vector2(155.28, 196.83)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("6_hjbmm")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2"]
 visible = false
 custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
 
-[node name="TextureButton" type="TextureButton" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
+[node name="TextureButton" type="TextureButton" parent="HBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
 texture_normal = ExtResource("6_qr71n")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="TextureButton2" type="TextureButton" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
+[node name="TextureButton2" type="TextureButton" parent="HBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
 texture_normal = ExtResource("6_qr71n")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="TextureButton3" type="TextureButton" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
+[node name="TextureButton3" type="TextureButton" parent="HBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
 texture_normal = ExtResource("6_qr71n")

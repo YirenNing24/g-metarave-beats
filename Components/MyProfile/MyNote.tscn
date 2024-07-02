@@ -1,0 +1,100 @@
+[gd_scene load_steps=9 format=3 uid="uid://t2r6xb1nhou"]
+
+[ext_resource type="FontFile" uid="uid://cbqgl5ybh1snb" path="res://UITextures/Fonts/argentum-sans.vf-regular.ttf" id="1_6wdi8"]
+[ext_resource type="Script" path="res://Components/MyProfile/my_note.gd" id="1_8ilyr"]
+[ext_resource type="Texture2D" uid="uid://bgedcn1onaufx" path="res://UITextures/Buttons/submit_button.png" id="3_gb27t"]
+[ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="4_k8u8k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i388h"]
+bg_color = Color(0, 0.0588235, 0.0588235, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.152941, 0.8, 0.8, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o8vji"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vxdpf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ujidu"]
+
+[node name="MyNote" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8ilyr")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NoteEditPanel" type="Panel" parent="Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.0
+offset_top = -22.0
+offset_right = 155.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i388h")
+
+[node name="NoteLineEdit" type="LineEdit" parent="Panel/NoteEditPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_6wdi8")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = SubResource("StyleBoxEmpty_o8vji")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_vxdpf")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ujidu")
+placeholder_text = "How are you feeling today?"
+alignment = 1
+
+[node name="SubmitButton" type="TextureButton" parent="Panel/NoteEditPanel"]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_left = 1.0129
+anchor_top = -0.181818
+anchor_right = 1.20645
+anchor_bottom = 1.18182
+texture_normal = ExtResource("3_gb27t")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="FilterPanel" parent="." instance=ExtResource("4_k8u8k")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+anchors_preset = 0
+
+[connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]
+[connection signal="text_submitted" from="Panel/NoteEditPanel/NoteLineEdit" to="." method="_on_notes_line_edit_text_submitted"]
+[connection signal="pressed" from="Panel/NoteEditPanel/SubmitButton" to="." method="_on_submit_button_pressed"]

@@ -97,7 +97,6 @@ func add_child_nodes() -> void:
 	add_child(Leaderboard)
 	add_child(Upgrade)
 	add_child(Reward)
-	# Print end timestamp for debugging purposes
 	print("BKMR ready end timestamp: " + str(BKMRUtils.get_timestamp()))
 	
 #func _physics_process(_delta: float) -> void:

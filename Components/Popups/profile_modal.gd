@@ -1,6 +1,5 @@
 extends Control
 
-
 var badge_scene: PackedScene = preload("res://Components/MyProfile/badge.tscn")
 
 # Player UI elements
@@ -13,7 +12,7 @@ var badge_scene: PackedScene = preload("res://Components/MyProfile/badge.tscn")
 @onready var dp_option_panel: Panel = %DPOptionPanel
 @onready var dp_panel: Panel = %DPPanel
 @onready var badge_container: HBoxContainer = %BadgeContainer
-
+@onready var moments: Control = %Moments
 # Modals
 @onready var view_picture: Control = %ViewPicture
 
@@ -32,8 +31,10 @@ func _ready() -> void:
 func signal_connect() -> void:
 	#It connects the logout complete signal to the _on_Logout_Complete function for handling logout events.
 	BKMREngine.Auth.bkmr_logout_complete.connect(_on_logout_complete)
-	BKMREngine.Profile.open_profile_pic_complete.connect(_on_get_profile_pic_complete)
+	BKMREngine.Profile.get_profile_pic_complete.connect(_on_get_profile_pic_complete)
 	BKMREngine.Profile.preference_get_complete.connect(_on_get_preference_complete)
+	BKMREngine.Profile.profile_pic_upload_complete.connect(_on_profile_pic_upload_complete)
+	BKMREngine.Profile.change_profile_pic_complete.connect(_on_change_profile_pic_complete)
 	BKMREngine.Reward.get_available_card_reward()
 	
 #region UI Functions
@@ -58,10 +59,7 @@ func _on_logout_button_pressed() -> void:
 	# Logout the player and quit the game
 	BKMREngine.Auth.logout_player()
 	await BKMREngine.Auth.bkmr_logout_complete
-	
 	get_tree().quit()
-	# Load the authentication screen scene asynchronously
-	var _auth_screen: int = await LOADER.load_scene(self, "res://UIScenes/auth_screen.tscn")
 	
 # Handle logout completion.
 func _on_logout_complete() -> void:
@@ -94,6 +92,8 @@ func plugin_signal_connect() -> void:
 	get_image.permission_not_granted_by_user.connect(_on_permission_not_granted_by_user)
 	
 func _on_see_profile_pic_button_pressed() -> void:
+	if view_picture.profile_pics_data.size() == 0:
+		return
 	animation_player.play_backwards('dp_options')
 	view_picture.visible = true
 	
@@ -108,7 +108,6 @@ func _on_upload_profile_pic_button_pressed() -> void:
 #region Get Image call backs
 func _on_image_request_completed(object_image: Dictionary) -> void:
 	#Object image is a dictionary of image packed byte array[]
-	
 	if len(object_image.values()) != 1:
 			return
 	for image_buffer: PackedByteArray in object_image.values():
@@ -123,9 +122,11 @@ func _on_image_request_completed(object_image: Dictionary) -> void:
 			profile_pic.texture = uploaded_pic
 			animation_player.play_backwards('dp_options')
 			is_upload = true
-			
-			
-func _on_get_profile_pic_complete(profile_pics: Array) -> void:
+	BKMREngine.Profile.get_profile_pic()
+	
+func _on_get_profile_pic_complete(profile_pics: Variant) -> void:
+	if typeof(profile_pics) != TYPE_ARRAY:
+		return
 	is_upload = true
 	for pic: Dictionary in profile_pics:
 		var image: Image = Image.new()
@@ -137,24 +138,21 @@ func _on_get_profile_pic_complete(profile_pics: Array) -> void:
 		else:
 			var display_pic: Texture =  ImageTexture.create_from_image(image)
 			profile_pic.texture = display_pic
-	if PLAYER.username == "GreenPill":
-		profile_pic.texture = load("res://UITextures/Bundles/green_pill.png")
-	else:
-		profile_pic.texture = load("res://UITextures/Bundles/beats_logo.png")
+		view_picture.profile_pics_data = profile_pics
+		view_picture.display_picture()
 			
 func _on_get_image_error(_error: String) -> void:
 	pass
 	
 func _on_permission_not_granted_by_user() -> void:
-	#print("User won't grant permission, explain why it's important!")
 	# Set the plugin to ask user for permission again
 	get_image.resendPermission()
+	
 #endregion
 
 #region Button callback functions
 func _on_profile_pic_options_button_pressed() -> void:
 	animation_player.play('dp_options')
-	await animation_player.animation_finished
 
 func _on_dp_panel_gui_input(event: InputEvent) -> void:
 	if dp_option_panel.visible == true:
@@ -166,8 +164,13 @@ func _on_dp_panel_gui_input(event: InputEvent) -> void:
 func _on_view_picture_view_picture_close() -> void:
 	visible = true
 
+func _on_profile_pic_upload_complete(_message: Dictionary) -> void:
+	BKMREngine.Profile.get_profile_pic() 
+	
+func _on_change_profile_pic_complete(_message: Dictionary) -> void:
+	BKMREngine.Profile.get_profile_pic()
+
 func _on_my_profile_button_pressed() -> void:
-	# Load the main inventory scene asynchronously
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/my_profile.tscn")
 
 func _on_get_preference_complete(soul_data: Dictionary) -> void:
@@ -211,4 +214,13 @@ func _on_get_preference_complete(soul_data: Dictionary) -> void:
 				badge_container.add_child(badge)
 				badge_created = true  # Set the flag to true to indicate a badge has been created
 				break  # Exit the loop since we only need one badge
-				
+	
+func _on_my_notes_button_pressed() -> void:
+	%MyNote.visible = true
+
+func _on_notes_line_edit_text_changed(_new_text: String) -> void:
+	pass # Replace with function body.
+
+func _on_fan_moments_button_pressed() -> void:
+	moments.user_profile_picture = profile_pic.texture
+	moments.visible = true

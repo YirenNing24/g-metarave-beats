@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://4hviwgrfsnfn"]
+[gd_scene load_steps=22 format=3 uid="uid://4hviwgrfsnfn"]
 
 [ext_resource type="Script" path="res://Components/Chat/chat_box.gd" id="1_76hnh"]
 [ext_resource type="Texture2D" uid="uid://c7qlt18wu7138" path="res://UITextures/BGTextures/dark_panel.png" id="1_m3mo4"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="9_qeh5r"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="10_h2v5f"]
 [ext_resource type="PackedScene" uid="uid://d1npeiphqn521" path="res://Components/Chat/gifting_window.tscn" id="12_e28hi"]
+[ext_resource type="PackedScene" uid="uid://d3525s8khlmqy" path="res://Components/Popups/player_modal.tscn" id="13_hpmiy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55g5g"]
 bg_color = Color(0.0235294, 0.0235294, 0.0235294, 1)
@@ -77,6 +78,8 @@ texture_margin_right = 60.0
 texture_margin_bottom = 12.0
 expand_margin_bottom = 5.0
 modulate_color = Color(1, 1, 1, 0.380392)
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_uogqm"]
 
 [node name="ChatBox" type="Control"]
 layout_mode = 3
@@ -176,10 +179,14 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.99
 alignment = 1
 
-[node name="MessageInputLine" type="LineEdit" parent="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MessageInputLine" type="LineEdit" parent="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/selection_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("3_w74j3")
@@ -189,6 +196,33 @@ theme_override_styles/read_only = SubResource("StyleBoxFlat_sgkvu")
 theme_override_styles/normal = SubResource("StyleBoxFlat_6dy5r")
 placeholder_text = "Enter your message here"
 metadata/_edit_use_anchors_ = true
+
+[node name="VoiceRecordingButton" type="TextureButton" parent="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/MessageInputLine"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.919753
+anchor_top = 0.0869539
+anchor_right = 0.981481
+anchor_bottom = 0.956519
+size_flags_vertical = 4
+toggle_mode = true
+texture_normal = ExtResource("7_4oass")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/MessageInputLine"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -5.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -360,7 +394,18 @@ texture_hover = ExtResource("10_h2v5f")
 visible = false
 layout_mode = 1
 
-[connection signal="text_submitted" from="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer/VBoxContainer/MessageInputLine" to="." method="_on_message_line_text_submitted"]
+[node name="PlayerModal" parent="." instance=ExtResource("13_hpmiy")]
+z_index = 4
+layout_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamMicrophone_uogqm")
+bus = &"Record"
+playback_type = 1
+
+[connection signal="text_submitted" from="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/MessageInputLine" to="." method="_on_message_line_text_submitted"]
+[connection signal="toggled" from="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/MessageInputLine/VoiceRecordingButton" to="." method="_on_voice_recording_button_toggled"]
 [connection signal="pressed" from="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/SendMessageButton" to="." method="_on_send_message_button_pressed"]
 [connection signal="pressed" from="Panel2/VBoxContainer/TextureRect/VBoxContainer/TextureRect/Panel/VBoxContainer/HBoxContainer2/GiftButton" to="." method="_on_gift_button_pressed"]
 [connection signal="tab_changed" from="Panel2/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer2/MessageTab" to="." method="_on_message_tab_tab_changed"]

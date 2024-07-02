@@ -42,7 +42,6 @@
 [ext_resource type="Texture2D" uid="uid://bik3qopg23ibt" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_39.png" id="40_r3kns"]
 [ext_resource type="Texture2D" uid="uid://c8n122sbfgb8x" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_40.png" id="41_6irsw"]
 [ext_resource type="Texture2D" uid="uid://b8060k6h0qlhd" path="res://UITextures/GameTextures/particles/spotlight_8.png" id="42_mc8og"]
-[ext_resource type="PackedScene" uid="uid://b581pfsbi35t2" path="res://GameComponents/NotePicker/fx_god_ray.tscn" id="43_nelaw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8tmit"]
 size = Vector3(0.12, 0.5, 1)
@@ -217,9 +216,12 @@ transparency = 1
 blend_mode = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.713726)
 albedo_texture = ExtResource("42_mc8og")
 billboard_mode = 1
 billboard_keep_scale = true
+grow = true
+grow_amount = 1.0
 
 [sub_resource type="Gradient" id="Gradient_kkaeq"]
 offsets = PackedFloat32Array(0.0935252, 0.553957, 0.920863)
@@ -236,14 +238,14 @@ colors = PackedColorArray(0.0117647, 0.576471, 0.607843, 1, 0.831373, 1, 1, 1, 1
 gradient = SubResource("Gradient_mne1r")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pegjh"]
-emission_shape_scale = Vector3(0, 0, 0.5)
+emission_shape_scale = Vector3(0, 0, 2)
 emission_shape = 3
 emission_box_extents = Vector3(0, 0, 1)
 direction = Vector3(0, 1, 0)
 spread = 7.0
 initial_velocity_min = 15.0
-initial_velocity_max = 25.0
-gravity = Vector3(0, -15, 0)
+initial_velocity_max = 40.0
+gravity = Vector3(0, -20, 0)
 linear_accel_max = 6.0
 scale_min = 0.05
 scale_max = 0.15
@@ -254,17 +256,6 @@ hue_variation_max = 0.03
 turbulence_noise_strength = 5.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_uu6di"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_ut6oe"]
-viewport_path = NodePath("SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_46cw7"]
-resource_local_to_scene = true
-transparency = 1
-shading_mode = 0
-albedo_color = Color(1, 1, 1, 0.0705882)
-albedo_texture = SubResource("ViewportTexture_ut6oe")
-heightmap_scale = 8.246
 
 [sub_resource type="Shader" id="Shader_2hf65"]
 code = "// This is a 3D shader
@@ -341,6 +332,149 @@ shader_parameter/animation_speed = 1.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_23non"]
 
+[sub_resource type="Shader" id="Shader_g4ljg"]
+code = "/*
+Shader from Godot Shaders - the free shader library.
+godotshaders.com/shader/energy-beams
+
+This shader is under CC0 license. Feel free to use, improve and 
+change this shader according to your needs and consider sharing 
+the modified result to godotshaders.com.
+*/
+
+shader_type spatial;
+render_mode blend_add; // Remove this if you want to use HDR glow instead (use \"Glow\" and \"Outline Glow\" sliders)
+
+uniform int beams = 2; // How many beams the energy field should have
+
+uniform float energy = 3.0; // How much the beams will travel up and down
+uniform int roughness : hint_range(1, 10) = 3; // How compact the noise texture will be
+uniform int frequency = 10; // Amount of \"ripples\" in the beams
+
+uniform float speed = 1.0; // Animation speed
+uniform float thickness : hint_range(0.0, 0.1) = 0.006; // Thickness of the main beam
+uniform float outline_thickness : hint_range(0.0, 0.1) = 0.03; //Thickness of the outline color
+uniform float beam_difference : hint_range(0.0, 1.0) = 0.0; // The thickness difference between the main beam and the other, if there are more than one beam. The closer to 1 the smaller the thickness difference.
+
+uniform float glow : hint_range(0.0, 3.0) = 0.0; // Use together with WorldEnvironment's Glow feature
+uniform float outline_glow : hint_range(0.0, 3.0) = 0.0;
+
+uniform vec4 color : source_color = vec4(0.91, 1.0, 1.0, 1.0);
+uniform vec4 outline_color : source_color = vec4(0.5, 1.0, 0.96, 1.0);
+
+uniform float progress : hint_range(0.0, 1.0) = 1.0;
+
+uniform float y_offset : hint_range (-0.5, 0.5) = 0.0; // Position of the beam
+uniform float fixed_edge_size : hint_range(0.0, 0.5) = 0.05; // How close to the edge should the beam be still before the animatino starts
+uniform vec2 noise_scale = vec2(1.0); // If the object (for example the ColorRect or Sprite node) is compressed use this to compensate for the noise texture being compressed.
+
+float random(vec2 uv) {
+   return fract(sin(dot(uv.xy,
+       vec2(12.9898,78.233))) *
+           43758.5453123);
+}
+
+vec2 randomVec2(vec2 uv){
+   uv = vec2( dot(uv, vec2(127.1,311.7) ),
+              dot(uv, vec2(269.5,183.3) ) );
+   return -1.0 + 2.0 * fract(sin(uv) * 43758.5453123);
+}
+
+float noise(vec2 uv) {
+   vec2 uv_index = floor(uv);
+   vec2 uv_fract = fract(uv);
+   vec2 blur = smoothstep(0.0, 1.0, uv_fract);
+   return mix( mix( dot( randomVec2(uv_index + vec2(0.0,0.0) ), uv_fract - vec2(0.0,0.0) ),
+                    dot( randomVec2(uv_index + vec2(1.0,0.0) ), uv_fract - vec2(1.0,0.0) ), blur.x),
+               mix( dot( randomVec2(uv_index + vec2(0.0,1.0) ), uv_fract - vec2(0.0,1.0) ),
+                    dot( randomVec2(uv_index + vec2(1.0,1.0) ), uv_fract - vec2(1.0,1.0) ), blur.x), blur.y) + 0.5;
+}
+
+
+float fbm(vec2 uv, float time) {
+   int octaves = roughness;
+   float amp = 0.01 * energy * progress;
+   float freq = float(frequency);
+   float value = 0.0;
+
+   for(int i = 0; i < octaves; i++) {
+       value += amp * noise(freq * vec2(uv.x, uv.y + time));
+       amp *= 0.5;
+       freq *= 2.0;
+   }
+   return value;
+}
+
+vec4 difference(vec4 base, vec4 blend){
+   return abs(base - blend);
+}
+
+vec4 bolt(vec2 uv, float time, float i)
+{
+   // Setup the beam locking to the edges.
+   float falloff = smoothstep(0.0, fixed_edge_size, uv.x) * smoothstep(0.0, fixed_edge_size, 1.0 - uv.x);
+
+   // Use Fractal Brownian Motion to create a \"cloud texture\" and use Difference blend mode to make the beam
+   vec4 clouds = vec4(fbm((uv + vec2(i) ) * noise_scale, time * speed)) * falloff;
+   vec4 diff_clouds = difference(clouds, vec4(uv.y - 0.5 + y_offset + (uv.y * falloff * 0.02 * energy * progress)));
+
+   // Create a new noise to mask the beams on low \"progress\" values. To make a \"turn-off\" effect more visually interesting.
+   vec4 clouds2 = vec4(fbm((uv * 2.0) * noise_scale, time * 1.)) * 5.0;
+   diff_clouds += smoothstep(0.0, 0.8, clouds2) * 0.1 * (1.-progress);
+
+   // Set thickness of the beams. First beam is the Thickness size and all following beams are sized with beam_difference
+   float thickness2 = 1. - ( thickness / (min(i + beam_difference, 1.0) + (1.0-beam_difference))) * progress ;
+   vec4 beam = clamp(smoothstep(thickness2, thickness2 + 0.005 * progress, 1.0 - diff_clouds), vec4(0.0), vec4(1.0));
+
+   //Set the beam outlines
+   vec4 beam_outline;
+   float outline = thickness2 - (outline_thickness * progress);
+   beam_outline = clamp(smoothstep(outline, outline + 0.04, 1.0 - diff_clouds), 0.0, 1.0);
+   beam_outline = clamp(beam_outline - beam, 0.0, 1.0);
+
+   // Merge the beam and the outline and return to the fragment function
+   return (beam * (color + vec4(glow, glow, glow, 0.))) + (beam_outline * (outline_color + vec4(outline_glow, outline_glow, outline_glow, 0.)));
+}
+
+void vertex()
+{
+//   MODELVIEW_MATRIX = INV_CAMERA_MATRIX * mat4(CAMERA_MATRIX[0],CAMERA_MATRIX[1],CAMERA_MATRIX[2],WORLD_MATRIX[3]);
+}
+
+void fragment()
+{   
+   vec4 beam = vec4(0.0);
+
+   for (int i = 0; i < beams; i++){
+      beam = max(beam, bolt(UV, TIME, float(i)));
+   }
+
+   ALBEDO = beam.rgb;
+   ALPHA = beam.a;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_phmhr"]
+render_priority = 0
+shader = SubResource("Shader_g4ljg")
+shader_parameter/beams = 6
+shader_parameter/energy = 5.0
+shader_parameter/roughness = 3
+shader_parameter/frequency = 8
+shader_parameter/speed = 1.0
+shader_parameter/thickness = 0.009
+shader_parameter/outline_thickness = 0.05
+shader_parameter/beam_difference = 0.0
+shader_parameter/glow = 3.0
+shader_parameter/outline_glow = 0.08
+shader_parameter/color = Color(0.129412, 0.341176, 1, 1)
+shader_parameter/outline_color = Color(0.145098, 0.572549, 0.788235, 1)
+shader_parameter/progress = 1.0
+shader_parameter/y_offset = 0.0
+shader_parameter/fixed_edge_size = 0.05
+shader_parameter/noise_scale = Vector2(1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_vtpg0"]
+
 [node name="NotePicker" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.548166, 0.051, 0)
 script = ExtResource("1_nn2og")
@@ -402,17 +536,21 @@ surface_material_override/0 = SubResource("StandardMaterial3D_843bg")
 
 [node name="FXSpinner" type="AnimatedSprite3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(-5.90104e-08, 0.2, 4.37114e-08, 0, -8.74227e-09, 0.999999, 1.35, 8.74227e-09, 1.91068e-15, 0.233355, 0.122658, -0.555998)
+transform = Transform3D(-6.99382e-08, 0.237, 5.1798e-08, 0, -1.03596e-08, 1.185, 1.6, 1.03596e-08, 2.26416e-15, 0.260468, -0.0248922, -0.506077)
+visible = false
+gi_mode = 0
 sprite_frames = SubResource("SpriteFrames_jwy35")
 animation = &"vortex"
+frame = 30
+frame_progress = 0.90661
 
 [node name="FXSpark" type="GPUParticles3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(0.1, 0, 0, 0, 0.9, 0, 0, 0, 0.8, 0.20461, 0, 0)
 material_override = SubResource("StandardMaterial3D_kg0bt")
 emitting = false
-amount = 100
-lifetime = 0.5
+amount = 75
+lifetime = 0.3
 one_shot = true
 explosiveness = 0.3
 randomness = 0.1
@@ -422,15 +560,16 @@ trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_pegjh")
 draw_pass_1 = SubResource("QuadMesh_uu6di")
 
-[node name="FXGodRay" parent="." instance=ExtResource("43_nelaw")]
-unique_name_in_owner = true
-transform = Transform3D(-0.00216416, -0.00174533, 0.999996, 1.50996e-07, -0.999997, -0.00174533, 0.999996, -3.62618e-06, 0.00216416, 0.181, 1.474, -0.284434)
-material_override = SubResource("StandardMaterial3D_46cw7")
-lifetime = 0.5
-
 [node name="FXLightPillar" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(-1.74846e-07, 0, 1, 0, 8, 0, -4, 0, -4.37114e-08, 0.2659, 1.13402, 0)
+transform = Transform3D(-1.74846e-07, 0, 1, 0, 8, 0, -4, 0, -4.37114e-08, 0.214922, 1.13402, 0)
 visible = false
 material_override = SubResource("ShaderMaterial_gwml7")
 mesh = SubResource("QuadMesh_23non")
+
+[node name="FXLightning" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1.08415e-13, -3.49691e-07, 1, -56.7412, -3.49691e-07, 0, 2.48024e-06, -7.99999, -4.37114e-08, 0.270436, 25.6358, 0)
+visible = false
+material_override = SubResource("ShaderMaterial_phmhr")
+mesh = SubResource("QuadMesh_vtpg0")

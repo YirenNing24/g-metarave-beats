@@ -49,7 +49,6 @@ func _on_GetAvailableCardReward_request_completed(_result: int, response_code: i
 			BKMRLogger.info(json_body.error)
 			get_available_card_reward_completed.emit(json_body.error)
 		else:
-			print("PEPE MATABA: ", json_body)
 			get_available_card_reward_completed.emit(json_body)
 	else:
 		get_available_card_reward_completed.emit({"Error:": "Unknown Server Error" })

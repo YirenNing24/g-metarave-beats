@@ -46,4 +46,4 @@ func load_scene(current_scene: Variant, next_scene: String) -> bool:
 		# Enable processing for future operations.
 		set_process(true)
 		# Return True indicating a successful scene transition.
-		return true
+		return true as bool

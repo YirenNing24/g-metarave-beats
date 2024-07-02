@@ -173,7 +173,7 @@ func _on_ValidateSession_request_completed(_result: int, response_code: int, hea
 #endregion
 
 #region Registration functions
-func register_player(username: String, password: String ) -> Node:
+func register_player(username: String, password: String ) -> void:
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	RegisterPlayer = prepared_http_req.request
 	wrRegisterPlayer = prepared_http_req.weakref
@@ -188,7 +188,6 @@ func register_player(username: String, password: String ) -> Node:
 	
 	var request_url: String = host + "/api/register/beats"
 	BKMREngine.send_post_request(RegisterPlayer, request_url, payload)
-	return self
 
 # Callback function triggered upon completion of the player registration request
 func _on_RegisterPlayer_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:

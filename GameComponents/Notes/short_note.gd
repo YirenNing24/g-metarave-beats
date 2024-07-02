@@ -32,15 +32,12 @@ var is_colliding: bool = false
 var collected: bool = false
 # Reference to the picker (player) node that collects the note.
 var picker: Node3D = null
-# Array to store concurrent notes (not used in the provided code).
-var concurrent: Array = []
 
-# Initialization method called when the node is ready.
+
 func _ready() -> void:
 	set_note_position()
 	var _note_connect: int = note_area.area_entered.connect(_on_area_entered)
 
-# Process method called on every frame.
 func _process(_delta: float) -> void:
 	# Check if the picker is present and is not collecting another note.
 	if not picker or (picker.note_collect != null and picker.note_collect != self): 
@@ -61,51 +58,31 @@ func collect(is_miss: bool = false) -> void:
 	if not is_miss:
 		picker.note_collect = self
 	hit_feedback.emit(accuracy, line)
-	#game_ui.hit_feedback(accuracy, line)
-	#game_ui.add_score()
 
 # Method to set the position of the note based on the line and layer.
 func set_note_position() -> void:
+	var z_values: Array[float] = [-1.79, -0.89, 0, 0.89, 1.79]
 	var z: float
-	if line == 1:
-		z = -1.79
-	elif line == 2:
-		z = -0.89
-	elif line == 3:
-		z = 0
-	elif line == 4:
-		z = 0.89
-	elif line == 5:
-		z = 1.79
-	position = Vector3(z, layer , -note_position * length_scale)
-	#var position_abs: Vector3= position.abs()
-	#print("short: ", position_abs)
-	#print("global: ", global_position)
-	
+
+	if line in [1, 2, 3, 4, 5]:
+		z = z_values[line - 1]
+	elif line in [6, 7, 8, 9, 10, 11, 12, 13, 14, 15]:
+		rotation.y = 90
+		z = z_values[line - 6]
+	position = Vector3(z, layer, -note_position * length_scale)
+
 # Method to handle the area entered signal of the note.
 func _on_area_entered(area: Area3D) -> void:
 	if collected:
 		return
-	if area.is_in_group("perfect_area"):
-		accuracy = 1
-		is_colliding = true
-		picker = area.get_parent()
-	elif area.is_in_group("verygood_area"):
-		accuracy = 2
-		is_colliding = true
-		picker = area.get_parent()
-	elif area.is_in_group("good_area"):
-		accuracy = 3
-		is_colliding = true
-		picker = area.get_parent()
-	elif area.is_in_group("bad_area"):
-		accuracy = 4
-		is_colliding = true
-		picker = area.get_parent()
-	elif area.is_in_group("miss_area"):
-		accuracy = 5
-		is_colliding = false
-		picker = area.get_parent()
-		collect(true)
-
-
+	var area_groups: Array[String] = ["perfect_area", "verygood_area", "good_area", "bad_area", "miss_area"]
+	var area_accuracy: Array[int]  = [1, 2, 3, 4, 5]
+	
+	for i: int in range(area_groups.size()):
+		if area.is_in_group(area_groups[i]):
+			accuracy = area_accuracy[i]
+			is_colliding = (accuracy != 5)
+			picker = area.get_parent()
+			if accuracy == 5:
+				collect(true)
+			break

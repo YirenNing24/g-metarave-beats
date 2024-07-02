@@ -121,8 +121,6 @@ func receive_chat(json: JSON) -> void:
 			counter = 1
 		1:
 			var single_message: Dictionary = json.data
-			
-			print(single_message)
 			chat_single.emit(single_message)
 			
 			

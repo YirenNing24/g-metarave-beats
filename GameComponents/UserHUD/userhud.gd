@@ -36,7 +36,7 @@ var tween: Tween
 
 func _ready() -> void:
 	artist = SONG.artist
-	health = clamp(health, 0, 1000)
+	health = clamp(health, 0, 100)
 	
 	call_deferred('connect_notes') 
 
@@ -72,7 +72,8 @@ func reset() -> void:
 	final_stats = {
 		"score" = score, 
 		"combo" = max_combo,
-		"accuracy" = accuracy_rate,}
+		"accuracy" = accuracy_rate
+		}
 
 func calculate_accuracy_score() -> void:
 	var total_notes: int = perfect + very_good + good + bad + miss
@@ -135,7 +136,7 @@ func hit_feedback(note_accuracy: int, line: int) -> void:
 			hit_display_data.emit(note_accuracy, line, combo)
 
 func health_damage() -> void:
-	health -= 10
+	health += 10
 
 func animate_health() -> void:
 	tween = get_tree().create_tween()

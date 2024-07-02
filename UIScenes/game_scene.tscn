@@ -20,7 +20,7 @@ script = ExtResource("1_qchx2")
 environment = SubResource("Environment_0fcn8")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.33921e-08, -0.494397, 0.869236, -5.27407e-09, 0.869236, 0.494397, -1, 1.68685e-08, -4.03255e-08, 6.97966, 3.283, 0)
+transform = Transform3D(-4.37114e-08, -0.500574, 0.865694, -2.90337e-11, 0.865694, 0.500574, -1, 2.18557e-08, -3.78552e-08, 6.79541, 3.21904, 0)
 keep_aspect = 0
 fov = 68.8
 near = 0.06
@@ -54,9 +54,8 @@ omni_attenuation = 0.435275
 unique_name_in_owner = true
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(-6.83914e-08, -1.11112, -1.89879, -4.74624e-08, 1.89879, -1.11112, 2.2, 6.4228e-09, -8.29988e-08, -19.2123, -11.6438, 0)
+transform = Transform3D(-7.0925e-08, -1.0038, -1.95764, -4.35855e-08, 1.95764, -1.0038, 2.2, 6.42281e-09, -8.29988e-08, -19.8414, -10.5111, 0)
 texture = ExtResource("6_0o2hm")
 
 [connection signal="song_finished" from="Music" to="CanvasLayer/UserHUD" method="_on_music_song_finished"]
-[connection signal="hit_display_data" from="CanvasLayer/UserHUD" to="Road" method="_on_user_hud_hit_display_data"]
 [connection signal="hit_display_data" from="CanvasLayer/UserHUD" to="HitDisplay" method="_on_user_hud_hit_display_data"]

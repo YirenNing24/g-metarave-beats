@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://gmllsb3bdm2u"]
+[gd_scene load_steps=34 format=3 uid="uid://gmllsb3bdm2u"]
 
 [ext_resource type="Script" path="res://UIScenes/card_inventory_screen.gd" id="1_2vffs"]
 [ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="2_poddd"]
@@ -6,15 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="4_l46n7"]
 [ext_resource type="Script" path="res://UIScenes/InventoryScroll.gd" id="5_oujch"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="6_7yh2h"]
-[ext_resource type="Texture2D" uid="uid://l4hvfg5htsyu" path="res://UITextures/BGTextures/Inventory/EmptySlot/esha_empty_slot_bg.png" id="6_l8uwd"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="7_aj63t"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="7_cb4dp"]
 [ext_resource type="Script" path="res://Components/Inventory/xin_equipment_slot.gd" id="7_tqxdo"]
-[ext_resource type="Texture2D" uid="uid://dxna5sg0c5j0b" path="res://UITextures/BGTextures/Inventory/EmptySlot/nizz_empty_slot_bg.png" id="8_2isoq"]
-[ext_resource type="Texture2D" uid="uid://qw6nc8elij7v" path="res://UITextures/BGTextures/Inventory/EmptySlot/nova_empty_slot_bg.png" id="9_ilsqj"]
+[ext_resource type="Texture2D" uid="uid://cvbjb7aump7p3" path="res://UITextures/CardUpgrades/upgrade_image.png" id="8_w2224"]
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="10_qxlqx"]
-[ext_resource type="Texture2D" uid="uid://ciso5gh08c3de" path="res://UITextures/BGTextures/Inventory/EmptySlot/hannah_empty_slot_bg.png" id="11_06ato"]
-[ext_resource type="Texture2D" uid="uid://d1dwdfkwwmehg" path="res://UITextures/BGTextures/Inventory/EmptySlot/aria_empty_slot_bg.png" id="12_cp8mb"]
 [ext_resource type="FontFile" uid="uid://cfpnum8trj6m7" path="res://UITextures/Fonts/HankenGrotesk-SemiBold.ttf" id="14_g7lp4"]
 [ext_resource type="Texture2D" uid="uid://bhjbga7uh5w8m" path="res://UITextures/GroupLogo/x_in_logo.png" id="15_lx753"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="16_7ynqb"]
@@ -47,6 +43,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ko1p5"]
+draw_center = false
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -234,6 +231,7 @@ custom_minimum_size = Vector2(1055, 0)
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip"]
+self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
 custom_minimum_size = Vector2(1057, 0)
 layout_mode = 2
 size_flags_vertical = 3
@@ -287,6 +285,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
 [node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Esha" groups=["CardSlot", "X:INSlot"]]
+self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -294,7 +293,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("6_l8uwd")
+texture = ExtResource("8_w2224")
 expand_mode = 1
 script = ExtResource("7_tqxdo")
 
@@ -325,6 +324,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
 [node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nizz" groups=["CardSlot", "X:INSlot"]]
+self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -332,7 +332,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_2isoq")
+texture = ExtResource("8_w2224")
 expand_mode = 1
 script = ExtResource("7_tqxdo")
 
@@ -363,6 +363,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
 [node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nova" groups=["CardSlot", "X:INSlot"]]
+self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -370,7 +371,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("9_ilsqj")
+texture = ExtResource("8_w2224")
 expand_mode = 1
 script = ExtResource("7_tqxdo")
 
@@ -402,6 +403,7 @@ theme_override_constants/separation = 30
 alignment = 1
 
 [node name="Label" type="Label" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer4"]
+visible = false
 custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
@@ -411,6 +413,7 @@ text = "Esha"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer4"]
+visible = false
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
@@ -421,6 +424,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label3" type="Label" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer4"]
+visible = false
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
@@ -443,6 +447,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
 [node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Hannah" groups=["CardSlot", "X:INSlot"]]
+self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -450,7 +455,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("11_06ato")
+texture = ExtResource("8_w2224")
 expand_mode = 1
 script = ExtResource("7_tqxdo")
 
@@ -481,6 +486,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
 [node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Aria" groups=["CardSlot", "X:INSlot"]]
+self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -488,7 +494,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("12_cp8mb")
+texture = ExtResource("8_w2224")
 expand_mode = 1
 script = ExtResource("7_tqxdo")
 
@@ -520,6 +526,7 @@ theme_override_constants/separation = 30
 alignment = 1
 
 [node name="Label" type="Label" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer5"]
+visible = false
 custom_minimum_size = Vector2(82, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
@@ -529,6 +536,7 @@ text = "Hannah"
 horizontal_alignment = 1
 
 [node name="Label3" type="Label" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer5"]
+visible = false
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)

@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdxx8kvromwib"]
+
+[ext_resource type="Script" path="res://Components/MyNotes/my_notes.gd" id="1_4i33h"]
+[ext_resource type="FontFile" uid="uid://cbqgl5ybh1snb" path="res://UITextures/Fonts/argentum-sans.vf-regular.ttf" id="1_3443w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yidiq"]
+bg_color = Color(0, 0.0588235, 0.0588235, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.152941, 0.8, 0.8, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="MyNotes" type="Control"]
+custom_minimum_size = Vector2(310, 36)
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_4i33h")
+
+[node name="MyNotesPanel" type="Panel" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(310, 36)
+layout_mode = 0
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yidiq")
+
+[node name="MyNotes" type="Label" parent="MyNotesPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_3443w")
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1

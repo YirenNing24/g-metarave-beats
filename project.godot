@@ -18,6 +18,7 @@ boot_splash/bg_color=Color(0, 0, 0, 1)
 [audio]
 
 buses/default_bus_layout="res://GameComponents/Music/default_bus_layout.tres"
+driver/enable_input=true
 
 [autoload]
 

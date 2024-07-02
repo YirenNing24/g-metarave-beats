@@ -1,0 +1,414 @@
+[gd_scene load_steps=18 format=3 uid="uid://b1mf247oskmbw"]
+
+[ext_resource type="Script" path="res://Components/Moments/moment_slot.gd" id="1_jmfix"]
+[ext_resource type="Shader" path="res://Components/Moments/moment_slot.gdshader" id="2_3ix3u"]
+[ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="2_xx804"]
+[ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="3_86ypl"]
+[ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="4_t4q82"]
+[ext_resource type="FontFile" uid="uid://cbqgl5ybh1snb" path="res://UITextures/Fonts/argentum-sans.vf-regular.ttf" id="6_nhm8g"]
+[ext_resource type="Texture2D" uid="uid://lmqc02xq1shh" path="res://UITextures/Buttons/like_empty.png" id="7_xjk0j"]
+[ext_resource type="Texture2D" uid="uid://kkrprjr0qi2e" path="res://UITextures/Buttons/like_full.png" id="8_h2qbu"]
+[ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="9_hskvh"]
+[ext_resource type="Texture2D" uid="uid://b6qt0ocsxk3sc" path="res://UITextures/Icons/message_icon.png" id="10_1xq6b"]
+[ext_resource type="Texture2D" uid="uid://c67bqs40r62il" path="res://UITextures/Icons/share_icon.png" id="11_8euqb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_huimo"]
+bg_color = Color(0.00245657, 0.0230238, 0.0230327, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.222973, 0.626395, 0.626332, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ajkoj"]
+shader = ExtResource("2_3ix3u")
+shader_parameter/corner_radius = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_koniv"]
+bg_color = Color(0.0156863, 0.113725, 0.113725, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 2
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ymy5"]
+shader = ExtResource("2_3ix3u")
+shader_parameter/corner_radius = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qh211"]
+bg_color = Color(0.0117647, 0.0666667, 0.0666667, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wgvw4"]
+bg_color = Color(0.00807291, 0.0482922, 0.0482922, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Moment" type="Control"]
+custom_minimum_size = Vector2(523, 209)
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 3
+mouse_filter = 1
+script = ExtResource("1_jmfix")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 7
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(65, 0)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_huimo")
+
+[node name="ProfilePic" type="TextureRect" parent="VBoxContainer/HBoxContainer/Panel"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ajkoj")
+custom_minimum_size = Vector2(65, 65)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.0
+offset_top = -33.0
+offset_right = 33.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerName" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.787745, 0.62211, 0.308051, 1)
+theme_override_fonts/font = ExtResource("2_xx804")
+theme_override_font_sizes/font_size = 16
+text = "kaetaro13"
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="TimePosted" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("2_xx804")
+theme_override_font_sizes/font_size = 10
+text = "2D ago"
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FollowUnfollowButton" type="TextureButton" parent="VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(113, 35)
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_filter = 1
+toggle_mode = true
+texture_normal = ExtResource("3_86ypl")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="FollowLabel" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/FollowUnfollowButton"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("4_t4q82")
+theme_override_font_sizes/font_size = 12
+text = "FOLLOW"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_koniv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = -7.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="MomentPicturePanel" type="Panel" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(145, 14)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_huimo")
+
+[node name="MomentPicture" type="TextureRect" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/MomentPicturePanel"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_6ymy5")
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.5
+offset_top = -70.5
+offset_right = 70.5
+offset_bottom = 70.5
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="CaptionLabel" type="Label" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.49
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("6_nhm8g")
+theme_override_font_sizes/font_size = 12
+text = "I love you E.SHAI love you E.SHAI love you E.SHAI love you E.SHAI love you E.SHAI love you E.SHAI love you E.SHAI love you E.SHAI love you E.SHAI love you E.SHAI love you E.SHAI love you E.SHAI love you E.SHAI love you E.SHAI love you E.SHAI love you E.SHA"
+autowrap_mode = 2
+clip_text = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_qh211")
+
+[node name="CommentPreviewContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer2/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = -3.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="Panel" type="Panel" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_wgvw4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer/Panel"]
+custom_minimum_size = Vector2(65, 15)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -7.5
+offset_right = 32.5
+offset_bottom = 7.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LikeButton" type="TextureButton" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer/Panel/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+mouse_filter = 1
+toggle_mode = true
+texture_normal = ExtResource("7_xjk0j")
+texture_pressed = ExtResource("8_h2qbu")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="LikeCount" type="Label" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer/Panel/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("9_hskvh")
+theme_override_font_sizes/font_size = 12
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="LikedBy" type="TextureButton" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer/Panel/HBoxContainer/LikeCount"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel2" type="Panel" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_wgvw4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer/Panel2"]
+custom_minimum_size = Vector2(65, 15)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -7.5
+offset_right = 32.5
+offset_bottom = 7.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CommentButton" type="TextureButton" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer/Panel2/HBoxContainer"]
+modulate = Color(0.352941, 1, 1, 1)
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+mouse_filter = 1
+texture_normal = ExtResource("10_1xq6b")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="CommentCount" type="Label" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer/Panel2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("9_hskvh")
+theme_override_font_sizes/font_size = 12
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Panel3" type="Panel" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_wgvw4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer/Panel3"]
+custom_minimum_size = Vector2(65, 15)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -7.5
+offset_right = 32.5
+offset_bottom = 7.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ShareButton" type="TextureButton" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer/Panel3/HBoxContainer"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+mouse_filter = 1
+texture_normal = ExtResource("11_8euqb")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="ShareCount" type="Label" parent="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer/Panel3/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("9_hskvh")
+theme_override_font_sizes/font_size = 12
+text = "9"
+horizontal_alignment = 1
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/FollowUnfollowButton" to="." method="_on_follow_unfollow_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer/Panel/HBoxContainer/LikeButton" to="." method="_on_like_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer/HBoxContainer/Panel2/HBoxContainer/CommentButton" to="." method="_on_comment_button_pressed"]

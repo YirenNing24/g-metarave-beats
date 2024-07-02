@@ -28,15 +28,14 @@ func _ready() -> void:
 	BKMREngine.Social.get_mutual()
 	BKMREngine.Social.get_mutual_complete.connect(populate_mutuals_list)
 	# Populate the mutuals list in the UI
-	call_deferred("set_status_and_activity")
-
-func set_status_and_activity() -> void:
-	BKMREngine.Social.set_status_online('main')
-	BKMREngine.Social.get_mutual_status()
+	#call_deferred("set_status_and_activity")
+#
+#func set_status_and_activity() -> void:
+	#BKMREngine.Social.set_status_online('main')
+	#BKMREngine.Social.get_mutual_status()
 	
 # Function to populate the mutuals list in the UI.
 func populate_mutuals_list(mutuals_list: Array) -> void:
-	
 	for mutual: Control in mutual_vbox.get_children():
 		mutual.queue_free()
 	# Iterate through mutual followers and create UI slots for each
@@ -53,8 +52,32 @@ func populate_mutuals_list(mutuals_list: Array) -> void:
 		slot_mutuals.get_node('Panel/VBoxContainer/HBoxContainer/HBoxContainer2/RankLabel').text = player_stats.rank
 		# Connect the chat button signal to handle chat initiation
 		slot_mutuals.get_node('Panel/VBoxContainer/HBoxContainer/HBoxContainer2/HBoxContainer/HBoxContainer/ChatButton').pressed.connect(_on_chat_button_pressed)
+		
+		var profile_picture: Texture
+		if mutuals.profilePicture != null or "":
+			var string_profile_picture: String = mutuals.profilePicture
+			profile_picture = set_mutual_profile_picture(string_profile_picture)
+			
+		slot_mutuals.get_node('Panel/VBoxContainer/HBoxContainer/HBoxContainer/DPIcon').texture = (profile_picture)
 		# Add the UI slot to the VBox
 		mutual_vbox.add_child(slot_mutuals)
+
+func set_mutual_profile_picture(image_buffer_string: String) -> Texture:
+	if image_buffer_string == "" or null:
+		return
+	var image: Image = Image.new()
+	var profile_picture: Array = JSON.parse_string(image_buffer_string)
+	if profile_picture.is_empty():
+		return
+	else:
+		var error: Error = image.load_png_from_buffer(profile_picture)
+		if error != OK:
+			print("Error loading image", error)
+		else:
+			var profile_pic: Texture = ImageTexture.create_from_image(image)
+			return profile_pic
+	return null
+
 
 # Function to handle the slide button press event.
 func _on_slide_button_pressed() -> void:
@@ -70,21 +93,6 @@ func _on_view_profile(userName: String) -> void:
 	view_profile_pressed.emit(BKMREngine.Social.player_profile)
 
 # Function to handle the event when the user presses the chat button to initiate a conversation.
-#
-# This function emits a signal to indicate that the chat button was pressed, passing the username
-# of the selected user as a parameter. This signal can be connected to a function that initiates
-# a chat or opens a chat window with the selected user.
-#
-# Parameters:
-# - No explicit parameters are passed to this function, as the username is derived from the context.
-#
-# Returns:
-# - This function does not return a value; it operates by emitting a signal with the selected username.
-#
-# Example usage:
-# ```gdscript
-# _on_chat_button_pressed()
-# ```
 func _on_chat_button_pressed() -> void:
 	# Emit signal to initiate a chat with the selected user
 	chat_button_pressed.emit(conversing_username)
@@ -92,7 +100,5 @@ func _on_chat_button_pressed() -> void:
 func _on_main_screen_mutuals_button_pressed() -> void:
 	slide_button.disabled = false
 
-
 func _on_slide_button_2_pressed() -> void:
-	print("tae")
 	pass # Replace with function body.

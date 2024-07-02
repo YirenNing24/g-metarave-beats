@@ -1,0 +1,191 @@
+[gd_scene load_steps=10 format=3 uid="uid://cqigga7k4ocvb"]
+
+[ext_resource type="Shader" path="res://Components/Moments/moment_slot.gdshader" id="1_aknrp"]
+[ext_resource type="Script" path="res://Components/Moments/liker_slot.gd" id="1_gc2t6"]
+[ext_resource type="Texture2D" uid="uid://bwwswxcwwgwpq" path="res://UITextures/Bundles/green_pill.png" id="2_rr86r"]
+[ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="3_hltlh"]
+[ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="4_l6jf4"]
+[ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="5_7b7py"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3807h"]
+bg_color = Color(0.0175823, 0.10012, 0.100122, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_huimo"]
+bg_color = Color(0.00245657, 0.0230238, 0.0230327, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.222973, 0.626395, 0.626332, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ajkoj"]
+shader = ExtResource("1_aknrp")
+shader_parameter/corner_radius = 5.0
+
+[node name="LikerSlot" type="Control"]
+custom_minimum_size = Vector2(348, 70)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("1_gc2t6")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(348, 70)
+layout_mode = 0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_3807h")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(339, 62)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -169.5
+offset_top = -31.0
+offset_right = 169.5
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="Panel" type="Panel" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(62, 62)
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_huimo")
+
+[node name="ProfilePic" type="TextureRect" parent="Panel/HBoxContainer/Panel"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ajkoj")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -29.0
+offset_top = -29.0
+offset_right = 29.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 0
+texture = ExtResource("2_rr86r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureButton" type="TextureButton" parent="Panel/HBoxContainer/Panel/ProfilePic"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerName" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.787745, 0.62211, 0.308051, 1)
+theme_override_fonts/font = ExtResource("3_hltlh")
+theme_override_font_sizes/font_size = 16
+text = "kaetaro13"
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="PlayerRank" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("3_hltlh")
+theme_override_font_sizes/font_size = 12
+text = "Platinum"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(27, 0)
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("3_hltlh")
+theme_override_font_sizes/font_size = 12
+text = "Level"
+vertical_alignment = 2
+
+[node name="Level" type="Label" parent="Panel/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(27, 0)
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("3_hltlh")
+theme_override_font_sizes/font_size = 12
+text = "100"
+vertical_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="FollowUnfollowButton" type="TextureButton" parent="Panel/HBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+mouse_filter = 1
+texture_normal = ExtResource("4_l6jf4")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="FollowLabel" type="Label" parent="Panel/HBoxContainer/HBoxContainer/VBoxContainer/FollowUnfollowButton"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(113, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("5_7b7py")
+theme_override_font_sizes/font_size = 12
+text = "FOLLOW"
+horizontal_alignment = 1
+vertical_alignment = 1

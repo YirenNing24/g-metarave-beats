@@ -76,4 +76,3 @@ func _on_preference_get_complete(preference_data: Dictionary) -> void:
 			animals_selection()
 			horoscope_selection()
 			genres_selection()
-

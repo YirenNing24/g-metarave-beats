@@ -101,9 +101,7 @@ func card_boost():
 			if PlayerData.player_data.ItemData[PlayerData.player_data[artist][slots]]["Position2"] == "Maknae":
 				maknae_score += 0.5 * PlayerData.player_data.StatPointsSaved["Maknae"]
 	position_score = round(visual_score + main_vocalist_score + lead_vocalist_score + main_dancer_score + lead_dancer_score + rapper_score + lead_rapper_score + faceofthegroup_score + maknae_score)
-	print(position_score, "posscore")
-	print(scoreboost, "Scoreboost")
-	
+
 func add_skills():
 	
 	var group_skill = PlayerData.get(artist.replace(" ", "").to_lower() + "_skill")

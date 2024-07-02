@@ -8,7 +8,7 @@ signal hit_feedback(accuracy: int, line: int)
 # Area3D representing the collision area of the note.
 @onready var note_area: Area3D = %NoteArea
 # Node3D representing the beam visual effect of the note.
-@onready var beam: Node3D = %Beam
+#@onready var beam: Node3D = %Beam
 # Node3D representing the entire note mesh.
 @onready var note_mesh: Node3D = %NoteMesh
 @onready var collision_shape: CollisionShape3D = %CollisionShape3D
@@ -120,17 +120,13 @@ func long_note_hold() -> void:
 	# ui.hit_continued_feedback(accuracy, line)
 
 # Collect the note and provide feedback.
-func collect(is_miss: bool = false) -> void:
+func collect(_is_miss: bool = false) -> void:
 	#note_mesh.visible = false
 	collected = true
 
-	if is_miss and beam != null:
-		pass
+	#if is_miss and beam != null:
+		#pass
 	hit_feedback.emit(accuracy, line)
-		# "%Beam".get_node("Particles").hide()
-
-	# ui.hit_feedback(accuracy, line)
-	# ui.add_score()
 
 # Handle the area entered signal of the note.
 func _on_area_entered(area: Area3D) -> void:
@@ -164,7 +160,7 @@ func draw_beam(point_2: Vector3) -> void:
 	#Draw a line from the position of the last point placed to the position of the second to last point placed
 	@warning_ignore("narrowing_conversion")
 	var z_point2: int = (point_2.z / 2.0)
-	
+
 	var points2: Vector3 = Vector3(-point2.x, 0, z_point2)
 	var _line: MeshInstance3D = await path_line(point1, points2)
 	print(_line.scale)
@@ -174,13 +170,14 @@ func get_point2() -> Vector3:
 		if note.uid == int(next_slanted_note_uid):
 			var point2_pos: Vector3 = note.position.abs()
 			point2 = point2_pos
-			return point2_pos
+			return point2_pos as Vector3
 
 	return Vector3(0,0,0)
 
 
 func path_line(pos1: Vector3, pos2: Vector3, color: Color = Color.WHITE_SMOKE, persist_ms: float = 0) -> MeshInstance3D:
 	var mesh_instance: MeshInstance3D = MeshInstance3D.new()
+
 	var immediate_mesh: ImmediateMesh = ImmediateMesh.new()
 	var material: ORMMaterial3D = ORMMaterial3D.new()
 
@@ -194,7 +191,6 @@ func path_line(pos1: Vector3, pos2: Vector3, color: Color = Color.WHITE_SMOKE, p
 
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	material.albedo_color = color
-	
 	
 	return await final_cleanup(mesh_instance, persist_ms) as MeshInstance3D
 	
