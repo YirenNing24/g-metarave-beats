@@ -1,6 +1,7 @@
 extends Node3D
 
 signal hit_feedback(accuracy: int, line: int)
+signal boost_feedback
 
 # Mesh instance representing the visual body of the note.
 @onready var note_body: MeshInstance3D = get_node("NoteMesh/NoteBody")
@@ -71,7 +72,7 @@ func _process(_delta: float) -> void:
 	
 func swipe_boost() -> void:
 	boost_applied = true
-	print("Swipe Boost Applied!")
+	boost_feedback.emit(true)
 
 # Method to handle the collection of the note.
 func collect(is_miss: bool = false) -> void:

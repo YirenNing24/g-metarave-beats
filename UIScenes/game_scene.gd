@@ -8,9 +8,9 @@ extends Node3D
 @onready var user_hud: Control = %UserHUD
 
 # Dictionary storing the map data.
-var map: Dictionary
+var beatmap: Dictionary
 # File path of the selected map.
-var map_file: String
+var beatmap_file: String
 
 # Parameters for gameplay.
 var tempo: int
@@ -30,24 +30,24 @@ func _ready() -> void:
 
 # Function to set initial variables.
 func set_variables() -> void:
-	map_file = SONG.map_selected.map_file
-	map = load_map()
- 
+	beatmap_file = SONG.map_selected.map_file
+	beatmap = load_beatmap()
+
 # Function to calculate parameters based on the loaded map.
 func calculate_params() -> void:
-	var song_tempo: int = map.tempo
+	var song_tempo: int = beatmap.tempo
 	tempo = song_tempo
 	bar_length_in_m = 16.8  # Godot meters
 	quarter_time_in_sec = 60 / float(tempo)  # 60/60 = 1, 60/85 = 0.71
 	speed = bar_length_in_m / float(4 * quarter_time_in_sec)  # each bar has 4 quarters
 	note_scale = bar_length_in_m / float(4 * 400)
 
-	var map_start_pos: float = map.start_pos
-	start_pos_in_sec = (float(map_start_pos) / 400.0) * quarter_time_in_sec
+	var beatmap_start_pos: float = beatmap.start_pos
+	start_pos_in_sec = (float(beatmap_start_pos) / 400.0) * quarter_time_in_sec
 
 # Function to load the map data from the specified file.
-func load_map() -> Dictionary:
-	var file: FileAccess = FileAccess.open(map_file, FileAccess.READ)
+func load_beatmap() -> Dictionary:
+	var file: FileAccess = FileAccess.open(beatmap_file, FileAccess.READ)
 	var content: String = file.get_as_text()
 	file.close()
 	var json: JSON = JSON.new()
@@ -63,6 +63,3 @@ func setup_nodes() -> void:
 	road.setup(self)
 	music.setup(self)
 	
-# Placeholder function for building the game map.
-func build_map(_empty: String) -> void:
-	pass

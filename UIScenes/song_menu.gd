@@ -123,7 +123,7 @@ func search_dir(dir_name: String) -> Array:
 
 		return file_names as Array
 	else:
-		return [] as Array
+		return []
 
 # List the parsed songs in the UI.
 func list_songs() -> void:

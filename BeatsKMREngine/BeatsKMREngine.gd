@@ -111,7 +111,7 @@ func get_server_time() -> void:
 	#ping = latency
 	
 # Frees an HTTP request object using a WeakRef.
-func free_request(weak_ref: Variant, object: HTTPRequest) -> void:
+func free_request(weak_ref: WeakRef, object: HTTPRequest) -> void:
 	if (weak_ref.get_ref()):
 		object.queue_free()
 
