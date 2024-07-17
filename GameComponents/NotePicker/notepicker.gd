@@ -29,6 +29,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		if event.pressed:
 			touch_position = event.position
+			print(touch_position)
 			var touched_node: bool = get_touched_node(touch_position)
 			if touched_node != false:
 				is_pressed = true

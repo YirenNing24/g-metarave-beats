@@ -29,6 +29,7 @@ func _ready() -> void:
 	setup_nodes()
 
 # Function to set initial variables.
+
 func set_variables() -> void:
 	beatmap_file = SONG.map_selected.map_file
 	beatmap = load_beatmap()

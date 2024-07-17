@@ -42,7 +42,7 @@ func setup(game_config: Node3D) -> void:
 	note_scale = game.note_scale
 
 	current_bar_index = 0
-	tracks_data = game.map.tracks
+	tracks_data = game.beatmap.tracks
 	scaled_bar_amount = max(ceil(32 / bar_length_in_meters), 16.8)
  
 	for track: Dictionary in tracks_data:
