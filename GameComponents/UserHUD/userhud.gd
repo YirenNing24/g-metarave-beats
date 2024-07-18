@@ -10,7 +10,7 @@ signal hit_display_data(note_accuracy: int, line: int, combo_value: int)
 
 @export var health: int = 100
 
-var score: int = 0
+@export var score: int = 0
 var score_accuracy: float = 0
 
 var total_combo: int = 0
@@ -48,22 +48,33 @@ func _ready() -> void:
 
 func connect_notes() -> void:
 	for notes: Node3D in get_tree().get_nodes_in_group('ShortNote'):
-		notes.hit_feedback.connect(hit_feedback)
-		notes.hit_feedback.connect(add_score)
+		if !notes.hit_feedback.is_connected(hit_feedback):
+			notes.hit_feedback.connect(hit_feedback)
+		if !notes.hit_feedback.is_connected(add_score):
+			notes.hit_feedback.connect(add_score)
 		
 	for notes: Node3D in get_tree().get_nodes_in_group('LongNote'):
-		notes.hit_continued_feedback.connect(hit_continued_feedback)
-		notes.hit_feedback.connect(hit_feedback)
-		notes.hit_feedback.connect(add_score)
+		if !notes.hit_feedback.is_connected(hit_continued_feedback):
+			notes.hit_continued_feedback.connect(hit_continued_feedback)
+		if !notes.hit_feedback.is_connected(hit_feedback):
+			notes.hit_feedback.connect(hit_feedback)
+			
+		if !notes.hit_feedback.is_connected(add_score):
+			notes.hit_feedback.connect(add_score)
 		
 	for notes: Node3D in get_tree().get_nodes_in_group('ShortNote'):
-		notes.hit_feedback.connect(hit_feedback)
-		notes.hit_feedback.connect(add_score)
+		if !notes.hit_feedback.is_connected(hit_feedback):
+			notes.hit_feedback.connect(hit_feedback)
+		if !notes.hit_feedback.is_connected(add_score):
+			notes.hit_feedback.connect(add_score)
 		
 	for notes: Node3D in get_tree().get_nodes_in_group('SwipeNote'):
-		notes.hit_feedback.connect(hit_feedback)
-		notes.hit_feedback.connect(add_score)
-		notes.boost_feedback.connect(boost_feedback)
+		if !notes.hit_feedback.is_connected(hit_feedback):
+			notes.hit_feedback.connect(hit_feedback)
+		if !notes.hit_feedback.is_connected(add_score):
+			notes.hit_feedback.connect(add_score)
+		if !notes.hit_feedback.is_connected(boost_feedback):
+			notes.boost_feedback.connect(boost_feedback)
 			
 func _process(_delta: float) -> void:
 	if combo > max_combo:

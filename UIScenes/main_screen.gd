@@ -1,5 +1,7 @@
 extends Control
 
+
+
 #region Signals
 signal chat_opened
 signal mutuals_button_pressed
@@ -45,10 +47,12 @@ func _ready() -> void:
 	signal_connect()
 	add_components()
 	hud_data()
-
 	#Wait for animation completion before showing the mutuals box.
 	await animation_player.animation_finished
 	mutuals_box.show()
+
+
+
 
 # Add modals (profile_modal, player_modal, stat_modal) to the filter panel.
 func add_components() -> void:

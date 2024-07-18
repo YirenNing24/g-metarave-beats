@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://j1ox362pqin7"]
+[gd_scene load_steps=12 format=3 uid="uid://j1ox362pqin7"]
 
 [ext_resource type="Script" path="res://GameComponents/UserHUD/userhud.gd" id="1_5118n"]
 [ext_resource type="Texture2D" uid="uid://4euq5v0yi5wh" path="res://UITextures/Progress/song_exp.png" id="1_jofs5"]
@@ -10,6 +10,14 @@
 [ext_resource type="Texture2D" uid="uid://daepxh6fg1l01" path="res://UITextures/Cards/hannah_no_doubt_star.png" id="6_hjbmm"]
 [ext_resource type="Texture2D" uid="uid://bo2cod3i2s70d" path="res://UITextures/Buttons/Skill/heal_skill_texture.png" id="6_qr71n"]
 [ext_resource type="Texture2D" uid="uid://b0e5yudkr5hi1" path="res://UITextures/Progress/momentum0.png" id="6_yr53h"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_uhf7o"]
+properties/0/path = NodePath(".:score")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:health")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="UserHUD" type="Control"]
 layout_mode = 3
@@ -213,3 +221,6 @@ layout_mode = 2
 texture_normal = ExtResource("6_qr71n")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_uhf7o")

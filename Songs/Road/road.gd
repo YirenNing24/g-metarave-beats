@@ -32,6 +32,7 @@ var max_index: int
 # Reference to the main game node.
 var game: Node3D
 
+var peer_id: int
 # Set up the musical bars for the game.
 func setup(game_config: Node3D) -> void:
 	game = game_config
@@ -44,6 +45,7 @@ func setup(game_config: Node3D) -> void:
 	current_bar_index = 0
 	tracks_data = game.beatmap.tracks
 	scaled_bar_amount = max(ceil(32 / bar_length_in_meters), 16.8)
+
  
 	for track: Dictionary in tracks_data:
 		max_index = max(max_index, len(track.bars))

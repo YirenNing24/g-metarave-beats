@@ -1,5 +1,7 @@
 extends Node3D
 
+var peer: WebSocketMultiplayerPeer = WebSocketMultiplayerPeer.new()
+
 # Reference to the road Node3D.
 @onready var road: Node3D = %Road
 # Reference to the music Node3D.
@@ -10,7 +12,7 @@ extends Node3D
 # Dictionary storing the map data.
 var beatmap: Dictionary
 # File path of the selected map.
-var beatmap_file: String
+@export var beatmap_file: String
 
 # Parameters for gameplay.
 var tempo: int
@@ -22,13 +24,23 @@ var start_pos_in_sec: float
 var score: int = 0
 var combo: int = 0
 
-# Called when the node enters the scene tree for the first time.
+var peer_id: int
+
 func _ready() -> void:
+	connect_multiplayer_server() 
 	set_variables()
 	calculate_params()
 	setup_nodes()
 
+@rpc
+func send_unique_id(id_peer: int) -> void:
+	%BeatmapSynch.set_multiplayer_authority(id_peer)
+	peer_id =id_peer
+
 # Function to set initial variables.
+func connect_multiplayer_server() -> void:
+	var _server_connect: Error = peer.create_client("ws://" + "localhost" + ":8087")
+	multiplayer.multiplayer_peer = peer
 
 func set_variables() -> void:
 	beatmap_file = SONG.map_selected.map_file
@@ -55,12 +67,11 @@ func load_beatmap() -> Dictionary:
 	var error: Error = json.parse(content)
 	if error == OK:
 		var result: Dictionary = json.data
-		return result as Dictionary
+		return result
 	else:
-		return {} as Dictionary
+		return {}
 
 # Function to set up the gameplay nodes (music and road).
 func setup_nodes() -> void:
 	road.setup(self)
 	music.setup(self)
-	

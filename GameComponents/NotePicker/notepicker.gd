@@ -7,23 +7,27 @@ extends Node3D
 @onready var fx_light_pillar: MeshInstance3D = $FXLightPillar
 @onready var fx_spark: GPUParticles3D = $FXSpark
 
-var is_pressed: bool = false
-var is_collecting: bool = false
-var is_swiping: bool = false
+
 var note_collect: Node3D = null
 var note_name: String
 var notepicker_position: Vector2
+
+@export var touch_position: Vector2 = Vector2.ZERO
+@export var is_pressed: bool = false
+@export var is_collecting: bool = false
+@export var is_swiping: bool = false
 
 
 func _ready() -> void:
 	set_process_input(true)
 	notepicker_position = notepicker_3d_pos()
-	call_deferred('connect_notes') 
+	call_deferred('connect_notes')
 
 func _process(_delta: float) -> void:
 	if is_collecting == false:
 		fx_spinner.visible = false
 
+@rpc
 func _input(event: InputEvent) -> void:
 	var touch_position: Vector2
 	if event is InputEventScreenTouch:
