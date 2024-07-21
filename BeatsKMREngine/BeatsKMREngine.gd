@@ -5,25 +5,30 @@ const version: String = "0.1"
 
 # Godot engine version
 var godot_version: String = Engine.get_version_info().string
+var peer: WebSocketMultiplayerPeer = WebSocketMultiplayerPeer.new()
 
 # Configuration variables
 #var host_ip: String = "localhost"
 #var host_ip: String = "api.gmetarave.art"
-var host_ip: String = "192.168.2.61"
-var port: String = ":8085"
+const host_ip: String = "192.168.2.61"
+const port: String = ":8085"
+const beats_port: String = ":8087"
+
 
 var google_server_client_id: String = "484949065971-ujoksdio9417hnvd5goaclrvlnsv6704.apps.googleusercontent.com"
 var host: String = "http://" + host_ip + port
-
+var beats_host: String = "ws://" + host_ip + beats_port + "/?token="
 var session: bool = false
 
 var time_server: String
 var ping: int
 
+
 # Preloaded utility scripts
 const BKMRUtils: Script = preload("res://BeatsKMREngine/utils/BKMRUtils.gd")
 const BKMRHashing: Script = preload("res://BeatsKMREngine/utils/BKMRHashing.gd")
 const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
+
 
 # Child nodes representing different modules
 @onready var Auth: Node = Node.new()
@@ -37,12 +42,14 @@ const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 @onready var Upgrade: Node = Node.new()
 @onready var Reward: Node = Node.new()
 
+
 # Configuration dictionaries
 @onready var config: Dictionary = {}
 var auth_config: Dictionary = {
 	"session_duration_seconds": 0,
 	"saved_session_expiration_days": 30
 }
+
 
 # Loaded scripts for various modules
 var auth_script: Script = load("res://BeatsKMREngine/Auth/Auth.gd")
@@ -55,6 +62,7 @@ var score_script: Script = load("res://BeatsKMREngine/Score/Score.gd")
 var leaderboard_script: Script = load("res://BeatsKMREngine/Leaderboard/Leaderboard.gd")
 var upgrade_script: Script = load("res://BeatsKMREngine/Upgrade/Upgrade.gd")
 var reward_script: Script = load("res://BeatsKMREngine/Reward/Reward.gd")
+
 
 func _ready() -> void:
 	# Wait for environment variable completion
@@ -71,9 +79,10 @@ func _ready() -> void:
 	initialize_script()
 	add_child_nodes()
 	get_server_time()
-	
+
+
+# Initialize script
 func initialize_script() -> void:
-	# Initialize script
 	Auth.set_script(auth_script)
 	Websocket.set_script(websocket_script)
 	Inventory.set_script(inventory_script)
@@ -85,8 +94,9 @@ func initialize_script() -> void:
 	Upgrade.set_script(upgrade_script)
 	Reward.set_script(reward_script)
 
+
+#Add child nodes for different modules
 func add_child_nodes() -> void:
-	#Add child nodes for different modules
 	add_child(Auth)
 	add_child(Websocket)
 	add_child(Inventory)
@@ -99,7 +109,14 @@ func add_child_nodes() -> void:
 	add_child(Reward)
 	print("BKMR ready end timestamp: " + str(BKMRUtils.get_timestamp()))
 	
-#func _physics_process(_delta: float) -> void:
+	
+func beats_server_connect() -> void:
+	var host_beats: String = beats_host + Auth.access_token
+	var result: Error = peer.create_client(host_beats)
+	multiplayer.multiplayer_peer = peer
+	if result != OK:
+		var _connect: int = get_tree().create_timer(3).timeout.connect(beats_server_connect)
+
 
 func get_server_time() -> void:
 	var _connect: int = get_tree().create_timer(5).timeout.connect(get_server_time)

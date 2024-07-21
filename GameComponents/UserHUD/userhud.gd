@@ -43,7 +43,6 @@ var boost_tween: Tween
 func _ready() -> void:
 	artist = SONG.artist
 	health = clamp(health, 0, 100)
-	
 	call_deferred('connect_notes') 
 
 func connect_notes() -> void:

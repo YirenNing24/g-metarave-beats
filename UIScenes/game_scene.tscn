@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c0qeas3iwkcad"]
+[gd_scene load_steps=10 format=3 uid="uid://c0qeas3iwkcad"]
 
 [ext_resource type="PackedScene" uid="uid://cbhfcq0bjdlqy" path="res://Songs/Road/road.tscn" id="1_bdnqg"]
 [ext_resource type="Script" path="res://UIScenes/game_scene.gd" id="1_qchx2"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://j1ox362pqin7" path="res://GameComponents/UserHUD/userhud.tscn" id="4_5wd3j"]
 [ext_resource type="PackedScene" uid="uid://o7bs4n3vreta" path="res://GameComponents/UserHUD/hit_display.tscn" id="4_ed5bh"]
 [ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="6_0o2hm"]
+[ext_resource type="Script" path="res://Components/LoadingComponents/game_loading_screen.gd" id="6_3geb6"]
 
 [sub_resource type="Environment" id="Environment_0fcn8"]
 background_energy_multiplier = 0.0
@@ -14,11 +15,11 @@ ambient_light_color = Color(1, 1, 1, 1)
 tonemap_mode = 3
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dmtbd"]
-properties/0/path = NodePath("../Game:beatmap_file")
+properties/0/path = NodePath(".:is_loading_done")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Multiplayer" type="Node"]
+[node name="GameScene" type="Node"]
 
 [node name="Game" type="Node3D" parent="."]
 script = ExtResource("1_qchx2")
@@ -60,13 +61,23 @@ omni_attenuation = 0.435275
 [node name="UserHUD" parent="Game/CanvasLayer" instance=ExtResource("4_5wd3j")]
 unique_name_in_owner = true
 
+[node name="LoadingScreen" type="Control" parent="Game/CanvasLayer"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_3geb6")
+
 [node name="Sprite3D" type="Sprite3D" parent="Game"]
 transform = Transform3D(-7.0925e-08, -1.0038, -1.95764, -4.35855e-08, 1.95764, -1.0038, 2.2, 6.42281e-09, -8.29988e-08, -19.8414, -10.5111, 0)
 texture = ExtResource("6_0o2hm")
 
-[node name="BeatmapSynch" type="MultiplayerSynchronizer" parent="Game"]
+[node name="GameSync" type="MultiplayerSynchronizer" parent="Game"]
 unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_dmtbd")
 
 [connection signal="song_finished" from="Game/Music" to="Game/CanvasLayer/UserHUD" method="_on_music_song_finished"]
 [connection signal="hit_display_data" from="Game/CanvasLayer/UserHUD" to="Game/HitDisplay" method="_on_user_hud_hit_display_data"]
+[connection signal="loading_finished" from="Game/CanvasLayer/LoadingScreen" to="Game" method="_on_loading_screen_loading_finished"]
+[connection signal="visibility_changed" from="Game/CanvasLayer/LoadingScreen" to="Game/CanvasLayer/LoadingScreen" method="_on_visibility_changed"]

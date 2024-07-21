@@ -1,6 +1,5 @@
 extends Node3D
 
-var peer: WebSocketMultiplayerPeer = WebSocketMultiplayerPeer.new()
 
 # Reference to the road Node3D.
 @onready var road: Node3D = %Road
@@ -11,8 +10,11 @@ var peer: WebSocketMultiplayerPeer = WebSocketMultiplayerPeer.new()
 
 # Dictionary storing the map data.
 var beatmap: Dictionary
+
 # File path of the selected map.
 @export var beatmap_file: String
+@export var audio_file: String = SONG.map_selected.audio_file
+@export var is_loading_done: bool = false
 
 # Parameters for gameplay.
 var tempo: int
@@ -26,26 +28,49 @@ var combo: int = 0
 
 var peer_id: int
 
+
 func _ready() -> void:
-	connect_multiplayer_server() 
+	%GameSynch.set_multiplayer_authority(1)
+	connect_signals()
+	MULTIPLAYER.load_song(beatmap_file, audio_file)
+	
+
+func connect_signals() -> void:
+	var _1: int = MULTIPLAYER.loading_start.connect(_on_loading_start)
+	var _2: int = MULTIPLAYER.server_game_started.connect(_on_server_game_started)
+	
+	
+func song_game_start() -> void:
 	set_variables()
 	calculate_params()
 	setup_nodes()
+	
 
-@rpc
-func send_unique_id(id_peer: int) -> void:
-	%BeatmapSynch.set_multiplayer_authority(id_peer)
-	peer_id =id_peer
 
-# Function to set initial variables.
-func connect_multiplayer_server() -> void:
-	var _server_connect: Error = peer.create_client("ws://" + "localhost" + ":8087")
-	multiplayer.multiplayer_peer = peer
+func _on_new_peer_id(id: int) -> void:
+	peer_id = id
+
 
 func set_variables() -> void:
 	beatmap_file = SONG.map_selected.map_file
 	beatmap = load_beatmap()
 
+
+func _on_loading_start() -> void:
+	%LoadingScreen.visible = true
+
+
+func _on_loading_screen_loading_finished() -> void:
+	song_game_start()
+	get_tree().paused = true
+	MULTIPLAYER.loading_finished()
+	
+	
+func _on_server_game_started() -> void:
+	%LoadingScreen.visible = false
+	get_tree().paused = false
+	
+	
 # Function to calculate parameters based on the loaded map.
 func calculate_params() -> void:
 	var song_tempo: int = beatmap.tempo
@@ -57,6 +82,7 @@ func calculate_params() -> void:
 
 	var beatmap_start_pos: float = beatmap.start_pos
 	start_pos_in_sec = (float(beatmap_start_pos) / 400.0) * quarter_time_in_sec
+
 
 # Function to load the map data from the specified file.
 func load_beatmap() -> Dictionary:

@@ -104,6 +104,7 @@ func auto_login_player() -> Node:
 		complete_session_check_wait_timer.start()
 	return self
 
+
 # Function to validate an existing player session using refresh_token
 func validate_player_session() -> Node:
 	# Prepare the HTTP request for session validation
@@ -124,6 +125,15 @@ func validate_player_session() -> Node:
 	BKMREngine.send_login_request(ValidateSession, request_url, payload)
 	# Return the current script instance
 	return self
+
+
+func beats_server_connect() -> void:
+	var host_beats: String = BKMREngine.beats_host + access_token
+	var _result: Error = BKMREngine.peer.create_client(host_beats)
+	multiplayer.multiplayer_peer = BKMREngine.peer
+	#if result != OK:
+		#var _connect: int = get_tree().create_timer(3).timeout.connect(beats_server_connect)
+
 
 # Event handler for the completion of the player session validation request
 func _on_ValidateSession_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
