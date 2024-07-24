@@ -37,6 +37,8 @@ var picker: Node3D = null
 func _ready() -> void:
 	set_note_position()
 	var _note_connect: int = note_area.area_entered.connect(_on_area_entered)
+	connect_notes()
+	
 
 func _process(_delta: float) -> void:
 	# Check if the picker is present and is not collecting another note.
@@ -59,9 +61,10 @@ func collect(is_miss: bool = false) -> void:
 		picker.note_collect = self
 	hit_feedback.emit(accuracy, line)
 
+
 # Method to set the position of the note based on the line and layer.
 func set_note_position() -> void:
-	var z_values: Array[float] = [-1.79, -0.89, 0, 0.89, 1.79]
+	const z_values: Array[float] = [-1.79, -0.89, 0, 0.89, 1.79]
 	var z: float
 
 	if line in [1, 2, 3, 4, 5]:
@@ -71,12 +74,13 @@ func set_note_position() -> void:
 		z = z_values[line - 6]
 	position = Vector3(z, layer, -note_position * length_scale)
 
+
 # Method to handle the area entered signal of the note.
 func _on_area_entered(area: Area3D) -> void:
 	if collected:
 		return
-	var area_groups: Array[String] = ["perfect_area", "verygood_area", "good_area", "bad_area", "miss_area"]
-	var area_accuracy: Array[int]  = [1, 2, 3, 4, 5]
+	const area_groups: Array[String] = ["perfect_area", "verygood_area", "good_area", "bad_area", "miss_area"]
+	const area_accuracy: Array[int]  = [1, 2, 3, 4, 5]
 	
 	for i: int in range(area_groups.size()):
 		if area.is_in_group(area_groups[i]):
@@ -86,3 +90,9 @@ func _on_area_entered(area: Area3D) -> void:
 			if accuracy == 5:
 				collect(true)
 			break
+
+
+func connect_notes() -> void:
+	for note_picker: Node3D in get_tree().get_nodes_in_group('Picker'):
+		var feedback: Callable = note_picker.hit_feedback
+		var _1: int = hit_feedback.connect(feedback)

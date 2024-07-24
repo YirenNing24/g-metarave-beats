@@ -337,8 +337,8 @@ code = "/*
 Shader from Godot Shaders - the free shader library.
 godotshaders.com/shader/energy-beams
 
-This shader is under CC0 license. Feel free to use, improve and 
-change this shader according to your needs and consider sharing 
+This shader is under CC0 license. Feel free to use, improve and
+change this shader according to your needs and consider sharing
 the modified result to godotshaders.com.
 */
 
@@ -442,7 +442,7 @@ void vertex()
 }
 
 void fragment()
-{   
+{
    vec4 beam = vec4(0.0);
 
    for (int i = 0; i < beams; i++){
@@ -475,7 +475,7 @@ shader_parameter/noise_scale = Vector2(1, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_vtpg0"]
 
-[node name="NotePicker" type="Node3D"]
+[node name="NotePicker" type="Node3D" groups=["Picker"]]
 transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.548166, 0.051, 0)
 script = ExtResource("1_nn2og")
 

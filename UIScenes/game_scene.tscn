@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c0qeas3iwkcad"]
+[gd_scene load_steps=9 format=3 uid="uid://c0qeas3iwkcad"]
 
 [ext_resource type="PackedScene" uid="uid://cbhfcq0bjdlqy" path="res://Songs/Road/road.tscn" id="1_bdnqg"]
 [ext_resource type="Script" path="res://UIScenes/game_scene.gd" id="1_qchx2"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://j1ox362pqin7" path="res://GameComponents/UserHUD/userhud.tscn" id="4_5wd3j"]
 [ext_resource type="PackedScene" uid="uid://o7bs4n3vreta" path="res://GameComponents/UserHUD/hit_display.tscn" id="4_ed5bh"]
 [ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="6_0o2hm"]
+[ext_resource type="PackedScene" uid="uid://dl25uiqgjpf8d" path="res://GameComponents/LoadingScreen/loading_screen.tscn" id="6_ce6x1"]
 
 [sub_resource type="Environment" id="Environment_0fcn8"]
 background_energy_multiplier = 0.0
@@ -13,49 +14,56 @@ ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
 tonemap_mode = 3
 
-[node name="Game" type="Node3D"]
+[node name="GameScene" type="Node"]
+
+[node name="Game" type="Node3D" parent="."]
 script = ExtResource("1_qchx2")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Game"]
 environment = SubResource("Environment_0fcn8")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="Game"]
 transform = Transform3D(-4.37114e-08, -0.500574, 0.865694, -2.90337e-11, 0.865694, 0.500574, -1, 2.18557e-08, -3.78552e-08, 6.79541, 3.21904, 0)
 keep_aspect = 0
 fov = 68.8
 near = 0.06
 
-[node name="Road" parent="." instance=ExtResource("1_bdnqg")]
+[node name="Road" parent="Game" instance=ExtResource("1_bdnqg")]
 unique_name_in_owner = true
 
-[node name="Music" parent="." instance=ExtResource("3_wlywk")]
+[node name="Music" parent="Game" instance=ExtResource("3_wlywk")]
 unique_name_in_owner = true
 
-[node name="HitDisplay" parent="." instance=ExtResource("4_ed5bh")]
+[node name="HitDisplay" parent="Game" instance=ExtResource("4_ed5bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.438878, 0, 0)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="Game"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.87361, 21.8571, 0)
 light_color = Color(0.737255, 0.737255, 0.737255, 1)
 light_energy = 16.0
 omni_range = 47.404
 omni_attenuation = 0.435275
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+[node name="OmniLight3D2" type="OmniLight3D" parent="Game"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5098, 21.8571, 0)
 light_color = Color(0.458824, 0.458824, 0.458824, 1)
 light_energy = 0.0
 omni_range = 47.404
 omni_attenuation = 0.435275
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="Game"]
 
-[node name="UserHUD" parent="CanvasLayer" instance=ExtResource("4_5wd3j")]
+[node name="UserHUD" parent="Game/CanvasLayer" instance=ExtResource("4_5wd3j")]
 unique_name_in_owner = true
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="LoadingScreen" parent="Game/CanvasLayer" instance=ExtResource("6_ce6x1")]
+unique_name_in_owner = true
+visible = false
+
+[node name="Sprite3D" type="Sprite3D" parent="Game"]
 transform = Transform3D(-7.0925e-08, -1.0038, -1.95764, -4.35855e-08, 1.95764, -1.0038, 2.2, 6.42281e-09, -8.29988e-08, -19.8414, -10.5111, 0)
 texture = ExtResource("6_0o2hm")
 
-[connection signal="song_finished" from="Music" to="CanvasLayer/UserHUD" method="_on_music_song_finished"]
-[connection signal="hit_display_data" from="CanvasLayer/UserHUD" to="HitDisplay" method="_on_user_hud_hit_display_data"]
+[connection signal="song_finished" from="Game/Music" to="Game/CanvasLayer/UserHUD" method="_on_music_song_finished"]
+[connection signal="hit_display_data" from="Game/CanvasLayer/UserHUD" to="Game/HitDisplay" method="_on_user_hud_hit_display_data"]
+[connection signal="loading_finished" from="Game/CanvasLayer/LoadingScreen" to="Game" method="_on_loading_screen_loading_finished"]

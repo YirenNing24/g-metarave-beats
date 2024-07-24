@@ -1,5 +1,6 @@
 extends Control
 
+
 #region Signals
 signal chat_opened
 signal mutuals_button_pressed
@@ -45,10 +46,18 @@ func _ready() -> void:
 	signal_connect()
 	add_components()
 	hud_data()
-
+	beats_server_connect()
 	#Wait for animation completion before showing the mutuals box.
 	await animation_player.animation_finished
 	mutuals_box.show()
+
+
+func beats_server_connect() -> void:
+	var beats_connect: MultiplayerPeer.ConnectionStatus = BKMREngine.peer.get_connection_status()
+	if beats_connect == MultiplayerPeer.ConnectionStatus.CONNECTION_CONNECTED:
+		return
+	BKMREngine.Auth.beats_server_connect()
+
 
 # Add modals (profile_modal, player_modal, stat_modal) to the filter panel.
 func add_components() -> void:
@@ -56,12 +65,15 @@ func add_components() -> void:
 	filter_panel.add_child(stats_modal)
 	stats_modal.visible = false
 
+
 # Connect chat signals to their respective handlers.
 func signal_connect() -> void:
 	BKMREngine.Websocket.server_time.connect(_on_updated_server_time)
 	BKMREngine.Websocket.connected.connect(_on_chat_connected)
 	BKMREngine.Websocket.closed.connect(_on_chat_closed)
 	BKMREngine.Profile.get_profile_pic_complete.connect(_on_get_profile_pic)
+	BKMREngine.Auth.bkmr_session_check_complete.connect(_on_session_check_complete)
+
 
 # Checks the user session.
 func session_check() -> void:
@@ -71,10 +83,14 @@ func session_check() -> void:
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons2'):
 		buttons.disabled = true
 	await BKMREngine.Auth.bkmr_session_check_complete
+
+
+func _on_session_check_complete() -> void:
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons'):
 		buttons.disabled = false
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons2'):
 		buttons.disabled = false
+
 
 # Update HUD elements with player data.
 func hud_data() -> void:
@@ -85,6 +101,7 @@ func hud_data() -> void:
 	gmr_balance.text = PLAYER.gmr_balance
 	level.text = str(PLAYER.level)
 	animate_hud()
+	
 	
 func animate_hud() -> void:
 	# Check if there are stat points to animate.
@@ -99,14 +116,15 @@ func animate_hud() -> void:
 		var _tween_callback: CallbackTweener = stats_tween.tween_callback(animate_hud)
 #endregion
 
-#region UI connected callbacks
 
+#region UI connected callbacks
 # Event handler for the profile button press.
 func _on_profile_button_pressed() -> void:
 	# Show the profile modal and make the filter panel visible.
 	filter_panel.visible = true
 	profile_modal.visible = true
 	stats_modal.visible = false
+	
 	
 # GUI input event handler for the filter panel.
 func _on_filter_panel_gui_input(event: InputEvent) -> void:
@@ -117,6 +135,7 @@ func _on_filter_panel_gui_input(event: InputEvent) -> void:
 			close_modals()
 		elif stats_modal.visible:
 			close_modals()
+
 
 # Open the store screen.
 func _on_store_button_pressed() -> void:
@@ -136,6 +155,7 @@ func _on_store_button_pressed() -> void:
 		buttons.disabled = true
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons2'):
 		buttons.disabled = true
+
 
 # Open the inventory screen.
 func _on_inventory_button_pressed() -> void:

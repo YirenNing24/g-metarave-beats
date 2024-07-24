@@ -22,15 +22,16 @@ driver/enable_input=true
 
 [autoload]
 
+MULTIPLAYER="*res://UIScenes/multiplayer.gd"
 BKMREngine="*res://BeatsKMREngine/BeatsKMREngine.gd"
 ENV_VAR="*res://BeatsKMREngine/bkmrenv/scripts/env.gd"
 LOADER="*res://UIScenes/GameLoader.gd"
 PLAYER="*res://BeatsKMREngine/Player/PlayerData.gd"
 SONG="*res://Songs/Song.gd"
-Game3D="*res://GameComponents/Game3D.gd"
 GodotPlayGameServices="*res://addons/GodotPlayGameServices/autoloads/godot_play_game_services.gd"
-SignInClient="*res://addons/GodotPlayGameServices/autoloads/sign_in_client.gd"
 AchievementsClient="*res://addons/GodotPlayGameServices/autoloads/achievements_client.gd"
+Game3D="*res://GameComponents/Game3D.gd"
+SignInClient="*res://addons/GodotPlayGameServices/autoloads/sign_in_client.gd"
 LeaderboardsClient="*res://addons/GodotPlayGameServices/autoloads/leaderboards_client.gd"
 PlayersClient="*res://addons/GodotPlayGameServices/autoloads/players_client.gd"
 SnapshotsClient="*res://addons/GodotPlayGameServices/autoloads/snapshots_client.gd"
@@ -99,6 +100,7 @@ LongNoteSlanted=""
 LongNote=""
 CardUpgradeItem=""
 ClaimRewardButton=""
+Picker=""
 
 [input]
 

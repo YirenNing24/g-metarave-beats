@@ -7,54 +7,80 @@ extends Node3D
 @onready var fx_light_pillar: MeshInstance3D = $FXLightPillar
 @onready var fx_spark: GPUParticles3D = $FXSpark
 
-var is_pressed: bool = false
-var is_collecting: bool = false
-var is_swiping: bool = false
+
 var note_collect: Node3D = null
 var note_name: String
 var notepicker_position: Vector2
+
+@export var touch_position: Vector2 = Vector2.ZERO
+@export var is_pressed: bool = false
+@export var is_collecting: bool = false
+@export var is_swiping: bool = false
+
+var peer_id: int
 
 
 func _ready() -> void:
 	set_process_input(true)
 	notepicker_position = notepicker_3d_pos()
-	call_deferred('connect_notes') 
+	
+	
+func set_peer_id(id_peer: int) -> void:
+	set_multiplayer_authority(id_peer)
+
 
 func _process(_delta: float) -> void:
 	if is_collecting == false:
 		fx_spinner.visible = false
+	
+	
+@rpc
+func _server_input(pos: Vector2, pressed: bool) -> void:
+	# Handle the input on the server side
+	print("Input received from client: ", pos, pressed)
+	# You can add server-side logic here
 
 func _input(event: InputEvent) -> void:
-	var touch_position: Vector2
 	if event is InputEventScreenTouch:
 		if event.pressed:
 			touch_position = event.position
+			print(touch_position)
 			var touched_node: bool = get_touched_node(touch_position)
-			if touched_node != false:
+			if touched_node:
 				is_pressed = true
 				is_collecting = true
 				fx_highlight.visible = true
+				# Synchronize with server
+				var _r: Error = rpc_id(peer_id, "_server_input", touch_position, true)
 		else:
 			is_pressed = false
 			is_swiping = false
 			is_collecting = false
 			note_collect = null
 			fx_highlight.visible = false
+			# Synchronize with server
+			var _r: Error = rpc_id(peer_id, "_server_input", touch_position, false)
+				
 	if event is InputEventScreenDrag:
 		touch_position = event.position
 		var touched_node: bool = get_touched_node(touch_position)
-		if touched_node != false:
+		if touched_node:
 			is_swiping = true
 			is_pressed = true
 			is_collecting = true
 			fx_highlight.visible = true
+			# Synchronize with server
+			var _r: Error = rpc_id(peer_id, "_server_input", touch_position, true)
 		else:
 			is_swiping = false
 			is_pressed = false
 			is_collecting = false
 			note_collect = null
 			fx_highlight.visible = false
-
+			# Synchronize with server
+			var _r: Error = rpc_id(peer_id, "_server_input", touch_position, false)
+			
+			
 func get_touched_node(touch_pos: Vector2) -> bool:
 	var picker_x: float = notepicker_position.x
 	var picker_y: float = notepicker_position.y
@@ -63,22 +89,19 @@ func get_touched_node(touch_pos: Vector2) -> bool:
 		return true
 	return false
 	
+	
 func notepicker_3d_pos() -> Vector2:
 	var camera: Camera3D = get_viewport().get_camera_3d()
 	var picker_position: Vector2 = camera.unproject_position(position)
 	return picker_position
 
-func connect_notes() -> void:
-	for notes: Node3D in get_tree().get_nodes_in_group('ShortNote'):
-		notes.hit_feedback.connect(hit_feedback)
-	for notes: Node3D in get_tree().get_nodes_in_group('LongNote'):
-		notes.hit_continued_feedback.connect(hit_continued_feedback)
-		notes.hit_feedback.connect(hit_feedback)
-		
+
+
 func hit_feedback(note_accuracy: int, short_line: int) -> void:
 	if line == short_line:
 		if note_accuracy == 1:
 			fx_spark.emitting = true
+	
 	
 func hit_continued_feedback(note_accuracy: int, long_line: int) -> void:
 	if line == long_line:

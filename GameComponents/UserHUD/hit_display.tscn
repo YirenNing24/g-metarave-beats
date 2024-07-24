@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://o7bs4n3vreta"]
+[gd_scene load_steps=10 format=3 uid="uid://o7bs4n3vreta"]
 
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="1_cciad"]
 [ext_resource type="Script" path="res://GameComponents/UserHUD/hit_display.gd" id="1_ekha0"]
@@ -33,6 +33,11 @@ animations = [{
 "name": &"HitLabel",
 "speed": 5.0
 }]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_l7t5s"]
+properties/0/path = NodePath("ComboValueLabel:text")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [node name="HitDisplay" type="Node3D"]
 script = ExtResource("1_ekha0")
@@ -81,3 +86,6 @@ unique_name_in_owner = true
 transform = Transform3D(-1.74846e-08, 0, 0.4, 0, 0.4, 0, -0.4, 0, -1.74846e-08, 3.21636, 0.2, -1.61648)
 sprite_frames = SubResource("SpriteFrames_lmt48")
 animation = &"HitLabel"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_l7t5s")

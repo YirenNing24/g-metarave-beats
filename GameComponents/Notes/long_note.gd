@@ -49,6 +49,8 @@ func _ready() -> void:
 	# Calculate and set the current length of the note and update the beam scale.
 	curr_length_in_m = max(100, length - 100) * length_scale
 	beam.scale.z = curr_length_in_m
+	connect_notes()
+	
 	
 # Set the position of the note based on the specified line and layer.
 # Method to set the position of the note based on the line and layer.
@@ -62,6 +64,7 @@ func set_note_position() -> void:
 		rotation.y = 90
 		z = z_values[line - 6]
 	position = Vector3(z, layer, -note_position * length_scale)
+
 
 # Handle the process logic for the note.
 func _process(delta: float) -> void:
@@ -82,6 +85,7 @@ func _process(delta: float) -> void:
 		# Update the current length of the note and handle note collecting.
 		handle_note_collecting(delta)
 
+
 func handle_collision() -> void:
 	if picker.is_collecting and not collected:
 		collect()
@@ -91,6 +95,7 @@ func handle_collision() -> void:
 		hold_canceled = true
 		picker.note_collect = null
 		picker.is_collecting = false
+
 
 func handle_note_collecting(delta: float) -> void:
 	# Update the current length of the note.
@@ -106,9 +111,11 @@ func handle_note_collecting(delta: float) -> void:
 	else:
 		note_collecting = false
 
+
 # Handle the continued holding of a long note.
 func long_note_hold() -> void:
 	hit_continued_feedback.emit(accuracy, line)
+
 
 # Collect the note and provide feedback.
 func collect(is_miss: bool = false) -> void:
@@ -118,6 +125,7 @@ func collect(is_miss: bool = false) -> void:
 	if is_miss and beam != null:
 		pass
 	hit_feedback.emit(accuracy, line)
+
 
 # Handle the area entered signal of the note.
 func _on_area_entered(area: Area3D) -> void:
@@ -134,3 +142,13 @@ func _on_area_entered(area: Area3D) -> void:
 			if accuracy == 5:
 				collect(true)
 			break
+
+
+func connect_notes() -> void:
+	for note_picker: Node3D in get_tree().get_nodes_in_group('Picker'):
+		var feedback: Callable = note_picker.hit_feedback
+		var continued_feedback: Callable = note_picker.hit_continued_feedback
+		
+		var _1: int = hit_feedback.connect(feedback)
+		var _2: int = hit_feedback.connect(continued_feedback)
+		

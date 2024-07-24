@@ -15,13 +15,13 @@ extends Control
 @onready var left_difficulty_button: TextureButton = %LeftDifficultyButton
 @onready var right_difficulty_button: TextureButton = %RightDifficultyButton
 
-var song_display: PackedScene = preload("res://Components/SongDisplay/song_display.tscn")
-var songs_directory: String = "res://Songs/"
+const song_display: PackedScene = preload("res://Components/SongDisplay/song_display.tscn")
+const songs_directory: String = "res://Songs/"
 var song_files: Array
 var map_changed: bool = false
 var selected_map: String
 
-var difficulty: Array = ['easy', 'medium', 'hard', 'ultra hard']
+const difficulty: Array[String] = ['easy', 'medium', 'hard', 'ultra hard']
 var difficulty_mode: String = "easy" #default
 
 # Ready function called when the node and its children are added to the scene.
@@ -36,7 +36,8 @@ func _ready() -> void:
 	left_difficulty_button.disabled = true
 	left_difficulty_button.modulate = "ffffff68"
 
-func on_get_classic_high_score_complete(high_scores: Array) -> void:
+
+func on_get_classic_high_score_complete(high_scores: Array[Dictionary]) -> void:
 	for score: Dictionary in high_scores:
 		for song: Control in song_list_container.get_children():
 			if song.name == score.scoreStats.finalStats.songName:
@@ -44,14 +45,13 @@ func on_get_classic_high_score_complete(high_scores: Array) -> void:
 				var formatted_high_score: String = format_scores(high_score)
 				song.get_node("HBoxContainer2/HBoxContainer/HighScoreLabel").text = formatted_high_score
 				
-#func get_classic_high_score() -> void:
-	#BKMREngine.Score.get_classic_high_score()
 
 # Initialize HUD data, such as energy, beats, and kmr balances.
 func hud_data() -> void:
 	energy_balance.text = "0"
 	beats_balance.text = PLAYER.beats_balance
 	gmr_balance.text = PLAYER.gmr_balance
+
 
 # Parse the song files in the specified directory.
 func parse_song_files() -> void:
@@ -79,6 +79,7 @@ func parse_song_files() -> void:
 		for file_name_entry: Array in file_names:
 			parse_song_file(file_name_entry)
 
+
 # Parse individual song files.
 func parse_song_file(file_name_entry: Array) -> void:
 	var song_file_dir: String = file_name_entry[0]
@@ -104,6 +105,7 @@ func parse_song_file(file_name_entry: Array) -> void:
 	else:
 		print("Error opening file: ", song_file_path)
 
+
 # Recursively search subdirectories for .json files.
 func search_dir(dir_name: String) -> Array:
 	var file_names: Array = []
@@ -123,7 +125,8 @@ func search_dir(dir_name: String) -> Array:
 
 		return file_names as Array
 	else:
-		return [] as Array
+		return []
+
 
 # List the parsed songs in the UI.
 func list_songs() -> void:
@@ -152,6 +155,7 @@ func play_preview(path: String) -> void:
 	audio_player.set_stream(stream)
 	audio_player.play(stream.get_length() / 2)
 
+
 # Callback function for the close button pressed signal.
 func _on_close_button_pressed() -> void:
 	# Perform actions on close button press.
@@ -160,23 +164,28 @@ func _on_close_button_pressed() -> void:
 	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")
 	var _main_screen: int = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
 
+
 # Callable function for song selection in the UI.
 func song_selected(display: Control) -> void:
 	song_scroll_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var song_path: String = display.song.audio_file
 	play_preview(song_path)
 
+
 func song_cancel() -> void:
 	song_scroll_container.mouse_filter = Control.MOUSE_FILTER_PASS
 	audio_player.stop()
 
+
 func song_unfocused_selected(_song_display: Control, index: int) -> void:
 	song_scroll_container.song_unfocused_selected(index) 
+		
 		 
 func song_start(song_file: String) -> void:
 	SONG.difficulty = difficulty_mode
 	set_selected_map(song_file)  
 	var _game_scene: int = await LOADER.load_scene(self, "res://UIScenes/game_scene.tscn")
+	
 	
 func _on_left_difficulty_button_pressed() -> void:
 	var current_difficulty: int = difficulty.find(difficulty_mode)
@@ -190,6 +199,7 @@ func _on_left_difficulty_button_pressed() -> void:
 		left_difficulty_button.disabled = true
 		left_difficulty_button.modulate = "ffffff68"
 		
+		
 func _on_right_difficulty_button_pressed() -> void:
 	var current_difficulty: int = difficulty.find(difficulty_mode)
 	if current_difficulty != 3:
@@ -202,8 +212,10 @@ func _on_right_difficulty_button_pressed() -> void:
 		right_difficulty_button.disabled = true
 		right_difficulty_button.modulate = "ffffff68"
 		
+		
 func difficulty_update() -> void:
 	difficulty_label.text = difficulty_mode
+	
 	
 func format_scores(value: String) -> String:
 	var parts: Array = value.split(".")

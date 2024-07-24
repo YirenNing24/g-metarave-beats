@@ -1,5 +1,6 @@
 extends Node3D
 
+
 # Reference to the road Node3D.
 @onready var road: Node3D = %Road
 # Reference to the music Node3D.
@@ -8,9 +9,12 @@ extends Node3D
 @onready var user_hud: Control = %UserHUD
 
 # Dictionary storing the map data.
-var map: Dictionary
+var beatmap: Dictionary
+
 # File path of the selected map.
-var map_file: String
+@export var beatmap_file: String
+@export var audio_file: String = SONG.map_selected.audio_file
+@export var is_loading_done: bool = false
 
 # Parameters for gameplay.
 var tempo: int
@@ -22,47 +26,77 @@ var start_pos_in_sec: float
 var score: int = 0
 var combo: int = 0
 
-# Called when the node enters the scene tree for the first time.
+var peer_id: int
+
+
 func _ready() -> void:
+	connect_signals()
+	@warning_ignore("unsafe_call_argument")
+	MULTIPLAYER.load_song(SONG.map_selected.map_file, SONG.map_selected.audio_file)
+	
+	
+func connect_signals() -> void:
+	var _1: int = MULTIPLAYER.loading_start.connect(_on_loading_start)
+	var _2: int = MULTIPLAYER.server_game_started.connect(_on_server_game_started)
+	
+	
+func song_game_start() -> void:
 	set_variables()
 	calculate_params()
 	setup_nodes()
+	
 
-# Function to set initial variables.
+func _on_new_peer_id(id: int) -> void:
+	peer_id = id
+
+
 func set_variables() -> void:
-	map_file = SONG.map_selected.map_file
-	map = load_map()
- 
+	beatmap_file = SONG.map_selected.map_file
+	beatmap = load_beatmap()
+
+
+func _on_loading_start() -> void:
+	%LoadingScreen.visible = true
+
+
+func _on_loading_screen_loading_finished() -> void:
+	get_tree().paused = true
+	song_game_start()
+	MULTIPLAYER.loading_finished()
+	
+	
+func _on_server_game_started() -> void:
+	%LoadingScreen.visible = false
+	get_tree().paused = false
+	
+	
 # Function to calculate parameters based on the loaded map.
 func calculate_params() -> void:
-	var song_tempo: int = map.tempo
+	var song_tempo: int = beatmap.tempo
 	tempo = song_tempo
 	bar_length_in_m = 16.8  # Godot meters
 	quarter_time_in_sec = 60 / float(tempo)  # 60/60 = 1, 60/85 = 0.71
 	speed = bar_length_in_m / float(4 * quarter_time_in_sec)  # each bar has 4 quarters
 	note_scale = bar_length_in_m / float(4 * 400)
 
-	var map_start_pos: float = map.start_pos
-	start_pos_in_sec = (float(map_start_pos) / 400.0) * quarter_time_in_sec
+	var beatmap_start_pos: float = beatmap.start_pos
+	start_pos_in_sec = (float(beatmap_start_pos) / 400.0) * quarter_time_in_sec
+
 
 # Function to load the map data from the specified file.
-func load_map() -> Dictionary:
-	var file: FileAccess = FileAccess.open(map_file, FileAccess.READ)
+func load_beatmap() -> Dictionary:
+	var file: FileAccess = FileAccess.open(beatmap_file, FileAccess.READ)
 	var content: String = file.get_as_text()
 	file.close()
 	var json: JSON = JSON.new()
 	var error: Error = json.parse(content)
 	if error == OK:
 		var result: Dictionary = json.data
-		return result as Dictionary
+		return result
 	else:
-		return {} as Dictionary
+		return {}
 
 # Function to set up the gameplay nodes (music and road).
 func setup_nodes() -> void:
 	road.setup(self)
 	music.setup(self)
-	
-# Placeholder function for building the game map.
-func build_map(_empty: String) -> void:
-	pass

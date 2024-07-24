@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://dl25uiqgjpf8d"]
+
+[ext_resource type="Script" path="res://Components/LoadingComponents/game_loading_screen.gd" id="1_7wrvo"]
+[ext_resource type="Texture2D" uid="uid://ch4vcya7p573" path="res://UITextures/BGTextures/layout_icu_xin_gg_irohm.jpg" id="2_xkvfv"]
+[ext_resource type="Texture2D" uid="uid://c6jne54yyhp3a" path="res://UITextures/Progress/splash_base.png" id="3_xko2i"]
+[ext_resource type="Texture2D" uid="uid://c7ms0fmdj83si" path="res://UITextures/Progress/splash_progress.png" id="4_0llk3"]
+
+[node name="LoadingScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7wrvo")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color(0.374139, 0.374139, 0.374139, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_right = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_xkvfv")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="LoadingWheel" type="TextureProgressBar" parent="TextureRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+fill_mode = 4
+texture_under = ExtResource("3_xko2i")
+texture_progress = ExtResource("4_0llk3")
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
