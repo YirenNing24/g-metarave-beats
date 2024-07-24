@@ -4,6 +4,7 @@ extends Node
 signal player_peer_id_received(id: int)
 signal loading_start
 signal server_game_started
+signal classic_game_over_completed(	)
 
 const server_peer_id: int = 1
 
@@ -24,6 +25,11 @@ func send_unique_id_to_player(id_peer: int) -> void:
 @rpc
 func start_loading() -> void:
 	loading_start.emit()
+	
+	
+@rpc
+func classic_game_over() -> void:
+	classic_game_over_completed.emit()
 
 
 @rpc
@@ -34,3 +40,5 @@ func send_beatmap_info_to_server(_token: String, _beatmap: String) -> void:
 @rpc
 func start_game() -> void:
 	pass
+	
+	

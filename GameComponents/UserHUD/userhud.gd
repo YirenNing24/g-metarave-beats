@@ -47,6 +47,7 @@ func _ready() -> void:
 	artist = SONG.artist
 	health = clamp(health, 0, 100)  
 	%MultiplayerSynchronizer.set_multiplayer_authority(1)
+	var _1: int = MULTIPLAYER.classic_game_over_completed.connect(_on_classic_game_over_completed)
 	
 			
 func _process(_delta: float) -> void:
@@ -162,7 +163,7 @@ func animate_health() -> void:
 		"value", 
 		health, 0.1).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_LINEAR )
 	if health <= 0:
-		game_over(false)
+		_on_classic_game_over_completed()
 
 
 func boost_feedback(is_swipe_note: bool = false) -> void:
@@ -185,7 +186,6 @@ func boost_feedback(is_swipe_note: bool = false) -> void:
 
 	elif current_momentum == 50 and current_boost == 3:
 		set_boost()
-	
 	animate_momentum()
 
 
@@ -217,14 +217,14 @@ func animate_momentum() -> void:
 
 
 func _on_road_song_finished() -> void:
-	game_over(true)
+	_on_classic_game_over_completed()
  
 
 func _on_music_song_finished() -> void:
-	game_over(true)
+	_on_classic_game_over_completed()
 
 
-func game_over(_is_finished: bool) -> void:
+func _on_classic_game_over_completed() -> void:
 	var _load_scene: bool = await LOADER.load_scene(self, "res://UIScenes/game_over.tscn")
 	LOADER.next_texture = preload("res://UITextures/BGTextures/game_over_bg.png")
 

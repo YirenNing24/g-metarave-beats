@@ -19,10 +19,11 @@ var note_stats: Dictionary = SONG .note_stats_score
 var song_name: String = SONG.song_name
 var artist: String = SONG.artist
 var difficulty: String = SONG.difficulty
+var peer_id: int = PLAYER.peer_id
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	display_score()
+	
 	
 func display_score() -> void:
 	## VALUE STATS
@@ -42,30 +43,13 @@ func display_score() -> void:
 	good_label.text = format_scores(str(note_stats.good))
 	bad_label.text = format_scores(str(note_stats.bad))
 	miss_label.text = format_scores(str(note_stats.miss))
-	save_score_classic()
+
 	
-func save_score_classic() -> void:
-	var classic_score_stats: Dictionary = {
-		"difficulty": SONG.difficulty,
-		"score":final_stats.score,
-		"combo": final_stats.combo,
-		"maxCombo":  final_stats.max_combo,
-		"accuracy":  final_stats.accuracy,
-		"finished":  final_stats.finished,
-		"songName":  final_stats.songName,
-		"artist": SONG.artist,
-		"perfect":  note_stats.perfect,
-		"veryGood":  note_stats.very_good,
-		"good":  note_stats.good,
-		"bad":  note_stats.bad,
-		"miss":  note_stats.miss
-	}
-	BKMREngine.Score.save_classic_high_score(classic_score_stats)
-	
+
 func is_highscore() -> bool:
-	if BKMREngine.Score.classic_scores == []:
+	if BKMREngine.Score.classic_scores.is_empty():
 		return true
-		
+
 	for scores: Dictionary in BKMREngine.Score.classic_scores:
 		if scores.scoreStats.finalStats.songName == song_name:
 			if final_stats.score > scores.scoreStats.finalStats.score:
@@ -73,6 +57,7 @@ func is_highscore() -> bool:
 			else:
 				return false
 	return true 
+
 
 func format_scores(value: String) -> String:
 	var parts: Array = value.split(".")
@@ -87,9 +72,8 @@ func format_scores(value: String) -> String:
 		if digitCount == 3 and i != 0:
 			formattedWholePart = "," + formattedWholePart
 			digitCount = 0
-	return formattedWholePart
+	return formattedWholePart 
 
-# ADD HIGHSCORE BOOLEAN 
 
 func _on_close_button_pressed() -> void:
 	LOADER.previous_texture = background_texture.texture

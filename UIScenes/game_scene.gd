@@ -38,6 +38,7 @@ func _ready() -> void:
 func connect_signals() -> void:
 	var _1: int = MULTIPLAYER.loading_start.connect(_on_loading_start)
 	var _2: int = MULTIPLAYER.server_game_started.connect(_on_server_game_started)
+	var _3: int = MULTIPLAYER.player_peer_id_received.connect(_on_player_peer_id_received)
 	
 	
 func song_game_start() -> void:
@@ -46,9 +47,10 @@ func song_game_start() -> void:
 	setup_nodes()
 	
 
-func _on_new_peer_id(id: int) -> void:
+func _on_player_peer_id_received(id: int) -> void:
 	peer_id = id
-
+	PLAYER.peer_id = id
+	
 
 func set_variables() -> void:
 	beatmap_file = SONG.map_selected.map_file
