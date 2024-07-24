@@ -146,8 +146,8 @@ func prepare_http_request() -> Dictionary:
 # Sends a GET request using the provided HTTPRequest object to the specified URL.
 func send_get_request(http_node: HTTPRequest, request_url: String) -> void:
 	var headers: Array = [
-		"x-api-key: " + BKMREngine.config.apiKey, 
-		"x-api-id: " + BKMREngine.config.apiId,
+		#"x-api-key: " + BKMREngine.config.apiKey, 
+		#"x-api-id: " + BKMREngine.config.apiId,
 		"x-bkmr-plugin-version: " + BKMREngine.version,
 		"x-bkmr-godot-version: " + godot_version,
 	]
@@ -164,8 +164,8 @@ func send_get_request(http_node: HTTPRequest, request_url: String) -> void:
 func send_post_request(http_node: HTTPRequest, request_url: String, payload: Variant) -> void:
 	var headers: Array = [
 		"content-Type: application/json",
-		"x-api-key: " + BKMREngine.config.apiKey,
-		"x-api-id: " + BKMREngine.config.apiId,
+		#"x-api-key: " + BKMREngine.config.apiKey,
+		#"x-api-id: " + BKMREngine.config.apiId,
 		"x-bkmr-plugin-version: " + BKMREngine.version,
 		"x-bkmr-godot-version: " + godot_version,
 	]

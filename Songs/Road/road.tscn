@@ -174,22 +174,22 @@ surface_material_override/0 = SubResource("StandardMaterial3D_jfrtm")
 unique_name_in_owner = true
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 
-[node name="1" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
+[node name="1" parent="." instance=ExtResource("8_81ipa")]
 transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.122, 0.051, 1.78)
 line = 1
 
-[node name="2" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
+[node name="2" parent="." instance=ExtResource("8_81ipa")]
 transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, 0.885936)
 line = 2
 
-[node name="3" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
+[node name="3" parent="." instance=ExtResource("8_81ipa")]
 transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, 0.00314426)
 line = 3
 
-[node name="4" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
+[node name="4" parent="." instance=ExtResource("8_81ipa")]
 transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, -0.890361)
 line = 4
 
-[node name="5" parent="." groups=["Picker"] instance=ExtResource("8_81ipa")]
+[node name="5" parent="." instance=ExtResource("8_81ipa")]
 transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, -1.78387)
 line = 5
