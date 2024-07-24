@@ -69,10 +69,7 @@ func _ready() -> void:
 	await ENV_VAR.completed
 	# Set configuration based on environment variables
 	config = {
-		"apiKey": ENV_VAR.apiKey,
-		"apiId": ENV_VAR.apiId,
-		"gameVersion": ENV_VAR.gameVersion,
-		"logLevel": ENV_VAR.logLevel,
+		"apiKey": ENV_VAR.env.apiKey
 	}
 	# Print start timestamp for debugging purposes
 	print("BKMR ready start timestamp: " + str(BKMRUtils.get_timestamp()))
@@ -187,7 +184,6 @@ func send_login_request(http_node: HTTPRequest, request_url: String, payload: Di
 	var headers: Array = [
 		"content-Type: application/json",
 		"x-api-key: " + BKMREngine.config.apiKey,
-		"x-api-id: " + BKMREngine.config.apiId,
 		"x-bkmr-plugin-version: " + BKMREngine.version,
 		"x-bkmr-godot-version: " + godot_version,
 	]
