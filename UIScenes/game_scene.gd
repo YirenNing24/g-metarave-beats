@@ -30,11 +30,11 @@ var peer_id: int
 
 
 func _ready() -> void:
-	%GameSynch.set_multiplayer_authority(1)
 	connect_signals()
-	MULTIPLAYER.load_song(beatmap_file, audio_file)
+	@warning_ignore("unsafe_call_argument")
+	MULTIPLAYER.load_song(SONG.map_selected.map_file, SONG.map_selected.audio_file)
 	
-
+	
 func connect_signals() -> void:
 	var _1: int = MULTIPLAYER.loading_start.connect(_on_loading_start)
 	var _2: int = MULTIPLAYER.server_game_started.connect(_on_server_game_started)
@@ -45,7 +45,6 @@ func song_game_start() -> void:
 	calculate_params()
 	setup_nodes()
 	
-
 
 func _on_new_peer_id(id: int) -> void:
 	peer_id = id
@@ -61,8 +60,8 @@ func _on_loading_start() -> void:
 
 
 func _on_loading_screen_loading_finished() -> void:
-	song_game_start()
 	get_tree().paused = true
+	song_game_start()
 	MULTIPLAYER.loading_finished()
 	
 	

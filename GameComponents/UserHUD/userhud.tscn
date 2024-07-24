@@ -15,9 +15,12 @@
 properties/0/path = NodePath(".:score")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath(".:health")
+properties/1/path = NodePath("VBoxContainer/HBoxContainer/HBoxContainer/TextureRect/HealthBar:value")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/BoostProgressBar:value")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [node name="UserHUD" type="Control"]
 layout_mode = 3
@@ -223,4 +226,5 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_uhf7o")

@@ -113,3 +113,9 @@ func _on_area_entered(area: Area3D) -> void:
 			if accuracy == 5:
 				collect(true)
 			break
+
+
+func connect_notes() -> void:
+	for note_picker: Node3D in get_tree().get_nodes_in_group('Picker'):
+		var feedback: Callable = note_picker.hit_feedback
+		var _1: int = hit_feedback.connect(feedback)

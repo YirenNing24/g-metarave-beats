@@ -19,18 +19,21 @@ var notepicker_position: Vector2
 
 var peer_id: int
 
+
 func _ready() -> void:
 	set_process_input(true)
 	notepicker_position = notepicker_3d_pos()
-	call_deferred('connect_notes')
-
+	
+	
 func set_peer_id(id_peer: int) -> void:
 	set_multiplayer_authority(id_peer)
+
 
 func _process(_delta: float) -> void:
 	if is_collecting == false:
 		fx_spinner.visible = false
-
+	
+	
 @rpc
 func _server_input(pos: Vector2, pressed: bool) -> void:
 	# Handle the input on the server side
@@ -57,6 +60,7 @@ func _input(event: InputEvent) -> void:
 			fx_highlight.visible = false
 			# Synchronize with server
 			var _r: Error = rpc_id(peer_id, "_server_input", touch_position, false)
+				
 	if event is InputEventScreenDrag:
 		touch_position = event.position
 		var touched_node: bool = get_touched_node(touch_position)
@@ -76,6 +80,7 @@ func _input(event: InputEvent) -> void:
 			# Synchronize with server
 			var _r: Error = rpc_id(peer_id, "_server_input", touch_position, false)
 			
+			
 func get_touched_node(touch_pos: Vector2) -> bool:
 	var picker_x: float = notepicker_position.x
 	var picker_y: float = notepicker_position.y
@@ -84,22 +89,19 @@ func get_touched_node(touch_pos: Vector2) -> bool:
 		return true
 	return false
 	
+	
 func notepicker_3d_pos() -> Vector2:
 	var camera: Camera3D = get_viewport().get_camera_3d()
 	var picker_position: Vector2 = camera.unproject_position(position)
 	return picker_position
 
-func connect_notes() -> void:
-	for notes: Node3D in get_tree().get_nodes_in_group('ShortNote'):
-		notes.hit_feedback.connect(hit_feedback)
-	for notes: Node3D in get_tree().get_nodes_in_group('LongNote'):
-		notes.hit_continued_feedback.connect(hit_continued_feedback)
-		notes.hit_feedback.connect(hit_feedback)
-		
+
+
 func hit_feedback(note_accuracy: int, short_line: int) -> void:
 	if line == short_line:
 		if note_accuracy == 1:
 			fx_spark.emitting = true
+	
 	
 func hit_continued_feedback(note_accuracy: int, long_line: int) -> void:
 	if line == long_line:

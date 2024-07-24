@@ -3,48 +3,49 @@ extends Control
 signal hit_display_data(note_accuracy: int, line: int, combo_value: int)
 
 @onready var health_bar: TextureProgressBar = %HealthBar
+
 @onready var boost_progress_bar: TextureProgressBar = %BoostProgressBar
 @onready var score_label: Label = %ScoreLabel
 @onready var username_label: Label = %UsernameLabel
 
 
 @export var health: int = 100
-
 @export var score: int = 0
-var score_accuracy: float = 0
+@export var score_accuracy: float = 0
 
-var total_combo: int = 0
-var combo: int = 0
-var max_combo: int = 0
+@export var total_combo: int = 0
+@export var combo: int = 0
+@export var max_combo: int = 0
 
-var accuracy_rate: float = 0
-var accuracy_label: String
+@export var accuracy_rate: float = 0
+@export var accuracy_label: String
 
-var perfect: int = 0
-var very_good: int = 0
-var good: int = 0
-var bad: int = 0
-var miss: int = 0
+@export var perfect: int = 0
+@export var very_good: int = 0
+@export var good: int = 0
+@export var bad: int = 0
+@export var miss: int = 0
 
-var current_momentum: int = 0
-var current_boost: int = 0
-var boost_multiplier: int = 1
+@export var current_momentum: int = 0
+@export var current_boost: int = 0
+@export var boost_multiplier: int = 1
 
 var map: String
 var song_length: float
 var artist: String
 
-var final_stats: Dictionary
-var note_stats: Dictionary
+@export var final_stats: Dictionary
+@export var note_stats: Dictionary
 
 var tween: Tween
 var boost_tween: Tween
 
 func _ready() -> void:
 	artist = SONG.artist
-	health = clamp(health, 0, 100)
-	call_deferred('connect_notes') 
-
+	health = clamp(health, 0, 100)  
+	%MultiplayerSynchronizer.set_multiplayer_authority(1)
+	
+	
 func connect_notes() -> void:
 	for notes: Node3D in get_tree().get_nodes_in_group('ShortNote'):
 		if !notes.hit_feedback.is_connected(hit_feedback):
@@ -75,15 +76,18 @@ func connect_notes() -> void:
 		if !notes.hit_feedback.is_connected(boost_feedback):
 			notes.boost_feedback.connect(boost_feedback)
 			
+			
 func _process(_delta: float) -> void:
 	if combo > max_combo:
 		max_combo = combo
 	calculate_accuracy_score()
 	update_score_label()
 	
+	
 #A function to update the score label
 func update_score_label() -> void:
 	score_label.text = format_number(score)
+
 
 func reset() -> void:
 	score = 0
@@ -100,14 +104,17 @@ func reset() -> void:
 		"accuracy" = accuracy_rate
 		}
 
+
 func calculate_accuracy_score() -> void:
 	var total_notes: int = perfect + very_good + good + bad + miss
 	if total_notes > 0:
 		accuracy_rate = (float(200 * bad) + (400 * good) + (800 * very_good) + (1200 * perfect)) / float(1200 * (total_notes))
 		accuracy_label = "%.2f" %(accuracy_rate * 100)
 
+
 func add_score(_accuracy: int, _line: int) -> void:
 	score = round(score + (score_accuracy +(score_accuracy * combo / 25)))
+
 
 func hit_continued_feedback(note_accuracy: int, line: int ) -> void:
 	if note_accuracy == 5:
@@ -120,6 +127,7 @@ func hit_continued_feedback(note_accuracy: int, line: int ) -> void:
 		score = round(score + (long_note_accuracy * combo * 5 * boost_multiplier))
 	hit_display_data.emit(note_accuracy, line, combo)
 	
+	
 func set_boost_multiplier() -> void:
 	if current_boost != 1:
 		boost_multiplier = current_boost
@@ -127,6 +135,7 @@ func set_boost_multiplier() -> void:
 		boost_multiplier = 1
 	if current_boost == 3 and current_momentum == 50:
 		boost_multiplier = 4
+	
 	
 func hit_feedback(note_accuracy: int, line: int) -> void:
 	health = clamp(health, 0, 100)
@@ -169,8 +178,10 @@ func hit_feedback(note_accuracy: int, line: int) -> void:
 			set_boost(true)
 			hit_display_data.emit(note_accuracy, line, combo)
 
+
 func health_damage() -> void:
 	health -= 10
+
 
 func animate_health() -> void:
 	tween = get_tree().create_tween()
@@ -180,6 +191,7 @@ func animate_health() -> void:
 		health, 0.1).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_LINEAR )
 	if health <= 0:
 		game_over(false)
+
 
 func boost_feedback(is_swipe_note: bool = false) -> void:
 	current_momentum = clamp(current_momentum, 0, 50)
@@ -204,6 +216,7 @@ func boost_feedback(is_swipe_note: bool = false) -> void:
 	
 	animate_momentum()
 
+
 func set_boost(is_reset: bool = false) -> void:
 	if is_reset:
 		current_boost = 0
@@ -217,10 +230,12 @@ func set_boost(is_reset: bool = false) -> void:
 	if current_boost < 3:
 		boost_progress_texture_change() 
 		
+		
 func boost_progress_texture_change() -> void:
 	var momentum_to_string: String = str(current_boost)
 	var texture_path: String = "res://UITextures/Progress/momentum"
 	boost_progress_bar.texture_progress = load(texture_path + momentum_to_string + ".png")
+
 
 func animate_momentum() -> void:
 	boost_tween = get_tree().create_tween()
@@ -229,11 +244,14 @@ func animate_momentum() -> void:
 		"value", 
 		current_momentum, 0.1).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_LINEAR )
 
+
 func _on_road_song_finished() -> void:
 	game_over(true)
  
+
 func _on_music_song_finished() -> void:
 	game_over(true)
+
 
 func game_over(is_finished: bool) -> void:
 	final_stats = {
@@ -258,6 +276,7 @@ func game_over(is_finished: bool) -> void:
 	
 	var _load_scene: bool = await LOADER.load_scene(self, "res://UIScenes/game_over.tscn")
 	LOADER.next_texture = preload("res://UITextures/BGTextures/game_over_bg.png")
+
 
 func format_number(number: int) -> String:
 	# Handle negative numbers by adding the "minus" sign in advance, as we discard it

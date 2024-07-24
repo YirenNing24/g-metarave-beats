@@ -16,6 +16,7 @@ func loading_finished() -> void:
 	start_game.rpc()
 	server_game_started.emit()
 
+
 @rpc
 func send_unique_id_to_player(id_peer: int) -> void:
 	player_peer_id_received.emit(id_peer)

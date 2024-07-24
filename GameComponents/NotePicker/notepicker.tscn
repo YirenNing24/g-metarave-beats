@@ -475,7 +475,7 @@ shader_parameter/noise_scale = Vector2(1, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_vtpg0"]
 
-[node name="NotePicker" type="Node3D"]
+[node name="NotePicker" type="Node3D" groups=["Picker"]]
 transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.548166, 0.051, 0)
 script = ExtResource("1_nn2og")
 
