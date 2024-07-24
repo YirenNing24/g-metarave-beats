@@ -40,42 +40,14 @@ var artist: String
 var tween: Tween
 var boost_tween: Tween
 
+@export var momentum_to_string: String
+
+
 func _ready() -> void:
 	artist = SONG.artist
 	health = clamp(health, 0, 100)  
 	%MultiplayerSynchronizer.set_multiplayer_authority(1)
 	
-	
-func connect_notes() -> void:
-	for notes: Node3D in get_tree().get_nodes_in_group('ShortNote'):
-		if !notes.hit_feedback.is_connected(hit_feedback):
-			notes.hit_feedback.connect(hit_feedback)
-		if !notes.hit_feedback.is_connected(add_score):
-			notes.hit_feedback.connect(add_score)
-		
-	for notes: Node3D in get_tree().get_nodes_in_group('LongNote'):
-		if !notes.hit_feedback.is_connected(hit_continued_feedback):
-			notes.hit_continued_feedback.connect(hit_continued_feedback)
-		if !notes.hit_feedback.is_connected(hit_feedback):
-			notes.hit_feedback.connect(hit_feedback)
-			
-		if !notes.hit_feedback.is_connected(add_score):
-			notes.hit_feedback.connect(add_score)
-		
-	for notes: Node3D in get_tree().get_nodes_in_group('ShortNote'):
-		if !notes.hit_feedback.is_connected(hit_feedback):
-			notes.hit_feedback.connect(hit_feedback)
-		if !notes.hit_feedback.is_connected(add_score):
-			notes.hit_feedback.connect(add_score)
-		
-	for notes: Node3D in get_tree().get_nodes_in_group('SwipeNote'):
-		if !notes.hit_feedback.is_connected(hit_feedback):
-			notes.hit_feedback.connect(hit_feedback)
-		if !notes.hit_feedback.is_connected(add_score):
-			notes.hit_feedback.connect(add_score)
-		if !notes.hit_feedback.is_connected(boost_feedback):
-			notes.boost_feedback.connect(boost_feedback)
-			
 			
 func _process(_delta: float) -> void:
 	if combo > max_combo:
@@ -232,7 +204,7 @@ func set_boost(is_reset: bool = false) -> void:
 		
 		
 func boost_progress_texture_change() -> void:
-	var momentum_to_string: String = str(current_boost)
+	momentum_to_string = str(current_boost)
 	var texture_path: String = "res://UITextures/Progress/momentum"
 	boost_progress_bar.texture_progress = load(texture_path + momentum_to_string + ".png")
 
@@ -253,27 +225,7 @@ func _on_music_song_finished() -> void:
 	game_over(true)
 
 
-func game_over(is_finished: bool) -> void:
-	final_stats = {
-		score = score, 
-		combo = total_combo ,
-		max_combo = max_combo,
-		accuracy = accuracy_rate,
-		map =  SONG.map_selected.song_folder,
-		finished = is_finished,
-		songName = SONG.song_name
- 
-	}
-	note_stats = {
-		perfect =  perfect,
-		very_good = very_good,
-		good = good,
-		bad = bad,
-		miss = miss,
-	}
-	SONG.map_done_score = final_stats
-	SONG.note_stats_score = note_stats
-	
+func game_over(_is_finished: bool) -> void:
 	var _load_scene: bool = await LOADER.load_scene(self, "res://UIScenes/game_over.tscn")
 	LOADER.next_texture = preload("res://UITextures/BGTextures/game_over_bg.png")
 
@@ -293,3 +245,7 @@ func format_number(number: int) -> String:
 			formatted_number += ","
 		index += 1
 	return formatted_number as String
+
+
+func _on_boost_progress_bar_value_changed(_value: float) -> void:
+	boost_progress_texture_change()

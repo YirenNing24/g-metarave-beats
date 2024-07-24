@@ -228,3 +228,5 @@ stretch_mode = 0
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_uhf7o")
+
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/BoostProgressBar" to="." method="_on_boost_progress_bar_value_changed"]
