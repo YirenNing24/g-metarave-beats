@@ -32,7 +32,7 @@ signal hit_display_data(note_accuracy: int, line: int, combo_value: int)
 
 var map: String
 var song_length: float
-var artist: String
+
 
 @export var final_stats: Dictionary
 @export var note_stats: Dictionary
@@ -44,9 +44,12 @@ var boost_tween: Tween
 
 
 func _ready() -> void:
-	artist = SONG.artist
 	health = clamp(health, 0, 100)  
 	%MultiplayerSynchronizer.set_multiplayer_authority(1)
+	connect_signals()
+	
+	
+func connect_signals() -> void:
 	var _1: int = MULTIPLAYER.classic_game_over_completed.connect(_on_classic_game_over_completed)
 	
 			
@@ -110,46 +113,46 @@ func set_boost_multiplier() -> void:
 		boost_multiplier = 4
 	
 	
-func hit_feedback(note_accuracy: int, line: int) -> void:
-	health = clamp(health, 0, 100)
-	match note_accuracy:
-		1:
-			score_accuracy = 1200 * boost_multiplier
-			combo += 1
-			total_combo += 1
-			perfect += 1
-			health += 3
-			animate_health()
-			boost_feedback(false)
-			hit_display_data.emit(note_accuracy, line, combo)
-		2:
-			score_accuracy = 800  * boost_multiplier
-			combo += 1
-			total_combo += 1
-			very_good += 1
-			health += 2
-			animate_health()
-		3:
-			score_accuracy = 400
-			combo += 1
-			total_combo += 1
-			good += 1
-			health += 1
-			animate_health()
-			hit_display_data.emit(note_accuracy, line, combo)
-		4:
-			score_accuracy = 200
-			bad += 1
-			animate_health()
-			hit_display_data.emit(note_accuracy, line, combo)
-		5:
-			score_accuracy = 0
-			combo = 0
-			miss += 1
-			health_damage()
-			animate_health()
-			set_boost(true)
-			hit_display_data.emit(note_accuracy, line, combo)
+#func hit_feedback(note_accuracy: int, line: int) -> void:
+	#health = clamp(health, 0, 100)
+	#match note_accuracy:
+		#1:
+			#score_accuracy = 1200 * boost_multiplier
+			#combo += 1
+			#total_combo += 1
+			#perfect += 1
+			#health += 3
+			#animate_health()
+			#boost_feedback(false)
+			#hit_display_data.emit(note_accuracy, line, combo)
+		#2:
+			#score_accuracy = 800  * boost_multiplier
+			#combo += 1
+			#total_combo += 1
+			#very_good += 1
+			#health += 2
+			#animate_health()
+		#3:
+			#score_accuracy = 400
+			#combo += 1
+			#total_combo += 1
+			#good += 1
+			#health += 1
+			#animate_health()
+			#hit_display_data.emit(note_accuracy, line, combo)
+		#4:
+			#score_accuracy = 200
+			#bad += 1
+			#animate_health()
+			#hit_display_data.emit(note_accuracy, line, combo)
+		#5:
+			#score_accuracy = 0
+			#combo = 0
+			#miss += 1
+			#health_damage()
+			#animate_health()
+			#set_boost(true)
+			#hit_display_data.emit(note_accuracy, line, combo)
 
 
 func health_damage() -> void:

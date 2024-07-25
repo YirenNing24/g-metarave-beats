@@ -13,8 +13,6 @@ extends Control
 
 @onready var background_texture: TextureRect = %BackgroundTexture
 
-var final_stats: Dictionary  = SONG.map_done_score
-var note_stats: Dictionary = SONG .note_stats_score
 
 var song_name: String = SONG.song_name
 var artist: String = SONG.artist
@@ -22,41 +20,60 @@ var difficulty: String = SONG.difficulty
 var peer_id: int = PLAYER.peer_id
 
 func _ready() -> void:
-	display_score()
+	BKMREngine.Score.get_classic_highscore_single.connect(_on_get_classic_highscore_single)
+	BKMREngine.Score.get_classic_high_score_single(peer_id)
 	
 	
-func display_score() -> void:
-	## VALUE STATS
-	score_label.text = format_scores(str(final_stats.score))
-	combo_label.text = format_scores(str(final_stats.combo))
-	max_combo_label.text = format_scores(str(final_stats.max_combo))
+func _on_get_classic_highscore_single(score: Array) -> void:
+	var single_score: Dictionary = score[0]
+	display_score(single_score) 
+	#var classic_score_stats: Dictionary = {
+		#"difficulty": "NORMAL",
+		#"score": score,
+		#"combo": total_combo,
+		#"maxCombo": max_combo,
+		#"accuracy": accuracy_rate,
+		#"finished": is_finished,
+		#"songName": "SONG",
+		#"artist": artist,
+		#"perfect": perfect,
+		#"veryGood": very_good,
+		#"good": good,
+		#"bad": bad,
+		#"miss": miss,
+		#"username": get_parent().get_parent().username,
+		#"peerId": peer_id
+	#}
+func display_score(single_score: Dictionary) -> void:
+	score_label.text = format_scores(str(single_score["score"]))
+	combo_label.text = format_scores(str(single_score["combo"]))
+	max_combo_label.text = format_scores(str(single_score["maxCombo"]))
 	
-	var rounded_accuracy: float = snapped(final_stats.accuracy, 0.01)
+	var rounded_accuracy: float = snapped(single_score["accuracy"], 0.01)
 	accuracy_label.text = (str(rounded_accuracy) + "%")
 	
-	if !final_stats.finished:
+	if not single_score.finished:
 		finished_label.text = "TRY AGAIN!"
 		
 	#NOTES STATS
-	k_perfect_label.text = format_scores(str(note_stats.perfect))
-	very_good_label.text = format_scores(str(note_stats.very_good))
-	good_label.text = format_scores(str(note_stats.good))
-	bad_label.text = format_scores(str(note_stats.bad))
-	miss_label.text = format_scores(str(note_stats.miss))
+	k_perfect_label.text = format_scores(str(single_score["perfect"]))
+	very_good_label.text = format_scores(str(single_score["veryGood"]))
+	good_label.text = format_scores(str(single_score["good"]))
+	bad_label.text = format_scores(str(single_score["bad"]))
+	miss_label.text = format_scores(str(single_score["miss"]))
 
 	
-
-func is_highscore() -> bool:
-	if BKMREngine.Score.classic_scores.is_empty():
-		return true
-
-	for scores: Dictionary in BKMREngine.Score.classic_scores:
-		if scores.scoreStats.finalStats.songName == song_name:
-			if final_stats.score > scores.scoreStats.finalStats.score:
-				return true
-			else:
-				return false
-	return true 
+#func is_highscore() -> bool:
+	#if BKMREngine.Score.classic_scores.is_empty():
+		#return true
+#
+	#for scores: Dictionary in BKMREngine.Score.classic_scores:
+		#if scores.scoreStats.finalStats.songName == song_name:
+			#if final_stats.score > scores.scoreStats.finalStats.score:
+				#return true
+			#else:
+				#return false
+	#return true 
 
 
 func format_scores(value: String) -> String:

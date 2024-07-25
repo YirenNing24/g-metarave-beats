@@ -30,7 +30,6 @@ var ResendConfCode: String
 # Server host URL
 var host: String = BKMREngine.host
 
-# HTTPRequest instances and weakrefs for server communication
 
 var access_token: String
 var refresh_token: String
@@ -68,6 +67,8 @@ var login_timer: Timer
 var complete_session_check_wait_timer: Timer
 
 var google_token: String
+
+
 #region Init functions
 # Function to attempt automatic player login based on saved session data
 func auto_login_player() -> Node:
@@ -85,7 +86,7 @@ func auto_login_player() -> Node:
 			last_login_type = bkmr_session_data.login_type
 			
 			if last_login_type == 'beats':
-				var _validate_session: Node = validate_player_session()
+				validate_player_session()
 			elif last_login_type == 'google':
 				SignInClient.request_server_side_access(BKMREngine.google_server_client_id, true)
 			else:
@@ -106,7 +107,7 @@ func auto_login_player() -> Node:
 
 
 # Function to validate an existing player session using refresh_token
-func validate_player_session() -> Node:
+func validate_player_session() -> void:
 	# Prepare the HTTP request for session validation
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	ValidateSession = prepared_http_req.request
@@ -124,7 +125,6 @@ func validate_player_session() -> Node:
 	# Send the POST request for session validation
 	BKMREngine.send_login_request(ValidateSession, request_url, payload)
 	# Return the current script instance
-	return self
 
 
 func beats_server_connect() -> void:
@@ -182,6 +182,7 @@ func _on_ValidateSession_request_completed(_result: int, response_code: int, hea
 		complete_session_check({})
 #endregion
 
+
 #region Registration functions
 func register_player(username: String, password: String ) -> void:
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -198,6 +199,7 @@ func register_player(username: String, password: String ) -> void:
 	
 	var request_url: String = host + "/api/register/beats"
 	BKMREngine.send_post_request(RegisterPlayer, request_url, payload)
+
 
 # Callback function triggered upon completion of the player registration request
 func _on_RegisterPlayer_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
@@ -217,6 +219,7 @@ func _on_RegisterPlayer_request_completed(_result: int, response_code: int, head
 		else:
 			BKMRLogger.error("Unknown server Error")
 			
+			
 func register_google(token: String) -> void:
 	# Prepare HTTP request
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -235,6 +238,7 @@ func register_google(token: String) -> void:
 	}
 	var request_url: String = host + "/api/register/google"
 	BKMREngine.send_post_request(GoogleRegisterPlayer, request_url, payload)
+	
 	
 func _on_GoogleRegisterPlayer_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status
@@ -257,9 +261,10 @@ func _on_GoogleRegisterPlayer_request_completed(_result: int, response_code: int
 		bkmr_google_registration_complete.emit({"error": str(json_body.message)})
 #endregion
 
+
 #region Login functions
 # Initiates a request to log in a player with the provided username and password
-func login_player(username: String, password: String) -> Node:
+func login_player(username: String, password: String) -> void:
 	# Store the username temporarily for reference in the callback function
 	tmp_username = username
 	
@@ -290,8 +295,6 @@ func login_player(username: String, password: String) -> Node:
 	# Send the POST request to initiate player login
 	BKMREngine.send_login_request(LoginPlayer, request_url, payload)
 	
-	# Return self for potential chaining of function calls
-	return self
 
 # Callback function triggered upon completion of the player login request
 func _on_LoginPlayer_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
@@ -331,6 +334,7 @@ func _on_LoginPlayer_request_completed(_result: int, response_code: int, headers
 			var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
 			bkmr_google_login_complete.emit({"error": json_body})
 
+
 # Login function for google login
 func google_login_player(token: String) -> Node:
 	# Prepare the HTTP request for player login
@@ -359,6 +363,7 @@ func google_login_player(token: String) -> Node:
 	
 	# Return self for potential chaining of function calls
 	return self
+
 
 # Callback function triggered upon completion of the player login request
 func _on_GoogleLoginPlayer_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:

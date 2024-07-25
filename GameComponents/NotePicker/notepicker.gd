@@ -40,11 +40,11 @@ func _server_input(pos: Vector2, pressed: bool) -> void:
 	print("Input received from client: ", pos, pressed)
 	# You can add server-side logic here
 
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		if event.pressed:
 			touch_position = event.position
-			print(touch_position)
 			var touched_node: bool = get_touched_node(touch_position)
 			if touched_node:
 				is_pressed = true
@@ -94,7 +94,6 @@ func notepicker_3d_pos() -> Vector2:
 	var camera: Camera3D = get_viewport().get_camera_3d()
 	var picker_position: Vector2 = camera.unproject_position(position)
 	return picker_position
-
 
 
 func hit_feedback(note_accuracy: int, short_line: int) -> void:

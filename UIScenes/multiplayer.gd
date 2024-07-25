@@ -1,44 +1,47 @@
-##TODO ADD loading screen 
 extends Node
 
-signal player_peer_id_received(id: int)
-signal loading_start
-signal server_game_started
-signal classic_game_over_completed(	)
+# Signals to communicate with other nodes or scripts.
+signal player_peer_id_received(id: int)  # Emitted when the player's unique peer ID is received.
+signal loading_start  # Emitted to indicate the start of the loading screen.
+signal server_game_started  # Emitted when the server has started the game.
+signal classic_game_over_completed()  # Emitted when the classic game over process is completed.
 
-const server_peer_id: int = 1
-
-
+# Sends the beatmap and audio file information to the server.
 func load_song(beatmap: String, audio_file: String) -> void:
-	send_beatmap_info_to_server.rpc_id(server_peer_id, BKMREngine.Auth.access_token, beatmap, audio_file)
+	send_beatmap_info_to_server.rpc_id(1, BKMREngine.Auth.access_token, beatmap, audio_file)
 	
-
+	
+# Called when the loading is finished and the game is ready to start.
 func loading_finished() -> void:
 	start_game.rpc()
 	server_game_started.emit()
 
 
+# Remote procedure call to send the unique peer ID to the player.
 @rpc
 func send_unique_id_to_player(id_peer: int) -> void:
 	player_peer_id_received.emit(id_peer)
 
+
+# Remote procedure call to signal the start of the loading process.
 @rpc
 func start_loading() -> void:
 	loading_start.emit()
 	
 	
+# Remote procedure call to signal that the classic game over process is completed.
 @rpc
 func classic_game_over() -> void:
 	classic_game_over_completed.emit()
 
 
+# Remote procedure call to send beatmap and audio file information to the server.
 @rpc
 func send_beatmap_info_to_server(_token: String, _beatmap: String) -> void:
 	pass
 
 
+# Remote procedure call to start the game.
 @rpc
 func start_game() -> void:
 	pass
-	
-	

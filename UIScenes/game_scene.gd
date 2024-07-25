@@ -50,6 +50,7 @@ func song_game_start() -> void:
 func _on_player_peer_id_received(id: int) -> void:
 	peer_id = id
 	PLAYER.peer_id = id
+	name = str(id)
 	
 
 func set_variables() -> void:

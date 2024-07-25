@@ -151,4 +151,3 @@ func connect_notes() -> void:
 		
 		var _1: int = hit_feedback.connect(feedback)
 		var _2: int = hit_feedback.connect(continued_feedback)
-		
