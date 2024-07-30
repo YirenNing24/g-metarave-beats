@@ -36,10 +36,12 @@ var stats_modal: Control = load("res://Components/Popups/stats_modal.tscn").inst
 var stats_tween: Tween
 #endregion
 
+
 #region Connection status
 var chat_connected: bool = false
 var is_opened: bool = false
 #endregion
+
 
 #region Initialization function called when the node is ready.
 func _ready() -> void:
@@ -50,7 +52,7 @@ func _ready() -> void:
 	#Wait for animation completion before showing the mutuals box.
 	await animation_player.animation_finished
 	mutuals_box.show()
-
+	
 
 func beats_server_connect() -> void:
 	var beats_connect: MultiplayerPeer.ConnectionStatus = BKMREngine.peer.get_connection_status()
@@ -82,11 +84,10 @@ func session_check() -> void:
 		buttons.disabled = true
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons2'):
 		buttons.disabled = true
-	await BKMREngine.Auth.bkmr_session_check_complete
 
 
-func _on_session_check_complete() -> void:
-	for buttons: Button in get_tree().get_nodes_in_group('MainButtons'):
+func _on_session_check_complete(_session: Dictionary) -> void:
+	for buttons: TextureButton in get_tree().get_nodes_in_group('MainButtons'):
 		buttons.disabled = false
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons2'):
 		buttons.disabled = false
@@ -176,6 +177,7 @@ func _on_inventory_button_pressed() -> void:
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons2'):
 		buttons.disabled = true
 	
+	
 # Open the song menu screen with a smooth transition.
 func _on_game_mode_button_pressed() -> void:
 	# Disable buttons in 'MainButtons' and 'MainButtons2' groups during the transition
@@ -191,25 +193,30 @@ func _on_game_mode_button_pressed() -> void:
 	# Load the song menu scene asynchronously
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/song_menu.tscn")
 
+
 # Open the stat modal and show the filter panel.
 func _on_stat_button_pressed() -> void:
 	profile_modal.visible = false
 	filter_panel.visible = true
 	stats_modal.visible = true
 	
+	
 # View the profile from the chat box.
 func _on_chat_box_view_profile_pressed() -> void:
 	profile_modal.visible = false
+
 
 # Display the received message in the chat box
 func _on_chat_box_2_all_message_received(received_message: Dictionary) -> void:
 	preview_message.text = received_message.message
 	preview_username.text = received_message.username + ": "
 
+
 # Open the chat window with a sliding animation.
 func _on_chat_window_button_pressed() -> void:
 	chat_opened.emit()
 	animation_player.play("chat_slide")
+
 
 # Open the mutuals box with a sliding animation.
 func _on_mutuals_button_pressed() -> void:
@@ -267,6 +274,7 @@ func _on_leaderboard_button_pressed() -> void:
 		buttons.disabled = true
 #endregion
 
+
 #region Callbacks
 
 # Use profile pic call back data
@@ -274,19 +282,23 @@ func _on_get_profile_pic(_profile_pics: Variant) -> void:
 	if typeof(_profile_pics) != TYPE_ARRAY:
 		return
 	
+	
 # Set the server time in the UI
 func _on_updated_server_time(time_server: String, _ping: float) -> void:
 	server_time.text = time_server
 	
+	
 # Handle the event when the chat is successfully connected
 func _on_chat_connected(_url: String) -> void:
 	chat_connected = true
+	
 	
 # Handle the event when the chat is closed
 func _on_chat_closed(_code: int, _reason: String) -> void:
 	chat_connected = false
 	if is_opened:
 		pass  # Placeholder, additional handling can be added here if needed
+		
 		
 # Function to close all modals.
 func close_modals() -> void:
@@ -295,6 +307,7 @@ func close_modals() -> void:
 	profile_modal.visible = false
 	stats_modal.visible = false
 #endregion
+
 
 func _input(event: InputEvent) -> void:
 	# Handle screen touch events.

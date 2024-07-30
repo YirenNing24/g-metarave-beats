@@ -17,7 +17,7 @@ extends Control
 
 const song_display: PackedScene = preload("res://Components/SongDisplay/song_display.tscn")
 const songs_directory: String = "res://Songs/"
-var song_files: Array
+var song_files: Array[Dictionary]
 var map_changed: bool = false
 var selected_map: String
 
@@ -31,12 +31,13 @@ func _ready() -> void:
 	parse_song_files()
 	list_songs()
 	hud_data()
+	songs_difficulty_visibility()
 	#get_classic_high_score()
 	
 	left_difficulty_button.disabled = true
 	left_difficulty_button.modulate = "ffffff68"
-
-
+	
+	
 func on_get_classic_high_score_complete(high_scores: Array[Dictionary]) -> void:
 	for score: Dictionary in high_scores:
 		for song: Control in song_list_container.get_children():
@@ -45,14 +46,14 @@ func on_get_classic_high_score_complete(high_scores: Array[Dictionary]) -> void:
 				var formatted_high_score: String = format_scores(high_score)
 				song.get_node("HBoxContainer2/HBoxContainer/HighScoreLabel").text = formatted_high_score
 				
-
+				
 # Initialize HUD data, such as energy, beats, and kmr balances.
 func hud_data() -> void:
 	energy_balance.text = "0"
 	beats_balance.text = PLAYER.beats_balance
 	gmr_balance.text = PLAYER.gmr_balance
-
-
+	
+	
 # Parse the song files in the specified directory.
 func parse_song_files() -> void:
 	# Initialize arrays to store file names and directories.
@@ -78,8 +79,8 @@ func parse_song_files() -> void:
 		# Parse each song file.
 		for file_name_entry: Array in file_names:
 			parse_song_file(file_name_entry)
-
-
+	
+	
 # Parse individual song files.
 func parse_song_file(file_name_entry: Array) -> void:
 	var song_file_dir: String = file_name_entry[0]
@@ -104,8 +105,8 @@ func parse_song_file(file_name_entry: Array) -> void:
 		song_files.append(content_json)
 	else:
 		print("Error opening file: ", song_file_path)
-
-
+	
+	
 # Recursively search subdirectories for .json files.
 func search_dir(dir_name: String) -> Array:
 	var file_names: Array = []
@@ -134,8 +135,10 @@ func list_songs() -> void:
 		var songs: Control = song_display.instantiate()
 		songs.song = song
 		songs.name = song.audio.title
+		
 		var song_title: String = 'UITextures/SongMenu/' + song.audio.title.to_lower().replace(' ', '') + '.png'
 		songs.get_node("TextureRect/SongArt").texture = load(song_title)
+		songs.difficulty = song.difficulty
 		song_list_container.add_child(songs)
 		
 		songs.song_selected.connect(song_selected)
@@ -143,11 +146,13 @@ func list_songs() -> void:
 		songs.song_started.connect(song_start)
 		songs.song_canceled.connect(song_cancel)
 
+
 # Callback function to set the selected map when a song is chosen.
 func set_selected_map(_audio_file: String) -> void:
 	if selected_map != SONG.map_selected.song_folder:
 		map_changed = true
 		selected_map = SONG.map_selected.song_folder
+
 
 # Preview Play the selected song.
 func play_preview(path: String) -> void:
@@ -198,6 +203,7 @@ func _on_left_difficulty_button_pressed() -> void:
 	if difficulty_mode == "easy":
 		left_difficulty_button.disabled = true
 		left_difficulty_button.modulate = "ffffff68"
+	songs_difficulty_visibility()
 		
 		
 func _on_right_difficulty_button_pressed() -> void:
@@ -211,6 +217,14 @@ func _on_right_difficulty_button_pressed() -> void:
 	if difficulty_mode == "ultra hard":
 		right_difficulty_button.disabled = true
 		right_difficulty_button.modulate = "ffffff68"
+	songs_difficulty_visibility()
+		
+func songs_difficulty_visibility() -> void:
+	for song: Control in song_list_container.get_children():
+		if song.difficulty != difficulty_mode:
+			song.visible = false
+		else:
+			song.visible = true
 		
 		
 func difficulty_update() -> void:

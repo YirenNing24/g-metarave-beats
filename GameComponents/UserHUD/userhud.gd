@@ -207,7 +207,7 @@ func set_boost(is_reset: bool = false) -> void:
 		
 		
 func boost_progress_texture_change() -> void:
-	var texture_path: String = "res://UITextures/Progress/momentum"
+	const texture_path: String = "res://UITextures/Progress/momentum"
 	boost_progress_bar.texture_progress = load(texture_path + momentum_to_string + ".png")
 
 

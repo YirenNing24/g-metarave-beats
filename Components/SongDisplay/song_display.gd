@@ -15,7 +15,7 @@ signal song_canceled
 
 var song: Dictionary
 var start_tween: Tween
-
+var difficulty: String
 
 func _ready() -> void:
 	song_title.text = song.audio.title
