@@ -1,7 +1,8 @@
 extends Control
 
-var template_card_slot_scene: PackedScene = preload("res://Components/Store/cards.tscn")
-var template_card_upgrade_slot_scene: PackedScene = preload("res://Components/Store/card_upgrade.tscn")
+const template_card_slot_scene: PackedScene = preload("res://Components/Store/cards.tscn")
+const template_card_upgrade_slot_scene: PackedScene = preload("res://Components/Store/card_upgrade.tscn")
+const template_card_pack_slot_scene: PackedScene = preload("res://Components/Store/card_pack.tscn")
 var store_item_modal: Control = preload("res://Components/Popups/store_item_modal.tscn").instantiate()
 
 @onready var beats_balance: Label = %BeatsBalance
@@ -27,17 +28,22 @@ func _ready() -> void:
 	hud_data()
 	store_item_modal.visible = false
 	
+	
 func hud_data() -> void:
 	beats_balance.text = PLAYER.beats_balance
 	native_balance.text = PLAYER.native_balance
 	gmr_balance.text = PLAYER.gmr_balance
 	
+	
 func signal_connect() -> void:
 	store_item_modal.store_item_buy_pressed.connect(_on_store_item_modal_buy_pressed)
 	BKMREngine.Store.get_valid_cards_complete.connect(_on_get_valid_cards_complete)
 	BKMREngine.Store.get_valid_card_upgrades_complete.connect(_on_get_valid_card_upgrades_complete)
+	BKMREngine.Store.get_valid_card_packs_complete.connect(_on_get_valid_card_packs_complete)
 	BKMREngine.Store.buy_card_upgrade_item_complete.connect(_on_buy_card_upgrades_complete)
 	BKMREngine.Store.buy_card_complete.connect(_on_buy_card_complete)
+
+	
 	
 func _on_get_valid_cards_complete(cards :Array) -> void:
 	clear_grid()
@@ -58,6 +64,7 @@ func _on_get_valid_cards_complete(cards :Array) -> void:
 		item_grid.add_child(card_slots)
 		card_slots.get_card_data(card)
 		
+		
 func _on_card_slot_buy_button_pressed(card_data: Dictionary) -> void:
 	%FilterPanel.visible = true
 	confirm_label.text = "Are you sure 
@@ -65,6 +72,7 @@ func _on_card_slot_buy_button_pressed(card_data: Dictionary) -> void:
 	var _connected: bool = confirm_yes_button.pressed.is_connected(_on_yes_button_pressed)
 	if _connected == false:
 		var _connect: int = confirm_yes_button.pressed.connect(_on_yes_button_pressed.bind(card_data, "Card"))
+
 
 func _on_get_valid_card_upgrades_complete(upgrades: Array) -> void:
 	clear_grid()
@@ -84,13 +92,36 @@ func _on_get_valid_card_upgrades_complete(upgrades: Array) -> void:
 		template_card_upgrade_slot.buy_button_pressed.connect(_on_get_valid_cards_buy_button_pressed)
 		item_grid.add_child(template_card_upgrade_slot)
 		
+		
+func _on_get_valid_card_packs_complete(card_packs: Array) -> void:
+	clear_grid()
+	var card_pack_slot: Control
+	for card_pack: Dictionary in card_packs:
+		card_pack_slot = template_card_pack_slot_scene.instantiate()
+		var price_per_token: int = card_pack.pricePerToken 
+		var quantity: int = card_pack.quantity
+
+		card_pack_slot.get_node("BuyButton/HBoxContainer/Price").text = format_balance(str(price_per_token))
+		card_pack_slot.get_node("Panel/Quantity").text = format_balance(str(quantity))
+		card_pack_slot.buy_button_pressed.connect(_on_get_valid_card_packs_buy_button_pressed)
+		item_grid.add_child(card_pack_slot)
+		
+		
 func _on_get_valid_cards_buy_button_pressed(item_data: Dictionary, type: String) -> void:
 	%FilterPanel.visible = true
 	var _connected: bool = confirm_yes_button.pressed.is_connected(_on_yes_button_pressed)
 	if _connected == false:
 		var _connect: int = confirm_yes_button.pressed.connect(_on_yes_button_pressed. bind(item_data, type))
-
 	confirm_label.text = "Are you sure you want to buy Card Upgrade " + item_data.tier.to_upper()
+		
+		
+func _on_get_valid_card_packs_buy_button_pressed(item_data: Dictionary, type: String)  -> void:
+	%FilterPanel.visible = true
+	var _connected: bool = confirm_yes_button.pressed.is_connected(_on_yes_button_pressed)
+	if _connected == false:
+		var _connect: int = confirm_yes_button.pressed.connect(_on_yes_button_pressed. bind(item_data, type))
+	confirm_label.text = "Are you sure you want to buy Card Upgrade " + item_data.tier.to_upper()
+		
 		
 func _on_yes_button_pressed(item_data: Dictionary, item_type: String) -> void:
 	match item_type:
@@ -98,11 +129,14 @@ func _on_yes_button_pressed(item_data: Dictionary, item_type: String) -> void:
 			buy_card_upgrade(item_data)
 		"Card":
 			buy_card(item_data)
+		"CardPack":
+			pass
 		
 func buy_card(item_data: Dictionary) -> void:
 	var listingId: int = item_data.listingId
 	BKMREngine.Store.buy_card(item_data.uri, listingId)
 	%LoadingPanel.fake_loader()
+		
 		
 func _on_buy_card_complete(_message: Dictionary) -> void:
 	if store_item_modal.visible:
@@ -114,8 +148,10 @@ func _on_buy_card_complete(_message: Dictionary) -> void:
 	beats_balance.text = format_balance(str(current_beats_balance - price))
 	BKMREngine.Store.get_valid_cards()
 	
+	
 func _on_store_item_modal_buy_pressed() -> void:
 	%LoadingPanel.fake_loader()
+
 
 func buy_card_upgrade(item_data: Dictionary) -> void:
 	var buy_card_data: Dictionary = {
@@ -125,6 +161,25 @@ func buy_card_upgrade(item_data: Dictionary) -> void:
 	}
 	BKMREngine.Store.buy_card_upgrade(buy_card_data)
 	%LoadingPanel.fake_loader()
+
+
+func buy_card_pack(item_data: Dictionary) -> void:
+	var listingId: int = item_data.listingId
+	BKMREngine.Store.buy_card(item_data.uri, listingId)
+	%LoadingPanel.fake_loader()
+		
+		
+func _on_buy_card_pack_complete(_message: Dictionary) -> void:
+	if store_item_modal.visible:
+		store_item_modal.visible = false
+	%LoadingPanel.tween_kill()
+	%FilterPanel.visible = false
+	var current_beats_balance: int = int(beats_balance.text)
+	var price: int = 1500
+	beats_balance.text = format_balance(str(current_beats_balance - price))
+	BKMREngine.Store.get_valid_card_packs()
+	
+
 
 func _on_no_button_pressed() -> void:
 	%FilterPanel.visible = false
@@ -140,8 +195,14 @@ func _on_show_item_store_modal(card_data: Dictionary, texture: Texture) -> void:
 func _on_cards_button_pressed() -> void:
 	BKMREngine.Store.get_valid_cards()
 	
+	
+func _on_card_pack_button_pressed() -> void:
+	BKMREngine.Store.get_valid_card_packs()
+	
+	
 func _on_card_upgrade_button_pressed() -> void:
 	BKMREngine.Store.get_valid_card_upgrades()
+
 
 func _input(event: InputEvent) -> void:
 	# Handle screen touch events.
@@ -156,6 +217,7 @@ func _input(event: InputEvent) -> void:
 		cursor_spark.position = position_event
 		cursor_spark.emitting = true
 
+
 func _on_close_button_pressed() -> void:
 	BKMREngine.Auth.auto_login_player()
 	if is_transaction:
@@ -165,9 +227,11 @@ func _on_close_button_pressed() -> void:
 	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
 
+
 func clear_grid() -> void:
 	for items: Control in item_grid.get_children():
 		items.queue_free()
+
 
 func format_balance(value: String) -> String:
 	var parts: Array = value.split(".")
@@ -183,6 +247,7 @@ func format_balance(value: String) -> String:
 			formattedWholePart = "," + formattedWholePart
 			digitCount = 0
 	return formattedWholePart
+
 
 func _on_filter_panel_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:

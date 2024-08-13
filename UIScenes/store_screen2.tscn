@@ -253,9 +253,8 @@ text = "What's New?"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="CardPackButton" type="TextureButton" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer"]
 auto_translate_mode = 1
-visible = false
 self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
 custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
@@ -263,7 +262,7 @@ texture_normal = ExtResource("4_3x0rp")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/TextureButton"]
+[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/CardPackButton"]
 auto_translate_mode = 1
 self_modulate = Color(0.87451, 0.87451, 0.87451, 1)
 layout_mode = 1
@@ -667,6 +666,7 @@ grow_horizontal = 1
 grow_vertical = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_onsxg")
 
+[connection signal="pressed" from="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/CardPackButton" to="." method="_on_card_pack_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/CardsButton" to="." method="_on_cards_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/CardUpgradeButton" to="." method="_on_card_upgrade_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/HBoxContainer2/CloseButton" to="." method="_on_close_button_pressed"]
