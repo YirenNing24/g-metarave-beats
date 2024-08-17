@@ -120,7 +120,7 @@ func _onGetValidCardPacks_request_completed(_result: int, response_code: int, he
 	else:
 		get_valid_card_packs_complete.emit({"error": "Unknown server error"})
 	
-
+	
 func buy_card_pack(uri: String, listing_id: int) -> void:
 	# Prepare HTTP request
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -142,16 +142,18 @@ func _onBuyCardPack_request_completed(_result: int, response_code: int, headers:
 	if is_instance_valid(BuyCardPack):
 		BKMREngine.free_request(wrBuyCardPack, BuyCardPack)
 	if status_check:
-		var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
-		var _bkmr_result: Dictionary = BKMREngine.build_result(json_body)
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body != null:
 		# Check if the purchase was successful and log accordingly
-		if json_body.has("success"):
+			if json_body.has("success"):
+				buy_card_pack_complete.emit(json_body)
+			else:
+				BKMRLogger.error("Purchase failed: " + str(json_body.error))
+				buy_card_pack_complete.emit(json_body)
+			# Emit the 'buy_card_complete' signal with the response body
 			buy_card_pack_complete.emit(json_body)
 		else:
-			BKMRLogger.error("Purchase failed: " + str(json_body.error))
-			buy_card_pack_complete.emit(json_body)
-		# Emit the 'buy_card_complete' signal with the response body
-		buy_card_pack_complete.emit(json_body)
+			buy_card_pack_complete.emit({"error": "Unknown server error"})
 	else:
 		buy_card_pack_complete.emit({"error": "Unknown server error"})
 	

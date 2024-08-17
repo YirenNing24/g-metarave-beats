@@ -42,7 +42,7 @@ func signal_connect() -> void:
 	BKMREngine.Store.get_valid_card_packs_complete.connect(_on_get_valid_card_packs_complete)
 	BKMREngine.Store.buy_card_upgrade_item_complete.connect(_on_buy_card_upgrades_complete)
 	BKMREngine.Store.buy_card_complete.connect(_on_buy_card_complete)
-
+	BKMREngine.Store.buy_card_pack_complete.connect(_on_buy_card_pack_complete)
 	
 	
 func _on_get_valid_cards_complete(cards :Array) -> void:
@@ -103,6 +103,7 @@ func _on_get_valid_card_packs_complete(card_packs: Array) -> void:
 
 		card_pack_slot.get_node("BuyButton/HBoxContainer/Price").text = format_balance(str(price_per_token))
 		card_pack_slot.get_node("Panel/Quantity").text = format_balance(str(quantity))
+		card_pack_slot.card_pack_data(card_pack)
 		card_pack_slot.buy_button_pressed.connect(_on_get_valid_card_packs_buy_button_pressed)
 		item_grid.add_child(card_pack_slot)
 		
@@ -120,7 +121,7 @@ func _on_get_valid_card_packs_buy_button_pressed(item_data: Dictionary, type: St
 	var _connected: bool = confirm_yes_button.pressed.is_connected(_on_yes_button_pressed)
 	if _connected == false:
 		var _connect: int = confirm_yes_button.pressed.connect(_on_yes_button_pressed. bind(item_data, type))
-	confirm_label.text = "Are you sure you want to buy Card Upgrade " + item_data.tier.to_upper()
+	confirm_label.text = "Are you sure you want to buy Card pack " + item_data.name.to_upper()
 		
 		
 func _on_yes_button_pressed(item_data: Dictionary, item_type: String) -> void:
@@ -130,7 +131,7 @@ func _on_yes_button_pressed(item_data: Dictionary, item_type: String) -> void:
 		"Card":
 			buy_card(item_data)
 		"CardPack":
-			pass
+			buy_card_pack(item_data)
 		
 func buy_card(item_data: Dictionary) -> void:
 	var listingId: int = item_data.listingId
@@ -165,7 +166,7 @@ func buy_card_upgrade(item_data: Dictionary) -> void:
 
 func buy_card_pack(item_data: Dictionary) -> void:
 	var listingId: int = item_data.listingId
-	BKMREngine.Store.buy_card(item_data.uri, listingId)
+	BKMREngine.Store.buy_card_pack(item_data.uri, listingId)
 	%LoadingPanel.fake_loader()
 		
 		
@@ -179,18 +180,20 @@ func _on_buy_card_pack_complete(_message: Dictionary) -> void:
 	beats_balance.text = format_balance(str(current_beats_balance - price))
 	BKMREngine.Store.get_valid_card_packs()
 	
-
-
+	
 func _on_no_button_pressed() -> void:
 	%FilterPanel.visible = false
+
 
 func _on_buy_card_upgrades_complete(_message: Dictionary) -> void:
 	BKMREngine.Store.get_valid_card_upgrades()
 	%LoadingPanel.tween_kill()
 
+
 func _on_show_item_store_modal(card_data: Dictionary, texture: Texture) -> void:
 	store_item_modal.set_data(card_data, texture)
 	store_item_modal.visible = true
+	
 	
 func _on_cards_button_pressed() -> void:
 	BKMREngine.Store.get_valid_cards()
