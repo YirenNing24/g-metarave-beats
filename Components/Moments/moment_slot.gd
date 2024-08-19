@@ -28,12 +28,14 @@ func _ready() -> void:
 	signal_connect()
 	BKMREngine.Social.get_mutual()
 
+
 func signal_connect() -> void:
 	BKMREngine.Social.get_mutual_complete.connect(set_follow_button)
 	BKMREngine.Social.follow_complete.connect(_on_follow_complete)
 	BKMREngine.Social.unfollow_complete.connect(_on_unfollow_complete)
 	BKMREngine.Social.like_fan_moments_complete.connect(_on_like_fan_moments_complete)
 	BKMREngine.Social.unlike_fan_moments_complete.connect(_on_unlike_fan_moments_complete)
+
 
 func slot_data(moment_data: Dictionary) -> void:
 	player_name.text = moment_data.userName
@@ -57,6 +59,7 @@ func slot_data(moment_data: Dictionary) -> void:
 	var time: String = moment_data.formattedTime
 	set_slot_ui(likes, shares, comments, profile_pic, time)
 	
+	
 func set_slot_ui(likes: Array, shares: Array, comments: Array, profile_pic: String, time: String) -> void:
 	set_likes(likes)
 	set_shares(shares)
@@ -65,8 +68,10 @@ func set_slot_ui(likes: Array, shares: Array, comments: Array, profile_pic: Stri
 	set_post_time(time)
 	set_follow_button()
 
+
 func set_post_time(time: String) -> void:
 	%TimePosted.text = time
+
 
 func set_follow_button(mutuals_list: Array = []) -> void:
 	if PLAYER.username == player_name.text:

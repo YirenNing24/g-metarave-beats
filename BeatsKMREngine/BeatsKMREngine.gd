@@ -68,11 +68,7 @@ var gacha_script: Script = load("res://BeatsKMREngine/Gacha/Gacha.gd")
 
 func _ready() -> void:
 	# Wait for environment variable completion
-	await ENV_VAR.completed
-	# Set configuration based on environment variables
-	config = {
-		"apiKey": ENV_VAR.env.apiKey
-	}
+
 	# Print start timestamp for debugging purposes
 	print("BKMR ready start timestamp: " + str(BKMRUtils.get_timestamp()))
 	initialize_script()
@@ -187,7 +183,7 @@ func send_post_request(http_node: HTTPRequest, request_url: String, payload: Var
 func send_login_request(http_node: HTTPRequest, request_url: String, payload: Dictionary) -> void:
 	var headers: Array = [
 		"content-Type: application/json",
-		"x-api-key: " + BKMREngine.config.apiKey,
+		#"x-api-key: " + BKMREngine.config.apiKey,
 		"x-bkmr-plugin-version: " + BKMREngine.version,
 		"x-bkmr-godot-version: " + godot_version,
 	]

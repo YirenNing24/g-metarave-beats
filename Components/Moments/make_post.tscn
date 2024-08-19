@@ -108,33 +108,6 @@ grow_vertical = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/Panel/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(400, 0)
-layout_mode = 2
-texture = ExtResource("1_7eqht")
-expand_mode = 1
-stretch_mode = 6
-
-[node name="DifficultyLabel" type="Label" parent="Panel/VBoxContainer/Panel/HBoxContainer/TextureRect"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(180, 0)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.275
-anchor_top = 0.127271
-anchor_right = 0.725
-anchor_bottom = 0.763634
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_otvlu")
-theme_override_font_sizes/font_size = 22
-text = "Add Comment"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
 [node name="Panel" type="Panel" parent="Panel/VBoxContainer/Panel/HBoxContainer"]
 custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
@@ -257,13 +230,15 @@ alignment = 1
 
 [node name="PostPic" type="TextureRect" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-z_index = 1
 material = SubResource("ShaderMaterial_0ro2x")
 custom_minimum_size = Vector2(190, 190)
 layout_mode = 2
 size_flags_vertical = 0
+expand_mode = 1
+stretch_mode = 4
 
-[node name="Panel" type="Panel" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer2/PostPic"]
+[node name="PostPicCoverPanel" type="Panel" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer2/PostPic"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -273,7 +248,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gb8sq")
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer2/PostPic/Panel"]
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer2/PostPic/PostPicCoverPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -290,7 +265,7 @@ text = "Tap to add a picture
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer2/PostPic/Panel"]
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer2/PostPic/PostPicCoverPanel"]
 modulate = Color(1, 1, 1, 0.537255)
 self_modulate = Color(0.754851, 0.754864, 0.745412, 1)
 layout_mode = 1

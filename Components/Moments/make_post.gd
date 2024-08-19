@@ -12,12 +12,15 @@ const plugin_name: String = "GodotGetImage"
 
 var buffer_image: PackedByteArray
 
+
 func _ready() -> void:
 	load_plugin()
 	connect_signal()
 	
+	
 func connect_signal() -> void:
 	BKMREngine.Social.post_fan_moments_complete.connect(_on_post_fan_moments_complete)
+
 
 #region Get Image from Server
 func load_plugin() -> void:
@@ -37,10 +40,12 @@ func load_plugin() -> void:
 		get_image.setOptions(options)
 		plugin_signal_connect()
 
+
 func plugin_signal_connect() -> void:
 	get_image.image_request_completed.connect(_on_image_request_completed)
 	get_image.error.connect(_on_get_image_error)
 	get_image.permission_not_granted_by_user.connect(_on_permission_not_granted_by_user)
+
 
 func _on_upload_post_pic_button_pressed() -> void:
 	#Select single images from gallery
@@ -51,6 +56,7 @@ func _on_upload_post_pic_button_pressed() -> void:
 			print(plugin_name, " plugin not loaded!")
 	else:
 		post_pic.texture = null
+		
 		
 #region Get Image call backs
 func _on_image_request_completed(object_image: Dictionary) -> void:
@@ -64,21 +70,27 @@ func _on_image_request_completed(object_image: Dictionary) -> void:
 			print("Error loading image", error)
 		else:
 			print("We are now loading texture... ")
+			buffer_image = image_buffer
 			var uploaded_pic: Texture =  ImageTexture.create_from_image(image)
 			post_pic.texture = uploaded_pic
+			%PostPicCoverPanel.visible = false
+	
 	
 func _on_get_image_error(_error: String) -> void:
 	pass
+	
 	
 func _on_permission_not_granted_by_user() -> void:
 	# Set the plugin to ask user for permission again
 	get_image.resendPermission()
 #endregion
 
+
 func _on_post_fan_moments_complete(_message: Dictionary) -> void:
 	filter_panel.tween_kill()
 	visible = false
 	character_count.text = "0 / 260"
+	
 	
 func _on_comment_text_edit_text_changed() -> void:
 	if comment_text_edit.text.length() > 260:
@@ -88,6 +100,7 @@ func _on_comment_text_edit_text_changed() -> void:
 		character_count.add_theme_color_override("font_color", "dfdfdf")
 		
 	character_count.text = str(comment_text_edit.text.length()) + "  / 260"
+
 
 func _on_submit_button_pressed() -> void:
 	if comment_text_edit.text.length() > 260:
@@ -107,7 +120,9 @@ func _on_submit_button_pressed() -> void:
 	BKMREngine.Social.post_fan_moments(post)
 	filter_panel.fake_loader()
 	
+	
 func _on_panel_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if visible:
 			visible = false
+			%PostPicCoverPanel.visible = true

@@ -5,7 +5,8 @@ signal show_item_store_modal(card_data: Dictionary, texture: Texture)
 signal card_buy_button_pressed(card_data: Dictionary)
 
 # Preload the store_item_modal scene.
-var store_item_modal: PackedScene = preload("res://Components/Popups/store_item_modal.tscn")
+const store_item_modal: PackedScene = preload("res://Components/Popups/store_item_modal.tscn")
+
 @onready var card_button: TextureButton = %CardButton
 @onready var buy_button: TextureButton = %BuyButton
 # Onready variable for the icon TextureRect.

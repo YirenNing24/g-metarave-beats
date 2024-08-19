@@ -899,6 +899,7 @@ pitch_scale = 1.1
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("24_8jsi5")
 volume_db = -5.0
+autoplay = true
 parameters/looping = true
 
 [connection signal="mutuals_button_pressed" from="." to="Panel/BackgroundTexture/MutualsBox" method="_on_main_screen_mutuals_button_pressed"]

@@ -22,6 +22,7 @@ var plugin_name: String = "GodotGetImage"
 
 var is_upload: bool = false
 
+
 # Initialization function called when the node is ready.
 func _ready() -> void:
 	signal_connect()
@@ -45,6 +46,7 @@ func stat_display() -> void:
 	player_rank.text = PLAYER.player_rank
 	wallet_address.text = PLAYER.wallet_address
    
+
 # Handle visibility change.
 func _on_visibility_changed() -> void:
 	if visible:
@@ -54,12 +56,14 @@ func _on_visibility_changed() -> void:
 		animation_player.play("fade-in")
 		return
 	
+	
 # Handle logout button press.
 func _on_logout_button_pressed() -> void:
 	# Logout the player and quit the game
 	BKMREngine.Auth.logout_player()
 	await BKMREngine.Auth.bkmr_logout_complete
 	get_tree().quit()
+	
 	
 # Handle logout completion.
 func _on_logout_complete() -> void:
@@ -86,16 +90,19 @@ func load_plugin() -> void:
 		get_image.setOptions(options)
 		plugin_signal_connect()
 
+
 func plugin_signal_connect() -> void:
 	get_image.image_request_completed.connect(_on_image_request_completed)
 	get_image.error.connect(_on_get_image_error)
 	get_image.permission_not_granted_by_user.connect(_on_permission_not_granted_by_user)
+	
 	
 func _on_see_profile_pic_button_pressed() -> void:
 	if view_picture.profile_pics_data.size() == 0:
 		return
 	animation_player.play_backwards('dp_options')
 	view_picture.visible = true
+	
 	
 func _on_upload_profile_pic_button_pressed() -> void:
 	#Select single images from gallery
@@ -104,6 +111,7 @@ func _on_upload_profile_pic_button_pressed() -> void:
 	else:
 		print(plugin_name, " plugin not loaded!")
 #endregion
+
 
 #region Get Image call backs
 func _on_image_request_completed(object_image: Dictionary) -> void:
@@ -124,6 +132,7 @@ func _on_image_request_completed(object_image: Dictionary) -> void:
 			is_upload = true
 	BKMREngine.Profile.get_profile_pic()
 	
+	
 func _on_get_profile_pic_complete(profile_pics: Variant) -> void:
 	if typeof(profile_pics) != TYPE_ARRAY:
 		return
@@ -141,8 +150,10 @@ func _on_get_profile_pic_complete(profile_pics: Variant) -> void:
 		view_picture.profile_pics_data = profile_pics
 		view_picture.display_picture()
 			
+			
 func _on_get_image_error(_error: String) -> void:
 	pass
+	
 	
 func _on_permission_not_granted_by_user() -> void:
 	# Set the plugin to ask user for permission again
@@ -154,6 +165,7 @@ func _on_permission_not_granted_by_user() -> void:
 func _on_profile_pic_options_button_pressed() -> void:
 	animation_player.play('dp_options')
 
+
 func _on_dp_panel_gui_input(event: InputEvent) -> void:
 	if dp_option_panel.visible == true:
 		if event is InputEventMouseButton:
@@ -164,14 +176,18 @@ func _on_dp_panel_gui_input(event: InputEvent) -> void:
 func _on_view_picture_view_picture_close() -> void:
 	visible = true
 
+
 func _on_profile_pic_upload_complete(_message: Dictionary) -> void:
 	BKMREngine.Profile.get_profile_pic() 
+	
 	
 func _on_change_profile_pic_complete(_message: Dictionary) -> void:
 	BKMREngine.Profile.get_profile_pic()
 
+
 func _on_my_profile_button_pressed() -> void:
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/my_profile.tscn")
+
 
 func _on_get_preference_complete(soul_data: Dictionary) -> void:
 	for badge: Control in badge_container.get_children():
@@ -215,12 +231,29 @@ func _on_get_preference_complete(soul_data: Dictionary) -> void:
 				badge_created = true  # Set the flag to true to indicate a badge has been created
 				break  # Exit the loop since we only need one badge
 	
+	
 func _on_my_notes_button_pressed() -> void:
 	%MyNote.visible = true
 
+
+func plugin_signal_disconnect() -> void:
+	get_image.image_request_completed.disconnect(_on_image_request_completed)
+	get_image.error.disconnect(_on_get_image_error)
+	get_image.permission_not_granted_by_user.disconnect(_on_permission_not_granted_by_user)
+	
+	
 func _on_notes_line_edit_text_changed(_new_text: String) -> void:
 	pass # Replace with function body.
+
 
 func _on_fan_moments_button_pressed() -> void:
 	moments.user_profile_picture = profile_pic.texture
 	moments.visible = true
+
+
+func _on_moments_visibility_changed() -> void:
+	if not %Moments.visible:
+		plugin_signal_connect()
+	else:
+		plugin_signal_disconnect()
+		

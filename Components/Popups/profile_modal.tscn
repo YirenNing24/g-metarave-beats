@@ -510,3 +510,4 @@ layout_mode = 1
 [connection signal="pressed" from="DPPanel/DPOptionPanel/VBoxContainer/SeeProfilePicButton" to="." method="_on_see_profile_pic_button_pressed"]
 [connection signal="pressed" from="DPPanel/DPOptionPanel/VBoxContainer/UploadProfilePicButton" to="." method="_on_upload_profile_pic_button_pressed"]
 [connection signal="view_picture_close" from="ViewPicture" to="." method="_on_view_picture_view_picture_close"]
+[connection signal="visibility_changed" from="Moments" to="." method="_on_moments_visibility_changed"]

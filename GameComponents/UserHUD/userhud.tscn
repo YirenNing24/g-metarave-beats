@@ -7,7 +7,7 @@
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="5_6xcqj"]
 [ext_resource type="Texture2D" uid="uid://cxo48wpowo4oa" path="res://UITextures/Progress/base_momentum.png" id="5_w6njq"]
 [ext_resource type="Texture2D" uid="uid://dqvuj8xqovy43" path="res://UITextures/Progress/score_progress.png" id="5_wco1r"]
-[ext_resource type="Texture2D" uid="uid://daepxh6fg1l01" path="res://UITextures/Cards/hannah_no_doubt_star.png" id="6_hjbmm"]
+[ext_resource type="Texture2D" uid="uid://cu2rldjgd6cuu" path="res://UITextures/Cards/hannah_no_doubt_genesis.png" id="6_hjbmm"]
 [ext_resource type="Texture2D" uid="uid://bo2cod3i2s70d" path="res://UITextures/Buttons/Skill/heal_skill_texture.png" id="6_qr71n"]
 [ext_resource type="Texture2D" uid="uid://b0e5yudkr5hi1" path="res://UITextures/Progress/momentum0.png" id="6_yr53h"]
 

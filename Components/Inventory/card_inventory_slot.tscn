@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://ur5y4vq646w0"]
 
-[ext_resource type="Texture2D" uid="uid://daepxh6fg1l01" path="res://UITextures/Cards/hannah_no_doubt_star.png" id="1_k87kx"]
+[ext_resource type="Texture2D" uid="uid://cu2rldjgd6cuu" path="res://UITextures/Cards/hannah_no_doubt_genesis.png" id="1_k87kx"]
 [ext_resource type="Script" path="res://Components/Inventory/card_inventory_slot.gd" id="2_uof06"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_il8gk"]
