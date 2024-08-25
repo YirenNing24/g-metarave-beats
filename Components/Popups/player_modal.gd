@@ -24,6 +24,7 @@ const default_color: Color = Color("#ffffff")
 var player_username: String
 var profile_player: Dictionary
 
+
 # This function is called when the node is ready to perform initial setup. In this case, it connects``
 func _ready() -> void:
 	signal_connect()
@@ -67,12 +68,14 @@ func _on_stat_display(player_profile: Dictionary) -> void:
 	_on_get_preference_complete(player_profile)
 	_on_chat_box_view_profile_pressed()
 
+
 func _on_chat_box_view_profile_pressed() -> void:
-	BKMREngine.Profile.get_player_profile_pic(profile_player.username)
+	
+	BKMREngine.Profile.get_player_profile_pic(%PlayerName.text)
 	visible = true
 	
-func _on_get_preference_complete(player_profile: Dictionary) -> void:
 	
+func _on_get_preference_complete(player_profile: Dictionary) -> void:
 	var soul_data: Dictionary = player_profile.userSoul
 	for badge: Control in badge_container.get_children():
 		badge.queue_free()
@@ -118,10 +121,10 @@ func _on_get_preference_complete(player_profile: Dictionary) -> void:
 func _on_follow_unfollow_button_pressed() -> void:
 	if profile_player.followsUser:
 		follow_unfollow_button.disabled = true
-		BKMREngine.Social.unfollow(player_username)
+		BKMREngine.Social.unfollow(%PlayerName.text)
 	else:
 		follow_unfollow_button.disabled = true
-		BKMREngine.Social.follow(player_username)
+		BKMREngine.Social.follow(%PlayerName.text)
 
 func _on_follow_complete(message: Dictionary) -> void:
 	if message.has("error"):
@@ -149,18 +152,24 @@ func _on_profile_pic_options_button_pressed() -> void:
 func _on_get_player_profile_pic_complete(profile_pics: Variant) -> void:
 	if typeof(profile_pics) != TYPE_ARRAY:
 		return
-	for pic: Dictionary in profile_pics:
-		var image: Image = Image.new()
-		var first_image: String = profile_pics[0].profilePicture
-		var display_image: PackedByteArray = JSON.parse_string(first_image)
-		var error: Error = image.load_png_from_buffer(display_image)
-		if error != OK:
-			print("Error loading image", error)
+	else:
+		if profile_pics.is_empty():
+			profile_pic.texture = preload("res://UITextures/Icons/change_pic_icon.png")
 		else:
-			var display_pic: Texture =  ImageTexture.create_from_image(image)
-			profile_pic.texture = display_pic
-		view_player_picture.profile_pics_data = profile_pics
-		view_player_picture.display_picture()
+			for pic: Dictionary in profile_pics:
+				if %PlayerName.text == pic.userName:
+					var image: Image = Image.new()
+					var first_image: String = profile_pics[0].profilePicture
+					var display_image: PackedByteArray = JSON.parse_string(first_image)
+					var error: Error = image.load_png_from_buffer(display_image)
+					if error != OK:
+						print("Error loading image", error)
+					else:
+						var display_pic: Texture =  ImageTexture.create_from_image(image)
+						%ProfilePic.texture = display_pic
+					view_player_picture.profile_pics_data = profile_pics
+					view_player_picture.display_picture()
+		
 
 func _on_panel_2_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:

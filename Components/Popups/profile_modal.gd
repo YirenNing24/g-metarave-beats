@@ -92,6 +92,11 @@ func load_plugin() -> void:
 
 
 func plugin_signal_connect() -> void:
+	match OS.get_name():
+		"Windows":
+			return
+		"Linux":
+			return
 	get_image.image_request_completed.connect(_on_image_request_completed)
 	get_image.error.connect(_on_get_image_error)
 	get_image.permission_not_granted_by_user.connect(_on_permission_not_granted_by_user)
@@ -237,6 +242,11 @@ func _on_my_notes_button_pressed() -> void:
 
 
 func plugin_signal_disconnect() -> void:
+	match OS.get_name():
+		"Windows":
+			return
+		"Linux":
+			return
 	get_image.image_request_completed.disconnect(_on_image_request_completed)
 	get_image.error.disconnect(_on_get_image_error)
 	get_image.permission_not_granted_by_user.disconnect(_on_permission_not_granted_by_user)

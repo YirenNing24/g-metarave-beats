@@ -222,11 +222,18 @@ func _on_close_button_pressed() -> void:
 
 
 func _fan_moment_comment_complete(moment_id: String, moment_type: String) -> void:
+	print("Let me see: ", moment_type)
+	var type_moment: String
 	if moment_type == "":
 		return
+	elif moment_type == "my":
+		type_moment = "My" + " Space"
 		
-	var container_path: String = "Panel/BackgroundTexture/HBoxContainer/Panel/MomentTab/" + moment_type.capitalize() + "/SmoothScrollContainer/" + moment_type.capitalize() + "MomentsContainer"
+	else:
+		type_moment = moment_type.capitalize()
+	var container_path: String = "Panel/BackgroundTexture/HBoxContainer/Panel/MomentTab/" + type_moment + "/SmoothScrollContainer/" + moment_type.capitalize() + "MomentsContainer"
 	
+	print("path: ", container_path)
 	var filled_moments_container: VBoxContainer = get_node(container_path)
 	if filled_moments_container.get_children() != null:
 		for moment: Control in filled_moments_container.get_children():

@@ -272,6 +272,27 @@ func _on_leaderboard_button_pressed() -> void:
 	# Disable buttons in the 'MainButtons2' group during the scene transition
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons2'):
 		buttons.disabled = true
+		
+		
+		
+func _on_missions_button_pressed() -> void:
+	# Kill the stat tween if it exists
+	if stats_tween: 
+		stats_tween.kill()
+
+	# Set previous and next textures for scene transition
+	LOADER.previous_texture = background_texture.texture
+	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")
+
+	# Load the main inventory scene asynchronously
+	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/mission_screen.tscn")
+
+	# Disable buttons in the 'MainButtons' group during the scene transition
+	for buttons: Button in get_tree().get_nodes_in_group('MainButtons'):
+		buttons.disabled = true
+	# Disable buttons in the 'MainButtons2' group during the scene transition
+	for buttons: Button in get_tree().get_nodes_in_group('MainButtons2'):
+		buttons.disabled = true
 #endregion
 
 

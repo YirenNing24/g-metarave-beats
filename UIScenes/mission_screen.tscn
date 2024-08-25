@@ -1,0 +1,326 @@
+[gd_scene load_steps=14 format=3 uid="uid://k28lld0y8vp6"]
+
+[ext_resource type="Script" path="res://UIScenes/mission_screen.gd" id="1_xn003"]
+[ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_pcrgv"]
+[ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="3_o7xh5"]
+[ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="4_lp7is"]
+[ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="5_0t5h5"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="6_3tg7t"]
+[ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="8_klile"]
+[ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="11_ewtbr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5mqa3"]
+bg_color = Color(0.0313726, 0.0980392, 0.129412, 0.756863)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0.823529, 0.823529, 0.894118)
+border_blend = true
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dfsuj"]
+bg_color = Color(0, 0, 0, 0.67451)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0.823529, 0.823529, 0.894118)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Animation" id="Animation_tachd"]
+resource_name = "ClaimModal"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ClaimedModal:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7, 1.5),
+"transitions": PackedFloat32Array(1, 13.9288, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_uclgl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ClaimedModal:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4oy2q"]
+_data = {
+"ClaimModal": SubResource("Animation_tachd"),
+"RESET": SubResource("Animation_uclgl")
+}
+
+[node name="MissionScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xn003")
+
+[node name="BackgroundTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+self_modulate = Color(0.545098, 0.545098, 0.545098, 1)
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_pcrgv")
+expand_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.0166667
+anchor_right = 0.981667
+anchor_bottom = 0.238889
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="CloseButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("3_o7xh5")
+texture_hover = ExtResource("4_lp7is")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("5_0t5h5")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Native" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_3tg7t")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect2" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("5_0t5h5")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="BeatsBalance" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_3tg7t")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect3" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("5_0t5h5")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="ThumpBalance" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_3tg7t")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect4" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("5_0t5h5")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="KMR" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect4"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_3tg7t")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture"]
+custom_minimum_size = Vector2(769, 430)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -384.5
+offset_top = -184.0
+offset_right = 384.5
+offset_bottom = 246.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5mqa3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00650195
+anchor_top = 0.00930233
+anchor_right = 0.996099
+anchor_bottom = 0.993023
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BackgroundTexture/VBoxContainer2/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="MissionsContainer" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer2/Panel/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="LoadingPanel" parent="." instance=ExtResource("11_ewtbr")]
+unique_name_in_owner = true
+visible = false
+z_index = 4
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 1200.0
+offset_bottom = 540.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="ClaimedModal" type="Panel" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.5
+offset_top = -37.5
+offset_right = 175.5
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dfsuj")
+
+[node name="ClaimValue" type="Label" parent="ClaimedModal"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.031339
+anchor_top = 0.16
+anchor_right = 0.968661
+anchor_bottom = 0.813333
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("8_klile")
+theme_override_font_sizes/font_size = 22
+text = "+1000 GBEATS CLAIMED!"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_4oy2q")
+}
+
+[connection signal="pressed" from="BackgroundTexture/HBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

@@ -28,5 +28,4 @@ func fake_loader() -> void:
 
 
 func _on_loading_finished() -> void:
-	print("tite")
 	loading_finished.emit()

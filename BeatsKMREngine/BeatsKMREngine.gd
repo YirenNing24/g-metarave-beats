@@ -9,20 +9,24 @@ var peer: WebSocketMultiplayerPeer = WebSocketMultiplayerPeer.new()
 
 # Configuration variables
 #var host_ip: String = "localhost"
-#var host_ip: String = "api.gmetarave.art"
-const host_ip: String = "192.168.2.61"
-const port: String = ":8085"
-const beats_port: String = ":8087"
-
+const host_ip: String = "api.gmetarave.com"
+const beats_host_ip: String = "game.gmetarave.com"
+#const host_ip: String = "192.168.2.61"
+#const port: String = ":8085"
+const port: String = ""
+#const beats_port: String = ":8087"
+const beats_port: String = ""
 
 var google_server_client_id: String = "484949065971-ujoksdio9417hnvd5goaclrvlnsv6704.apps.googleusercontent.com"
-var host: String = "http://" + host_ip + port
-var beats_host: String = "ws://" + host_ip + beats_port + "/?token="
+#var host: String = "http://" + host_ip + port
+var host: String = "http://" + host_ip
+#var beats_host: String = "ws://" + host_ip + beats_port + "/?token="
+var beats_host: String = "ws://" + beats_host_ip + "/?token="
 var session: bool = false
 
 var time_server: String
 var ping: int
-
+var game_connected: bool = false
 
 # Preloaded utility scripts
 const BKMRUtils: Script = preload("res://BeatsKMREngine/utils/BKMRUtils.gd")
@@ -107,13 +111,24 @@ func add_child_nodes() -> void:
 	print("BKMR ready end timestamp: " + str(BKMRUtils.get_timestamp()))
 	
 	
+	
+func _process(_delta: float) -> void:
+	beats_server_connect()
+		
+		
 func beats_server_connect() -> void:
-	var host_beats: String = beats_host + Auth.access_token
-	var result: Error = peer.create_client(host_beats)
-	multiplayer.multiplayer_peer = peer
-	if result != OK:
-		var _connect: int = get_tree().create_timer(3).timeout.connect(beats_server_connect)
-
+	if game_connected == false:
+		var host_beats: String = beats_host + Auth.access_token
+		var result: Error = peer.create_client(host_beats)
+		multiplayer.multiplayer_peer = peer
+		if result != OK:
+			game_connected = false
+			print("Failed to connect, retrying...")
+			var timer: SceneTreeTimer = get_tree().create_timer(3)  # Retry every 3 seconds
+			var _1: int = timer.timeout.connect(beats_server_connect)
+		else:
+			game_connected = true
+			print("Connected successfully")
 
 func get_server_time() -> void:
 	var _connect: int = get_tree().create_timer(5).timeout.connect(get_server_time)
@@ -153,7 +168,7 @@ func send_get_request(http_node: HTTPRequest, request_url: String) -> void:
 	]
 	headers = add_jwt_token_headers(headers)
 	if !http_node.is_inside_tree():
-		await get_tree().create_timer(0.09).timeout
+		await get_tree().create_timer(0.1).timeout
 
 	BKMRLogger.debug("Method: GET")
 	BKMRLogger.debug("request_url: " + str(request_url))

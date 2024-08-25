@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://xc8gg6mh38l"]
+
+[node name="ReceivedCards" type="Control"]
+custom_minimum_size = Vector2(135.1, 170)
+layout_mode = 3
+anchors_preset = 0
+
+[node name="CardIcon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(135.1, 170)
+layout_mode = 0
+expand_mode = 1

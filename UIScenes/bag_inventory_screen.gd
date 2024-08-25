@@ -1,10 +1,12 @@
 extends Control
 
 const pack_inventory_slot_scene: PackedScene = preload("res://Components/Inventory/pack_inventory_slot.tscn")
-
+const received_cards_slot_scene: PackedScene = preload("res://Components/Inventory/received_cards.tscn")
 
 @onready var loading_panel: Panel = %LoadingPanel
 @onready var background_texture: TextureRect = %BackgroundTexture
+@onready var received_cards_container: GridContainer = %GridContainer
+
 
 var pack_data: Dictionary
 
@@ -45,10 +47,25 @@ func _on_no_button_pressed() -> void:
 	%FilterPanel.visible = false
 	
 
-func _on_open_card_pack_complete(_message: Variant) -> void:
+func _on_open_card_pack_complete(message: Variant) -> void:
 	%FilterPanel.visible = false
 	loading_panel.tween_kill()
-	
+	if message is Array:
+		var cards: Array = message
+		populate_received_cards(cards)
+
+			
+func populate_received_cards(cards: Array) -> void:
+	%ReceivedCardsRect.visible = true
+	var received_cards: Control
+	for name_card: String in cards:
+		received_cards = received_cards_slot_scene.instantiate()
+		var card_name: String = name_card.replace(" ", "_").to_lower()
+		var card_texture: Texture = load("res://UITextures/Cards/" + card_name + ".png")
+		
+		received_cards.get_node('CardIcon').texture = card_texture
+		
+		received_cards_container.add_child(received_cards)
 
 
 func _on_close_button_pressed() -> void:
@@ -57,3 +74,7 @@ func _on_close_button_pressed() -> void:
 	LOADER.previous_texture = background_texture.texture
 	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
+
+
+func _on_close_received_cards_button_pressed() -> void:
+	%ReceivedCardsRect.visible = false

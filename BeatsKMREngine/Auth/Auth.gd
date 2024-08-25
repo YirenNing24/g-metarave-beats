@@ -129,10 +129,10 @@ func validate_player_session() -> void:
 
 func beats_server_connect() -> void:
 	var host_beats: String = BKMREngine.beats_host + access_token
-	var _result: Error = BKMREngine.peer.create_client(host_beats)
+	var result: Error = BKMREngine.peer.create_client(host_beats)
 	multiplayer.multiplayer_peer = BKMREngine.peer
-	#if result != OK:
-		#var _connect: int = get_tree().create_timer(3).timeout.connect(beats_server_connect)
+	if result != OK:
+		var _connect: int = get_tree().create_timer(3).timeout.connect(beats_server_connect)
 
 
 # Event handler for the completion of the player session validation request

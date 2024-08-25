@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://ba4wxirgdeywq"]
+[gd_scene load_steps=4 format=3 uid="uid://ba4wxirgdeywq"]
 
 [ext_resource type="Script" path="res://Components/Inventory/pack_inventory_slot.gd" id="1_6ckcp"]
+[ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="2_uebgm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hi66k"]
 bg_color = Color(0, 0, 0, 0.8)
@@ -42,6 +43,24 @@ offset_right = -6.0
 offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Quantity" type="Label" parent="Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7
+anchor_top = 0.05
+anchor_right = 0.93
+anchor_bottom = 0.27
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_uebgm")
+theme_override_font_sizes/font_size = 18
+text = "20"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Button" type="TextureButton" parent="."]
 unique_name_in_owner = true

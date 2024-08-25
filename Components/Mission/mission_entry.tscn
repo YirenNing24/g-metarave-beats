@@ -1,0 +1,78 @@
+[gd_scene load_steps=4 format=3 uid="uid://ce4jc85gl050y"]
+
+[ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="1_gov6q"]
+[ext_resource type="Script" path="res://Components/Mission/mission_entry.gd" id="1_mmmyh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_231a6"]
+bg_color = Color(0, 0, 0, 0.0470588)
+border_width_bottom = 1
+border_color = Color(0, 0.823529, 0.823529, 0.894118)
+shadow_size = 5
+
+[node name="MissionEntry" type="Control"]
+custom_minimum_size = Vector2(761, 50)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_mmmyh")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_231a6")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(335, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.95
+alignment = 1
+
+[node name="MissionName" type="Label" parent="Panel/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_gov6q")
+theme_override_font_sizes/font_size = 20
+text = "MIssion Impossible"
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(95, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RewardAmount" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_gov6q")
+theme_override_font_sizes/font_size = 20
+text = "3000 GBEATS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="TextureButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

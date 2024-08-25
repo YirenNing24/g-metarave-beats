@@ -275,6 +275,7 @@ alignment = 1
 [node name="Panel" type="Panel" parent="Panel/BackgroundTexture/HBoxContainer2"]
 custom_minimum_size = Vector2(39, 39)
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rq8nq")
 
 [node name="MakePostButton" type="TextureButton" parent="Panel/BackgroundTexture/HBoxContainer2/Panel"]

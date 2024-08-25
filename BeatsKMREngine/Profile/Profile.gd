@@ -181,8 +181,8 @@ func _onGetProfilePicture_request_completed(_result: int, response_code: int, he
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	
 	# Free the HTTP request resource if it is still valid.
-	if is_instance_valid(GetProfilePicture):
-		BKMREngine.free_request(wrGetProfilePicture, GetProfilePicture)
+	#if is_instance_valid(GetProfilePicture):
+		#BKMREngine.free_request(wrGetProfilePicture, GetProfilePicture)
 	
 	# If the HTTP response indicates success, parse the JSON response body.
 	if status_check:
@@ -198,6 +198,7 @@ func _onGetProfilePicture_request_completed(_result: int, response_code: int, he
 			get_profile_pic_complete.emit({"Error:": "Unknown Server Error" })
 	else:
 		get_profile_pic_complete.emit({"Error:": "Unknown Server Error" })
+		
 		
 func get_player_profile_pic(player_username: String) -> void:
 	# Prepare an HTTP request for fetching profile pictures.
@@ -223,8 +224,8 @@ func _onGetPlayerProfilePicture_request_completed(_result: int, response_code: i
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	
 	# Free the HTTP request resource if it is still valid.
-	if is_instance_valid(GetPlayerProfilePicture):
-		BKMREngine.free_request(wrGetPlayerProfilePicture, GetPlayerProfilePicture)
+	#if is_instance_valid(GetPlayerProfilePicture):
+		#BKMREngine.free_request(wrGetPlayerProfilePicture, GetPlayerProfilePicture)
 	
 	# If the HTTP response indicates success, parse the JSON response body.
 	if status_check:

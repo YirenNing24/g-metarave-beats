@@ -200,7 +200,7 @@ auto_translate_mode = 1
 custom_minimum_size = Vector2(0, 129)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 25
+theme_override_constants/separation = 8
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TextureRect"]
 layout_mode = 1

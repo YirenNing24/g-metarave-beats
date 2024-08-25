@@ -12,7 +12,7 @@ extends Control
 # SIGNALS
 signal all_message_received(received_message: Dictionary)
 signal close_pressed
-#signal view_profile_pressed(player_profile: Dictionary)
+signal view_profile_pressed(player_profile: Dictionary)
 
 # SCENE NODES
 @onready var message_tab: TabContainer = %MessageTab
@@ -30,7 +30,7 @@ signal close_pressed
 
 # MUTUAL CHAT CONTAINERS
 @onready var chat_mutual_scroll: ScrollContainer = %ChatMutualScroll
-@onready var chat_mutual_vbox: VBoxContainer = %ChatMutualVbox
+@onready var chat_mutual_vbox: VBoxContainer =  %ChatMutualVbox
 
 # SERVER ENGINE VARIABLES
 var host: String = BKMREngine.host_ip
@@ -92,16 +92,17 @@ func add_message_to_container(received_message: Dictionary) -> void:
 	# Instantiate a new message slot control
 	var slot_message: Control = message_slot.instantiate()
 
+
 	# Set the text of UI elements in the message slot based on the received message
 	slot_message.get_node('VBoxContainer/HBoxContainer/UsernameLabel').text = sender_username
 	#slot_message.get_node('VBoxContainer/HBoxContainer/TimestampLabel').text = timestamp
 	slot_message.get_node('VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/MessageLabel').text = message_text
 	
 	
-	if sender_username == "GreenPill":
-		slot_message.get_node("VBoxContainer/TextureRect/HBoxContainer/DPIcon").texture = load("res://UITextures/Bundles/green_pill.png")
-	else:
-		slot_message.get_node("VBoxContainer/TextureRect/HBoxContainer/DPIcon").texture = load("res://UITextures/Bundles/beats_logo.png")
+	#if sender_username == "GreenPill":
+		#slot_message.get_node("VBoxContainer/TextureRect/HBoxContainer/DPIcon").texture = load("res://UITextures/Bundles/green_pill.png")
+	#else:
+		#slot_message.get_node("VBoxContainer/TextureRect/HBoxContainer/DPIcon").texture = load("res://UITextures/Bundles/beats_logo.png")
 	
 	# Determine the destination container based on the room and sender
 	if received_message.roomId == "all":
@@ -119,6 +120,7 @@ func add_message_to_container(received_message: Dictionary) -> void:
 			#conversing_message.get_node('VBoxContainer/HBoxContainer/TimestampLabel').text = timestamp
 			conversing_message.get_node('VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/MessageLabel').text = message_text
 			mutual_chat_vbox.add_child(conversing_message)
+
 
 func remove_excess_message(message_vbox: VBoxContainer, limit: int) -> void:
 	# Check if the number of child messages exceeds the specified limit
@@ -156,10 +158,10 @@ func on_all_messages_opened() -> void:
 			var _ts: float = messages.ts
 			# Convert milliseconds to seconds
 			var _ts_seconds: int = roundi(_ts/ 1000)
-			if sender_username == "GreenPill":
-				all_message_slot.get_node("VBoxContainer/TextureRect/HBoxContainer/DPIcon").texture = load("res://UITextures/Bundles/green_pill.png")
-			else:
-				all_message_slot.get_node("VBoxContainer/TextureRect/HBoxContainer/DPIcon").texture = load("res://UITextures/Bundles/beats_logo.png")
+			#if sender_username == "GreenPill":
+				#all_message_slot.get_node("VBoxContainer/TextureRect/HBoxContainer/DPIcon").texture = load("res://UITextures/Bundles/green_pill.png")
+			#else:
+				#all_message_slot.get_node("VBoxContainer/TextureRect/HBoxContainer/DPIcon").texture = load("res://UITextures/Bundles/beats_logo.png")
 			# Disable the button if the message sender is the logged-in player
 			if PLAYER.username == sender_username:
 				
@@ -181,13 +183,12 @@ func on_all_messages_opened() -> void:
 			# Add the message slot to the "All Messages" container
 			all_chat_vbox.add_child(all_message_slot)
 
+
 func _on_view_profile_pressed(username: String) -> void:
 	BKMREngine.Social.view_profile(username)
+	view_profile_pressed.emit()
 
 func _on_message_line_text_submitted(message: String) -> void:
-
-	
-
 	if username_conversing != "":
 		current_room = username_conversing
 	var stripped_message: String = message.strip_edges()
@@ -263,10 +264,10 @@ func _on_message_tab_tab_changed(tab: int) -> void:
 		current_room = "all"
 		username_conversing = ""
 		if current_tab == 1:
-			for message: Control in mutual_chat_vbox.get_children():
+			for message: Control in  %ChatMutualVbox.get_children():
 				message.queue_free()
 				
-			for slot: Control in chat_mutual_vbox.get_children():
+			for slot: Control in  %ChatMutualVbox.get_children():
 				slot.visible = false
 				var button: Button = slot.get_node('Button')
 				button.modulate = "ffffff"
@@ -277,7 +278,7 @@ func _on_message_tab_tab_changed(tab: int) -> void:
 	elif tab == 1:
 		# Switched to the "Mutual Messages" tab
 		current_room = ""
-		for slot: Control in chat_mutual_vbox.get_children():
+		for slot: Control in  %ChatMutualVbox.get_children():
 			slot.visible = true
 			
 		current_tab = 1
@@ -308,7 +309,7 @@ func _on_mutuals_box_chat_button_pressed(conversing_username: String) -> void:
 	# Set the current room, conversing username, and switch to the chat tab
 	username_conversing = conversing_username
 	
-	for slot: Control in chat_mutual_vbox.get_children():
+	for slot: Control in  %ChatMutualVbox.get_children():
 		if slot.name == current_room:
 			slot.get_node('Button').modulate = "ffffff00"
 	
@@ -316,13 +317,13 @@ func _on_mutuals_box_chat_button_pressed(conversing_username: String) -> void:
 	current_tab = 1
 
 func add_chat_panel_from_mutual_box(conversing_username: String) -> void:
-	for slot: Control in chat_mutual_vbox.get_children():
+	for slot: Control in  %ChatMutualVbox.get_children():
 		if slot.name == conversing_username:
 			# The panel with the given name already exists, no need to add it again.
 			return
-	var chat_mutual_panel_count: int = chat_mutual_vbox.get_child_count()
+	var chat_mutual_panel_count: int =  %ChatMutualVbox.get_child_count()
 	if chat_mutual_panel_count == 4:
-		var excess_panel: Control = chat_mutual_vbox.get_child(3)
+		var excess_panel: Control =  %ChatMutualVbox.get_child(3)
 		excess_panel.queue_free()
 	# Create a new chat panel since it doesn't exist
 	var panel_chat_mutual: Control = chat_mutual_panel.instantiate()
@@ -334,7 +335,7 @@ func add_chat_panel_from_mutual_box(conversing_username: String) -> void:
 		panel_chat_mutual.get_node('Button').pressed.disconnect(_on_panel_chat_mutual_pressed)
 	panel_chat_mutual.get_node('Button').pressed.connect(_on_panel_chat_mutual_pressed.bind(conversing_username))
 	
-	chat_mutual_vbox.add_child(panel_chat_mutual)
+	%ChatMutualVbox.add_child(panel_chat_mutual)
 
 func _on_panel_chat_mutual_pressed(conversing_username: String) -> void:
 	if current_room != conversing_username:
@@ -349,7 +350,7 @@ func _on_panel_chat_mutual_pressed(conversing_username: String) -> void:
 		display_received_messages(private_messages)
 	else:
 		pass
-	for slot: Control in chat_mutual_vbox.get_children():
+	for slot: Control in  %ChatMutualVbox.get_children():
 		if slot.name == conversing_username:
 			# Selected slot
 			slot.get_node('Button').modulate = "ffffff00"
@@ -449,3 +450,8 @@ func _on_gift_button_pressed() -> void:
 func _on_gifting_window_gift_card_data(gift_card_data: Dictionary) -> void:
 	gift_card_data.receiver = username_conversing
 	BKMREngine.Social.gift_card(gift_card_data)
+
+
+func _on_main_screen_chat_opened() -> void:
+	current_room = "all"
+	message_tab.current_tab = 0

@@ -902,12 +902,14 @@ volume_db = -5.0
 autoplay = true
 parameters/looping = true
 
+[connection signal="chat_opened" from="." to="Panel/BackgroundTexture/ChatBox" method="_on_main_screen_chat_opened"]
 [connection signal="mutuals_button_pressed" from="." to="Panel/BackgroundTexture/MutualsBox" method="_on_main_screen_mutuals_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect/ProfileButton" to="." method="_on_profile_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect/StatsWheel/StatButton" to="." method="_on_stat_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/Panel/HBoxContainer/ChatWindowButton" to="." method="_on_chat_window_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect/GameModeButton" to="." method="_on_game_mode_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/StoreButton" to="." method="_on_store_button_pressed"]
+[connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/MissionsButton" to="." method="_on_missions_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/InventoryButton" to="." method="_on_inventory_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
 [connection signal="close_pressed" from="Panel/BackgroundTexture/ChatBox" to="." method="_on_chat_box_close_pressed"]

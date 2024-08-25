@@ -241,10 +241,7 @@ func clear_entries() -> void:
 
 
 func _on_close_button_pressed() -> void:
-	# Perform actions on close button press.
-	BKMREngine.Auth.auto_login_player()
-
 	# Update scene transition textures and load the main screen scene.
 	LOADER.previous_texture = background_texture.texture
-	LOADER.next_texture = preload("res://UITextures/BGTextures/main.png")
+	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")

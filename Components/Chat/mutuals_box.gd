@@ -53,12 +53,13 @@ func populate_mutuals_list(mutuals_list: Array) -> void:
 		# Connect the chat button signal to handle chat initiation
 		slot_mutuals.get_node('Panel/VBoxContainer/HBoxContainer/HBoxContainer2/HBoxContainer/HBoxContainer/ChatButton').pressed.connect(_on_chat_button_pressed)
 		
-		var profile_picture: Texture
+		#var profile_picture: Texture
 		if mutuals.profilePicture != null or "":
-			var string_profile_picture: String = mutuals.profilePicture
-			profile_picture = set_mutual_profile_picture(string_profile_picture)
-			
-		slot_mutuals.get_node('Panel/VBoxContainer/HBoxContainer/HBoxContainer/DPIcon').texture = (profile_picture)
+			pass
+			#var string_profile_picture: String = mutuals.profilePicture
+			#profile_picture = set_mutual_profile_picture(string_profile_picture)
+			#
+		#slot_mutuals.get_node('Panel/VBoxContainer/HBoxContainer/HBoxContainer/DPIcon').texture = (profile_picture)
 		# Add the UI slot to the VBox
 		mutual_vbox.add_child(slot_mutuals)
 

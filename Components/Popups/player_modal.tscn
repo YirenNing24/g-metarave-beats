@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://d3525s8khlmqy"]
+[gd_scene load_steps=13 format=3 uid="uid://d3525s8khlmqy"]
 
 [ext_resource type="Script" path="res://Components/Popups/player_modal.gd" id="1_1wv2s"]
+[ext_resource type="Texture2D" uid="uid://cwkvcqhvukyk8" path="res://UITextures/Icons/change_pic_icon.png" id="2_ksmhj"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="2_lk40d"]
 [ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="3_fki7l"]
 [ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="4_61bi6"]
@@ -27,7 +28,6 @@ bg_color = Color(0.0313726, 0.0196078, 0.0941176, 1)
 bg_color = Color(0.0235294, 0.109804, 0.109804, 1)
 
 [node name="PlayerModal" type="Control"]
-visible = false
 z_index = 1
 layout_mode = 3
 anchors_preset = 15
@@ -85,6 +85,7 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
+texture = ExtResource("2_ksmhj")
 expand_mode = 1
 stretch_mode = 5
 

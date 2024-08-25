@@ -25,24 +25,25 @@ func _ready() -> void:
 	
 	
 func _on_get_classic_highscore_single(score: Array) -> void:
-	var single_score: Dictionary = score[0]
-	display_score(single_score) 
-	#var classic_score_stats: Dictionary = {
-		#"difficulty": "NORMAL",
-		#"score": score,
-		#"combo": total_combo,
-		#"maxCombo": max_combo,
-		#"accuracy": accuracy_rate,
-		#"finished": is_finished,
-		#"songName": "SONG",
-		#"artist": artist,
-		#"perfect": perfect,
-		#"veryGood": very_good,
-		#"good": good,
-		#"bad": bad,
-		#"miss": miss,
-		#"username": get_parent().get_parent().username,
-		#"peerId": peer_id
+	if !score.is_empty():
+		var single_score: Dictionary = score[0]
+		display_score(single_score) 
+		#var classic_score_stats: Dictionary = {
+			#"difficulty": "NORMAL",
+			#"score": score,
+			#"combo": total_combo,
+			#"maxCombo": max_combo,
+			#"accuracy": accuracy_rate,
+			#"finished": is_finished,
+			#"songName": "SONG",
+			#"artist": artist,
+			#"perfect": perfect,
+			#"veryGood": very_good,
+			#"good": good,
+			#"bad": bad,
+			#"miss": miss,
+			#"username": get_parent().get_parent().username,
+			#"peerId": peer_id
 	#}
 func display_score(single_score: Dictionary) -> void:
 	score_label.text = format_scores(str(single_score["score"]))

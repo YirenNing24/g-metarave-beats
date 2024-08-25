@@ -20,7 +20,8 @@ signal server_time(server_time: Dictionary, latency: Dictionary)
 
 # Variables to configure the WebSocketClient
 var host: String = BKMREngine.host_ip
-var port: String = BKMREngine.port
+#var port: String = BKMREngine.port
+var port: String = ""
 #var url: String = "ws://" + host + "/api/ws"
 var url: String = "ws://" + host + port + "/api/ws"
 
@@ -51,6 +52,7 @@ func _process(_delta: float) -> void:
 		return
 	if auth_header == []:
 		return
+	
 	# Poll the WebSocket for incoming messages and update its state
 	socket.poll()
 	
