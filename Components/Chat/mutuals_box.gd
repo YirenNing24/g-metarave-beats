@@ -13,11 +13,10 @@ signal chat_button_pressed(conversing_username: String)
 @onready var mutual_vbox: VBoxContainer = %MutualsVBox
 
 # INSTANCE SCENE COMPONENTS FOR MUTUALS WINDOW
-var mutual_slot: PackedScene = load("res://Components/Chat/mutual_slot.tscn")
+const mutual_slot: PackedScene = preload("res://Components/Chat/mutual_slot.tscn")
 
 # GLOBAL SCENE VARIABLES
 var username: String = PLAYER.username
-var conversing_username: String
 var is_opened: bool = false
 
 var private_messages: Array
@@ -30,9 +29,11 @@ func _ready() -> void:
 	# Populate the mutuals list in the UI
 	#call_deferred("set_status_and_activity")
 #
+
 #func set_status_and_activity() -> void:
 	#BKMREngine.Social.set_status_online('main')
 	#BKMREngine.Social.get_mutual_status()
+	
 	
 # Function to populate the mutuals list in the UI.
 func populate_mutuals_list(mutuals_list: Array) -> void:
@@ -41,27 +42,12 @@ func populate_mutuals_list(mutuals_list: Array) -> void:
 	# Iterate through mutual followers and create UI slots for each
 	for mutuals: Dictionary in mutuals_list:
 		var slot_mutuals: Control = mutual_slot.instantiate()
-		var player_stats: Dictionary = mutuals.playerStats
+		slot_mutuals.mutual_slot_data(mutuals)
 
-		var level: String = str(player_stats.level)
-		conversing_username = mutuals.username
-
-		# Set UI labels with relevant information
-		slot_mutuals.get_node('Panel/VBoxContainer/VBoxContainer/UsernameLabel').text = mutuals.username
-		slot_mutuals.get_node('Panel/VBoxContainer/HBoxContainer/HBoxContainer2/LevelLabel').text = "Level: " + level
-		slot_mutuals.get_node('Panel/VBoxContainer/HBoxContainer/HBoxContainer2/RankLabel').text = player_stats.rank
 		# Connect the chat button signal to handle chat initiation
-		slot_mutuals.get_node('Panel/VBoxContainer/HBoxContainer/HBoxContainer2/HBoxContainer/HBoxContainer/ChatButton').pressed.connect(_on_chat_button_pressed)
-		
-		#var profile_picture: Texture
-		if mutuals.profilePicture != null or "":
-			pass
-			#var string_profile_picture: String = mutuals.profilePicture
-			#profile_picture = set_mutual_profile_picture(string_profile_picture)
-			#
-		#slot_mutuals.get_node('Panel/VBoxContainer/HBoxContainer/HBoxContainer/DPIcon').texture = (profile_picture)
-		# Add the UI slot to the VBox
+		slot_mutuals.chat_button_pressed.connect(_on_chat_button_pressed)
 		mutual_vbox.add_child(slot_mutuals)
+
 
 func set_mutual_profile_picture(image_buffer_string: String) -> Texture:
 	if image_buffer_string == "" or null:
@@ -87,19 +73,22 @@ func _on_slide_button_pressed() -> void:
 	# Emit signal to toggle the visibility of the mutuals window
 	slide_pressed.emit(is_opened)
 
+
 # Function to handle the event when the user wants to view the profile of a specific username.
 func _on_view_profile(userName: String) -> void:
-	# View the profile of the selected user
 	BKMREngine.Social.view_profile(userName)
 	view_profile_pressed.emit(BKMREngine.Social.player_profile)
 
+
 # Function to handle the event when the user presses the chat button to initiate a conversation.
-func _on_chat_button_pressed() -> void:
+func _on_chat_button_pressed(convering_username: String) -> void:
 	# Emit signal to initiate a chat with the selected user
-	chat_button_pressed.emit(conversing_username)
+	chat_button_pressed.emit(convering_username)
+
 
 func _on_main_screen_mutuals_button_pressed() -> void:
 	slide_button.disabled = false
+
 
 func _on_slide_button_2_pressed() -> void:
 	pass # Replace with function body.

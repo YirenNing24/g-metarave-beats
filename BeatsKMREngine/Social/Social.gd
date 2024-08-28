@@ -24,6 +24,15 @@ var Mutual: HTTPRequest
 var wrMutual: WeakRef
 signal get_mutual_complete(mutual_list: Array)
 
+var FollowersFollowingCount: HTTPRequest
+var wrFollowersFollowingCount: WeakRef
+signal get_followers_following_count_complete(followers_following_count: Dictionary)
+
+
+var FollowersFollowing: HTTPRequest
+var wrFollowersFollowing: WeakRef
+signal get_followers_following_complete(followers_following_count: Dictionary)
+
 var OnlineStatus: HTTPRequest
 var wrOnlineStatus: WeakRef
 
@@ -90,6 +99,7 @@ func view_profile(username: String) -> void:
 	# Send the GET request to view the player's profile.
 	BKMREngine.send_get_request(ViewProfile, request_url)
 	
+	
 # Callback function executed when the view profile request is completed.
 func _onViewProfile_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
@@ -110,6 +120,7 @@ func _onViewProfile_request_completed(_result: int, response_code: int, headers:
 	else:
 		view_profile_complete.emit({"error": "Unknown Server Error"})
 			
+			
 # Function to initiate a follow action for a player..
 func follow(to_follow: String) -> void:
 	# Prepare the HTTP request.
@@ -128,6 +139,7 @@ func follow(to_follow: String) -> void:
 	
 	# Send the POST request to initiate the follow action.
 	BKMREngine.send_post_request(Follow, request_url, payload)
+	
 	
 # Callback function triggered when a follow request is completed.
 func _onFollow_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
@@ -151,6 +163,7 @@ func _onFollow_request_completed(_result: int, response_code: int, headers: Arra
 	else:
 		follow_complete.emit({ "error": "Unknown Server Error" })
 
+
 # Function to send a request to unfollow a player.
 func unfollow(to_unfollow: String) -> void:
 	# Prepare the HTTP request.
@@ -169,6 +182,7 @@ func unfollow(to_unfollow: String) -> void:
 	
 	# Send the POST request to unfollow the specified player.
 	BKMREngine.send_post_request(Unfollow, request_url, payload)
+	
 	
 # Callback function triggered when the unfollow request is completed.
 func _onUnfollow_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
@@ -192,6 +206,8 @@ func _onUnfollow_request_completed(_result: int, response_code: int, headers: Ar
 	else:
 		unfollow_complete.emit({ "error": "Unknown Server Error" })
 # Function to retrieve mutual followers between the authenticated player and other users.
+
+
 func get_mutual() -> void:
 	# Prepare HTTP request resources.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -208,6 +224,7 @@ func get_mutual() -> void:
 	var request_url: String = host + "/api/social/list/mutual"
 	
 	BKMREngine.send_get_request(Mutual, request_url)
+
 
 # Callback function invoked upon completion of the get_mutual request.
 func _onGetMutual_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
@@ -231,6 +248,89 @@ func _onGetMutual_request_completed(_result: int, response_code: int, headers: A
 		else:
 			pass
 
+
+func get_following_followers_count(username: String = "") -> void:
+	# Prepare HTTP request resources.
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	FollowersFollowingCount = prepared_http_req.request
+	wrFollowersFollowingCount  = prepared_http_req.weakref
+	
+	# Connect the callback function for handling mutual followers request completion.
+	var _mutuals: int = FollowersFollowingCount.request_completed.connect(_onGetFollowingFollowersCount_request_completed)
+	
+	# Log the initiation of the request.
+	BKMRLogger.info("Calling BKMREngine to get mutual followers data")
+	
+	# Specify the request URL for retrieving mutual followers data, using the username as a path parameter.
+	var request_url: String = host + "/api/social/follower-following/count/" + username
+	
+	BKMREngine.send_get_request(FollowersFollowingCount, request_url)
+
+
+# Callback function invoked upon completion of the get_mutual request.
+func _onGetFollowingFollowersCount_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check the HTTP response status.
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	
+	# Process the response data if the status check is successful.
+	if status_check:
+		# Parse the response body as a JSON array.
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body != null:
+			if json_body.has("error"):
+				get_followers_following_count_complete.emit({ "error": json_body.error })
+			else:
+				get_followers_following_count_complete.emit(json_body)
+		else:
+			get_followers_following_count_complete.emit({ "error": "Unknown Server Error" })
+	else:
+		get_followers_following_count_complete.emit({ "error": "Unknown Server Error" })
+
+
+func get_following_followers(username: String = "") -> void:
+	# Prepare HTTP request resources.
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	FollowersFollowing = prepared_http_req.request
+	wrFollowersFollowing = prepared_http_req.weakref
+	
+	# Connect the callback function for handling mutual followers request completion.
+	var _mutuals: int = FollowersFollowing.request_completed.connect(_onGetFollowingFollowers_request_completed)
+	
+	# Log the initiation of the request.
+	BKMRLogger.info("Calling BKMREngine to get mutual followers data")
+	
+	# Construct the request URL, optionally including the username as a path parameter.
+	var request_url: String = host + "/api/social/follower-following"
+	if username != "":
+		request_url += "/" + username  # Append the username if provided
+	
+	# Send the GET request to the server.
+	BKMREngine.send_get_request(FollowersFollowing, request_url)
+
+
+
+# Callback function invoked upon completion of the get_mutual request.
+func _onGetFollowingFollowers_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check the HTTP response status.
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	
+	# Process the response data if the status check is successful.
+	if status_check:
+		# Parse the response body as a JSON array.
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body != null:
+			if json_body.has("error"):
+				get_followers_following_complete.emit({ "error": json_body.error })
+			else:
+				get_followers_following_complete.emit(json_body)
+				print(json_body)
+		else:
+			get_followers_following_complete.emit({ "error": "Unknown Server Error" })
+	else:
+		get_followers_following_complete.emit({ "error": "Unknown Server Error" })
+
+
+
 func set_status_online(activity: String) -> void:
 	# Check the HTTP response status.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -252,6 +352,7 @@ func set_status_online(activity: String) -> void:
 	# Send the POST request to initiate the follow action.
 	BKMREngine.send_post_request(OnlineStatus, request_url, payload)
 	
+	
 func _onSetStatus_Online_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
@@ -263,6 +364,7 @@ func _onSetStatus_Online_request_completed(_result: int, response_code: int, hea
 	# Process the response body if the HTTP status check is successful.
 	if status_check:
 		pass
+
 
 func get_mutual_status() -> void:
 	# Prepare HTTP request resources.
@@ -276,6 +378,7 @@ func get_mutual_status() -> void:
 	
 	# Initiate the GET request and await its completion.
 	BKMREngine.send_get_request(MutualStatus, request_url)
+	
 	
 # Callback function invoked upon completion of the get_mutual request.
 func _on_MutualStatus_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
@@ -296,6 +399,7 @@ func _on_MutualStatus_request_completed(_result: int, response_code: int, header
 		else:
 			pass
 
+
 func gift_card(card_gift_data: Dictionary) -> void:
 	# Prepare the HTTP request.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -309,6 +413,7 @@ func gift_card(card_gift_data: Dictionary) -> void:
 	# Construct the request URL.
 	var request_url: String = host + "/api/social/gift/card"
 	BKMREngine.send_post_request(GiftCard, request_url, payload)
+	
 	
 # Callback function triggered when a follow request is completed.
 func _onGiftCard_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
@@ -348,6 +453,7 @@ func post_fan_moments(fan_moment_data: Dictionary) -> void:
 	# Send the POST request to initiate the follow action.
 	BKMREngine.send_post_request(PostFanMoments, request_url, payload)
 	
+	
 # Callback function triggered when a follow request is completed.
 func _onPostFanMoment_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
@@ -370,6 +476,7 @@ func _onPostFanMoment_request_completed(_result: int, response_code: int, header
 	else:
 		post_fan_moments_complete.emit({ "error": "Unknown server error" })
 
+
 func get_hot_fan_moments(limit: int, offset: int) -> void:
 	# Prepare HTTP request resources.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -382,6 +489,7 @@ func get_hot_fan_moments(limit: int, offset: int) -> void:
 	
 	# Initiate the GET request and await its completion.
 	BKMREngine.send_get_request(GetHotFanMoments, request_url)
+
 
 func _on_GetHotFanMoments_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
@@ -404,6 +512,7 @@ func _on_GetHotFanMoments_request_completed(_result: int, response_code: int, he
 	else:
 		get_hot_fan_moments_complete.emit({ "error": "Unknown server error" })
 
+
 func get_my_fan_moments(limit: int, offset: int) -> void:
 	# Prepare HTTP request resources.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -416,6 +525,7 @@ func get_my_fan_moments(limit: int, offset: int) -> void:
 	
 	# Initiate the GET request and await its completion.
 	BKMREngine.send_get_request(GetMyFanMoments, request_url)
+
 
 func _on_GetMyFanMoments_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
@@ -438,6 +548,7 @@ func _on_GetMyFanMoments_request_completed(_result: int, response_code: int, hea
 	else:
 		get_my_fan_moments_complete.emit({ "error": "Unknown server error" })
 
+
 func get_latest_fan_moments(limit: int, offset: int) -> void:
 	# Prepare HTTP request resources.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -450,6 +561,7 @@ func get_latest_fan_moments(limit: int, offset: int) -> void:
 	
 	# Initiate the GET request and await its completion.
 	BKMREngine.send_get_request(GetLatestFanMoments, request_url)
+
 
 func _on_GetMyLatestMoments_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
@@ -472,6 +584,7 @@ func _on_GetMyLatestMoments_request_completed(_result: int, response_code: int, 
 	else:
 		get_latest_fan_moments_complete.emit({ "error": "Unknown server error" })
 
+
 func get_following_fan_moments(limit: int, offset: int) -> void:
 	# Prepare HTTP request resources.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -484,6 +597,7 @@ func get_following_fan_moments(limit: int, offset: int) -> void:
 	
 	# Initiate the GET request and await its completion.
 	BKMREngine.send_get_request(GetFollowingFanMoments, request_url)
+
 
 func _on_GetFollowingFanMoments_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
@@ -525,6 +639,7 @@ func like_fan_moment(moment_id: String) -> void:
 	# Send a POST request to upload the profile picture.
 	BKMREngine.send_post_request(LikeFanMoments, request_url, payload)
 	
+	
 # Callback function triggered when the profile picture upload request is completed.
 func _on_LikeFanMoment_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
@@ -549,6 +664,7 @@ func _on_LikeFanMoment_request_completed(_result: int, response_code: int, heade
 	else:
 		like_fan_moments_complete.emit({ "error": "Unknown Server Error" })
 		
+		
 func unlike_fan_moment(moment_id: String) -> void:
 	# Prepare the HTTP request and associated resources.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -566,6 +682,7 @@ func unlike_fan_moment(moment_id: String) -> void:
 	
 	# Send a POST request to upload the profile picture.
 	BKMREngine.send_post_request(UnlikeFanMoments, request_url, payload)
+	
 	
 func _on_UnlikeFanMoment_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
@@ -590,6 +707,7 @@ func _on_UnlikeFanMoment_request_completed(_result: int, response_code: int, hea
 	else:
 		unlike_fan_moments_complete.emit({ "error": "Unknown Server Error" })
 		
+		
 func comment_fan_moment(comment_data: Dictionary) -> void:
 	# Prepare the HTTP request and associated resources.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -607,6 +725,7 @@ func comment_fan_moment(comment_data: Dictionary) -> void:
 	
 	# Send a POST request to upload the profile picture.
 	BKMREngine.send_post_request(CommentFanMoment, request_url, payload)
+	
 	
 func _on_CommentFanMoment_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.

@@ -1,7 +1,8 @@
 extends Control
 
 # UI Elements
-var badge_scene: PackedScene = preload("res://Components/MyProfile/badge.tscn")
+const badge_scene: PackedScene = preload("res://Components/MyProfile/badge.tscn")
+const liker_slot_scene: PackedScene = preload("res://Components/Moments/liker_slot.tscn")
 
 const followed_color: Color = Color("#89898994")
 const default_color: Color = Color("#ffffff")
@@ -18,8 +19,10 @@ const default_color: Color = Color("#ffffff")
 @onready var view_player_picture: Control = %ViewPlayerPicture
 @onready var profile_pic: TextureRect = %ProfilePic
 
-@onready var badge_container: HBoxContainer = %BadgeContainer
 # Variables
+
+var is_following_button_pressed: bool = false
+var is_followers_button_pressed: bool = false
 
 var player_username: String
 var profile_player: Dictionary
@@ -29,11 +32,15 @@ var profile_player: Dictionary
 func _ready() -> void:
 	signal_connect()
 
+
 func signal_connect() -> void:
 	BKMREngine.Social.view_profile_complete.connect(_on_stat_display)
 	BKMREngine.Social.follow_complete.connect(_on_follow_complete)
 	BKMREngine.Social.unfollow_complete.connect(_on_unfollow_complete)
 	BKMREngine.Profile.get_player_profile_pic_complete.connect(_on_get_player_profile_pic_complete)
+	BKMREngine.Social.get_followers_following_count_complete.connect(_get_followers_following_count_complete)
+	BKMREngine.Social.get_followers_following_complete.connect(_get_followers_following_complete)
+	
 	
 # Handle the display of player statistics.
 func _on_stat_display(player_profile: Dictionary) -> void:
@@ -65,58 +72,59 @@ func _on_stat_display(player_profile: Dictionary) -> void:
 		player_name.text = player_profile.username
 		player_level.text = str(player_stats.level)
 		player_rank.text = player_stats.rank
-	_on_get_preference_complete(player_profile)
+	#_on_get_preference_complete(player_profile)
 	_on_chat_box_view_profile_pressed()
 
 
 func _on_chat_box_view_profile_pressed() -> void:
-	
-	BKMREngine.Profile.get_player_profile_pic(%PlayerName.text)
 	visible = true
+	BKMREngine.Profile.get_player_profile_pic(%PlayerName.text)
+	BKMREngine.Social.get_following_followers_count(%PlayerName.text)
 	
 	
-func _on_get_preference_complete(player_profile: Dictionary) -> void:
-	var soul_data: Dictionary = player_profile.userSoul
-	for badge: Control in badge_container.get_children():
-		badge.queue_free()
-	if !soul_data.is_empty():
-		var badge_created: bool = false
-		var soul_data_ownership: Array = soul_data.ownership
-		var soul_data_horoscope_match: Array = soul_data.horoscopeMatch
-		var soul_data_animal_match: Array = soul_data.animalMatch
-		var soul_data_weekly_first: Array = soul_data.weeklyFirst
-	
-		for card: String in soul_data_ownership:
-			if "No Doubt" in card and not badge_created:
-				var badge: Control = badge_scene.instantiate()
-				badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x_in_owner_badge.png")
-				badge_container.add_child(badge)
-				badge_created = true  # Set the flag to true to indicate a badge has been created
-				break  # Exit the loop since we only need one badge
-		for card: String in soul_data_horoscope_match:
-			if "No Doubt" in card:
-				var badge: Control = badge_scene.instantiate()
-				badge.get_node("Panel").modulate = "a8923e"
-				badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x_in_capricorn.png")
-				badge_container.add_child(badge)
-				badge_created = true  # Set the flag to true to indicate a badge has been created
-				break  # Exit the loop since we only need one badge
-		for card: String in soul_data_animal_match:
-			if "No Doubt" in card:
-				var badge: Control = badge_scene.instantiate()
-				badge.get_node("Panel").modulate = "46ff45"
-				badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x_in_animal.png")
-				badge_container.add_child(badge)
-				badge_created = true  # Set the flag to true to indicate a badge has been created
-				break  # Exit the loop since we only need one badge
-		for song: String in soul_data_weekly_first:
-			if "No Doubt" in song:
-				var badge: Control = badge_scene.instantiate()
-				badge.get_node("Panel").self_modulate = "8f8f8f"
-				badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x:in_award.png")
-				badge_container.add_child(badge)
-				badge_created = true  # Set the flag to true to indicate a badge has been created
-				break  # Exit the loop since we only need one badge
+#func _on_get_preference_complete(player_profile: Dictionary) -> void:
+	#var soul_data: Dictionary = player_profile.userSoul
+	#for badge: Control in badge_container.get_children():
+		#badge.queue_free()
+	#if !soul_data.is_empty():
+		#var badge_created: bool = false
+		#var soul_data_ownership: Array = soul_data.ownership
+		#var soul_data_horoscope_match: Array = soul_data.horoscopeMatch
+		#var soul_data_animal_match: Array = soul_data.animalMatch
+		#var soul_data_weekly_first: Array = soul_data.weeklyFirst
+	#
+		#for card: String in soul_data_ownership:
+			#if "No Doubt" in card and not badge_created:
+				#var badge: Control = badge_scene.instantiate()
+				#badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x_in_owner_badge.png")
+				#badge_container.add_child(badge)
+				#badge_created = true  # Set the flag to true to indicate a badge has been created
+				#break  # Exit the loop since we only need one badge
+		#for card: String in soul_data_horoscope_match:
+			#if "No Doubt" in card:
+				#var badge: Control = badge_scene.instantiate()
+				#badge.get_node("Panel").modulate = "a8923e"
+				#badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x_in_capricorn.png")
+				#badge_container.add_child(badge)
+				#badge_created = true  # Set the flag to true to indicate a badge has been created
+				#break  # Exit the loop since we only need one badge
+		#for card: String in soul_data_animal_match:
+			#if "No Doubt" in card:
+				#var badge: Control = badge_scene.instantiate()
+				#badge.get_node("Panel").modulate = "46ff45"
+				#badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x_in_animal.png")
+				#badge_container.add_child(badge)
+				#badge_created = true  # Set the flag to true to indicate a badge has been created
+				#break  # Exit the loop since we only need one badge
+		#for song: String in soul_data_weekly_first:
+			#if "No Doubt" in song:
+				#var badge: Control = badge_scene.instantiate()
+				#badge.get_node("Panel").self_modulate = "8f8f8f"
+				#badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x:in_award.png")
+				#badge_container.add_child(badge)
+				#badge_created = true  # Set the flag to true to indicate a badge has been created
+				#break  # Exit the loop since we only need one badge
+
 
 func _on_follow_unfollow_button_pressed() -> void:
 	if profile_player.followsUser:
@@ -125,6 +133,7 @@ func _on_follow_unfollow_button_pressed() -> void:
 	else:
 		follow_unfollow_button.disabled = true
 		BKMREngine.Social.follow(%PlayerName.text)
+
 
 func _on_follow_complete(message: Dictionary) -> void:
 	if message.has("error"):
@@ -135,6 +144,7 @@ func _on_follow_complete(message: Dictionary) -> void:
 		profile_player.followsUser = true
 	follow_unfollow_button.disabled = false
 	
+	
 func _on_unfollow_complete(message: Dictionary) -> void:
 	if message.has("error"):
 		follow_unfollow_button.button_pressed = true
@@ -144,10 +154,12 @@ func _on_unfollow_complete(message: Dictionary) -> void:
 		profile_player.followsUser = false
 	follow_unfollow_button.disabled = false
 	
+	
 func _on_profile_pic_options_button_pressed() -> void:
 	if view_player_picture.profile_pics_data.size() == 0:
 		return
 	view_player_picture.visible = true
+
 
 func _on_get_player_profile_pic_complete(profile_pics: Variant) -> void:
 	if typeof(profile_pics) != TYPE_ARRAY:
@@ -175,3 +187,53 @@ func _on_panel_2_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if visible:
 			visible = false
+
+
+func _get_followers_following_complete(followers_following: Dictionary) -> void:
+	if is_following_button_pressed:
+		var following: Array = followers_following.following
+		populate_following(following)
+		is_following_button_pressed = false
+	elif is_followers_button_pressed:
+		var followers: Array = followers_following.followers
+		populate_followers(followers)
+		is_followers_button_pressed = false
+		
+
+func populate_followers(followers: Array) -> void:
+	clear_followers_following_container()
+	var follower_slot: Control
+	for follower: Dictionary in followers:
+		follower_slot = liker_slot_scene.instantiate()
+		follower_slot.slot_data(follower, "Profile")
+		%FollowersFollowingContainer.add_child(follower_slot)
+	
+	
+func populate_following(followings: Array) -> void:
+	clear_followers_following_container()
+	var following_slot: Control
+	for following: Dictionary in followings:
+		following_slot = liker_slot_scene.instantiate()
+		following_slot.slot_data(following, "Profile")
+		%FollowersFollowingContainer.add_child(following_slot)
+	
+	
+func clear_followers_following_container() -> void:
+	for child: Control in %FollowersFollowingContainer.get_children():
+		child.queue_free()
+
+
+func _get_followers_following_count_complete(followers_following_count: Dictionary) -> void:
+	if player_name.text != PLAYER.username:
+		%FollowingButton.text = str(followers_following_count.followingCount) + " " + "Following"
+		%FollowersButton.text = str(followers_following_count.followerCount) + " " + "Followers"
+
+
+func _on_following_button_pressed() -> void:
+	BKMREngine.Social.get_following_followers(player_name.text)
+	is_following_button_pressed = true
+
+
+func _on_followers_button_pressed() -> void:
+	BKMREngine.Social.get_following_followers(player_name.text)
+	is_followers_button_pressed = true

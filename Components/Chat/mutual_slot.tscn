@@ -1,14 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://dt6o2d3trj4d4"]
+[gd_scene load_steps=4 format=3 uid="uid://dt6o2d3trj4d4"]
 
+[ext_resource type="Script" path="res://Components/Chat/mutual_slot.gd" id="1_0tmni"]
 [ext_resource type="Texture2D" uid="uid://clu717sjyfm4r" path="res://UITextures/Buttons/message_button.png" id="1_wky12"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pkqk1"]
 bg_color = Color(0, 0.0588235, 0.0588235, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.152941, 0.8, 0.8, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.403922, 0.403922, 1)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
@@ -19,6 +20,7 @@ custom_minimum_size = Vector2(0, 113)
 layout_mode = 3
 anchor_right = 0.238333
 anchor_bottom = 0.209259
+script = ExtResource("1_0tmni")
 metadata/_edit_use_anchors_ = true
 
 [node name="Panel" type="Panel" parent="."]
@@ -48,6 +50,7 @@ custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 
 [node name="UsernameLabel" type="Label" parent="Panel/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -65,6 +68,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.48
 
 [node name="DPIcon" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 expand_mode = 1
@@ -104,3 +108,5 @@ layout_mode = 2
 texture_normal = ExtResource("1_wky12")
 ignore_texture_size = true
 stretch_mode = 0
+
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/HBoxContainer2/HBoxContainer/HBoxContainer/ChatButton" to="." method="_on_chat_button_pressed"]

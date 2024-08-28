@@ -1,10 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cqigga7k4ocvb"]
+[gd_scene load_steps=9 format=3 uid="uid://cj23fsxa0h7qv"]
 
-[ext_resource type="Shader" path="res://Components/Moments/moment_slot.gdshader" id="1_aknrp"]
-[ext_resource type="Script" path="res://Components/Moments/liker_slot.gd" id="1_gc2t6"]
-[ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="3_hltlh"]
-[ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="4_l6jf4"]
-[ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="5_7b7py"]
+[ext_resource type="Shader" path="res://Components/Moments/moment_slot.gdshader" id="1_5nfsx"]
+[ext_resource type="Script" path="res://Components/MyProfile/notification_slot.gd" id="1_qc6l4"]
+[ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="2_0o2yg"]
+[ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="3_0e1t3"]
+[ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="4_x2w8p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3807h"]
 bg_color = Color(0.0175823, 0.10012, 0.100122, 1)
@@ -28,15 +28,15 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ajkoj"]
-shader = ExtResource("1_aknrp")
+shader = ExtResource("1_5nfsx")
 shader_parameter/corner_radius = 5.0
 
-[node name="LikerSlot" type="Control"]
+[node name="NotificationSlot" type="Control"]
 custom_minimum_size = Vector2(348, 70)
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 1
-script = ExtResource("1_gc2t6")
+script = ExtResource("1_qc6l4")
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(348, 70)
@@ -109,28 +109,28 @@ unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.787745, 0.62211, 0.308051, 1)
-theme_override_fonts/font = ExtResource("3_hltlh")
+theme_override_fonts/font = ExtResource("2_0o2yg")
 theme_override_font_sizes/font_size = 16
 text = "kaetaro13"
 vertical_alignment = 2
 clip_text = true
 text_overrun_behavior = 3
 
-[node name="PlayerRank" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+[node name="Type" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("3_hltlh")
+theme_override_fonts/font = ExtResource("2_0o2yg")
 theme_override_font_sizes/font_size = 12
-text = "Platinum"
+text = "Followed you"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Time" type="Label" parent="Panel/HBoxContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(27, 0)
 layout_mode = 2
@@ -138,20 +138,20 @@ size_flags_vertical = 1
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("3_hltlh")
+theme_override_fonts/font = ExtResource("2_0o2yg")
 theme_override_font_sizes/font_size = 12
-text = "Level"
+text = "Yesterday, 10:00 PM"
 vertical_alignment = 2
 
 [node name="Level" type="Label" parent="Panel/HBoxContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(27, 0)
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("3_hltlh")
+theme_override_fonts/font = ExtResource("2_0o2yg")
 theme_override_font_sizes/font_size = 12
 text = "100"
 vertical_alignment = 2
@@ -162,19 +162,20 @@ size_flags_horizontal = 3
 alignment = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
-[node name="FollowUnfollowButton" type="TextureButton" parent="Panel/HBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="ActionButton" type="TextureButton" parent="Panel/HBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 30)
 layout_mode = 2
 mouse_filter = 1
-texture_normal = ExtResource("4_l6jf4")
+texture_normal = ExtResource("3_0e1t3")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="FollowLabel" type="Label" parent="Panel/HBoxContainer/HBoxContainer/VBoxContainer/FollowUnfollowButton"]
+[node name="ActionLabel" type="Label" parent="Panel/HBoxContainer/HBoxContainer/VBoxContainer/ActionButton"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(113, 30)
 layout_mode = 1
@@ -186,7 +187,7 @@ offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-theme_override_fonts/font = ExtResource("5_7b7py")
+theme_override_fonts/font = ExtResource("4_x2w8p")
 theme_override_font_sizes/font_size = 12
 text = "FOLLOW"
 horizontal_alignment = 1

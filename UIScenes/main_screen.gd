@@ -31,8 +31,8 @@ signal mutuals_button_pressed
 #endregion
 
 #region Modals
-var profile_modal: Control = load("res://Components/Popups/profile_modal.tscn").instantiate()
-var stats_modal: Control = load("res://Components/Popups/stats_modal.tscn").instantiate()
+var profile_modal: Control = preload("res://Components/Popups/profile_modal.tscn").instantiate()
+var stats_modal: Control = preload("res://Components/Popups/stats_modal.tscn").instantiate()
 var stats_tween: Tween
 #endregion
 
@@ -207,7 +207,7 @@ func _on_chat_box_view_profile_pressed() -> void:
 
 
 # Display the received message in the chat box
-func _on_chat_box_2_all_message_received(received_message: Dictionary) -> void:
+func _on_chat_box_all_message_received(received_message: Dictionary) -> void:
 	preview_message.text = received_message.message
 	preview_username.text = received_message.username + ": "
 

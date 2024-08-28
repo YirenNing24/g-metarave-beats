@@ -92,17 +92,11 @@ func add_message_to_container(received_message: Dictionary) -> void:
 	# Instantiate a new message slot control
 	var slot_message: Control = message_slot.instantiate()
 
-
 	# Set the text of UI elements in the message slot based on the received message
 	slot_message.get_node('VBoxContainer/HBoxContainer/UsernameLabel').text = sender_username
 	#slot_message.get_node('VBoxContainer/HBoxContainer/TimestampLabel').text = timestamp
 	slot_message.get_node('VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/MessageLabel').text = message_text
-	
-	
-	#if sender_username == "GreenPill":
-		#slot_message.get_node("VBoxContainer/TextureRect/HBoxContainer/DPIcon").texture = load("res://UITextures/Bundles/green_pill.png")
-	#else:
-		#slot_message.get_node("VBoxContainer/TextureRect/HBoxContainer/DPIcon").texture = load("res://UITextures/Bundles/beats_logo.png")
+	slot_message.get_node("VBoxContainer/HBoxContainer/UsernameLabel/Button").pressed.connect(_on_view_profile_pressed.bind(sender_username))
 	
 	# Determine the destination container based on the room and sender
 	if received_message.roomId == "all":
@@ -119,6 +113,7 @@ func add_message_to_container(received_message: Dictionary) -> void:
 			conversing_message.get_node('VBoxContainer/HBoxContainer/UsernameLabel').text = sender_username
 			#conversing_message.get_node('VBoxContainer/HBoxContainer/TimestampLabel').text = timestamp
 			conversing_message.get_node('VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/MessageLabel').text = message_text
+			conversing_message.get_node("VBoxContainer/HBoxContainer/UsernameLabel/Button").pressed.connect(_on_view_profile_pressed.bind(sender_username))
 			mutual_chat_vbox.add_child(conversing_message)
 
 

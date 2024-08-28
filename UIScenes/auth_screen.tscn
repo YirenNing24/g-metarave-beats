@@ -607,6 +607,7 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -619,6 +620,7 @@ text = "Or register using the options below:"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 20

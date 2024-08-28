@@ -95,8 +95,6 @@ func _on_UpdateStatPointsSaved_request_completed(_result: int, response_code: in
 	# Check the HTTP response status.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	
-	# Free the request resources.
-	BKMREngine.free_request(wrUpdateStatPointsSaved, UpdateStatPointsSaved)
 	
 	# Parse the JSON body received from the server.
 	var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
@@ -137,9 +135,6 @@ func upload_profile_pic(image_buffer: PackedByteArray) -> void:
 func _on_ProfilePictureUpload_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	
-	# Free resources associated with the HTTP request.
-	BKMREngine.free_request(wrUploadProfilePicture, UploadProfilePicture)
 	
 	# Parse the response body as a JSON dictionary.
 	var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
@@ -417,10 +412,6 @@ func _onGetSoul_request_completed(_result: int, response_code: int, headers: Arr
 	# Check if the HTTP response indicates success.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	
-	# Free the HTTP request resource if it is still valid.
-	if is_instance_valid(GetPreference):
-		BKMREngine.free_request(wrGetPreference, GetPreference)
-	
 	if status_check:
 		var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
 		if json_body.has("error"):
@@ -443,9 +434,7 @@ func get_card_count() -> void:
 	
 func _onGetCardCount_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	if is_instance_valid(GetCardCount):
-		BKMREngine.free_request(wrGetCardCount, GetCardCount)
-	
+
 	if status_check:
 		var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
 		if json_body.has("error"):
@@ -468,8 +457,6 @@ func get_card_collection() -> void:
 	
 func _onGetCardCollection_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	if is_instance_valid(GetCardCount):
-		BKMREngine.free_request(wrGetCardCollection, GetCardCollection)
 	
 	if status_check:
 		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
@@ -543,10 +530,7 @@ func get_my_note() -> void:
 func _on_GetMyNote_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	
-	# Free resources associated with the HTTP request.
-	BKMREngine.free_request(wrGetMyNote, GetMyNote)
-	
+
 	# Parse the response body as a JSON dictionary.
 	var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
 	if json_body != null:
@@ -584,10 +568,7 @@ func get_profile_pics(usernames: Array) -> void:
 func _on_GetProfilePics_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	
-	# Free resources associated with the HTTP request.
-	BKMREngine.free_request(wrGetProfilePics, GetProfilePics)
-	
+
 	# Parse the response body as a JSON dictionary.
 	var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
 	if json_body != null:
