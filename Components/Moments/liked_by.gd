@@ -8,7 +8,7 @@ func populate_likers(profile_pics: Array) -> void:
 	for picture: Dictionary in profile_pics:
 		
 		liker_slot = liker_slot_scene.instantiate()
-		liker_slot.slot_data(picture)
+		liker_slot.slot_data(picture, "FanMoments")
 		
 	%LikeContainer.add_child(liker_slot)
 	visible = true

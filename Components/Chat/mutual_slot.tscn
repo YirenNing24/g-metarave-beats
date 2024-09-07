@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dt6o2d3trj4d4"]
+[gd_scene load_steps=8 format=3 uid="uid://dt6o2d3trj4d4"]
 
 [ext_resource type="Script" path="res://Components/Chat/mutual_slot.gd" id="1_0tmni"]
 [ext_resource type="Texture2D" uid="uid://clu717sjyfm4r" path="res://UITextures/Buttons/message_button.png" id="1_wky12"]
+[ext_resource type="Shader" path="res://Components/Moments/moment_slot.gdshader" id="3_gp2qc"]
+[ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="4_27jwu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pkqk1"]
 bg_color = Color(0, 0.0588235, 0.0588235, 1)
@@ -15,11 +17,27 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lmx1d"]
+bg_color = Color(0.00245657, 0.0230238, 0.0230327, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.222973, 0.626395, 0.626332, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0c2au"]
+shader = ExtResource("3_gp2qc")
+shader_parameter/corner_radius = 20.0
+
 [node name="MutualSlot" type="Control"]
-custom_minimum_size = Vector2(0, 113)
+custom_minimum_size = Vector2(286, 133)
 layout_mode = 3
 anchor_right = 0.238333
-anchor_bottom = 0.209259
+anchor_bottom = 0.233333
 script = ExtResource("1_0tmni")
 metadata/_edit_use_anchors_ = true
 
@@ -28,7 +46,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 0.000396729
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_pkqk1")
@@ -38,12 +55,13 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 4.0
+offset_left = 12.0
+offset_top = 10.0
 offset_right = -8.0
 offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 12)
@@ -54,8 +72,9 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme_override_font_sizes/font_size = 14
-text = "ddfasassdasd"
+theme_override_fonts/font = ExtResource("4_27jwu")
+theme_override_font_sizes/font_size = 20
+text = "bini_gwen"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
@@ -67,12 +86,28 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.48
 
-[node name="DPIcon" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
+[node name="Panel" type="Panel" parent="Panel/VBoxContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lmx1d")
+
+[node name="DPIcon" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer/HBoxContainer/Panel"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_0c2au")
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
 expand_mode = 1
-stretch_mode = 5
+stretch_mode = 6
 
 [node name="HBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -83,6 +118,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("4_27jwu")
 theme_override_font_sizes/font_size = 12
 text = "Level 1"
 
@@ -91,8 +127,13 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("4_27jwu")
 theme_override_font_sizes/font_size = 12
 text = "ddfasassdasd"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
 
 [node name="HBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -105,6 +146,7 @@ size_flags_vertical = 3
 [node name="ChatButton" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/HBoxContainer2/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(38, 38)
 layout_mode = 2
+size_flags_vertical = 0
 texture_normal = ExtResource("1_wky12")
 ignore_texture_size = true
 stretch_mode = 0

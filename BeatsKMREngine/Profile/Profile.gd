@@ -111,6 +111,7 @@ func _on_UpdateStatPointsSaved_request_completed(_result: int, response_code: in
 			stat_update_complete.emit({"Error": "Unknown Server Error"})
 #endregion
 
+
 #region for Profile Pic
 # Function called to upload a profile picture.
 func upload_profile_pic(image_buffer: PackedByteArray) -> void:
@@ -130,6 +131,7 @@ func upload_profile_pic(image_buffer: PackedByteArray) -> void:
 	
 	# Send a POST request to upload the profile picture.
 	BKMREngine.send_post_request(UploadProfilePicture, request_url, payload)
+	
 	
 # Callback function triggered when the profile picture upload request is completed.
 func _on_ProfilePictureUpload_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
@@ -212,6 +214,7 @@ func get_player_profile_pic(player_username: String) -> void:
 
 	# Send a GET request to retrieve the profile pictures.
 	BKMREngine.send_get_request(GetPlayerProfilePicture, request_url)
+
 
 # Callback function to handle the completion of the private inbox data retrieval request.
 func _onGetPlayerProfilePicture_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:

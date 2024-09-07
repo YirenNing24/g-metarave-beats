@@ -1,5 +1,8 @@
 extends Node3D
 
+
+signal notepicker_position(pos: float)
+
 #signal song_finished
 
 # Reference to the node containing musical bars.
@@ -54,6 +57,7 @@ func _on_game_new_peer_id(peer_id: int) -> void:
 	for picker: Node3D in get_tree().get_nodes_in_group("Picker"):
 		picker.set_peer_id(peer_id)
 
+
 # Process method called on every frame to update the position of musical bars.
 func _process(delta: float) -> void:
 	bars_node.translate(speed * delta)
@@ -61,6 +65,7 @@ func _process(delta: float) -> void:
 		if bar.position.z + bars_node.position.x >= bar_length_in_meters * 2:
 			remove_bar(bar)
 			add_bar() 
+
 
 # Method to add a musical bar to the scene.
 func add_bar() -> void:
@@ -87,6 +92,7 @@ func get_bar_data() -> Array:
 	var yeri_data: Dictionary = tracks_data[4].bars[current_bar_index]
 	return [irene_data, seulgi_data, wendy_data, joy_data, yeri_data] as Array
 
+
 # Method to remove a musical bar from the scene.
 func remove_bar(bar: Node3D) -> void:
 	bar.queue_free()
@@ -99,3 +105,7 @@ func remove_bar(bar: Node3D) -> void:
 func add_bars(length: float) -> void:
 	for _i: float in range(length):
 		add_bar()
+
+
+func _on__position_notepicker(y_position: float) -> void:
+	notepicker_position.emit(y_position)

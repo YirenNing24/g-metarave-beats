@@ -24,10 +24,9 @@ var selected_map: String
 const difficulty: Array[String] = ['easy', 'medium', 'hard', 'ultra hard']
 var difficulty_mode: String = "easy" #default
 
-# Ready function called when the node and its children are added to the scene.
+
 func _ready() -> void:
 	# Initialize and set up the UI elements, connect signals.
-
 	parse_song_files()
 	list_songs()
 	hud_data()

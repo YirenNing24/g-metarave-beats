@@ -13,7 +13,7 @@ signal chat_button_pressed(conversing_username: String)
 @onready var mutual_vbox: VBoxContainer = %MutualsVBox
 
 # INSTANCE SCENE COMPONENTS FOR MUTUALS WINDOW
-const mutual_slot: PackedScene = preload("res://Components/Chat/mutual_slot.tscn")
+var mutual_slot: PackedScene = load("res://Components/Chat/mutual_slot.tscn")
 
 # GLOBAL SCENE VARIABLES
 var username: String = PLAYER.username

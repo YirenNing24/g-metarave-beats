@@ -204,10 +204,10 @@ func set_personal_entry(leaderboard: Array) -> void:
 	
 func animate_song_bg(song_name: String) -> void:
 	var song_bg_texture_name: String = song_name.replace(" ", "_").to_lower() + "_bg.png"
-	var song_bg_texture: Texture = load("res://UITextures/BGTextures/" + song_bg_texture_name)
+	var song_bg_texture: Texture = load("res://UITextures/BGTextures/Leaderboard" + song_bg_texture_name)
 	
 	var bg_texture_name: String = song_name.to_lower()
-	var bg_texture: Texture = load("res://UITextures/BGTextures/" + bg_texture_name + "_leaderboard_bg.png")
+	var bg_texture: Texture = load("res://UITextures/BGTextures/Leaderboard" + bg_texture_name + "_leaderboard_bg.png")
 	
 	background_texture.texture = bg_texture 
 	song_bg.texture = song_bg_texture

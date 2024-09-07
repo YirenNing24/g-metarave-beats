@@ -111,19 +111,11 @@ alignment = 1
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+[node name="MomentumLabel" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_6xcqj")
 theme_override_font_sizes/font_size = 20
 text = "STAN BOOST X1"
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Momentum Label" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
-visible = false
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "SCORE"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 

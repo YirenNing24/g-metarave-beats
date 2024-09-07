@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=4 uid="uid://c52wye8mpp4wd"]
+[gd_scene load_steps=71 format=4 uid="uid://c52wye8mpp4wd"]
 
 [ext_resource type="Script" path="res://UIScenes/leaderboard_screen.gd" id="1_2k00p"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_4eavk"]
@@ -6,13 +6,17 @@
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="3_ft6p3"]
 [ext_resource type="FontFile" uid="uid://cak36l0bes2dv" path="res://UITextures/Fonts/argentum-sans.medium.ttf" id="3_spjn0"]
 [ext_resource type="Texture2D" uid="uid://1ktjogd6a24l" path="res://UITextures/Buttons/buy_button.png" id="3_swulm"]
-[ext_resource type="Texture2D" uid="uid://d0qybsxxccq3l" path="res://UITextures/BGTextures/nodoubt_bg.png" id="5_s5s2i"]
+[ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="4_d25bo"]
+[ext_resource type="Texture2D" uid="uid://d0qybsxxccq3l" path="res://UITextures/BGTextures/Leaderboard/nodoubt_bg.png" id="5_s5s2i"]
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="5_ydgkb"]
 [ext_resource type="StyleBox" uid="uid://b137tuats7kxu" path="res://UITextures/CustomResource/leaderboard_screen_dropdown.tres" id="6_aiytg"]
 [ext_resource type="Shader" path="res://Components/Moments/moment_slot.gdshader" id="6_y7hkn"]
 [ext_resource type="StyleBox" uid="uid://4tv08h3we0s4" path="res://UITextures/CustomResource/leaderboard_screen_song_picker.tres" id="8_oober"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="9_7h7cg"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="10_vq0qi"]
+[ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="12_c06dv"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="14_6sao8"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="15_no3dg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mvagh"]
 bg_color = Color(0.0313726, 0.0980392, 0.129412, 0.756863)
@@ -2706,7 +2710,7 @@ cache/0/17/0/kerning_overrides/17/0 = Vector2(0, 0)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mudi4"]
 
-[sub_resource type="Image" id="Image_5xa7y"]
+[sub_resource type="Image" id="Image_mn2q3"]
 data = {
 "data": PackedByteArray("////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wAqKioMGhoaQxoaGmkbGxt6GxsbehoaGmkbGxtCLi4uC////wD///8A////AP///wD///8A////AP///wAdHR0sGxsbehoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBsbG3oeHh4q////AP///wD///8A////AP///wAdHR0sGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagB4eHir///8A////AP///wAqKioMGxsbehoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAbGxt5Li4uC////wD///8AGhoaQxoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBsbG0H///8A////ABoaGmkaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAbGxto////AP///wAbGxt6GhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGxsbev///wD///8AGxsbehoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBsbG3n///8A////ABoaGmkaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAbGxtn////AP///wAbGxtCGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGxsbQf///wD///8ALi4uCxsbG3oaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGxsbeTMzMwr///8A////AP///wAeHh4qGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagB8fHyn///8A////AP///wD///8A////AB4eHiobGxt5GhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGxsbeR8fHyn///8A////AP///wD///8A////AP///wD///8ALi4uCxsbG0EbGxtoGxsbehsbG3kbGxtnGxsbQTMzMwr///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AA=="),
 "format": "RGBA8",
@@ -2716,9 +2720,9 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_xb1eb"]
-image = SubResource("Image_5xa7y")
+image = SubResource("Image_mn2q3")
 
-[sub_resource type="Image" id="Image_g8ujv"]
+[sub_resource type="Image" id="Image_68bwh"]
 data = {
 "data": PackedByteArray("////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8As7OzHrKysmeysrIu////AP///wD///8A////AP///wC1tbUfsrKyc7KysnOwsLAw////AP///wD///8A////AP///wC1tbUwsrKyc7KysnOwsLAw////AP///wD///8A////AP///wCxsbExsrKyc7KysnOtra0f////AP///wD///8A////ALGxsTGysrJzsrKyc7W1tR////8A////AP///wC1tbUwsrKyc7KysnOzs7Mv////AP///wD///8AtbW1H7KysnOysrJzs7OzL////wD///8A////AP///wCzs7MesrKyZ7Kysi7///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wA="),
 "format": "RGBA8",
@@ -2728,9 +2732,9 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_wn4a5"]
-image = SubResource("Image_g8ujv")
+image = SubResource("Image_68bwh")
 
-[sub_resource type="Image" id="Image_uonis"]
+[sub_resource type="Image" id="Image_f4n6i"]
 data = {
 "data": PackedByteArray("////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8AsrKyLrKysmewsLAd////AP///wD///8A////ALW1tTCysrJzsrKyc7W1tR////8A////AP///wC1tbUwsrKyc7KysnO1tbUw////AP///wD///8AtbW1H7KysnOysrJzsbGxMf///wD///8A////AP///wC1tbUfsrKyc7KysnOxsbEx////AP///wD///8A////AP///wCwsLAwsrKyc7KysnO1tbUw////AP///wD///8A////AP///wCwsLAwsrKyc7KysnOtra0f////AP///wD///8A////AP///wCysrIusrKyZ7Ozsx7///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wA="),
 "format": "RGBA8",
@@ -2740,9 +2744,9 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_43gga"]
-image = SubResource("Image_uonis")
+image = SubResource("Image_f4n6i")
 
-[sub_resource type="Image" id="Image_f1k6b"]
+[sub_resource type="Image" id="Image_0vdry"]
 data = {
 "data": PackedByteArray("////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wAeHh4RGhoaYhoaGn8aGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGn8aGhphHh4eEf///wD///8AGhoaYhoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGmH///8A////ABoaGn8aGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhp/////AP///wAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagP///wD///8AGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoD///8A////ABoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqA////AP///wAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagP///wD///8AGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoD///8A////ABoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqA////AP///wAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagP///wD///8AGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoD///8A////ABoaGn8aGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhp/////AP///wAaGhphGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoaYP///wD///8AHh4eERoaGmEaGhp/GhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhp/GhoaYCAgIBD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AA=="),
 "format": "RGBA8",
@@ -2752,7 +2756,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_6bplg"]
-image = SubResource("Image_f1k6b")
+image = SubResource("Image_0vdry")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cvi0k"]
 content_margin_left = 4.0
@@ -2850,7 +2854,7 @@ content_margin_left = 28.0
 content_margin_right = 0.0
 texture = ExtResource("3_swulm")
 
-[sub_resource type="Image" id="Image_5m2fu"]
+[sub_resource type="Image" id="Image_07gti"]
 data = {
 "data": PackedByteArray("////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////YP///2H///8A////AP///wD///8A////AP///wD///8A////AP///2D///9h////AP///wD///8A////YP///7////+/////Yf///wD///8A////AP///wD///8A////AP///2D///+/////v////2H///8A////AP///2H///+/////v////7////9h////AP///wD///8A////AP///2D///+/////v////7////9g////AP///wD///8A////Yf///7////+/////v////2H///8A////AP///2D///+/////v////7////9g////AP///wD///8A////AP///wD///9h////v////7////+/////Yf///2D///+/////v////7////9g////AP///wD///8A////AP///wD///8A////AP///2H///+/////v////7////+/////v////7////9g////AP///wD///8A////AP///wD///8A////AP///wD///8A////Yf///7////+/////v////7////9g////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///2D///+/////v////7////+/////Yf///wD///8A////AP///wD///8A////AP///wD///8A////AP///2D///+/////v////7////+/////v////7////9h////AP///wD///8A////AP///wD///8A////AP///2D///+/////v////7////9g////Yf///7////+/////v////2H///8A////AP///wD///8A////AP///2D///+/////v////7////9g////AP///wD///9h////v////7////+/////Yf///wD///8A////AP///2D///+/////v////7////9g////AP///wD///8A////AP///2H///+/////v////7////9h////AP///wD///9h////v////7////9g////AP///wD///8A////AP///wD///8A////Yf///7////+/////YP///wD///8A////AP///2H///9g////AP///wD///8A////AP///wD///8A////AP///wD///9h////YP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AA=="),
 "format": "RGBA8",
@@ -2860,7 +2864,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_u1d6j"]
-image = SubResource("Image_5m2fu")
+image = SubResource("Image_07gti")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qhcaq"]
 content_margin_left = 4.0
@@ -2930,6 +2934,18 @@ LineEdit/icons/clear = SubResource("ImageTexture_u1d6j")
 LineEdit/styles/focus = SubResource("StyleBoxFlat_qhcaq")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_jpou2")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_ggccc")
+
+[sub_resource type="Resource" id="Resource_e07a1"]
+script = ExtResource("15_no3dg")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="Resource" id="Resource_q0sqi"]
+script = ExtResource("15_no3dg")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ivat6"]
 bg_color = Color(0.0313726, 0.0980392, 0.129412, 1)
@@ -3078,7 +3094,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(93, 30)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
-theme_override_fonts/font = ExtResource("3_spjn0")
+theme_override_fonts/font = ExtResource("12_c06dv")
 theme_override_font_sizes/font_size = 24
 text = "kaetaro13"
 vertical_alignment = 2
@@ -3088,10 +3104,11 @@ metadata/_edit_use_anchors_ = true
 
 [node name="PlayerRank" type="Label" parent="BackgroundTexture/HBoxContainer/HBoxContainer2/Panel/HBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(93, 30)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
-theme_override_fonts/font = ExtResource("3_spjn0")
+theme_override_fonts/font = ExtResource("4_d25bo")
 theme_override_font_sizes/font_size = 20
 text = "Platinum"
 vertical_alignment = 2
@@ -3111,7 +3128,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(80, 30)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
-theme_override_fonts/font = ExtResource("3_spjn0")
+theme_override_fonts/font = ExtResource("12_c06dv")
 theme_override_font_sizes/font_size = 24
 text = "Score"
 horizontal_alignment = 2
@@ -3415,6 +3432,9 @@ grow_horizontal = 2
 grow_vertical = 0
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
+script = ExtResource("14_6sao8")
+wheel_scroll_damper = SubResource("Resource_e07a1")
+dragging_scroll_damper = SubResource("Resource_q0sqi")
 metadata/_edit_use_anchors_ = true
 
 [node name="SongListContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer"]
@@ -3423,11 +3443,11 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-mouse_filter = 2
 
 [node name="No Doubt" type="Panel" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer"]
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_ivat6")
 
 [node name="Button" type="Button" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/No Doubt" groups=["SongButtons"]]
@@ -3437,6 +3457,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 flat = true
 metadata/_edit_use_anchors_ = true
 
@@ -3449,18 +3470,19 @@ anchor_right = 0.969027
 anchor_bottom = 0.955556
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/No Doubt/HBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-mouse_filter = 2
 theme_override_constants/separation = 0
+alignment = 1
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/No Doubt/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("12_c06dv")
 theme_override_font_sizes/font_size = 16
 text = "No Doubt"
 vertical_alignment = 1
@@ -3468,8 +3490,379 @@ vertical_alignment = 1
 [node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/No Doubt/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("12_c06dv")
 theme_override_font_sizes/font_size = 12
 text = "X:IN"
+vertical_alignment = 1
+
+[node name="Deep In Love" type="Panel" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_ivat6")
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Deep In Love" groups=["SongButtons"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Deep In Love"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0353982
+anchor_top = 0.0444444
+anchor_right = 0.969027
+anchor_bottom = 0.955556
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Deep In Love/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Deep In Love/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("12_c06dv")
+theme_override_font_sizes/font_size = 16
+text = "Deep In Love
+"
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Deep In Love/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("12_c06dv")
+theme_override_font_sizes/font_size = 12
+text = "Great Guys"
+vertical_alignment = 1
+
+[node name="Luv Luv Luv" type="Panel" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_ivat6")
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Luv Luv Luv" groups=["SongButtons"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Luv Luv Luv"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0353982
+anchor_top = 0.0444444
+anchor_right = 0.969027
+anchor_bottom = 0.955556
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Luv Luv Luv/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Luv Luv Luv/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("12_c06dv")
+theme_override_font_sizes/font_size = 16
+text = "Luv Luv Luv"
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Luv Luv Luv/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("12_c06dv")
+theme_override_font_sizes/font_size = 12
+text = "Great Guys"
+vertical_alignment = 1
+
+[node name="Look At Me" type="Panel" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_ivat6")
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Look At Me" groups=["SongButtons"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Look At Me"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0353982
+anchor_top = 0.0444444
+anchor_right = 0.969027
+anchor_bottom = 0.955556
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Look At Me/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Look At Me/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("12_c06dv")
+theme_override_font_sizes/font_size = 16
+text = "Look At Me
+"
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Look At Me/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("12_c06dv")
+theme_override_font_sizes/font_size = 12
+text = "ICU"
+vertical_alignment = 1
+
+[node name="Anti-Hero" type="Panel" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_ivat6")
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Anti-Hero" groups=["SongButtons"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Anti-Hero"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0353982
+anchor_top = 0.0444444
+anchor_right = 0.969027
+anchor_bottom = 0.955556
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Anti-Hero/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Anti-Hero/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("12_c06dv")
+theme_override_font_sizes/font_size = 16
+text = "Anti-Hero
+"
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Anti-Hero/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("12_c06dv")
+theme_override_font_sizes/font_size = 12
+text = "ICU"
+vertical_alignment = 1
+
+[node name="Honey" type="Panel" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_ivat6")
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Honey" groups=["SongButtons"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Honey"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0353982
+anchor_top = 0.0444444
+anchor_right = 0.969027
+anchor_bottom = 0.955556
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Honey/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Honey/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("12_c06dv")
+theme_override_font_sizes/font_size = 16
+text = "Honey
+"
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Honey/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("12_c06dv")
+theme_override_font_sizes/font_size = 12
+text = "I-ROHM"
+vertical_alignment = 1
+
+[node name="Flash" type="Panel" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_ivat6")
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Flash" groups=["SongButtons"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Flash"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0353982
+anchor_top = 0.0444444
+anchor_right = 0.969027
+anchor_bottom = 0.955556
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Flash/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Flash/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("12_c06dv")
+theme_override_font_sizes/font_size = 16
+text = "Flash
+"
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Flash/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("12_c06dv")
+theme_override_font_sizes/font_size = 12
+text = "I-ROHM"
+vertical_alignment = 1
+
+[node name="Boy Used To" type="Panel" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_ivat6")
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Boy Used To" groups=["SongButtons"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Boy Used To"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0353982
+anchor_top = 0.0444444
+anchor_right = 0.969027
+anchor_bottom = 0.955556
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Boy Used To/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Boy Used To/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("12_c06dv")
+theme_override_font_sizes/font_size = 16
+text = "Boy Used To"
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Boy Used To/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("12_c06dv")
+theme_override_font_sizes/font_size = 12
+text = "I-ROHM"
 vertical_alignment = 1
 
 [node name="PeriodOption" type="OptionButton" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer"]

@@ -1,5 +1,9 @@
 extends Node3D
 
+
+signal position_notepicker(pos: float)
+
+
 @export var line: int
 
 @onready var fx_spinner: AnimatedSprite3D = $FXSpinner
@@ -23,6 +27,7 @@ var peer_id: int
 func _ready() -> void:
 	set_process_input(true)
 	notepicker_position = notepicker_3d_pos()
+	position_notepicker.emit(notepicker_position.y)
 	
 	
 func set_peer_id(id_peer: int) -> void:
@@ -39,19 +44,19 @@ func _server_input(pos: Vector2, pressed: bool) -> void:
 	# Handle the input on the server side
 	print("Input received from client: ", pos, pressed)
 	# You can add server-side logic here
-
-
+	
+	
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		if event.pressed:
 			touch_position = event.position
+			var _r: Error = rpc_id(1, "_server_input", touch_position, true)
 			var touched_node: bool = get_touched_node(touch_position)
 			if touched_node:
 				is_pressed = true
 				is_collecting = true
 				fx_highlight.visible = true
 				# Synchronize with server
-				var _r: Error = rpc_id(peer_id, "_server_input", touch_position, true)
 		else:
 			is_pressed = false
 			is_swiping = false
@@ -59,8 +64,7 @@ func _input(event: InputEvent) -> void:
 			note_collect = null
 			fx_highlight.visible = false
 			# Synchronize with server
-			var _r: Error = rpc_id(peer_id, "_server_input", touch_position, false)
-				
+			var _r: Error = rpc_id(1, "_server_input", touch_position, false)
 	if event is InputEventScreenDrag:
 		touch_position = event.position
 		var touched_node: bool = get_touched_node(touch_position)
@@ -70,7 +74,6 @@ func _input(event: InputEvent) -> void:
 			is_collecting = true
 			fx_highlight.visible = true
 			# Synchronize with server
-			var _r: Error = rpc_id(peer_id, "_server_input", touch_position, true)
 		else:
 			is_swiping = false
 			is_pressed = false
@@ -78,13 +81,13 @@ func _input(event: InputEvent) -> void:
 			note_collect = null
 			fx_highlight.visible = false
 			# Synchronize with server
-			var _r: Error = rpc_id(peer_id, "_server_input", touch_position, false)
+			var _r: Error = rpc_id(1, "_server_input", touch_position, false)
 			
 			
 func get_touched_node(touch_pos: Vector2) -> bool:
 	var picker_x: float = notepicker_position.x
 	var picker_y: float = notepicker_position.y
-	
+
 	if touch_pos.x >= picker_x - 83.5 and touch_pos.x <= picker_x + 83.5 and touch_pos.y >= picker_y - 83.5 and touch_pos.y <= picker_y + 83.5:
 		return true
 	return false

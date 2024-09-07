@@ -94,7 +94,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-stretch_mode = 5
+stretch_mode = 6
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Panel/HBoxContainer"]
 custom_minimum_size = Vector2(2, 0)

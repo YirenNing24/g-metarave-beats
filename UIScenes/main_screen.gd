@@ -30,6 +30,7 @@ signal mutuals_button_pressed
 @onready var cursor_spark: GPUParticles2D = %CursorSpark
 #endregion
 
+
 #region Modals
 var profile_modal: Control = preload("res://Components/Popups/profile_modal.tscn").instantiate()
 var stats_modal: Control = preload("res://Components/Popups/stats_modal.tscn").instantiate()

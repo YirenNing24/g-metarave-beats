@@ -193,3 +193,5 @@ line = 4
 [node name="5" parent="." instance=ExtResource("8_81ipa")]
 transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.12181, 0.051, -1.78387)
 line = 5
+
+[connection signal="position_notepicker" from="1" to="." method="_on__position_notepicker"]

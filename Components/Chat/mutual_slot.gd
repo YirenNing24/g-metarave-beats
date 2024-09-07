@@ -18,6 +18,7 @@ func mutual_slot_data(mutual_data: Dictionary) -> void:
 	%RankLabel.text = mutual_data.playerStats.rank
 	BKMREngine.Profile.get_player_profile_pic(mutual_data.username)
 
+
 func _on_get_player_profile_pic_complete(profile_pics: Variant) -> void:
 		if typeof(profile_pics) != TYPE_ARRAY:
 			return

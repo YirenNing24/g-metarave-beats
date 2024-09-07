@@ -9,19 +9,19 @@ var peer: WebSocketMultiplayerPeer = WebSocketMultiplayerPeer.new()
 
 # Configuration variables
 #var host_ip: String = "localhost"
-const host_ip: String = "api.gmetarave.com"
-const beats_host_ip: String = "game.gmetarave.com"
-#const host_ip: String = "192.168.2.61"
-#const port: String = ":8085"
-const port: String = ""
-#const beats_port: String = ":8087"
-const beats_port: String = ""
+#const host_ip: String = "api.gmetarave.com"
+#const beats_host_ip: String = "game.gmetarave.com"
+const host_ip: String = "192.168.2.61"
+const port: String = ":8085"
+#const port: String = ""
+const beats_port: String = ":8087"
+#const beats_port: String = ""
 
 var google_server_client_id: String = "484949065971-ujoksdio9417hnvd5goaclrvlnsv6704.apps.googleusercontent.com"
-#var host: String = "http://" + host_ip + port
-var host: String = "http://" + host_ip
-#var beats_host: String = "ws://" + host_ip + beats_port + "/?token="
-var beats_host: String = "ws://" + beats_host_ip + "/?token="
+var host: String = "http://" + host_ip + port
+#var host: String = "http://" + host_ip
+var beats_host: String = "ws://" + host_ip + beats_port + "/?token="
+#var beats_host: String = "ws://" + beats_host_ip + "/?token="
 var session: bool = false
 
 var time_server: String
@@ -32,7 +32,6 @@ var game_connected: bool = false
 const BKMRUtils: Script = preload("res://BeatsKMREngine/utils/BKMRUtils.gd")
 const BKMRHashing: Script = preload("res://BeatsKMREngine/utils/BKMRHashing.gd")
 const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
-
 
 # Child nodes representing different modules
 @onready var Auth: Node = Node.new()
@@ -47,7 +46,6 @@ const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 @onready var Reward: Node = Node.new()
 @onready var Gacha: Node = Node.new()
 @onready var Notification: Node = Node.new()
-
 
 # Configuration dictionaries
 @onready var config: Dictionary = {}
@@ -113,7 +111,6 @@ func add_child_nodes() -> void:
 	add_child(Gacha)
 	add_child(Notification)
 	print("BKMR ready end timestamp: " + str(BKMRUtils.get_timestamp()))
-	
 	
 	
 func _process(_delta: float) -> void:

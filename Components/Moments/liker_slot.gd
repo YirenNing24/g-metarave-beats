@@ -5,13 +5,20 @@ func slot_data(profile_pic_data: Dictionary, origin: String = "") -> void:
 	if origin == "Profile":
 		%FollowUnfollowButton.visible = false
 	
-	if profile_pic_data.profilePicture != null:
+		if profile_pic_data.profilePicture != null:
+			var picture: String = profile_pic_data.profilePicture
+			%ProfilePic.texture = set_profile_picture(picture)
+		%PlayerName.text = profile_pic_data.username
+		%Level.text = str(profile_pic_data.playerStats.level)
+		%PlayerRank.text = profile_pic_data.playerStats.rank
+		
+	elif origin == "FanMoments":
+		print("gago")
+		%PlayerName.text = profile_pic_data.userName
+		#%Level.text = str(profile_pic_data.playerStats.level)
+		#%PlayerRank.text = profile_pic_data.playerStats.rank
 		var picture: String = profile_pic_data.profilePicture
 		%ProfilePic.texture = set_profile_picture(picture)
-		
-	%PlayerName.text = profile_pic_data.username
-	%Level.text = str(profile_pic_data.playerStats.level)
-	%PlayerRank.text = profile_pic_data.playerStats.rank
 	
 	
 func set_profile_picture(image_buffer_string: String) -> Texture:

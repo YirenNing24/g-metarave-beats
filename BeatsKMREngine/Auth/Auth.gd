@@ -140,9 +140,6 @@ func _on_ValidateSession_request_completed(_result: int, response_code: int, hea
 	# Check the status of the HTTP response
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	
-	# Free the request resources
-	if is_instance_valid(ValidateSession):
-		BKMREngine.free_request(wrValidateSession, ValidateSession)
 	# Handle the result based on the status check
 	if status_check:
 		# Parse the JSON body of the response
@@ -179,7 +176,7 @@ func _on_ValidateSession_request_completed(_result: int, response_code: int, hea
 		renew_access_token_timer()
 	else:
 		# Trigger the completion of the session check with an empty result in case of failure
-		complete_session_check({})
+		complete_session_check({ })
 #endregion
 
 
@@ -204,7 +201,6 @@ func register_player(username: String, password: String ) -> void:
 # Callback function triggered upon completion of the player registration request
 func _on_RegisterPlayer_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	BKMREngine.free_request(wrRegisterPlayer, RegisterPlayer)
 	var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
 	if status_check:
 		BKMRLogger.info("BKMREngine register player success")
@@ -299,7 +295,6 @@ func login_player(username: String, password: String) -> void:
 # Callback function triggered upon completion of the player login request
 func _on_LoginPlayer_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	BKMREngine.free_request(wrLoginPlayer, LoginPlayer)
 	if status_check:
 		# Parse the JSON body of the response
 		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
@@ -369,7 +364,6 @@ func google_login_player(token: String) -> Node:
 func _on_GoogleLoginPlayer_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status and free the request resources
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	BKMREngine.free_request(wrGoogleLoginPlayer, GoogleLoginPlayer)
 	# Process the response based on the status check
 
 	if status_check:
@@ -458,6 +452,7 @@ func remove_stored_session() -> bool:
 	return delete_success
 #endregion
 
+
 #region Util functions
 
 func renew_access_token_timer() -> void:
@@ -489,8 +484,6 @@ func request_new_access_token() -> void:
 func _on_RequestNewAccessToken_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the status of the HTTP response
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	# Free the request resources
-	BKMREngine.free_request(wrRenewToken, RenewToken)
 	# Handle the result based on the status check
 	if status_check:
 		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())

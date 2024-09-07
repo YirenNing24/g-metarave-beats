@@ -31,8 +31,12 @@ var peer_id: int
 
 func _ready() -> void:
 	connect_signals()
-	@warning_ignore("unsafe_call_argument")
-	MULTIPLAYER.load_song(SONG.map_selected.map_file, SONG.map_selected.audio_file)
+	
+	
+func _on_road_notepicker_position(picker_y_position: float) -> void:
+	var song_map: String = SONG.map_selected.map_file
+	var song_audio_file: String = SONG.map_selected.audio_file
+	MULTIPLAYER.load_song(song_map, song_audio_file, picker_y_position)
 	
 	
 func connect_signals() -> void:
@@ -58,19 +62,21 @@ func set_variables() -> void:
 	beatmap = load_beatmap()
 
 
-func _on_loading_start() -> void:
+func _on_loading_start(id_peer: int) -> void:
+	name = str(id_peer)
 	%LoadingScreen.visible = true
 
 
 func _on_loading_screen_loading_finished() -> void:
 	get_tree().paused = true
 	song_game_start()
-	MULTIPLAYER.loading_finished()
+	MULTIPLAYER.loading_finished(peer_id)
 	
 	
-func _on_server_game_started() -> void:
-	%LoadingScreen.visible = false
-	get_tree().paused = false
+func _on_server_game_started(id_peer: int) -> void:
+	if peer_id == id_peer:
+		%LoadingScreen.visible = false
+		get_tree().paused = false
 	
 	
 # Function to calculate parameters based on the loaded map.
@@ -98,6 +104,7 @@ func load_beatmap() -> Dictionary:
 		return result
 	else:
 		return {}
+
 
 # Function to set up the gameplay nodes (music and road).
 func setup_nodes() -> void:
