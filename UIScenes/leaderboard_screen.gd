@@ -45,7 +45,6 @@ func _process(_delta: float) -> void:
 		
 func connect_signals() -> void: 
 	BKMREngine.Leaderboard.get_classic_leaderboard_complete.connect(on_get_classic_leaderboard_complete)
-
 	for button: Button in get_tree().get_nodes_in_group("SongButtons"):
 		var _connect: int = button.pressed.connect(on_song_button_pressed.bind(button.get_parent().name))
 #endregion
@@ -170,7 +169,6 @@ func game_mode_classic_selected() -> void:
 	
 	
 func classic_mode_selected() -> void:
-	
 	if song_title == "":
 		return
 	clear_entries()
@@ -181,10 +179,10 @@ func classic_mode_selected() -> void:
 	period = period_option.get_item_text(selected_period)
 	
 	var song_name: String = song_title.replace(" ", "")
-	
+	var song_bg_name: String = song_title.replace(" ", "_")
 	
 	BKMREngine.Leaderboard.get_classic_leaderboard(song_name, song_difficulty, period)
-	animate_song_bg(song_name)
+	animate_song_bg(song_bg_name)
 	
 	
 func game_mode_versus_selected() -> void:
@@ -204,14 +202,16 @@ func set_personal_entry(leaderboard: Array) -> void:
 	
 func animate_song_bg(song_name: String) -> void:
 	var song_bg_texture_name: String = song_name.replace(" ", "_").to_lower() + "_bg.png"
-	var song_bg_texture: Texture = load("res://UITextures/BGTextures/Leaderboard" + song_bg_texture_name)
+	var song_bg_texture: Texture = load("res://UITextures/BGTextures/Leaderboard/" + song_bg_texture_name)
 	
 	var bg_texture_name: String = song_name.to_lower()
-	var bg_texture: Texture = load("res://UITextures/BGTextures/Leaderboard" + bg_texture_name + "_leaderboard_bg.png")
+	var bg_texture: Texture = load("res://UITextures/BGTextures/Leaderboard/" + bg_texture_name + "_leaderboard_bg.png")
 	
 	background_texture.texture = bg_texture 
 	song_bg.texture = song_bg_texture
 	%AnimationPlayer.play("SongBG")
+	%SongListContainer.visible = false
+	
 #endregion
 
 

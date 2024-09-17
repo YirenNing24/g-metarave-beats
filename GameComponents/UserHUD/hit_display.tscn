@@ -51,7 +51,6 @@ script = ExtResource("1_ekha0")
 [node name="ComboLabel" type="Label3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(-4.37114e-08, -0.948876, 0.315649, 0, 0.315649, 0.948876, -1, 4.14767e-08, -1.37975e-08, 0, 0.289277, 0)
-visible = false
 text = "COMBO"
 font = ExtResource("1_cciad")
 font_size = 140
@@ -59,7 +58,7 @@ font_size = 140
 [node name="ComboValueLabel" type="Label3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(-4.14716e-08, -0.94876, 0.315997, 1.38127e-08, 0.315997, 0.94876, -1, 4.37114e-08, 1.91068e-15, 0.658, 0.2, 0)
-visible = false
+text = "0"
 font = ExtResource("1_cciad")
 font_size = 140
 
@@ -94,4 +93,5 @@ sprite_frames = SubResource("SpriteFrames_lmt48")
 animation = &"HitLabel"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_l7t5s")

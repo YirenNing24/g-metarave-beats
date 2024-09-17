@@ -110,3 +110,13 @@ func hit_continued_feedback(note_accuracy: int, long_line: int) -> void:
 		if note_accuracy == 1 and is_collecting == true:
 			fx_spinner.visible = true
 			fx_spinner.play()
+
+
+@rpc
+func hit_feedback_short(note_accuracy: int, short_line: int) -> void:
+	hit_feedback(note_accuracy, short_line)
+	
+	
+@rpc
+func hit_feedback_long(note_accuracy: int, short_line: int) -> void:
+	hit_continued_feedback(note_accuracy, short_line)

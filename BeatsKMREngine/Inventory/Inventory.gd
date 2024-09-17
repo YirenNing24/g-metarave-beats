@@ -8,6 +8,8 @@ signal get_card_inventory_complete(card_inventory_data: Array)
 signal get_bag_inventory_complete(bag_inventory_data: Array)
 signal get_card_upgrade_inventory_complete(upgrade_inventory_data: Array)
 signal get_card_pack_inventory_complete(card_pack_inventory_data: Array)
+signal get_group_card_equipped_complete(card_equipped: Array)
+
 
 signal equip_item_complete(message: Dictionary)
 signal unequip_item_complete(message: Dictionary)
@@ -15,6 +17,9 @@ var host: String = BKMREngine.host
 
 var OpenCardInventory: HTTPRequest
 var wrOpenCardInventory: WeakRef
+
+var OpenGroupCardEquipped: HTTPRequest
+var wrOpenGroupCardEquipped: WeakRef
 
 var OpenCardUpgradeInventory: HTTPRequest
 var wrOpenCardUpgradeInventory: WeakRef
@@ -35,8 +40,9 @@ var wrUnequipItem: WeakRef
 var card_inventory: Dictionary
 var bag_inventory: Dictionary
 
+
 #region Card Inventory
-func open_card_inventory() -> Node:
+func open_card_inventory() -> void:
 	# Prepare an HTTP request for fetching private inbox data.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	OpenCardInventory = prepared_http_req.request
@@ -52,17 +58,15 @@ func open_card_inventory() -> Node:
 	var request_url: String = host + "/api/card/inventory/open"
 	
 	# Send a GET request to retrieve the private inbox data.
-	await BKMREngine.send_get_request(OpenCardInventory, request_url)
-	
-	# Return the current node for method chaining.
-	return self as Node
+	BKMREngine.send_get_request(OpenCardInventory, request_url)
+
+
 
 # Callback function to handle the completion of the private inbox data retrieval request.
 func _onOpenCardInventory_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check if the HTTP response indicates success.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	if is_instance_valid(OpenCardInventory):
-		BKMREngine.free_request(wrOpenCardInventory, OpenCardInventory)
+
 	if status_check:
 		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
 		if json_body.has("error"):
@@ -71,7 +75,36 @@ func _onOpenCardInventory_request_completed(_result: int, response_code: int, he
 			get_card_inventory_complete.emit(json_body)
 	else:
 		get_card_inventory_complete.emit({"error": "Unable to retrieve inventory"})
+
+
+func open_group_card_equipped(group_name: String) -> void:
+	# Prepare an HTTP request for fetching private inbox data.
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	OpenGroupCardEquipped = prepared_http_req.request
+	wrOpenGroupCardEquipped  = prepared_http_req.weakref
+	
+	var _cards: int = OpenGroupCardEquipped.request_completed.connect(_onOpenGroupCardEquipped_request_completed)
+	
+	var request_url: String = host + "/api/card/inventory/group-equipped" + group_name
+	BKMREngine.send_get_request(OpenGroupCardEquipped, request_url)
+
+
+func _onOpenGroupCardEquipped_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check if the HTTP response indicates success.
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	if status_check:
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body != null:
+			if json_body.has("error"):
+				BKMRLogger.info(json_body.error)
+			else:
+				get_group_card_equipped_complete.emit(json_body)
+		else:
+			get_group_card_equipped_complete.emit({"error": "Unable to retrieve inventory"})
+	else:
+		get_group_card_equipped_complete.emit({"error": "Unable to retrieve inventory"})
 #endregion
+
 
 func open_card_upgrade_inventory() -> void:
 	# Prepare an HTTP request for fetching private inbox data.
@@ -91,12 +124,12 @@ func open_card_upgrade_inventory() -> void:
 	# Send a GET request to retrieve the card upgrade items
 	BKMREngine.send_get_request(OpenCardUpgradeInventory, request_url)
 	
+	
 # Callback function to handle the completion of the private inbox data retrieval request.
 func _onOpenCardUpgradeInventory_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check if the HTTP response indicates success.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	if is_instance_valid(OpenCardUpgradeInventory):
-		BKMREngine.free_request(wrOpenCardUpgradeInventory, OpenCardUpgradeInventory)
+
 	if status_check:
 		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
 		if json_body.has("error"):
@@ -107,6 +140,7 @@ func _onOpenCardUpgradeInventory_request_completed(_result: int, response_code: 
 	else:
 		get_card_upgrade_inventory_complete.emit({"error": "Unable to retrieve inventory"})
 #endregion
+
 
 #region Bag Inventory
 func open_bag_inventory() -> Node:
@@ -200,6 +234,7 @@ func _onOpenCardPackInventory_request_completed(_result: int, response_code: int
 			
 #endregion
 
+
 #region Equip / Unequip Item
 func equip_item(equip_item_data: Array) -> void:
 	# Prepare an HTTP request for fetching private inbox data.
@@ -223,10 +258,6 @@ func _onEquipItem_request_completed(_result: int, response_code: int, headers: A
 	# Check if the HTTP response indicates success.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	
-	# Free the HTTP request resource if it is still valid.
-	if is_instance_valid(EquipItem):
-		BKMREngine.free_request(wrEquipItem, EquipItem)
-	
 	# If the HTTP response indicates success, parse the JSON response body.
 	if status_check:
 		# Parse the JSON response body.
@@ -241,6 +272,7 @@ func _onEquipItem_request_completed(_result: int, response_code: int, headers: A
 			equip_item_complete.emit({"error": "Unknown server error"})
 	else:
 		equip_item_complete.emit({"error": "Unknown server error"})
+
 
 func unequip_item(unequip_item_data: Array) -> void:
 	# Prepare an HTTP request for fetching private inbox data.
@@ -260,13 +292,10 @@ func unequip_item(unequip_item_data: Array) -> void:
 	# Send a GET request to retrieve the private inbox data.
 	await BKMREngine.send_post_request(UnequipItem, request_url, payload)
 
+
 func _onUnequipItem_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check if the HTTP response indicates success.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	
-	# Free the HTTP request resource if it is still valid.
-	if is_instance_valid(UnequipItem):
-		BKMREngine.free_request(wrUnequipItem, UnequipItem)
 	
 	# If the HTTP response indicates success, parse the JSON response body.
 	if status_check:

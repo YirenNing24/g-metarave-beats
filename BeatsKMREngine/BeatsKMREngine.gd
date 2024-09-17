@@ -9,19 +9,19 @@ var peer: WebSocketMultiplayerPeer = WebSocketMultiplayerPeer.new()
 
 # Configuration variables
 #var host_ip: String = "localhost"
-#const host_ip: String = "api.gmetarave.com"
-#const beats_host_ip: String = "game.gmetarave.com"
-const host_ip: String = "192.168.2.61"
-const port: String = ":8085"
+const host_ip: String = "api.gmetarave.com"
+const beats_host_ip: String = "game.gmetarave.com"
+#const host_ip: String = "192.168.2.61"
+#const port: String = ":8085"
 #const port: String = ""
-const beats_port: String = ":8087"
+#const beats_port: String = ":8087"
 #const beats_port: String = ""
 
 var google_server_client_id: String = "484949065971-ujoksdio9417hnvd5goaclrvlnsv6704.apps.googleusercontent.com"
-var host: String = "http://" + host_ip + port
-#var host: String = "http://" + host_ip
-var beats_host: String = "ws://" + host_ip + beats_port + "/?token="
-#var beats_host: String = "ws://" + beats_host_ip + "/?token="
+#var host: String = "http://" + host_ip + port
+var host: String = "http://" + host_ip
+#var beats_host: String = "ws://" + host_ip + beats_port + "/?token="
+var beats_host: String = "ws://" + beats_host_ip + "/?token="
 var session: bool = false
 
 var time_server: String
@@ -121,6 +121,7 @@ func beats_server_connect() -> void:
 	if game_connected == false:
 		var host_beats: String = beats_host + Auth.access_token
 		var result: Error = peer.create_client(host_beats)
+
 		multiplayer.multiplayer_peer = peer
 		if result != OK:
 			game_connected = false
@@ -131,6 +132,12 @@ func beats_server_connect() -> void:
 			game_connected = true
 			print("Connected successfully")
 
+
+
+func beats_server_peer_close() -> void:
+	peer.close()
+	
+	
 func get_server_time() -> void:
 	var _connect: int = get_tree().create_timer(5).timeout.connect(get_server_time)
 	if session == false:

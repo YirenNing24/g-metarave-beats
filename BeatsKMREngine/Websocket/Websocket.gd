@@ -20,12 +20,12 @@ signal server_time(server_time: Dictionary, latency: Dictionary)
 
 # Variables to configure the WebSocketClient
 var host: String = BKMREngine.host_ip
-var port: String = BKMREngine.port
+#var port: String = BKMREngine.port
 #var port: String = ""
-#var url: String = "ws://" + host + "/api/ws"
+var url: String = "ws://" + host + "/api/ws"
 #var url: String = "ws://" + host + port + "/api/ws"
 
-var url: String = "ws://" + "localhost" + port + "/api/ws"
+#var url: String = "ws://" + "localhost" + port + "/api/ws"
 
 var http_host: String = BKMREngine.host
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c0qeas3iwkcad"]
+[gd_scene load_steps=9 format=3 uid="uid://c0qeas3iwkcad"]
 
 [ext_resource type="PackedScene" uid="uid://cbhfcq0bjdlqy" path="res://Songs/Road/road.tscn" id="1_bdnqg"]
 [ext_resource type="Script" path="res://UIScenes/game_scene.gd" id="1_qchx2"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://j1ox362pqin7" path="res://GameComponents/UserHUD/userhud.tscn" id="4_5wd3j"]
 [ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="6_0o2hm"]
 [ext_resource type="PackedScene" uid="uid://dl25uiqgjpf8d" path="res://GameComponents/LoadingScreen/loading_screen.tscn" id="6_ce6x1"]
+[ext_resource type="PackedScene" uid="uid://o7bs4n3vreta" path="res://GameComponents/UserHUD/hit_display.tscn" id="7_2b871"]
 
 [sub_resource type="Environment" id="Environment_0fcn8"]
 background_energy_multiplier = 0.0
@@ -25,6 +26,7 @@ environment = SubResource("Environment_0fcn8")
 unique_name_in_owner = true
 transform = Transform3D(-4.37114e-08, -0.500574, 0.865694, -2.90337e-11, 0.865694, 0.500574, -1, 2.18557e-08, -3.78552e-08, 6.79541, 3.21904, 0)
 keep_aspect = 0
+current = true
 fov = 68.8
 near = 0.06
 
@@ -60,6 +62,9 @@ visible = false
 [node name="Sprite3D" type="Sprite3D" parent="Game"]
 transform = Transform3D(-7.0925e-08, -1.0038, -1.95764, -4.35855e-08, 1.95764, -1.0038, 2.2, 6.42281e-09, -8.29988e-08, -19.8414, -10.5111, 0)
 texture = ExtResource("6_0o2hm")
+
+[node name="HitDisplay" parent="Game" instance=ExtResource("7_2b871")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.330742, -0.0545545, 0)
 
 [connection signal="notepicker_position" from="Game/Road" to="Game" method="_on_road_notepicker_position"]
 [connection signal="song_finished" from="Game/Music" to="Game/CanvasLayer/UserHUD" method="_on_music_song_finished"]

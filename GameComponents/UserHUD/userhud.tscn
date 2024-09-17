@@ -6,10 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://74d22xpi5g4s" path="res://UITextures/Progress/player_exp_progress.png" id="3_3qn4g"]
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="5_6xcqj"]
 [ext_resource type="Texture2D" uid="uid://cxo48wpowo4oa" path="res://UITextures/Progress/base_momentum.png" id="5_w6njq"]
-[ext_resource type="Texture2D" uid="uid://dqvuj8xqovy43" path="res://UITextures/Progress/score_progress.png" id="5_wco1r"]
 [ext_resource type="Texture2D" uid="uid://cu2rldjgd6cuu" path="res://UITextures/Cards/hannah_no_doubt_genesis.png" id="6_hjbmm"]
 [ext_resource type="Texture2D" uid="uid://bo2cod3i2s70d" path="res://UITextures/Buttons/Skill/heal_skill_texture.png" id="6_qr71n"]
 [ext_resource type="Texture2D" uid="uid://b0e5yudkr5hi1" path="res://UITextures/Progress/momentum0.png" id="6_yr53h"]
+[ext_resource type="Texture2D" uid="uid://bl15da1eeo2o6" path="res://UITextures/Cards/esha_no_doubt_genesis.png" id="8_cpap7"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_uhf7o"]
 properties/0/path = NodePath(".:score")
@@ -141,38 +141,51 @@ nine_patch_stretch = true
 texture_under = ExtResource("5_w6njq")
 texture_progress = ExtResource("6_yr53h")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="HBoxContainer2" type="Control" parent="VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(300, 150)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer2"]
-visible = false
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("5_wco1r")
+offset_right = 120.0
+offset_bottom = 150.0
+texture = ExtResource("8_cpap7")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer2/TextureRect"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.196667
-anchor_top = 0.233333
-anchor_right = 0.876667
-anchor_bottom = 0.493333
-metadata/_edit_use_anchors_ = true
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer2"]
+z_index = -1
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+offset_left = 60.0
+offset_right = 180.0
+offset_bottom = 150.0
+texture = ExtResource("8_cpap7")
+expand_mode = 1
+stretch_mode = 4
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer2/TextureRect"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.293333
-anchor_top = 0.0733333
-anchor_right = 0.663333
-anchor_bottom = 0.226667
-theme_override_font_sizes/font_size = 16
-text = "WARMING UP!"
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer2"]
+z_index = -2
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+offset_left = 123.0
+offset_right = 243.0
+offset_bottom = 150.0
+texture = ExtResource("8_cpap7")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer2"]
+z_index = -3
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+offset_left = 178.0
+offset_right = 298.0
+offset_bottom = 150.0
+texture = ExtResource("8_cpap7")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(0, 300)

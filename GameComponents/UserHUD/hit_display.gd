@@ -7,8 +7,9 @@ var tween: Tween
 
 func _ready() -> void:
 	randomize()
-
-
+	%MultiplayerSynchronizer.set_multiplayer_authority(1)
+	
+	
 func _on_user_hud_hit_display_data(note_accuracy: int, line: int, combo_value: int) -> void:
 	if combo_value >= 1 and combo_label.visible == false:
 		combo_label.visible = true
@@ -19,8 +20,8 @@ func _on_user_hud_hit_display_data(note_accuracy: int, line: int, combo_value: i
 		
 	combo_value_label.text = str(combo_value)
 	animate_hit(note_accuracy, line)
-
-
+#
+#
 func animate_hit(accuracy: int, line: int) -> void:
 	var y_transform: float = randf_range(0.2, 0.5)
 	var hit_node: AnimatedSprite3D = get_node("Hit" + str(line))

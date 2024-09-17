@@ -33,9 +33,9 @@ signal view_profile_pressed(player_profile: Dictionary)
 @onready var chat_mutual_vbox: VBoxContainer =  %ChatMutualVbox
 
 # SERVER ENGINE VARIABLES
-var host: String = BKMREngine.host_ip
-var port: String = BKMREngine.port
-var url: String = "ws://" + host + port + "/api/chats/all"
+#var host: String = BKMREngine.host_ip
+#var port: String = BKMREngine.port
+#var url: String = "ws://" + host + port + "/api/chats/all"
 
 # STATE VARIABLES
 var current_room: String = "all"

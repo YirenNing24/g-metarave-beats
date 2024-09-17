@@ -19,7 +19,9 @@ var artist: String = SONG.artist
 var difficulty: String = SONG.difficulty
 var peer_id: int = PLAYER.peer_id
 
+
 func _ready() -> void:
+	BKMREngine.beats_server_peer_close()
 	BKMREngine.Score.get_classic_highscore_single.connect(_on_get_classic_highscore_single)
 	BKMREngine.Score.get_classic_high_score_single(peer_id)
 	
@@ -28,23 +30,8 @@ func _on_get_classic_highscore_single(score: Array) -> void:
 	if !score.is_empty():
 		var single_score: Dictionary = score[0]
 		display_score(single_score) 
-		#var classic_score_stats: Dictionary = {
-			#"difficulty": "NORMAL",
-			#"score": score,
-			#"combo": total_combo,
-			#"maxCombo": max_combo,
-			#"accuracy": accuracy_rate,
-			#"finished": is_finished,
-			#"songName": "SONG",
-			#"artist": artist,
-			#"perfect": perfect,
-			#"veryGood": very_good,
-			#"good": good,
-			#"bad": bad,
-			#"miss": miss,
-			#"username": get_parent().get_parent().username,
-			#"peerId": peer_id
-	#}
+
+
 func display_score(single_score: Dictionary) -> void:
 	score_label.text = format_scores(str(single_score["score"]))
 	combo_label.text = format_scores(str(single_score["combo"]))

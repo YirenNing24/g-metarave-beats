@@ -133,6 +133,7 @@ func _on_yes_button_pressed(item_data: Dictionary, item_type: String) -> void:
 		"CardPack":
 			buy_card_pack(item_data)
 		
+		
 func buy_card(item_data: Dictionary) -> void:
 	var listingId: int = item_data.listingId
 	BKMREngine.Store.buy_card(item_data.uri, listingId)

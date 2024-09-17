@@ -40,7 +40,7 @@ var song_length: float
 var tween: Tween
 var boost_tween: Tween
 
-@export var momentum_to_string: String
+@export var momentum_to_string: String = ""
 
 
 func _ready() -> void:
@@ -51,7 +51,18 @@ func _ready() -> void:
 	
 func connect_signals() -> void:
 	var _1: int = MULTIPLAYER.classic_game_over_completed.connect(_on_classic_game_over_completed)
+	#BKMREngine.Inventory.get_card_inventory_complete.connect(equipment_slot_open)
 	
+#func equipment_slot_open(inventory_data: Array) -> void:
+	#for cardslots: TextureRect in get_tree().get_nodes_in_group('CardSlot'):
+		#cardslots.equipped_card_pressed.connect(_on_equipped_card_pressed)
+		#cardslots.slot_data()
+		#
+	#for card_data: Dictionary in inventory_data[1]:
+		#var uri: String = card_data.keys()[0]
+		#match card_data[uri].group:
+			#"X:IN":
+				#x_in_equipped(uri, card_data)
 			
 func _process(_delta: float) -> void:
 	if combo > max_combo:

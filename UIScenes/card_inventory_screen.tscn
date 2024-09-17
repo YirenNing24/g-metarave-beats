@@ -295,6 +295,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("8_w2224")
 expand_mode = 1
+stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
 [node name="Button" type="Button" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Esha"]
@@ -334,6 +335,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("8_w2224")
 expand_mode = 1
+stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
 [node name="Button" type="Button" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nizz"]
@@ -373,6 +375,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("8_w2224")
 expand_mode = 1
+stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
 [node name="Button" type="Button" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nova"]
@@ -457,6 +460,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("8_w2224")
 expand_mode = 1
+stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
 [node name="Button" type="Button" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Hannah"]
@@ -496,6 +500,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("8_w2224")
 expand_mode = 1
+stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
 [node name="Button" type="Button" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Aria"]

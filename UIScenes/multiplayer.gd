@@ -41,10 +41,10 @@ func classic_game_over() -> void:
 
 # Remote procedure call to send beatmap and audio file information to the server.
 @rpc
-func send_beatmap_info_to_server(_token: String, _beatmap: String) -> void:
+func send_beatmap_info_to_server(_token: String, _beatmap: String, _audio_file: String, _picker_y_position: float) -> void:
 	pass
-
-
+	
+	
 # Remote procedure call to start the game.
 @rpc
 func start_game() -> void:
