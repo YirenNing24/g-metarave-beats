@@ -105,9 +105,7 @@ func _onViewProfile_request_completed(_result: int, response_code: int, headers:
 	# Check the HTTP response status.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	
-	if is_instance_valid(ViewProfile):
-		BKMREngine.free_request(wrViewProfile, ViewProfile)
-	
+
 	if status_check:
 		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
 		if json_body != null:
@@ -145,10 +143,6 @@ func follow(to_follow: String) -> void:
 func _onFollow_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	
-	# Free the request resources if the HTTP response is valid.
-	if is_instance_valid(Follow):
-		BKMREngine.free_request(wrFollow, Follow)
 	
 	# Process the response body if the HTTP status check is successful.
 	if status_check:
@@ -189,10 +183,6 @@ func _onUnfollow_request_completed(_result: int, response_code: int, headers: Ar
 	# Check the HTTP response status.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	
-	# Free the request resources if the request instance is valid.
-	if is_instance_valid(Unfollow):
-		BKMREngine.free_request(wrUnfollow, Unfollow)
-	
 	# Process the response if the status check is successful.
 	if status_check:
 		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
@@ -230,10 +220,6 @@ func get_mutual() -> void:
 func _onGetMutual_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	
-	# Free resources associated with the HTTP request if valid.
-	if is_instance_valid(Mutual):
-		BKMREngine.free_request(wrMutual, Mutual)
 	
 	# Process the response data if the status check is successful.
 	if status_check:

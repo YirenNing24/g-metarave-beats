@@ -223,7 +223,7 @@ func on_get_classic_leaderboard_complete(weekly_lederboard: Array) -> void:
 		entry_leaderboard.name = entry.username
 		
 		entry_leaderboard.get_node("Panel/HBoxContainer/VBoxContainer/Rank").text = rank
-		entry_leaderboard.get_node("Panel/HBoxContainer/HBoxContainer/PlayerName").text = entry.username
+		entry_leaderboard.get_node("Panel/HBoxContainer/HBoxContainer/HBoxContainer/PlayerName").text = entry.username
 		entry_leaderboard.get_node("Panel/HBoxContainer/VBoxContainer3/Score").text = str(entry.score)
 		leaderboard_entry_container.add_child(entry_leaderboard)
 	set_personal_entry(weekly_lederboard)

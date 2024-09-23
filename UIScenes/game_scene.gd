@@ -63,6 +63,8 @@ func set_variables() -> void:
 
 
 func _on_loading_start(id_peer: int) -> void:
+	if name != "Game":
+		return
 	name = str(id_peer)
 	%LoadingScreen.visible = true
 

@@ -21,15 +21,16 @@ var peer_id: int = PLAYER.peer_id
 
 
 func _ready() -> void:
-	BKMREngine.beats_server_peer_close()
-	BKMREngine.Score.get_classic_highscore_single.connect(_on_get_classic_highscore_single)
 	BKMREngine.Score.get_classic_high_score_single(peer_id)
+	BKMREngine.Score.get_classic_highscore_single.connect(_on_get_classic_highscore_single)
 	
-	
+
 func _on_get_classic_highscore_single(score: Array) -> void:
 	if !score.is_empty():
 		var single_score: Dictionary = score[0]
 		display_score(single_score) 
+	else:
+		BKMREngine.Score.get_classic_high_score_single(peer_id)
 
 
 func display_score(single_score: Dictionary) -> void:
@@ -49,19 +50,8 @@ func display_score(single_score: Dictionary) -> void:
 	good_label.text = format_scores(str(single_score["good"]))
 	bad_label.text = format_scores(str(single_score["bad"]))
 	miss_label.text = format_scores(str(single_score["miss"]))
-
 	
-#func is_highscore() -> bool:
-	#if BKMREngine.Score.classic_scores.is_empty():
-		#return true
-#
-	#for scores: Dictionary in BKMREngine.Score.classic_scores:
-		#if scores.scoreStats.finalStats.songName == song_name:
-			#if final_stats.score > scores.scoreStats.finalStats.score:
-				#return true
-			#else:
-				#return false
-	#return true 
+	BKMREngine.beats_server_peer_close()
 
 
 func format_scores(value: String) -> String:

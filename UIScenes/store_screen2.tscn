@@ -286,7 +286,6 @@ vertical_alignment = 1
 
 [node name="CardsButton" type="TextureButton" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer"]
 auto_translate_mode = 1
-visible = false
 self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
 custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
