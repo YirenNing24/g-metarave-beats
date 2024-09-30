@@ -26,8 +26,8 @@ var start_pos_in_sec: float
 var score: int = 0
 var combo: int = 0
 
-var peer_id: int
-
+var peer_id: int = 0
+var has_loaded: bool = false
 
 func _ready() -> void:
 	connect_signals()
@@ -50,21 +50,23 @@ func song_game_start() -> void:
 	calculate_params()
 	setup_nodes()
 	
-
+	
 func _on_player_peer_id_received(id: int) -> void:
 	peer_id = id
 	PLAYER.peer_id = id
 	name = str(id)
+	road._on_game_new_peer_id(id)
 	
-
+	
 func set_variables() -> void:
 	beatmap_file = SONG.map_selected.map_file
 	beatmap = load_beatmap()
 
 
 func _on_loading_start(id_peer: int) -> void:
-	if name != "Game":
+	if has_loaded:
 		return
+	has_loaded = true
 	name = str(id_peer)
 	%LoadingScreen.visible = true
 
@@ -106,8 +108,8 @@ func load_beatmap() -> Dictionary:
 		return result
 	else:
 		return {}
-
-
+	
+	
 # Function to set up the gameplay nodes (music and road).
 func setup_nodes() -> void:
 	road.setup(self)

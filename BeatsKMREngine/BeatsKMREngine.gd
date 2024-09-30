@@ -9,19 +9,19 @@ var peer: WebSocketMultiplayerPeer = WebSocketMultiplayerPeer.new()
 
 # Configuration variables
 #var host_ip: String = "localhost"
-const host_ip: String = "api.gmetarave.com"
-const beats_host_ip: String = "game.gmetarave.com"
-#const host_ip: String = "192.168.2.61"
-#const port: String = ":8085"
-const port: String = ""
-#const beats_port: String = ":8087"
+#const host_ip: String = "api.gmetarave.com"
+#const beats_host_ip: String = "game.gmetarave.com"
+const host_ip: String = "192.168.2.61"
+const port: String = ":8085"
+#const port: String = ""
+const beats_port: String = ":8087"
 #const beats_port: String = ""
 
 var google_server_client_id: String = "484949065971-ujoksdio9417hnvd5goaclrvlnsv6704.apps.googleusercontent.com"
 var host: String = "http://" + host_ip + port
 #var host: String = "http://" + host_ip
-#var beats_host: String = "ws://" + host_ip + beats_port + "/?token="
-var beats_host: String = "ws://" + beats_host_ip + "/?token="
+var beats_host: String = "ws://" + host_ip + beats_port + "/?token="
+#var beats_host: String = "ws://" + beats_host_ip + "/?token="
 var session: bool = false
 
 var time_server: String
@@ -183,6 +183,7 @@ func send_get_request(http_node: HTTPRequest, request_url: String) -> void:
 	BKMRLogger.debug("headers: " + str(headers))
 	var _get_request_send: Error = http_node.request(request_url, headers, HTTPClient.METHOD_GET) 
 	
+	
 # Sends a POST request using the provided HTTPRequest object to the specified URL with the given payload.
 func send_post_request(http_node: HTTPRequest, request_url: String, payload: Variant) -> void:
 	var headers: Array = [
@@ -203,6 +204,7 @@ func send_post_request(http_node: HTTPRequest, request_url: String, payload: Var
 	BKMRLogger.debug("query: " + str(query))
 	var _request_post_send: Error = http_node.request(request_url, headers, HTTPClient.METHOD_POST, query)
 
+
 func send_login_request(http_node: HTTPRequest, request_url: String, payload: Dictionary) -> void:
 	var headers: Array = [
 		"content-Type: application/json",
@@ -221,11 +223,13 @@ func send_login_request(http_node: HTTPRequest, request_url: String, payload: Di
 	BKMRLogger.debug("query: " + str(query))
 	var _request_post_send: Error = http_node.request(request_url, headers, HTTPClient.METHOD_POST, query)
 
+
 # Adds JWT token headers to the provided array of headers.
 func add_jwt_token_headers(headers: Array = []) -> Array:
 	if Auth.access_token != null:
 		headers.append("Authorization: Bearer " + Auth.access_token)
 	return headers as Array
+	
 	
 # Adds JWT token headers for LOGIN and AUTO_LOGIN.
 func add_jwt_refresh_token_headers(headers: Array = []) -> Array:
@@ -233,10 +237,10 @@ func add_jwt_refresh_token_headers(headers: Array = []) -> Array:
 		headers.append("Authorization: Bearer " + Auth.refresh_token)
 	return headers as Array
 
+
 # Checks if a specified string is present in the given URL.
 func check_string_in_url(test_string: String, url: String) -> bool:
 	return test_string in url
-
 
 
 # Builds a result dictionary based on the response body.
@@ -251,6 +255,7 @@ func build_result(body: Dictionary) -> Dictionary:
 		"success": success,
 		"error": error
 	}
+
 
 # Checks if the authentication module is ready.
 func check_auth_ready() -> void:

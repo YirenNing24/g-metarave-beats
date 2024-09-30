@@ -7,6 +7,8 @@ signal server_game_started  # Emitted when the server has started the game.
 signal classic_game_over_completed()  # Emitted when the classic game over process is completed.
 
 
+var classic_score_stats: Dictionary
+
 # Sends the beatmap and audio file information to the server.
 func load_song(beatmap: String, audio_file: String, picker_y_position: float) -> void:
 	send_beatmap_info_to_server.rpc_id(1, BKMREngine.Auth.access_token, beatmap, audio_file, picker_y_position)
@@ -35,7 +37,8 @@ func start_loading(peer_id: int) -> void:
 	
 # Remote procedure call to signal that the classic game over process is completed.
 @rpc
-func classic_game_over() -> void:
+func classic_game_over(score_stats: Dictionary) -> void:
+	classic_score_stats = score_stats
 	classic_game_over_completed.emit()
 
 

@@ -30,8 +30,8 @@ func _ready() -> void:
 	position_notepicker.emit(notepicker_position.y)
 	
 	
-func set_peer_id(id_peer: int) -> void:
-	set_multiplayer_authority(id_peer)
+func set_peer_id(_id_peer: int) -> void:
+	set_multiplayer_authority(1)
 
 
 func _process(_delta: float) -> void:

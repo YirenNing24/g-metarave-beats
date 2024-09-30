@@ -7,7 +7,7 @@ var tween: Tween
 
 func _ready() -> void:
 	randomize()
-	%MultiplayerSynchronizer.set_multiplayer_authority(1)
+	$MultiplayerSynchronizer.set_multiplayer_authority(1)
 	
 	
 func _on_user_hud_hit_display_data(note_accuracy: int, line: int, combo_value: int) -> void:

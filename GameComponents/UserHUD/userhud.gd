@@ -64,43 +64,6 @@ func connect_signals() -> void:
 			#"X:IN":
 				#x_in_equipped(uri, card_data)
 			
-func _process(_delta: float) -> void:
-	if combo > max_combo:
-		max_combo = combo
-	calculate_accuracy_score()
-	update_score_label()
-	
-	
-#A function to update the score label
-func update_score_label() -> void:
-	score_label.text = format_number(score)
-
-
-func reset() -> void:
-	score = 0
-	combo = 0
-	accuracy_rate = 0
-	perfect = 0
-	very_good = 0
-	good = 0
-	bad = 0
-	miss = 0
-	final_stats = {
-		"score" = score, 
-		"combo" = max_combo,
-		"accuracy" = accuracy_rate
-		}
-
-
-func calculate_accuracy_score() -> void:
-	var total_notes: int = perfect + very_good + good + bad + miss
-	if total_notes > 0:
-		accuracy_rate = (float(200 * bad) + (400 * good) + (800 * very_good) + (1200 * perfect)) / float(1200 * (total_notes))
-		accuracy_label = "%.2f" %(accuracy_rate * 100)
-
-
-func add_score(_accuracy: int, _line: int) -> void:
-	score = round(score + (score_accuracy +(score_accuracy * combo / 25)))
 
 
 func hit_continued_feedback(note_accuracy: int, line: int ) -> void:
@@ -124,62 +87,6 @@ func set_boost_multiplier() -> void:
 		boost_multiplier = 4
 	
 	
-#func hit_feedback(note_accuracy: int, line: int) -> void:
-	#health = clamp(health, 0, 100)
-	#match note_accuracy:
-		#1:
-			#score_accuracy = 1200 * boost_multiplier
-			#combo += 1
-			#total_combo += 1
-			#perfect += 1
-			#health += 3
-			#animate_health()
-			#boost_feedback(false)
-			#hit_display_data.emit(note_accuracy, line, combo)
-		#2:
-			#score_accuracy = 800  * boost_multiplier
-			#combo += 1
-			#total_combo += 1
-			#very_good += 1
-			#health += 2
-			#animate_health()
-		#3:
-			#score_accuracy = 400
-			#combo += 1
-			#total_combo += 1
-			#good += 1
-			#health += 1
-			#animate_health()
-			#hit_display_data.emit(note_accuracy, line, combo)
-		#4:
-			#score_accuracy = 200
-			#bad += 1
-			#animate_health()
-			#hit_display_data.emit(note_accuracy, line, combo)
-		#5:
-			#score_accuracy = 0
-			#combo = 0
-			#miss += 1
-			#health_damage()
-			#animate_health()
-			#set_boost(true)
-			#hit_display_data.emit(note_accuracy, line, combo)
-
-
-func health_damage() -> void:
-	health -= 10
-
-
-func animate_health() -> void:
-	tween = get_tree().create_tween()
-	var _health_tween: PropertyTweener = tween.tween_property(
-		health_bar, 
-		"value", 
-		health, 0.1).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_LINEAR )
-	if health <= 0:
-		_on_classic_game_over_completed()
-
-
 func boost_feedback(is_swipe_note: bool = false) -> void:
 	current_momentum = clamp(current_momentum, 0, 50)
 	# Increase momentum based on whether it's a swipe note
@@ -236,8 +143,8 @@ func _on_road_song_finished() -> void:
 
 func _on_music_song_finished() -> void:
 	_on_classic_game_over_completed()
-
-
+	
+	
 func _on_classic_game_over_completed() -> void:
 	var _load_scene: bool = await LOADER.load_scene(self, "res://UIScenes/game_over.tscn")
 	LOADER.next_texture = preload("res://UITextures/BGTextures/game_over_bg.png")
