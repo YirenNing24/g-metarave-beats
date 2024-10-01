@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://cjx2qu2kdc3p2"]
+[gd_scene load_steps=74 format=3 uid="uid://cjx2qu2kdc3p2"]
 
 [ext_resource type="Script" path="res://GameComponents/NotePicker/notepicker.gd" id="1_nn2og"]
 [ext_resource type="Texture2D" uid="uid://dqt5hoxr6n6le" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_01.png" id="2_1b715"]
@@ -42,6 +42,16 @@
 [ext_resource type="Texture2D" uid="uid://bik3qopg23ibt" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_39.png" id="40_r3kns"]
 [ext_resource type="Texture2D" uid="uid://c8n122sbfgb8x" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_40.png" id="41_6irsw"]
 [ext_resource type="Texture2D" uid="uid://b8060k6h0qlhd" path="res://UITextures/GameTextures/particles/spotlight_8.png" id="42_mc8og"]
+[ext_resource type="Texture2D" uid="uid://boak88pcqjnrs" path="res://UITextures/GameTextures/pillar/11.png" id="43_qqmia"]
+[ext_resource type="Texture2D" uid="uid://dkip1demistsc" path="res://UITextures/GameTextures/pillar/12.png" id="44_1q3c7"]
+[ext_resource type="Texture2D" uid="uid://be3tc5cmhi2ks" path="res://UITextures/GameTextures/pillar/13.png" id="45_4u6y0"]
+[ext_resource type="Texture2D" uid="uid://b6lk6rbjpkx1q" path="res://UITextures/GameTextures/pillar/14.png" id="46_k2rf2"]
+[ext_resource type="Texture2D" uid="uid://6esnbij25vie" path="res://UITextures/GameTextures/pillar/15.png" id="47_ph1kq"]
+[ext_resource type="Texture2D" uid="uid://dggummdy4v5dn" path="res://UITextures/GameTextures/pillar/16.png" id="48_i7bda"]
+[ext_resource type="Texture2D" uid="uid://b2vk4vkminsg1" path="res://UITextures/GameTextures/pillar/17.png" id="49_k3j5l"]
+[ext_resource type="Texture2D" uid="uid://dbd08u0rbnnbc" path="res://UITextures/GameTextures/pillar/18.png" id="50_ji1q4"]
+[ext_resource type="Texture2D" uid="uid://c4abhbvr05yvi" path="res://UITextures/GameTextures/pillar/19.png" id="51_l2mxu"]
+[ext_resource type="Texture2D" uid="uid://cd23iwv4nd14k" path="res://UITextures/GameTextures/pillar/20.png" id="52_vejoj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8tmit"]
 size = Vector3(0.12, 0.5, 1)
@@ -257,80 +267,106 @@ turbulence_noise_strength = 5.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_uu6di"]
 
-[sub_resource type="Shader" id="Shader_2hf65"]
-code = "// This is a 3D shader
-shader_type spatial;
-// Pure light, no default shadows and shades
-render_mode blend_add, unshaded;
-
-// Make color selectable
-uniform vec4 albedo : source_color;
-
-// Effects configuration
-uniform float brightness: hint_range(0.0, 10.0) = 1.0;
-uniform float small_lines: hint_range(0.0, 1.0) = 1.0;
-uniform float medium_lines: hint_range(0.0, 1.0) = 1.0;
-uniform float big_lines: hint_range(0.0, 1.0) = 1.0;
-uniform float horizontal_fade: hint_range(0.001, 1.0) = 1.0;
-uniform float vertical_fade: hint_range(0.001, 10.0) = 2.0;
-uniform float animation_speed: hint_range(0.01, 5.0) = 1.0;
-
-// Simple cosine wave, moving horizontaly over time
-float animate_cos(float phase, float speed) {
- return pow(0.5 * cos(phase * TAU + TIME * speed * animation_speed) + 0.5, 2.0);
-}
-
-void vertex() {
- // Make it always face camera direction, copied from Godot source code
- // Code imitted, see original on github
-}
-
-void fragment() {
- // Apply user-selected color and transparency 
- ALBEDO = albedo.rgb;
- ALPHA = albedo.a;
- 
- // Move point (0, 0) to quad center
- vec2 centered_UV = UV * 2.0 - 1.0;
-
- // This is where the \"magic\" happens
- float vertical_lines = 0.0;
- vertical_lines += animate_cos(centered_UV.x * 0.9, -2.1) * big_lines;
- vertical_lines += animate_cos(centered_UV.x * 1.9, -1.1) * medium_lines;
- vertical_lines += animate_cos(centered_UV.x * 2.9, 3.1) * small_lines;
- vertical_lines *= brightness;
-
- // Apply lines if there are any, keep solid color otherwise
- // This is done for demo purposes only, to make components 
- // Of the effect visible
- if (small_lines + medium_lines + big_lines > 0.01) {
-  ALPHA *= vertical_lines;
- }
-
- // Fade out left and right edges
- ALPHA *= pow(cos(centered_UV.x * PI) * 0.5 + 0.5, horizontal_fade);
-
- // Fade out top and bottom
- ALPHA *= pow(1.0 - abs(centered_UV.y), vertical_fade);
- 
- // We implement fading differently for vertical and horizontal, 
- // just to illustrate the idea that
- // different curves can achieve very similar effects
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gwml7"]
-render_priority = 0
-shader = SubResource("Shader_2hf65")
-shader_parameter/albedo = Color(0.384314, 0.882353, 1, 0.219608)
-shader_parameter/brightness = 1.0
-shader_parameter/small_lines = 1.0
-shader_parameter/medium_lines = 1.0
-shader_parameter/big_lines = 0.188
-shader_parameter/horizontal_fade = 1.0
-shader_parameter/vertical_fade = 2.0
-shader_parameter/animation_speed = 1.0
-
-[sub_resource type="QuadMesh" id="QuadMesh_23non"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_dscma"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_qqmia")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_1q3c7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_4u6y0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_k2rf2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_ph1kq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_i7bda")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_k3j5l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_ji1q4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_l2mxu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_vejoj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_qqmia")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_1q3c7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_4u6y0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_k2rf2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_ph1kq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_i7bda")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_k3j5l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_ji1q4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_l2mxu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_vejoj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_qqmia")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_1q3c7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_4u6y0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_k2rf2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_ph1kq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_i7bda")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_k3j5l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_ji1q4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_l2mxu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_vejoj")
+}],
+"loop": false,
+"name": &"default",
+"speed": 60.0
+}]
 
 [sub_resource type="Shader" id="Shader_g4ljg"]
 code = "/*
@@ -560,12 +596,10 @@ trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_pegjh")
 draw_pass_1 = SubResource("QuadMesh_uu6di")
 
-[node name="FXLightPillar" type="MeshInstance3D" parent="."]
+[node name="FXLightPillar" type="AnimatedSprite3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(-1.74846e-07, 0, 1, 0, 8, 0, -4, 0, -4.37114e-08, 0.214922, 1.13402, 0)
-visible = false
-material_override = SubResource("ShaderMaterial_gwml7")
-mesh = SubResource("QuadMesh_23non")
+transform = Transform3D(-1.74846e-07, 0, 1, 0, 8, 0, -4, 0, -4.37114e-08, 0.214922, -0.705245, 0)
+sprite_frames = SubResource("SpriteFrames_dscma")
 
 [node name="FXLightning" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
@@ -573,3 +607,5 @@ transform = Transform3D(1.08415e-13, -3.49691e-07, 1, -56.7412, -3.49691e-07, 0,
 visible = false
 material_override = SubResource("ShaderMaterial_phmhr")
 mesh = SubResource("QuadMesh_vtpg0")
+
+[connection signal="animation_finished" from="FXLightPillar" to="." method="_on_fx_light_pillar_animation_finished"]

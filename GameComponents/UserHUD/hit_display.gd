@@ -3,6 +3,12 @@ extends Node3D
 @onready var combo_label: Label3D = %ComboLabel
 @onready var combo_value_label: Label3D = %ComboValueLabel
 
+@onready var combo_label_value: String = combo_label.text:
+	set(value):
+		combo_label_value = value
+		combo_value(value)  # Call your combo_value function if needed
+		combo_label.text = value  # Update the label's text
+
 var tween: Tween
 
 func _ready() -> void:
@@ -10,11 +16,11 @@ func _ready() -> void:
 	$MultiplayerSynchronizer.set_multiplayer_authority(1)
 	
 	
-func _on_user_hud_hit_display_data(note_accuracy: int, line: int, combo_value: int) -> void:
-	if combo_value >= 1 and combo_label.visible == false:
+func _on_user_hud_hit_display_data(note_accuracy: int, line: int, combo_values: int) -> void:
+	if combo_values >= 1 and combo_label.visible == false:
 		combo_label.visible = true
 		combo_value_label.visible = true
-	elif combo_value < 1:
+	elif combo_values < 1:
 		combo_label.visible = false
 		combo_value_label.visible = false
 		
@@ -36,3 +42,8 @@ func animate_hit(accuracy: int, line: int) -> void:
 	await tween.finished
 	
 	hit_node.frame = 0
+
+
+func combo_value(new_value: String) -> void:
+	for picker: Node3D in get_tree().get_nodes_in_group("Picker"):
+		picker.combo_value(new_value)

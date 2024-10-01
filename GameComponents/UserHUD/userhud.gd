@@ -2,6 +2,7 @@ extends Control
 
 signal hit_display_data(note_accuracy: int, line: int, combo_value: int)
 
+
 @onready var health_bar: TextureProgressBar = %HealthBar
 
 @onready var boost_progress_bar: TextureProgressBar = %BoostProgressBar
@@ -15,6 +16,8 @@ signal hit_display_data(note_accuracy: int, line: int, combo_value: int)
 
 @export var total_combo: int = 0
 @export var combo: int = 0
+
+				
 @export var max_combo: int = 0
 
 @export var accuracy_rate: float = 0
@@ -49,6 +52,9 @@ func _ready() -> void:
 	connect_signals()
 	
 	
+	
+	
+	
 func connect_signals() -> void:
 	var _1: int = MULTIPLAYER.classic_game_over_completed.connect(_on_classic_game_over_completed)
 	#BKMREngine.Inventory.get_card_inventory_complete.connect(equipment_slot_open)
@@ -64,6 +70,10 @@ func connect_signals() -> void:
 			#"X:IN":
 				#x_in_equipped(uri, card_data)
 			
+
+
+
+	
 
 
 func hit_continued_feedback(note_accuracy: int, line: int ) -> void:
