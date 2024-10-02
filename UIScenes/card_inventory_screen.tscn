@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://gmllsb3bdm2u"]
+[gd_scene load_steps=35 format=3 uid="uid://gmllsb3bdm2u"]
 
 [ext_resource type="Script" path="res://UIScenes/card_inventory_screen.gd" id="1_2vffs"]
 [ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="2_poddd"]
@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://ur5y4vq646w0" path="res://Components/Inventory/card_inventory_slot.tscn" id="8_ckb32"]
 [ext_resource type="Texture2D" uid="uid://cvbjb7aump7p3" path="res://UITextures/CardUpgrades/upgrade_image.png" id="8_w2224"]
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="10_qxlqx"]
-[ext_resource type="Texture2D" uid="uid://bkn4jxedwsf2s" path="res://UITextures/Cards/aria_no_doubt_genesis.png" id="12_70viq"]
 [ext_resource type="FontFile" uid="uid://cfpnum8trj6m7" path="res://UITextures/Fonts/HankenGrotesk-SemiBold.ttf" id="14_g7lp4"]
 [ext_resource type="Texture2D" uid="uid://bhjbga7uh5w8m" path="res://UITextures/GroupLogo/x_in_logo.png" id="15_lx753"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="16_7ynqb"]
@@ -510,7 +509,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("12_70viq")
+texture = ExtResource("8_w2224")
 expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
