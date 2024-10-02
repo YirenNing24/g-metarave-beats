@@ -100,12 +100,11 @@ func notepicker_3d_pos() -> Vector2:
 	return picker_position
 	
 	
-func hit_feedback(note_accuracy: int, short_line: int) -> void:
+func hit_feedback(_note_accuracy: int, short_line: int) -> void:
 	if line == short_line:
 		# Check if note_accuracy is neither 4-bad nor 5-miss
-		if note_accuracy != 4 and note_accuracy != 5:
-			if combo <= 20:
-				emit_spark()
+		if combo <= 20:
+			emit_spark()
 		if combo % 10 == 0:
 			emit_light_pillar()
 	
@@ -114,11 +113,10 @@ func combo_value(value: String ) -> void:
 	combo = value.to_int()
 	
 	
-func hit_continued_feedback(note_accuracy: int, long_line: int) -> void:
+func hit_continued_feedback(_note_accuracy: int, long_line: int) -> void:
 	if line == long_line:
-		if note_accuracy == 1 and is_collecting == true:
-			fx_spinner.visible = true
-			fx_spinner.play()
+		fx_spinner.visible = true
+		fx_spinner.play()
 	
 	
 func emit_spark() -> void:

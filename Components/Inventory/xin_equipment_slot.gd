@@ -5,9 +5,9 @@ signal equipped_card_pressed(card_data: Dictionary)
 
 
 @onready var button: Button = get_parent().get_node("Button")
-@onready var skill_icon1: TextureRect = %XinSkillIcon
-@onready var skill_icon2: TextureRect = %XinSkillIcon2
-@onready var skill_icon3: TextureRect = %XinSkillIcon3
+#@onready var skill_icon1: TextureRect = %XinSkillIcon
+#@onready var skill_icon2: TextureRect = %XinSkillIcon2
+#@onready var skill_icon3: TextureRect = %XinSkillIcon3
 
 var cards_data: Dictionary = {}
 var unequip_card_data: Dictionary
@@ -75,7 +75,9 @@ func slot_texture_set() -> void:
 		card_name = card_name.replace(" ", "_").to_lower()
 		var card_texture: Texture = load("res://UITextures/Cards/" + card_name + ".png")
 		texture = card_texture
+		self_modulate = "ffffff"
 		cards_data["origin_texture"] = card_texture
+
 
 func default_texture() -> void:
 	var equipment_slot: String = get_parent().name
@@ -83,8 +85,10 @@ func default_texture() -> void:
 	var texture_default: Texture = load("res://UITextures/BGTextures/Inventory/EmptySlot/" + texture_name)
 	texture = texture_default
 	
+	
 func _on_button_pressed() -> void:
 	equipped_card_pressed.emit(cards_data)
+
 
 func equip(origin_item_id: String, card_data: Dictionary, origin: String = "self") -> void:
 	if cards_data["origin_equipment_slot"] == card_data["origin_equipment_slot"]:
@@ -92,6 +96,7 @@ func equip(origin_item_id: String, card_data: Dictionary, origin: String = "self
 		if origin == "self":
 			var equip_item_data: Dictionary = { "uri": origin_item_id, "equipped": true }
 			BKMREngine.Inventory.equip_item([equip_item_data])
+
 
 func unequip(_equipment_data: Dictionary = {}) -> void:
 	for slots: TextureRect in get_tree().get_nodes_in_group('InventorySlot'):

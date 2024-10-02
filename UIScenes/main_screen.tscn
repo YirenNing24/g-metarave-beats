@@ -679,7 +679,6 @@ self_modulate = Color(0.775064, 0.775063, 0.775063, 1)
 custom_minimum_size = Vector2(220, 55)
 layout_mode = 2
 size_flags_vertical = 0
-disabled = true
 texture_normal = ExtResource("3_i1nbb")
 ignore_texture_size = true
 stretch_mode = 0

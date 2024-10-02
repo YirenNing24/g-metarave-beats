@@ -2,7 +2,7 @@ extends Control
 #TODO loading effect while waiting for card inventory retrieval to finish
 #TODO cards are getting clipped on the left side
 
-signal item_stats_card_data
+signal item_stats_card_data(card_data: Dictionary)
 
 var inventory_slot_card: PackedScene = preload("res://Components/Inventory/card_inventory_slot.tscn")
 
@@ -47,8 +47,9 @@ func card_inventory_open(inventory_data: Array) -> void:
 		
 func equipment_slot_open(inventory_data: Array) -> void:
 	for cardslots: TextureRect in get_tree().get_nodes_in_group('CardSlot'):
-		cardslots.equipped_card_pressed.connect(_on_equipped_card_pressed)
-		cardslots.slot_data()
+		if !cardslots.equipped_card_pressed.is_connected(_on_equipped_card_pressed):
+			cardslots.equipped_card_pressed.connect(_on_equipped_card_pressed)
+			cardslots.slot_data()
 		
 	for card_data: Dictionary in inventory_data[1]:
 		var uri: String = card_data.keys()[0]

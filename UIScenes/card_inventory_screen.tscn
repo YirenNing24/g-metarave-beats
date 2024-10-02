@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://gmllsb3bdm2u"]
+[gd_scene load_steps=36 format=3 uid="uid://gmllsb3bdm2u"]
 
 [ext_resource type="Script" path="res://UIScenes/card_inventory_screen.gd" id="1_2vffs"]
 [ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="2_poddd"]
@@ -9,8 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="7_aj63t"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="7_cb4dp"]
 [ext_resource type="Script" path="res://Components/Inventory/xin_equipment_slot.gd" id="7_tqxdo"]
+[ext_resource type="PackedScene" uid="uid://ur5y4vq646w0" path="res://Components/Inventory/card_inventory_slot.tscn" id="8_ckb32"]
 [ext_resource type="Texture2D" uid="uid://cvbjb7aump7p3" path="res://UITextures/CardUpgrades/upgrade_image.png" id="8_w2224"]
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="10_qxlqx"]
+[ext_resource type="Texture2D" uid="uid://bkn4jxedwsf2s" path="res://UITextures/Cards/aria_no_doubt_genesis.png" id="12_70viq"]
 [ext_resource type="FontFile" uid="uid://cfpnum8trj6m7" path="res://UITextures/Fonts/HankenGrotesk-SemiBold.ttf" id="14_g7lp4"]
 [ext_resource type="Texture2D" uid="uid://bhjbga7uh5w8m" path="res://UITextures/GroupLogo/x_in_logo.png" id="15_lx753"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="16_7ynqb"]
@@ -184,6 +186,7 @@ unique_name_in_owner = true
 auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 0
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 script = ExtResource("6_7yh2h")
@@ -201,6 +204,15 @@ custom_minimum_size = Vector2(0, 129)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
+
+[node name="Inv1" parent="TextureRect/VBoxContainer/Panel/HBoxContainer/InventoryScroll2/CardInventoryContainer" instance=ExtResource("8_ckb32")]
+layout_mode = 2
+
+[node name="Inv2" parent="TextureRect/VBoxContainer/Panel/HBoxContainer/InventoryScroll2/CardInventoryContainer" instance=ExtResource("8_ckb32")]
+layout_mode = 2
+
+[node name="Inv3" parent="TextureRect/VBoxContainer/Panel/HBoxContainer/InventoryScroll2/CardInventoryContainer" instance=ExtResource("8_ckb32")]
+layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TextureRect"]
 layout_mode = 1
@@ -490,7 +502,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
 [node name="CardIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Aria" groups=["CardSlot", "X:INSlot"]]
-self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
+self_modulate = Color(1, 1, 1, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -498,7 +510,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_w2224")
+texture = ExtResource("12_70viq")
 expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
@@ -664,7 +676,6 @@ theme_override_constants/separation = 10
 alignment = 1
 
 [node name="XinSkillIcon" type="TextureRect" parent="TextureRect/ScrollContainer/CenterContainer/MarginContainer/EquipmentSlotContainer/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
 size_flags_horizontal = 4

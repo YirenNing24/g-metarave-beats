@@ -132,6 +132,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="BoostProgressBar" type="TextureProgressBar" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(420, 50)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -140,6 +141,10 @@ max_value = 50.0
 nine_patch_stretch = true
 texture_under = ExtResource("5_w6njq")
 texture_progress = ExtResource("6_yr53h")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
 
 [node name="HBoxContainer2" type="Control" parent="VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(300, 150)

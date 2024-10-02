@@ -31,6 +31,8 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 102.0
 offset_bottom = 128.4
+mouse_filter = 1
+mouse_default_cursor_shape = 2
 
 [node name="CardIcon" type="TextureRect" parent="." groups=["InventorySlot"]]
 custom_minimum_size = Vector2(102.3, 128.4)
@@ -50,6 +52,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_styles/focus = SubResource("StyleBoxEmpty_il8gk")
 theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_5de8k")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_2ieg5")
