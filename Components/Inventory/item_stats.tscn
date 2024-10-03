@@ -10,10 +10,10 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tc7v0"]
 bg_color = Color(0.0823529, 0.8, 0.8, 1)
 draw_center = false
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
 border_color = Color(0.0823529, 0.8, 0.8, 1)
 border_blend = true
 corner_radius_top_left = 5
@@ -188,6 +188,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(189, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("5_fgky4")
 theme_override_font_sizes/font_size = 17
 
 [node name="ScoreboostLabel" type="Label" parent="Panel/TextureRect2/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
@@ -195,6 +196,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("5_fgky4")
 theme_override_font_sizes/font_size = 17
 
 [node name="HealboostLabel" type="Label" parent="Panel/TextureRect2/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
@@ -202,6 +204,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("5_fgky4")
 theme_override_font_sizes/font_size = 17
 
 [node name="GroupLabel" type="Label" parent="Panel/TextureRect2/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
@@ -209,6 +212,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("5_fgky4")
 theme_override_font_sizes/font_size = 17
 
 [node name="Position1Label" type="Label" parent="Panel/TextureRect2/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
@@ -216,6 +220,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("5_fgky4")
 theme_override_font_sizes/font_size = 17
 
 [node name="Position2Label" type="Label" parent="Panel/TextureRect2/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
@@ -223,6 +228,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("5_fgky4")
 theme_override_font_sizes/font_size = 17
 
 [node name="TierLabel" type="Label" parent="Panel/TextureRect2/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
@@ -230,6 +236,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("5_fgky4")
 theme_override_font_sizes/font_size = 17
 
 [node name="EraLabel" type="Label" parent="Panel/TextureRect2/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
@@ -237,6 +244,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("5_fgky4")
 theme_override_font_sizes/font_size = 17
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Panel/TextureRect2/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]

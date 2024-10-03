@@ -25,8 +25,8 @@ anchor_right = 0.125
 anchor_bottom = 0.45
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_xdj0r")
-metadata/_edit_use_anchors_ = true
 
 [node name="Panel2" type="Panel" parent="."]
 auto_translate_mode = 1
@@ -36,6 +36,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_26s2p")
 
 [node name="Icon" type="TextureRect" parent="Panel2"]
@@ -68,7 +69,7 @@ anchor_right = 0.973333
 anchor_bottom = 0.720165
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_use_anchors_ = true
+mouse_filter = 1
 
 [node name="Label" type="Label" parent="."]
 visible = false
@@ -84,6 +85,7 @@ offset_right = 66.0
 offset_bottom = 78.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
 theme_override_fonts/font = ExtResource("2_5mv1l")
 theme_override_font_sizes/font_size = 11
@@ -104,6 +106,7 @@ offset_right = -5.0
 offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 1
 texture_normal = ExtResource("3_pe827")
 ignore_texture_size = true
 stretch_mode = 0
@@ -119,6 +122,7 @@ offset_bottom = 32.0
 custom_minimum_size = Vector2(85, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme_override_fonts/font = ExtResource("2_5mv1l")
 theme_override_font_sizes/font_size = 15
 text = "5000"

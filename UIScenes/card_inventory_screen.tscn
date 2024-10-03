@@ -1,15 +1,13 @@
-[gd_scene load_steps=35 format=3 uid="uid://gmllsb3bdm2u"]
+[gd_scene load_steps=33 format=3 uid="uid://gmllsb3bdm2u"]
 
 [ext_resource type="Script" path="res://UIScenes/card_inventory_screen.gd" id="1_2vffs"]
 [ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="2_poddd"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="3_kawcx"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="4_l46n7"]
-[ext_resource type="Script" path="res://UIScenes/InventoryScroll.gd" id="5_oujch"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="6_7yh2h"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="7_aj63t"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="7_cb4dp"]
 [ext_resource type="Script" path="res://Components/Inventory/xin_equipment_slot.gd" id="7_tqxdo"]
-[ext_resource type="PackedScene" uid="uid://ur5y4vq646w0" path="res://Components/Inventory/card_inventory_slot.tscn" id="8_ckb32"]
 [ext_resource type="Texture2D" uid="uid://cvbjb7aump7p3" path="res://UITextures/CardUpgrades/upgrade_image.png" id="8_w2224"]
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="10_qxlqx"]
 [ext_resource type="FontFile" uid="uid://cfpnum8trj6m7" path="res://UITextures/Fonts/HankenGrotesk-SemiBold.ttf" id="14_g7lp4"]
@@ -159,27 +157,6 @@ metadata/_edit_use_anchors_ = true
 custom_minimum_size = Vector2(83.6, 129)
 layout_mode = 2
 
-[node name="InventoryScroll" type="ScrollContainer" parent="TextureRect/VBoxContainer/Panel/HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-horizontal_scroll_mode = 3
-vertical_scroll_mode = 0
-script = ExtResource("5_oujch")
-metadata/_edit_use_anchors_ = true
-
-[node name="MarginContainer" type="MarginContainer" parent="TextureRect/VBoxContainer/Panel/HBoxContainer/InventoryScroll"]
-layout_mode = 2
-theme_override_constants/margin_left = 550
-theme_override_constants/margin_right = 900
-
-[node name="CardInventoryContainer" type="HBoxContainer" parent="TextureRect/VBoxContainer/Panel/HBoxContainer/InventoryScroll/MarginContainer"]
-custom_minimum_size = Vector2(10000, 129)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 7
-
 [node name="InventoryScroll2" type="ScrollContainer" parent="TextureRect/VBoxContainer/Panel/HBoxContainer"]
 unique_name_in_owner = true
 auto_translate_mode = 1
@@ -203,15 +180,6 @@ custom_minimum_size = Vector2(0, 129)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
-
-[node name="Inv1" parent="TextureRect/VBoxContainer/Panel/HBoxContainer/InventoryScroll2/CardInventoryContainer" instance=ExtResource("8_ckb32")]
-layout_mode = 2
-
-[node name="Inv2" parent="TextureRect/VBoxContainer/Panel/HBoxContainer/InventoryScroll2/CardInventoryContainer" instance=ExtResource("8_ckb32")]
-layout_mode = 2
-
-[node name="Inv3" parent="TextureRect/VBoxContainer/Panel/HBoxContainer/InventoryScroll2/CardInventoryContainer" instance=ExtResource("8_ckb32")]
-layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TextureRect"]
 layout_mode = 1
@@ -741,6 +709,5 @@ parameters/looping = true
 
 [connection signal="item_stats_card_data" from="." to="ItemStats" method="_on_card_inventory_screen_item_stats_card_data"]
 [connection signal="pressed" from="TextureRect/VBoxContainer3/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="gui_input" from="TextureRect/VBoxContainer/Panel/HBoxContainer/InventoryScroll" to="TextureRect/VBoxContainer/Panel/HBoxContainer/InventoryScroll" method="_on_gui_input"]
 [connection signal="close_item_stats_pressed" from="ItemStats" to="." method="_on_item_stats_close_item_stats_pressed"]
 [connection signal="equip_unequip_pressed" from="ItemStats" to="." method="_on_item_stats_equip_unequip_pressed"]
