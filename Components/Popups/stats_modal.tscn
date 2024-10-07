@@ -1,11 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://dbebu2yc0n0wy"]
+[gd_scene load_steps=17 format=3 uid="uid://dbebu2yc0n0wy"]
 
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="1_0wty4"]
-[ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="2_0n7da"]
 [ext_resource type="Texture2D" uid="uid://bfbv6cy714jg3" path="res://UITextures/Buttons/stat_button.png" id="3_j2m63"]
+[ext_resource type="Texture2D" uid="uid://dvsyupv8bie60" path="res://UITextures/Icons/visual_icon.png" id="3_weic2"]
 [ext_resource type="Texture2D" uid="uid://bmo2tkxhc1hci" path="res://UITextures/Progress/prop_base2.png" id="4_aj5qw"]
 [ext_resource type="Texture2D" uid="uid://d20dujwh8ic6l" path="res://UITextures/Progress/prop_progress2.png" id="5_aefwb"]
+[ext_resource type="Texture2D" uid="uid://cre67llvdnc8l" path="res://UITextures/Icons/main_vocalist_icon.png" id="6_d7blx"]
+[ext_resource type="Texture2D" uid="uid://dhfmdi624sva" path="res://UITextures/Icons/lead_vocalist_icon.png" id="7_kii8t"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="7_qul76"]
+[ext_resource type="Texture2D" uid="uid://dvorje2eeohjs" path="res://UITextures/Icons/main_dancer_icon.png" id="8_kgcdf"]
+[ext_resource type="Texture2D" uid="uid://baifkjbyytaru" path="res://UITextures/Icons/lead_dancer_icon.png" id="9_mpd16"]
+[ext_resource type="Texture2D" uid="uid://87ofmy2i78y5" path="res://UITextures/Icons/main_rapper_icon.png" id="10_3xs7k"]
+[ext_resource type="Texture2D" uid="uid://c5i43cn27seya" path="res://UITextures/Icons/lead_rapper_icon.png" id="11_7px8x"]
 
 [sub_resource type="GDScript" id="GDScript_2xrb2"]
 script/source = "extends Control
@@ -185,6 +191,11 @@ func reset_state() -> void:
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8724y"]
 bg_color = Color(0.00392157, 0.0588235, 0.0588235, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.403922, 0.403922, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -288,7 +299,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(162, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 20
 text = "Remaining points:"
 clip_text = true
@@ -298,7 +309,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 20
 text = "99"
 horizontal_alignment = 1
@@ -340,17 +351,23 @@ anchor_left = 0.0993376
 anchor_top = 0.12
 anchor_right = 0.788079
 anchor_bottom = 1.12
-offset_left = 1.52588e-05
-offset_right = -3.05176e-05
+offset_left = 1.00004
+offset_right = 30.0001
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Visual/Stats"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+texture = ExtResource("3_weic2")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Name" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Visual/Stats"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 text = "Visual"
 vertical_alignment = 1
@@ -360,7 +377,7 @@ clip_text = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 text = "0"
 horizontal_alignment = 1
@@ -371,9 +388,8 @@ clip_text = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
-horizontal_alignment = 1
 vertical_alignment = 1
 clip_text = true
 
@@ -431,17 +447,23 @@ anchor_left = 0.0993376
 anchor_top = 0.12
 anchor_right = 0.788079
 anchor_bottom = 1.12
-offset_left = 1.52588e-05
-offset_right = -3.05176e-05
+offset_left = 1.00004
+offset_right = 30.0001
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainVocalist/Stats"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+texture = ExtResource("6_d7blx")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Name" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainVocalist/Stats"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 text = "Main Vocalist"
 vertical_alignment = 1
@@ -451,7 +473,7 @@ clip_text = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 text = "0"
 horizontal_alignment = 1
@@ -462,7 +484,7 @@ clip_text = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -522,17 +544,24 @@ anchor_left = 0.0993376
 anchor_top = 0.12
 anchor_right = 0.788079
 anchor_bottom = 1.12
-offset_left = 1.52588e-05
-offset_right = -3.05176e-05
+offset_left = 1.00004
+offset_right = 30.0001
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadVocalist/Stats"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+texture = ExtResource("7_kii8t")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Name" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadVocalist/Stats"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 text = "Lead Vocalist"
 vertical_alignment = 1
@@ -542,7 +571,7 @@ clip_text = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 text = "0"
 horizontal_alignment = 1
@@ -613,17 +642,24 @@ anchor_left = 0.0993376
 anchor_top = 0.12
 anchor_right = 0.788079
 anchor_bottom = 1.12
-offset_left = 1.52588e-05
-offset_right = -3.05176e-05
+offset_left = 1.00004
+offset_right = 30.0001
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainDancer/Stats"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+texture = ExtResource("8_kgcdf")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Name" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/MainDancer/Stats"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 text = "Main Dancer"
 vertical_alignment = 1
@@ -633,7 +669,7 @@ clip_text = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 text = "0"
 horizontal_alignment = 1
@@ -644,7 +680,7 @@ clip_text = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -704,17 +740,24 @@ anchor_left = 0.0993376
 anchor_top = 0.12
 anchor_right = 0.788079
 anchor_bottom = 1.12
-offset_left = 1.52588e-05
-offset_right = -3.05176e-05
+offset_left = 1.00004
+offset_right = 30.0001
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadDancer/Stats"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+texture = ExtResource("9_mpd16")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Name" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadDancer/Stats"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 text = "Lead Dancer"
 vertical_alignment = 1
@@ -724,7 +767,7 @@ clip_text = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 text = "0"
 horizontal_alignment = 1
@@ -735,7 +778,7 @@ clip_text = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -795,17 +838,24 @@ anchor_left = 0.0993376
 anchor_top = 0.12
 anchor_right = 0.788079
 anchor_bottom = 1.12
-offset_left = 1.52588e-05
-offset_right = -3.05176e-05
+offset_left = 1.00004
+offset_right = 30.0001
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Rapper/Stats"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+texture = ExtResource("10_3xs7k")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Name" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/Rapper/Stats"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 text = "Rapper"
 vertical_alignment = 1
@@ -815,7 +865,7 @@ clip_text = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 text = "0"
 horizontal_alignment = 1
@@ -826,7 +876,7 @@ clip_text = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -886,17 +936,24 @@ anchor_left = 0.0993376
 anchor_top = 0.12
 anchor_right = 0.788079
 anchor_bottom = 1.12
-offset_left = 1.52588e-05
-offset_right = -3.05176e-05
+offset_left = 1.00004
+offset_right = 30.0001
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadRapper/Stats"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+texture = ExtResource("11_7px8x")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Name" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MainStats/LeadRapper/Stats"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 text = "Lead Rapper"
 vertical_alignment = 1
@@ -906,7 +963,7 @@ clip_text = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 text = "0"
 horizontal_alignment = 1
@@ -917,7 +974,7 @@ clip_text = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_0n7da")
+theme_override_fonts/font = ExtResource("1_0wty4")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1

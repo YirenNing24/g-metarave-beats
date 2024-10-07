@@ -69,10 +69,10 @@ tracks/0/path = NodePath("Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/V
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.7, 1.5),
+"times": PackedFloat32Array(0, 0.666667, 1.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(60, -94), Vector2(60, -85), Vector2(60, -94)]
+"values": [Vector2(103, -36), Vector2(103, -25), Vector2(103, -36)]
 }
 
 [sub_resource type="Animation" id="Animation_alxay"]
@@ -301,6 +301,7 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect"]
+visible = false
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 1
 anchors_preset = -1
@@ -378,12 +379,13 @@ metadata/_edit_use_anchors_ = true
 
 [node name="BeatsTokenIcon" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect2"]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 6.99998
-offset_right = 39.0
-offset_bottom = 38.0
+anchor_left = 0.0457143
+anchor_top = 0.14
+anchor_right = 0.222857
+anchor_bottom = 0.76
 texture = ExtResource("11_jl1ep")
 expand_mode = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect3" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
 self_modulate = Color(0.737193, 0.737193, 0.737193, 1)
@@ -533,10 +535,14 @@ stretch_mode = 6
 [node name="ClassicTexture" type="TextureRect" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.251295
-anchor_top = -0.112121
-anchor_right = 0.772021
-anchor_bottom = 0.712121
+anchor_left = 0.362694
+anchor_top = 0.220491
+anchor_right = 0.88342
+anchor_bottom = 1.04473
+offset_left = -36.9998
+offset_top = -108.762
+offset_right = -36.9998
+offset_bottom = -108.762
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("13_k2qiu")
@@ -876,6 +882,7 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_qe76f")
 }
+autoplay = "game_mode_hero"
 
 [node name="SakuraFX2" type="GPUParticles2D" parent="."]
 modulate = Color(1, 0.745098, 1, 0.384314)

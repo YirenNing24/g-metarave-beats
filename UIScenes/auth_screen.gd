@@ -50,11 +50,14 @@ func google_auth() -> void:
 		SignInClient.request_server_side_access(BKMREngine.google_server_client_id, true)
 
 func init_visibility_control() -> void:
+	print("meron ba")
 	if BKMREngine.session:
+		print("asan baaa")
 		start_container.visible = false
 		login_modal_container.visible = false
 		animation_player.play('switch_start_screen')
 	else:
+		%StartHeroTexture.visible = false
 		start_container.visible = false
 		login_modal_container.visible = true
 		login_container.visible = true
@@ -302,3 +305,7 @@ func _input(event: InputEvent) -> void:
 		var position_event: Vector2 = event.position
 		cursor_spark.position = position_event
 		cursor_spark.emitting = true
+	
+	
+func _on_audio_stream_player_finished() -> void:
+	$AudioStreamPlayer.play()

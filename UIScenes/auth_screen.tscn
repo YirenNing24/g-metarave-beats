@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cfnseobkn66fh"]
+[gd_scene load_steps=46 format=3 uid="uid://cfnseobkn66fh"]
 
 [ext_resource type="Script" path="res://UIScenes/auth_screen.gd" id="1_fahu6"]
 [ext_resource type="Texture2D" uid="uid://beivc8jimuyqa" path="res://UITextures/BGTextures/blue_gradient.png" id="2_usyb0"]
@@ -16,7 +16,15 @@
 [ext_resource type="FontFile" uid="uid://c5fr5m8j4q1cg" path="res://UITextures/Fonts/HankenGrotesk-ExtraBoldItalic.ttf" id="15_outm7"]
 [ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="16_0g07l"]
 [ext_resource type="StyleBox" uid="uid://d4grcs3ey2rdr" path="res://UITextures/CustomResource/start_button.tres" id="16_6u3q1"]
+[ext_resource type="Shader" path="res://UIScenes/auth_screen.gdshader" id="16_84y64"]
+[ext_resource type="Texture2D" uid="uid://d356rg23a4gt5" path="res://UITextures/BGTextures/hero_main_start.png" id="17_pcelb"]
+[ext_resource type="Texture2D" uid="uid://vxw1aujmxjy3" path="res://UITextures/CustomResource/auth_screen_gradient.tres" id="17_qx24v"]
+[ext_resource type="Texture2D" uid="uid://cryc4eqtq2jkp" path="res://UITextures/Bundles/beats_logo.png" id="18_uhof4"]
 [ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="20_6nce6"]
+[ext_resource type="AudioStream" uid="uid://ca4prkiescihv" path="res://Songs/3031347447 ICU-Anti-Hero/ICU-Anti-Hero.ogg" id="22_qaqcc"]
+[ext_resource type="Texture2D" uid="uid://dt3r7qpml5ogu" path="res://UITextures/Icons/notifications_icon.png" id="23_rqv4e"]
+[ext_resource type="Texture2D" uid="uid://cgv7c6lcidb0a" path="res://UITextures/Icons/twitter_icon.png" id="24_w2ycs"]
+[ext_resource type="Texture2D" uid="uid://bvtrvrv1h7kw5" path="res://UITextures/Icons/telegram_icon.png" id="25_4yps1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4qor"]
 bg_color = Color(0.0745098, 0.0745098, 0.0745098, 0.709804)
@@ -26,6 +34,101 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 shadow_size = 10
 shadow_offset = Vector2(5, 8)
+
+[sub_resource type="Shader" id="Shader_w6od6"]
+code = "shader_type canvas_item;
+
+#define iResolution 1.0/SCREEN_PIXEL_SIZE
+#define iTime TIME
+
+uniform float size  = 5.;
+uniform sampler2D iChannel0;
+/*
+
+A quick experiment with rain drop ripples.
+
+This effect was written for and used in the launch scene of the
+64kB intro \"H - Immersion\", by Ctrl-Alt-Test.
+
+ > http://www.ctrl-alt-test.fr/productions/h-immersion/
+ > https://www.youtube.com/watch?v=27PN1SsXbjM
+
+-- 
+Zavie / Ctrl-Alt-Test
+
+*/
+
+// Maximum number of cells a ripple can cross.
+#define MAX_RADIUS 2
+
+// Set to 1 to hash twice. Slower, but less patterns.
+#define DOUBLE_HASH 0
+
+// Hash functions shamefully stolen from:
+// https://www.shadertoy.com/view/4djSRW
+#define HASHSCALE1 .1031
+#define HASHSCALE3 vec3(.1031, .1030, .0973)
+
+float hash12(vec2 p)
+{
+	vec3 p3  = fract(vec3(p.xyx) * HASHSCALE1);
+    p3 += dot(p3, p3.yzx + 19.19);
+    return fract((p3.x + p3.y) * p3.z);
+}
+
+vec2 hash22(vec2 p)
+{
+	vec3 p3 = fract(vec3(p.xyx) * HASHSCALE3);
+    p3 += dot(p3, p3.yzx+19.19);
+    return fract((p3.xx+p3.yz)*p3.zy);
+
+}
+
+void fragment()
+{
+    float resolution = size;
+	vec2 uv = SCREEN_UV * resolution;
+	vec2 uv2 = uv * vec2(1.0 ,SCREEN_PIXEL_SIZE.x / SCREEN_PIXEL_SIZE.y);
+    vec2 p0 = floor(uv2);
+
+    vec2 circles = vec2(0.);
+    for (int j = -MAX_RADIUS; j <= MAX_RADIUS; ++j)
+    {
+        for (int i = -MAX_RADIUS; i <= MAX_RADIUS; ++i)
+        {
+			vec2 pi = p0 + vec2(float(i), float(j));
+            #if DOUBLE_HASH
+            vec2 hsh = hash22(pi);
+            #else
+            vec2 hsh = pi;
+            #endif
+            vec2 p = pi + hash22(hsh);
+
+            float t = fract(0.3*iTime + hash12(hsh));
+            vec2 v = p - uv2;
+            float d = length(v) - (float(MAX_RADIUS) + 1.)*t;
+
+            float h = 1e-3;
+            float d1 = d - h;
+            float d2 = d + h;
+            float p1 = sin(31.*d1) * smoothstep(-0.6, -0.3, d1) * smoothstep(0., -0.3, d1);
+            float p2 = sin(31.*d2) * smoothstep(-0.6, -0.3, d2) * smoothstep(0., -0.3, d2);
+            circles += 0.5 * normalize(v) * ((p2 - p1) / (2. * h) * (1. - t) * (1. - t));
+        }
+    }
+    circles /= float((MAX_RADIUS*2+1)*(MAX_RADIUS*2+1));
+
+    float intensity = mix(0.01, 0.15, smoothstep(0.1, 0.6, abs(fract(0.05*iTime + 0.5)*2.-1.)));
+    vec3 n = vec3(circles, sqrt(1. - dot(circles, circles)));
+    vec3 color = texture(iChannel0, uv/ resolution - intensity*n.xy).rgb + 5.*pow(clamp(dot(n, normalize(vec3(1., 0.7, 0.5))), 0., 1.), 6.);
+	COLOR = vec4(color, 1.0);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f2u6b"]
+shader = SubResource("Shader_w6od6")
+shader_parameter/size = 5.0
+shader_parameter/iChannel0 = ExtResource("2_usyb0")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_keqlh"]
 bg_color = Color(0.00566075, 0.0596161, 0.0596163, 1)
@@ -42,12 +145,100 @@ shadow_offset = Vector2(1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_boybj"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bgfsb"]
+shader = ExtResource("16_84y64")
+shader_parameter/ScaleMult = Vector2(0.99, 0.99)
+shader_parameter/AuraProgres = 1.0
+shader_parameter/TextureLaodMult = 10.0
+shader_parameter/Tilling = 60.0
+shader_parameter/MovementDirSpeed = Vector2(1, 1)
+shader_parameter/MovementDirSpeed2 = Vector2(1, 1)
+shader_parameter/Noise_Seed = Vector2(0.5, 0.5)
+shader_parameter/color_gradiant = ExtResource("17_qx24v")
+
+[sub_resource type="Shader" id="Shader_wef0p"]
+code = "shader_type canvas_item;
+render_mode unshaded, blend_mix;
+
+uniform vec2 ScaleMult = vec2(0.9);  // Smaller value for larger aura
+uniform float AuraProgres :hint_range(0.0, 1.0, 0.1) = 1.0;  // Full aura blending
+uniform float TextureLaodMult :hint_range(0.0, 10.0, 0.01) = 8.0;
+uniform float Tilling :hint_range(0.0, 60.0, 0.01) = 10.0;  // Lower value for larger aura pattern
+uniform vec2 MovementDirSpeed = vec2(-0.3, 0.5);  // Adjusted for smoother movement
+uniform vec2 MovementDirSpeed2 = vec2(0.3, 0.5);
+uniform sampler2D color_gradiant :repeat_enable, filter_linear_mipmap;
+uniform vec2 Noise_Seed = vec2(1.0);
+
+vec2 random(vec2 uv){
+    uv += Noise_Seed;
+    uv = vec2( dot(uv, vec2(127.1,311.7) ),
+               dot(uv, vec2(269.5,183.3) ) );
+    return -1.0 + 2.0 * fract(sin(uv) * 43758.5453123);
+}
+
+float noise(vec2 uv) {
+    vec2 uv_index = floor(uv);
+    vec2 uv_fract = fract(uv);
+    vec2 blur = smoothstep(0.0, 1.0, uv_fract);
+    float bottom_left = dot(random(uv_index + vec2(0.0, 0.0)), uv_fract - vec2(0.0, 0.0));
+    float bottom_right = dot(random(uv_index + vec2(1.0, 0.0)), uv_fract - vec2(1.0, 0.0));
+    float top_left = dot(random(uv_index + vec2(0.0, 1.0)), uv_fract - vec2(0.0, 1.0));
+    float top_right = dot(random(uv_index + vec2(1.0, 1.0)), uv_fract - vec2(1.0, 1.0));
+    float bottom_mix = mix(bottom_left, bottom_right, blur.x);
+    float top_mix = mix(top_left, top_right, blur.x);
+    float final_value = mix(bottom_mix, top_mix, blur.y);
+    return (final_value + 1.0) * 0.5;
+}
+
+vec4 AuraEffect(vec2 uv, vec4 CurrentColor, sampler2D OriginTexTure){
+    vec2 TimeUV = MovementDirSpeed * TIME;
+    vec2 TimeUV2 = MovementDirSpeed2 * TIME;
+    vec2 ScaleMultFractment = (1.0 - ScaleMult)/2.0;
+    vec2 compos_uv = uv * ScaleMult + ScaleMultFractment;
+    vec4 alpha = textureLod(OriginTexTure, compos_uv, noise(uv * Tilling + TimeUV) * TextureLaodMult);
+    vec4 GradientColors = texture(color_gradiant, fract( vec2(-uv.y, uv.x) + (TimeUV * 0.4)) ) * 3.0;
+    vec4 sil = GradientColors * noise(uv * Tilling - TimeUV);
+    sil.a = alpha.a * noise(uv * Tilling + TimeUV) * noise(uv * Tilling + TimeUV2) * 10.0;  // Enhanced alpha blending
+    return mix(CurrentColor, sil * AuraProgres, (1.0 - CurrentColor.a));
+}
+
+void fragment() {
+    COLOR = AuraEffect(UV, COLOR, TEXTURE);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e3y73"]
+shader = SubResource("Shader_wef0p")
+shader_parameter/ScaleMult = Vector2(1, 1)
+shader_parameter/AuraProgres = 1.0
+shader_parameter/TextureLaodMult = 10.0
+shader_parameter/Tilling = 60.0
+shader_parameter/MovementDirSpeed = Vector2(1, 1)
+shader_parameter/MovementDirSpeed2 = Vector2(1, 1)
+shader_parameter/Noise_Seed = Vector2(1, 1)
+shader_parameter/color_gradiant = ExtResource("17_qx24v")
+
+[sub_resource type="Animation" id="Animation_tqtgn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundTexture/StartHeroTexture:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_aaf5s"]
 resource_name = "switch_start_screen"
 length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath("BackgroundTexture/StartContainer:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -59,15 +250,15 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/path = NodePath("BackgroundTexture/StartContainer:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -92,6 +283,30 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BackgroundTexture/StartHeroTexture:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("BackgroundTexture/StartHeroTexture:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_6sob6"]
@@ -124,6 +339,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4w76c"]
 _data = {
+"RESET": SubResource("Animation_tqtgn"),
 "switch_start_screen": SubResource("Animation_aaf5s"),
 "transition_1": SubResource("Animation_6sob6")
 }
@@ -325,6 +541,7 @@ _data = {
 }
 
 [node name="AuthScreen" type="Control"]
+clip_contents = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -338,7 +555,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.990833
 offset_top = 28.0
-offset_right = 34481.0
+offset_right = 0.000366211
 offset_bottom = 28.0
 mouse_filter = 2
 alignment = 2
@@ -366,6 +583,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="BackgroundTexture" type="TextureRect" parent="."]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_f2u6b")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -377,6 +595,7 @@ expand_mode = 1
 
 [node name="LoginModalContainer" type="VBoxContainer" parent="BackgroundTexture"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.230833
@@ -844,9 +1063,46 @@ custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 alignment = 1
 
-[node name="StartButton" type="Button" parent="BackgroundTexture/StartContainer/VBoxContainer/HBoxContainer"]
+[node name="StartHeroTexture" type="TextureRect" parent="BackgroundTexture"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_bgfsb")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.161667
+anchor_top = 0.0740741
+anchor_right = 0.828333
+anchor_bottom = 1.06111
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("17_pcelb")
+stretch_mode = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="Logo" type="TextureRect" parent="BackgroundTexture/StartHeroTexture"]
+material = SubResource("ShaderMaterial_e3y73")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -384.0
+offset_top = 53.5
+offset_right = 416.0
+offset_bottom = 228.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("18_uhof4")
+
+[node name="StartButton" type="Button" parent="BackgroundTexture/StartHeroTexture"]
+modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("15_outm7")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/focus = ExtResource("16_6u3q1")
@@ -885,6 +1141,96 @@ grow_vertical = 1
 [node name="CursorSpark" parent="." instance=ExtResource("20_6nce6")]
 unique_name_in_owner = true
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_qaqcc")
+autoplay = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -99.0
+offset_top = 28.0
+offset_right = -30.0
+offset_bottom = -31.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="UpdatesButton" type="TextureButton" parent="VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture_normal = ExtResource("23_rqv4e")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_wtii2")
+theme_override_font_sizes/font_size = 12
+text = "UPDATES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_wtii2")
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TwitterButton" type="TextureButton" parent="VBoxContainer"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("24_w2ycs")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label4" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_wtii2")
+theme_override_font_sizes/font_size = 12
+text = "FOLLOW US!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label5" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_wtii2")
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TwitterButton2" type="TextureButton" parent="VBoxContainer"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("25_4yps1")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_wtii2")
+theme_override_font_sizes/font_size = 12
+text = "TELEGRAM"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="text_changed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/UsernameField" to="." method="_on_username_field_text_changed"]
 [connection signal="text_changed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/PasswordField" to="." method="_on_password_field_text_changed"]
 [connection signal="text_submitted" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/PasswordField" to="." method="_on_password_field_text_submitted"]
@@ -893,4 +1239,5 @@ unique_name_in_owner = true
 [connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/VBoxContainer/HBoxContainer/GoogleRegisterButton" to="." method="_on_google_register_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/RegisterButton" to="." method="_on_register_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/HBoxContainer3/LoginToggle" to="." method="_on_login_toggle_pressed"]
-[connection signal="pressed" from="BackgroundTexture/StartContainer/VBoxContainer/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/StartHeroTexture/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
