@@ -1,57 +1,137 @@
-[gd_scene load_steps=74 format=3 uid="uid://cjx2qu2kdc3p2"]
+[gd_scene load_steps=154 format=3 uid="uid://cjx2qu2kdc3p2"]
 
 [ext_resource type="Script" path="res://GameComponents/NotePicker/notepicker.gd" id="1_nn2og"]
 [ext_resource type="Texture2D" uid="uid://dqt5hoxr6n6le" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_01.png" id="2_1b715"]
+[ext_resource type="Texture2D" uid="uid://dcc01ygpautp" path="res://UITextures/GameTextures/globe/1.png" id="2_wgwxd"]
 [ext_resource type="Texture2D" uid="uid://bm3ing1oa6up4" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_02.png" id="3_a255i"]
+[ext_resource type="Texture2D" uid="uid://4qafpxpqbsi7" path="res://UITextures/GameTextures/globe/2.png" id="3_q385h"]
 [ext_resource type="Texture2D" uid="uid://bnqjjswiwedek" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_03.png" id="4_5oy53"]
+[ext_resource type="Texture2D" uid="uid://cxixg81d08o8y" path="res://UITextures/GameTextures/globe/3.png" id="4_j356x"]
 [ext_resource type="Texture2D" uid="uid://cqh5fcs7v1hmp" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_04.png" id="5_nep7w"]
+[ext_resource type="Texture2D" uid="uid://d1b0katef5k7y" path="res://UITextures/GameTextures/globe/4.png" id="5_qps2m"]
 [ext_resource type="Texture2D" uid="uid://d0jrma7qqh5n8" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_05.png" id="6_n217q"]
+[ext_resource type="Texture2D" uid="uid://bftm25u58wu8v" path="res://UITextures/GameTextures/globe/5.png" id="6_nekhn"]
 [ext_resource type="Texture2D" uid="uid://d0326y2ham4yr" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_06.png" id="7_b17q4"]
+[ext_resource type="Texture2D" uid="uid://t1cu635m8s1r" path="res://UITextures/GameTextures/globe/6.png" id="7_nb2el"]
 [ext_resource type="Texture2D" uid="uid://do3yocd101x1i" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_07.png" id="8_6e3j3"]
+[ext_resource type="Texture2D" uid="uid://brtsqv3mbrbbt" path="res://UITextures/GameTextures/globe/7.png" id="8_x1uxa"]
 [ext_resource type="Texture2D" uid="uid://p5r5x7a62ub7" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_08.png" id="9_2m80i"]
+[ext_resource type="Texture2D" uid="uid://pggpc012mxxf" path="res://UITextures/GameTextures/globe/8.png" id="9_5otld"]
 [ext_resource type="Texture2D" uid="uid://5usdimoxvyja" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_09.png" id="10_0hkmu"]
+[ext_resource type="Texture2D" uid="uid://dyh5nmn32him7" path="res://UITextures/GameTextures/globe/9.png" id="10_gi5x5"]
 [ext_resource type="Texture2D" uid="uid://b0qftgxpajqc" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_10.png" id="11_650jx"]
+[ext_resource type="Texture2D" uid="uid://6vhsk7lg1xog" path="res://UITextures/GameTextures/globe/10.png" id="11_tfs4j"]
 [ext_resource type="Texture2D" uid="uid://b46778iw2j1cl" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_11.png" id="12_6k4gi"]
+[ext_resource type="Texture2D" uid="uid://cxpoqn10k530x" path="res://UITextures/GameTextures/globe/11.png" id="12_pd72j"]
 [ext_resource type="Texture2D" uid="uid://dbclk6urv2l3i" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_12.png" id="13_2tly0"]
+[ext_resource type="Texture2D" uid="uid://ka3ixed8cigu" path="res://UITextures/GameTextures/globe/12.png" id="13_3ssxd"]
 [ext_resource type="Texture2D" uid="uid://bnrhugdpjrfhn" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_13.png" id="14_0n44t"]
+[ext_resource type="Texture2D" uid="uid://b5fjqalv0vpgv" path="res://UITextures/GameTextures/globe/13.png" id="14_sujd6"]
+[ext_resource type="Texture2D" uid="uid://dxyxlye7xfjk4" path="res://UITextures/GameTextures/globe/14.png" id="15_q56q8"]
 [ext_resource type="Texture2D" uid="uid://couxauxthqnvk" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_14.png" id="15_qnynq"]
+[ext_resource type="Texture2D" uid="uid://chuqgtmsomxd1" path="res://UITextures/GameTextures/globe/15.png" id="16_noisj"]
 [ext_resource type="Texture2D" uid="uid://b8346bur7ar4n" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_15.png" id="16_q02v6"]
+[ext_resource type="Texture2D" uid="uid://b7kiaf2clr25h" path="res://UITextures/GameTextures/globe/16.png" id="17_j4sxj"]
 [ext_resource type="Texture2D" uid="uid://drck6ubjc0k0g" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_16.png" id="17_xfnmw"]
 [ext_resource type="Texture2D" uid="uid://b5einn0cs8ios" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_17.png" id="18_4g1xt"]
+[ext_resource type="Texture2D" uid="uid://bkq8yqu4c6gj2" path="res://UITextures/GameTextures/globe/17.png" id="18_nx36m"]
 [ext_resource type="Texture2D" uid="uid://byl571elhojxq" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_18.png" id="19_53v2f"]
+[ext_resource type="Texture2D" uid="uid://bc4rwjww3sujl" path="res://UITextures/GameTextures/globe/18.png" id="19_eaurx"]
+[ext_resource type="Texture2D" uid="uid://c55fmgm6juflp" path="res://UITextures/GameTextures/globe/19.png" id="20_gsah2"]
 [ext_resource type="Texture2D" uid="uid://dwb2m17l6vxhq" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_19.png" id="20_wsrjc"]
 [ext_resource type="Texture2D" uid="uid://hgssoj7mj4w6" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_20.png" id="21_x2ixa"]
+[ext_resource type="Texture2D" uid="uid://bqmn5g60u8n77" path="res://UITextures/GameTextures/globe/20.png" id="21_ytrfb"]
 [ext_resource type="Texture2D" uid="uid://xrdpjkpvwsew" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_21.png" id="22_0t75i"]
+[ext_resource type="Texture2D" uid="uid://bjfuovkrnm674" path="res://UITextures/GameTextures/globe/globe2/1.png" id="22_q24ah"]
+[ext_resource type="Texture2D" uid="uid://cpe4qkh0harxe" path="res://UITextures/GameTextures/globe/globe2/2.png" id="23_lqqdl"]
 [ext_resource type="Texture2D" uid="uid://b061bmrtx5lfq" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_22.png" id="23_pjnq2"]
+[ext_resource type="Texture2D" uid="uid://5viwdcoripb6" path="res://UITextures/GameTextures/globe/globe2/3.png" id="24_rvvu2"]
 [ext_resource type="Texture2D" uid="uid://bd1a4eio7w7qo" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_23.png" id="24_v24ix"]
 [ext_resource type="Texture2D" uid="uid://dsuiow6gkuqv7" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_24.png" id="25_255pi"]
+[ext_resource type="Texture2D" uid="uid://d2viptvfy3b2w" path="res://UITextures/GameTextures/globe/globe2/4.png" id="25_xnxhe"]
 [ext_resource type="Texture2D" uid="uid://cysf0hmk5av3u" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_25.png" id="26_dnnkh"]
+[ext_resource type="Texture2D" uid="uid://bv6faq8sklhdo" path="res://UITextures/GameTextures/globe/globe2/5.png" id="26_sutqc"]
+[ext_resource type="Texture2D" uid="uid://dwj0hfuv8ip5r" path="res://UITextures/GameTextures/globe/globe2/6.png" id="27_32ivq"]
 [ext_resource type="Texture2D" uid="uid://qr4yd5a55lku" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_26.png" id="27_njoev"]
+[ext_resource type="Texture2D" uid="uid://cxpqb40825s2i" path="res://UITextures/GameTextures/globe/globe2/7.png" id="28_dyhtq"]
 [ext_resource type="Texture2D" uid="uid://c8vr5xgs8jxur" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_27.png" id="28_jpv6c"]
 [ext_resource type="Texture2D" uid="uid://s7lpdwx3c7ab" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_28.png" id="29_ijd7o"]
+[ext_resource type="Texture2D" uid="uid://85awylqf8omf" path="res://UITextures/GameTextures/globe/globe2/8.png" id="29_saohl"]
 [ext_resource type="Texture2D" uid="uid://brf061jm55y8a" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_29.png" id="30_b6vbc"]
+[ext_resource type="Texture2D" uid="uid://d2ql6sus8i8sj" path="res://UITextures/GameTextures/globe/globe2/9.png" id="30_d2gpu"]
 [ext_resource type="Texture2D" uid="uid://dnycgoaf5s3gj" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_30.png" id="31_12nix"]
+[ext_resource type="Texture2D" uid="uid://nwu1s2o38c4r" path="res://UITextures/GameTextures/globe/globe2/10.png" id="31_iejro"]
 [ext_resource type="Texture2D" uid="uid://dmkem4gsx37vl" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_31.png" id="32_3358w"]
+[ext_resource type="Texture2D" uid="uid://bhcau4mndbi8c" path="res://UITextures/GameTextures/globe/globe2/11.png" id="32_v2j3y"]
+[ext_resource type="Texture2D" uid="uid://b50xdx5lqok2v" path="res://UITextures/GameTextures/globe/globe2/12.png" id="33_grfyi"]
 [ext_resource type="Texture2D" uid="uid://cflyelmbi0dij" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_32.png" id="33_pcv8x"]
+[ext_resource type="Texture2D" uid="uid://chq8y3cohmcuu" path="res://UITextures/GameTextures/globe/globe2/13.png" id="34_3rk7v"]
 [ext_resource type="Texture2D" uid="uid://cqfxdqrqgvrvv" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_33.png" id="34_n4x55"]
 [ext_resource type="Texture2D" uid="uid://cytiggfarhbxj" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_34.png" id="35_11xiu"]
+[ext_resource type="Texture2D" uid="uid://b5ddyreuup8o3" path="res://UITextures/GameTextures/globe/globe2/14.png" id="35_c8yyw"]
+[ext_resource type="Texture2D" uid="uid://cvmd2dod3pj15" path="res://UITextures/GameTextures/globe/globe2/15.png" id="36_b1obt"]
 [ext_resource type="Texture2D" uid="uid://bb1g5pch33k7e" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_35.png" id="36_d1ma6"]
 [ext_resource type="Texture2D" uid="uid://diwwd8d65f4j7" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_36.png" id="37_dywve"]
+[ext_resource type="Texture2D" uid="uid://cl5sgika3xqh0" path="res://UITextures/GameTextures/globe/globe2/16.png" id="37_poqwc"]
 [ext_resource type="Texture2D" uid="uid://cj2v5tso064mq" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_37.png" id="38_no1dk"]
+[ext_resource type="Texture2D" uid="uid://du13hm7jqln70" path="res://UITextures/GameTextures/globe/globe2/17.png" id="38_tj403"]
+[ext_resource type="Texture2D" uid="uid://buifvgwt6246a" path="res://UITextures/GameTextures/globe/globe2/18.png" id="39_43yug"]
 [ext_resource type="Texture2D" uid="uid://oabhhx73d8pj" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_38.png" id="39_ghorn"]
+[ext_resource type="Texture2D" uid="uid://cgr5kwjcw87mk" path="res://UITextures/GameTextures/globe/globe2/19.png" id="40_o06yu"]
 [ext_resource type="Texture2D" uid="uid://bik3qopg23ibt" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_39.png" id="40_r3kns"]
 [ext_resource type="Texture2D" uid="uid://c8n122sbfgb8x" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_40.png" id="41_6irsw"]
+[ext_resource type="Texture2D" uid="uid://ct5clfyhp7pua" path="res://UITextures/GameTextures/globe/globe2/20.png" id="41_g3io4"]
+[ext_resource type="Texture2D" uid="uid://c4fuxgm46ium7" path="res://UITextures/GameTextures/globe/globe3/1.png" id="42_au5os"]
 [ext_resource type="Texture2D" uid="uid://b8060k6h0qlhd" path="res://UITextures/GameTextures/particles/spotlight_8.png" id="42_mc8og"]
 [ext_resource type="Texture2D" uid="uid://boak88pcqjnrs" path="res://UITextures/GameTextures/pillar/11.png" id="43_qqmia"]
+[ext_resource type="Texture2D" uid="uid://4d0v7vcx18aa" path="res://UITextures/GameTextures/globe/globe3/2.png" id="43_wginc"]
+[ext_resource type="Texture2D" uid="uid://cyo6oqqasdakc" path="res://UITextures/GameTextures/globe/globe3/3.png" id="44_0h0u2"]
 [ext_resource type="Texture2D" uid="uid://dkip1demistsc" path="res://UITextures/GameTextures/pillar/12.png" id="44_1q3c7"]
 [ext_resource type="Texture2D" uid="uid://be3tc5cmhi2ks" path="res://UITextures/GameTextures/pillar/13.png" id="45_4u6y0"]
+[ext_resource type="Texture2D" uid="uid://dbngm2nd5px0b" path="res://UITextures/GameTextures/globe/globe3/4.png" id="45_j21w0"]
 [ext_resource type="Texture2D" uid="uid://b6lk6rbjpkx1q" path="res://UITextures/GameTextures/pillar/14.png" id="46_k2rf2"]
+[ext_resource type="Texture2D" uid="uid://s7sxp5rk78r2" path="res://UITextures/GameTextures/globe/globe3/5.png" id="46_nxexe"]
+[ext_resource type="Texture2D" uid="uid://ccgu4ctql784i" path="res://UITextures/GameTextures/globe/globe3/6.png" id="47_hanmq"]
 [ext_resource type="Texture2D" uid="uid://6esnbij25vie" path="res://UITextures/GameTextures/pillar/15.png" id="47_ph1kq"]
 [ext_resource type="Texture2D" uid="uid://dggummdy4v5dn" path="res://UITextures/GameTextures/pillar/16.png" id="48_i7bda"]
+[ext_resource type="Texture2D" uid="uid://dnyxogsakyqfi" path="res://UITextures/GameTextures/globe/globe3/7.png" id="48_k2maq"]
 [ext_resource type="Texture2D" uid="uid://b2vk4vkminsg1" path="res://UITextures/GameTextures/pillar/17.png" id="49_k3j5l"]
+[ext_resource type="Texture2D" uid="uid://cuqd4vyswu8wo" path="res://UITextures/GameTextures/globe/globe3/8.png" id="49_xowwy"]
 [ext_resource type="Texture2D" uid="uid://dbd08u0rbnnbc" path="res://UITextures/GameTextures/pillar/18.png" id="50_ji1q4"]
+[ext_resource type="Texture2D" uid="uid://c34w7e2e7wly0" path="res://UITextures/GameTextures/globe/globe3/9.png" id="50_l0a25"]
 [ext_resource type="Texture2D" uid="uid://c4abhbvr05yvi" path="res://UITextures/GameTextures/pillar/19.png" id="51_l2mxu"]
+[ext_resource type="Texture2D" uid="uid://1mm1qgka5n82" path="res://UITextures/GameTextures/globe/globe3/10.png" id="51_rmqvc"]
+[ext_resource type="Texture2D" uid="uid://dxl5qdwumnx1x" path="res://UITextures/GameTextures/globe/globe3/11.png" id="52_8l3gm"]
 [ext_resource type="Texture2D" uid="uid://cd23iwv4nd14k" path="res://UITextures/GameTextures/pillar/20.png" id="52_vejoj"]
+[ext_resource type="Texture2D" uid="uid://bcpc67qscqcq1" path="res://UITextures/GameTextures/globe/globe3/12.png" id="53_wpmll"]
+[ext_resource type="Texture2D" uid="uid://bnfyygm0iy42u" path="res://UITextures/GameTextures/globe/globe3/13.png" id="54_11w5w"]
+[ext_resource type="Texture2D" uid="uid://cokmwackq332y" path="res://UITextures/GameTextures/globe/globe3/14.png" id="55_neut5"]
+[ext_resource type="Texture2D" uid="uid://mdmp3iqw458a" path="res://UITextures/GameTextures/globe/globe3/15.png" id="56_p2gd1"]
+[ext_resource type="Texture2D" uid="uid://cp60u3vu5k85j" path="res://UITextures/GameTextures/globe/globe3/16.png" id="57_aefpx"]
+[ext_resource type="Texture2D" uid="uid://gs7h5i2mq0hx" path="res://UITextures/GameTextures/globe/globe3/17.png" id="58_f0r6b"]
+[ext_resource type="Texture2D" uid="uid://c64cfwafs4y4l" path="res://UITextures/GameTextures/globe/globe3/18.png" id="59_6lqyo"]
+[ext_resource type="Texture2D" uid="uid://dq7pie4voxgbf" path="res://UITextures/GameTextures/globe/globe3/19.png" id="60_h2biy"]
+[ext_resource type="Texture2D" uid="uid://dur8cuyjuuj55" path="res://UITextures/GameTextures/globe/globe3/20.png" id="61_8vgo8"]
+[ext_resource type="Texture2D" uid="uid://m1kehqm1cc8e" path="res://UITextures/GameTextures/globe/globe4/20.png" id="62_4dhcb"]
+[ext_resource type="Texture2D" uid="uid://ciauk6qvfg2h0" path="res://UITextures/GameTextures/globe/globe4/1.png" id="63_icqai"]
+[ext_resource type="Texture2D" uid="uid://dcjcvfecp38e6" path="res://UITextures/GameTextures/globe/globe4/2.png" id="64_jj8a5"]
+[ext_resource type="Texture2D" uid="uid://d2xuttvfmk47a" path="res://UITextures/GameTextures/globe/globe4/3.png" id="65_dkaj3"]
+[ext_resource type="Texture2D" uid="uid://cseshwux1tjnn" path="res://UITextures/GameTextures/globe/globe4/4.png" id="66_f2fqk"]
+[ext_resource type="Texture2D" uid="uid://u0v1rvr57rt5" path="res://UITextures/GameTextures/globe/globe4/5.png" id="67_s116d"]
+[ext_resource type="Texture2D" uid="uid://cdcshonw6vt0i" path="res://UITextures/GameTextures/globe/globe4/6.png" id="68_cdkrf"]
+[ext_resource type="Texture2D" uid="uid://mv8y2t8nbinn" path="res://UITextures/GameTextures/globe/globe4/7.png" id="69_eqlpu"]
+[ext_resource type="Texture2D" uid="uid://d0d4v7gjt0gb4" path="res://UITextures/GameTextures/globe/globe4/8.png" id="70_kyxlu"]
+[ext_resource type="Texture2D" uid="uid://vwefhkdsp6xx" path="res://UITextures/GameTextures/globe/globe4/9.png" id="71_pnsdp"]
+[ext_resource type="Texture2D" uid="uid://vohso7n38uqq" path="res://UITextures/GameTextures/globe/globe4/10.png" id="72_6jtpv"]
+[ext_resource type="Texture2D" uid="uid://cmr6c7r1iv4kc" path="res://UITextures/GameTextures/globe/globe4/11.png" id="73_n6cpi"]
+[ext_resource type="Texture2D" uid="uid://po63666y8p0y" path="res://UITextures/GameTextures/globe/globe4/12.png" id="74_f8upp"]
+[ext_resource type="Texture2D" uid="uid://dsdancbe0p6ar" path="res://UITextures/GameTextures/globe/globe4/13.png" id="75_2p51q"]
+[ext_resource type="Texture2D" uid="uid://dsbyomwbrh554" path="res://UITextures/GameTextures/globe/globe4/14.png" id="76_okfad"]
+[ext_resource type="Texture2D" uid="uid://bjy0dgnfdteay" path="res://UITextures/GameTextures/globe/globe4/15.png" id="77_kc462"]
+[ext_resource type="Texture2D" uid="uid://b8my7tdrudhr2" path="res://UITextures/GameTextures/globe/globe4/16.png" id="78_7v434"]
+[ext_resource type="Texture2D" uid="uid://c8rhpoaugjg3g" path="res://UITextures/GameTextures/globe/globe4/17.png" id="79_4bjyi"]
+[ext_resource type="Texture2D" uid="uid://ogbur6enyoj1" path="res://UITextures/GameTextures/globe/globe4/18.png" id="80_b5ir0"]
+[ext_resource type="Texture2D" uid="uid://rh3gmuvajmpm" path="res://UITextures/GameTextures/globe/globe4/19.png" id="81_u8udk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8tmit"]
 size = Vector3(0.12, 0.5, 1)
@@ -92,6 +172,269 @@ emission_texture = SubResource("GradientTexture2D_gf26y")
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jwy35"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_wgwxd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q385h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_j356x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_qps2m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_nekhn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_nb2el")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_x1uxa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5otld")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_gi5x5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_tfs4j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_pd72j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_3ssxd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_sujd6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_q56q8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_noisj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_j4sxj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_nx36m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_eaurx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_gsah2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ytrfb")
+}],
+"loop": true,
+"name": &"combo20",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_q24ah")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_lqqdl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_rvvu2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_xnxhe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_sutqc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_32ivq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_dyhtq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_saohl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_d2gpu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_iejro")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_v2j3y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_grfyi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_3rk7v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_c8yyw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_b1obt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_poqwc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_tj403")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_43yug")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_o06yu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_g3io4")
+}],
+"loop": true,
+"name": &"combo40",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("42_au5os")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_wginc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_0h0u2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_j21w0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_nxexe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_hanmq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_k2maq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_xowwy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_l0a25")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_rmqvc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_8l3gm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_wpmll")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_11w5w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_neut5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_p2gd1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_aefpx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_f0r6b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_6lqyo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_h2biy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_8vgo8")
+}],
+"loop": true,
+"name": &"combo50",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("62_4dhcb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_icqai")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_jj8a5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_dkaj3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_f2fqk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_s116d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_cdkrf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_eqlpu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_kyxlu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_pnsdp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_6jtpv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("73_n6cpi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("74_f8upp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("75_2p51q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("76_okfad")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_kc462")
+}, {
+"duration": 1.0,
+"texture": ExtResource("78_7v434")
+}, {
+"duration": 1.0,
+"texture": ExtResource("79_4bjyi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("80_b5ir0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("81_u8udk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_4dhcb")
+}],
+"loop": true,
+"name": &"combo60",
+"speed": 30.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": null
@@ -577,8 +920,17 @@ visible = false
 gi_mode = 0
 sprite_frames = SubResource("SpriteFrames_jwy35")
 animation = &"vortex"
-frame = 30
-frame_progress = 0.90661
+frame = 7
+frame_progress = 0.058078
+
+[node name="FXGlobe" type="AnimatedSprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-1.09278e-07, 0.371, 8.09098e-08, 0, -1.62169e-08, 1.851, 2.5, 1.62169e-08, 3.53668e-15, 0.260468, -0.0248922, -0.00455592)
+visible = false
+gi_mode = 0
+sprite_frames = SubResource("SpriteFrames_jwy35")
+animation = &"combo20"
+frame_progress = 0.523237
 
 [node name="FXSpark" type="GPUParticles3D" parent="."]
 unique_name_in_owner = true
@@ -599,7 +951,10 @@ draw_pass_1 = SubResource("QuadMesh_uu6di")
 [node name="FXLightPillar" type="AnimatedSprite3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(-1.74846e-07, 0, 1, 0, 8, 0, -4, 0, -4.37114e-08, 0.214922, -0.705245, 0)
+visible = false
 sprite_frames = SubResource("SpriteFrames_dscma")
+frame = 30
+frame_progress = 1.0
 
 [node name="FXLightning" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
@@ -608,4 +963,5 @@ visible = false
 material_override = SubResource("ShaderMaterial_phmhr")
 mesh = SubResource("QuadMesh_vtpg0")
 
+[connection signal="animation_finished" from="FXGlobe" to="." method="_on_fx_globe_animation_finished"]
 [connection signal="animation_finished" from="FXLightPillar" to="." method="_on_fx_light_pillar_animation_finished"]

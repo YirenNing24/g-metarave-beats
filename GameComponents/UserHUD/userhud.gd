@@ -50,30 +50,17 @@ func _ready() -> void:
 	health = clamp(health, 0, 100)  
 	%MultiplayerSynchronizer.set_multiplayer_authority(1)
 	connect_signals()
-	
-	
-	
-	
+	BKMREngine.Inventory.open_group_card_equipped(group)
 	
 func connect_signals() -> void:
 	var _1: int = MULTIPLAYER.classic_game_over_completed.connect(_on_classic_game_over_completed)
-	#BKMREngine.Inventory.get_card_inventory_complete.connect(equipment_slot_open)
+	BKMREngine.Inventory.get_group_card_equipped_complete.connect(_on_get_group_card_equipped_complete)
 	
-#func equipment_slot_open(inventory_data: Array) -> void:
-	#for cardslots: TextureRect in get_tree().get_nodes_in_group('CardSlot'):
-		#cardslots.equipped_card_pressed.connect(_on_equipped_card_pressed)
-		#cardslots.slot_data()
-		#
-	#for card_data: Dictionary in inventory_data[1]:
-		#var uri: String = card_data.keys()[0]
-		#match card_data[uri].group:
-			#"X:IN":
-				#x_in_equipped(uri, card_data)
+	
+func _on_get_group_card_equipped_complete(card_data: Array) -> void:
+	pass
+
 			
-
-
-
-	
 
 
 func hit_continued_feedback(note_accuracy: int, line: int ) -> void:

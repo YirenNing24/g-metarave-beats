@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://j1ox362pqin7"]
+[gd_scene load_steps=11 format=3 uid="uid://j1ox362pqin7"]
 
 [ext_resource type="Script" path="res://GameComponents/UserHUD/userhud.gd" id="1_5118n"]
 [ext_resource type="Texture2D" uid="uid://4euq5v0yi5wh" path="res://UITextures/Progress/song_exp.png" id="1_jofs5"]
@@ -7,7 +7,6 @@
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="5_6xcqj"]
 [ext_resource type="Texture2D" uid="uid://cxo48wpowo4oa" path="res://UITextures/Progress/base_momentum.png" id="5_w6njq"]
 [ext_resource type="Texture2D" uid="uid://cu2rldjgd6cuu" path="res://UITextures/Cards/hannah_no_doubt_genesis.png" id="6_hjbmm"]
-[ext_resource type="Texture2D" uid="uid://bo2cod3i2s70d" path="res://UITextures/Buttons/Skill/heal_skill_texture.png" id="6_qr71n"]
 [ext_resource type="Texture2D" uid="uid://b0e5yudkr5hi1" path="res://UITextures/Progress/momentum0.png" id="6_yr53h"]
 [ext_resource type="Texture2D" uid="uid://bl15da1eeo2o6" path="res://UITextures/Cards/esha_no_doubt_genesis.png" id="8_cpap7"]
 
@@ -33,6 +32,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5118n")
+health = null
+score = null
+score_accuracy = null
+total_combo = null
+combo = null
+max_combo = null
+accuracy_rate = null
+accuracy_label = null
+perfect = null
+very_good = null
+good = null
+bad = null
+miss = null
+current_momentum = null
+current_boost = null
+boost_multiplier = null
+final_stats = null
+note_stats = null
+momentum_to_string = null
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -196,54 +214,29 @@ texture = ExtResource("8_cpap7")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(0, 300)
-layout_mode = 0
-offset_left = 9.0
-offset_top = 152.0
-offset_right = 1106.0
-offset_bottom = 511.0
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+unique_name_in_owner = true
+replication_config = SubResource("SceneReplicationConfig_uhf7o")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer2"]
-custom_minimum_size = Vector2(1095, 0)
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer2/VBoxContainer2"]
-visible = false
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.396078)
 custom_minimum_size = Vector2(155.28, 196.83)
-layout_mode = 2
+offset_left = 12.0
+offset_top = 146.0
+offset_right = 167.28
+offset_bottom = 342.83
 size_flags_horizontal = 0
 texture = ExtResource("6_hjbmm")
 expand_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2"]
-visible = false
-custom_minimum_size = Vector2(90, 0)
-layout_mode = 2
-
-[node name="TextureButton" type="TextureButton" parent="HBoxContainer2/VBoxContainer"]
-custom_minimum_size = Vector2(0, 90)
-layout_mode = 2
-texture_normal = ExtResource("6_qr71n")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="TextureButton2" type="TextureButton" parent="HBoxContainer2/VBoxContainer"]
-custom_minimum_size = Vector2(0, 90)
-layout_mode = 2
-texture_normal = ExtResource("6_qr71n")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="TextureButton3" type="TextureButton" parent="HBoxContainer2/VBoxContainer"]
-custom_minimum_size = Vector2(0, 90)
-layout_mode = 2
-texture_normal = ExtResource("6_qr71n")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-unique_name_in_owner = true
-replication_config = SubResource("SceneReplicationConfig_uhf7o")
+[node name="TextureRect2" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(155.28, 196.83)
+offset_left = 46.0
+offset_top = 146.0
+offset_right = 201.28
+offset_bottom = 342.83
+size_flags_horizontal = 0
+texture = ExtResource("6_hjbmm")
+expand_mode = 1
 
 [connection signal="value_changed" from="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/BoostProgressBar" to="." method="_on_boost_progress_bar_value_changed"]

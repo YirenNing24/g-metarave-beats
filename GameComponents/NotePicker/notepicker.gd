@@ -107,6 +107,20 @@ func hit_feedback(_note_accuracy: int, short_line: int) -> void:
 			emit_spark()
 		if combo % 10 == 0:
 			emit_light_pillar()
+		
+		# Check if combo is within 20-39
+		if combo >= 20 and combo < 40:
+			%FXGlobe.visible = true
+			%FXGlobe.play("combo20")
+		elif combo >= 41 and combo < 49:
+			%FXGlobe.visible = true
+			%FXGlobe.play("combo40")
+		elif combo >= 50 and combo < 59:
+			%FXGlobe.visible = true
+			%FXGlobe.play("combo50")
+		elif combo >= 60:
+			%FXGlobe.visible = true
+			%FXGlobe.play("combo60")
 	
 	
 func combo_value(value: String ) -> void:
@@ -139,3 +153,9 @@ func hit_feedback_short(note_accuracy: int, short_line: int) -> void:
 @rpc
 func hit_feedback_long(note_accuracy: int, short_line: int) -> void:
 	hit_continued_feedback(note_accuracy, short_line)
+
+
+func _on_fx_globe_animation_finished() -> void:
+	%FXGlobe.visible = false
+	%FXGlobe.frame = 0
+	

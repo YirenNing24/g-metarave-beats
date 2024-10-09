@@ -137,28 +137,28 @@ func _on_filter_panel_gui_input(event: InputEvent) -> void:
 			close_modals()
 		elif stats_modal.visible:
 			close_modals()
-
-
+		
+		
 # Open the store screen.
 func _on_store_button_pressed() -> void:
 	# Kill the stat tween if it exists
 	if stats_tween: 
 		stats_tween.kill()
-
+	
 	# Set previous and next textures for scene transition
 	LOADER.previous_texture = background_texture.texture
 	LOADER.next_texture = preload("res://UITextures/BGTextures/store_bg.png")
-
+	
 	# Load the store screen scene asynchronously
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/store_screen2.tscn")
-
+	
 	# Disable buttons in the 'MainButtons' group during the scene transition
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons'):
 		buttons.disabled = true
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons2'):
 		buttons.disabled = true
-
-
+	
+	
 # Open the inventory screen.
 func _on_inventory_button_pressed() -> void:
 	if stats_tween: 
@@ -177,8 +177,8 @@ func _on_inventory_button_pressed() -> void:
 	# Disable buttons in the 'MainButtons2' group during the scene transition
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons2'):
 		buttons.disabled = true
-	
-	
+		
+		
 # Open the song menu screen with a smooth transition.
 func _on_game_mode_button_pressed() -> void:
 	# Disable buttons in 'MainButtons' and 'MainButtons2' groups during the transition
