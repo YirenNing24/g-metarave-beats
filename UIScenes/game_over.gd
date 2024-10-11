@@ -21,10 +21,12 @@ var peer_id: int = PLAYER.peer_id
 
 
 func _ready() -> void:
+	var _1: int = MULTIPLAYER.classic_game_over_completed.connect(display_score)
 	#BKMREngine.Score.get_classic_high_score_single(peer_id)
 	#BKMREngine.Score.get_classic_highscore_single.connect(_on_get_classic_highscore_single)
-	BKMREngine.beats_server_peer_close()
-	display_score()
+	
+	#display_score()
+
 
 #func _on_get_classic_highscore_single(score: Array) -> void:
 	#if !score.is_empty():
@@ -52,7 +54,7 @@ func display_score() -> void:
 	good_label.text = format_scores(str(single_score["good"]))
 	bad_label.text = format_scores(str(single_score["bad"]))
 	miss_label.text = format_scores(str(single_score["miss"]))
-	
+	BKMREngine.beats_server_peer_close()
 	
 func format_scores(value: String) -> String:
 	var parts: Array = value.split(".")

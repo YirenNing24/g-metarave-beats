@@ -102,29 +102,33 @@ func notepicker_3d_pos() -> Vector2:
 	
 func hit_feedback(_note_accuracy: int, short_line: int) -> void:
 	if line == short_line:
-		# Check if note_accuracy is neither 4-bad nor 5-miss
-		if combo <= 20:
+		# Emit spark if combo <= 20 or combo is in certain ranges
+		if combo <= 20 or combo % 10 == 0:
 			emit_spark()
-		if combo % 10 == 0:
+
+		# Emit light pillar for combos that are multiples of 10
+		if combo % 10 == 0 and combo != 0:
 			emit_light_pillar()
-		
-		# Check if combo is within 20-39
-		if combo >= 20 and combo < 40:
-			%FXGlobe.visible = true
-			%FXGlobe.play("combo20")
-		elif combo >= 41 and combo < 49:
-			%FXGlobe.visible = true
-			%FXGlobe.play("combo40")
-		elif combo >= 50 and combo < 59:
-			%FXGlobe.visible = true
-			%FXGlobe.play("combo50")
-		elif combo >= 60:
-			%FXGlobe.visible = true
-			%FXGlobe.play("combo60")
+
+		# Handle FXGlobe animations based on combo ranges
+		var combo_thresholds: Dictionary = {
+			20: "combo20",
+			40: "combo40",
+			50: "combo50",
+			60: "combo60"
+		}
+
+		for threshold: int in combo_thresholds.keys():
+			if combo >= threshold and combo < threshold + 10:
+				emit_spark()
+				%FXGlobe.visible = true
+				%FXGlobe.play(combo_thresholds[threshold])
+				break
+
 	
 	
-func combo_value(value: String ) -> void:
-	combo = value.to_int()
+func combo_value(value: int) -> void:
+	combo = value
 	
 	
 func hit_continued_feedback(_note_accuracy: int, long_line: int) -> void:
@@ -138,7 +142,9 @@ func emit_spark() -> void:
 	
 	
 func emit_light_pillar() -> void:
+	fx_light_pillar.visible = true
 	fx_light_pillar.play()
+	fx_light_pillar.frame = 0
 	
 	
 func _on_fx_light_pillar_animation_finished() -> void:
@@ -153,9 +159,8 @@ func hit_feedback_short(note_accuracy: int, short_line: int) -> void:
 @rpc
 func hit_feedback_long(note_accuracy: int, short_line: int) -> void:
 	hit_continued_feedback(note_accuracy, short_line)
-
-
+	
+	
 func _on_fx_globe_animation_finished() -> void:
-	%FXGlobe.visible = false
 	%FXGlobe.frame = 0
 	

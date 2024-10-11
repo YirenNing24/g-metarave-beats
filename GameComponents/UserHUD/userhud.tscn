@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://j1ox362pqin7"]
+[gd_scene load_steps=15 format=3 uid="uid://j1ox362pqin7"]
 
 [ext_resource type="Script" path="res://GameComponents/UserHUD/userhud.gd" id="1_5118n"]
 [ext_resource type="Texture2D" uid="uid://4euq5v0yi5wh" path="res://UITextures/Progress/song_exp.png" id="1_jofs5"]
@@ -6,9 +6,22 @@
 [ext_resource type="Texture2D" uid="uid://74d22xpi5g4s" path="res://UITextures/Progress/player_exp_progress.png" id="3_3qn4g"]
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="5_6xcqj"]
 [ext_resource type="Texture2D" uid="uid://cxo48wpowo4oa" path="res://UITextures/Progress/base_momentum.png" id="5_w6njq"]
-[ext_resource type="Texture2D" uid="uid://cu2rldjgd6cuu" path="res://UITextures/Cards/hannah_no_doubt_genesis.png" id="6_hjbmm"]
 [ext_resource type="Texture2D" uid="uid://b0e5yudkr5hi1" path="res://UITextures/Progress/momentum0.png" id="6_yr53h"]
 [ext_resource type="Texture2D" uid="uid://bl15da1eeo2o6" path="res://UITextures/Cards/esha_no_doubt_genesis.png" id="8_cpap7"]
+[ext_resource type="Shader" uid="uid://bd1fs0imo8ab4" path="res://UITextures/CustomResource/matrix.tres" id="9_sy1kn"]
+[ext_resource type="Texture2D" uid="uid://vxw1aujmxjy3" path="res://UITextures/CustomResource/auth_screen_gradient.tres" id="10_4xhq0"]
+[ext_resource type="Texture2D" uid="uid://dorhyoghxkay6" path="res://addons/SmoothScroll/class-icon.svg" id="11_ytpoh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mln7i"]
+shader = ExtResource("9_sy1kn")
+shader_parameter/ScaleMult = Vector2(1, 2)
+shader_parameter/AuraProgres = 1.0
+shader_parameter/TextureLaodMult = 8.0
+shader_parameter/Tilling = 10.0
+shader_parameter/MovementDirSpeed = Vector2(-0.3, 0.5)
+shader_parameter/MovementDirSpeed2 = Vector2(0.3, 0.5)
+shader_parameter/Noise_Seed = Vector2(1, 1)
+shader_parameter/color_gradiant = ExtResource("10_4xhq0")
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_uhf7o"]
 properties/0/path = NodePath(".:score")
@@ -23,6 +36,20 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath(".:momentum_to_string")
 properties/3/spawn = true
 properties/3/replication_mode = 1
+properties/4/path = NodePath("VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/ScoreLabel:text")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lnhsd"]
+shader = ExtResource("9_sy1kn")
+shader_parameter/ScaleMult = Vector2(0.4, 1)
+shader_parameter/AuraProgres = 1.0
+shader_parameter/TextureLaodMult = 5.0
+shader_parameter/Tilling = 32.35
+shader_parameter/MovementDirSpeed = Vector2(1, 8)
+shader_parameter/MovementDirSpeed2 = Vector2(0.3, 0.5)
+shader_parameter/Noise_Seed = Vector2(1, 1)
+shader_parameter/color_gradiant = ExtResource("10_4xhq0")
 
 [node name="UserHUD" type="Control"]
 layout_mode = 3
@@ -32,25 +59,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5118n")
-health = null
-score = null
-score_accuracy = null
-total_combo = null
-combo = null
-max_combo = null
-accuracy_rate = null
-accuracy_label = null
-perfect = null
-very_good = null
-good = null
-bad = null
-miss = null
-current_momentum = null
-current_boost = null
-boost_multiplier = null
-final_stats = null
-note_stats = null
-momentum_to_string = null
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -124,12 +132,14 @@ alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3"]
 layout_mode = 2
+size_flags_horizontal = 3
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer"]
 layout_mode = 2
 
 [node name="MomentumLabel" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+material = SubResource("ShaderMaterial_mln7i")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_6xcqj")
 theme_override_font_sizes/font_size = 20
@@ -143,7 +153,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("5_6xcqj")
 theme_override_font_sizes/font_size = 20
-text = "999,999,999,999"
+text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
@@ -218,25 +228,52 @@ stretch_mode = 4
 unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_uhf7o")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0.396078)
+[node name="CardTexture3" type="TextureRect" parent="." groups=["CardTexture"]]
+unique_name_in_owner = true
+z_index = 1
+material = SubResource("ShaderMaterial_lnhsd")
 custom_minimum_size = Vector2(155.28, 196.83)
-offset_left = 12.0
-offset_top = 146.0
-offset_right = 167.28
-offset_bottom = 342.83
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0383333
+anchor_top = 0.225926
+anchor_right = 0.185833
+anchor_bottom = 0.640741
+offset_top = 10.0
+offset_bottom = 10.0
 size_flags_horizontal = 0
-texture = ExtResource("6_hjbmm")
+texture = ExtResource("11_ytpoh")
 expand_mode = 1
 
-[node name="TextureRect2" type="TextureRect" parent="."]
+[node name="CardTexture1" type="TextureRect" parent="CardTexture3" groups=["CardTexture"]]
+unique_name_in_owner = true
+z_index = 1
 custom_minimum_size = Vector2(155.28, 196.83)
-offset_left = 46.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -77.64
+offset_top = -98.415
+offset_right = 77.64
+offset_bottom = 98.415
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+expand_mode = 1
+
+[node name="CardTexture2" type="TextureRect" parent="." groups=["CardTexture"]]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.396078)
+custom_minimum_size = Vector2(155.28, 196.83)
+layout_mode = 0
+offset_left = 9.0
 offset_top = 146.0
-offset_right = 201.28
+offset_right = 164.28
 offset_bottom = 342.83
 size_flags_horizontal = 0
-texture = ExtResource("6_hjbmm")
 expand_mode = 1
 
 [connection signal="value_changed" from="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/BoostProgressBar" to="." method="_on_boost_progress_bar_value_changed"]

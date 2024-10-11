@@ -50,17 +50,21 @@ script = ExtResource("1_ekha0")
 
 [node name="ComboLabel" type="Label3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(-4.37114e-08, -0.948876, 0.315649, 0, 0.315649, 0.948876, -1, 4.14767e-08, -1.37975e-08, 0, 0.289277, 0)
+transform = Transform3D(-4.37111e-08, -0.947657, 0.31929, 1.67839e-10, 0.31929, 0.947657, -1, 4.14767e-08, -1.37975e-08, 0, 0.289277, 0)
+outline_modulate = Color(0.870588, 0.0862745, 0.415686, 1)
 text = "COMBO"
 font = ExtResource("1_cciad")
 font_size = 140
+outline_size = 15
 
 [node name="ComboValueLabel" type="Label3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(-4.14716e-08, -0.94876, 0.315997, 1.38127e-08, 0.315997, 0.94876, -1, 4.37114e-08, 1.91068e-15, 0.658, 0.2, 0)
+outline_modulate = Color(0.870588, 0.0862745, 0.415686, 1)
 text = "0"
 font = ExtResource("1_cciad")
 font_size = 140
+outline_size = 15
 
 [node name="Hit1" type="AnimatedSprite3D" parent="."]
 unique_name_in_owner = true

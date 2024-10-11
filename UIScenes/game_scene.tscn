@@ -58,6 +58,7 @@ unique_name_in_owner = true
 [node name="LoadingScreen" parent="Game/CanvasLayer" instance=ExtResource("6_ce6x1")]
 unique_name_in_owner = true
 visible = false
+z_index = 2
 
 [node name="Sprite3D" type="Sprite3D" parent="Game"]
 transform = Transform3D(-7.0925e-08, -1.0038, -1.95764, -4.35855e-08, 1.95764, -1.0038, 2.2, 6.42281e-09, -8.29988e-08, -19.8414, -10.5111, 0)

@@ -43,26 +43,95 @@ var song_length: float
 var tween: Tween
 var boost_tween: Tween
 
+var card_texture_tween: Tween
+var card_textures_array: Array[Texture] = []
+var current_card_texture_index: int = 0
+@onready var card_texture2_original_position: Vector2 = %CardTexture2.position
+
+
 @export var momentum_to_string: String = ""
 
 
 func _ready() -> void:
-	health = clamp(health, 0, 100)  
+	health = clamp(health, 0, 100) 
+	set_multiplayer_authority(1) 
 	%MultiplayerSynchronizer.set_multiplayer_authority(1)
 	connect_signals()
-	BKMREngine.Inventory.open_group_card_equipped(group)
+	
 	
 func connect_signals() -> void:
 	var _1: int = MULTIPLAYER.classic_game_over_completed.connect(_on_classic_game_over_completed)
-	BKMREngine.Inventory.get_group_card_equipped_complete.connect(_on_get_group_card_equipped_complete)
-	
+		
 	
 func _on_get_group_card_equipped_complete(card_data: Array) -> void:
-	pass
-
+	if not card_data.is_empty():
+		equipped_cards_texture(card_data)
+		
+		
+@rpc
+func show_equipped_cards(card_data: Array) -> void:
+	equipped_cards_texture(card_data)
+		
+		
+func equipped_cards_texture(card_data: Array) -> void:
+	for card: Dictionary in card_data:
+		var card_name: String = card["name"].replace(" ", "_").to_lower()
+		var card_texture: Texture = load("res://UITextures/Cards/" + card_name + ".png")
 			
+		if card_texture:
+			card_textures_array.append(card_texture)
+	animate_card()
+	
+	
+func animate_card() -> void:
+	if not card_textures_array.is_empty():
+		if card_textures_array.size() == 1:
+			%CardTexture1.texture = card_textures_array[0]
+		elif card_textures_array.size() > 1:
+			%CardTexture1.texture = card_textures_array[0]
+			%CardTexture2.texture = card_textures_array[1]
+			cycle_card_textures()
+	
+	
+# Define the cycle_textures function outside
+# Function to update textures for CardTexture1 and CardTexture2
+func update_textures() -> void:
+	# Store the current texture of CardTexture2
+	var next_texture: Texture = %CardTexture2.texture
+	
+	# Set CardTexture1 to show the texture of CardTexture2
+	%CardTexture1.texture = next_texture
+	
+	# Update the index for CardTexture2
+	if current_card_texture_index + 1 < card_textures_array.size():
+		current_card_texture_index += 1
+	else:
+		current_card_texture_index = 0
+	
+	# Set CardTexture2 to the next texture in the array
+	%CardTexture2.texture = card_textures_array[current_card_texture_index]
 
+# Function to start tweening for CardTexture2
+func start_tween() -> void:
+	card_texture_tween = get_tree().create_tween()
+	
+	# Tween the transition for CardTexture2
+	var _texture2: PropertyTweener = card_texture_tween.tween_property(
+		%CardTexture2, 
+		"texture", 
+		card_textures_array[current_card_texture_index], 
+		4
+	).set_trans(Tween.TRANS_LINEAR)
 
+	# Callback to cycle textures again after the tween completes
+	var _tween_callback: CallbackTweener = card_texture_tween.tween_callback(cycle_card_textures)
+
+# Main function to cycle through textures
+func cycle_card_textures() -> void:
+	update_textures()  # Update the textures for CardTexture1 and CardTexture2
+	start_tween()      # Start the tweening process
+	
+	
 func hit_continued_feedback(note_accuracy: int, line: int ) -> void:
 	if note_accuracy == 5:
 		combo = 0
@@ -105,8 +174,8 @@ func boost_feedback(is_swipe_note: bool = false) -> void:
 	elif current_momentum == 50 and current_boost == 3:
 		set_boost()
 	animate_momentum()
-
-
+	
+	
 func set_boost(is_reset: bool = false) -> void:
 	if is_reset:
 		current_boost = 0
@@ -124,20 +193,20 @@ func set_boost(is_reset: bool = false) -> void:
 func boost_progress_texture_change() -> void:
 	const texture_path: String = "res://UITextures/Progress/momentum"
 	boost_progress_bar.texture_progress = load(texture_path + momentum_to_string + ".png")
-
-
+	
+	
 func animate_momentum() -> void:
 	boost_tween = get_tree().create_tween()
 	var _momentum_tween: PropertyTweener = boost_tween.tween_property(
 		boost_progress_bar, 
 		"value", 
 		current_momentum, 0.1).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_LINEAR )
-
-
+	
+	
 func _on_road_song_finished() -> void:
 	_on_classic_game_over_completed()
- 
-
+	
+	
 func _on_music_song_finished() -> void:
 	_on_classic_game_over_completed()
 	
@@ -145,8 +214,8 @@ func _on_music_song_finished() -> void:
 func _on_classic_game_over_completed() -> void:
 	var _load_scene: bool = await LOADER.load_scene(self, "res://UIScenes/game_over.tscn")
 	LOADER.next_texture = preload("res://UITextures/BGTextures/game_over_bg.png")
-
-
+	
+	
 func format_number(number: int) -> String:
 	# Handle negative numbers by adding the "minus" sign in advance, as we discard it
 	# when looping over the number.
@@ -162,8 +231,8 @@ func format_number(number: int) -> String:
 			formatted_number += ","
 		index += 1
 	return formatted_number as String
-
-
+	
+	
 func _on_boost_progress_bar_value_changed(_value: float) -> void:
 	if momentum_to_string != "":
 		boost_progress_texture_change()
