@@ -11,22 +11,22 @@ signal equipped_card_pressed(card_data: Dictionary)
 
 var cards_data: Dictionary = {}
 var unequip_card_data: Dictionary
-# Called when the node enters the scene tree for the first time.
+
+
 func _ready() -> void:
 	connect_signal()
+	
 	
 func connect_signal() -> void:
 	var _connect: int = button.pressed.connect(_on_button_pressed)
 	var _connection: int = BKMREngine.Inventory.equip_item_complete.connect(_on_equip_item_complete)
-	#var initialize_scrolling: Callable = inventory_scroll.initialize_scrolling
-	#var _connect_initialize_scrolling: int = unequipped.connect(initialize_scrolling)
-
+	
 	
 func slot_data(card_data: Dictionary = {}) -> Dictionary:
 	var equipment_slot: String = get_parent().get_name()
 	if !card_data.is_empty():
 		var uri: String = card_data.keys()[0]
-		if equipment_slot == card_data[uri].slot:
+		if equipment_slot.replace(" ", "").to_lower() == card_data[uri].slot.replace(" ", "").to_lower():
 			card_data["origin_node"] = self
 			card_data["origin_panel"] = "CardSlot"
 			card_data["origin_item_id"] = uri
@@ -68,7 +68,8 @@ func slot_data(card_data: Dictionary = {}) -> Dictionary:
 	cards_data = card_data
 	slot_texture_set()
 	return cards_data as Dictionary
-
+	
+	
 func slot_texture_set() -> void:
 	if "Name" in cards_data:
 		var card_name: String = cards_data["Name"]
@@ -77,8 +78,8 @@ func slot_texture_set() -> void:
 		texture = card_texture
 		self_modulate = "ffffff"
 		cards_data["origin_texture"] = card_texture
-
-
+	
+	
 func default_texture() -> void:
 	var equipment_slot: String = get_parent().name
 	var texture_name: String = equipment_slot.to_lower() + "_empty_slot_bg" + ".png"
@@ -87,17 +88,25 @@ func default_texture() -> void:
 	
 	
 func _on_button_pressed() -> void:
-	equipped_card_pressed.emit(cards_data)
-
-
+	if cards_data["origin_item_id"] != null:
+		equipped_card_pressed.emit(cards_data)
+	else:
+		filter_card_slot()
+	
+	
+	
 func equip(origin_item_id: String, card_data: Dictionary, origin: String = "self") -> void:
-	if cards_data["origin_equipment_slot"] == card_data["origin_equipment_slot"]:
+	
+	if card_data[origin_item_id].group == "Great Guys":
+		print("Dong Hwasa: ", card_data)
+	if cards_data["origin_equipment_slot"].replace(" ", "").to_lower() == card_data["origin_equipment_slot"].replace(" ", "").to_lower():
+		print("wala dito?!")
 		var _equipment_slot_data: Dictionary = slot_data(card_data)
 		if origin == "self":
 			var equip_item_data: Dictionary = { "uri": origin_item_id, "equipped": true }
 			BKMREngine.Inventory.equip_item([equip_item_data])
-
-
+	
+	
 func unequip(_equipment_data: Dictionary = {}) -> void:
 	for slots: TextureRect in get_tree().get_nodes_in_group('InventorySlot'):
 		if slots.cards_data["origin_item_id"] == null or "":
@@ -107,24 +116,6 @@ func unequip(_equipment_data: Dictionary = {}) -> void:
 			var _unequip: Dictionary = slot_data({})
 			return
 	
-#func _on_create_empty_card() -> void:
-	#for slots: TextureRect in get_tree().get_nodes_in_group('InventorySlot'):
-		#if slots.cards_data["origin_item_id"] == null or "":
-			#slots.unequip_from_equip_slot(cards_data, texture)
-			#unequipped.emit()
-			#return
-
-#func set_skill_data(is_equipped: bool) -> bool:
-	#var equipment_slot: String = get_parent().name
-	#
-	#var slot_equipment_ive: Dictionary = BKMREngine.Inventory.card_inventory.slotEquipment["IveEquip"]
-	#var equipped_count: int = limit_toggled_skills(slot_equipment_ive)
-	#if equipped_count >= 3:
-		#return false
-		#
-	#BKMREngine.Inventory.card_inventory.slotEquipment["IveEquip"][equipment_slot]["Equipped"] = is_equipped
-	#set_skill_texture()
-	#return true
 	
 func limit_toggled_skills(equipment_slot: Dictionary) -> int:
 	var equipped_count: int = 0
@@ -143,3 +134,13 @@ func set_skill_texture() -> void:
 
 func _on_equip_item_complete(_message: Dictionary) -> void:
 	pass
+	
+	
+func filter_card_slot() -> void:
+	for card: Control in get_tree().get_nodes_in_group("InventorySlot"):
+		if card.cards_data["origin_item_id"] != null:
+			if card.cards_data["origin_equipment_slot"].replace(" ", "").to_lower() != cards_data["origin_equipment_slot"].replace(" ", "").to_lower():
+				card.get_parent().visible = false
+			else:
+				card.get_parent().visible = true
+	%CloseFilterButton.visible = true

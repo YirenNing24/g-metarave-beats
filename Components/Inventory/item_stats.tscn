@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://d7lwkk74i4o1"]
+[gd_scene load_steps=7 format=3 uid="uid://d7lwkk74i4o1"]
 
 [ext_resource type="Script" path="res://Components/Inventory/item_stats.gd" id="1_4bbpx"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="3_x8rl0"]
-[ext_resource type="Texture2D" uid="uid://bsch6o78xyfv6" path="res://UITextures/BGTextures/item_stat_bg.png" id="3_yq227"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="4_3i6tk"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="5_fgky4"]
 [ext_resource type="Texture2D" uid="uid://irgifod6546h" path="res://UITextures/Buttons/show_chat.png" id="5_nd6yq"]
@@ -58,7 +57,6 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1, 0.99544)
 mouse_filter = 0
-texture = ExtResource("3_yq227")
 expand_mode = 1
 stretch_mode = 6
 

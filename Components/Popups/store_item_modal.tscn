@@ -137,6 +137,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="SPContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/SPContainer"]
@@ -299,6 +300,7 @@ size_flags_stretch_ratio = 0.0
 alignment = 1
 
 [node name="TextureButton2" type="TextureButton" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
 self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
 custom_minimum_size = Vector2(250, 70)
 layout_mode = 2

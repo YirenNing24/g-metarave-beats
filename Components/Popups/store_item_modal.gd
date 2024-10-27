@@ -76,7 +76,7 @@ func _on_close_button_pressed() -> void:
 # Handle buy button press.
 func _on_buy_button_pressed() -> void:
 	BKMREngine.Store.buy_card(card_uri, int(listing_id))
-	store_item_buy_pressed.emit()
+	store_item_buy_pressed.emit(price.text)
 
 # Handle close transaction button press.
 func _on_close_transaction_pressed() -> void:

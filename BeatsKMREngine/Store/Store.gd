@@ -178,19 +178,23 @@ func buy_card(uri: String, listing_id: int) -> void:
 # Callback function triggered upon the completion of the buy card request.
 func _onBuyCard_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	if is_instance_valid(BuyCard):
-		BKMREngine.free_request(wrBuyCard, BuyCard)
+	
 	if status_check:
-		var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
-		var _bkmr_result: Dictionary = BKMREngine.build_result(json_body)
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body != null:
+			print("hey hey hey1")
 		# Check if the purchase was successful and log accordingly
-		if json_body.success:
-			buy_card_complete.emit(json_body)
-			BKMRLogger.info("Purchase was successful.")
+			if json_body.has("error"):
+				buy_card_complete.emit(json_body)
+			else:
+				buy_card_complete.emit(json_body)
+				print("hey hey hey2")
 		else:
-			BKMRLogger.error("Purchase failed: " + str(json_body.error))
-		# Emit the 'buy_card_complete' signal with the response body
-		buy_card_complete.emit(json_body)
+			buy_card_complete.emit({"error": "Unknown server error"})
+			
+	else:
+		buy_card_complete.emit({"error": "Unknown server error"})
+
 
 
 # Function to initiate the purchase of a card from the store.

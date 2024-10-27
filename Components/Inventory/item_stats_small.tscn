@@ -1,0 +1,602 @@
+[gd_scene load_steps=17 format=3 uid="uid://boeesjmh1p2qx"]
+
+[ext_resource type="Texture2D" uid="uid://naup1ns6qyy" path="res://UITextures/PanelElements/song_display.png" id="1_4s64q"]
+[ext_resource type="Script" path="res://Components/Inventory/item_stats_small.gd" id="1_ojhwh"]
+[ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="2_i14e4"]
+[ext_resource type="Texture2D" uid="uid://cu2rldjgd6cuu" path="res://UITextures/Cards/hannah_no_doubt_genesis.png" id="3_mjka6"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="5_jtq0n"]
+[ext_resource type="Texture2D" uid="uid://dtknbgik85jx3" path="res://UITextures/Progress/prop_base.png" id="6_d464o"]
+[ext_resource type="Texture2D" uid="uid://ds0um88d71gmp" path="res://UITextures/Progress/prop_progress.png" id="7_hkjf2"]
+[ext_resource type="Texture2D" uid="uid://b6qt0ocsxk3sc" path="res://UITextures/Icons/message_icon.png" id="9_4w00j"]
+[ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="9_uwwju"]
+[ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="10_n5rw6"]
+[ext_resource type="Texture2D" uid="uid://71ok60rxtq74" path="res://UITextures/Popups/info_panel.png" id="11_50el5"]
+[ext_resource type="FontFile" uid="uid://vqx73un0cel7" path="res://UITextures/Fonts/HankenGrotesk-Italic-VariableFont_wght.ttf" id="12_pkpf0"]
+[ext_resource type="Texture2D" uid="uid://1ktjogd6a24l" path="res://UITextures/Buttons/buy_button.png" id="13_431by"]
+[ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="14_nivar"]
+[ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="15_120sd"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3t7mv"]
+viewport_path = NodePath("SubViewport")
+
+[node name="ItemStatsSmall" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ojhwh")
+
+[node name="Panel" type="Panel" parent="."]
+self_modulate = Color(0, 0, 0, 0.968627)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+custom_minimum_size = Vector2(388, 556)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -194.0
+offset_top = -288.0
+offset_right = 194.0
+offset_bottom = 268.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.03469, 1.03469)
+texture = ExtResource("1_4s64q")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.08
+anchor_top = 0.0657194
+anchor_right = 0.9425
+anchor_bottom = 0.932504
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="NameLabel" type="Label" parent="Panel/TextureRect/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_i14e4")
+theme_override_font_sizes/font_size = 24
+text = "CARD NAME CARD NAMECARD NAME "
+horizontal_alignment = 1
+autowrap_mode = 2
+max_lines_visible = 2
+
+[node name="TierRarityEraLabel" type="Label" parent="Panel/TextureRect/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.2
+theme_override_fonts/font = ExtResource("2_i14e4")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EquippedIcon" type="TextureRect" parent="Panel/TextureRect"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(190, 240)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.0
+offset_top = -172.655
+offset_right = 95.0
+offset_bottom = 67.3453
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+texture = ExtResource("3_mjka6")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Panel/TextureRect"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -155.341
+offset_top = -190.0
+offset_right = 164.659
+offset_bottom = -95.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="ScoreBoostContainer" type="VBoxContainer" parent="Panel/TextureRect/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/TextureRect/HBoxContainer/ScoreBoostContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/TextureRect/HBoxContainer/ScoreBoostContainer/HBoxContainer"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jtq0n")
+theme_override_font_sizes/font_size = 12
+text = "SCOREBOOST"
+vertical_alignment = 2
+
+[node name="ScoreBoost" type="Label" parent="Panel/TextureRect/HBoxContainer/ScoreBoostContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("5_jtq0n")
+theme_override_font_sizes/font_size = 12
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="ScoreBoostProgress" type="TextureProgressBar" parent="Panel/TextureRect/HBoxContainer/ScoreBoostContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(172, 5)
+layout_mode = 2
+nine_patch_stretch = true
+texture_under = ExtResource("6_d464o")
+texture_progress = ExtResource("7_hkjf2")
+
+[node name="ScoreBoostContainer2" type="VBoxContainer" parent="Panel/TextureRect/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/TextureRect/HBoxContainer/ScoreBoostContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/TextureRect/HBoxContainer/ScoreBoostContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jtq0n")
+theme_override_font_sizes/font_size = 12
+text = "HEALBOOST"
+vertical_alignment = 2
+
+[node name="HealBoost" type="Label" parent="Panel/TextureRect/HBoxContainer/ScoreBoostContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("5_jtq0n")
+theme_override_font_sizes/font_size = 12
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="ScoreBoostProgress" type="TextureProgressBar" parent="Panel/TextureRect/HBoxContainer/ScoreBoostContainer2"]
+custom_minimum_size = Vector2(172, 5)
+layout_mode = 2
+nine_patch_stretch = true
+texture_under = ExtResource("6_d464o")
+texture_progress = ExtResource("7_hkjf2")
+
+[node name="HealBoostContainer" type="VBoxContainer" parent="Panel/TextureRect/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/TextureRect/HBoxContainer/HealBoostContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/TextureRect/HBoxContainer/HealBoostContainer/HBoxContainer"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jtq0n")
+theme_override_font_sizes/font_size = 12
+text = "LEVEL"
+vertical_alignment = 2
+
+[node name="Level" type="Label" parent="Panel/TextureRect/HBoxContainer/HealBoostContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("5_jtq0n")
+theme_override_font_sizes/font_size = 12
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="HealBoostProgress" type="TextureProgressBar" parent="Panel/TextureRect/HBoxContainer/HealBoostContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(172, 5)
+layout_mode = 2
+nine_patch_stretch = true
+texture_under = ExtResource("6_d464o")
+texture_progress = ExtResource("7_hkjf2")
+
+[node name="BackgroundIcon" type="TextureRect" parent="Panel/TextureRect"]
+unique_name_in_owner = true
+self_modulate = Color(0.0687983, 0.0687983, 0.0687982, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.064433
+anchor_top = 0.0521583
+anchor_right = 0.963918
+anchor_bottom = 0.946043
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_mjka6")
+expand_mode = 1
+stretch_mode = 6
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/TextureRect"]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 475.504
+offset_right = 356.0
+offset_bottom = 514.504
+size_flags_vertical = 3
+mouse_filter = 0
+
+[node name="EquipUnequipButton" type="TextureButton" parent="Panel/TextureRect/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("9_uwwju")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="EquipLabel" type="Label" parent="Panel/TextureRect/HBoxContainer2/EquipUnequipButton"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57.5
+offset_top = -11.0
+offset_right = 57.5
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_jtq0n")
+theme_override_font_sizes/font_size = 0
+text = "Equip"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PowerupButton" type="TextureButton" parent="Panel/TextureRect/HBoxContainer2"]
+unique_name_in_owner = true
+modulate = Color(0.306923, 0.306923, 0.306923, 1)
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("9_uwwju")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Panel/TextureRect/HBoxContainer2/PowerupButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57.5
+offset_top = -11.0
+offset_right = 57.5
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Power-up"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MoreInfoButton" type="TextureButton" parent="Panel/TextureRect"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.169382
+anchor_top = 0.191209
+anchor_right = 0.238944
+anchor_bottom = 0.239752
+offset_right = 17.0099
+offset_bottom = 17.0099
+scale = Vector2(0.574752, 0.574752)
+texture_normal = ExtResource("9_4w00j")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="BackgroundTexture" type="TextureRect" parent="."]
+visible = false
+self_modulate = Color(0.360784, 0.360784, 0.360784, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_n5rw6")
+expand_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CardSprite" type="Sprite2D" parent="BackgroundTexture/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+position = Vector2(404, 267)
+texture = SubResource("ViewportTexture_3t7mv")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 9.79
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("11_50el5")
+expand_mode = 1
+flip_h = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0520446
+anchor_top = 0.226667
+anchor_right = 0.918216
+anchor_bottom = 0.925333
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SPContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/SPContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/SPContainer/HBoxContainer"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jtq0n")
+text = "SP"
+vertical_alignment = 2
+
+[node name="SP" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/SPContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("5_jtq0n")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="HealBoostProgress" type="TextureProgressBar" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/SPContainer"]
+custom_minimum_size = Vector2(172, 5)
+layout_mode = 2
+size_flags_horizontal = 0
+nine_patch_stretch = true
+texture_under = ExtResource("6_d464o")
+texture_progress = ExtResource("7_hkjf2")
+
+[node name="ScoreBoostContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/ScoreBoostContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/ScoreBoostContainer/HBoxContainer"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jtq0n")
+text = "SCOREBOOST"
+vertical_alignment = 2
+
+[node name="ScoreBoost" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/ScoreBoostContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("5_jtq0n")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="ScoreBoostProgress" type="TextureProgressBar" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/ScoreBoostContainer"]
+custom_minimum_size = Vector2(172, 5)
+layout_mode = 2
+size_flags_horizontal = 0
+nine_patch_stretch = true
+texture_under = ExtResource("6_d464o")
+texture_progress = ExtResource("7_hkjf2")
+
+[node name="HealBoostContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/HealBoostContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/HealBoostContainer/HBoxContainer"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jtq0n")
+text = "HEALBOOST"
+vertical_alignment = 2
+
+[node name="HealBoost" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/HealBoostContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("5_jtq0n")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="HealBoostProgress" type="TextureProgressBar" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/HealBoostContainer"]
+custom_minimum_size = Vector2(172, 5)
+layout_mode = 2
+size_flags_horizontal = 0
+nine_patch_stretch = true
+texture_under = ExtResource("6_d464o")
+texture_progress = ExtResource("7_hkjf2")
+
+[node name="RarityContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/RarityContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/RarityContainer/HBoxContainer"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jtq0n")
+text = "RARITY"
+vertical_alignment = 2
+
+[node name="Rarity" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/RarityContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_pkpf0")
+theme_override_font_sizes/font_size = 14
+text = "LIMITED EDITION"
+
+[node name="SkillContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/SkillContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/SkillContainer/HBoxContainer"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jtq0n")
+text = "SKILL"
+vertical_alignment = 2
+
+[node name="Skill" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer/VBoxContainer/SkillContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_pkpf0")
+theme_override_font_sizes/font_size = 14
+text = "DOUBLE UP"
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CardName" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/TextureRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0520446
+anchor_top = 0.0652741
+anchor_right = 0.920074
+anchor_bottom = 0.180157
+offset_bottom = -8.0
+theme_override_fonts/font = ExtResource("2_i14e4")
+theme_override_font_sizes/font_size = 28
+text = "MUST BE LOVE"
+horizontal_alignment = 1
+vertical_alignment = 2
+clip_text = true
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+alignment = 1
+
+[node name="TextureButton2" type="TextureButton" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
+self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
+custom_minimum_size = Vector2(250, 70)
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("13_431by")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer/TextureButton2"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = -9.0
+offset_right = 52.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("2_i14e4")
+theme_override_font_sizes/font_size = 12
+text = "SEND AS A GIFT"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+offset_left = 14.0
+offset_top = 16.0
+offset_right = 74.0
+offset_bottom = 76.0
+
+[node name="CloseButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("14_nivar")
+texture_hover = ExtResource("15_120sd")
+
+[connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]
+[connection signal="pressed" from="Panel/TextureRect/HBoxContainer2/EquipUnequipButton" to="." method="_on_equip_unequip_button_pressed"]

@@ -2,89 +2,74 @@ extends Control
 
 signal equip_unequip_pressed
 signal close_item_stats_pressed
+signal chosen_card_group
 
 @onready var name_label: Label = %NameLabel
-@onready var group_label: Label = %GroupLabel
-@onready var position1_label: Label = %Position1Label
-@onready var position2_label: Label = %Position2Label
-@onready var scoreboost_label: Label = %ScoreboostLabel
-@onready var healboost_label: Label = %HealboostLabel
-@onready var tier_label: Label = %TierLabel
-@onready var era_label: Label = %EraLabel
+@onready var scoreboost_label: Label = %ScoreBoost
+@onready var healboost_label: Label = %HealBoost
+@onready var tier_rarity_era_label: Label = %TierRarityEraLabel
 @onready var equip_label: Label = %EquipLabel
 
 @onready var equipped_icon: TextureRect = %EquippedIcon
 @onready var equip_unequip_button: TextureButton = %EquipUnequipButton
 @onready var powerup_button: TextureButton = %PowerupButton
-@onready var card_skill_button: TextureButton = %CardSkillButton
-@onready var close_button: TextureButton = %CloseButton
+
 
 var card_data: Dictionary
 var is_open: bool = false
 
+
 #region Set UI Variables
 func _on_card_inventory_screen_item_stats_card_data(data_card: Dictionary) -> void:
 	clear_variables()
-	is_open = true
 	card_data = data_card
 	
 	populate_card_labels()
-	close_button.visible = true
-
+	
+	
 func populate_card_labels() -> void:
+	
 	var origin_node: String = card_data["origin_panel"]
 	if origin_node == "CardInventory":
 		var card_name: String = card_data["Name"]
-		var card_group: String = card_data["Group"]
-		var card_position: String = card_data["Position"]
-		var card_position2: String = card_data["Position2"]
-		
 		var card_scoreboost: String = card_data["Scoreboost"]
 		var card_healboost: String = card_data["Healboost"]
-		var card_tier: String = card_data["Tier"]
-		var card_era: String = card_data["Era"]
+		
+		var card_level: String = str(card_data["Level"])
+		#var card_tier: String = card_data["Tier"]
+		#var card_era: String = card_data["Era"]
 		
 		var card_texture: Texture = card_data["origin_texture"]
 		
-		set_labels(card_name, card_group, card_position, card_position2,
-				   card_scoreboost, card_healboost, card_tier ,card_era,
-				   card_texture)
+		set_labels(card_name, card_scoreboost, card_healboost, card_level, card_texture)
 		set_buttons(true, origin_node)
 	elif origin_node == "CardSlot":
 		if card_data["origin_item_id"] == null:
 			var card_texture: Texture = card_data["origin_texture"]
-			set_labels("", "", "", "", "", "", "", "", card_texture)
+			set_labels("", "", "", "", card_texture)
 			set_buttons(false, origin_node)
 		else:
 			var card_name: String = card_data["Name"]
-			var card_group: String = card_data["Group"]
-			var card_position: String = card_data["Position"]
-			var card_position2: String = card_data["Position2"]
 			var card_scoreboost: String = card_data["Scoreboost"]
 			var card_healboost: String = card_data["Healboost"]
-			var card_tier: String = card_data["Tier"]
-			var card_era: String = card_data["Era"]
+			var card_level: String = str(card_data["Level"])
+			#var card_era: String = card_data["Era"]
 			var card_texture: Texture = card_data["origin_texture"]
-			set_labels(card_name, card_group, card_position, card_position2,
-			   card_scoreboost, card_healboost, card_tier, card_era,
-			   card_texture)
+			set_labels(card_name, card_scoreboost, card_healboost, card_level, card_texture)
 			set_buttons(true, origin_node)
 			#set_skill()
+	visible = true
 	
-func set_labels(card_name: String, group: String, position1: String, position2: String,
-				scoreboost: String, healboost: String, tier: String, era: String,
-				texture: Texture) -> void:
-					
+	
+func set_labels(card_name: String, scoreboost: String, healboost: String, level: String, texture: Texture) -> void:
 	name_label.text = card_name
-	group_label.text = group
-	position1_label.text = position1
-	position2_label.text = position2
 	scoreboost_label.text = scoreboost
 	healboost_label.text = healboost
-	tier_label.text = tier
-	era_label.text = era
+	%Level.text = level
 	
-	equipped_icon.texture = texture
+	%EquippedIcon.texture = texture
+	%BackgroundIcon.texture = texture
+	
 
 func set_buttons(is_data: bool, origin: String) -> void:
 	if origin == "CardSlot":
@@ -99,21 +84,21 @@ func set_buttons(is_data: bool, origin: String) -> void:
 		equip_unequip_button.visible = true
 		equip_label.text = "Equip"
 		powerup_button.visible = true
-
+	
+	
 func _on_close_button_pressed() -> void:
-	close_button.visible = false
 	close_item_stats_pressed.emit()
 	clear_variables()
 	
 	
 func clear_variables() -> void:
 	card_data = {}
-	close_button.visible = false
-	card_skill_button.texture_normal = null
 	equipped_icon.texture = null
-	is_open = false
+	%BackgroundIcon.texture = null
+	visible = false
 #endregion
-
+	
+	
 #region Item Equipped or Unequipped
 func _on_equip_unequip_button_pressed() -> void:
 	if card_data["origin_panel"] == "CardInventory":
@@ -122,30 +107,51 @@ func _on_equip_unequip_button_pressed() -> void:
 		unequip()
 	equip_unequip_pressed.emit()
 	
+	
 func equip() -> void:
+	show_all_cards()
+	
+	# Store frequently accessed properties in variables for efficiency
 	var inv_slot_node: TextureRect = card_data["origin_node"]
-	var slots_name: String = card_data["Group"].to_upper() + "Slot"
-	for slot: TextureRect in get_tree().get_nodes_in_group(slots_name):
-		if slot.cards_data["origin_equipment_slot"] == card_data["origin_equipment_slot"]:
+	var group_name: String = card_data["Group"].to_upper()
+	var slots_name: String = group_name + "Slot"
+	var slot_group_name: String = slots_name.replace(" ", "")
+	var card_equipment_slot: String = card_data["origin_equipment_slot"].replace(" ", "").to_lower()
+	
+	# Emit the chosen card's group
+	chosen_card_group.emit(card_data["Group"])
+
+	# Iterate over slots and equip if conditions are met
+	for slot: TextureRect in get_tree().get_nodes_in_group(slot_group_name):
+		if slot.cards_data["origin_equipment_slot"].replace(" ", "").to_lower() == card_equipment_slot:
 			if slot.cards_data["origin_item_id"] == null:
-				var origin_item_id: String = card_data["origin_item_id"]
-				slot.equip(origin_item_id, card_data)
+				slot.equip(card_data["origin_item_id"], card_data)
 				inv_slot_node.equip_to_equip_slot()
-				
-	is_open = true
+				break  # Assuming only one slot needs to be equipped, exit the loop
+
+	# Reset is_open state and clear variables
+	is_open = false
 	clear_variables()
+
+	# Hide the filter button
+	var filter_button: TextureButton = get_parent().get_node("TextureRect/VBoxContainer/Panel/HBoxContainer/HBoxContainer/CloseFilterButton")
+	filter_button.visible = false
+
+	
 	
 func unequip() -> void:
 	var slots_name: String = card_data["Group"].to_upper() + "Slot"
-	for slot: TextureRect in get_tree().get_nodes_in_group(slots_name):
+	var slot_group_name: String = slots_name.replace(" ", "")
+	for slot: TextureRect in get_tree().get_nodes_in_group(slot_group_name):
 		if slot.cards_data["origin_item_id"] != null:
-			if slot.cards_data["origin_equipment_slot"] == card_data["origin_equipment_slot"]:
+			if slot.cards_data["origin_equipment_slot"].replace(" ", "").to_lower() == card_data["origin_equipment_slot"].replace(" ", "").to_lower():
 				slot.unequip(card_data)
 				
 	is_open = true
 	clear_variables()
 #endregion
-
+	
+	
 #region Set Skill & Data
 #func set_skill() -> void:
 	#if card_data["Skill"] != null or "":
@@ -166,11 +172,10 @@ func _on_card_skill_button_toggled(toggled_on: bool) -> void:
 		var is_added: bool = set_skill_data(true)
 		if !is_added:
 			return
-		card_skill_button.modulate = "ffffff"
 	else:
 		var _is_added: bool = set_skill_data(false)
-		card_skill_button.modulate = Color(1, 1, 1, 0.435)
-
+	
+	
 func set_skill_data(is_equipped: bool) -> bool:
 	var slots_name: String = card_data["Group"].capitalize() + "Slot"
 	for slot: TextureRect in get_tree().get_nodes_in_group(slots_name):
@@ -179,3 +184,15 @@ func set_skill_data(is_equipped: bool) -> bool:
 			return is_added
 	return false
 #endregion
+	
+	
+func show_all_cards() -> void:
+	for card: Control in get_tree().get_nodes_in_group("InventorySlot"):
+		if card.cards_data["Name"] != null or "":
+			card.get_parent().visible = true
+	
+	
+func _on_panel_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		visible = false
+		is_open = false

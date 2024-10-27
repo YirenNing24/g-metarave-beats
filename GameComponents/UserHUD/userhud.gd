@@ -66,10 +66,14 @@ func connect_signals() -> void:
 func _on_get_group_card_equipped_complete(card_data: Array) -> void:
 	if not card_data.is_empty():
 		equipped_cards_texture(card_data)
+	else:
+		for textures: TextureRect in get_tree().get_nodes_in_group("CardTexture"):
+			textures.visible = false
 		
 		
 @rpc
 func show_equipped_cards(card_data: Array) -> void:
+	print(card_data)
 	equipped_cards_texture(card_data)
 		
 		

@@ -102,6 +102,7 @@ LongNote=""
 CardUpgradeItem=""
 ClaimRewardButton=""
 Picker=""
+InventorySlot=""
 
 [input]
 

@@ -70,8 +70,10 @@ func slot_data(card_data: Dictionary = {}) -> Dictionary:
 	cards_data = card_data
 	return cards_data as Dictionary
 	
+	
 func equip_to_equip_slot() -> void:
 	var _card_data: Dictionary = slot_data({})
+	
 	
 func unequip_from_equip_slot(card_data: Dictionary, equip_slot_texture: Texture) -> void:
 	var _inv_slot: String = get_parent().name
@@ -80,8 +82,10 @@ func unequip_from_equip_slot(card_data: Dictionary, equip_slot_texture: Texture)
 	
 	get_parent().visible = true
 	
+	
 func _on_button_pressed() -> void:
 	data_card.emit(cards_data, self)
-
+	
+	
 func filter_cards() -> void:
 	pass
