@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://gmllsb3bdm2u"]
+[gd_scene load_steps=59 format=3 uid="uid://gmllsb3bdm2u"]
 
 [ext_resource type="Script" path="res://UIScenes/card_inventory_screen.gd" id="1_2vffs"]
 [ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="2_poddd"]
@@ -9,15 +9,34 @@
 [ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="7_cb4dp"]
 [ext_resource type="Script" path="res://Components/Inventory/xin_equipment_slot.gd" id="7_tqxdo"]
 [ext_resource type="Texture2D" uid="uid://cvbjb7aump7p3" path="res://UITextures/CardUpgrades/upgrade_image.png" id="8_w2224"]
+[ext_resource type="Texture2D" uid="uid://l4hvfg5htsyu" path="res://UITextures/BGTextures/Inventory/EmptySlot/esha_empty_slot_bg.png" id="9_f07p6"]
 [ext_resource type="FontFile" uid="uid://cak36l0bes2dv" path="res://UITextures/Fonts/argentum-sans.medium.ttf" id="11_eogwt"]
+[ext_resource type="Texture2D" uid="uid://dxna5sg0c5j0b" path="res://UITextures/BGTextures/Inventory/EmptySlot/nizz_empty_slot_bg.png" id="12_byll7"]
+[ext_resource type="Texture2D" uid="uid://d1dwdfkwwmehg" path="res://UITextures/BGTextures/Inventory/EmptySlot/aria_empty_slot_bg.png" id="13_ltx1d"]
+[ext_resource type="Texture2D" uid="uid://qw6nc8elij7v" path="res://UITextures/BGTextures/Inventory/EmptySlot/nova_empty_slot_bg.png" id="13_wel68"]
+[ext_resource type="Texture2D" uid="uid://ciso5gh08c3de" path="res://UITextures/BGTextures/Inventory/EmptySlot/hannah_empty_slot_bg.png" id="14_exkqd"]
 [ext_resource type="FontFile" uid="uid://cfpnum8trj6m7" path="res://UITextures/Fonts/HankenGrotesk-SemiBold.ttf" id="14_g7lp4"]
 [ext_resource type="Texture2D" uid="uid://b6nau7vgc00e8" path="res://UITextures/PanelElements/chat_active_tab.png" id="14_ywjwm"]
 [ext_resource type="Texture2D" uid="uid://jtteocw4fdjn" path="res://UITextures/PanelElements/chat_inactive_tab.png" id="15_b5eht"]
 [ext_resource type="Texture2D" uid="uid://bhjbga7uh5w8m" path="res://UITextures/GroupLogo/x_in_logo.png" id="15_lx753"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="16_7ynqb"]
+[ext_resource type="Texture2D" uid="uid://wayq1lcdvxlh" path="res://UITextures/GroupLogo/great_guys_logo.png" id="16_8qvm6"]
 [ext_resource type="Texture2D" uid="uid://csjervjbnw1wf" path="res://UITextures/GroupLogo/icu_logo.png" id="16_8se6w"]
+[ext_resource type="Texture2D" uid="uid://dg51d7xihuyxn" path="res://UITextures/BGTextures/Inventory/inventory_xin_bg.png" id="16_ensjg"]
 [ext_resource type="PackedScene" uid="uid://boeesjmh1p2qx" path="res://Components/Inventory/item_stats_small.tscn" id="16_jmgqi"]
+[ext_resource type="Texture2D" uid="uid://b2noyqawm7or" path="res://UITextures/GroupLogo/irohm_logo.png" id="18_458n4"]
+[ext_resource type="Texture2D" uid="uid://o08fd4yxkdf" path="res://UITextures/BGTextures/Inventory/great_guys_bg_.png" id="18_foqnk"]
 [ext_resource type="AudioStream" uid="uid://dtocxag21vt3n" path="res://GameTracks/BGTracks/Tue Apr 23 2024.mp3" id="20_bxpih"]
+[ext_resource type="Texture2D" uid="uid://cffijpq35f7s8" path="res://UITextures/BGTextures/Inventory/inventory_icu_bg.png" id="20_novrw"]
+[ext_resource type="Texture2D" uid="uid://c250pg8bi1l2g" path="res://UITextures/BGTextures/Inventory/EmptySlot/donghwi_empty_slot.png" id="21_r86gy"]
+[ext_resource type="Texture2D" uid="uid://davn0bpgrirkb" path="res://UITextures/BGTextures/Inventory/EmptySlot/horyeong_empty_slot.png" id="22_2w7n2"]
+[ext_resource type="Texture2D" uid="uid://cqbli5rvmklkg" path="res://UITextures/BGTextures/Inventory/irohm_inventory_bg.png" id="22_snun2"]
+[ext_resource type="Texture2D" uid="uid://2crtcboi2uby" path="res://UITextures/BGTextures/Inventory/EmptySlot/baekgyeol_empty_slot.png" id="23_dch4j"]
+[ext_resource type="Texture2D" uid="uid://b1kibpg6e3taq" path="res://UITextures/BGTextures/Inventory/EmptySlot/abin_empty_slot.png" id="26_txftp"]
+[ext_resource type="Texture2D" uid="uid://b0mtadyd4wp80" path="res://UITextures/BGTextures/Inventory/EmptySlot/naye_empty_slot.png" id="27_77h6y"]
+[ext_resource type="Texture2D" uid="uid://bsx630v8ue428" path="res://UITextures/BGTextures/Inventory/EmptySlot/chaei_empty_slot.png" id="29_ws4jg"]
+[ext_resource type="Texture2D" uid="uid://br8aihdn3jbm5" path="res://UITextures/BGTextures/Inventory/EmptySlot/miku_empty_slot.png" id="30_nphcp"]
+[ext_resource type="Texture2D" uid="uid://dw26b55e18wee" path="res://UITextures/BGTextures/Inventory/EmptySlot/i_rohm_empty_slot.png" id="33_mx350"]
 
 [sub_resource type="Resource" id="Resource_w5syg"]
 script = ExtResource("7_cb4dp")
@@ -292,7 +311,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_w2224")
+texture = ExtResource("9_f07p6")
 expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
@@ -346,7 +365,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_w2224")
+texture = ExtResource("12_byll7")
 expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
@@ -400,7 +419,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_w2224")
+texture = ExtResource("13_wel68")
 expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
@@ -468,7 +487,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_w2224")
+texture = ExtResource("14_exkqd")
 expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
@@ -514,7 +533,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
 [node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Aria" groups=["CardSlot", "X:INSlot"]]
-self_modulate = Color(1, 1, 1, 0.529412)
+self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -522,9 +541,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_w2224")
+texture = ExtResource("13_ltx1d")
 expand_mode = 1
-stretch_mode = 6
+stretch_mode = 4
 script = ExtResource("7_tqxdo")
 
 [node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Aria"]
@@ -714,6 +733,19 @@ theme_override_font_sizes/font_size = 20
 text = "CARD SET STATS"
 horizontal_alignment = 1
 
+[node name="TextureRect2" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel"]
+self_modulate = Color(0.370846, 0.360594, 0.356181, 0.498039)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("16_ensjg")
+expand_mode = 1
+stretch_mode = 6
+
 [node name="GREAT_GUYS" type="TabBar" parent="TextureRect/InventoryTabContainer"]
 visible = false
 layout_mode = 2
@@ -792,7 +824,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_w2224")
+texture = ExtResource("21_r86gy")
 expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
@@ -846,7 +878,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_w2224")
+texture = ExtResource("22_2w7n2")
 expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
@@ -900,7 +932,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_w2224")
+texture = ExtResource("23_dch4j")
 expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
@@ -1030,9 +1062,9 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.44
 
 [node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
-custom_minimum_size = Vector2(92.4, 120)
+custom_minimum_size = Vector2(120, 160)
 layout_mode = 2
-texture = ExtResource("15_lx753")
+texture = ExtResource("16_8qvm6")
 expand_mode = 1
 stretch_mode = 5
 
@@ -1091,6 +1123,19 @@ theme_override_fonts/font = ExtResource("16_7ynqb")
 theme_override_font_sizes/font_size = 20
 text = "CARD SET STATS"
 horizontal_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS"]
+self_modulate = Color(0.70763, 0.697332, 0.693902, 0.282353)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("18_foqnk")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="ICU" type="TabBar" parent="TextureRect/InventoryTabContainer"]
 visible = false
@@ -1170,7 +1215,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_w2224")
+texture = ExtResource("26_txftp")
 expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
@@ -1224,7 +1269,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_w2224")
+texture = ExtResource("27_77h6y")
 expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
@@ -1347,7 +1392,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_w2224")
+texture = ExtResource("29_ws4jg")
 expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
@@ -1402,7 +1447,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_w2224")
+texture = ExtResource("30_nphcp")
 expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
@@ -1532,7 +1577,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.44
 
 [node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
-custom_minimum_size = Vector2(92.4, 120)
+custom_minimum_size = Vector2(120, 160)
 layout_mode = 2
 texture = ExtResource("16_8se6w")
 expand_mode = 1
@@ -1593,6 +1638,19 @@ theme_override_fonts/font = ExtResource("16_7ynqb")
 theme_override_font_sizes/font_size = 20
 text = "CARD SET STATS"
 horizontal_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU"]
+self_modulate = Color(0.366654, 0.356844, 0.353573, 0.572549)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("20_novrw")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="IROHM" type="TabBar" parent="TextureRect/InventoryTabContainer"]
 layout_mode = 2
@@ -1671,7 +1729,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_w2224")
+texture = ExtResource("33_mx350")
 expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
@@ -1725,7 +1783,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_w2224")
+texture = ExtResource("33_mx350")
 expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
@@ -1863,7 +1921,7 @@ size_flags_stretch_ratio = 0.44
 [node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
 custom_minimum_size = Vector2(92.4, 120)
 layout_mode = 2
-texture = ExtResource("16_8se6w")
+texture = ExtResource("18_458n4")
 expand_mode = 1
 stretch_mode = 5
 
@@ -1922,6 +1980,19 @@ theme_override_fonts/font = ExtResource("16_7ynqb")
 theme_override_font_sizes/font_size = 20
 text = "CARD SET STATS"
 horizontal_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM"]
+self_modulate = Color(0.366654, 0.356844, 0.353573, 0.572549)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("22_snun2")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="FilterPanel" type="Panel" parent="."]
 unique_name_in_owner = true

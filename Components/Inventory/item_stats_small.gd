@@ -134,9 +134,9 @@ func equip() -> void:
 	clear_variables()
 
 	# Hide the filter button
-	var filter_button: TextureButton = get_parent().get_node("TextureRect/VBoxContainer/Panel/HBoxContainer/HBoxContainer/CloseFilterButton")
+	const filter_button_path: String = "TextureRect/VBoxContainer/Panel/HBoxContainer/HBoxContainer/CloseFilterButton"
+	var filter_button: TextureButton = get_parent().get_node(filter_button_path)
 	filter_button.visible = false
-
 	
 	
 func unequip() -> void:
