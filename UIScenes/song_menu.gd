@@ -48,7 +48,7 @@ func on_get_classic_high_score_complete(high_scores: Array[Dictionary]) -> void:
 				
 # Initialize HUD data, such as energy, beats, and kmr balances.
 func hud_data() -> void:
-	energy_balance.text = "0"
+	%Energy.text = str(PLAYER.current_energy) + "/" + str(PLAYER.max_energy)
 	beats_balance.text = PLAYER.beats_balance
 	gmr_balance.text = PLAYER.gmr_balance
 	

@@ -64,7 +64,7 @@ texture = ExtResource("3_mxqyj")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="EnergyBalance" type="Label" parent="BackgroundTexture/HBoxContainer3/VBoxContainer/HBoxContainer/TextureRect"]
+[node name="Energy" type="Label" parent="BackgroundTexture/HBoxContainer3/VBoxContainer/HBoxContainer/TextureRect"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(93, 30)
 layout_mode = 1
@@ -77,6 +77,25 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("4_aqf5a")
 theme_override_font_sizes/font_size = 16
 text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="EnergyRecharge" type="Label" parent="BackgroundTexture/HBoxContainer3/VBoxContainer/HBoxContainer/TextureRect"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.337143
+anchor_top = 0.16
+anchor_right = 0.537143
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_aqf5a")
+theme_override_font_sizes/font_size = 16
+text = "99%"
 horizontal_alignment = 2
 vertical_alignment = 1
 clip_text = true

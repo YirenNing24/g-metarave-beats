@@ -15,7 +15,7 @@ signal mutuals_button_pressed
 @onready var filter_panel: Panel = %FilterPanel
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var beats_balance: Label = %BeatsBalance
-@onready var native_balance: Label = %Native
+
 @onready var gmr_balance: Label = %GMR
 @onready var thump_balance: Label = %ThumpBalance
 @onready var stats_wheel: TextureProgressBar = %StatsWheel
@@ -31,6 +31,10 @@ signal mutuals_button_pressed
 #endregion
 
 
+var recharge_progress: float = 0.0
+var time_until_next_recharge : int
+var recharge_interval : int = 60 * 60 * 1000 # 1 hour in milliseconds
+
 #region Modals
 var profile_modal: Control = preload("res://Components/Popups/profile_modal.tscn").instantiate()
 var stats_modal: Control = preload("res://Components/Popups/stats_modal.tscn").instantiate()
@@ -41,6 +45,8 @@ var stats_tween: Tween
 #region Connection status
 var chat_connected: bool = false
 var is_opened: bool = false
+
+
 #endregion
 
 
@@ -94,15 +100,51 @@ func _on_session_check_complete(_session: Dictionary) -> void:
 		buttons.disabled = false
 
 
-# Update HUD elements with player data.
 func hud_data() -> void:
 	player_name.text = BKMREngine.Auth.logged_in_player
 	player_rank.text = PLAYER.player_rank
 	beats_balance.text = PLAYER.beats_balance
-	native_balance.text = PLAYER.native_balance
+	#native_balance.text = PLAYER.native_balance
+	
+	%Energy.text = str(PLAYER.current_energy) + " " + "/" + " " + str(PLAYER.max_energy)
 	gmr_balance.text = PLAYER.gmr_balance
 	level.text = str(PLAYER.level)
 	animate_hud()
+	
+	if PLAYER.time_until_next_recharge != 0:
+		start_recharge_countdown(PLAYER.time_until_next_recharge)
+
+
+func start_recharge_countdown(time_until_next: int) -> void:
+	time_until_next_recharge = time_until_next
+	recharge_progress = 0.0
+	
+	
+func _process(delta: float) -> void:
+	if PLAYER.current_energy < PLAYER.max_energy:
+		# Recharge countdown is active
+		if time_until_next_recharge > 0:
+			time_until_next_recharge -= int(delta * 1000)
+			recharge_progress = 100.0 - (float(time_until_next_recharge) / float(recharge_interval)) * 100.0
+			%EnergyRecharge.text = str(int(recharge_progress)) + "%"
+			%EnergyRecharge.visible = true
+		else:
+			# Recharge is complete, add +1 to current energy
+			PLAYER.current_energy += 1
+			%Energy.text = str(PLAYER.current_energy) + " " + "/" + " " + str(PLAYER.max_energy)
+			
+			# Check if energy is still below max, reset countdown if so
+			if PLAYER.current_energy < PLAYER.max_energy:
+				time_until_next_recharge = recharge_interval
+				recharge_progress = 0.0
+				%EnergyRecharge.text = "1%"
+			else:
+				# Energy is maxed out, hide recharge progress
+				%EnergyRecharge.visible = false
+	else:
+		# Max energy reached, ensure recharge label is hidden
+		%EnergyRecharge.visible = false
+
 	
 	
 func animate_hud() -> void:

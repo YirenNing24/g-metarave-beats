@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cmtydmadawqy8"]
+[gd_scene load_steps=12 format=3 uid="uid://cmtydmadawqy8"]
 
 [ext_resource type="Script" path="res://UIScenes/main_inventory.gd" id="1_imm7e"]
 [ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="2_quowf"]
@@ -7,9 +7,10 @@
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="4_7x11s"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="4_v34na"]
 [ext_resource type="Texture2D" uid="uid://c77ras2lgiqbf" path="res://UITextures/PanelElements/inventory_selection.png" id="6_bbjlk"]
+[ext_resource type="Texture2D" uid="uid://bt4ht314qd3y4" path="res://UITextures/Cards/naye_look_at_me_genesis.png" id="8_ck8bf"]
 [ext_resource type="Texture2D" uid="uid://dqnqqawvspdxo" path="res://UITextures/Buttons/PanelTextures/accessories_texture.png" id="8_sxcys"]
-[ext_resource type="Texture2D" uid="uid://cu2rldjgd6cuu" path="res://UITextures/Cards/hannah_no_doubt_genesis.png" id="9_msef7"]
 [ext_resource type="Texture2D" uid="uid://cvbjb7aump7p3" path="res://UITextures/CardUpgrades/upgrade_image.png" id="11_2v14h"]
+[ext_resource type="Texture2D" uid="uid://btinkw3sxegiv" path="res://UITextures/CardPacks/card_pack_texture.png" id="11_mqhl7"]
 
 [node name="main_inventory" type="Control"]
 layout_mode = 3
@@ -237,13 +238,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -84.5
-offset_top = -121.0
-offset_right = 85.5
-offset_bottom = 122.0
+offset_left = -75.5
+offset_top = -108.0
+offset_right = 71.5
+offset_bottom = 102.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("9_msef7")
+texture = ExtResource("8_ck8bf")
 expand_mode = 1
 stretch_mode = 5
 
@@ -342,10 +343,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -93.5
-offset_top = -98.0
-offset_right = 95.5
-offset_bottom = 122.0
+offset_left = -75.5
+offset_top = -96.5
+offset_right = 71.5
+offset_bottom = 113.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("11_2v14h")
@@ -398,13 +399,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -73.5
-offset_top = -52.5
-offset_right = 74.5
-offset_bottom = 90.5
+offset_left = -85.5
+offset_top = -97.5
+offset_right = 87.5
+offset_bottom = 69.5
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_sxcys")
+texture = ExtResource("11_mqhl7")
 expand_mode = 1
 stretch_mode = 5
 

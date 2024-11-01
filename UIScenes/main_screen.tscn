@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://yfevho5xx5qg"]
+[gd_scene load_steps=47 format=3 uid="uid://yfevho5xx5qg"]
 
 [ext_resource type="Script" path="res://UIScenes/main_screen.gd" id="1_25j1r"]
 [ext_resource type="Texture2D" uid="uid://cj3g7l2prnd31" path="res://UITextures/PanelElements/player_panel.png" id="2_37prv"]
@@ -14,10 +14,14 @@
 [ext_resource type="Texture2D" uid="uid://clu717sjyfm4r" path="res://UITextures/Buttons/message_button.png" id="11_a2u7i"]
 [ext_resource type="Texture2D" uid="uid://dir30ha1xy1ee" path="res://UITextures/PanelElements/Square slot 4.png" id="11_ddq8t"]
 [ext_resource type="Texture2D" uid="uid://ym02txfwpfvg" path="res://UITextures/Icons/beats_icon.png" id="11_jl1ep"]
+[ext_resource type="Shader" path="res://UIScenes/energy.gdshader" id="12_6kgy4"]
 [ext_resource type="PackedScene" uid="uid://cdxx8kvromwib" path="res://Components/MyNotes/MyNotes.tscn" id="12_8ev20"]
 [ext_resource type="PackedScene" uid="uid://b3eiw5d6jk827" path="res://Components/Chat/mutuals_box.tscn" id="12_b1h6r"]
+[ext_resource type="Texture2D" uid="uid://vxw1aujmxjy3" path="res://UITextures/CustomResource/auth_screen_gradient.tres" id="12_i7ftc"]
+[ext_resource type="Texture2D" uid="uid://dea3dcdqw5gw" path="res://UITextures/Icons/energy_icon.png" id="13_al202"]
 [ext_resource type="Texture2D" uid="uid://cyl1bqw5cea6d" path="res://UITextures/Buttons/mode_normal.png" id="13_cv2mc"]
 [ext_resource type="Texture2D" uid="uid://bru7x3llda33h" path="res://UITextures/Buttons/PanelTextures/classic_trophy.png" id="13_k2qiu"]
+[ext_resource type="Texture2D" uid="uid://ba8q012bmx1s0" path="res://UITextures/BGTextures/purple-gradient.png" id="13_lmwdx"]
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="17_b1nlu"]
 [ext_resource type="PackedScene" uid="uid://4hviwgrfsnfn" path="res://Components/Chat/chat_box.tscn" id="17_c2ldk"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="17_dxh3f"]
@@ -35,6 +39,79 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtby7"]
 bg_color = Color(0.396078, 0.396078, 0.396078, 0.219608)
+
+[sub_resource type="Shader" id="Shader_iaf8f"]
+code = "shader_type canvas_item;
+render_mode unshaded, blend_mix;
+
+uniform vec2 ScaleMult = vec2(0.9);  // Smaller value for larger aura
+uniform float AuraProgres :hint_range(0.0, 1.0, 0.1) = 1.0;  // Full aura blending
+uniform float TextureLaodMult :hint_range(0.0, 10.0, 0.01) = 8.0;
+uniform float Tilling :hint_range(0.0, 60.0, 0.01) = 10.0;  // Lower value for larger aura pattern
+uniform vec2 MovementDirSpeed = vec2(-0.3, 0.5);  // Adjusted for smoother movement
+uniform vec2 MovementDirSpeed2 = vec2(0.3, 0.5);
+uniform sampler2D color_gradiant :repeat_enable, filter_linear_mipmap;
+uniform vec2 Noise_Seed = vec2(1.0);
+
+vec2 random(vec2 uv){
+    uv += Noise_Seed;
+    uv = vec2( dot(uv, vec2(127.1,311.7) ),
+               dot(uv, vec2(269.5,183.3) ) );
+    return -1.0 + 2.0 * fract(sin(uv) * 43758.5453123);
+}
+
+float noise(vec2 uv) {
+    vec2 uv_index = floor(uv);
+    vec2 uv_fract = fract(uv);
+    vec2 blur = smoothstep(0.0, 1.0, uv_fract);
+    float bottom_left = dot(random(uv_index + vec2(0.0, 0.0)), uv_fract - vec2(0.0, 0.0));
+    float bottom_right = dot(random(uv_index + vec2(1.0, 0.0)), uv_fract - vec2(1.0, 0.0));
+    float top_left = dot(random(uv_index + vec2(0.0, 1.0)), uv_fract - vec2(0.0, 1.0));
+    float top_right = dot(random(uv_index + vec2(1.0, 1.0)), uv_fract - vec2(1.0, 1.0));
+    float bottom_mix = mix(bottom_left, bottom_right, blur.x);
+    float top_mix = mix(top_left, top_right, blur.x);
+    float final_value = mix(bottom_mix, top_mix, blur.y);
+    return (final_value + 1.0) * 0.5;
+}
+
+vec4 AuraEffect(vec2 uv, vec4 CurrentColor, sampler2D OriginTexTure){
+    vec2 TimeUV = MovementDirSpeed * TIME;
+    vec2 TimeUV2 = MovementDirSpeed2 * TIME;
+    vec2 ScaleMultFractment = (1.0 - ScaleMult)/2.0;
+    vec2 compos_uv = uv * ScaleMult + ScaleMultFractment;
+    vec4 alpha = textureLod(OriginTexTure, compos_uv, noise(uv * Tilling + TimeUV) * TextureLaodMult);
+    vec4 GradientColors = texture(color_gradiant, fract( vec2(-uv.y, uv.x) + (TimeUV * 0.4)) ) * 3.0;
+    vec4 sil = GradientColors * noise(uv * Tilling - TimeUV);
+    sil.a = alpha.a * noise(uv * Tilling + TimeUV) * noise(uv * Tilling + TimeUV2) * 10.0;  // Enhanced alpha blending
+    return mix(CurrentColor, sil * AuraProgres, (1.0 - CurrentColor.a));
+}
+
+void fragment() {
+    COLOR = AuraEffect(UV, COLOR, TEXTURE);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uxswq"]
+shader = SubResource("Shader_iaf8f")
+shader_parameter/ScaleMult = Vector2(0.95, 1)
+shader_parameter/AuraProgres = 1.0
+shader_parameter/TextureLaodMult = 8.0
+shader_parameter/Tilling = 10.0
+shader_parameter/MovementDirSpeed = Vector2(-0.3, 0.5)
+shader_parameter/MovementDirSpeed2 = Vector2(0.3, 0.5)
+shader_parameter/Noise_Seed = Vector2(1, 1)
+shader_parameter/color_gradiant = ExtResource("12_i7ftc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xhd21"]
+shader = ExtResource("12_6kgy4")
+shader_parameter/ScaleMult = Vector2(0.9, 0.9)
+shader_parameter/AuraProgres = 1.0
+shader_parameter/TextureLaodMult = 0.0
+shader_parameter/Tilling = 60.0
+shader_parameter/MovementDirSpeed = Vector2(0, 2)
+shader_parameter/MovementDirSpeed2 = Vector2(0, 5)
+shader_parameter/Noise_Seed = Vector2(1, 1)
+shader_parameter/color_gradiant = ExtResource("13_lmwdx")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sg28f"]
 bg_color = Color(0.0980392, 0.0980392, 0.0980392, 0.509804)
@@ -333,7 +410,7 @@ texture = ExtResource("3_uxccu")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Native" type="Label" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect"]
+[node name="Energy" type="Label" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(93, 30)
 layout_mode = 1
@@ -345,10 +422,44 @@ anchor_bottom = 0.76
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_5uujb")
 theme_override_font_sizes/font_size = 16
+text = "20 / 20"
 horizontal_alignment = 2
 vertical_alignment = 1
 clip_text = true
 text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="EnergyRecharge" type="Label" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_uxswq")
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.377143
+anchor_top = 0.16
+anchor_right = 0.577143
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_5uujb")
+theme_override_font_sizes/font_size = 16
+text = "99%"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="BeatsTokenIcon" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_xhd21")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0342857
+anchor_top = 0.0799997
+anchor_right = 0.234286
+anchor_bottom = 0.78
+texture = ExtResource("13_al202")
+expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect2" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]

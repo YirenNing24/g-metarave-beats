@@ -18,9 +18,15 @@ var player_rank: String
 var stat_points: int
 var stat_points_saved: Dictionary
 
+var current_energy: int 
+var max_energy: int
+var time_until_next_recharge: int 
+
 var inventory_size: int 
 var card_reward: Dictionary
 var peer_id: int
+
+
 
 func _ready() -> void:
 	BKMREngine.Reward.get_available_card_reward_completed.connect(_on_get_available_card_reward)
@@ -38,6 +44,14 @@ func populate_player_data(data: Dictionary) -> void:
 		if data.has("error"):
 			return
 		player_stats = data.playerStats
+		current_energy = data.energy.energy
+		max_energy = data.energy.maxEnergy
+		
+		
+		print("energyy: ", data.energy)
+		if data.energy.timeUntilNextRecharge != null:
+			time_until_next_recharge = data.energy.timeUntilNextRecharge
+		
 		
 		wallet_data = data.wallet
 		var smartwallet_address: String = wallet_data.smartWalletAddress

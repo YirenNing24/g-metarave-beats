@@ -217,9 +217,9 @@ theme_override_constants/separation = 8
 unique_name_in_owner = true
 custom_minimum_size = Vector2(1131, 379)
 layout_mode = 0
-offset_left = 68.0
-offset_right = 1199.0
-offset_bottom = 379.0
+anchor_left = 0.0566667
+anchor_right = 0.999167
+anchor_bottom = 0.701852
 size_flags_vertical = 3
 theme_override_constants/side_margin = 0
 theme_override_constants/icon_separation = 0
@@ -228,13 +228,12 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/tab_selected = SubResource("StyleBoxTexture_ahlu7")
 theme_override_styles/tab_hovered = SubResource("StyleBoxEmpty_mhja2")
 theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_o7lcf")
-current_tab = 3
+current_tab = 0
 clip_tabs = false
 tab_focus_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="X_IN" type="TabBar" parent="TextureRect/InventoryTabContainer"]
-visible = false
 layout_mode = 2
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_3ma8w")
 metadata/_tab_index = 0
@@ -1653,6 +1652,7 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="IROHM" type="TabBar" parent="TextureRect/InventoryTabContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_3ma8w")
 metadata/_tab_index = 3
@@ -1721,7 +1721,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
 [node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/IrohmVocal" groups=["CardSlot", "IROHMSlot"]]
-self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
+self_modulate = Color(0.717647, 0.717647, 0.717647, 0.811765)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -1775,7 +1775,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
 [node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/IrohmInstrumental" groups=["CardSlot", "IROHMSlot"]]
-self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
+self_modulate = Color(0.717647, 0.717647, 0.717647, 0.811765)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -1978,7 +1978,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("16_7ynqb")
 theme_override_font_sizes/font_size = 20
-text = "CARD SET STATS"
+text = "CARD SET BONUS"
 horizontal_alignment = 1
 
 [node name="TextureRect2" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM"]
