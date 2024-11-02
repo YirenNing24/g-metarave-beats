@@ -93,7 +93,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uxswq"]
 shader = SubResource("Shader_iaf8f")
-shader_parameter/ScaleMult = Vector2(0.95, 1)
+shader_parameter/ScaleMult = Vector2(0.99, 1)
 shader_parameter/AuraProgres = 1.0
 shader_parameter/TextureLaodMult = 8.0
 shader_parameter/Tilling = 10.0
@@ -435,9 +435,9 @@ material = SubResource("ShaderMaterial_uxswq")
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.377143
+anchor_left = 0.274286
 anchor_top = 0.16
-anchor_right = 0.577143
+anchor_right = 0.474286
 anchor_bottom = 0.76
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_5uujb")

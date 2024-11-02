@@ -103,6 +103,7 @@ CardUpgradeItem=""
 ClaimRewardButton=""
 Picker=""
 InventorySlot=""
+SongDisplay=""
 
 [input]
 

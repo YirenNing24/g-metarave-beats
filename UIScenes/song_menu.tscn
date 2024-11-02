@@ -1,15 +1,93 @@
-[gd_scene load_steps=11 format=3 uid="uid://c32csp53qlais"]
+[gd_scene load_steps=19 format=3 uid="uid://c32csp53qlais"]
 
 [ext_resource type="Script" path="res://UIScenes/song_menu.gd" id="1_75gia"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_4tsei"]
 [ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="3_mxqyj"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="4_aqf5a"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="5_h7gew"]
+[ext_resource type="Shader" path="res://UIScenes/energy.gdshader" id="5_hfapt"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="6_34ojg"]
+[ext_resource type="Texture2D" uid="uid://ba8q012bmx1s0" path="res://UITextures/BGTextures/purple-gradient.png" id="6_g5al8"]
 [ext_resource type="Script" path="res://UIScenes/SongMenuScroll.gd" id="7_36j7h"]
+[ext_resource type="Texture2D" uid="uid://dea3dcdqw5gw" path="res://UITextures/Icons/energy_icon.png" id="7_qfgch"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="7_yex5a"]
 [ext_resource type="Texture2D" uid="uid://df4ks21hiueoy" path="res://UITextures/Buttons/next_prev_button.png" id="8_nwtib"]
 [ext_resource type="Texture2D" uid="uid://u5uvm5snnfq6" path="res://UITextures/PanelElements/difficulty_bg.png" id="9_vyfj1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_60bj2"]
+shader = ExtResource("5_hfapt")
+shader_parameter/ScaleMult = Vector2(0.9, 0.9)
+shader_parameter/AuraProgres = 1.0
+shader_parameter/TextureLaodMult = 0.0
+shader_parameter/Tilling = 60.0
+shader_parameter/MovementDirSpeed = Vector2(0, 2)
+shader_parameter/MovementDirSpeed2 = Vector2(0, 5)
+shader_parameter/Noise_Seed = Vector2(1, 1)
+shader_parameter/color_gradiant = ExtResource("6_g5al8")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wntsw"]
+bg_color = Color(0, 0, 0, 0.74902)
+
+[sub_resource type="Animation" id="Animation_i3078"]
+resource_name = "Notification"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NotificationPanel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(476.5, 540), Vector2(476.5, 246)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NotificationPanel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_7gyxo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NotificationPanel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(476.5, 540)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NotificationPanel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h1pu7"]
+_data = {
+"Notification": SubResource("Animation_i3078"),
+"RESET": SubResource("Animation_7gyxo")
+}
 
 [node name="SongMenu" type="Control"]
 layout_mode = 3
@@ -100,6 +178,19 @@ horizontal_alignment = 2
 vertical_alignment = 1
 clip_text = true
 text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="BeatsTokenIcon" type="TextureRect" parent="BackgroundTexture/HBoxContainer3/VBoxContainer/HBoxContainer/TextureRect"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_60bj2")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0342857
+anchor_top = 0.0799997
+anchor_right = 0.234286
+anchor_bottom = 0.78
+texture = ExtResource("7_qfgch")
+expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect3" type="TextureRect" parent="BackgroundTexture/HBoxContainer3/VBoxContainer/HBoxContainer"]
@@ -328,6 +419,45 @@ vertical_alignment = 1
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 volume_db = -11.363
+
+[node name="NotificationPanel" type="Panel" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -123.5
+offset_top = 270.0
+offset_right = 123.5
+offset_bottom = 318.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wntsw")
+
+[node name="Label" type="Label" parent="NotificationPanel"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_aqf5a")
+theme_override_font_sizes/font_size = 16
+text = "No energy left, recharging!"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_h1pu7")
+}
 
 [connection signal="pressed" from="BackgroundTexture/HBoxContainer2/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="gui_input" from="BackgroundTexture/SongScrollContainer" to="BackgroundTexture/SongScrollContainer" method="_on_gui_input"]

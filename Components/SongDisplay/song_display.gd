@@ -3,6 +3,7 @@ extends Control
 signal song_selected(song: Control)
 signal song_started(song_file: String)
 signal song_canceled
+signal no_energy
 
 @onready var song_title: Label = %SongTitle
 @onready var artist: Label = %Artist
@@ -28,6 +29,11 @@ func set_map() -> void:
 	await get_tree().create_timer(0.3).timeout
 	
 func _on_initiate_start_button_pressed() -> void:
+	if PLAYER.current_energy == 0:
+		no_energy.emit()
+		return
+		
+	
 	cancel_button.visible = true
 	on_song_selected()
 	disable_not_selected_songs()

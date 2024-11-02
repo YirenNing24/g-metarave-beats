@@ -21,6 +21,10 @@ var song_files: Array[Dictionary]
 var map_changed: bool = false
 var selected_map: String
 
+var recharge_progress: float = 0.0
+var time_until_next_recharge : int
+var recharge_interval : int = 60 * 60 * 1000 # 1 hour in milliseconds
+
 const difficulty: Array[String] = ['easy', 'medium', 'hard', 'ultra hard']
 var difficulty_mode: String = "easy" #default
 
@@ -48,9 +52,54 @@ func on_get_classic_high_score_complete(high_scores: Array[Dictionary]) -> void:
 				
 # Initialize HUD data, such as energy, beats, and kmr balances.
 func hud_data() -> void:
-	%Energy.text = str(PLAYER.current_energy) + "/" + str(PLAYER.max_energy)
 	beats_balance.text = PLAYER.beats_balance
+	#native_balance.text = PLAYER.native_balance
+	
+	%Energy.text = str(PLAYER.current_energy) + " " + "/" + " " + str(PLAYER.max_energy)
 	gmr_balance.text = PLAYER.gmr_balance
+
+
+	
+	if PLAYER.time_until_next_recharge != 0:
+		start_recharge_countdown(PLAYER.time_until_next_recharge)
+
+
+func start_recharge_countdown(time_until_next: int) -> void:
+	time_until_next_recharge = time_until_next
+	recharge_progress = 0.0
+	
+	
+func _process(delta: float) -> void:
+	if PLAYER.current_energy < PLAYER.max_energy:
+		# Recharge countdown is active
+		if time_until_next_recharge > 0:
+			time_until_next_recharge -= int(delta * 1000)
+			recharge_progress = 100.0 - (float(time_until_next_recharge) / float(recharge_interval)) * 100.0
+			%EnergyRecharge.text = str(int(recharge_progress)) + "%"
+			%EnergyRecharge.visible = true
+		else:
+			# Recharge is complete, add +1 to current energy
+			PLAYER.current_energy += 1
+			%Energy.text = str(PLAYER.current_energy) + " " + "/" + " " + str(PLAYER.max_energy)
+			
+			# Check if energy is still below max, reset countdown if so
+			if PLAYER.current_energy < PLAYER.max_energy:
+				time_until_next_recharge = recharge_interval
+				recharge_progress = 0.0
+				%EnergyRecharge.text = "1%"
+			else:
+				# Energy is maxed out, hide recharge progress
+				%EnergyRecharge.visible = false
+	else:
+		# Max energy reached, ensure recharge label is hidden
+		%EnergyRecharge.visible = false
+		
+	#if PLAYER.current_energy == 0:
+		#for song_display: Control in get_tree().get_nodes_in_group("SongDisplay"):
+			#song_display.get_node("InitiateStartButton").disable = true
+	#elif PLAYER.current_energy > 0:
+		#for song_display: Control in get_tree().get_nodes_in_group("SongDisplay"):
+			#song_display.get_node("InitiateStartButton").disable = false
 	
 	
 # Parse the song files in the specified directory.
@@ -144,6 +193,7 @@ func list_songs() -> void:
 		songs.song_selected.connect(song_unfocused_selected.bind(songs.get_index()))
 		songs.song_started.connect(song_start)
 		songs.song_canceled.connect(song_cancel)
+		songs.no_energy.connect(_on_no_energy)
 
 
 # Callback function to set the selected map when a song is chosen.
@@ -229,6 +279,10 @@ func songs_difficulty_visibility() -> void:
 func difficulty_update() -> void:
 	difficulty_label.text = difficulty_mode
 	
+	
+	
+func _on_no_energy() -> void:
+	%AnimationPlayer.play("Notification")
 	
 func format_scores(value: String) -> String:
 	var parts: Array = value.split(".")
