@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://yfevho5xx5qg"]
+[gd_scene load_steps=49 format=3 uid="uid://yfevho5xx5qg"]
 
 [ext_resource type="Script" path="res://UIScenes/main_screen.gd" id="1_25j1r"]
 [ext_resource type="Texture2D" uid="uid://cj3g7l2prnd31" path="res://UITextures/PanelElements/player_panel.png" id="2_37prv"]
@@ -6,8 +6,10 @@
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_5uujb"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="3_i1nbb"]
 [ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="3_uxccu"]
+[ext_resource type="Texture2D" uid="uid://dncrmnmjfxbik" path="res://UITextures/Icons/name_icon.png" id="4_7oyho"]
 [ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="4_l7enx"]
 [ext_resource type="Texture2D" uid="uid://p8lar73slk4w" path="res://UITextures/Progress/stat_base.png" id="5_xq7xp"]
+[ext_resource type="Texture2D" uid="uid://61p8ikvst87c" path="res://UITextures/Icons/rank_icon.png" id="6_8ouoy"]
 [ext_resource type="Texture2D" uid="uid://dl3fdw70kg7l4" path="res://UITextures/Progress/stat_progress.png" id="6_k54wo"]
 [ext_resource type="Texture2D" uid="uid://d2liwvto7p64l" path="res://UITextures/Progress/player_exp_base.png" id="8_qls6c"]
 [ext_resource type="Texture2D" uid="uid://74d22xpi5g4s" path="res://UITextures/Progress/player_exp_progress.png" id="9_s07bm"]
@@ -285,10 +287,10 @@ stretch_mode = 4
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.293333
-anchor_top = 0.325
-anchor_right = 0.92
-anchor_bottom = 0.883333
+anchor_left = 0.28
+anchor_top = 0.333333
+anchor_right = 0.917778
+anchor_bottom = 0.891667
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
@@ -298,18 +300,36 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 size_flags_horizontal = 0
 
+[node name="TextureRect" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(26, 0)
+layout_mode = 2
+texture = ExtResource("4_7oyho")
+expand_mode = 1
+stretch_mode = 4
+
 [node name="PlayerName" type="Label" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.788235, 0.623529, 0.309804, 1)
 theme_override_fonts/font = ExtResource("17_b1nlu")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 22
 text = "candyLand"
 vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect/VBoxContainer"]
 z_index = 1
 layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(26, 0)
+layout_mode = 2
+texture = ExtResource("6_8ouoy")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="PlayerRank" type="Label" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
@@ -317,8 +337,9 @@ z_index = -1
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("17_b1nlu")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 18
 text = "Platinum"
+vertical_alignment = 2
 
 [node name="ProfileButton" type="Button" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect" groups=["MainButtons2"]]
 self_modulate = Color(1, 1, 1, 0)
@@ -378,15 +399,15 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect"]
-visible = false
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.211111
-anchor_top = 0.45
-anchor_right = 0.94
-anchor_bottom = 1.25
-offset_bottom = -9.0
+anchor_left = 0.235556
+anchor_top = 0.591667
+anchor_right = 0.657778
+anchor_bottom = 1.39167
+offset_right = -6.10352e-05
+offset_bottom = -36.0
 size_flags_vertical = 3
 mouse_filter = 2
 value = 60.0
@@ -569,6 +590,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 
