@@ -33,6 +33,18 @@ func animate_client_hit(accuracy: int, line: int) -> void:
 		0.2).set_trans(Tween.TRANS_LINEAR)
 	await tween.finished
 	hit_node.frame = 0
+	if accuracy == 4 or 5:
+		feedback_haptic(accuracy)
+		
+
+func feedback_haptic(accuracy: int) -> void:
+	if accuracy == 4:
+		Input.vibrate_handheld(150)
+	elif accuracy == 5:
+		Input.vibrate_handheld(350)
+		
+
+
 
 
 func combo_value(value: String) -> void:

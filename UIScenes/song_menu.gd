@@ -1,6 +1,5 @@
 extends Control
-#NOTE afer canceling song select the song displays scroll on its own
-#NOTE preview music not playing when selecting a song from the song displays
+
 
 @onready var background_texture: TextureRect = %BackgroundTexture
 @onready var audio_player: AudioStreamPlayer = %AudioStreamPlayer
@@ -57,51 +56,41 @@ func hud_data() -> void:
 	
 	%Energy.text = str(PLAYER.current_energy) + " " + "/" + " " + str(PLAYER.max_energy)
 	gmr_balance.text = PLAYER.gmr_balance
-
-
 	
 	if PLAYER.time_until_next_recharge != 0:
 		start_recharge_countdown(PLAYER.time_until_next_recharge)
-
-
+	
+	
 func start_recharge_countdown(time_until_next: int) -> void:
 	time_until_next_recharge = time_until_next
 	recharge_progress = 0.0
 	
 	
 func _process(delta: float) -> void:
-	if PLAYER.current_energy < PLAYER.max_energy:
-		# Recharge countdown is active
-		if time_until_next_recharge > 0:
-			time_until_next_recharge -= int(delta * 1000)
-			recharge_progress = 100.0 - (float(time_until_next_recharge) / float(recharge_interval)) * 100.0
-			%EnergyRecharge.text = str(int(recharge_progress)) + "%"
-			%EnergyRecharge.visible = true
-		else:
-			# Recharge is complete, add +1 to current energy
-			PLAYER.current_energy += 1
-			%Energy.text = str(PLAYER.current_energy) + " " + "/" + " " + str(PLAYER.max_energy)
-			
-			# Check if energy is still below max, reset countdown if so
-			if PLAYER.current_energy < PLAYER.max_energy:
-				time_until_next_recharge = recharge_interval
-				recharge_progress = 0.0
-				%EnergyRecharge.text = "1%"
-			else:
-				# Energy is maxed out, hide recharge progress
-				%EnergyRecharge.visible = false
-	else:
-		# Max energy reached, ensure recharge label is hidden
+	if PLAYER.current_energy >= PLAYER.max_energy:
+		# Max energy reached, hide recharge label
 		%EnergyRecharge.visible = false
+		return
+
+	# Recharge countdown is active
+	time_until_next_recharge -= int(delta * 1000)
+	if time_until_next_recharge > 0:
+		recharge_progress = 100.0 - (float(time_until_next_recharge) / float(recharge_interval)) * 100.0
+		%EnergyRecharge.text = str(int(recharge_progress)) + "%"
+		%EnergyRecharge.visible = true
+	else:
+		# Recharge complete: add energy and reset countdown
+		PLAYER.current_energy += 1
+		%Energy.text = str(PLAYER.current_energy) + " / " + str(PLAYER.max_energy)
+
+		if PLAYER.current_energy < PLAYER.max_energy:
+			time_until_next_recharge = recharge_interval
+			%EnergyRecharge.text = "1%"
+		else:
+			# Energy is maxed out, hide recharge progress
+			%EnergyRecharge.visible = false
 		
-	#if PLAYER.current_energy == 0:
-		#for song_display: Control in get_tree().get_nodes_in_group("SongDisplay"):
-			#song_display.get_node("InitiateStartButton").disable = true
-	#elif PLAYER.current_energy > 0:
-		#for song_display: Control in get_tree().get_nodes_in_group("SongDisplay"):
-			#song_display.get_node("InitiateStartButton").disable = false
-	
-	
+		
 # Parse the song files in the specified directory.
 func parse_song_files() -> void:
 	# Initialize arrays to store file names and directories.
@@ -175,8 +164,8 @@ func search_dir(dir_name: String) -> Array:
 		return file_names as Array
 	else:
 		return []
-
-
+	
+	
 # List the parsed songs in the UI.
 func list_songs() -> void:
 	for song: Dictionary in song_files:
@@ -194,22 +183,22 @@ func list_songs() -> void:
 		songs.song_started.connect(song_start)
 		songs.song_canceled.connect(song_cancel)
 		songs.no_energy.connect(_on_no_energy)
-
-
+	
+	
 # Callback function to set the selected map when a song is chosen.
 func set_selected_map(_audio_file: String) -> void:
 	if selected_map != SONG.map_selected.song_folder:
 		map_changed = true
 		selected_map = SONG.map_selected.song_folder
-
-
+	
+	
 # Preview Play the selected song.
 func play_preview(path: String) -> void:
 	var stream: AudioStreamOggVorbis = ResourceLoader.load(path)
 	audio_player.set_stream(stream)
 	audio_player.play(stream.get_length() / 2)
-
-
+	
+	
 # Callback function for the close button pressed signal.
 func _on_close_button_pressed() -> void:
 	# Perform actions on close button press.
@@ -217,15 +206,15 @@ func _on_close_button_pressed() -> void:
 	LOADER.previous_texture = background_texture.texture
 	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")
 	var _main_screen: int = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
-
-
+	
+	
 # Callable function for song selection in the UI.
 func song_selected(display: Control) -> void:
 	song_scroll_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var song_path: String = display.song.audio_file
 	play_preview(song_path)
-
-
+	
+	
 func song_cancel() -> void:
 	song_scroll_container.mouse_filter = Control.MOUSE_FILTER_PASS
 	audio_player.stop()
@@ -280,9 +269,10 @@ func difficulty_update() -> void:
 	difficulty_label.text = difficulty_mode
 	
 	
-	
 func _on_no_energy() -> void:
 	%AnimationPlayer.play("Notification")
+	Input.vibrate_handheld(500)
+	
 	
 func format_scores(value: String) -> String:
 	var parts: Array = value.split(".")

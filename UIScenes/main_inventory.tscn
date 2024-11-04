@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cmtydmadawqy8"]
+[gd_scene load_steps=16 format=3 uid="uid://cmtydmadawqy8"]
 
 [ext_resource type="Script" path="res://UIScenes/main_inventory.gd" id="1_imm7e"]
 [ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="2_quowf"]
@@ -7,10 +7,24 @@
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="4_7x11s"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="4_v34na"]
 [ext_resource type="Texture2D" uid="uid://c77ras2lgiqbf" path="res://UITextures/PanelElements/inventory_selection.png" id="6_bbjlk"]
+[ext_resource type="Shader" path="res://UIScenes/energy.gdshader" id="7_0mdqv"]
 [ext_resource type="Texture2D" uid="uid://bt4ht314qd3y4" path="res://UITextures/Cards/naye_look_at_me_genesis.png" id="8_ck8bf"]
+[ext_resource type="Texture2D" uid="uid://ba8q012bmx1s0" path="res://UITextures/BGTextures/purple-gradient.png" id="8_irtj5"]
 [ext_resource type="Texture2D" uid="uid://dqnqqawvspdxo" path="res://UITextures/Buttons/PanelTextures/accessories_texture.png" id="8_sxcys"]
+[ext_resource type="Texture2D" uid="uid://dea3dcdqw5gw" path="res://UITextures/Icons/energy_icon.png" id="9_j0x5g"]
 [ext_resource type="Texture2D" uid="uid://cvbjb7aump7p3" path="res://UITextures/CardUpgrades/upgrade_image.png" id="11_2v14h"]
 [ext_resource type="Texture2D" uid="uid://btinkw3sxegiv" path="res://UITextures/CardPacks/card_pack_texture.png" id="11_mqhl7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_13omp"]
+shader = ExtResource("7_0mdqv")
+shader_parameter/ScaleMult = Vector2(0.9, 0.9)
+shader_parameter/AuraProgres = 1.0
+shader_parameter/TextureLaodMult = 0.0
+shader_parameter/Tilling = 60.0
+shader_parameter/MovementDirSpeed = Vector2(0, 2)
+shader_parameter/MovementDirSpeed2 = Vector2(0, 5)
+shader_parameter/Noise_Seed = Vector2(1, 1)
+shader_parameter/color_gradiant = ExtResource("8_irtj5")
 
 [node name="main_inventory" type="Control"]
 layout_mode = 3
@@ -62,7 +76,83 @@ size_flags_horizontal = 3
 [node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
+[node name="TextureRect3" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+
+[node name="ThumpBalance" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_7x11s")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect5" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("3_vofqu")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Energy" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect5"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_7x11s")
+theme_override_font_sizes/font_size = 16
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="EnergyRecharge" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect5"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.337143
+anchor_top = 0.16
+anchor_right = 0.537143
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_7x11s")
+theme_override_font_sizes/font_size = 16
+text = "99%"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="BeatsTokenIcon" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect5"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_13omp")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0342857
+anchor_top = 0.0799997
+anchor_right = 0.234286
+anchor_bottom = 0.78
+texture = ExtResource("9_j0x5g")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
 [node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(175, 50)
 layout_mode = 2
 texture = ExtResource("3_vofqu")
@@ -95,31 +185,6 @@ expand_mode = 1
 stretch_mode = 4
 
 [node name="BeatsBalance" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect2"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(93, 30)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.217143
-anchor_top = 0.16
-anchor_right = 0.92
-anchor_bottom = 0.76
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("4_7x11s")
-theme_override_font_sizes/font_size = 16
-horizontal_alignment = 2
-vertical_alignment = 1
-clip_text = true
-text_overrun_behavior = 3
-metadata/_edit_use_anchors_ = true
-
-[node name="TextureRect3" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(175, 50)
-layout_mode = 2
-texture = ExtResource("3_vofqu")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="ThumpBalance" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect3"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(93, 30)
 layout_mode = 1

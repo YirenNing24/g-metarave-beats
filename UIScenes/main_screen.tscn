@@ -402,6 +402,11 @@ size_flags_horizontal = 3
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
+[node name="TextureRect3" type="VBoxContainer" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
+self_modulate = Color(0.737193, 0.737193, 0.737193, 1)
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+
 [node name="TextureRect" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
 self_modulate = Color(0.737193, 0.737193, 0.737193, 1)
 custom_minimum_size = Vector2(175, 50)
@@ -496,32 +501,6 @@ anchor_right = 0.222857
 anchor_bottom = 0.76
 texture = ExtResource("11_jl1ep")
 expand_mode = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="TextureRect3" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
-self_modulate = Color(0.737193, 0.737193, 0.737193, 1)
-custom_minimum_size = Vector2(175, 50)
-layout_mode = 2
-texture = ExtResource("3_uxccu")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="ThumpBalance" type="Label" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect3"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(93, 30)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.217143
-anchor_top = 0.16
-anchor_right = 0.92
-anchor_bottom = 0.76
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_5uujb")
-theme_override_font_sizes/font_size = 16
-horizontal_alignment = 2
-vertical_alignment = 1
-clip_text = true
-text_overrun_behavior = 3
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect4" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]

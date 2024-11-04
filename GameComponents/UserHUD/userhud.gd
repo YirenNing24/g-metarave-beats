@@ -138,6 +138,7 @@ func cycle_card_textures() -> void:
 	
 func hit_continued_feedback(note_accuracy: int, line: int ) -> void:
 	if note_accuracy == 5:
+
 		combo = 0
 	elif note_accuracy != 4:
 		set_boost_multiplier()

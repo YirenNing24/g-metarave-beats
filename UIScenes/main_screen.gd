@@ -121,29 +121,29 @@ func start_recharge_countdown(time_until_next: int) -> void:
 	
 	
 func _process(delta: float) -> void:
-	if PLAYER.current_energy < PLAYER.max_energy:
-		# Recharge countdown is active
-		if time_until_next_recharge > 0:
-			time_until_next_recharge -= int(delta * 1000)
-			recharge_progress = 100.0 - (float(time_until_next_recharge) / float(recharge_interval)) * 100.0
-			%EnergyRecharge.text = str(int(recharge_progress)) + "%"
-			%EnergyRecharge.visible = true
-		else:
-			# Recharge is complete, add +1 to current energy
-			PLAYER.current_energy += 1
-			%Energy.text = str(PLAYER.current_energy) + " " + "/" + " " + str(PLAYER.max_energy)
-			
-			# Check if energy is still below max, reset countdown if so
-			if PLAYER.current_energy < PLAYER.max_energy:
-				time_until_next_recharge = recharge_interval
-				recharge_progress = 0.0
-				%EnergyRecharge.text = "1%"
-			else:
-				# Energy is maxed out, hide recharge progress
-				%EnergyRecharge.visible = false
-	else:
-		# Max energy reached, ensure recharge label is hidden
+	if PLAYER.current_energy >= PLAYER.max_energy:
+		# Max energy reached, hide recharge label
 		%EnergyRecharge.visible = false
+		return
+
+	# Recharge countdown is active
+	time_until_next_recharge -= int(delta * 1000)
+	if time_until_next_recharge > 0:
+		recharge_progress = 100.0 - (float(time_until_next_recharge) / float(recharge_interval)) * 100.0
+		%EnergyRecharge.text = str(int(recharge_progress)) + "%"
+		%EnergyRecharge.visible = true
+	else:
+		# Recharge complete: add energy and reset countdown
+		PLAYER.current_energy += 1
+		%Energy.text = str(PLAYER.current_energy) + " / " + str(PLAYER.max_energy)
+
+		if PLAYER.current_energy < PLAYER.max_energy:
+			time_until_next_recharge = recharge_interval
+			%EnergyRecharge.text = "1%"
+		else:
+			# Energy is maxed out, hide recharge progress
+			%EnergyRecharge.visible = false
+
 
 	
 	
