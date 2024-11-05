@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dvqwd1vjvgbtk"]
+[gd_scene load_steps=29 format=3 uid="uid://dvqwd1vjvgbtk"]
 
 [ext_resource type="Script" path="res://UIScenes/game_over.gd" id="1_cnrlt"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_jjkhf"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://vofwmpcudyxn" path="res://UITextures/GameTextures/good.png" id="14_whd5v"]
 [ext_resource type="Texture2D" uid="uid://cxgr2m8ocpfv0" path="res://UITextures/GameTextures/bad.png" id="15_r7hlv"]
 [ext_resource type="Texture2D" uid="uid://gjgvcsqa6t5f" path="res://UITextures/GameTextures/miss.png" id="16_fmltj"]
+[ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="16_wllxy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v6myh"]
 bg_color = Color(0, 0.121569, 0.121569, 0.266667)
@@ -135,6 +136,9 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k0tge"]
+bg_color = Color(0, 0, 0, 0.945098)
 
 [node name="GameOver" type="Control"]
 layout_mode = 3
@@ -1111,8 +1115,25 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 4.0
+offset_right = -4.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Label" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer/HBoxContainer/Panel/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.733005, 0.733005, 0.733005, 1)
+theme_override_fonts/font = ExtResource("8_03vso")
+text = "EXP"
+
+[node name="ExperienceValue" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer/HBoxContainer/Panel/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.733005, 0.733005, 0.733005, 1)
+theme_override_fonts/font = ExtResource("8_03vso")
+text = "20"
+horizontal_alignment = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -1203,5 +1224,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="LoadingPanel" parent="." instance=ExtResource("16_wllxy")]
+unique_name_in_owner = true
+visible = false
+z_index = 4
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 1200.0
+offset_bottom = 540.0
+grow_horizontal = 1
+grow_vertical = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_k0tge")
 
 [connection signal="pressed" from="BackgroundTexture/HBoxContainer2/CloseButton" to="." method="_on_close_button_pressed"]

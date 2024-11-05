@@ -4,7 +4,7 @@ extends Node
 signal player_peer_id_received(id: int)  # Emitted when the player's unique peer ID is received.
 signal loading_start(peer_id: int)  # Emitted to indicate the start of the loading screen.
 signal server_game_started  # Emitted when the server has started the game.
-signal classic_game_over_completed()  # Emitted when the classic game over process is completed.
+signal classic_game_over_completed(message: Dictionary)  # Emitted when the classic game over process is completed.
 
 
 var classic_score_stats: Dictionary
@@ -37,9 +37,9 @@ func start_loading(peer_id: int) -> void:
 	
 # Remote procedure call to signal that the classic game over process is completed.
 @rpc
-func classic_game_over(score_stats: Dictionary) -> void:
+func classic_game_over(score_stats: Dictionary, message: Dictionary) -> void:
 	classic_score_stats = score_stats
-	classic_game_over_completed.emit()
+	classic_game_over_completed.emit(message)
 
 
 # Remote procedure call to send beatmap and audio file information to the server.

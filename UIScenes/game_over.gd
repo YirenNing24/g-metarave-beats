@@ -21,6 +21,7 @@ var peer_id: int = PLAYER.peer_id
 
 
 func _ready() -> void:
+	%LoadingPanel.fake_loader()
 	var _1: int = MULTIPLAYER.classic_game_over_completed.connect(display_score)
 	#BKMREngine.Score.get_classic_high_score_single(peer_id)
 	#BKMREngine.Score.get_classic_highscore_single.connect(_on_get_classic_highscore_single)
@@ -36,7 +37,7 @@ func _ready() -> void:
 		#BKMREngine.Score.get_classic_high_score_single(peer_id)
 
 
-func display_score() -> void:
+func display_score(experience: Dictionary) -> void:
 	var single_score: Dictionary = MULTIPLAYER.classic_score_stats
 	score_label.text = format_scores(str(single_score["score"]))
 	combo_label.text = format_scores(str(single_score["combo"]))
@@ -54,7 +55,11 @@ func display_score() -> void:
 	good_label.text = format_scores(str(single_score["good"]))
 	bad_label.text = format_scores(str(single_score["bad"]))
 	miss_label.text = format_scores(str(single_score["miss"]))
+	
+	%ExperienceValue.text = str(experience["experienceGained"])
+	
 	BKMREngine.beats_server_peer_close()
+	%LoadingPanel.tween_kill()
 	
 func format_scores(value: String) -> String:
 	var parts: Array = value.split(".")
