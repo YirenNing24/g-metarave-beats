@@ -27,16 +27,16 @@ func _ready() -> void:
 	#BKMREngine.Score.get_classic_highscore_single.connect(_on_get_classic_highscore_single)
 	
 	#display_score()
-
-
+	
+	
 #func _on_get_classic_highscore_single(score: Array) -> void:
 	#if !score.is_empty():
 		#var single_score: Dictionary = score[0]
 		#display_score(single_score) 
 	#else:
 		#BKMREngine.Score.get_classic_high_score_single(peer_id)
-
-
+	
+	
 func display_score(experience: Dictionary) -> void:
 	var single_score: Dictionary = MULTIPLAYER.classic_score_stats
 	score_label.text = format_scores(str(single_score["score"]))
@@ -44,7 +44,7 @@ func display_score(experience: Dictionary) -> void:
 	max_combo_label.text = format_scores(str(single_score["maxCombo"]))
 	
 	var rounded_accuracy: float = snapped(single_score["accuracy"], 0.01)
-	accuracy_label.text = (str(rounded_accuracy) + "%")
+	accuracy_label.text = (str(rounded_accuracy * 100) + "%")
 	
 	if not single_score.finished:
 		finished_label.text = "TRY AGAIN!"
