@@ -101,20 +101,39 @@ func _on_session_check_complete(_session: Dictionary) -> void:
 
 
 func hud_data() -> void:
+	animate_hud()
+	energy_hud()
+	exp_hud()
+	display_hud()
+	
+	
+func display_hud() -> void:
 	player_name.text = BKMREngine.Auth.logged_in_player
 	player_rank.text = PLAYER.player_rank
 	beats_balance.text = PLAYER.beats_balance
 	#native_balance.text = PLAYER.native_balance
 	
-	%Energy.text = str(PLAYER.current_energy) + " " + "/" + " " + str(PLAYER.max_energy)
 	gmr_balance.text = PLAYER.gmr_balance
 	level.text = str(PLAYER.level)
-	animate_hud()
 	
+	
+func energy_hud() -> void:
+	%Energy.text = str(PLAYER.current_energy) + " " + "/" + " " + str(PLAYER.max_energy)
 	if PLAYER.time_until_next_recharge != 0:
 		start_recharge_countdown(PLAYER.time_until_next_recharge)
-
-
+	
+	
+func exp_hud() -> void:
+	var required_experience: int = get_required_player_experience(PLAYER.level)
+	%ExpProgressBar.value = PLAYER.player_experience
+	%ExpProgressBar.max_value = required_experience
+	%ExperienceLabel.text = str(PLAYER.player_experience) + " / " + str(required_experience)
+	
+	
+func get_required_player_experience(level: int) -> int:
+	return round(pow(level, 1.8) + level * 4)
+	
+	
 func start_recharge_countdown(time_until_next: int) -> void:
 	time_until_next_recharge = time_until_next
 	recharge_progress = 0.0

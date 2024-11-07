@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://yfevho5xx5qg"]
+[gd_scene load_steps=50 format=3 uid="uid://yfevho5xx5qg"]
 
 [ext_resource type="Script" path="res://UIScenes/main_screen.gd" id="1_25j1r"]
 [ext_resource type="Texture2D" uid="uid://cj3g7l2prnd31" path="res://UITextures/PanelElements/player_panel.png" id="2_37prv"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://cdxx8kvromwib" path="res://Components/MyNotes/MyNotes.tscn" id="12_8ev20"]
 [ext_resource type="PackedScene" uid="uid://b3eiw5d6jk827" path="res://Components/Chat/mutuals_box.tscn" id="12_b1h6r"]
 [ext_resource type="Texture2D" uid="uid://vxw1aujmxjy3" path="res://UITextures/CustomResource/auth_screen_gradient.tres" id="12_i7ftc"]
+[ext_resource type="FontFile" uid="uid://cak36l0bes2dv" path="res://UITextures/Fonts/argentum-sans.medium.ttf" id="12_pj5mr"]
 [ext_resource type="Texture2D" uid="uid://dea3dcdqw5gw" path="res://UITextures/Icons/energy_icon.png" id="13_al202"]
 [ext_resource type="Texture2D" uid="uid://cyl1bqw5cea6d" path="res://UITextures/Buttons/mode_normal.png" id="13_cv2mc"]
 [ext_resource type="Texture2D" uid="uid://bru7x3llda33h" path="res://UITextures/Buttons/PanelTextures/classic_trophy.png" id="13_k2qiu"]
@@ -397,7 +398,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect"]
+[node name="ExpProgressBar" type="TextureProgressBar" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 1
 anchors_preset = -1
@@ -414,6 +416,19 @@ nine_patch_stretch = true
 texture_under = ExtResource("8_qls6c")
 texture_progress = ExtResource("9_s07bm")
 metadata/_edit_use_anchors_ = true
+
+[node name="ExperienceLabel" type="Label" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 287.0
+offset_top = 92.0
+offset_right = 416.0
+offset_bottom = 105.0
+theme_override_fonts/font = ExtResource("12_pj5mr")
+theme_override_font_sizes/font_size = 10
+text = "2000 / 2000"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/BackgroundTexture/HBoxContainer"]
 layout_mode = 2
@@ -589,6 +604,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 
@@ -896,6 +912,7 @@ layout_mode = 1
 
 [node name="MutualsButton" type="TextureButton" parent="Panel/BackgroundTexture" groups=["MainButtons"]]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 1
 anchors_preset = -1
