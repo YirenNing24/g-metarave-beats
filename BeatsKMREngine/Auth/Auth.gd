@@ -17,6 +17,7 @@ signal bkmr_google_registration_complete
 
 signal bkmr_session_check_complete(session: Dictionary)
 signal bkmr_token_renew_complete(tokens: Dictionary)
+signal bkmr_google_registration_passkey_complete(message: Dictionary)
 
 # Variables to store authentication and session information
 var tmp_username: String
@@ -54,6 +55,10 @@ var wrVersionCheck: WeakRef = null
 
 var GoogleRegisterPlayer: HTTPRequest
 var wrGoogleRegisterPlayer: WeakRef
+
+var GoogleRegisterPasskey: HTTPRequest
+var wrGoogleRegisterPasskey: WeakRef
+
 
 var GoogleLoginPlayer: HTTPRequest
 var wrGoogleLoginPlayer: WeakRef
@@ -255,6 +260,46 @@ func _on_GoogleRegisterPlayer_request_completed(_result: int, response_code: int
 		# Log the registration failure and emit a signal with an error message
 		BKMRLogger.error("BKMREngine player registration failure: " + str(json_body.message))
 		bkmr_google_registration_complete.emit({"error": str(json_body.message)})
+
+func register_google_passkey(username: String) -> void:
+	# Prepare HTTP request
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	GoogleRegisterPasskey = prepared_http_req.request
+	wrGoogleRegisterPasskey = prepared_http_req.weakref
+	
+	# Connect the signal for handling registration completion
+	var _register_signal: int = GoogleRegisterPasskey.request_completed.connect(_on_GoogleRegisterPasskey_request_completed)
+	
+	# Log registration initiation
+	BKMRLogger.info("Calling BKMRServer to register a player")
+	
+	# Prepare payload and send a POST request
+	var payload: Dictionary = { "usernmame": username }
+	var request_url: String = host + "/api/register/google"
+	BKMREngine.send_post_request(GoogleRegisterPasskey, request_url, payload)
+	
+	
+func _on_GoogleRegisterPasskey_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check the HTTP response status
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	
+	# Free the HTTP request resources
+	BKMREngine.free_request(wrGoogleRegisterPasskey, GoogleRegisterPasskey)
+	
+	# Parse the JSON body of the response
+	var json_body: Variant= JSON.parse_string(body.get_string_from_utf8())
+
+	# Check if the registration was successful
+	if status_check:
+		# Log the successful registration and emit a signal
+		BKMRLogger.info("BKMREngine register passkey player success")
+		bkmr_google_registration_passkey_complete.emit({"success": "Registration Successful"})
+	else:
+		# Log the registration failure and emit a signal with an error message
+		BKMRLogger.error("BKMREngine player registration failure: " + str(json_body.message))
+		bkmr_google_registration_complete.emit({"error": str(json_body.message)})
+
+
 #endregion
 
 

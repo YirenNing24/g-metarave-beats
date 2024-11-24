@@ -64,6 +64,7 @@ func init_visibility_control() -> void:
 		register_container.visible = false
 #endregion
 
+
 #region Login functions
 # Event handler for login button press.
 func _on_login_button_pressed() -> void:
@@ -221,14 +222,17 @@ func _on_register_button_pressed() -> void:
 	
 #endregion
 
+
 #region event callback and utility functions
 # Event handler for username field text change.
 func _on_username_field_text_changed(new_text: String) -> void:
 	username = new_text
 
+
 # Event handler for password field text change.
 func _on_password_field_text_changed(new_text: String) -> void:
 	password = new_text
+
 
 # Event handler for password field text submission.
 func _on_password_field_text_submitted(_new_text: String) -> void:
@@ -237,13 +241,16 @@ func _on_password_field_text_submitted(_new_text: String) -> void:
 	BKMREngine.Auth.login_player(userName, passWord)
 	loading_panel.fake_loader()
 	
+	
 # Event handler for register toggle button press.
 func _on_register_toggle_pressed() -> void:
 	animation_player2.play("login_container")
 	
+	
 # Event handler for login toggle button press.
 func _on_login_toggle_pressed() -> void:
 	animation_player2.play("register_container")
+	
 	
 func _on_start_button_pressed() -> void:
 	LOADER.previous_texture = background_texture.texture
@@ -257,12 +264,14 @@ func is_valid_username(valid_username: String) -> bool:
 	var _pattern_username: Error = regex.compile(username_pattern)
 	return regex.search(valid_username) != null
 
+
 # Function to check the validity of a password.
 func is_valid_password(valid_password: String) -> bool:
 	var password_pattern: String = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z\\d\\s]).{8,}$"
 	var regex: RegEx = RegEx.new()
 	var _pattern_password: Error = regex.compile(password_pattern)
 	return regex.search(valid_password) != null
+
 
 # Function to log errors and play animation if not played.
 func error_logger(errors: Array) -> void:
@@ -293,6 +302,7 @@ func error_logger(errors: Array) -> void:
 			error_container.add_child(list_error)
 #endregion
 
+
 func _input(event: InputEvent) -> void:
 	# Handle screen touch events.
 	if event is InputEventScreenTouch:
@@ -309,3 +319,32 @@ func _input(event: InputEvent) -> void:
 	
 func _on_audio_stream_player_finished() -> void:
 	$AudioStreamPlayer.play()
+	
+
+
+func _on_other_registration_button_pressed() -> void:
+	%Username.visible = false
+	%Label5.visible = false
+	
+	%RegisterPlaystore.visible = true
+	%RegisterPassword.visible = true
+	%RegisterPasskeyButton.visible = true 
+	
+	
+func _on_register_passkey_button_pressed() -> void:
+	if %Username.visible == false:
+		%Username.visible = true
+		return
+
+	var errors: Array = []
+	var _valid_username: String = ""
+	
+	
+	username = %Username.text
+	if not is_valid_username(username) and %Username.text != "":
+		errors.append({"error": "Invalid username format"})
+		error_logger(errors)
+		return
+		
+	else:
+		_valid_username = %Username.text
