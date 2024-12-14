@@ -75,11 +75,11 @@ func _process(_delta: float) -> void:
 			var json: JSON = JSON.new()
 			var error: Error = json.parse(message)
 			if error == OK:
-				if json.data.has("chat"):
-					receive_chat(json)
-				elif json.data.has("roomId"):
-					receive_chat(json)
-				elif json.data[0].has("serverTime"):
+				#if json.data.has("chat"):
+					#receive_chat(json)
+				#elif json.data.has("roomId"):
+					#receive_chat(json)
+				if json.data[0].has("serverTime"):
 					receive_server_time(json)
 					
 		WebSocketPeer.STATE_CLOSED:

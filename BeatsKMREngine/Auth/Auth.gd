@@ -17,7 +17,12 @@ signal bkmr_google_registration_complete
 
 signal bkmr_session_check_complete(session: Dictionary)
 signal bkmr_token_renew_complete(tokens: Dictionary)
+
 signal bkmr_google_registration_passkey_complete(message: Dictionary)
+signal bkmr_google_registration_passkey_verify_complete(message: Dictionary)
+
+signal bkmr_google_login_passkey_complete(message: Dictionary)
+signal bkmr_google_login_passkey_verify_complete(message: Dictionary)
 
 # Variables to store authentication and session information
 var tmp_username: String
@@ -59,9 +64,18 @@ var wrGoogleRegisterPlayer: WeakRef
 var GoogleRegisterPasskey: HTTPRequest
 var wrGoogleRegisterPasskey: WeakRef
 
+var GoogleLoginPasskey: HTTPRequest
+var wrGoogleLoginPasskey: WeakRef
+
+var GoogleVerifyPasskey: HTTPRequest
+var wrGoogleVerifyPasskey: WeakRef
+
 
 var GoogleLoginPlayer: HTTPRequest
 var wrGoogleLoginPlayer: WeakRef
+
+var GoogleVerifyPasskeyLogin: HTTPRequest
+var wrGoogleVerifyPasskeyLogin: WeakRef
 
 var RenewToken: HTTPRequest
 var wrRenewToken: WeakRef
@@ -75,8 +89,14 @@ var google_token: String
 
 
 #region Init functions
+
+
+func _ready() -> void:
+	pass
+
+
 # Function to attempt automatic player login based on saved session data
-func auto_login_player() -> Node:
+func auto_login_player() -> void:
 	# Load saved BKMREngine session data
 	var bkmr_session_data: Dictionary = load_session()
 	BKMRLogger.debug("BKMR session data " + str(bkmr_session_data))
@@ -89,8 +109,9 @@ func auto_login_player() -> Node:
 			access_token = bkmr_session_data.access_token
 			refresh_token = bkmr_session_data.refresh_token
 			last_login_type = bkmr_session_data.login_type
-			
 			if last_login_type == 'beats':
+				validate_player_session()
+			elif last_login_type == 'passkey':
 				validate_player_session()
 			elif last_login_type == 'google':
 				SignInClient.request_server_side_access(BKMREngine.google_server_client_id, true)
@@ -108,7 +129,7 @@ func auto_login_player() -> Node:
 		# Set up a timer to delay the emission of the signal for a short duration
 		setup_complete_session_check_wait_timer()
 		complete_session_check_wait_timer.start()
-	return self
+
 
 
 # Function to validate an existing player session using refresh_token
@@ -126,7 +147,7 @@ func validate_player_session() -> void:
 	# Log the payload details
 	BKMRLogger.debug("Validate session payload: " + str(payload))
 	# Construct the request URL
-	var request_url: String = host + "/api/validate_session/beats"
+	var request_url: String = host + "/api/validate-session/beats"
 	# Send the POST request for session validation
 	BKMREngine.send_login_request(ValidateSession, request_url, payload)
 	# Return the current script instance
@@ -261,6 +282,7 @@ func _on_GoogleRegisterPlayer_request_completed(_result: int, response_code: int
 		BKMRLogger.error("BKMREngine player registration failure: " + str(json_body.message))
 		bkmr_google_registration_complete.emit({"error": str(json_body.message)})
 
+
 func register_google_passkey(username: String) -> void:
 	# Prepare HTTP request
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -270,36 +292,177 @@ func register_google_passkey(username: String) -> void:
 	# Connect the signal for handling registration completion
 	var _register_signal: int = GoogleRegisterPasskey.request_completed.connect(_on_GoogleRegisterPasskey_request_completed)
 	
-	# Log registration initiation
-	BKMRLogger.info("Calling BKMRServer to register a player")
-	
 	# Prepare payload and send a POST request
-	var payload: Dictionary = { "usernmame": username }
-	var request_url: String = host + "/api/register/google"
+	var payload: Dictionary = {"username": username}
+	var request_url: String = host + "/api/register/passkey"
 	BKMREngine.send_post_request(GoogleRegisterPasskey, request_url, payload)
 	
 	
 func _on_GoogleRegisterPasskey_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
-	# Check the HTTP response status
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	
 	# Free the HTTP request resources
 	BKMREngine.free_request(wrGoogleRegisterPasskey, GoogleRegisterPasskey)
 	
 	# Parse the JSON body of the response
-	var json_body: Variant= JSON.parse_string(body.get_string_from_utf8())
-
+	var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+	if json_body != null:
 	# Check if the registration was successful
-	if status_check:
-		# Log the successful registration and emit a signal
-		BKMRLogger.info("BKMREngine register passkey player success")
-		bkmr_google_registration_passkey_complete.emit({"success": "Registration Successful"})
+		if status_check:
+			if json_body is Dictionary:
+				var challenge: Dictionary = json_body
+				BeatsPasskey.beats_create_passkey(challenge)
+		else:
+			bkmr_google_registration_passkey_complete.emit({"error": json_body})
 	else:
-		# Log the registration failure and emit a signal with an error message
-		BKMRLogger.error("BKMREngine player registration failure: " + str(json_body.message))
-		bkmr_google_registration_complete.emit({"error": str(json_body.message)})
+		bkmr_google_registration_passkey_complete.emit({"error": "Wala po laman"})
+		
+		
+func beats_passkey_registration_response(result: Dictionary) -> void:
+	_beats_passkey_registration_verification(result)
+	
+	
+func _beats_passkey_registration_verification(result: Dictionary) -> void:
+	# Prepare HTTP request
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	GoogleVerifyPasskey = prepared_http_req.request
+	wrGoogleVerifyPasskey = prepared_http_req.weakref
+	
+	# Connect the signal for handling registration completion
+	var _register_signal: int = GoogleVerifyPasskey.request_completed.connect(_on_GoogleVerifyPasskey_request_completed)
+		
+	result.deviceId = OS.get_model_name()
+	# Prepare payload and send a POST request
+	var payload: Dictionary = result
+	var request_url: String = host + "/api/register/passkey/verify-registration"
+	BKMREngine.send_post_request(GoogleVerifyPasskey, request_url, payload)
+	
+	
+func _on_GoogleVerifyPasskey_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check the HTTP response status
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	
+	# Free the HTTP request resources
+	BKMREngine.free_request(wrGoogleVerifyPasskey, GoogleVerifyPasskey)
+	
+	# Parse the JSON body of the response
+	var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+	if json_body != null:
+	# Check if the registration was successful
+		if status_check:
+			if json_body.has("error"):
+				bkmr_google_registration_passkey_verify_complete.emit({"error": json_body})
+			else:
+				# Log additional information if present in the response
+				if "accessToken" in json_body.keys():
+					BKMRLogger.debug("Remember me access: " + str(json_body.accessToken))
+				if "refreshToken" in json_body.keys():
+					BKMRLogger.debug("Remember me refresh: " + str(json_body.refreshToken))
+					
+					# Save the session and set the player as logged in
+					access_token = json_body.accessToken
+					refresh_token  = json_body.refreshToken
+					login_type = json_body.loginType
+					save_session(access_token, refresh_token, login_type)
+					var username: String = json_body.username
+					set_player_logged_in(username)
+					bkmr_google_login_passkey_verify_complete.emit(json_body)
+					renew_access_token_timer()
+		else:
+			bkmr_google_registration_passkey_verify_complete.emit({"error": json_body})
+	else:
+		bkmr_google_registration_passkey_verify_complete.emit({"error": "Unknown error"})
+	
+	
+func login_player_google_passkey(username: String) -> void:
+	# Prepare HTTP request
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	GoogleLoginPasskey = prepared_http_req.request
+	wrGoogleLoginPasskey = prepared_http_req.weakref
+	
+	# Connect the signal for handling registration completion
+	var _register_signal: int = GoogleLoginPasskey.request_completed.connect(_on_GoogleLoginPasskey_request_completed)
+	
+	# Prepare payload and send a POST request
+	var payload: Dictionary = {"username": username}
+	var request_url: String = host + "/api/login/passkey"
+	BKMREngine.send_post_request(GoogleLoginPasskey, request_url, payload)
+	
+		
+func _on_GoogleLoginPasskey_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check the HTTP response status
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	
+	# Free the HTTP request resources
+	BKMREngine.free_request(wrGoogleLoginPasskey, GoogleLoginPasskey)
+	
+	# Parse the JSON body of the response
+	var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+	if json_body != null:
+	# Check if the registration was successful
+		if status_check:
+			if json_body is Dictionary:
+				var challenge: Dictionary = json_body
+				BeatsPasskey.login_passkey(challenge)
+		else:
+			bkmr_google_login_passkey_complete.emit({"error": json_body})
+	else:
+		bkmr_google_login_passkey_complete.emit({"error": "Unknown error"})
+		
+	
+func beats_passkey_login_response(result: Dictionary) -> void:
+	_beats_passkey_login_verification(result)
+	
+	
+func _beats_passkey_login_verification(result: Dictionary) -> void:
+	# Prepare HTTP request
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	GoogleVerifyPasskeyLogin = prepared_http_req.request
+	wrGoogleVerifyPasskeyLogin = prepared_http_req.weakref
+	
+	# Connect the signal for handling registration completion
+	var _register_signal: int = GoogleVerifyPasskeyLogin.request_completed.connect(_on_GoogleVerifyPasskeyLogin_request_completed)
+		
+	result.deviceId = OS.get_model_name()
 
-
+	# Prepare payload and send a POST request
+	var payload: Dictionary = result
+	var request_url: String = host + "/api/login/passkey/verify-auth"
+	BKMREngine.send_post_request(GoogleVerifyPasskeyLogin, request_url, payload)
+		
+		
+func _on_GoogleVerifyPasskeyLogin_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check the HTTP response status
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	
+	# Free the HTTP request resources
+	BKMREngine.free_request(wrGoogleVerifyPasskeyLogin , GoogleVerifyPasskeyLogin)
+	
+	# Parse the JSON body of the response
+	var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+	if json_body != null:
+	# Check if the registration was successful
+		if status_check:
+			if json_body.has("error"):
+				bkmr_google_login_passkey_verify_complete.emit({"error": json_body})
+			else:
+				# Log additional information if present in the response
+				if "accessToken" in json_body.keys():
+					BKMRLogger.debug("Remember me access: " + str(json_body.accessToken))
+				if "refreshToken" in json_body.keys():
+					BKMRLogger.debug("Remember me refresh: " + str(json_body.refreshToken))
+					# Save the session and set the player as logged in
+					access_token = json_body.accessToken
+					refresh_token  = json_body.refreshToken
+					login_type = json_body.loginType
+					save_session(access_token, refresh_token, login_type)
+					var username: String = json_body.username
+					set_player_logged_in(username)
+					bkmr_google_login_passkey_verify_complete.emit(json_body)
+					renew_access_token_timer()
+		else:
+			bkmr_google_login_passkey_verify_complete.emit({"error": json_body})
+	else:
+		bkmr_google_login_passkey_verify_complete.emit({"error": "Unknown error"})
 #endregion
 
 
@@ -376,7 +539,7 @@ func _on_LoginPlayer_request_completed(_result: int, response_code: int, headers
 
 
 # Login function for google login
-func google_login_player(token: String) -> Node:
+func google_login_player(token: String) -> void:
 	# Prepare the HTTP request for player login
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	GoogleLoginPlayer = prepared_http_req.request
@@ -400,9 +563,7 @@ func google_login_player(token: String) -> Node:
 	
 	# Send the POST request to initiate player login
 	BKMREngine.send_post_request(GoogleLoginPlayer, request_url, payload)
-	
-	# Return self for potential chaining of function calls
-	return self
+
 
 
 # Callback function triggered upon completion of the player login request
@@ -466,6 +627,7 @@ func logout_player() -> void:
 	bkmr_logout_complete.emit()
 	get_tree().quit()
 
+
 # Set the currently logged-in player and configure session timeout if applicable
 func set_player_logged_in(player_name: String) -> void:
 	# Set the global variable for the logged-in player
@@ -487,6 +649,7 @@ func set_player_logged_in(player_name: String) -> void:
 	if login_timeout != 0:
 		setup_login_timer()
 	
+	
 # Remove stored BKMREngine session data from the user data directory.
 func remove_stored_session() -> bool:
 	# Define the path to the file storing the BKMREngine session data
@@ -507,6 +670,7 @@ func renew_access_token_timer() -> void:
 	var _connect: int = timer.timeout.connect(request_new_access_token)
 	# Start the timer
 
+
 # Function to be called when the timer fires
 func request_new_access_token() -> void:
 	# This function will be called every 4 minutes
@@ -525,6 +689,7 @@ func request_new_access_token() -> void:
 	# Send the POST request for session validation
 	BKMREngine.send_login_request(RenewToken, request_url, payload)
 	# Return the current script instance
+
 
 func _on_RequestNewAccessToken_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the status of the HTTP response
@@ -552,12 +717,14 @@ func _on_RequestNewAccessToken_completed(_result: int, response_code: int, heade
 		# Trigger the completion of the session check with an empty result in case of failure
 		bkmr_token_renew_complete.emit({})
 	
+	
 # Complete the BKMREngine session check and emit the corresponding signal.
 func complete_session_check(session_check: Dictionary = {}) -> void:
 	# Log a debug message indicating the completion of the session check
 	BKMRLogger.debug("BKMREngine: completing session check")
 	# Emit the 'bkmr_session_check_complete' signal with the provided result
 	bkmr_session_check_complete.emit(session_check)
+
 
 # Set up a timer to delay the emission of the 'bkmr_session_check_complete' signal.
 func setup_complete_session_check_wait_timer() -> void:
@@ -574,6 +741,7 @@ func setup_complete_session_check_wait_timer() -> void:
 	# Add the timer as a child of the current node
 	add_child(complete_session_check_wait_timer)
 
+
 func setup_login_timer() -> void:
 	login_timer = Timer.new()
 	login_timer.set_one_shot(true)
@@ -581,46 +749,55 @@ func setup_login_timer() -> void:
 	var _timer_signal: int = login_timer.timeout.connect(on_login_timeout_complete)
 	add_child(login_timer)
 	
+	
 func on_login_timeout_complete() -> void:
 	logout_player()
+	
 	
 # Save the BKMREngine session data to a local file.
 func save_session(token_access: String, token_refresh: String, type_login: String) -> void:
 	# Log debug information about the session being saved
 	BKMRLogger.debug("Saving session, access: " + str(token_access) + ", refresh: " + str(token_refresh))
-
-	# Create a dictionary with 'refresh_token' and 'access_token' values
 	var session_data: Dictionary = {
 		"access_token": token_access,
 		"refresh_token": token_refresh,
 		"login_type": type_login
 	}
-	# Save the session data dictionary to a local file with the specified path
-	BKMRLocalFileStorage.save_data("user://bkmrsession.save", session_data, "Saving BKMREngine session: ")
+	# Check if the OS is Android
+	if OS.get_name() == "Android":
+		BeatsSessionTokens.store_jwt_tokens(session_data)
+	else:
+		# Save the session data dictionary to a local file with the specified path
+		BKMRLocalFileStorage.save_data("user://bkmrsession.save", session_data, "Saving BKMREngine session: ")
+
 
 # Load BKMREngine session data from a local file.
-# This function retrieves the session data stored in a local file with the specified path ('user://bkmrsession.save').
-# The function uses the 'BKMRLocalFileStorage' script to handle the data loading process.
-# If the loaded session data is an empty dictionary or null, the function logs a debug message indicating that no valid session data was found.
-# Finally, the function logs an information message about the found session data and returns the loaded session data dictionary.
 func load_session() -> Dictionary:
-	# Initialize a variable to store the loaded BKMREngine session data
-	var bkmr_session_data: Dictionary
-	
-	# Specify the path of the local file containing the BKMREngine session data
-	var path: String = "user://bkmrsession.save"
-	
-	# Use the 'BKMRLocalFileStorage' script to retrieve the session data from the specified path
-	bkmr_session_data = BKMRLocalFileStorage.get_data(path)
-	
-	# Check if the loaded session data is an empty dictionary or null
-	if bkmr_session_data == {} or null:
-		# Log a debug message if no valid session data was found
-		BKMRLogger.debug("No local BKMREngine session stored, or session data stored in incorrect format")
-	
-	# Log an information message about the found session data
-	BKMRLogger.info("Found session data: " + str(bkmr_session_data))
-	
-	# Return the loaded session data dictionary
-	return bkmr_session_data
+	# Check if the OS is Android
+	if OS.get_name() == "Android":
+		# Log debug information about loading session for Android
+		BKMRLogger.debug("Loading session from Android plugin")
+		var session_data: Dictionary = BeatsSessionTokens.retrieve_jwt_tokens()
+		if session_data == {} or session_data == null:
+			BKMRLogger.debug("No session data found on Android plugin")
+			return {}
+		BKMRLogger.info("Loaded session data from Android: " + str(session_data))
+		return session_data
+	else:
+		# Log debug information about loading session from local storage
+		BKMRLogger.debug("Loading session from local file storage")
+		var path: String = "user://bkmrsession.save"
+		
+		# Retrieve the session data using BKMRLocalFileStorage
+		var session_data: Dictionary = BKMRLocalFileStorage.get_data(path)
+		
+		if session_data == {} or session_data == null:
+			BKMRLogger.debug("No local BKMREngine session stored, or session data stored in incorrect format")
+			return {}
+		
+		BKMRLogger.info("Loaded session data from local storage: " + str(session_data))
+		return session_data
+
+
+
 #endregion

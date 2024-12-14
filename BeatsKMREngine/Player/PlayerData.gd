@@ -30,10 +30,15 @@ var peer_id: int
 
 func _ready() -> void:
 	BKMREngine.Reward.get_available_card_reward_completed.connect(_on_get_available_card_reward)
-	BKMREngine.Auth.bkmr_login_complete.connect(populate_player_data)
 	BKMREngine.Auth.bkmr_session_check_complete.connect(populate_player_data)
+	BKMREngine.Auth.bkmr_login_complete.connect(populate_player_data)
+	
 	BKMREngine.Auth.bkmr_google_login_complete.connect(populate_player_data)
 	
+	BKMREngine.Auth.bkmr_google_login_passkey_verify_complete.connect(populate_player_data)
+	BKMREngine.Auth.bkmr_google_registration_passkey_complete.connect(populate_player_data)
+	
+
 	
 func _on_get_available_card_reward(reward_data: Dictionary) -> void:
 	card_reward = reward_data

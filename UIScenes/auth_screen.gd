@@ -1,5 +1,5 @@
 extends Control
-
+#TODO mix up username for logging and registration causing return problem
 # TODO: Loading wheel when logging-in should be continous until login is completed or not 
 
 #region Variables
@@ -7,7 +7,9 @@ const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 const error_list: PackedScene = preload("res://Components/Lists/auth_error.tscn")
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var animation_player2: AnimationPlayer = %AnimationPlayer2
-@onready var username_field: String = %UsernameField.text
+
+@onready var username_passkey: String = %UsernamePasskey.text
+@onready var username_field: String = %Username.text
 @onready var password_field: String = %PasswordField.text
 @onready var login_container: VBoxContainer = %LoginContainer
 @onready var register_container: VBoxContainer = %RegisterContainer
@@ -37,22 +39,63 @@ func _ready() -> void:
 	signal_connect()
 	init_visibility_control()
 	google_auth()
+
 	
 func signal_connect() -> void:
 	BKMREngine.Auth.bkmr_registration_complete.connect(_on_registration_completed)
 	BKMREngine.Auth.bkmr_login_complete.connect(_on_login_succeeded)
 	BKMREngine.Auth.bkmr_google_login_complete.connect(_on_google_login_succeeded)
 	BKMREngine.Auth.bkmr_google_registration_complete.connect(_on_google_registration_completed)
+	
+	BKMREngine.Auth.bkmr_google_registration_passkey_complete.connect(let_me_verified)
+	var _passkey_registration: int = BeatsPasskey.create_passkey_completed.connect(passkey_registration_insert_username)
+	BKMREngine.Auth.bkmr_google_registration_passkey_verify_complete.connect(passkey_registration_verification_complete)
+		
+	BKMREngine.Auth.bkmr_google_login_passkey_verify_complete.connect(passkey_login_verification_complete)
+	var _sign_in_passkey: int = BeatsPasskey.sign_in_passkey_completed.connect(passkey_authentication_insert_username)
+	
 	var _connect: int = SignInClient.server_side_access_requested.connect(_on_google_token_generated)
+
+
+
+func passkey_registration_verification_complete() -> void:
+	loading_panel.tween_kill()
+	
+	
+func passkey_login_verification_complete() -> void:
+	loading_panel.tween_kill()
+	
+	
+func let_me_verified(result: Dictionary) -> void:
+	%DebugLabel.text = str(result)
+
+
+func passkey_registration_insert_username(result: String) -> void:
+	%DebugLabel.text = str(result)
+	if result != null or "":
+		var json_result: Variant = JSON.parse_string(result)
+		if json_result is Dictionary:
+			json_result.username = %Username.text
+			BKMREngine.Auth.beats_passkey_registration_response(json_result)
+			loading_panel.fake_loader()
+	
+	
+func passkey_authentication_insert_username(result: String) -> void:
+	%DebugLabel.text = str(result)
+	if result != null or "":
+		var json_result: Variant = JSON.parse_string(result)
+		if json_result is Dictionary:
+			json_result.username = %UsernamePasskey.text
+			BKMREngine.Auth.beats_passkey_login_response(json_result)
+			loading_panel.fake_loader()
 	
 func google_auth() -> void:
 	if BKMREngine.Auth.last_login_type == "google":
 		SignInClient.request_server_side_access(BKMREngine.google_server_client_id, true)
-
+	
+	
 func init_visibility_control() -> void:
-	print("meron ba")
 	if BKMREngine.session:
-		print("asan baaa")
 		start_container.visible = false
 		login_modal_container.visible = false
 		animation_player.play('switch_start_screen')
@@ -79,7 +122,8 @@ func _on_login_button_pressed() -> void:
 	else:
 		BKMREngine.Auth.login_player(userName, passWord)
 		loading_panel.fake_loader()
-
+	
+	
 #Callback for login result
 func _on_login_succeeded(result: Dictionary) -> void:
 	if result.has("error"):
@@ -92,7 +136,8 @@ func _on_login_succeeded(result: Dictionary) -> void:
 		BKMRLogger.info("logged in as: " + str(BKMREngine.Auth.logged_in_player))
 		registration_success = false
 	loading_panel.tween_kill()
-
+	
+	
 #Callback for google login
 func _on_google_login_succeeded(result: Dictionary) -> void:
 	if result.has("error"):
@@ -110,6 +155,7 @@ func _on_google_login_succeeded(result: Dictionary) -> void:
 		
 #endregion
 
+
 #region Google Auth
 func google_authenticated(is_authenticated: bool) -> void:
 	if google_sign_in_retries > 0 and not is_authenticated:
@@ -124,6 +170,7 @@ func _on_google_register_button_pressed() -> void:
 	
 #endregion
 
+
 func _on_google_token_generated(token: String) -> void:
 	if google_registration_success == false and google_register_pressed == true:
 		BKMREngine.Auth.register_google(token)
@@ -132,6 +179,7 @@ func _on_google_token_generated(token: String) -> void:
 		BKMREngine.Auth.google_login_player(token)
 		
 #region Registration functions
+
 
 #Callback for native registration status
 func _on_registration_completed(result: Dictionary) -> void:
@@ -144,7 +192,8 @@ func _on_registration_completed(result: Dictionary) -> void:
 	else:
 		registration_success = true
 		BKMREngine.Auth.login_player(username, password)
-
+	
+	
 #Callback for google registration status
 func _on_google_registration_completed(result: Dictionary) -> void:
 	# Check if there is an error in the registration result.
@@ -163,12 +212,14 @@ func _on_google_registration_completed(result: Dictionary) -> void:
 		google_registration_success = true
 		loading_panel.tween_kill()
 		
+		
 # Function to submit user registration.
 func on_submit_registration(val_username: String, val_password: String)  -> void:
 	password = val_password
 	username = val_username
 	BKMREngine.Auth.register_player(val_username, val_password)
 	loading_panel.fake_loader()
+	
 	
 func _on_register_button_pressed() -> void:
 	var errors: Array = []
@@ -249,6 +300,7 @@ func _on_register_toggle_pressed() -> void:
 	
 # Event handler for login toggle button press.
 func _on_login_toggle_pressed() -> void:
+	%UsernamePasskey.visible = true
 	animation_player2.play("register_container")
 	
 	
@@ -257,8 +309,11 @@ func _on_start_button_pressed() -> void:
 	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")
 	var _change_scene:bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
 
+
 # Function to check the validity of a username.
 func is_valid_username(valid_username: String) -> bool:
+	if valid_username.is_empty():
+		return false
 	var username_pattern: String = "^[a-zA-Z0-9_]{3,16}$"
 	var regex: RegEx = RegEx.new()
 	var _pattern_username: Error = regex.compile(username_pattern)
@@ -300,7 +355,7 @@ func error_logger(errors: Array) -> void:
 			list_error.name = err.error
 			list_error.get_node("Label").set_text(err.error)
 			error_container.add_child(list_error)
-#endregion
+#endregions
 
 
 func _input(event: InputEvent) -> void:
@@ -320,31 +375,119 @@ func _input(event: InputEvent) -> void:
 func _on_audio_stream_player_finished() -> void:
 	$AudioStreamPlayer.play()
 	
-
-
+	
 func _on_other_registration_button_pressed() -> void:
 	%Username.visible = false
+	%UsernamePasskey.visible = false
 	%Label5.visible = false
 	
-	%RegisterPlaystore.visible = true
+	%Label5.visible = false
+	%Password.visible = false
+	%Label3.visible = false
+	%ConfirmPassword.visible = false
+	%PasswordField.visible = false
+	
+	#%RegisterPlaystore.visible = true
 	%RegisterPassword.visible = true
 	%RegisterPasskeyButton.visible = true 
+	%HBoxContainer3.visible = true 
 	
 	
 func _on_register_passkey_button_pressed() -> void:
 	if %Username.visible == false:
 		%Username.visible = true
+		%Label5.visible = true
+		
+		%Label2.visible = false
+		%RegisterPlaystore.visible = false
+		%RegisterPassword.visible = false
 		return
-
-	var errors: Array = []
-	var _valid_username: String = ""
 	
+	var errors: Array = []
+	var valid_username: String = ""
 	
 	username = %Username.text
-	if not is_valid_username(username) and %Username.text != "":
-		errors.append({"error": "Invalid username format"})
+	
+	if is_valid_username(username) == false:
+		errors.append({"error": "Invalid username or empty"})
+		error_logger(errors)
+		return
+	else:
+		valid_username = %Username.text
+	BKMREngine.Auth.register_google_passkey(valid_username)
+	
+	
+func _on_register_password_pressed() -> void:
+	if %Password.visible == false:
+		%RegisterPasskeyButton.visible = false
+		%RegisterPlaystore.visible = false
+		%HBoxContainer3.visible = false
+		
+		%Label5.visible = true
+		%Label2.visible = true
+		%Password.visible = true
+		%Username.visible = true
+		%Password.visible = true
+		%Label3.visible = true
+		%ConfirmPassword.visible = true
+	else:
+		register_with_password() 
+		
+		
+func register_with_password() -> void:
+	var errors: Array = []
+	
+	var found_empty_field: bool = false
+	var reg_password: String = ""
+	var confirmPassword: String = ""
+
+	var valid_username: String = ""
+	var valid_password: String = ""
+
+	for fields: LineEdit in get_tree().get_nodes_in_group("reg_field"):
+			match fields.name:
+				"Username":
+					username = fields.text
+					if not is_valid_username(username):
+						errors.append({"error": "Invalid or empty username"})
+						error_logger(errors)
+						return
+					else:
+						valid_username = fields.text
+				"Password":
+					reg_password = fields.text
+					if not is_valid_password(reg_password):
+						errors.append({"error": "Invalid or empty password"})
+						error_logger(errors)
+						return
+					else:
+						password = fields.text
+				"ConfirmPassword":
+					confirmPassword = fields.text
+				
+	if found_empty_field:
 		error_logger(errors)
 		return
 		
+	if password != confirmPassword:
+		errors.append({"error":"Password doesn't match"})
+		error_logger(errors) 
 	else:
-		_valid_username = %Username.text
+		valid_password = reg_password
+	
+	if valid_username and valid_password != "":
+		for child: Control in error_container.get_children():
+			error_container.remove_child(child)
+			child.queue_free()
+			
+		on_submit_registration(valid_username, valid_password)
+		animation_played = false
+		error_container.visible = false
+	
+	
+func _on_pass_key_login_pressed() -> void:
+	var username_pass: String = %UsernamePasskey.text
+	if not is_valid_username(username_pass):
+		error_logger([{"error": "Invalid or empty username"}])
+		return
+	BKMREngine.Auth.login_player_google_passkey(%UsernamePasskey.text)

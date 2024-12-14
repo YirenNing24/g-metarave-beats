@@ -9,17 +9,17 @@ var peer: WebSocketMultiplayerPeer = WebSocketMultiplayerPeer.new()
 
 # Configuration variables
 #var host_ip: String = "localhost"
-#const host_ip: String = "api.gmetarave.com"
+const host_ip: String = "jp-game.gmetarave.asia"
 #const beats_host_ip: String = "game.gmetarave.com"
-const host_ip: String = "192.168.2.61"
+#const host_ip: String = "192.168.2.61"
 const port: String = ":8085"
 #const port: String = ""
 const beats_port: String = ":8087"
 #const beats_port: String = ""
 
 var google_server_client_id: String = "484949065971-ujoksdio9417hnvd5goaclrvlnsv6704.apps.googleusercontent.com"
-var host: String = "http://" + host_ip + port
-#var host: String = "http://" + host_ip
+#var host: String = "http://" + host_ip + port
+var host: String = "https://" + host_ip
 var beats_host: String = "ws://" + host_ip + beats_port + "/?token="
 #var beats_host: String = "ws://" + beats_host_ip + "/?token="
 var session: bool = false
@@ -125,7 +125,7 @@ func beats_server_connect() -> void:
 		multiplayer.multiplayer_peer = peer
 		if result != OK:
 			game_connected = false
-			print("Failed to connect, retrying...")
+
 			var timer: SceneTreeTimer = get_tree().create_timer(3)  # Retry every 3 seconds
 			var _1: int = timer.timeout.connect(beats_server_connect)
 		else:
