@@ -17,7 +17,6 @@ signal mutuals_button_pressed
 @onready var beats_balance: Label = %BeatsBalance
 
 @onready var gmr_balance: Label = %GMR
-@onready var thump_balance: Label = %ThumpBalance
 @onready var stats_wheel: TextureProgressBar = %StatsWheel
 @onready var level: Label = %Level
 @onready var menu_buttons_cont: VBoxContainer = %VBoxContainer
@@ -55,16 +54,12 @@ func _ready() -> void:
 	signal_connect()
 	add_components()
 	hud_data()
-	beats_server_connect()
 	#Wait for animation completion before showing the mutuals box.
 	await animation_player.animation_finished
 	mutuals_box.show()
+	beats_server_connect()
 	
-
 func beats_server_connect() -> void:
-	var beats_connect: MultiplayerPeer.ConnectionStatus = BKMREngine.peer.get_connection_status()
-	if beats_connect == MultiplayerPeer.ConnectionStatus.CONNECTION_CONNECTED:
-		return
 	BKMREngine.Auth.beats_server_connect()
 
 
@@ -77,9 +72,9 @@ func add_components() -> void:
 
 # Connect chat signals to their respective handlers.
 func signal_connect() -> void:
-	BKMREngine.Websocket.server_time.connect(_on_updated_server_time)
-	BKMREngine.Websocket.connected.connect(_on_chat_connected)
-	BKMREngine.Websocket.closed.connect(_on_chat_closed)
+	#BKMREngine.Websocket.server_time.connect(_on_updated_server_time)
+	#BKMREngine.Websocket.connected.connect(_on_chat_connected)
+	#BKMREngine.Websocket.closed.connect(_on_chat_closed)
 	BKMREngine.Profile.get_profile_pic_complete.connect(_on_get_profile_pic)
 	BKMREngine.Auth.bkmr_session_check_complete.connect(_on_session_check_complete)
 
@@ -162,8 +157,6 @@ func _process(delta: float) -> void:
 		else:
 			# Energy is maxed out, hide recharge progress
 			%EnergyRecharge.visible = false
-
-
 	
 	
 func animate_hud() -> void:

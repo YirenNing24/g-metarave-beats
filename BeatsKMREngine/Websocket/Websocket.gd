@@ -1,24 +1,22 @@
 extends Node
 
-# WebSocketClient handles the communication with a WebSocket server for chat functionality.
-# It includes signals for various events such as connection status changes, message reception, and inbox data retrieval.
 
 # Importing necessary scripts
 const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 const BKMRUtils: Script = preload("res://BeatsKMREngine/utils/BKMRUtils.gd")
 
-# Signals emitted by the WebSocketClient
-signal connected(url: String)
+# Signals emitted by the ENET Client
+#signal connected(url: String)
 #signal connect_failed
 #signal received(data: Dictionary)
 #signal closing
-signal closed(code: int, reason: Dictionary)
+
 signal get_inbox_messages_complete(private_messages: Array)
 #signal chats(room_messages: Array, roomId: String)
 signal chat_single(message: Dictionary)
 signal server_time(server_time: Dictionary, latency: Dictionary)
 
-# Variables to configure the WebSocketClient
+# Variables to configure the ENET client
 var host: String = BKMREngine.host_ip
 var port: String = BKMREngine.port
 #var port: String = ""
@@ -35,9 +33,12 @@ var private_messages: Array
 var receive_limit: int = 0
 var connection_timeout: int = 10
 var socket_url: String
-var socket: WebSocketPeer = WebSocketPeer.new()
+var socket: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 var socket_poll: String
-var socket_state: WebSocketPeer.State
+
+var socket_state: MultiplayerPeer.ConnectionStatus
+var socket_current_state: ENetPacketPeer.PeerState
+
 var socket_connected: bool = false
 var closing_started: bool = false
 var counter: int = 0
@@ -45,64 +46,66 @@ var counter: int = 0
 var chat_messages: Array
 var chat_handle: String
 
-# Process function to handle WebSocket interactions and manage connection states.
+
+# Process function to handle ENET interactions and manage connection states.
 func _process(_delta: float) -> void:
-	var auth_header: Array = BKMREngine.add_jwt_token_headers()
-	if BKMREngine.session == false:
-		return
-	if auth_header == []:
-		return
-	
-	# Poll the WebSocket for incoming messages and update its state
-	socket.poll()
+	pass
+	#print(BKMREngine.peer.get_connection_status())
+	#
+	#var auth_header: Array = BKMREngine.add_jwt_token_headers()
+	#if BKMREngine.session == false:
+		#return
+	#if auth_header == []:
+		#return
+	#
+	## Poll the ENET for incoming messages and update its state
+	#socket.poll()
+#
+	#
+	## Set authentication headers for the ENET handshake
+	##socket.set_handshake_headers(auth_header)
+#
+	## Get the current state of the ENET
+	#socket_state = socket.get_connection_status()
+	#
+	## Handle different WebSocket states
+	#match socket_state:
+		#MultiplayerPeer.ConnectionStatus.CONNECTION_CONNECTED:
+			## If the WebSocket is open, update connection status and process incoming messages
+			#socket_connected = true
+			#closing_started = false
+			#connected.emit(socket_url)
+			#var _available: int = socket.get_available_packet_count()
+			#var message: String = socket.get_packet().get_string_from_utf8()
+			#var json: JSON = JSON.new()
+			#var error: Error = json.parse(message)
+			#if error == OK:
+				##if json.data.has("chat"):
+					##receive_chat(json)
+				##elif json.data.has("roomId"):
+					##receive_chat(json)
+				#if json.data[0].has("serverTime"):
+					#receive_server_time(json)
+		#MultiplayerPeer.ConnectionStatus.CONNECTION_DISCONNECTED :
+			## If the ENET is closed, update connection status and emit the 'closed' signa
+			#socket_connected = false
+			## Reconnect
+			#var _connect: bool = connect_socket()
 
-	
-	# Set authentication headers for the WebSocket handshake
-	socket.set_handshake_headers(auth_header)
-
-	# Get the current state of the WebSocket
-	socket_state = socket.get_ready_state()
-	
-	# Handle different WebSocket states
-	match socket_state:
-		WebSocketPeer.STATE_OPEN:
-			# If the WebSocket is open, update connection status and process incoming messages
-			socket_connected = true
-			closing_started = false
-			connected.emit(socket_url)
-			var _available: int = socket.get_available_packet_count()
-			var message: String = socket.get_packet().get_string_from_utf8()
-			var json: JSON = JSON.new()
-			var error: Error = json.parse(message)
-			if error == OK:
-				#if json.data.has("chat"):
-					#receive_chat(json)
-				#elif json.data.has("roomId"):
-					#receive_chat(json)
-				if json.data[0].has("serverTime"):
-					receive_server_time(json)
-					
-		WebSocketPeer.STATE_CLOSED:
-			# If the WebSocket is closed, update connection status and emit the 'closed' signal
-			socket_connected = false
-			var code: int = socket.get_close_code()
-			var reason: String = socket.get_close_reason()
-			
-			closed.emit(code, reason)
-			# Reconnect
-			var _connect: bool = connect_socket()
 
 # Connect to a WebSocket server
-func connect_socket() -> bool:
-	if socket_connected:
-		return true
-	socket_url = url
-	var err: Error = socket.connect_to_url(url)
-	if err != OK:
-		# Log an error message if the connection fails
-		BKMRLogger.error("Socket is unable to connect to " + url)
-		return false
-	return true
+#func connect_socket() -> bool:
+	#if socket_connected:
+		#return true
+	#socket_url = url
+	#
+	#var err: Error = socket.create_client(url)
+	#if err != OK:
+		## Log an error message if the connection fails
+		#BKMRLogger.error("Socket is unable to connect to " + url)
+		#return false
+	#return true
+	
 	
 # Send a message through the WebSocket
 func  _socket_send_data(data: Dictionary) -> void:

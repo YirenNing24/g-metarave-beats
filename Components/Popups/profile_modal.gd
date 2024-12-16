@@ -291,9 +291,10 @@ func _on_moments_visibility_changed() -> void:
 		
 
 func _get_followers_following_count_complete(followers_following_count: Dictionary) -> void:
-	if player_name.text == PLAYER.username:
-		%FollowingButton.text = str(followers_following_count.followingCount) + " " + "Following"
-		%FollowersButton.text = str(followers_following_count.followerCount) + " " + "Followers"
+	if not followers_following_count.is_empty() and not followers_following_count.has("error"):
+		if player_name.text == PLAYER.username:
+			%FollowingButton.text = str(followers_following_count.followingCount) + " " + "Following"
+			%FollowersButton.text = str(followers_following_count.followerCount) + " " + "Followers"
 
 
 func _on_following_button_pressed() -> void:

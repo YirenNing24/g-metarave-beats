@@ -20,8 +20,18 @@ func loading_finished(peer_id: int) -> void:
 	server_game_started.emit(peer_id)
 
 
+@rpc("authority", 'call_remote', "reliable")
+func get_player_jwt(peer_id: int) -> void:
+	send_jwt_to_server.rpc_id(1, BKMREngine.Auth.access_token, peer_id)
+	
+
+@rpc("any_peer", "call_remote", "reliable")
+func send_jwt_to_server(_token: String, _peer_id: int) -> void:
+	pass
+
+
 # Remote procedure call to send the unique peer ID to the player.
-@rpc
+@rpc("authority", 'call_remote', "reliable")
 func send_unique_id_to_player(id_peer: int) -> void:
 	print("unique ng ba: ", id_peer)
 	PLAYER.peer_id = id_peer
@@ -29,21 +39,21 @@ func send_unique_id_to_player(id_peer: int) -> void:
 
 
 # Remote procedure call to signal the start of the loading process.
-@rpc
+@rpc("authority", 'call_remote', "reliable")
 func start_loading(peer_id: int) -> void:
 	print("loading peer id: ", peer_id)
 	loading_start.emit(peer_id)
 	
 	
 # Remote procedure call to signal that the classic game over process is completed.
-@rpc
+@rpc("authority", 'call_remote', "reliable")
 func classic_game_over(score_stats: Dictionary, message: Dictionary) -> void:
 	classic_score_stats = score_stats
 	classic_game_over_completed.emit(message)
 
 
 # Remote procedure call to send beatmap and audio file information to the server.
-@rpc
+@rpc("authority", 'call_remote', "reliable")
 func send_beatmap_info_to_server(_token: String, _beatmap: String, _audio_file: String, _picker_y_position: float) -> void:
 	pass
 	

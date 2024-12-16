@@ -48,9 +48,8 @@ var username_conversing: String
 
 func _ready() -> void: 
 	# Connect signals to their corresponding functions
-	BKMREngine.Websocket.chat_single.connect(_on_message_received)
-
-	on_all_messages_opened()
+	#BKMREngine.Websocket.chat_single.connect(_on_message_received)
+	#on_all_messages_opened()
 	
 	# Connect signals for vertical scroll changes in different containers
 	var _all_v_scroll: int = all_chat_v_scroll.changed.connect(_on_new_all_message_received)

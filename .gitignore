@@ -12,3 +12,4 @@ export_presets.cfg
 #Android build ignore
 android/*
 !android/build/AndroidManifest.xml
+BeatsKMREngine/TLS
