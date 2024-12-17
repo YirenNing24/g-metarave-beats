@@ -11,7 +11,7 @@ var classic_score_stats: Dictionary
 
 # Sends the beatmap and audio file information to the server.
 func load_song(beatmap: String, audio_file: String, picker_y_position: float) -> void:
-	send_beatmap_info_to_server.rpc_id(1, BKMREngine.Auth.access_token, beatmap, audio_file, picker_y_position)
+	send_beatmap_info_to_server.rpc_id(1, BKMREngine.Auth.access_token, beatmap, audio_file, picker_y_position, BKMREngine.Auth.logged_in_player)
 	
 	
 # Called when the loading is finished and the game is ready to start.
@@ -22,7 +22,7 @@ func loading_finished(peer_id: int) -> void:
 
 @rpc("authority", 'call_remote', "reliable")
 func get_player_jwt(peer_id: int) -> void:
-	send_jwt_to_server.rpc_id(1, BKMREngine.Auth.access_token, peer_id)
+	send_jwt_to_server.rpc_id(1, BKMREngine.Auth.access_token, peer_id, BKMREngine.Auth.logged_in_player)
 	
 
 @rpc("any_peer", "call_remote", "reliable")

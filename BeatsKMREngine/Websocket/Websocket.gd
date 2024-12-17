@@ -60,7 +60,7 @@ func _process(_delta: float) -> void:
 	#
 	## Poll the ENET for incoming messages and update its state
 	#socket.poll()
-#
+	
 	#
 	## Set authentication headers for the ENET handshake
 	##socket.set_handshake_headers(auth_header)

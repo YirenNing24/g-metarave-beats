@@ -321,7 +321,7 @@ func _beats_passkey_registration_verification(result: Dictionary) -> void:
 	wrGoogleVerifyPasskey = prepared_http_req.weakref
 	
 	# Connect the signal for handling registration completion
-	var _register_signal: int = GoogleVerifyPasskey.request_completed.connect(_on_GoogleVerifyPasskey_request_completed)
+	var _register_signal: int = GoogleVerifyPasskey.request_completed.connect(_on_GoogleVerifyPasskeyRegistration_request_completed)
 		
 	result.deviceId = OS.get_model_name()
 	# Prepare payload and send a POST request
@@ -330,7 +330,7 @@ func _beats_passkey_registration_verification(result: Dictionary) -> void:
 	BKMREngine.send_post_request(GoogleVerifyPasskey, request_url, payload)
 	
 	
-func _on_GoogleVerifyPasskey_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+func _on_GoogleVerifyPasskeyRegistration_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	
@@ -645,12 +645,16 @@ func set_player_logged_in(player_name: String) -> void:
 	
 # Remove stored BKMREngine session data from the user data directory.
 func remove_stored_session() -> bool:
+	if OS.get_name() == "Android":
+		BeatsSessionTokens.clear_jwt_tokens()
+	else:
 	# Define the path to the file storing the BKMREngine session data
-	var path: String = "user://bkmrsession.save"
-	# Attempt to delete the file and log the result
-	var delete_success: bool = BKMRLocalFileStorage.remove_data(path, "Removing BKMREngine session if any: " )
+		var path: String = "user://bkmrsession.save"
+		# Attempt to delete the file and log the result
+		var delete_success: bool = BKMRLocalFileStorage.remove_data(path, "Removing BKMREngine session if any: " )
+		return delete_success
 	# Return the success status of the removal operation
-	return delete_success
+	return true
 #endregion
 
 

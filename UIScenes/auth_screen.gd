@@ -42,28 +42,40 @@ func _ready() -> void:
 
 	
 func signal_connect() -> void:
+	#BEATS LOGIN
 	BKMREngine.Auth.bkmr_registration_complete.connect(_on_registration_completed)
 	BKMREngine.Auth.bkmr_login_complete.connect(_on_login_succeeded)
 	BKMREngine.Auth.bkmr_google_login_complete.connect(_on_google_login_succeeded)
 	BKMREngine.Auth.bkmr_google_registration_complete.connect(_on_google_registration_completed)
 	
+	#REGISTRATION PASSKEY
 	BKMREngine.Auth.bkmr_google_registration_passkey_complete.connect(let_me_verified)
 	var _passkey_registration: int = BeatsPasskey.create_passkey_completed.connect(passkey_registration_insert_username)
 	BKMREngine.Auth.bkmr_google_registration_passkey_verify_complete.connect(passkey_registration_verification_complete)
 		
+	#LOGIN PASSKEY
 	BKMREngine.Auth.bkmr_google_login_passkey_verify_complete.connect(passkey_login_verification_complete)
 	var _sign_in_passkey: int = BeatsPasskey.sign_in_passkey_completed.connect(passkey_authentication_insert_username)
 	
 	var _connect: int = SignInClient.server_side_access_requested.connect(_on_google_token_generated)
-
-
-
+	
+	
 func passkey_registration_verification_complete() -> void:
+	%ErrorPanel.visible = false
+	BKMREngine.session = true
+	init_visibility_control()
+	BKMRLogger.info("logged in as: " + str(BKMREngine.Auth.logged_in_player))
 	loading_panel.tween_kill()
+	init_visibility_control()
 	
 	
 func passkey_login_verification_complete() -> void:
+	%ErrorPanel.visible = false
+	BKMREngine.session = true
+	init_visibility_control()
+	BKMRLogger.info("logged in as: " + str(BKMREngine.Auth.logged_in_player))
 	loading_panel.tween_kill()
+	init_visibility_control()
 	
 	
 func let_me_verified(result: Dictionary) -> void:
@@ -88,6 +100,7 @@ func passkey_authentication_insert_username(result: String) -> void:
 			json_result.username = %UsernamePasskey.text
 			BKMREngine.Auth.beats_passkey_login_response(json_result)
 			loading_panel.fake_loader()
+	
 	
 func google_auth() -> void:
 	if BKMREngine.Auth.last_login_type == "google":

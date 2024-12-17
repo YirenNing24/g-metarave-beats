@@ -123,13 +123,14 @@ func beats_server_connect() -> void:
 
 		var _result: Error = peer.create_client(beats_host, beats_port)
 		var _setup_tls: Error = peer.get_host().dtls_client_setup(beats_host, tls_crypto)
+		
 
 		var connect: int = peer.get_connection_status()
 		multiplayer.multiplayer_peer = peer
 		if connect != 2: #connected
 			game_connected = false
 #
-			var timer: SceneTreeTimer = get_tree().create_timer(3)  # Retry every 3 seconds
+			var timer: SceneTreeTimer = get_tree().create_timer(5)  # Retry every 3 seconds
 			var _1: int = timer.timeout.connect(beats_server_connect)
 		else:
 			game_connected = true
@@ -143,7 +144,7 @@ func get_server_time() -> void:
 	var _connect: int = get_tree().create_timer(5).timeout.connect(get_server_time)
 	if session == false:
 		return
-	Websocket.get_server_time()
+	#Websocket.get_server_time()
 
 	#time_server = server_time.serverTime
 	#ping = latency
