@@ -1,10 +1,11 @@
 extends Control
-#TODO mix up username for logging and registration causing return problem
-# TODO: Loading wheel when logging-in should be continous until login is completed or not 
 
-#region Variables
 const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 const error_list: PackedScene = preload("res://Components/Lists/auth_error.tscn")
+
+#region Variables
+
+
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var animation_player2: AnimationPlayer = %AnimationPlayer2
 
@@ -124,8 +125,10 @@ func init_visibility_control() -> void:
 #region Login functions
 # Event handler for login button press.
 func _on_login_button_pressed() -> void:
-	var userName: String = username
-	var passWord: String = password
+	var userName: String = %UsernamePassword.text
+	var passWord: String = %LoginPasswordField.text
+	
+	print(passWord)
 	if userName == "":
 		animation_player2.play("error_container")
 		error_logger([{"error": "Username is required"}])
@@ -298,16 +301,13 @@ func _on_password_field_text_changed(new_text: String) -> void:
 	password = new_text
 
 
-# Event handler for password field text submission.
-func _on_password_field_text_submitted(_new_text: String) -> void:
-	var userName:String = username
-	var passWord:String = password
-	BKMREngine.Auth.login_player(userName, passWord)
-	loading_panel.fake_loader()
+
+
 	
 	
 # Event handler for register toggle button press.
 func _on_register_toggle_pressed() -> void:
+	%LoginPasswordContainer.visible = false
 	animation_player2.play("login_container")
 	
 	
@@ -504,3 +504,26 @@ func _on_pass_key_login_pressed() -> void:
 		error_logger([{"error": "Invalid or empty username"}])
 		return
 	BKMREngine.Auth.login_player_google_passkey(%UsernamePasskey.text)
+	
+	
+func _on_other_login_button_pressed() -> void:
+	%LoginChoiceContainer.visible = true
+	%LoginContainer.visible = false 
+	%LoginPasswordContainer.visible = false
+	
+	
+func _on_choose_pass_key_login_pressed() -> void:
+	%LoginChoiceContainer.visible = false
+	%LoginContainer.visible = true
+	
+	
+func _on_choose_password_login_pressed() -> void:
+	%LoginChoiceContainer.visible = false
+	%LoginPasswordContainer.visible = true
+	
+	
+func _on_login_password_field_text_submitted(_new_text: String) -> void:
+	var userName:String = %UsernamePassword.text
+	var passWord:String = %LoginPasswordField.text
+	BKMREngine.Auth.login_player(userName, passWord)
+	loading_panel.fake_loader()

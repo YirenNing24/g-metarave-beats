@@ -302,6 +302,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 
 [node name="TextureRect" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect/VBoxContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(26, 0)
 layout_mode = 2
 texture = ExtResource("4_7oyho")
@@ -326,6 +327,7 @@ z_index = 1
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect/VBoxContainer/HBoxContainer2"]
+visible = false
 custom_minimum_size = Vector2(26, 0)
 layout_mode = 2
 texture = ExtResource("6_8ouoy")

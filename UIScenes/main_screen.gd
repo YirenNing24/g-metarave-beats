@@ -54,13 +54,14 @@ func _ready() -> void:
 	signal_connect()
 	add_components()
 	hud_data()
+	#beats_server_connect()
 	#Wait for animation completion before showing the mutuals box.
 	await animation_player.animation_finished
 	mutuals_box.show()
-	beats_server_connect()
+	
 	
 func beats_server_connect() -> void:
-	BKMREngine.Auth.beats_server_connect()
+	BKMREngine.beats_server_connect()
 
 
 # Add modals (profile_modal, player_modal, stat_modal) to the filter panel.
@@ -125,8 +126,8 @@ func exp_hud() -> void:
 	%ExperienceLabel.text = str(PLAYER.player_experience) + " / " + str(required_experience)
 	
 	
-func get_required_player_experience(level: int) -> int:
-	return round(pow(level, 1.8) + level * 4)
+func get_required_player_experience(levels: int) -> int:
+	return round(pow(levels, 1.8) + levels * 4)
 	
 	
 func start_recharge_countdown(time_until_next: int) -> void:

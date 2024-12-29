@@ -46,9 +46,8 @@ var boost_tween: Tween
 var card_texture_tween: Tween
 var card_textures_array: Array[Texture] = []
 var current_card_texture_index: int = 0
+
 @onready var card_texture2_original_position: Vector2 = %CardTexture2.position
-
-
 @export var momentum_to_string: String = ""
 
 
@@ -78,6 +77,11 @@ func show_equipped_cards(card_data: Array) -> void:
 		
 		
 func equipped_cards_texture(card_data: Array) -> void:
+	if card_data.is_empty():
+		%CardTexture3.visible = false
+	else:
+		%CardTexture3.visible = true
+		
 	for card: Dictionary in card_data:
 		var card_name: String = card["name"].replace(" ", "_").to_lower()
 		var card_texture: Texture = load("res://UITextures/Cards/" + card_name + ".png")

@@ -31,22 +31,22 @@ func _ready() -> void:
 	signal_connect()
 	stat_display()
 	load_plugin()
-	get_notification()
+	#get_notification()
 	BKMREngine.Social.get_following_followers_count(player_name.text)
 	
 	
 func signal_connect() -> void:
 	#It connects the logout complete signal to the _on_Logout_Complete function for handling logout events.
 	BKMREngine.Auth.bkmr_logout_complete.connect(_on_logout_complete)
-	BKMREngine.Profile.get_profile_pic_complete.connect(_on_get_profile_pic_complete)
+	#BKMREngine.Profile.get_profile_pic_complete.connect(_on_get_profile_pic_complete)
 	#BKMREngine.Profile.preference_get_complete.connect(_on_get_preference_complete)
-	BKMREngine.Profile.profile_pic_upload_complete.connect(_on_profile_pic_upload_complete)
-	BKMREngine.Profile.change_profile_pic_complete.connect(_on_change_profile_pic_complete)
-	BKMREngine.Social.get_followers_following_count_complete.connect(_get_followers_following_count_complete)
-	BKMREngine.Social.get_followers_following_complete.connect(_get_followers_following_complete)
+	#BKMREngine.Profile.profile_pic_upload_complete.connect(_on_profile_pic_upload_complete)
+	#BKMREngine.Profile.change_profile_pic_complete.connect(_on_change_profile_pic_complete)
+	#BKMREngine.Social.get_followers_following_count_complete.connect(_get_followers_following_count_complete)
+	#BKMREngine.Social.get_followers_following_complete.connect(_get_followers_following_complete)
 	
-	BKMREngine.Notification.get_notifications_complete.connect(_on_get_notifications_complete)
-	BKMREngine.Reward.get_available_card_reward()
+	#BKMREngine.Notification.get_notifications_complete.connect(_on_get_notifications_complete)
+	#BKMREngine.Reward.get_available_card_reward()
 	
 	
 func get_notification() -> void:

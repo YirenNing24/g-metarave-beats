@@ -5,11 +5,13 @@ const version: String = "0.1"
 
 # Godot engine version
 var godot_version: String = Engine.get_version_info().string
-var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
+#var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
+var peer: WebSocketMultiplayerPeer = WebSocketMultiplayerPeer.new()
+
 
 # Configuration variables
 #var host_ip: String = "localhost"
-const host_ip: String = "jp-game.gmetarave.asia"
+const host_ip: String = "api-sg.gmetarave.asia"
 #const beats_host_ip: String = "game.gmetarave.com"
 #const host_ip: String = "192.168.2.61"
 const port: String = ":8085"
@@ -20,7 +22,7 @@ const beats_port: int = 8088
 var google_server_client_id: String = "484949065971-ujoksdio9417hnvd5goaclrvlnsv6704.apps.googleusercontent.com"
 #var host: String = "http://" + host_ip + port
 var host: String = "https://" + host_ip
-var beats_host: String = "45.8.114.50"
+var beats_host: String = "sg-game.gmetarave.asia"
 
 var session: bool = false
 
@@ -32,8 +34,6 @@ var game_connected: bool = false
 const BKMRUtils: Script = preload("res://BeatsKMREngine/utils/BKMRUtils.gd")
 const BKMRHashing: Script = preload("res://BeatsKMREngine/utils/BKMRHashing.gd")
 const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
-
-
 
 
 # Child nodes representing different modules
@@ -74,15 +74,17 @@ var notification_script: Script = load("res://BeatsKMREngine/Notification/Notifi
 
 
 func _ready() -> void:
-	# Wait for environment variable completion
-
-	# Print start timestamp for debugging purposes
 	print("BKMR ready start timestamp: " + str(BKMRUtils.get_timestamp()))
 	initialize_script()
 	add_child_nodes()
 	get_server_time()
-
-
+	
+	
+func _process(_delta: float) -> void:
+	if peer.get_connection_status() != 2:
+		game_connected = false
+		
+		
 # Initialize script
 func initialize_script() -> void:
 	Auth.set_script(auth_script)
@@ -117,27 +119,25 @@ func add_child_nodes() -> void:
 		
 		
 func beats_server_connect() -> void:
+	var connect: int = peer.get_connection_status()
 	if game_connected == false:
-		var tls_cert: X509Certificate = load("res://BeatsKMREngine/TLS/cert.crt")
-		var tls_crypto: TLSOptions = TLSOptions.client_unsafe(tls_cert)
+		#var _tls_cert: X509Certificate = load("res://BeatsKMREngine/TLS/cert.crt")
+		#var _tls_crypto: TLSOptions = TLSOptions.client_unsafe(_tls_cert)
 
-		var _result: Error = peer.create_client(beats_host, beats_port)
-		var _setup_tls: Error = peer.get_host().dtls_client_setup(beats_host, tls_crypto)
+		#var _result: Error = peer.create_client(beats_host, beats_port)
+		var _result: Error = peer.create_client("wss://" + beats_host)
+		#var _setup_tls: Error = peer.get_host().dtls_client_setup(beats_host, tls_crypto)
 		
-
-		var connect: int = peer.get_connection_status()
 		multiplayer.multiplayer_peer = peer
-		if connect != 2: #connected
-			game_connected = false
-#
-			var timer: SceneTreeTimer = get_tree().create_timer(5)  # Retry every 3 seconds
-			var _1: int = timer.timeout.connect(beats_server_connect)
-		else:
-			game_connected = true
+	if connect != 2: #connected
+		game_connected = false
+	else:
+		game_connected = true
 
 
 func beats_server_peer_close() -> void:
 	peer.close()
+	game_connected = false
 	
 	
 func get_server_time() -> void:

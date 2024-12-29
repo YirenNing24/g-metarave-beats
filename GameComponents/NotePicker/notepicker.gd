@@ -33,14 +33,14 @@ func _ready() -> void:
 	
 func set_peer_id(_id_peer: int) -> void:
 	set_multiplayer_authority(1)
-
-
+	
+	
 func _process(_delta: float) -> void:
 	if is_collecting == false:
 		fx_spinner.visible = false
 	
 	
-@rpc
+@rpc("authority", "call_remote", "reliable")
 func _server_input(pos: Vector2, pressed: bool) -> void:
 	# Handle the input on the server side
 	print("Input received from client: ", pos, pressed)

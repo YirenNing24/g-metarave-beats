@@ -16,12 +16,15 @@ func load_song(beatmap: String, audio_file: String, picker_y_position: float) ->
 	
 # Called when the loading is finished and the game is ready to start.
 func loading_finished(peer_id: int) -> void:
-	start_game.rpc(peer_id)
+	start_game.rpc_id(1, peer_id)
 	server_game_started.emit(peer_id)
-
-
+	
+	
 @rpc("authority", 'call_remote', "reliable")
 func get_player_jwt(peer_id: int) -> void:
+	print("sana may laman: ", BKMREngine.Auth.logged_in_player)
+	
+	print(BKMREngine.Auth.access_token)
 	send_jwt_to_server.rpc_id(1, BKMREngine.Auth.access_token, peer_id, BKMREngine.Auth.logged_in_player)
 	
 
@@ -33,15 +36,16 @@ func send_jwt_to_server(_token: String, _peer_id: int) -> void:
 # Remote procedure call to send the unique peer ID to the player.
 @rpc("authority", 'call_remote', "reliable")
 func send_unique_id_to_player(id_peer: int) -> void:
-	print("unique ng ba: ", id_peer)
-	PLAYER.peer_id = id_peer
+	print("unique nga ba: ", id_peer)
 	player_peer_id_received.emit(id_peer)
+	PLAYER.peer_id = id_peer
+	
 
 
 # Remote procedure call to signal the start of the loading process.
 @rpc("authority", 'call_remote', "reliable")
 func start_loading(peer_id: int) -> void:
-	print("loading peer id: ", peer_id)
+	print("loading start peer id: ", peer_id)
 	loading_start.emit(peer_id)
 	
 	

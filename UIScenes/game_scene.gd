@@ -42,7 +42,7 @@ func _on_road_notepicker_position(picker_y_position: float) -> void:
 func connect_signals() -> void:
 	var _1: int = MULTIPLAYER.loading_start.connect(_on_loading_start)
 	var _2: int = MULTIPLAYER.server_game_started.connect(_on_server_game_started)
-	var _3: int = MULTIPLAYER.player_peer_id_received.connect(_on_player_peer_id_received)
+	#var _3: int = MULTIPLAYER.player_peer_id_received.connect(_on_player_peer_id_received)
 	
 	
 func song_game_start() -> void:
@@ -51,11 +51,12 @@ func song_game_start() -> void:
 	setup_nodes()
 	
 	
-func _on_player_peer_id_received(id: int) -> void:
-	peer_id = id
-	PLAYER.peer_id = id
-	name = str(id)
-	road._on_game_new_peer_id(id)
+#func _on_player_peer_id_received(id: int) -> void:
+	#print("HHHOYYYYYYYYYYYYYYY")
+	#print("dito ahhhhhhh: ", id)
+	#peer_id = id
+	#PLAYER.peer_id = id
+	#name = str(id)
 	
 	
 func set_variables() -> void:
@@ -64,13 +65,16 @@ func set_variables() -> void:
 
 
 func _on_loading_start(id_peer: int) -> void:
+	peer_id = id_peer
 	if has_loaded:
 		return
 	has_loaded = true
 	name = str(id_peer)
+	road._on_game_new_peer_id(id_peer)
+	PLAYER.peer_id = id_peer
 	%LoadingScreen.visible = true
-
-
+	
+	
 func _on_loading_screen_loading_finished() -> void:
 	get_tree().paused = true
 	song_game_start()

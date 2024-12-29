@@ -43,6 +43,6 @@ func _on_GetNotifications_request_completed(_result: int, response_code: int, he
 			else:
 				get_notifications_complete.emit(json_body)
 		else:
-			get_notifications_complete.emit({"error": "Unknown server error"})
+			get_notifications_complete.emit([])
 	else:
-		get_notifications_complete.emit({"error": "Unknown server error"})
+		get_notifications_complete.emit([])

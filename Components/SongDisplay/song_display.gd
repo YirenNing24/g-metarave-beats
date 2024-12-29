@@ -22,6 +22,12 @@ func _ready() -> void:
 	song_title.text = song.audio.title
 	artist.text = song.audio.artist
 	
+	
+func _process(_delta: float) -> void:
+	var is_connected: bool = BKMREngine.peer.get_connection_status() == 2
+	%StartButton.disabled = is_connected
+	
+	
 func set_map() -> void:
 	SONG.map_selected = song
 	SONG.artist = artist.text

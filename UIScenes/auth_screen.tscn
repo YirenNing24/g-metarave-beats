@@ -641,6 +641,7 @@ vertical_alignment = 2
 
 [node name="LoginContainer" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer"]
@@ -703,32 +704,6 @@ alignment = 1
 caret_blink = true
 secret = true
 
-[node name="LoginButton" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(0, 65)
-layout_mode = 2
-texture_normal = ExtResource("8_1trul")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/LoginButton"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -22.9997
-offset_top = -9.50003
-offset_right = 30.0003
-offset_bottom = 14.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_wtii2")
-theme_override_font_sizes/font_size = 18
-text = "LOGIN"
-
 [node name="HBoxContainer4" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
@@ -783,7 +758,7 @@ theme_override_fonts/font = ExtResource("6_33msh")
 theme_override_font_sizes/font_size = 10
 text = "Other login options?"
 
-[node name="Button" type="Button" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/HBoxContainer5"]
+[node name="OtherLoginButton" type="Button" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_fonts/font = ExtResource("6_33msh")
@@ -886,6 +861,224 @@ ignore_texture_size = true
 stretch_mode = 6
 
 [node name="TiktokRegisterButton" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("13_oegc4")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="LoginPasswordContainer" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer"]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("3_wtii2")
+theme_override_font_sizes/font_size = 10
+text = "Username"
+
+[node name="UsernamePassword" type="LineEdit" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_colors/font_placeholder_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_colors/font_selected_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_33msh")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = ExtResource("6_w6605")
+theme_override_styles/read_only = ExtResource("6_w6605")
+theme_override_styles/normal = ExtResource("6_0mn33")
+placeholder_text = "Enter username"
+alignment = 1
+caret_blink = true
+
+[node name="Label2" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("3_wtii2")
+theme_override_font_sizes/font_size = 10
+text = "Password"
+
+[node name="LoginPasswordField" type="LineEdit" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_colors/font_placeholder_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_colors/font_selected_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_33msh")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = ExtResource("6_w6605")
+theme_override_styles/normal = ExtResource("6_0mn33")
+placeholder_text = "Enter your password"
+alignment = 1
+caret_blink = true
+secret = true
+
+[node name="LoginButton" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 65)
+layout_mode = 2
+texture_normal = ExtResource("8_1trul")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/LoginButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.9997
+offset_top = -9.50003
+offset_right = 30.0003
+offset_bottom = 14.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_wtii2")
+theme_override_font_sizes/font_size = 18
+text = "LOGIN"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("6_33msh")
+theme_override_font_sizes/font_size = 10
+text = "Other login options?"
+
+[node name="OtherLoginButton" type="Button" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_33msh")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/hover = SubResource("StyleBoxEmpty_b3174")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_enk2f")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_boybj")
+text = "See here"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("6_33msh")
+theme_override_font_sizes/font_size = 10
+text = "Forgot Password?"
+
+[node name="Button" type="Button" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.71465, 0.545389, 0.992849, 1)
+theme_override_fonts/font = ExtResource("6_33msh")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/hover = SubResource("StyleBoxEmpty_b3174")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_enk2f")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_boybj")
+text = "Reset here"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("6_33msh")
+theme_override_font_sizes/font_size = 12
+text = "Don't have an account yet?"
+
+[node name="RegisterToggle" type="Button" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_33msh")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/hover = SubResource("StyleBoxEmpty_b3174")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_enk2f")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_boybj")
+text = "Register here"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("6_33msh")
+theme_override_font_sizes/font_size = 12
+text = "Or register using the options below:"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="GoogleRegisterButton" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("10_3x61y")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TwitterRegisterButton" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("12_oa1pb")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="TiktokRegisterButton" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 visible = false
 custom_minimum_size = Vector2(38, 38)
 layout_mode = 2
@@ -1182,6 +1375,195 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_enk2f")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_boybj")
 text = "Check here"
 
+[node name="LoginChoiceContainer" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer"]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="ChoosePassKeyLogin" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 65)
+layout_mode = 2
+texture_normal = ExtResource("8_1trul")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer/ChoosePassKeyLogin"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -79.9996
+offset_top = -9.50003
+offset_right = 53.0004
+offset_bottom = 14.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_wtii2")
+theme_override_font_sizes/font_size = 18
+text = "PASSKEY LOGIN"
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer/ChoosePassKeyLogin"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.786958
+anchor_top = 0.353846
+anchor_right = 0.895654
+anchor_bottom = 0.738461
+texture = ExtResource("13_rksyn")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ChoosePasswordLogin" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 65)
+layout_mode = 2
+texture_normal = ExtResource("8_1trul")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer/ChoosePasswordLogin"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -79.9996
+offset_top = -9.50003
+offset_right = 53.0004
+offset_bottom = 14.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_wtii2")
+theme_override_font_sizes/font_size = 18
+text = "PASSWORD LOGIN"
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer/ChoosePasswordLogin"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.786958
+anchor_top = 0.353846
+anchor_right = 0.895654
+anchor_bottom = 0.738461
+texture = ExtResource("14_t7qk4")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("6_33msh")
+theme_override_font_sizes/font_size = 10
+text = "Forgot Password?"
+
+[node name="Button" type="Button" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.71465, 0.545389, 0.992849, 1)
+theme_override_fonts/font = ExtResource("6_33msh")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/hover = SubResource("StyleBoxEmpty_b3174")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_enk2f")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_boybj")
+text = "Reset here"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("6_33msh")
+theme_override_font_sizes/font_size = 12
+text = "Don't have an account yet?"
+
+[node name="RegisterToggle" type="Button" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_33msh")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/hover = SubResource("StyleBoxEmpty_b3174")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_enk2f")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_boybj")
+text = "Register here"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("6_33msh")
+theme_override_font_sizes/font_size = 12
+text = "Or register using the options below:"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="GoogleRegisterButton" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("10_3x61y")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TwitterRegisterButton" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("12_oa1pb")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="TiktokRegisterButton" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("13_oegc4")
+ignore_texture_size = true
+stretch_mode = 6
+
 [node name="StartContainer" type="VBoxContainer" parent="BackgroundTexture"]
 unique_name_in_owner = true
 visible = false
@@ -1417,14 +1799,23 @@ vertical_alignment = 1
 [connection signal="text_changed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/UsernamePasskey" to="." method="_on_username_field_text_changed"]
 [connection signal="text_changed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/PasswordField" to="." method="_on_password_field_text_changed"]
 [connection signal="text_submitted" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/PasswordField" to="." method="_on_password_field_text_submitted"]
-[connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/LoginButton" to="." method="_on_login_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/PassKeyLogin" to="." method="_on_pass_key_login_pressed"]
+[connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/HBoxContainer5/OtherLoginButton" to="." method="_on_other_login_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/HBoxContainer3/RegisterToggle" to="." method="_on_register_toggle_pressed"]
 [connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginContainer/VBoxContainer/VBoxContainer/HBoxContainer/GoogleRegisterButton" to="." method="_on_google_register_button_pressed"]
+[connection signal="text_submitted" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/LoginPasswordField" to="." method="_on_login_password_field_text_submitted"]
+[connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/LoginButton" to="." method="_on_login_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/HBoxContainer5/OtherLoginButton" to="." method="_on_other_login_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/HBoxContainer3/RegisterToggle" to="." method="_on_register_toggle_pressed"]
+[connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/VBoxContainer/HBoxContainer/GoogleRegisterButton" to="." method="_on_google_register_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/RegisterButton" to="." method="_on_register_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/RegisterPassword" to="." method="_on_register_password_pressed"]
 [connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/RegisterPasskeyButton" to="." method="_on_register_passkey_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/HBoxContainer3/LoginToggle" to="." method="_on_login_toggle_pressed"]
 [connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/HBoxContainer4/OtherRegistrationButton" to="." method="_on_other_registration_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer/ChoosePassKeyLogin" to="." method="_on_choose_pass_key_login_pressed"]
+[connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer/ChoosePasswordLogin" to="." method="_on_choose_password_login_pressed"]
+[connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer/HBoxContainer3/RegisterToggle" to="." method="_on_register_toggle_pressed"]
+[connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginChoiceContainer/VBoxContainer/VBoxContainer/HBoxContainer/GoogleRegisterButton" to="." method="_on_google_register_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/StartHeroTexture/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

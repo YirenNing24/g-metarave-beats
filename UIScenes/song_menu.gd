@@ -6,7 +6,6 @@ extends Control
 @onready var song_scroll_container: ScrollContainer = %SongScrollContainer
 @onready var song_list_container: HBoxContainer = %HBoxContainer
 
-@onready var energy_balance: Label = %EnergyBalance
 @onready var beats_balance: Label = %BeatsBalance
 @onready var gmr_balance: Label = %KMRBalance
 
@@ -20,7 +19,7 @@ var song_files: Array[Dictionary]
 var map_changed: bool = false
 var selected_map: String
 
-var recharge_progress: float = 0.0
+var recharge_progress: float = 0
 var time_until_next_recharge : int
 var recharge_interval : int = 60 * 60 * 1000 # 1 hour in milliseconds
 
@@ -38,17 +37,24 @@ func _ready() -> void:
 	
 	left_difficulty_button.disabled = true
 	left_difficulty_button.modulate = "ffffff68"
+	BKMREngine.beats_server_connect()
 	
 	
 func on_get_classic_high_score_complete(high_scores: Array[Dictionary]) -> void:
+	# Map song names to their corresponding Control nodes
+	var song_map: Dictionary = {}
+	for song: Control in song_list_container.get_children():
+		song_map[song.name] = song
+	
+	# Update high scores using the map
 	for score: Dictionary in high_scores:
-		for song: Control in song_list_container.get_children():
-			if song.name == score.scoreStats.finalStats.songName:
-				var high_score: String = str(score.scoreStats.finalStats.score)
-				var formatted_high_score: String = format_scores(high_score)
-				song.get_node("HBoxContainer2/HBoxContainer/HighScoreLabel").text = formatted_high_score
-				
-				
+		var song_name: String = score.scoreStats.finalStats.songName
+		if song_map.has(song_name):
+			var high_score: String = str(score.scoreStats.finalStats.score)
+			var formatted_high_score: String = format_scores(high_score)
+			song_map[song_name].get_node("HBoxContainer2/HBoxContainer/HighScoreLabel").text = formatted_high_score
+	
+	
 # Initialize HUD data, such as energy, beats, and kmr balances.
 func hud_data() -> void:
 	beats_balance.text = PLAYER.beats_balance
@@ -89,8 +95,9 @@ func _process(delta: float) -> void:
 		else:
 			# Energy is maxed out, hide recharge progress
 			%EnergyRecharge.visible = false
-		
-		
+	BKMREngine.beats_server_connect()
+	
+	
 # Parse the song files in the specified directory.
 func parse_song_files() -> void:
 	# Initialize arrays to store file names and directories.
@@ -256,6 +263,7 @@ func _on_right_difficulty_button_pressed() -> void:
 		right_difficulty_button.disabled = true
 		right_difficulty_button.modulate = "ffffff68"
 	songs_difficulty_visibility()
+		
 		
 func songs_difficulty_visibility() -> void:
 	for song: Control in song_list_container.get_children():

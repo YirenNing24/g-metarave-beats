@@ -179,7 +179,7 @@ func _on_ValidateSession_request_completed(_result: int, response_code: int, hea
 			
 			var username: String = json_body.username
 			set_player_logged_in(username)
-			 
+			
 		if "accessToken" in json_body.keys():
 			BKMRLogger.debug("Remember me access: " + str(json_body.accessToken))
 			# Save the session and set the player as logged in
@@ -661,10 +661,12 @@ func remove_stored_session() -> bool:
 #region Util functions
 
 func renew_access_token_timer() -> void:
+	print("tang ama")
 	# Create a timer that fires every 4 minutes (240 seconds)
 	var timer: SceneTreeTimer = get_tree().create_timer(240.0)
 	var _renew: int = timer.timeout.connect(renew_access_token_timer)
 	var _connect: int = timer.timeout.connect(request_new_access_token)
+
 	# Start the timer
 
 
