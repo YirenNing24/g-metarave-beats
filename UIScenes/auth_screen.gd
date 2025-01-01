@@ -34,13 +34,22 @@ var google_sign_in_retries: int = 5
 #endregion
 
 
+var passkey: Variant 	
+
 #region Init Functions
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	signal_connect()
 	init_visibility_control()
 	google_auth()
-
+	
+	
+	if passkey == null && ClassDB.class_exists("Passkey"):
+		passkey = ClassDB.instantiate("Passkey")
+		
+		print("tang ina mo ka gago ka")
+	else:
+		print("wala pa po")
 	
 func signal_connect() -> void:
 	#BEATS LOGIN
@@ -527,3 +536,7 @@ func _on_login_password_field_text_submitted(_new_text: String) -> void:
 	var passWord:String = %LoginPasswordField.text
 	BKMREngine.Auth.login_player(userName, passWord)
 	loading_panel.fake_loader()
+
+
+func _on_password_field_text_submitted(_new_text: String) -> void:
+	pass
