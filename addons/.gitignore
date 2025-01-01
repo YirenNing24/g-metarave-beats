@@ -1,2 +1,8 @@
+# Ignore everything
 *
-!.gitignore
+
+# Allow the ios folder
+!ios/
+
+# Ensure everything inside ios is tracked
+ios/**/*
