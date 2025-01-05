@@ -119,17 +119,11 @@ func add_child_nodes() -> void:
 		
 		
 func beats_server_connect() -> void:
-	var connect: int = peer.get_connection_status()
+	var connection: int = peer.get_connection_status()
 	if game_connected == false:
-		#var _tls_cert: X509Certificate = load("res://BeatsKMREngine/TLS/cert.crt")
-		#var _tls_crypto: TLSOptions = TLSOptions.client_unsafe(_tls_cert)
-
-		#var _result: Error = peer.create_client(beats_host, beats_port)
 		var _result: Error = peer.create_client("wss://" + beats_host)
-		#var _setup_tls: Error = peer.get_host().dtls_client_setup(beats_host, tls_crypto)
-		
 		multiplayer.multiplayer_peer = peer
-	if connect != 2: #connected
+	if connection != 2: #connected
 		game_connected = false
 	else:
 		game_connected = true

@@ -73,6 +73,8 @@ func start_recharge_countdown(time_until_next: int) -> void:
 	
 	
 func _process(delta: float) -> void:
+	if BKMREngine.peer.get_connection_status() != 2:
+		BKMREngine.beats_server_connect()
 	if PLAYER.current_energy >= PLAYER.max_energy:
 		# Max energy reached, hide recharge label
 		%EnergyRecharge.visible = false
@@ -95,7 +97,7 @@ func _process(delta: float) -> void:
 		else:
 			# Energy is maxed out, hide recharge progress
 			%EnergyRecharge.visible = false
-	BKMREngine.beats_server_connect()
+	
 	
 	
 # Parse the song files in the specified directory.

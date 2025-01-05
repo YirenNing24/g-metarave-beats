@@ -63,6 +63,8 @@ func populate_player_data(data: Dictionary) -> void:
 		wallet_address = formatAddress(smartwallet_address)
 		
 		var beats: String = wallet_data.beatsBalance
+		
+		print("WEHHHHH: ", beats)
 		beats_balance = format_balance(beats)
 		
 		var native: String = wallet_data.nativeBalance

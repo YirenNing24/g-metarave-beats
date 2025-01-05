@@ -65,7 +65,7 @@ func set_data(card_data: Dictionary, texture: Texture) -> void:
 	card_uri = card_data.uri
 	
 	# Set listing_id and nft_name for purchase
-	var listing_id_string: String = str(card_data.listingId)
+	var listing_id_string: String = card_data.listingId
 	listing_id = listing_id_string
 	nft_name = card_data.name
 
@@ -75,7 +75,11 @@ func _on_close_button_pressed() -> void:
 
 # Handle buy button press.
 func _on_buy_button_pressed() -> void:
-	BKMREngine.Store.buy_card(card_uri, int(listing_id))
+	
+	var afford: bool = get_parent().check_cost_and_funds(int(card_price))
+	if not afford:
+		return
+	BKMREngine.Store.buy_card(card_uri, int(listing_id), str(card_price))
 	store_item_buy_pressed.emit(price.text)
 
 # Handle close transaction button press.

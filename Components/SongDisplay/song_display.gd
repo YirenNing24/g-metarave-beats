@@ -24,7 +24,7 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
-	var is_connected: bool = BKMREngine.peer.get_connection_status() == 2
+	var is_connected: bool = BKMREngine.peer.get_connection_status() != 2
 	%StartButton.disabled = is_connected
 	
 	
@@ -36,6 +36,8 @@ func set_map() -> void:
 	
 func _on_initiate_start_button_pressed() -> void:
 	if PLAYER.current_energy == 0:
+		
+		print(PLAYER.current_energy)
 		no_energy.emit()
 		return
 		

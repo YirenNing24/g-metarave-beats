@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d05oohu41yaxd"]
+[gd_scene load_steps=24 format=3 uid="uid://d05oohu41yaxd"]
 
 [ext_resource type="Texture2D" uid="uid://bjpkh360v82aq" path="res://UITextures/BGTextures/store_bg.png" id="1_2tlno"]
 [ext_resource type="Script" path="res://UIScenes/store_screen_2.gd" id="1_24gne"]
@@ -45,6 +45,66 @@ corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_onsxg"]
 bg_color = Color(0, 0, 0, 0.945098)
+
+[sub_resource type="Animation" id="Animation_os1u0"]
+resource_name = "ErrorMessage"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FilterPanel2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.166667, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FilterPanel2/ErrorMessagePanel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.266667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(393, 546), Vector2(387.5, 226)]
+}
+
+[sub_resource type="Animation" id="Animation_gljh7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FilterPanel2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FilterPanel2/ErrorMessagePanel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(393, 546)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2sc8t"]
+_data = {
+"ErrorMessage": SubResource("Animation_os1u0"),
+"RESET": SubResource("Animation_gljh7")
+}
 
 [node name="StoreScreen" type="Control"]
 layout_mode = 3
@@ -504,7 +564,6 @@ alignment = 2
 [node name="HeroCharacter" type="TextureRect" parent="VBoxContainer"]
 unique_name_in_owner = true
 auto_translate_mode = 1
-visible = false
 custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -666,6 +725,71 @@ offset_bottom = 540.0
 grow_horizontal = 1
 grow_vertical = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_onsxg")
+
+[node name="FilterPanel2" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(0.60933, 0.60933, 0.60933, 0.219608)
+top_level = true
+z_index = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+mouse_force_pass_scroll_events = false
+theme_override_styles/panel = SubResource("StyleBoxFlat_p7f2p")
+
+[node name="ErrorMessagePanel" type="Panel" parent="FilterPanel2"]
+custom_minimum_size = Vector2(348, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -207.0
+offset_top = 276.0
+offset_right = 218.0
+offset_bottom = 364.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nv2u6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FilterPanel2/ErrorMessagePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -36.0
+offset_right = -4.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ErrorMessage" type="Label" parent="FilterPanel2/ErrorMessagePanel/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.758192, 0.758192, 0.758192, 1)
+theme_override_constants/line_spacing = 5
+theme_override_fonts/font = ExtResource("3_sqi3r")
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+justification_flags = 235
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_2sc8t")
+}
 
 [connection signal="pressed" from="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/CardPackButton" to="." method="_on_card_pack_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/CardsButton" to="." method="_on_cards_button_pressed"]

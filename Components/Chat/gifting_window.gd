@@ -31,7 +31,7 @@ func _card_inventory_open(inventory_data: Array) -> void:
 	for card_data: Dictionary in inventory_data[0]:
 		card_inventory_slot = card_inventory_slot_scene.instantiate()
 		var uri: String = card_data.keys()[0]
-
+		
 		var card_name: String = card_data[uri]["name"].replace(" ", "_").to_lower()
 		var card_texture: Texture = load("res://UITextures/Cards/" + card_name + ".png")
 		

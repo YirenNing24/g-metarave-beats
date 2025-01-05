@@ -63,9 +63,14 @@ func _on_get_valid_cards_complete(cards :Array) -> void:
 		
 		item_grid.add_child(card_slots)
 		card_slots.get_card_data(card)
+	%LoadingPanel.tween_kill()
 		
 		
 func _on_card_slot_buy_button_pressed(card_data: Dictionary) -> void:
+	var afford: bool = check_cost_and_funds(card_data.pricePerToken)
+	if not afford:
+		return
+		
 	%FilterPanel.visible = true
 	confirm_label.text = "Are you sure 
 	you want to buy " + card_data.name.to_upper() + " " + str(card_data.pricePerToken) + " BEATS" + "?"
@@ -74,6 +79,15 @@ func _on_card_slot_buy_button_pressed(card_data: Dictionary) -> void:
 		var _connect: int = confirm_yes_button.pressed.connect(_on_yes_button_pressed.bind(card_data, "Card"))
 
 
+func check_cost_and_funds(price: int) -> bool:
+	if int(beats_balance.text) > price:
+		return true
+	else:
+		%ErrorMessage.text = ("Not enough funds")
+		%AnimationPlayer.play("ErrorMessage")
+		return false
+	
+	
 func _on_get_valid_card_upgrades_complete(upgrades: Array) -> void:
 	clear_grid()
 	for upgrade_item: Dictionary in upgrades:
@@ -135,11 +149,9 @@ func _on_yes_button_pressed(item_data: Dictionary, item_type: String) -> void:
 		
 		
 func buy_card(item_data: Dictionary) -> void:
-	var listingId: int = item_data.listingId
-	
-	print("Where: ", item_data)
+	var listingId: int = int(item_data.listingId)
 	price_recent = item_data.pricePerToken
-	BKMREngine.Store.buy_card(item_data.uri, listingId)
+	BKMREngine.Store.buy_card(item_data.uri, listingId, str(price_recent))
 	%LoadingPanel.fake_loader()
 		
 		
@@ -148,12 +160,16 @@ func _on_buy_card_complete(_message: Dictionary) -> void:
 		store_item_modal.visible = false
 	%LoadingPanel.tween_kill()
 	%FilterPanel.visible = false
+	
 	var current_beats_balance: int = beats_balance.text.to_int()
-	
-	if current_beats_balance != 0:
-		beats_balance.text = format_balance(str(current_beats_balance - price_recent))
+	if not _message.has("error"):
+		if current_beats_balance != 0:
+			beats_balance.text = format_balance(str(current_beats_balance - price_recent))
+			
+	confirm_yes_button.pressed.disconnect(_on_yes_button_pressed)
+	%LoadingPanel.fake_loader()
 	BKMREngine.Store.get_valid_cards()
-	
+
 	
 func _on_store_item_modal_buy_pressed(recent_price: String) -> void:
 	price_recent = recent_price.to_int()
@@ -183,8 +199,10 @@ func _on_buy_card_pack_complete(_message: Dictionary) -> void:
 	%LoadingPanel.tween_kill()
 	%FilterPanel.visible = false
 	var current_beats_balance: int = int(beats_balance.text)
-	if current_beats_balance != 0:
-		beats_balance.text = format_balance(str(current_beats_balance - price_recent))
+	
+	if not _message.has("error"):
+		if current_beats_balance != 0:
+			beats_balance.text = format_balance(str(current_beats_balance - price_recent))
 	BKMREngine.Store.get_valid_card_packs()
 	
 	
@@ -193,6 +211,8 @@ func _on_no_button_pressed() -> void:
 
 
 func _on_buy_card_upgrades_complete(_message: Dictionary) -> void:
+	if not _message.has("error"):
+		pass
 	BKMREngine.Store.get_valid_card_upgrades()
 	%LoadingPanel.tween_kill()
 
@@ -203,6 +223,7 @@ func _on_show_item_store_modal(card_data: Dictionary, texture: Texture) -> void:
 	
 	
 func _on_cards_button_pressed() -> void:
+	%LoadingPanel.fake_loader()
 	BKMREngine.Store.get_valid_cards()
 	
 	

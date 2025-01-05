@@ -51,7 +51,7 @@ func get_valid_cards() -> void:
 	var request_url: String = host + "/api/store/cards/valid"
 	
 	# Send the HTTP GET request asynchronously
-	await BKMREngine.send_get_request(GetValidCards, request_url)
+	BKMREngine.send_get_request(GetValidCards, request_url)
 
 
 # Callback function triggered when the get cards request is completed.
@@ -69,7 +69,10 @@ func _onGetValidCards_request_completed(_result: int, response_code: int, header
 		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
 		if json_body.is_empty():
 			get_valid_cards_complete.emit(json_body)
+
 		elif json_body.has("error"):
+			
+			
 			get_valid_cards_complete.emit(json_body)
 		else:
 			get_valid_cards_complete.emit(json_body)
@@ -159,7 +162,7 @@ func _onBuyCardPack_request_completed(_result: int, response_code: int, headers:
 	
 	
 # Function to initiate the purchase of a card from the store.
-func buy_card(uri: String, listing_id: int) -> void:
+func buy_card(uri: String, listing_id: int, price: String) -> void:
 	# Prepare HTTP request
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	BuyCard = prepared_http_req.request
@@ -168,7 +171,7 @@ func buy_card(uri: String, listing_id: int) -> void:
 	var _connect: int = BuyCard.request_completed.connect(_onBuyCard_request_completed)
 	BKMRLogger.info("Calling BKMREngine to buy a card")
 	
-	var payload: Dictionary = {"listingId": listing_id, "uri": uri}
+	var payload: Dictionary = { "listingId": listing_id, "uri": uri, "price": price }
 	BKMRLogger.debug("Validate buy card payload: " + str(payload))
 
 	var request_url: String = host + "/api/store/cards/buy"
@@ -178,17 +181,19 @@ func buy_card(uri: String, listing_id: int) -> void:
 # Callback function triggered upon the completion of the buy card request.
 func _onBuyCard_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	
 	if status_check:
-		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
-		if json_body != null:
-			print("hey hey hey1")
-		# Check if the purchase was successful and log accordingly
+		var json_str: String = body.get_string_from_utf8()
+		if json_str != "":
+		
+			# Parse the JSON safely
+			var parsed_data: Variant = JSON.parse_string(json_str)
+			var json_body: Dictionary = parsed_data
+
+			# Check if the response contains the expected structure
 			if json_body.has("error"):
 				buy_card_complete.emit(json_body)
 			else:
 				buy_card_complete.emit(json_body)
-				print("hey hey hey2")
 		else:
 			buy_card_complete.emit({"error": "Unknown server error"})
 			
