@@ -1,38 +1,44 @@
 extends Control
 
-const mission_entry_scene: PackedScene = preload("res://Components/Mission/mission_entry.tscn")
+var mission_slot: PackedScene = preload('res://Components/Mission/mission_slot.tscn')
 
 
 func _ready() -> void:
 	connect_signals()
-	BKMREngine.Reward.get_mission_reward_list()
+	BKMREngine.Reward.get_personal_mission_list()
 
 func connect_signals() -> void:
-	BKMREngine.Reward.get_mission_reward_list_completed.connect(_on_get_mission_reward_list_completed)
-	BKMREngine.Reward.claim_mission_reward_completed.connect(_on_claim_mission_reward_completed)
+	BKMREngine.Reward.get_personal_mission_list_completed.connect(_get_personal_mission_lost_completed)
 	
 	
-func _on_get_mission_reward_list_completed(mission_data: Variant) -> void:
-	if mission_data is Array:
-		var data_mission: Array = mission_data
-		var mission_entry: Control
-		for mission: Dictionary in data_mission:
-			mission_entry = mission_entry_scene.instantiate()
-			mission_entry.mission_slot_data(mission)
-			mission_entry.mission_entry_button_pressed.connect(_on_mission_entry_button_pressed)
-			%MissionsContainer.add_child(mission_entry)
-			
-	
-func _on_mission_entry_button_pressed(mission_data: Dictionary) -> void:
-	BKMREngine.Reward.claim_mission_reward(mission_data)
-	%ClaimValue.text = "+" + mission_data.reward.to_upper() + " " + "GBEATS CLAIMED!"
-	%LoadingPanel.fake_loader()
-	
-	
-func _on_claim_mission_reward_completed(_message: Dictionary) -> void:
-	%LoadingPanel.tween_kill()
-	%AnimationPlayer.play("ClaimModal")
-	
+func _get_personal_mission_lost_completed(personal_missions: Array) -> void:
+	for mission: Dictionary in personal_missions:
+		var mission_personal: Control = mission_slot.instantiate()
+		mission_personal.mission_slot_data(mission)
+		%PersonalMissionVBox.add_child(mission_personal)
+		
+		
+#func _on_claim_mission_reward_completed(_message: Dictionary) -> void:
+	#%LoadingPanel.tween_kill()
+	#%AnimationPlayer.play("ClaimModal")
+
+
+	#clear_grid()
+	#for upgrade_item: Dictionary in upgrades:
+		#var template_card_upgrade_slot: Control = template_card_upgrade_slot_scene.instantiate()
+		#if upgrade_item.tier == "tier1":
+			#var item_texture: Texture = load("res://UITextures/CardUpgrades/general_tier1.png")
+			#template_card_upgrade_slot.get_node("Panel/CardupgradeIcon").texture = item_texture
+		#
+		#var price_per_token: int = upgrade_item.pricePerToken 
+		#var quantity: int = upgrade_item.quantity
+		#var price: int = int(price_per_token * quantity)
+		#template_card_upgrade_slot.get_node("BuyButton/HBoxContainer/Price").text = format_balance(str(price))
+		#template_card_upgrade_slot.get_node("Panel/Quantity").text = format_balance(str(quantity))
+		#template_card_upgrade_slot.card_upgrade_data(upgrade_item)
+		#
+		#template_card_upgrade_slot.buy_button_pressed.connect(_on_get_valid_cards_buy_button_pressed)
+		#item_grid.add_child(template_card_upgrade_slot)
 	
 func _on_close_button_pressed() -> void:
 	# Attempt automatic login and wait for the session check to complete.

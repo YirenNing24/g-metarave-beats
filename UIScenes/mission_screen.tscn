@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://k28lld0y8vp6"]
+[gd_scene load_steps=24 format=3 uid="uid://k28lld0y8vp6"]
 
 [ext_resource type="Script" path="res://UIScenes/mission_screen.gd" id="1_xn003"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_pcrgv"]
@@ -6,7 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="4_lp7is"]
 [ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="5_0t5h5"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="6_3tg7t"]
+[ext_resource type="Texture2D" uid="uid://b6nau7vgc00e8" path="res://UITextures/PanelElements/chat_active_tab.png" id="7_5febl"]
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="8_klile"]
+[ext_resource type="Texture2D" uid="uid://jtteocw4fdjn" path="res://UITextures/PanelElements/chat_inactive_tab.png" id="8_uksks"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="10_y0mbm"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="11_bvhu5"]
 [ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="11_ewtbr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5mqa3"]
@@ -21,6 +25,32 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r5pdo"]
+texture = ExtResource("7_5febl")
+texture_margin_left = 10.0
+texture_margin_right = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uiuwh"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8nb8n"]
+texture = ExtResource("8_uksks")
+texture_margin_left = 15.0
+texture_margin_right = 15.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ucppm"]
+
+[sub_resource type="Resource" id="Resource_6vcbq"]
+script = ExtResource("11_bvhu5")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="Resource" id="Resource_hqkoq"]
+script = ExtResource("11_bvhu5")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dfsuj"]
 bg_color = Color(0, 0, 0, 0.67451)
@@ -223,17 +253,17 @@ text_overrun_behavior = 3
 metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture"]
-custom_minimum_size = Vector2(769, 430)
+custom_minimum_size = Vector2(0, 430)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -384.5
-offset_top = -184.0
-offset_right = 384.5
-offset_bottom = 246.0
+offset_left = -269.0
+offset_top = -194.0
+offset_right = 265.0
+offset_bottom = 236.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -255,19 +285,108 @@ grow_vertical = 2
 theme_override_constants/separation = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="ScrollContainer" type="ScrollContainer" parent="BackgroundTexture/VBoxContainer2/Panel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 300)
+[node name="TabContainer" type="TabContainer" parent="BackgroundTexture/VBoxContainer2/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/side_margin = 0
+theme_override_constants/icon_separation = 0
+theme_override_constants/icon_max_width = 0
+theme_override_fonts/font = ExtResource("8_klile")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/tab_selected = SubResource("StyleBoxTexture_r5pdo")
+theme_override_styles/tab_hovered = SubResource("StyleBoxEmpty_uiuwh")
+theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_8nb8n")
+current_tab = 0
+clip_tabs = false
+tab_focus_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Personal Missions" type="TabBar" parent="BackgroundTexture/VBoxContainer2/Panel/VBoxContainer/TabContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 1
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_ucppm")
+metadata/_tab_index = 0
+
+[node name="PersonalMissionScroll" type="ScrollContainer" parent="BackgroundTexture/VBoxContainer2/Panel/VBoxContainer/TabContainer/Personal Missions"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 3.0
+offset_right = 2.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
+script = ExtResource("10_y0mbm")
+wheel_scroll_damper = SubResource("Resource_6vcbq")
+dragging_scroll_damper = SubResource("Resource_hqkoq")
 
-[node name="MissionsContainer" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer2/Panel/VBoxContainer/ScrollContainer"]
+[node name="PersonalMissionVBox" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer2/Panel/VBoxContainer/TabContainer/Personal Missions/PersonalMissionScroll"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 10
+theme_override_constants/separation = 5
+
+[node name="Collection Missions" type="TabBar" parent="BackgroundTexture/VBoxContainer2/Panel/VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 1
+metadata/_tab_index = 1
+
+[node name="MutualsScroll" type="ScrollContainer" parent="BackgroundTexture/VBoxContainer2/Panel/VBoxContainer/TabContainer/Collection Missions"]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="MutualsVBox" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer2/Panel/VBoxContainer/TabContainer/Collection Missions/MutualsScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 3
+
+[node name="Score Missions" type="TabBar" parent="BackgroundTexture/VBoxContainer2/Panel/VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 1
+metadata/_tab_index = 2
+
+[node name="MutualsScroll" type="ScrollContainer" parent="BackgroundTexture/VBoxContainer2/Panel/VBoxContainer/TabContainer/Score Missions"]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="MutualsVBox" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer2/Panel/VBoxContainer/TabContainer/Score Missions/MutualsScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 3
 
 [node name="LoadingPanel" parent="." instance=ExtResource("11_ewtbr")]
 unique_name_in_owner = true

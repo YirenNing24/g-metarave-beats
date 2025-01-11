@@ -131,7 +131,6 @@ func auto_login_player() -> void:
 		complete_session_check_wait_timer.start()
 
 
-
 # Function to validate an existing player session using refresh_token
 func validate_player_session() -> void:
 	# Prepare the HTTP request for session validation
@@ -151,7 +150,6 @@ func validate_player_session() -> void:
 	# Send the POST request for session validation
 	BKMREngine.send_login_request(ValidateSession, request_url, payload)
 	# Return the current script instance
-
 
 
 # Event handler for the completion of the player session validation request
@@ -307,7 +305,7 @@ func _on_GoogleRegisterPasskey_request_completed(_result: int, response_code: in
 		else:
 			bkmr_google_registration_passkey_complete.emit({"error": json_body})
 	else:
-		bkmr_google_registration_passkey_complete.emit({"error": "Wala po laman"})
+		bkmr_google_registration_passkey_complete.emit({"error": "Unknown server error"})
 		
 		
 func beats_passkey_registration_response(result: Dictionary) -> void:
@@ -523,13 +521,19 @@ func _on_LoginPlayer_request_completed(_result: int, response_code: int, headers
 			bkmr_login_complete.emit(json_body)
 			BKMRLogger.error("BKMREngine login player failure: " + str(json_body.error))
 	else:
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
 		# Handle cases where the JSON parsing fails or the server returns an unknown error
-		if JSON.parse_string(body.get_string_from_utf8()) == null:
+		if json_body == null:
 			bkmr_login_complete.emit({"error": "Unknown server error"})
 		else:
-			var json_body: Dictionary = JSON.parse_string(body.get_string_from_utf8())
-			bkmr_google_login_complete.emit({"error": json_body})
-
+			if json_body.has("name"):
+				if json_body.name == "Error":
+					bkmr_login_complete.emit({"error": json_body.message})
+			elif json_body.has("error"):
+				bkmr_login_complete.emit({"error": json_body.error})
+			else:
+				bkmr_login_complete.emit({"error": "Unknown server error"})
+				
 
 # Login function for google login
 func google_login_player(token: String) -> void:
@@ -661,12 +665,11 @@ func remove_stored_session() -> bool:
 #region Util functions
 
 func renew_access_token_timer() -> void:
-	print("tang ama")
 	# Create a timer that fires every 4 minutes (240 seconds)
 	var timer: SceneTreeTimer = get_tree().create_timer(240.0)
 	var _renew: int = timer.timeout.connect(renew_access_token_timer)
 	var _connect: int = timer.timeout.connect(request_new_access_token)
-
+	print("renewing_token")
 	# Start the timer
 
 
