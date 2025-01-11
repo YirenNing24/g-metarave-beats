@@ -1,9 +1,10 @@
 extends Control
 
-signal claim_personal_mission_reward_complete(reward_name: int, reward_amount: String)
+signal claim_personal_mission_reward_complete(reward_name: String, reward_amount: int)
 
-var reward_amount: int
+
 var reward_name: String
+var reward_amount: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -33,5 +34,8 @@ func _on_claim_button_pressed(mission_name: String) -> void:
 	BKMREngine.Reward.claim_personal_mission_reward(mission_name)
 
 
-func claim_personal_mission_reward_completed(_messsage: Dictionary) -> void:
-	claim_personal_mission_reward_complete.emit(reward_name, reward_amount)
+func claim_personal_mission_reward_completed(messsage: Dictionary) -> void:
+	if messsage.has("error"):
+		claim_personal_mission_reward_complete.emit(reward_name, 0)
+	else:
+		claim_personal_mission_reward_complete.emit(reward_name, reward_amount)

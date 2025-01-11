@@ -49,7 +49,10 @@ func _on_claim_personal_rewards_button_pressed() -> void:
 	%LoadingPanel.fake_loader()
 	
 
-func _on_claim_personal_mission_reward_completed(_reward_name: int, _reward_amount: String) -> void:
+func _on_claim_personal_mission_reward_completed(reward_name: String, reward_amount: int) -> void:
+	if reward_amount != 0:
+		if reward_name == "BEATS":
+			pass
 	%LoadingPanel.tween_kill()
 	
 	
