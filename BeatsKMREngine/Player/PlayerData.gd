@@ -29,7 +29,6 @@ var peer_id: int
 
 
 func _ready() -> void:
-	BKMREngine.Reward.get_available_card_reward_completed.connect(_on_get_available_card_reward)
 	BKMREngine.Auth.bkmr_session_check_complete.connect(populate_player_data)
 	BKMREngine.Auth.bkmr_login_complete.connect(populate_player_data)
 	

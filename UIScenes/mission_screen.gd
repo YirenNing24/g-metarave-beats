@@ -17,6 +17,9 @@ func _get_personal_mission_lost_completed(personal_missions: Array) -> void:
 		mission_personal.mission_slot_data(mission)
 		%PersonalMissionVBox.add_child(mission_personal)
 		
+		mission_personal.get_node("ClaimButton").pressed(_on_claim_personal_rewards_button_pressed)
+		mission_personal.claim_personal_mission_reward_completed.connect(_on_claim_personal_mission_reward_completed)
+		
 		
 #func _on_claim_mission_reward_completed(_message: Dictionary) -> void:
 	#%LoadingPanel.tween_kill()
@@ -39,6 +42,16 @@ func _get_personal_mission_lost_completed(personal_missions: Array) -> void:
 		#
 		#template_card_upgrade_slot.buy_button_pressed.connect(_on_get_valid_cards_buy_button_pressed)
 		#item_grid.add_child(template_card_upgrade_slot)
+	
+	
+	
+func _on_claim_personal_rewards_button_pressed() -> void:
+	%LoadingPanel.fake_loader()
+	
+
+func _on_claim_personal_mission_reward_completed(_reward_name: int, _reward_amount: String) -> void:
+	%LoadingPanel.tween_kill()
+	
 	
 func _on_close_button_pressed() -> void:
 	# Attempt automatic login and wait for the session check to complete.
