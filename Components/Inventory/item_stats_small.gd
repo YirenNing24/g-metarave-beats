@@ -127,7 +127,7 @@ func equip() -> void:
 			if slot.cards_data["origin_item_id"] == null:
 				slot.equip(card_data["origin_item_id"], card_data)
 				inv_slot_node.equip_to_equip_slot()
-				break  # Assuming only one slot needs to be equipped, exit the loop
+				break  # Only one slot needs to be equipped, exit the loop
 
 	# Reset is_open state and clear variables
 	is_open = false

@@ -94,16 +94,20 @@ func _on_button_pressed() -> void:
 		filter_card_slot()
 	
 	
-	
 func equip(origin_item_id: String, card_data: Dictionary, origin: String = "self") -> void:
-	
 	if card_data[origin_item_id].group == "Great Guys":
 		print("Dong Hwasa: ", card_data)
 	if cards_data["origin_equipment_slot"].replace(" ", "").to_lower() == card_data["origin_equipment_slot"].replace(" ", "").to_lower():
-		print("wala dito?!")
+		print("wala dito?!: ", card_data)
 		var _equipment_slot_data: Dictionary = slot_data(card_data)
 		if origin == "self":
-			var equip_item_data: Dictionary = { "uri": origin_item_id, "equipped": true }
+			var equip_item_data: Dictionary = { 
+				"uri": origin_item_id, 
+				"tokenId": card_data[origin_item_id].id,
+				"contractAddress": card_data[origin_item_id].contractAddress,
+				"group": card_data[origin_item_id].group,
+				"slot": card_data[origin_item_id].slot
+				}
 			BKMREngine.Inventory.equip_item([equip_item_data])
 	
 	
