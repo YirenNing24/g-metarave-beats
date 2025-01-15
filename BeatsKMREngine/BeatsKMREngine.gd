@@ -49,6 +49,7 @@ const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 @onready var Reward: Node = Node.new()
 @onready var Gacha: Node = Node.new()
 @onready var Notification: Node = Node.new()
+@onready var Energy: Node = Node.new()
 
 # Configuration dictionaries
 @onready var config: Dictionary = {}
@@ -71,7 +72,7 @@ var upgrade_script: Script = load("res://BeatsKMREngine/Upgrade/Upgrade.gd")
 var reward_script: Script = load("res://BeatsKMREngine/Reward/Reward.gd")
 var gacha_script: Script = load("res://BeatsKMREngine/Gacha/Gacha.gd")
 var notification_script: Script = load("res://BeatsKMREngine/Notification/Notification.gd")
-
+var energy_script: Script = load("res://BeatsKMREngine/Energy/Energy.gd")
 
 func _ready() -> void:
 	print("BKMR ready start timestamp: " + str(BKMRUtils.get_timestamp()))
@@ -99,8 +100,9 @@ func initialize_script() -> void:
 	Reward.set_script(reward_script)
 	Gacha.set_script(gacha_script)
 	Notification.set_script(notification_script)
-
-
+	Energy.set_script(energy_script)
+	
+	
 #Add child nodes for different modules
 func add_child_nodes() -> void:
 	add_child(Auth)
@@ -115,6 +117,7 @@ func add_child_nodes() -> void:
 	add_child(Reward)
 	add_child(Gacha)
 	add_child(Notification)
+	add_child(Energy)
 	print("BKMR ready end timestamp: " + str(BKMRUtils.get_timestamp()))
 		
 		

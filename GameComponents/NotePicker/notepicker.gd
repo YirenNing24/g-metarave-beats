@@ -101,6 +101,9 @@ func notepicker_3d_pos() -> Vector2:
 	
 	
 func hit_feedback(_note_accuracy: int, short_line: int) -> void:
+	if _note_accuracy == 5:
+		Input.vibrate_handheld(300)
+	
 	if line == short_line:
 		# Emit spark if combo <= 20 or combo is in certain ranges
 		if combo <= 20 or combo % 10 == 0:
@@ -113,9 +116,9 @@ func hit_feedback(_note_accuracy: int, short_line: int) -> void:
 		# Handle FXGlobe animations based on combo ranges
 		var combo_thresholds: Dictionary = {
 			20: "combo20",
+			30: "combo30",
 			40: "combo40",
-			50: "combo50",
-			60: "combo60"
+			50: "combo50"
 		}
 
 		for threshold: int in combo_thresholds.keys():
@@ -124,7 +127,6 @@ func hit_feedback(_note_accuracy: int, short_line: int) -> void:
 				%FXGlobe.visible = true
 				%FXGlobe.play(combo_thresholds[threshold])
 				break
-
 	
 	
 func combo_value(value: int) -> void:

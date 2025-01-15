@@ -18,6 +18,7 @@ var is_loading : bool = false
 
 
 func _ready() -> void:
+	%LoadingPanel.fake_loader()
 	BKMREngine.Inventory.get_card_inventory_complete.connect(card_inventory_open)
 	BKMREngine.Inventory.get_card_inventory_complete.connect(equipment_slot_open)
 	BKMREngine.Inventory.open_card_inventory()
@@ -46,7 +47,7 @@ func card_inventory_open(inventory_data: Array) -> void:
 		card_inventory_container.move_child(card_inventory_slot, 0)
 		card_inventory_slot.get_node('CardIcon').slot_data()
 		card_inventory_slot.get_node('CardIcon').data_card.connect(_on_inventory_card_pressed)
-		
+	%LoadingPanel.tween_kill()
 		
 func equipment_slot_open(inventory_data: Array) -> void:
 	for cardslots: TextureRect in get_tree().get_nodes_in_group('CardSlot'):

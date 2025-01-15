@@ -3,6 +3,7 @@ extends Control
 var mission_slot: PackedScene = preload('res://Components/Mission/mission_slot.tscn')
 
 
+
 func _ready() -> void:
 	connect_signals()
 	BKMREngine.Reward.get_personal_mission_list()
@@ -52,7 +53,8 @@ func _on_claim_personal_rewards_button_pressed() -> void:
 func _on_claim_personal_mission_reward_completed(reward_name: String, reward_amount: int) -> void:
 	if reward_amount != 0:
 		if reward_name == "BEATS":
-			pass
+			%Message.text = "BEATS reward succesfully claimed"
+			%AnimationPlayer.play("Message")
 	%LoadingPanel.tween_kill()
 	
 	

@@ -283,3 +283,7 @@ func format_balance(value: String) -> String:
 func _on_filter_panel_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		%FilterPanel.visible = false
+
+
+func _on_energy_button_pressed() -> void:
+	pass # Replace with function body.

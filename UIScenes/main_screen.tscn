@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://yfevho5xx5qg"]
+[gd_scene load_steps=52 format=3 uid="uid://yfevho5xx5qg"]
 
 [ext_resource type="Script" path="res://UIScenes/main_screen.gd" id="1_25j1r"]
 [ext_resource type="Texture2D" uid="uid://cj3g7l2prnd31" path="res://UITextures/PanelElements/player_panel.png" id="2_37prv"]
@@ -39,6 +39,7 @@
 [ext_resource type="Texture2D" uid="uid://brw2ow36nw41d" path="res://UITextures/CardArtistTextures/hannah_card_artist_hero.png" id="22_um242"]
 [ext_resource type="AudioStream" uid="uid://dtocxag21vt3n" path="res://GameTracks/BGTracks/Tue Apr 23 2024.mp3" id="24_8jsi5"]
 [ext_resource type="AudioStream" uid="uid://xbmw1rvhaoyy" path="res://GameTracks/UITracks/abs-pointer-combine.mp3" id="24_jwt2b"]
+[ext_resource type="Texture2D" uid="uid://f12cbma5wxlm" path="res://UITextures/EnergyDrinks/energy_drink_basic.png" id="40_sw0y4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtby7"]
 bg_color = Color(0.396078, 0.396078, 0.396078, 0.219608)
@@ -226,6 +227,19 @@ scale_min = 0.02
 scale_max = 0.07
 turbulence_noise_strength = 3.08
 turbulence_noise_scale = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xb6sc"]
+bg_color = Color(0, 0, 0, 0.952941)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(2.21401e-06, 0.597346, 0.597346, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="MainScreen" type="Control"]
 clip_contents = true
@@ -503,6 +517,15 @@ anchor_bottom = 0.78
 texture = ExtResource("13_al202")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="RechargeEnergyButton" type="TextureButton" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 1.99998
+offset_right = 44.0
+offset_bottom = 42.0
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="TextureRect2" type="TextureRect" parent="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
 self_modulate = Color(0.737193, 0.737193, 0.737193, 1)
@@ -1038,10 +1061,105 @@ volume_db = -5.0
 autoplay = true
 parameters/looping = true
 
+[node name="EnergyBottlePanel" type="Panel" parent="."]
+visible = false
+z_index = 10
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 45.0
+offset_top = -214.0
+offset_right = 351.0
+offset_bottom = -104.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xb6sc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EnergyBottlePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 7.0
+offset_right = -10.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="EnergyBottlePanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
+theme_override_fonts/font = ExtResource("17_b1nlu")
+theme_override_font_sizes/font_size = 16
+text = "Energy Drink"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EnergyBottlePanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="BasicEnergyButton" type="TextureButton" parent="EnergyBottlePanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("40_sw0y4")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="BasicEnergyQuantity" type="Label" parent="EnergyBottlePanel/VBoxContainer/HBoxContainer/BasicEnergyButton"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.533333
+anchor_top = -0.183333
+anchor_right = 1.28333
+anchor_bottom = 0.416667
+offset_left = -46.0
+offset_top = -13.0
+offset_right = -47.0
+offset_bottom = -13.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.717469, 0.00150149, 0.86239, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("17_dxh3f")
+theme_override_font_sizes/font_size = 16
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="BasicEnergyButton2" type="TextureButton" parent="EnergyBottlePanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="BasicEnergyButton3" type="TextureButton" parent="EnergyBottlePanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+ignore_texture_size = true
+stretch_mode = 0
+
 [connection signal="chat_opened" from="." to="Panel/BackgroundTexture/ChatBox" method="_on_main_screen_chat_opened"]
 [connection signal="mutuals_button_pressed" from="." to="Panel/BackgroundTexture/MutualsBox" method="_on_main_screen_mutuals_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect/ProfileButton" to="." method="_on_profile_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect/StatsWheel/StatButton" to="." method="_on_stat_button_pressed"]
+[connection signal="pressed" from="Panel/BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect/RechargeEnergyButton" to="." method="_on_recharge_energy_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/Panel/HBoxContainer/ChatWindowButton" to="." method="_on_chat_window_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer2/VBoxContainer2/TextureRect/GameModeButton" to="." method="_on_game_mode_button_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3/StoreButton" to="." method="_on_store_button_pressed"]
@@ -1055,3 +1173,4 @@ parameters/looping = true
 [connection signal="slide_pressed" from="Panel/BackgroundTexture/MutualsBox" to="." method="_on_mutuals_box_slide_pressed"]
 [connection signal="pressed" from="Panel/BackgroundTexture/MutualsButton" to="." method="_on_mutuals_button_pressed"]
 [connection signal="gui_input" from="FilterPanel" to="." method="_on_filter_panel_gui_input"]
+[connection signal="pressed" from="EnergyBottlePanel/VBoxContainer/HBoxContainer/BasicEnergyButton" to="." method="_on_basic_energy_button_pressed"]

@@ -48,7 +48,7 @@ var is_opened: bool = false
 
 #endregion
 
-
+#TODO fix energy countdown bug
 #region Initialization function called when the node is ready.
 func _ready() -> void:
 	signal_connect()
@@ -62,24 +62,25 @@ func _ready() -> void:
 	
 func beats_server_connect() -> void:
 	BKMREngine.beats_server_connect()
-
-
+	
+	
 # Add modals (profile_modal, player_modal, stat_modal) to the filter panel.
 func add_components() -> void:
 	filter_panel.add_child(profile_modal)
 	filter_panel.add_child(stats_modal)
 	stats_modal.visible = false
-
-
+	
+	
 # Connect chat signals to their respective handlers.
 func signal_connect() -> void:
 	#BKMREngine.Websocket.server_time.connect(_on_updated_server_time)
 	#BKMREngine.Websocket.connected.connect(_on_chat_connected)
 	#BKMREngine.Websocket.closed.connect(_on_chat_closed)
+	BKMREngine.Energy.get_energy_drink_complete.connect(_on_get_energy_drink_complete)
 	BKMREngine.Profile.get_profile_pic_complete.connect(_on_get_profile_pic)
 	BKMREngine.Auth.bkmr_session_check_complete.connect(_on_session_check_complete)
-
-
+	
+	
 # Checks the user session.
 func session_check() -> void:
 	BKMREngine.Auth.auto_login_player() 
@@ -87,16 +88,36 @@ func session_check() -> void:
 		buttons.disabled = true
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons2'):
 		buttons.disabled = true
-
-
+	
+	
 func _on_session_check_complete(_session: Dictionary) -> void:
 	for buttons: TextureButton in get_tree().get_nodes_in_group('MainButtons'):
 		buttons.disabled = false
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons2'):
 		buttons.disabled = false
-
-
+	
+	
+func _on_get_energy_drink_complete(energy_drinks: Array) -> void:
+	var basic_energy_drink: Dictionary = energy_drinks[0]
+	if basic_energy_drink.quantityOwned != "0":
+		%BasicEnergyQuantity.text = basic_energy_drink.quantityOwned
+	elif  basic_energy_drink.quantityOwned == "0":
+		%BasicEnergyQuantity.text = "0"
+		
+		
+func _on_recharge_energy_button_pressed() -> void:
+	$EnergyBottlePanel.visible = not $EnergyBottlePanel.visible
+		
+		
+func _on_basic_energy_button_pressed() -> void:
+	if %BasicEnergyQuantity.text == "0":
+		print("No more energy drink")
+	elif str(PLAYER.current_energy) == str(PLAYER.max_energy):
+		print("Max energy reached")
+		
+		
 func hud_data() -> void:
+	BKMREngine.Energy.get_energy_drink()
 	animate_hud()
 	energy_hud()
 	exp_hud()
@@ -281,13 +302,15 @@ func _on_mutuals_button_pressed() -> void:
 	await animation_player.animation_finished
 	mutuals_button.visible = false
 	mutuals_button.disabled = true
-
+	
+	
 # Close the mutuals box with a sliding animation.
 func _on_mutuals_box_slide_pressed(_is_open: bool) -> void:
 	animation_player.play_backwards("mutual_slide")
 	await animation_player.animation_finished
 	mutuals_button.disabled = false
 	mutuals_button.visible = true
+	
 	
 # Close the chat box with a sliding animation.
 func _on_chat_box_close_pressed() -> void:
@@ -296,6 +319,7 @@ func _on_chat_box_close_pressed() -> void:
 		buttons.disabled = false
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons2'):
 		buttons.disabled = false
+
 
 # Open chat with a mutual 
 func _on_mutuals_box_chat_button_pressed(_conversing_username: String) -> void:
