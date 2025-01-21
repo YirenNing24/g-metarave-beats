@@ -98,7 +98,6 @@ func equip(origin_item_id: String, card_data: Dictionary, origin: String = "self
 	if card_data[origin_item_id].group == "Great Guys":
 		print("Dong Hwasa: ", card_data)
 	if cards_data["origin_equipment_slot"].replace(" ", "").to_lower() == card_data["origin_equipment_slot"].replace(" ", "").to_lower():
-		print("wala dito?!: ", card_data)
 		var _equipment_slot_data: Dictionary = slot_data(card_data)
 		if origin == "self":
 			var equip_item_data: Dictionary = { 
@@ -109,13 +108,22 @@ func equip(origin_item_id: String, card_data: Dictionary, origin: String = "self
 				"slot": card_data[origin_item_id].slot
 				}
 			BKMREngine.Inventory.equip_item([equip_item_data])
+	%LoadingPanel.fake_loader()
 	
 	
 func unequip(_equipment_data: Dictionary = {}) -> void:
 	for slots: TextureRect in get_tree().get_nodes_in_group('InventorySlot'):
 		if slots.cards_data["origin_item_id"] == null or "":
 			slots.unequip_from_equip_slot(cards_data, texture)
-			var unequip_data: Dictionary = {"uri": cards_data["origin_item_id"], "equipped": false}
+			
+			var uri: String = cards_data.keys()[0]
+			var unequip_data: Dictionary = { 
+				"uri": cards_data["origin_item_id"], 
+				"tokenId": cards_data[uri].id, 
+				"contractAddress": cards_data[uri].contractAddress,
+				"group": cards_data[uri].group,
+				"slot": cards_data[uri].slot
+				}
 			BKMREngine.Inventory.unequip_item([unequip_data])
 			var _unequip: Dictionary = slot_data({})
 			return
@@ -128,6 +136,7 @@ func limit_toggled_skills(equipment_slot: Dictionary) -> int:
 			equipped_count += 1
 	return equipped_count as int
 	
+	
 func set_skill_texture() -> void:
 	var skill_name: String = cards_data["Skill"].to_lower()
 	var skill_texture: Texture = load("res://UITextures/Buttons/Skill/"+ skill_name + "_skill_texture" + ".png")
@@ -135,9 +144,10 @@ func set_skill_texture() -> void:
 		if skill_icon.texture == null:
 			skill_icon.texture = skill_texture
 			return
-
+	
+	
 func _on_equip_item_complete(_message: Dictionary) -> void:
-	pass
+	%LoadingPanel.tween_kill()
 	
 	
 func filter_card_slot() -> void:

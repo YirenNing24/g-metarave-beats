@@ -24,7 +24,7 @@ var private_messages: Array
 # Initialization function called when the node is ready.
 func _ready() -> void:
 	# Get mutual followers from the social system
-	BKMREngine.Social.get_mutual()
+	#BKMREngine.Social.get_mutual()
 	BKMREngine.Social.get_mutual_complete.connect(populate_mutuals_list)
 	# Populate the mutuals list in the UI
 	#call_deferred("set_status_and_activity")

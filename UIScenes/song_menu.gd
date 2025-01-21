@@ -37,8 +37,8 @@ func _ready() -> void:
 	
 	left_difficulty_button.disabled = true
 	left_difficulty_button.modulate = "ffffff68"
-	BKMREngine.beats_server_connect()
-	
+	BKMREngine.beats_server_connect(BKMREngine.Server.preferred_server)
+
 	
 func on_get_classic_high_score_complete(high_scores: Array[Dictionary]) -> void:
 	# Map song names to their corresponding Control nodes
@@ -73,8 +73,13 @@ func start_recharge_countdown(time_until_next: int) -> void:
 	
 	
 func _process(delta: float) -> void:
+	
+	BKMREngine.Server.websocket.close()
+	BKMREngine.Server.websocket.poll()
+	
 	if BKMREngine.peer.get_connection_status() != 2:
-		BKMREngine.beats_server_connect()
+		BKMREngine.beats_server_connect(BKMREngine.beats_host)
+		
 	if PLAYER.current_energy >= PLAYER.max_energy:
 		# Max energy reached, hide recharge label
 		%EnergyRecharge.visible = false

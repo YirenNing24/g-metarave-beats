@@ -61,7 +61,7 @@ func _on_session_check(session: Dictionary) -> void:
 	
 # Switch to the authentication scene after a delay.
 func change_to_auth_scene() -> void:
-	await get_tree().create_timer(3.0).timeout
+	#await get_tree().create_timer(3.0).timeout
 	# Stop the tween animation.
 	tween.kill()
 	# Load the authentication scene.

@@ -9,8 +9,8 @@ var UpgradeCard: HTTPRequest
 var wrUpgradeCard: WeakRef = null
 signal upgrade_card_complete
 
-# Host URL for API calls
-var host: String = BKMREngine.host
+# BKMREngine.host URL for API calls
+# var BKMREngine.host: String = BKMREngine.BKMREngine.host
 
 # Function to initiate the purchase of a card from the store.
 func upgrade_card(upgrade_cards: Dictionary) -> void:
@@ -25,7 +25,7 @@ func upgrade_card(upgrade_cards: Dictionary) -> void:
 	var payload: Dictionary = upgrade_cards
 	BKMRLogger.debug("Validate buy card payload: " + str(payload))
 
-	var request_url: String = host + "/api/upgrade/card"
+	var request_url: String = BKMREngine.host + "/api/upgrade/card"
 	BKMREngine.send_post_request(UpgradeCard, request_url, payload)
 
 # Callback function triggered upon the completion of the buy card request.

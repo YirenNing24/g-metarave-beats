@@ -51,17 +51,17 @@ var is_opened: bool = false
 #TODO fix energy countdown bug
 #region Initialization function called when the node is ready.
 func _ready() -> void:
+	hud_data()
 	signal_connect()
 	add_components()
-	hud_data()
-	#beats_server_connect()
+	BKMREngine.Auth.validate_player_session()
 	#Wait for animation completion before showing the mutuals box.
 	await animation_player.animation_finished
 	mutuals_box.show()
 	
 	
 func beats_server_connect() -> void:
-	BKMREngine.beats_server_connect()
+	BKMREngine.beats_server_connect(BKMREngine.beats_host)
 	
 	
 # Add modals (profile_modal, player_modal, stat_modal) to the filter panel.
@@ -73,13 +73,10 @@ func add_components() -> void:
 	
 # Connect chat signals to their respective handlers.
 func signal_connect() -> void:
-	#BKMREngine.Websocket.server_time.connect(_on_updated_server_time)
-	#BKMREngine.Websocket.connected.connect(_on_chat_connected)
-	#BKMREngine.Websocket.closed.connect(_on_chat_closed)
 	BKMREngine.Energy.get_energy_drink_complete.connect(_on_get_energy_drink_complete)
-	BKMREngine.Profile.get_profile_pic_complete.connect(_on_get_profile_pic)
+	#BKMREngine.Profile.get_profile_pic_complete.connect(_on_get_profile_pic)
 	BKMREngine.Auth.bkmr_session_check_complete.connect(_on_session_check_complete)
-	
+	var _connect: int = PLAYER.new_data_received.connect(hud_data)
 	
 # Checks the user session.
 func session_check() -> void:
@@ -128,7 +125,6 @@ func display_hud() -> void:
 	player_name.text = BKMREngine.Auth.logged_in_player
 	player_rank.text = PLAYER.player_rank
 	beats_balance.text = PLAYER.beats_balance
-	#native_balance.text = PLAYER.native_balance
 	
 	gmr_balance.text = PLAYER.gmr_balance
 	level.text = str(PLAYER.level)
@@ -157,6 +153,9 @@ func start_recharge_countdown(time_until_next: int) -> void:
 	
 	
 func _process(delta: float) -> void:
+	BKMREngine.Server.websocket.close()
+	BKMREngine.Server.websocket.poll()
+	
 	if PLAYER.current_energy >= PLAYER.max_energy:
 		# Max energy reached, hide recharge label
 		%EnergyRecharge.visible = false

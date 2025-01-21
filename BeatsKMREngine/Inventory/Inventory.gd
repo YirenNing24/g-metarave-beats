@@ -13,7 +13,7 @@ signal get_group_card_equipped_complete(card_equipped: Array)
 
 signal equip_item_complete(message: Dictionary)
 signal unequip_item_complete(message: Dictionary)
-var host: String = BKMREngine.host
+# var BKMREngine.host: String = BKMREngine.BKMREngine.host
 
 var OpenCardInventory: HTTPRequest
 var wrOpenCardInventory: WeakRef
@@ -55,7 +55,7 @@ func open_card_inventory() -> void:
 	BKMRLogger.info("Calling BKMREngine to get card inventory data")
 	
 	# Construct the request URL for fetching private inbox data for the specified user.
-	var request_url: String = host + "/api/card/inventory/open"
+	var request_url: String = BKMREngine.host + "/api/card/inventory/open"
 	
 	# Send a GET request to retrieve the private inbox data.
 	BKMREngine.send_get_request(OpenCardInventory, request_url)
@@ -85,7 +85,7 @@ func open_group_card_equipped(group_name: String) -> void:
 	
 	var _cards: int = OpenGroupCardEquipped.request_completed.connect(_onOpenGroupCardEquipped_request_completed)
 	
-	var request_url: String = host + "/api/card/inventory/group-equipped" + group_name
+	var request_url: String = BKMREngine.host + "/api/card/inventory/group-equipped" + group_name
 	BKMREngine.send_get_request(OpenGroupCardEquipped, request_url)
 
 
@@ -119,7 +119,7 @@ func open_card_upgrade_inventory() -> void:
 	BKMRLogger.info("Calling BKMREngine to get card inventory data")
 	
 	# Construct the request URL for fetching private inbox data for the specified user.
-	var request_url: String = host + "/api/upgrade/inventory/open"
+	var request_url: String = BKMREngine.host + "/api/upgrade/inventory/open"
 	
 	# Send a GET request to retrieve the card upgrade items
 	BKMREngine.send_get_request(OpenCardUpgradeInventory, request_url)
@@ -156,7 +156,7 @@ func open_bag_inventory() -> Node:
 	BKMRLogger.info("Calling BKMREngine to get card inventory data")
 	
 	# Construct the request URL for fetching private inbox data for the specified user.
-	var request_url: String = host + "/api/bag/inventory/open"
+	var request_url: String = BKMREngine.host + "/api/bag/inventory/open"
 	
 	# Send a GET request to retrieve the private inbox data.
 	await BKMREngine.send_get_request(OpenBagInventory, request_url)
@@ -199,7 +199,7 @@ func open_card_pack_inventory() -> void:
 	BKMRLogger.info("Calling BKMREngine to get card inventory data")
 	
 	# Construct the request URL for fetching private inbox data for the specified user.
-	var request_url: String = host + "/api/card-pack/inventory/open"
+	var request_url: String = BKMREngine.host + "/api/card-pack/inventory/open"
 	
 	# Send a GET request to retrieve the private inbox data.
 	BKMREngine.send_get_request(CardPackInventory, request_url)
@@ -249,10 +249,10 @@ func equip_item(equip_item_data: Array) -> void:
 	BKMRLogger.info("Calling BKMREngine to get card inventory data")
 	
 	# Construct the request URL for fetching private inbox data for the specified user.
-	var request_url: String = host + "/api/card/inventory/equip-item"
+	var request_url: String = BKMREngine.host + "/api/card/inventory/equip-item"
 	var payload: Array = equip_item_data
 	# Send a GET request to retrieve the private inbox data.
-	await BKMREngine.send_post_request(EquipItem, request_url, payload)
+	BKMREngine.send_post_request(EquipItem, request_url, payload)
 	
 func _onEquipItem_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check if the HTTP response indicates success.
@@ -287,10 +287,10 @@ func unequip_item(unequip_item_data: Array) -> void:
 	BKMRLogger.info("Calling BKMREngine to get card inventory data")
 	
 	# Construct the request URL for fetching private inbox data for the specified user.
-	var request_url: String = host + "/api/card/inventory/unequip-item"
+	var request_url: String = BKMREngine.host + "/api/card/inventory/unequip-item"
 	var payload: Array = unequip_item_data
 	# Send a GET request to retrieve the private inbox data.
-	await BKMREngine.send_post_request(UnequipItem, request_url, payload)
+	BKMREngine.send_post_request(UnequipItem, request_url, payload)
 
 
 func _onUnequipItem_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:

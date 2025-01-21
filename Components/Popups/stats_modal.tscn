@@ -59,7 +59,7 @@ func _ready() -> void:
 		button.modulate = \"7d7d7d\"
 	
 	# Connect the signal for stat update completion.
-	BKMREngine.Profile.stat_update_complete.connect(_on_Stat_Update_Complete)
+	#BKMREngine.Profile.stat_update_complete.connect(_on_Stat_Update_Complete)
 
 # Load existing stats from the player's saved data.
 func load_stats() -> void:

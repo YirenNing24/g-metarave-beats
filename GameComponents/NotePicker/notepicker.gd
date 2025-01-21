@@ -1,5 +1,5 @@
 extends Node3D
-
+#TODO KEY PRESS FX after 60 not showing any cool fx anymore
 
 signal position_notepicker(pos: float)
 
@@ -118,15 +118,16 @@ func hit_feedback(_note_accuracy: int, short_line: int) -> void:
 			20: "combo20",
 			30: "combo30",
 			40: "combo40",
-			50: "combo50"
+			50: "combo50"  # Trigger combo50 for 50 and above
 		}
 
 		for threshold: int in combo_thresholds.keys():
-			if combo >= threshold and combo < threshold + 10:
+			if (combo >= threshold and combo < threshold + 10) or (threshold == 50 and combo >= 50):
 				emit_spark()
 				%FXGlobe.visible = true
 				%FXGlobe.play(combo_thresholds[threshold])
 				break
+
 	
 	
 func combo_value(value: int) -> void:

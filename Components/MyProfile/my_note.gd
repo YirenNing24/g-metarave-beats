@@ -7,7 +7,8 @@ extends Control
 
 
 func _ready() -> void:
-	BKMREngine.Profile.update_my_note_complete.connect(_on_update_my_note_complete)
+	pass
+	#BKMREngine.Profile.update_my_note_complete.connect(_on_update_my_note_complete)
 
 func _on_notes_line_edit_text_submitted(my_note: String) -> void:
 	if my_note.length() > 60 or my_note.length() == 0:

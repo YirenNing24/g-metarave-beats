@@ -37,7 +37,7 @@ func _ready() -> void:
 		#BKMREngine.Score.get_classic_high_score_single(peer_id)
 	
 	
-func display_score(_experience: Dictionary) -> void:
+func display_score(rewards: Dictionary) -> void:
 	var single_score: Dictionary = MULTIPLAYER.classic_score_stats
 	score_label.text = format_scores(str(single_score["score"]))
 	combo_label.text = format_scores(str(single_score["combo"]))
@@ -56,7 +56,8 @@ func display_score(_experience: Dictionary) -> void:
 	bad_label.text = format_scores(str(single_score["bad"]))
 	miss_label.text = format_scores(str(single_score["miss"]))
 	
-	#%ExperienceValue.text = str(single_score["experienceGained"])
+	%ExperienceValue.text = str(rewards["experienceGained"])
+	%BeatsGainedValue.text = str(rewards["beatsReward"])
 	
 	BKMREngine.beats_server_peer_close()
 	%LoadingPanel.tween_kill()

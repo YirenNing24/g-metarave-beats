@@ -5,13 +5,12 @@ const version: String = "0.1"
 
 # Godot engine version
 var godot_version: String = Engine.get_version_info().string
-#var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 var peer: WebSocketMultiplayerPeer = WebSocketMultiplayerPeer.new()
 
 
 # Configuration variables
 #var host_ip: String = "localhost"
-const host_ip: String = "api-sg.gmetarave.asia"
+var host_ip: String = "api-sg.gmetarave.asia"
 #const beats_host_ip: String = "game.gmetarave.com"
 #const host_ip: String = "192.168.2.61"
 const port: String = ":8085"
@@ -19,10 +18,10 @@ const port: String = ":8085"
 const beats_port: int = 8088
 #const beats_port: String = ""
 
-var google_server_client_id: String = "484949065971-ujoksdio9417hnvd5goaclrvlnsv6704.apps.googleusercontent.com"
+const google_server_client_id: String = "484949065971-ujoksdio9417hnvd5goaclrvlnsv6704.apps.googleusercontent.com"
 #var host: String = "http://" + host_ip + port
 var host: String = "https://" + host_ip
-var beats_host: String = "sg-game.gmetarave.asia"
+var beats_host: String = ""
 
 var session: bool = false
 
@@ -50,6 +49,7 @@ const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 @onready var Gacha: Node = Node.new()
 @onready var Notification: Node = Node.new()
 @onready var Energy: Node = Node.new()
+@onready var Server: Node = Node.new()
 
 # Configuration dictionaries
 @onready var config: Dictionary = {}
@@ -73,6 +73,7 @@ var reward_script: Script = load("res://BeatsKMREngine/Reward/Reward.gd")
 var gacha_script: Script = load("res://BeatsKMREngine/Gacha/Gacha.gd")
 var notification_script: Script = load("res://BeatsKMREngine/Notification/Notification.gd")
 var energy_script: Script = load("res://BeatsKMREngine/Energy/Energy.gd")
+var server_script: Script = load("res://BeatsKMREngine/Server/Server.gd")
 
 func _ready() -> void:
 	print("BKMR ready start timestamp: " + str(BKMRUtils.get_timestamp()))
@@ -82,6 +83,7 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
+	peer.poll()
 	if peer.get_connection_status() != 2:
 		game_connected = false
 		
@@ -101,6 +103,7 @@ func initialize_script() -> void:
 	Gacha.set_script(gacha_script)
 	Notification.set_script(notification_script)
 	Energy.set_script(energy_script)
+	Server.set_script(server_script)
 	
 	
 #Add child nodes for different modules
@@ -118,13 +121,18 @@ func add_child_nodes() -> void:
 	add_child(Gacha)
 	add_child(Notification)
 	add_child(Energy)
+	add_child(Server)
 	print("BKMR ready end timestamp: " + str(BKMRUtils.get_timestamp()))
 		
 		
-func beats_server_connect() -> void:
+func beats_server_connect(host_url: String = "wss://sg-game.gmetarave.asia") -> void:
 	var connection: int = peer.get_connection_status()
 	if game_connected == false:
-		var _result: Error = peer.create_client("wss://" + beats_host)
+		
+		peer.poll()
+		peer.handshake_timeout = 5.0
+		var _result: Error = peer.create_client(host_url)
+
 		multiplayer.multiplayer_peer = peer
 	if connection != 2: #connected
 		game_connected = false
@@ -151,6 +159,7 @@ func free_request(weak_ref: WeakRef, object: HTTPRequest) -> void:
 	if (weak_ref.get_ref()):
 		object.queue_free()
 
+
 # Prepares an HTTP request and returns a dictionary containing the request object and its WeakRef.
 func prepare_http_request() -> Dictionary:
 	var request: HTTPRequest = HTTPRequest.new()
@@ -164,12 +173,11 @@ func prepare_http_request() -> Dictionary:
 		"weakref": weak_ref
 	}
 	return return_dict as Dictionary
-
+	
+	
 # Sends a GET request using the provided HTTPRequest object to the specified URL.
 func send_get_request(http_node: HTTPRequest, request_url: String) -> void:
 	var headers: Array = [
-		#"x-api-key: " + BKMREngine.config.apiKey, 
-		#"x-api-id: " + BKMREngine.config.apiId,
 		"x-bkmr-plugin-version: " + BKMREngine.version,
 		"x-bkmr-godot-version: " + godot_version,
 	]
@@ -187,8 +195,6 @@ func send_get_request(http_node: HTTPRequest, request_url: String) -> void:
 func send_post_request(http_node: HTTPRequest, request_url: String, payload: Variant) -> void:
 	var headers: Array = [
 		"content-Type: application/json",
-		#"x-api-key: " + BKMREngine.config.apiKey,
-		#"x-api-id: " + BKMREngine.config.apiId,
 		"x-bkmr-plugin-version: " + BKMREngine.version,
 		"x-bkmr-godot-version: " + godot_version,
 	]
@@ -207,7 +213,6 @@ func send_post_request(http_node: HTTPRequest, request_url: String, payload: Var
 func send_login_request(http_node: HTTPRequest, request_url: String, payload: Dictionary) -> void:
 	var headers: Array = [
 		"content-Type: application/json",
-		#"x-api-key: " + BKMREngine.config.apiKey,
 		"x-bkmr-plugin-version: " + BKMREngine.version,
 		"x-bkmr-godot-version: " + godot_version,
 	]

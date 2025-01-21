@@ -4,7 +4,7 @@ extends Node
 const BKMRUtils: Script = preload("res://BeatsKMREngine/utils/BKMRUtils.gd")
 
 # Host URL for server communication.
-var host: String = BKMREngine.host
+# var host: String = BKMREngine.host
 
 var GetNotifications: HTTPRequest
 var wrGetNotifications: WeakRef
@@ -21,7 +21,7 @@ func get_notifications() -> void:
 	var _connect: int = GetNotifications.request_completed.connect(_on_GetNotifications_request_completed)
 	
 	# Construct the request URL for fetching leaderboard data.
-	var request_url: String = host + "/api/notification"
+	var request_url: String = BKMREngine.host + "/api/notification"
 
 	# Send the GET request using the prepared URL.
 	BKMREngine.send_get_request(GetNotifications, request_url)

@@ -7,7 +7,7 @@ const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 signal get_energy_drink_complete(energy_drinks: Array)
 
 # Host URL for server communication.
-var host: String = BKMREngine.host
+# var host: String = BKMREngine.host
 
 var GetEnergyDrink: HTTPRequest
 var wrGetEnergyDrink: WeakRef
@@ -26,7 +26,7 @@ func get_energy_drink() -> void:
 	BKMRLogger.info("Calling BKMREngine to get leaderboard data")
 	
 	# Construct the request URL for fetching leaderboard data.
-	var request_url: String = host + "/api/energy-drinks/get"
+	var request_url: String = BKMREngine.host + "/api/energy-drinks/get"
 
 	# Send the GET request using the prepared URL.
 	BKMREngine.send_get_request(GetEnergyDrink, request_url)

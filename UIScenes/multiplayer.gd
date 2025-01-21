@@ -21,10 +21,8 @@ func loading_finished(peer_id: int) -> void:
 	
 	
 @rpc("authority", 'call_remote', "reliable")
-func get_player_jwt(peer_id: int) -> void:
-	print("sana may laman: ", BKMREngine.Auth.logged_in_player)
-	
-	print(BKMREngine.Auth.access_token)
+func get_player_jwt(peer_id: int) -> void:	
+	print("sana may laman: ", BKMREngine.Auth.access_token)
 	send_jwt_to_server.rpc_id(1, BKMREngine.Auth.access_token, peer_id, BKMREngine.Auth.logged_in_player)
 	
 

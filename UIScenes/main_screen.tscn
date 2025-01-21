@@ -44,7 +44,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtby7"]
 bg_color = Color(0.396078, 0.396078, 0.396078, 0.219608)
 
-[sub_resource type="Shader" id="Shader_iaf8f"]
+[sub_resource type="Shader" id="Shader_30skf"]
 code = "shader_type canvas_item;
 render_mode unshaded, blend_mix;
 
@@ -96,7 +96,7 @@ void fragment() {
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uxswq"]
-shader = SubResource("Shader_iaf8f")
+shader = SubResource("Shader_30skf")
 shader_parameter/ScaleMult = Vector2(0.99, 1)
 shader_parameter/AuraProgres = 1.0
 shader_parameter/TextureLaodMult = 8.0
@@ -790,7 +790,6 @@ texture = ExtResource("20_i5os4")
 expand_mode = 1
 
 [node name="MissionsButton" type="TextureButton" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3" groups=["MainButtons"]]
-modulate = Color(0.231373, 0.231373, 0.231373, 1)
 self_modulate = Color(0.775064, 0.775063, 0.775063, 1)
 custom_minimum_size = Vector2(220, 55)
 layout_mode = 2
@@ -871,10 +870,12 @@ texture = ExtResource("20_33vu5")
 expand_mode = 1
 
 [node name="LeaderboardButton" type="TextureButton" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3" groups=["MainButtons"]]
+modulate = Color(0.712129, 0.712129, 0.712129, 0.203922)
 self_modulate = Color(0.775064, 0.775063, 0.775063, 1)
 custom_minimum_size = Vector2(220, 55)
 layout_mode = 2
 size_flags_vertical = 0
+disabled = true
 texture_normal = ExtResource("3_i1nbb")
 ignore_texture_size = true
 stretch_mode = 0

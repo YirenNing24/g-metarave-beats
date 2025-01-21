@@ -7,8 +7,8 @@ const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 
 signal open_card_pack_complete(message: Dictionary)
 
-# Host URL for server communication.
-var host: String = BKMREngine.host
+# BKMREngine.host URL for server communication.
+# var BKMREngine.host: String = BKMREngine.BKMREngine.host
 
 var OpenCardPack: HTTPRequest
 var wrOpenCardPack: WeakRef
@@ -21,7 +21,7 @@ func open_card_pack(classic_score_stats: Dictionary) -> void:
 	
 	var _connect: int = OpenCardPack.request_completed.connect(_on_OpenCardPack_request_completed)
 	
-	var request_url: String = host + "/api/gacha/open/card-pack"
+	var request_url: String = BKMREngine.host + "/api/gacha/open/card-pack"
 	var payload: Dictionary = classic_score_stats
 	
 	BKMREngine.send_post_request(OpenCardPack, request_url, payload)

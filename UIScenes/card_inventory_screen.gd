@@ -22,7 +22,7 @@ func _ready() -> void:
 	BKMREngine.Inventory.get_card_inventory_complete.connect(card_inventory_open)
 	BKMREngine.Inventory.get_card_inventory_complete.connect(equipment_slot_open)
 	BKMREngine.Inventory.open_card_inventory()
-	
+
 	
 func card_inventory_open(inventory_data: Array) -> void:
 	var card_inventory_slot: Control
@@ -48,6 +48,7 @@ func card_inventory_open(inventory_data: Array) -> void:
 		card_inventory_slot.get_node('CardIcon').slot_data()
 		card_inventory_slot.get_node('CardIcon').data_card.connect(_on_inventory_card_pressed)
 	%LoadingPanel.tween_kill()
+		
 		
 func equipment_slot_open(inventory_data: Array) -> void:
 	for cardslots: TextureRect in get_tree().get_nodes_in_group('CardSlot'):
@@ -91,7 +92,8 @@ func irohm_equipped(uri: String, card_data: Dictionary) -> void:
 	card_data.origin_equipment_slot = card_data[uri].slot
 	for cardslots: TextureRect in get_tree().get_nodes_in_group("IROHMSlot"):
 		cardslots.equip(uri, card_data, "init")
-
+	
+	
 # Callback function for the close button pressed signal.
 func _on_close_button_pressed() -> void:
 	# Attempt automatic login and wait for the session check to complete.

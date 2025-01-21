@@ -37,7 +37,7 @@ func signal_connect() -> void:
 	BKMREngine.Social.view_profile_complete.connect(_on_stat_display)
 	BKMREngine.Social.follow_complete.connect(_on_follow_complete)
 	BKMREngine.Social.unfollow_complete.connect(_on_unfollow_complete)
-	BKMREngine.Profile.get_player_profile_pic_complete.connect(_on_get_player_profile_pic_complete)
+	#BKMREngine.Profile.get_player_profile_pic_complete.connect(_on_get_player_profile_pic_complete)
 	BKMREngine.Social.get_followers_following_count_complete.connect(_get_followers_following_count_complete)
 	BKMREngine.Social.get_followers_following_complete.connect(_get_followers_following_complete)
 	

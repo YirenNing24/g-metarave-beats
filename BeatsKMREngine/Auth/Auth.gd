@@ -34,7 +34,7 @@ var VerifyEmail: String
 var ResendConfCode: String
 
 # Server host URL
-var host: String = BKMREngine.host
+#var host: String = BKMREngine.host
 
 
 var access_token: String
@@ -146,7 +146,7 @@ func validate_player_session() -> void:
 	# Log the payload details
 	BKMRLogger.debug("Validate session payload: " + str(payload))
 	# Construct the request URL
-	var request_url: String = host + "/api/validate-session/beats"
+	var request_url: String = BKMREngine.host + "/api/validate-session/beats"
 	# Send the POST request for session validation
 	BKMREngine.send_login_request(ValidateSession, request_url, payload)
 	# Return the current script instance
@@ -211,7 +211,7 @@ func register_player(username: String, password: String ) -> void:
 		"deviceId": OS.get_model_name()
 	}
 	
-	var request_url: String = host + "/api/register/beats"
+	var request_url: String = BKMREngine.host + "/api/register/beats"
 	BKMREngine.send_post_request(RegisterPlayer, request_url, payload)
 
 
@@ -249,7 +249,7 @@ func register_google(token: String) -> void:
 	var payload: Dictionary = {
 		"serverToken": token
 	}
-	var request_url: String = host + "/api/register/google"
+	var request_url: String = BKMREngine.host + "/api/register/google"
 	BKMREngine.send_post_request(GoogleRegisterPlayer, request_url, payload)
 	
 	
@@ -284,8 +284,8 @@ func register_google_passkey(username: String) -> void:
 	var _register_signal: int = GoogleRegisterPasskey.request_completed.connect(_on_GoogleRegisterPasskey_request_completed)
 	
 	# Prepare payload and send a POST request
-	var payload: Dictionary = {"username": username}
-	var request_url: String = host + "/api/register/passkey"
+	var payload: Dictionary = { "username": username }
+	var request_url: String = BKMREngine.host + "/api/register/passkey"
 	BKMREngine.send_post_request(GoogleRegisterPasskey, request_url, payload)
 	
 	
@@ -324,7 +324,7 @@ func _beats_passkey_registration_verification(result: Dictionary) -> void:
 	result.deviceId = OS.get_model_name()
 	# Prepare payload and send a POST request
 	var payload: Dictionary = result
-	var request_url: String = host + "/api/register/passkey/verify-registration"
+	var request_url: String = BKMREngine.host + "/api/register/passkey/verify-registration"
 	BKMREngine.send_post_request(GoogleVerifyPasskey, request_url, payload)
 	
 	
@@ -375,7 +375,7 @@ func login_player_google_passkey(username: String) -> void:
 	
 	# Prepare payload and send a POST request
 	var payload: Dictionary = {"username": username}
-	var request_url: String = host + "/api/login/passkey"
+	var request_url: String = BKMREngine.host + "/api/login/passkey"
 	BKMREngine.send_post_request(GoogleLoginPasskey, request_url, payload)
 	
 		
@@ -417,7 +417,7 @@ func _beats_passkey_login_verification(result: Dictionary) -> void:
 
 	# Prepare payload and send a POST request
 	var payload: Dictionary = result
-	var request_url: String = host + "/api/login/passkey/verify-auth"
+	var request_url: String = BKMREngine.host + "/api/login/passkey/verify-auth"
 	BKMREngine.send_post_request(GoogleVerifyPasskeyLogin, request_url, payload)
 		
 		
@@ -485,7 +485,7 @@ func login_player(username: String, password: String) -> void:
 	BKMRLogger.debug("BKMREngine login player payload: " + str(payload_for_logging))
 	
 	# Define the request URL for player login
-	var request_url: String = host + "/api/login/beats"
+	var request_url: String = BKMREngine.host + "/api/login/beats"
 	
 	# Send the POST request to initiate player login
 	BKMREngine.send_login_request(LoginPlayer, request_url, payload)
@@ -556,7 +556,7 @@ func google_login_player(token: String) -> void:
 	BKMRLogger.debug("BKMREngine login player payload: " + str(payload_for_logging))
 	
 	# Define the request URL for player login
-	var request_url: String = host + "/api/login/google"
+	var request_url: String = BKMREngine.host + "/api/login/google"
 	
 	# Send the POST request to initiate player login
 	BKMREngine.send_post_request(GoogleLoginPlayer, request_url, payload)
@@ -687,7 +687,7 @@ func request_new_access_token() -> void:
 	var payload: Dictionary = {}
 	# Log the payload details
 	BKMRLogger.debug("Validate session payload: " + str(payload))
-	var request_url: String = host + "/api/renew/access"
+	var request_url: String = BKMREngine.host + "/api/renew/access"
 	# Send the POST request for session validation
 	BKMREngine.send_login_request(RenewToken, request_url, payload)
 	# Return the current script instance

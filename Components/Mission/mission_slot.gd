@@ -1,5 +1,6 @@
 extends Control
 
+signal claim_personal_mission_started
 signal claim_personal_mission_reward_complete(reward_name: String, reward_amount: int)
 
 
@@ -23,19 +24,28 @@ func mission_slot_data(mission_data: Dictionary) -> void:
 	%RewardLabel.text = str(reward_amount) + " " + reward_name.to_upper()
 	
 	%ClaimButton.pressed.connect(_on_claim_button_pressed.bind(mission_data.name))
+	%DescriptionLabel.text = mission_data.requirement.criteria.description
+	
 	modulate_button_color(elligble)
 	
 func modulate_button_color(elligible: bool) -> void:
 	if elligible:
 		%ClaimButton.modulate = "ffffff00"
-		
+		%ClaimButton.disabled = false
+	else:
+		%ClaimButton.disabled = true
 		
 func _on_claim_button_pressed(mission_name: String) -> void:
 	BKMREngine.Reward.claim_personal_mission_reward(mission_name)
-
-
-func claim_personal_mission_reward_completed(messsage: Dictionary) -> void:
-	if messsage.has("error"):
+	claim_personal_mission_started.emit()
+	
+	
+func claim_personal_mission_reward_completed(message: Dictionary) -> void:
+	
+	if message.has("error"):
 		claim_personal_mission_reward_complete.emit(reward_name, 0)
-	else:
+	elif message.has("success"):
+		modulate_button_color(true)
+		%ClaimButton.modulate = "ffffffff"
+		%ClaimButton.disabled = true
 		claim_personal_mission_reward_complete.emit(reward_name, reward_amount)

@@ -31,7 +31,7 @@ var wrBuyCardUpgradeItem: WeakRef = null
 signal buy_card_upgrade_item_complete(message: Dictionary)
 
 # Host URL for API calls
-var host: String = BKMREngine.host
+#var host: String = BKMREngine.host
 
 
 # Function to get store items based on item type.
@@ -48,7 +48,7 @@ func get_valid_cards() -> void:
 	BKMRLogger.info("Calling BKMREngine to get cards on sale data")
 	
 	# Construct the request URL
-	var request_url: String = host + "/api/store/cards/valid"
+	var request_url: String = BKMREngine.host + "/api/store/cards/valid"
 	
 	# Send the HTTP GET request asynchronously
 	BKMREngine.send_get_request(GetValidCards, request_url)
@@ -94,7 +94,7 @@ func get_valid_card_packs() -> void:
 	BKMRLogger.info("Calling BKMREngine to get cards on sale data")
 	
 	# Construct the request URL
-	var request_url: String = host + "/api/store/card-packs/valid"
+	var request_url: String = BKMREngine.host + "/api/store/card-packs/valid"
 	
 	# Send the HTTP GET request asynchronously
 	BKMREngine.send_get_request(GetValidCardPacks, request_url)
@@ -136,7 +136,7 @@ func buy_card_pack(uri: String, listing_id: int) -> void:
 	var payload: Dictionary = { "listingId": listing_id, "uri": uri }
 	BKMRLogger.debug("Validate buy card payload: " + str(payload))
 
-	var request_url: String = host + "/api/store/card-packs/buy"
+	var request_url: String = BKMREngine.host + "/api/store/card-packs/buy"
 	BKMREngine.send_post_request(BuyCardPack, request_url, payload)
 	
 	
@@ -174,7 +174,7 @@ func buy_card(uri: String, listing_id: int, price: String) -> void:
 	var payload: Dictionary = { "listingId": listing_id, "uri": uri, "price": price }
 	BKMRLogger.debug("Validate buy card payload: " + str(payload))
 
-	var request_url: String = host + "/api/store/cards/buy"
+	var request_url: String = BKMREngine.host + "/api/store/cards/buy"
 	BKMREngine.send_post_request(BuyCard, request_url, payload)
 
 
@@ -215,7 +215,7 @@ func buy_card_upgrade(card_upgrade_data: Dictionary) -> void:
 	var payload: Dictionary = card_upgrade_data
 	BKMRLogger.debug("Validate buy card payload: " + str(payload))
 
-	var request_url: String = host + "/api/store/card-upgrade/buy"
+	var request_url: String = BKMREngine.host + "/api/store/card-upgrade/buy"
 	BKMREngine.send_post_request(BuyCardUpgradeItem, request_url, payload)
 	
 
@@ -252,10 +252,10 @@ func get_valid_card_upgrades() -> void:
 	BKMRLogger.info("Calling BKMREngine to get cards on sale data")
 	
 	# Construct the request URL
-	var request_url: String = host + "/api/store/card-upgrades/valid"
+	var request_url: String = BKMREngine.host + "/api/store/card-upgrades/valid"
 	
 	# Send the HTTP GET request asynchronously
-	await BKMREngine.send_get_request(GetValidCardUpgrades, request_url)
+	BKMREngine.send_get_request(GetValidCardUpgrades, request_url)
 
 
 # Callback function triggered when the get cards request is completed.

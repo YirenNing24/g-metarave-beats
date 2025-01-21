@@ -4,8 +4,8 @@ extends Node
 const BKMRUtils: Script = preload("res://BeatsKMREngine/utils/BKMRUtils.gd")
 const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 
-# Host URL for server communication.
-var host: String = BKMREngine.host
+# BKMREngine.host URL for server communication.
+# var BKMREngine.host: String = BKMREngine.BKMREngine.host
 
 # HTTPRequest objects and WeakRefs for view profile, follow, unfollow, and get mutual followers.
 var ViewProfile: HTTPRequest
@@ -94,7 +94,7 @@ func view_profile(username: String) -> void:
 	BKMRLogger.info("Calling BKMREngine to get cards on sale data")
 	
 	# Prepare the request URL for viewing the player's profile.
-	var request_url: String = host + "/api/social/viewprofile/" + username
+	var request_url: String = BKMREngine.host + "/api/social/viewprofile/" + username
 	
 	# Send the GET request to view the player's profile.
 	BKMREngine.send_get_request(ViewProfile, request_url)
@@ -133,7 +133,7 @@ func follow(to_follow: String) -> void:
 	var payload: Dictionary = { "toFollow": to_follow }
 	
 	# Construct the request URL.
-	var request_url: String = host + "/api/social/follow"
+	var request_url: String = BKMREngine.host + "/api/social/follow"
 	
 	# Send the POST request to initiate the follow action.
 	BKMREngine.send_post_request(Follow, request_url, payload)
@@ -172,7 +172,7 @@ func unfollow(to_unfollow: String) -> void:
 	var payload: Dictionary = { "toUnfollow": to_unfollow }
 	
 	# Set the request URL for the unfollow action.
-	var request_url: String = host + "/api/social/unfollow"
+	var request_url: String = BKMREngine.host + "/api/social/unfollow"
 	
 	# Send the POST request to unfollow the specified player.
 	BKMREngine.send_post_request(Unfollow, request_url, payload)
@@ -211,7 +211,7 @@ func get_mutual() -> void:
 	BKMRLogger.info("Calling BKMREngine to get mutual followers data")
 	
 	# Specify the request URL for retrieving mutual followers data.
-	var request_url: String = host + "/api/social/list/mutual"
+	var request_url: String = BKMREngine.host + "/api/social/list/mutual"
 	
 	BKMREngine.send_get_request(Mutual, request_url)
 
@@ -248,7 +248,7 @@ func get_following_followers_count(username: String = "") -> void:
 	BKMRLogger.info("Calling BKMREngine to get mutual followers data")
 	
 	# Specify the request URL for retrieving mutual followers data, using the username as a path parameter.
-	var request_url: String = host + "/api/social/follower-following/count/" + username
+	var request_url: String = BKMREngine.host + "/api/social/follower-following/count/" + username
 	
 	BKMREngine.send_get_request(FollowersFollowingCount, request_url)
 
@@ -286,7 +286,7 @@ func get_following_followers(username: String = "") -> void:
 	BKMRLogger.info("Calling BKMREngine to get mutual followers data")
 	
 	# Construct the request URL, optionally including the username as a path parameter.
-	var request_url: String = host + "/api/social/follower-following"
+	var request_url: String = BKMREngine.host + "/api/social/follower-following"
 	if username != "":
 		request_url += "/" + username  # Append the username if provided
 	
@@ -333,7 +333,7 @@ func set_status_online(activity: String) -> void:
 	var payload: Dictionary = { "activity": activity, "userAgent": user_agent, "osName": os_name }
 	
 	# Construct the request URL.
-	var request_url: String = host + "/api/social/status/online"
+	var request_url: String = BKMREngine.host + "/api/social/status/online"
 	
 	# Send the POST request to initiate the follow action.
 	BKMREngine.send_post_request(OnlineStatus, request_url, payload)
@@ -360,7 +360,7 @@ func get_mutual_status() -> void:
 	
 	# Connect the callback function for handling mutual followers request completion.
 	var _mutuals_status: int = MutualStatus.request_completed.connect(_on_MutualStatus_request_completed)
-	var request_url: String = host + "/api/social/mutual/online"
+	var request_url: String = BKMREngine.host + "/api/social/mutual/online"
 	
 	# Initiate the GET request and await its completion.
 	BKMREngine.send_get_request(MutualStatus, request_url)
@@ -397,7 +397,7 @@ func gift_card(card_gift_data: Dictionary) -> void:
 	var payload: Dictionary = card_gift_data
 	
 	# Construct the request URL.
-	var request_url: String = host + "/api/social/gift/card"
+	var request_url: String = BKMREngine.host + "/api/social/gift/card"
 	BKMREngine.send_post_request(GiftCard, request_url, payload)
 	
 	
@@ -434,7 +434,7 @@ func post_fan_moments(fan_moment_data: Dictionary) -> void:
 	var payload: Dictionary = fan_moment_data
 	
 	# Construct the request URL.
-	var request_url: String = host + "/api/social/fanmoments/post"
+	var request_url: String = BKMREngine.host + "/api/social/fanmoments/post"
 	
 	# Send the POST request to initiate the follow action.
 	BKMREngine.send_post_request(PostFanMoments, request_url, payload)
@@ -471,7 +471,7 @@ func get_hot_fan_moments(limit: int, offset: int) -> void:
 	
 	# Connect the callback function for handling mutual followers request completion.
 	var _mutuals_status: int = GetHotFanMoments.request_completed.connect(_on_GetHotFanMoments_request_completed)
-	var request_url: String = host + "/api/social/hot/fanmoments?limit=%d&offset=%d" % [limit, offset]
+	var request_url: String = BKMREngine.host + "/api/social/hot/fanmoments?limit=%d&offset=%d" % [limit, offset]
 	
 	# Initiate the GET request and await its completion.
 	BKMREngine.send_get_request(GetHotFanMoments, request_url)
@@ -507,7 +507,7 @@ func get_my_fan_moments(limit: int, offset: int) -> void:
 	
 	# Connect the callback function for handling mutual followers request completion.
 	var _mutuals_status: int = GetMyFanMoments.request_completed.connect(_on_GetMyFanMoments_request_completed)
-	var request_url: String = host + "/api/social/my/fanmoments?limit=%d&offset=%d" % [limit, offset]
+	var request_url: String = BKMREngine.host + "/api/social/my/fanmoments?limit=%d&offset=%d" % [limit, offset]
 	
 	# Initiate the GET request and await its completion.
 	BKMREngine.send_get_request(GetMyFanMoments, request_url)
@@ -543,7 +543,7 @@ func get_latest_fan_moments(limit: int, offset: int) -> void:
 	
 	# Connect the callback function for handling mutual followers request completion.
 	var _mutuals_status: int = GetLatestFanMoments.request_completed.connect(_on_GetMyLatestMoments_request_completed)
-	var request_url: String = host + "/api/social/latest/fanmoments?limit=%d&offset=%d" % [limit, offset]
+	var request_url: String = BKMREngine.host + "/api/social/latest/fanmoments?limit=%d&offset=%d" % [limit, offset]
 	
 	# Initiate the GET request and await its completion.
 	BKMREngine.send_get_request(GetLatestFanMoments, request_url)
@@ -579,7 +579,7 @@ func get_following_fan_moments(limit: int, offset: int) -> void:
 	
 	# Connect the callback function for handling mutual followers request completion.
 	var _mutuals_status: int = GetFollowingFanMoments.request_completed.connect(_on_GetFollowingFanMoments_request_completed)
-	var request_url: String = host + "/api/social/following/fanmoments?limit=%d&offset=%d" % [limit, offset]
+	var request_url: String = BKMREngine.host + "/api/social/following/fanmoments?limit=%d&offset=%d" % [limit, offset]
 	
 	# Initiate the GET request and await its completion.
 	BKMREngine.send_get_request(GetFollowingFanMoments, request_url)
@@ -620,7 +620,7 @@ func like_fan_moment(moment_id: String) -> void:
 	var payload: Dictionary = { "id": moment_id }
 	
 	# Specify the request URL for profile picture upload.
-	var request_url: String = host + "/api/social/fanmoments/like"
+	var request_url: String = BKMREngine.host + "/api/social/fanmoments/like"
 	
 	# Send a POST request to upload the profile picture.
 	BKMREngine.send_post_request(LikeFanMoments, request_url, payload)
@@ -664,7 +664,7 @@ func unlike_fan_moment(moment_id: String) -> void:
 	var payload: Dictionary = { "id": moment_id }
 	
 	# Specify the request URL for profile picture upload.
-	var request_url: String = host + "/api/social/fanmoments/unlike"
+	var request_url: String = BKMREngine.host + "/api/social/fanmoments/unlike"
 	
 	# Send a POST request to upload the profile picture.
 	BKMREngine.send_post_request(UnlikeFanMoments, request_url, payload)
@@ -707,7 +707,7 @@ func comment_fan_moment(comment_data: Dictionary) -> void:
 	var payload: Dictionary = comment_data
 	
 	# Specify the request URL for profile picture upload.
-	var request_url: String = host + "/api/social/fanmoments/comment"
+	var request_url: String = BKMREngine.host + "/api/social/fanmoments/comment"
 	
 	# Send a POST request to upload the profile picture.
 	BKMREngine.send_post_request(CommentFanMoment, request_url, payload)

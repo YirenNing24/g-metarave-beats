@@ -65,8 +65,8 @@ var GetProfilePics: HTTPRequest = null
 var wrGetProfilePics: WeakRef = null
 signal get_profile_pics_complete(pics: Array)
 
-# Host URL for server communication.
-var host: String = BKMREngine.host
+# BKMREngine.host URL for server communication.
+# var BKMREngine.host: String = BKMREngine.BKMREngine.host
 
 # Array to store profile picture URLs.
 var profilePicURLs: Array
@@ -84,7 +84,7 @@ func update_statpoints_saved(stat_points_saved: Dictionary) -> Node:
 	
 	# Set the payload and request URL for updating stat points.
 	var payload: Dictionary = stat_points_saved
-	var request_url: String = host + "/api/update/statpoints"
+	var request_url: String = BKMREngine.host + "/api/update/statpoints"
 	
 	# Send the POST request to update stat points on the server.
 	BKMREngine.send_post_request(UpdateStatPointsSaved, request_url, payload)
@@ -127,7 +127,7 @@ func upload_profile_pic(image_buffer: PackedByteArray) -> void:
 	var payload: Dictionary = { "bufferData": image_buffer }
 	
 	# Specify the request URL for profile picture upload.
-	var request_url: String = host + "/api/upload/dp/"
+	var request_url: String = BKMREngine.host + "/api/upload/dp/"
 	
 	# Send a POST request to upload the profile picture.
 	BKMREngine.send_post_request(UploadProfilePicture, request_url, payload)
@@ -167,7 +167,7 @@ func get_profile_pic() -> void:
 	BKMRLogger.info("Calling BKMREngine to get profile picture data")
 	
 	# Construct the request URL for fetching profile pictures for the specified user.
-	var request_url: String = host + "/api/open/profilepic/"
+	var request_url: String = BKMREngine.host + "/api/open/profilepic/"
 
 	# Send a GET request to retrieve the profile pictures.
 	BKMREngine.send_get_request(GetProfilePicture, request_url)
@@ -210,7 +210,7 @@ func get_player_profile_pic(player_username: String) -> void:
 	BKMRLogger.info("Calling BKMREngine to get profile picture data")
 	
 	# Construct the request URL for fetching profile pictures for the specified user.
-	var request_url: String = host + "/api/open/playerprofilepic/" + player_username
+	var request_url: String = BKMREngine.host + "/api/open/playerprofilepic/" + player_username
 
 	# Send a GET request to retrieve the profile pictures.
 	BKMREngine.send_get_request(GetPlayerProfilePicture, request_url)
@@ -253,7 +253,7 @@ func like_profile_picture(picture_id: String) -> void:
 	var payload: Dictionary = { "id": picture_id }
 	
 	# Specify the request URL for profile picture upload.
-	var request_url: String = host + "/api/like/profilepic"
+	var request_url: String = BKMREngine.host + "/api/like/profilepic"
 	
 	# Send a POST request to upload the profile picture.
 	BKMREngine.send_post_request(LikeProfilePicture, request_url, payload)
@@ -296,7 +296,7 @@ func unlike_profile_picture(picture_id: String) -> void:
 	var payload: Dictionary = { "id": picture_id }
 	
 	# Specify the request URL for profile picture upload.
-	var request_url: String = host + "/api/unlike/profilepic"
+	var request_url: String = BKMREngine.host + "/api/unlike/profilepic"
 	
 	# Send a POST request to upload the profile picture.
 	BKMREngine.send_post_request(UnlikeProfilePicture, request_url, payload)
@@ -337,7 +337,7 @@ func change_profile_picture(picture_id: String) -> void:
 	var payload: Dictionary = { "id": picture_id }
 	
 	# Specify the request URL for profile picture upload.
-	var request_url: String = host + "/api/change/profilepic"
+	var request_url: String = BKMREngine.host + "/api/change/profilepic"
 	
 	# Send a POST request to upload the profile picture.
 	BKMREngine.send_post_request(UnlikeProfilePicture, request_url, payload)
@@ -377,7 +377,7 @@ func save_preference(preferences_data: Dictionary) -> void:
 	
 	# Set the payload and request URL for updating stat points.
 	var payload: Dictionary = preferences_data
-	var request_url: String = host + "/api/profile/preference/save"
+	var request_url: String = BKMREngine.host + "/api/profile/preference/save"
 	
 	# Send the POST request to update stat points on the server.
 	BKMREngine.send_post_request(SavePreference, request_url, payload)
@@ -408,7 +408,7 @@ func get_soul() -> void:
 	
 	# Connect the callback function to handle the completion of the private inbox data request.
 	var _soul: int = GetPreference.request_completed.connect(_onGetSoul_request_completed)
-	var request_url: String = host + "/api/profile/preference/soul"
+	var request_url: String = BKMREngine.host + "/api/profile/preference/soul"
 	BKMREngine.send_get_request(GetPreference, request_url)
 
 func _onGetSoul_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
@@ -432,7 +432,7 @@ func get_card_count() -> void:
 	
 	BKMRLogger.info("Calling BKMREngine to get preferences")
 	var _count: int = GetCardCount.request_completed.connect(_onGetCardCount_request_completed)
-	var request_url: String = host + "/api/profile/card/count"
+	var request_url: String = BKMREngine.host + "/api/profile/card/count"
 	BKMREngine.send_get_request(GetCardCount, request_url)
 	
 func _onGetCardCount_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
@@ -455,7 +455,7 @@ func get_card_collection() -> void:
 	
 	BKMRLogger.info("Calling BKMREngine to get preferences")
 	var _count: int = GetCardCollection.request_completed.connect(_onGetCardCollection_request_completed)
-	var request_url: String = host + "/api/profile/card/collection"
+	var request_url: String = BKMREngine.host + "/api/profile/card/collection"
 	BKMREngine.send_get_request(GetCardCollection, request_url)
 	
 func _onGetCardCollection_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
@@ -484,7 +484,7 @@ func update_my_note(my_note: String) -> void:
 	var payload: Dictionary = { "note": my_note }
 	
 	# Specify the request URL for profile picture upload.
-	var request_url: String = host + "/api/mynote/update"
+	var request_url: String = BKMREngine.host + "/api/mynote/update"
 	
 	# Send a POST request to upload the profile picture.
 	BKMREngine.send_post_request(UpdateMyNote, request_url, payload)
@@ -524,7 +524,7 @@ func get_my_note() -> void:
 	var _upload: int = GetMyNote.request_completed.connect(_on_GetMyNote_request_completed)
 	
 	# Specify the request URL for profile picture upload.
-	var request_url: String = host + "/api/mynote/latest"
+	var request_url: String = BKMREngine.host + "/api/mynote/latest"
 	
 	# Send a POST request to upload the profile picture.
 	BKMREngine.send_get_request(GetMyNote, request_url)
@@ -562,7 +562,7 @@ func get_profile_pics(usernames: Array) -> void:
 	var payload: Array = usernames
 	
 	# Specify the request URL for profile picture upload.
-	var request_url: String = host + "/api/open/profilepics"
+	var request_url: String = BKMREngine.host + "/api/open/profilepics"
 	
 	# Send a POST request to upload the profile picture.
 	BKMREngine.send_post_request(GetProfilePics, request_url, payload)

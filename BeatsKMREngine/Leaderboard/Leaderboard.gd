@@ -6,8 +6,8 @@ const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 
 signal get_classic_leaderboard_complete(scores: Array)
 
-# Host URL for server communication.
-var host: String = BKMREngine.host
+# BKMREngine.host URL for server communication.
+# var BKMREngine.host: String = BKMREngine.BKMREngine.host
 
 var GetClassicLeaderboard: HTTPRequest
 var wrGetClassicLeaderboard: WeakRef
@@ -26,7 +26,7 @@ func get_classic_leaderboard(song_name: String, difficulty: String, period: Stri
 	BKMRLogger.info("Calling BKMREngine to get leaderboard data")
 	
 	# Construct the request URL for fetching leaderboard data.
-	var request_url: String = host + "/api/leaderboard/classic?difficulty=%s&songName=%s&period=%s" % [difficulty, song_name, period]
+	var request_url: String = BKMREngine.host + "/api/leaderboard/classic?difficulty=%s&songName=%s&period=%s" % [difficulty, song_name, period]
 
 
 	# Send the GET request using the prepared URL.

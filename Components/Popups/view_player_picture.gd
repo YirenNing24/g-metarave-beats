@@ -18,8 +18,9 @@ func _ready() -> void:
 	connect_signal()
 
 func connect_signal() -> void:
-	BKMREngine.Profile.like_profile_pic_complete.connect(_on_like_profile_pic_complete)
-	BKMREngine.Profile.unlike_profile_pic_complete.connect(_on_unlike_profile_pic_complete)
+	pass
+	#BKMREngine.Profile.like_profile_pic_complete.connect(_on_like_profile_pic_complete)
+	#BKMREngine.Profile.unlike_profile_pic_complete.connect(_on_unlike_profile_pic_complete)
 
 # Get pictures from the stored Array in Profile BKMREngine Script
 func get_pictures() -> void:

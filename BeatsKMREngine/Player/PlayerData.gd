@@ -1,5 +1,9 @@
 extends Node
 
+signal new_data_received
+
+
+
 var player_stats: Dictionary
 var wallet_data: Dictionary
 var profile_pics: Array
@@ -26,6 +30,7 @@ var inventory_size: int
 var card_reward: Dictionary
 var peer_id: int
 
+var preferred_server: String
 
 
 func _ready() -> void:
@@ -51,11 +56,8 @@ func populate_player_data(data: Dictionary) -> void:
 		current_energy = data.energy.energy
 		max_energy = data.energy.maxEnergy
 		
-		
-		print("energyy: ", data.energy)
 		if data.energy.timeUntilNextRecharge != null:
 			time_until_next_recharge = data.energy.timeUntilNextRecharge
-		
 		
 		wallet_data = data.wallet
 		var smartwallet_address: String = wallet_data.smartWalletAddress
@@ -63,7 +65,6 @@ func populate_player_data(data: Dictionary) -> void:
 		
 		var beats: String = wallet_data.beatsBalance
 		
-		print("WEHHHHH: ", beats)
 		beats_balance = format_balance(beats)
 		
 		var native: String = wallet_data.nativeBalance
@@ -80,6 +81,18 @@ func populate_player_data(data: Dictionary) -> void:
 		stat_points = player_stats.availStatPoints
 		stat_points_saved = player_stats.statPointsSaved
 		inventory_size = data.safeProperties.inventorySize.low
+		
+		new_data_received.emit()
+		
+		
+		if data.safeProperties.has("preferredServer") and data.safeProperties["preferredServer"] != "":
+			BKMREngine.Server.set_player_urls(data.safeProperties["preferredServer"])
+		else:
+			BKMREngine.Server.no_preferred_server()
+		
+		
+		
+		
 	else:
 		return
 		

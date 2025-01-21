@@ -24,8 +24,7 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
-	var is_connected: bool = BKMREngine.peer.get_connection_status() != 2
-	%StartButton.disabled = is_connected
+	%StartButton.disabled = BKMREngine.peer.get_connection_status() != 2
 	
 	
 func set_map() -> void:

@@ -8,8 +8,8 @@ signal get_classic_highscore_complete(scores: Array)
 signal get_classic_highscore_single(scores: Array)
 signal save_classic_highscore_complete()
 
-# Host URL for server communication.
-var host: String = BKMREngine.host
+# BKMREngine.host URL for server communication.
+# var BKMREngine.host: String = BKMREngine.BKMREngine.host
 
 var GetClassicScore: HTTPRequest
 var wrGetClassicScore: WeakRef
@@ -30,7 +30,7 @@ func save_classic_high_score(classic_score_stats: Dictionary) -> void:
 	
 	var _connect: int = SaveClassicHighScore.request_completed.connect(_on_SaveClassicHighScore_request_completed)
 	
-	var request_url: String = host + "/api/save/score/classic"
+	var request_url: String = BKMREngine.host + "/api/save/score/classic"
 	var payload: Dictionary = classic_score_stats
 	
 	BKMREngine.send_post_request(SaveClassicHighScore, request_url, payload)
@@ -60,7 +60,7 @@ func get_classic_high_score_single(peer_id: int) -> void:
 	var _get_classic_score: int = GetClassicScoreSingle.request_completed.connect(_on_GetClassicHighScoreSingle_request_completed)
 	
 	# Create the request URL with the peer_id as a parameter.
-	var request_url: String = host + "/api/open/highscore/classic/single?peerId=" + str(peer_id)
+	var request_url: String = BKMREngine.host + "/api/open/highscore/classic/single?peerId=" + str(peer_id)
 	
 	# Send the GET request to update stat points on the server.
 	BKMREngine.send_get_request(GetClassicScoreSingle, request_url)
@@ -96,7 +96,7 @@ func get_classic_high_score_all() -> void:
 	# Connect the request completion signal to the callback function.
 	var _get_classic_score: int = GetClassicScore.request_completed.connect(_on_GetClassicHighScore_request_completed)
 	
-	var request_url: String = host + "/api/open/highscore/classic/all"
+	var request_url: String = BKMREngine.host + "/api/open/highscore/classic/all"
 	
 	# Send the POST request to update stat points on the server.
 	BKMREngine.send_get_request(GetClassicScore, request_url)
