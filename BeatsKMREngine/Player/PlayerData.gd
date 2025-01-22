@@ -90,9 +90,6 @@ func populate_player_data(data: Dictionary) -> void:
 		else:
 			BKMREngine.Server.no_preferred_server()
 		
-		
-		
-		
 	else:
 		return
 		

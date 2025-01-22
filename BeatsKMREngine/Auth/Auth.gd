@@ -162,7 +162,7 @@ func _on_ValidateSession_request_completed(_result: int, response_code: int, hea
 		# Parse the JSON body of the response
 		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
 		if json_body == null:
-			complete_session_check({})
+			complete_session_check({ })
 			return
 			
 		var result_body: Dictionary = json_body

@@ -28,15 +28,15 @@
 [ext_resource type="Texture2D" uid="uid://o08fd4yxkdf" path="res://UITextures/BGTextures/Inventory/great_guys_bg_.png" id="18_foqnk"]
 [ext_resource type="AudioStream" uid="uid://dtocxag21vt3n" path="res://GameTracks/BGTracks/Tue Apr 23 2024.mp3" id="20_bxpih"]
 [ext_resource type="Texture2D" uid="uid://cffijpq35f7s8" path="res://UITextures/BGTextures/Inventory/inventory_icu_bg.png" id="20_novrw"]
-[ext_resource type="Texture2D" uid="uid://c250pg8bi1l2g" path="res://UITextures/BGTextures/Inventory/EmptySlot/donghwi_empty_slot.png" id="21_r86gy"]
-[ext_resource type="Texture2D" uid="uid://davn0bpgrirkb" path="res://UITextures/BGTextures/Inventory/EmptySlot/horyeong_empty_slot.png" id="22_2w7n2"]
+[ext_resource type="Texture2D" uid="uid://c250pg8bi1l2g" path="res://UITextures/BGTextures/Inventory/EmptySlot/donghwi_empty_slot_bg.png" id="21_r86gy"]
+[ext_resource type="Texture2D" uid="uid://davn0bpgrirkb" path="res://UITextures/BGTextures/Inventory/EmptySlot/horyeong_empty_slot_bg.png" id="22_2w7n2"]
 [ext_resource type="Texture2D" uid="uid://cqbli5rvmklkg" path="res://UITextures/BGTextures/Inventory/irohm_inventory_bg.png" id="22_snun2"]
-[ext_resource type="Texture2D" uid="uid://2crtcboi2uby" path="res://UITextures/BGTextures/Inventory/EmptySlot/baekgyeol_empty_slot.png" id="23_dch4j"]
-[ext_resource type="Texture2D" uid="uid://b1kibpg6e3taq" path="res://UITextures/BGTextures/Inventory/EmptySlot/abin_empty_slot.png" id="26_txftp"]
-[ext_resource type="Texture2D" uid="uid://b0mtadyd4wp80" path="res://UITextures/BGTextures/Inventory/EmptySlot/naye_empty_slot.png" id="27_77h6y"]
-[ext_resource type="Texture2D" uid="uid://bsx630v8ue428" path="res://UITextures/BGTextures/Inventory/EmptySlot/chaei_empty_slot.png" id="29_ws4jg"]
-[ext_resource type="Texture2D" uid="uid://br8aihdn3jbm5" path="res://UITextures/BGTextures/Inventory/EmptySlot/miku_empty_slot.png" id="30_nphcp"]
-[ext_resource type="Texture2D" uid="uid://dw26b55e18wee" path="res://UITextures/BGTextures/Inventory/EmptySlot/i_rohm_empty_slot.png" id="33_mx350"]
+[ext_resource type="Texture2D" uid="uid://2crtcboi2uby" path="res://UITextures/BGTextures/Inventory/EmptySlot/baekgyeol_empty_slot_bg.png" id="23_dch4j"]
+[ext_resource type="Texture2D" uid="uid://b1kibpg6e3taq" path="res://UITextures/BGTextures/Inventory/EmptySlot/abin_empty_slot_bg.png" id="26_txftp"]
+[ext_resource type="Texture2D" uid="uid://b0mtadyd4wp80" path="res://UITextures/BGTextures/Inventory/EmptySlot/naye_empty_slot_bg.png" id="27_77h6y"]
+[ext_resource type="Texture2D" uid="uid://bsx630v8ue428" path="res://UITextures/BGTextures/Inventory/EmptySlot/chaei_empty_slot_bg.png" id="29_ws4jg"]
+[ext_resource type="Texture2D" uid="uid://br8aihdn3jbm5" path="res://UITextures/BGTextures/Inventory/EmptySlot/miku_empty_slot_bg.png" id="30_nphcp"]
+[ext_resource type="Texture2D" uid="uid://dw26b55e18wee" path="res://UITextures/BGTextures/Inventory/EmptySlot/irohmvocal_empty_slot_bg.png" id="33_mx350"]
 [ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="38_7gcnm"]
 
 [sub_resource type="Resource" id="Resource_w5syg"]
@@ -232,12 +232,13 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/tab_selected = SubResource("StyleBoxTexture_ahlu7")
 theme_override_styles/tab_hovered = SubResource("StyleBoxEmpty_mhja2")
 theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_o7lcf")
-current_tab = 0
+current_tab = 3
 clip_tabs = false
 tab_focus_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="X_IN" type="TabBar" parent="TextureRect/InventoryTabContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_3ma8w")
 metadata/_tab_index = 0
@@ -1657,7 +1658,6 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="IROHM" type="TabBar" parent="TextureRect/InventoryTabContainer"]
-visible = false
 layout_mode = 2
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_3ma8w")
 metadata/_tab_index = 3

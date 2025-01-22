@@ -32,7 +32,7 @@ func _ready() -> void:
 	stat_display()
 	load_plugin()
 	#get_notification()
-	#BKMREngine.Social.get_following_followers_count(player_name.text)
+	BKMREngine.Social.get_following_followers_count(player_name.text)
 	
 	
 func signal_connect() -> void:
@@ -50,7 +50,7 @@ func signal_connect() -> void:
 	
 	
 func get_notification() -> void:
-	#BKMREngine.Notification.get_notifications()
+	BKMREngine.Notification.get_notifications()
 	var _timer: int = get_tree().create_timer(10.0).timeout.connect(get_notification)
 	
 	
@@ -66,12 +66,10 @@ func stat_display() -> void:
 # Handle visibility change.
 func _on_visibility_changed() -> void:
 	if visible:
-		pass
-		#BKMREngine.Social.get_following_followers_count(player_name.text)
+		BKMREngine.Social.get_following_followers_count(player_name.text)
 		#BKMREngine.Profile.get_soul()
 		if is_upload == false:
-			pass
-			#BKMREngine.Profile.get_profile_pic()
+			BKMREngine.Profile.get_profile_pic()
 		animation_player.play("fade-in")
 		return
 	else:
@@ -157,7 +155,7 @@ func _on_image_request_completed(object_image: Dictionary) -> void:
 			profile_pic.texture = uploaded_pic
 			animation_player.play_backwards('dp_options')
 			is_upload = true
-	#BKMREngine.Profile.get_profile_pic()
+	BKMREngine.Profile.get_profile_pic()
 	
 	
 func _on_get_profile_pic_complete(profile_pics: Variant) -> void:
@@ -206,13 +204,11 @@ func _on_view_picture_view_picture_close() -> void:
 
 
 func _on_profile_pic_upload_complete(_message: Dictionary) -> void:
-	pass
-	#BKMREngine.Profile.get_profile_pic() 
+	BKMREngine.Profile.get_profile_pic() 
 	
 	
 func _on_change_profile_pic_complete(_message: Dictionary) -> void:
-	pass
-	#BKMREngine.Profile.get_profile_pic()
+	BKMREngine.Profile.get_profile_pic()
 
 
 func _on_my_profile_button_pressed() -> void:
