@@ -190,14 +190,19 @@ func game_mode_versus_selected() -> void:
 	
 	
 func set_personal_entry(leaderboard: Array) -> void:
-	for entry: Dictionary in leaderboard:
-		if entry.username == PLAYER.username:
-			var rank: String = str(leaderboard.find(entry) + 1)
-			personal_rank.text = rank
-			personal_name.text = entry.username
-			personal_score.text = str(entry.score)
-			%PlayerScore.text = str(entry.score)
-			break
+	if leaderboard.is_empty():
+		personal_rank.text = ""
+		personal_name.text = ""
+		personal_score.text = ""
+	else:
+		for entry: Dictionary in leaderboard:
+			if entry.username == PLAYER.username:
+				var rank: String = str(leaderboard.find(entry) + 1)
+				personal_rank.text = rank
+				personal_name.text = entry.username
+				personal_score.text = str(entry.score)
+				%PlayerScore.text = str(entry.score)
+				break
 	
 	
 func animate_song_bg(song_name: String) -> void:

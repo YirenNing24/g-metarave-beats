@@ -50,7 +50,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hmkrl")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
@@ -63,17 +63,19 @@ offset_left = 7.0
 offset_right = -8.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/separation = 15
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 alignment = 1
 
 [node name="Panel" type="Panel" parent="Panel/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_vertical = 0
-mouse_filter = 1
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_q7ku5")
 
 [node name="DPIcon" type="TextureRect" parent="Panel/HBoxContainer/VBoxContainer/Panel"]
@@ -92,19 +94,20 @@ offset_right = 16.528
 offset_bottom = 18.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("2_1r1qj")
 expand_mode = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel/HBoxContainer"]
 custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="MissionName" type="Label" parent="Panel/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
-mouse_filter = 1
 theme_override_fonts/font = ExtResource("3_od7gc")
 theme_override_font_sizes/font_size = 14
 text = "Audition"
@@ -113,11 +116,13 @@ vertical_alignment = 1
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 alignment = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="DescriptionLabel" type="Label" parent="Panel/HBoxContainer/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
@@ -135,13 +140,13 @@ metadata/_edit_use_anchors_ = true
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="RewardLabel" type="Label" parent="Panel/HBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(151, 65)
 layout_mode = 2
 size_flags_vertical = 3
-mouse_filter = 1
 theme_override_fonts/font = ExtResource("3_od7gc")
 theme_override_font_sizes/font_size = 14
 text = "2000 BEATS"
@@ -156,5 +161,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
 theme_override_styles/focus = SubResource("StyleBoxEmpty_xud7o")

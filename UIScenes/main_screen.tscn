@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://yfevho5xx5qg"]
+[gd_scene load_steps=53 format=3 uid="uid://yfevho5xx5qg"]
 
 [ext_resource type="Script" path="res://UIScenes/main_screen.gd" id="1_25j1r"]
 [ext_resource type="Texture2D" uid="uid://cj3g7l2prnd31" path="res://UITextures/PanelElements/player_panel.png" id="2_37prv"]
@@ -240,6 +240,19 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5mvih"]
+bg_color = Color(0, 0, 0, 0.611765)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(2.21401e-06, 0.597346, 0.597346, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="MainScreen" type="Control"]
 clip_contents = true
@@ -828,7 +841,6 @@ texture = ExtResource("20_10uvs")
 expand_mode = 1
 
 [node name="InventoryButton" type="TextureButton" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3" groups=["MainButtons"]]
-modulate = Color(0.230315, 0.230315, 0.230315, 1)
 self_modulate = Color(0.775064, 0.775063, 0.775063, 1)
 custom_minimum_size = Vector2(220, 55)
 layout_mode = 2
@@ -870,12 +882,10 @@ texture = ExtResource("20_33vu5")
 expand_mode = 1
 
 [node name="LeaderboardButton" type="TextureButton" parent="Panel/BackgroundTexture/VBoxContainer/HBoxContainer3" groups=["MainButtons"]]
-modulate = Color(0.712129, 0.712129, 0.712129, 0.203922)
 self_modulate = Color(0.775064, 0.775063, 0.775063, 1)
 custom_minimum_size = Vector2(220, 55)
 layout_mode = 2
 size_flags_vertical = 0
-disabled = true
 texture_normal = ExtResource("3_i1nbb")
 ignore_texture_size = true
 stretch_mode = 0
@@ -1155,6 +1165,51 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="MessagePanel" type="Panel" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(348, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -207.0
+offset_top = 276.0
+offset_right = 218.0
+offset_bottom = 364.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5mvih")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MessagePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -36.0
+offset_right = -4.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Message" type="Label" parent="MessagePanel/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.758192, 0.758192, 0.758192, 1)
+theme_override_constants/line_spacing = 5
+theme_override_fonts/font = ExtResource("3_5uujb")
+theme_override_font_sizes/font_size = 24
+text = "BEATS reward succesfully claimed!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+justification_flags = 235
 
 [connection signal="chat_opened" from="." to="Panel/BackgroundTexture/ChatBox" method="_on_main_screen_chat_opened"]
 [connection signal="mutuals_button_pressed" from="." to="Panel/BackgroundTexture/MutualsBox" method="_on_main_screen_mutuals_button_pressed"]
