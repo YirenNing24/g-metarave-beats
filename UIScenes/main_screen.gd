@@ -48,7 +48,7 @@ var is_opened: bool = false
 
 #endregion
 
-#TODO fix energy countdown bug
+
 #region Initialization function called when the node is ready.
 func _ready() -> void:
 	hud_data()
@@ -125,7 +125,6 @@ func display_hud() -> void:
 	player_name.text = BKMREngine.Auth.logged_in_player
 	player_rank.text = PLAYER.player_rank
 	beats_balance.text = PLAYER.beats_balance
-	
 	gmr_balance.text = PLAYER.gmr_balance
 	level.text = str(PLAYER.level)
 	

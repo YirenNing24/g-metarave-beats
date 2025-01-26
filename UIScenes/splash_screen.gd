@@ -18,9 +18,18 @@ var tween: Tween
 func _ready() -> void:
 	fake_loader()
 	google_auth()
-	BKMREngine.Auth.auto_login_player()
+	
 	BKMREngine.Auth.bkmr_session_check_complete.connect(_on_session_check)
 	%LoadingLabel2.text = BKMREngine.Auth.last_login_type
+	# Create and start a timer for the delay
+	var _timer: int = get_tree().create_timer(3.0).timeout.connect(_on_timer_timeout)
+
+
+# Callback to handle the timer timeout
+func _on_timer_timeout() -> void:
+	BKMREngine.Auth.auto_login_player()
+	
+	
 
 func google_auth() -> void: 
 	var _token: int = SignInClient.server_side_access_requested.connect(_on_google_token_generated)

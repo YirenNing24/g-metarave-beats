@@ -1,6 +1,7 @@
 extends Node
 
-#TODO when password error wrong, values still gets added
+#TODO add error logging in the game ui in passkey registration if username for passkey registration already taken
+
 
 # Constants for utility scripts
 const BKMRLocalFileStorage: Script = preload("res://BeatsKMREngine/utils/BKMRLocalFileStorage.gd")
@@ -98,7 +99,7 @@ func _ready() -> void:
 # Function to attempt automatic player login based on saved session data
 func auto_login_player() -> void:
 	# Load saved BKMREngine session data
-	var bkmr_session_data: Dictionary = load_session()
+	var bkmr_session_data: Dictionary = await load_session()
 	BKMRLogger.debug("BKMR session data " + str(bkmr_session_data))
 	
 	# Check if session data is available for autologin
@@ -359,7 +360,7 @@ func _on_GoogleVerifyPasskeyRegistration_request_completed(_result: int, respons
 					bkmr_google_login_passkey_verify_complete.emit(json_body)
 					renew_access_token_timer()
 		else:
-			bkmr_google_registration_passkey_verify_complete.emit({"error": json_body})
+			bkmr_google_registration_passkey_verify_complete.emit({ "error": json_body })
 	else:
 		bkmr_google_registration_passkey_verify_complete.emit({"error": "Unknown error"})
 	
@@ -434,7 +435,7 @@ func _on_GoogleVerifyPasskeyLogin_request_completed(_result: int, response_code:
 	# Check if the registration was successful
 		if status_check:
 			if json_body.has("error"):
-				bkmr_google_login_passkey_verify_complete.emit({"error": json_body})
+				bkmr_google_login_passkey_verify_complete.emit({ "error": json_body })
 			else:
 				# Log additional information if present in the response
 				if "accessToken" in json_body.keys():
@@ -779,7 +780,7 @@ func load_session() -> Dictionary:
 	if OS.get_name() == "Android":
 		# Log debug information about loading session for Android
 		BKMRLogger.debug("Loading session from Android plugin")
-		var session_data: Dictionary = BeatsSessionTokens.retrieve_jwt_tokens()
+		var session_data: Dictionary = await BeatsSessionTokens.retrieve_jwt_tokens()
 		if session_data == {} or session_data == null:
 			BKMRLogger.debug("No session data found on Android plugin")
 			return {}

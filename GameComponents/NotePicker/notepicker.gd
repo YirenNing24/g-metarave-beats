@@ -1,5 +1,5 @@
 extends Node3D
-#TODO KEY PRESS FX after 60 not showing any cool fx anymore
+
 
 signal position_notepicker(pos: float)
 

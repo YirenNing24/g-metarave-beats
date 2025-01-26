@@ -1,5 +1,7 @@
 extends Control
 
+#TODO remove excess hud stuff
+
 const template_card_slot_scene: PackedScene = preload("res://Components/Store/cards.tscn")
 const template_card_upgrade_slot_scene: PackedScene = preload("res://Components/Store/card_upgrade.tscn")
 const template_card_pack_slot_scene: PackedScene = preload("res://Components/Store/card_pack.tscn")

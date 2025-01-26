@@ -43,11 +43,8 @@ func _ready() -> void:
 	init_visibility_control()
 	google_auth()
 	
-	
 	if passkey == null && ClassDB.class_exists("Passkey"):
 		passkey = ClassDB.instantiate("Passkey")
-		
-		print("tang ina mo ka gago ka")
 	else:
 		print("wala pa po")
 	
@@ -79,9 +76,10 @@ func passkey_registration_verification_complete() -> void:
 	init_visibility_control()
 	
 	
-func passkey_login_verification_complete() -> void:
-	%ErrorPanel.visible = false
+func passkey_login_verification_complete(_player_data: Dictionary) -> void:
 	BKMREngine.session = true
+	%ErrorPanel.visible = false
+	
 	init_visibility_control()
 	BKMRLogger.info("logged in as: " + str(BKMREngine.Auth.logged_in_player))
 	loading_panel.tween_kill()
