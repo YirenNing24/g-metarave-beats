@@ -28,13 +28,7 @@ ENV_VAR="*res://BeatsKMREngine/bkmrenv/scripts/env.gd"
 LOADER="*res://UIScenes/GameLoader.gd"
 PLAYER="*res://BeatsKMREngine/Player/PlayerData.gd"
 SONG="*res://Songs/Song.gd"
-GodotPlayGameServices="*res://addons/GodotPlayGameServices/autoloads/godot_play_game_services.gd"
-AchievementsClient="*res://addons/GodotPlayGameServices/autoloads/achievements_client.gd"
 Game3D="*res://GameComponents/Game3D.gd"
-SignInClient="*res://addons/GodotPlayGameServices/autoloads/sign_in_client.gd"
-LeaderboardsClient="*res://addons/GodotPlayGameServices/autoloads/leaderboards_client.gd"
-PlayersClient="*res://addons/GodotPlayGameServices/autoloads/players_client.gd"
-SnapshotsClient="*res://addons/GodotPlayGameServices/autoloads/snapshots_client.gd"
 BeatsPasskey="*res://addons/BeatsPassKeyLogin/beats_passkey_login.gd"
 BeatsSessionTokens="*res://addons/BeatsSessionTokens/beats_session_tokens.gd"
 
@@ -93,7 +87,7 @@ project/assembly_name="kmr-godot-4"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/BeatsPassKeyLogin/plugin.cfg", "res://addons/BeatsSessionTokens/plugin.cfg", "res://addons/GodotGetImage/plugin.cfg", "res://addons/GodotPlayGameServices/plugin.cfg", "res://addons/SmoothScroll/plugin.cfg")
+enabled=PackedStringArray("res://addons/BeatsPassKeyLogin/plugin.cfg", "res://addons/BeatsSessionTokens/plugin.cfg", "res://addons/GodotGetImage/plugin.cfg", "res://addons/SmoothScroll/plugin.cfg")
 
 [global_group]
 

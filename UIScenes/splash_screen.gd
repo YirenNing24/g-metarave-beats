@@ -17,7 +17,7 @@ var tween: Tween
 # Ready function called when the node and its children are added to the scene.
 func _ready() -> void:
 	fake_loader()
-	google_auth()
+	#google_auth()
 	
 	BKMREngine.Auth.bkmr_session_check_complete.connect(_on_session_check)
 	%LoadingLabel2.text = BKMREngine.Auth.last_login_type
@@ -31,17 +31,17 @@ func _on_timer_timeout() -> void:
 	
 	
 
-func google_auth() -> void: 
-	var _token: int = SignInClient.server_side_access_requested.connect(_on_google_token_generated)
-	var _connect: int = SignInClient.user_authenticated.connect(google_authenticated)
-	
-func google_authenticated(is_authenticated: bool) -> void:
-	if google_sign_in_retries > 0 and not is_authenticated:
-		if is_authenticated:
-			pass
-		elif google_sign_in_retries > 0 and not is_authenticated:
-			SignInClient.sign_in()
-			google_sign_in_retries -= 1
+#func google_auth() -> void: 
+	#var _token: int = SignInClient.server_side_access_requested.connect(_on_google_token_generated)
+	#var _connect: int = SignInClient.user_authenticated.connect(google_authenticated)
+	#
+#func google_authenticated(is_authenticated: bool) -> void:
+	#if google_sign_in_retries > 0 and not is_authenticated:
+		#if is_authenticated:
+			#pass
+		#elif google_sign_in_retries > 0 and not is_authenticated:
+			#SignInClient.sign_in()
+			#google_sign_in_retries -= 1
 	
 func _on_google_token_generated(token: String) -> void:
 	BKMREngine.Auth.google_login_player(token)

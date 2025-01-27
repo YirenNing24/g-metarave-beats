@@ -44,7 +44,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtby7"]
 bg_color = Color(0.396078, 0.396078, 0.396078, 0.219608)
 
-[sub_resource type="Shader" id="Shader_30skf"]
+[sub_resource type="Shader" id="Shader_dpc03"]
 code = "shader_type canvas_item;
 render_mode unshaded, blend_mix;
 
@@ -96,7 +96,7 @@ void fragment() {
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uxswq"]
-shader = SubResource("Shader_30skf")
+shader = SubResource("Shader_dpc03")
 shader_parameter/ScaleMult = Vector2(0.99, 1)
 shader_parameter/AuraProgres = 1.0
 shader_parameter/TextureLaodMult = 8.0

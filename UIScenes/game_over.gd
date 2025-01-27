@@ -13,6 +13,9 @@ extends Control
 
 @onready var background_texture: TextureRect = %BackgroundTexture
 
+var recharge_progress: float = 0.0
+var time_until_next_recharge : int
+var recharge_interval : int = 60 * 60 * 1000 # 1 hour in milliseconds
 
 var song_name: String = SONG.song_name
 var artist: String = SONG.artist
@@ -22,11 +25,62 @@ var peer_id: int = PLAYER.peer_id
 
 func _ready() -> void:
 	%LoadingPanel.fake_loader()
+	hud_data()
+	signal_connect()
 	var _1: int = MULTIPLAYER.classic_game_over_completed.connect(display_score)
 	#BKMREngine.Score.get_classic_high_score_single(peer_id)
 	#BKMREngine.Score.get_classic_highscore_single.connect(_on_get_classic_highscore_single)
 	
 	#display_score()
+	
+func signal_connect() -> void:
+	var _connect: int = PLAYER.new_data_received.connect(hud_data)
+	
+	
+func hud_data() -> void:
+	BKMREngine.Energy.get_energy_drink()
+	display_hud()
+	
+	
+func energy_hud() -> void:
+	%Energy.text = str(PLAYER.current_energy) + " " + "/" + " " + str(PLAYER.max_energy)
+	if PLAYER.time_until_next_recharge != 0:
+		start_recharge_countdown(PLAYER.time_until_next_recharge)
+	
+	
+func start_recharge_countdown(time_until_next: int) -> void:
+	time_until_next_recharge = time_until_next
+	recharge_progress = 0.0
+	
+	
+func _process(delta: float) -> void:
+	if PLAYER.current_energy >= PLAYER.max_energy:
+		# Max energy reached, hide recharge label
+		%EnergyRecharge.visible = false
+		return
+
+	# Recharge countdown is active
+	time_until_next_recharge -= int(delta * 1000)
+	if time_until_next_recharge > 0:
+		recharge_progress = 100.0 - (float(time_until_next_recharge) / float(recharge_interval)) * 100.0
+		%EnergyRecharge.text = str(int(recharge_progress)) + "%"
+		%EnergyRecharge.visible = true
+	else:
+		# Recharge complete: add energy and reset countdown
+		PLAYER.current_energy += 1
+		%Energy.text = str(PLAYER.current_energy) + " / " + str(PLAYER.max_energy)
+
+		if PLAYER.current_energy < PLAYER.max_energy:
+			time_until_next_recharge = recharge_interval
+			%EnergyRecharge.text = "1%"
+		else:
+			# Energy is maxed out, hide recharge progress
+			%EnergyRecharge.visible = false
+	
+	
+func display_hud() -> void:
+	%BeatsBalance.text = PLAYER.beats_balance
+	%GMR.text = PLAYER.gmr_balance
 	
 	
 #func _on_get_classic_highscore_single(score: Array) -> void:
@@ -61,6 +115,8 @@ func display_score(rewards: Dictionary) -> void:
 	
 	BKMREngine.beats_server_peer_close()
 	%LoadingPanel.tween_kill()
+	BKMREngine.Auth.validate_player_session()
+	
 	
 func format_scores(value: String) -> String:
 	var parts: Array = value.split(".")
@@ -76,8 +132,8 @@ func format_scores(value: String) -> String:
 			formattedWholePart = "," + formattedWholePart
 			digitCount = 0
 	return formattedWholePart 
-
-
+	
+	
 func _on_close_button_pressed() -> void:
 	LOADER.previous_texture = background_texture.texture
 	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")

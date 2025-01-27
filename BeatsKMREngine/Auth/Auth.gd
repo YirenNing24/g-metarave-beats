@@ -114,8 +114,8 @@ func auto_login_player() -> void:
 				validate_player_session()
 			elif last_login_type == 'passkey':
 				validate_player_session()
-			elif last_login_type == 'google':
-				SignInClient.request_server_side_access(BKMREngine.google_server_client_id, true)
+			#elif last_login_type == 'google':
+				#SignInClient.request_server_side_access(BKMREngine.google_server_client_id, true)
 			else:
 				complete_session_check({})
 		else:

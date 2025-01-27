@@ -8,11 +8,9 @@ const template_card_pack_slot_scene: PackedScene = preload("res://Components/Sto
 var store_item_modal: Control = preload("res://Components/Popups/store_item_modal.tscn").instantiate()
 
 @onready var beats_balance: Label = %BeatsBalance
-@onready var native_balance: Label = %Native
-@onready var gmr_balance: Label = %KMR
-@onready var thump_balance: Label = %ThumpBalance
+@onready var gmr_balance: Label = %GMR
+
 @onready var background_texture: TextureRect = %BackgroundTexture
-#@onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var hero_character: TextureRect = %HeroCharacter
 @onready var card_slots: Node
 @onready var item_grid: GridContainer = %ItemGrid
@@ -24,6 +22,11 @@ var store_item_modal: Control = preload("res://Components/Popups/store_item_moda
 var is_transaction: bool = false
 var price_recent: int
 
+var recharge_progress: float = 0.0
+var time_until_next_recharge : int
+var recharge_interval : int = 60 * 60 * 1000 # 1 hour in milliseconds
+
+
 func _ready() -> void:
 	signal_connect()
 	add_child(store_item_modal)
@@ -31,10 +34,50 @@ func _ready() -> void:
 	store_item_modal.visible = false
 	
 	
+func _process(delta: float) -> void:
+	BKMREngine.Server.websocket.close()
+	BKMREngine.Server.websocket.poll()
+	
+	if PLAYER.current_energy >= PLAYER.max_energy:
+		# Max energy reached, hide recharge label
+		%EnergyRecharge.visible = false
+		return
+
+	# Recharge countdown is active
+	time_until_next_recharge -= int(delta * 1000)
+	if time_until_next_recharge > 0:
+		recharge_progress = 100.0 - (float(time_until_next_recharge) / float(recharge_interval)) * 100.0
+		%EnergyRecharge.text = str(int(recharge_progress)) + "%"
+		%EnergyRecharge.visible = true
+	else:
+		# Recharge complete: add energy and reset countdown
+		PLAYER.current_energy += 1
+		%Energy.text = str(PLAYER.current_energy) + " / " + str(PLAYER.max_energy)
+
+		if PLAYER.current_energy < PLAYER.max_energy:
+			time_until_next_recharge = recharge_interval
+			%EnergyRecharge.text = "1%"
+		else:
+			# Energy is maxed out, hide recharge progress
+			%EnergyRecharge.visible = false
+	
+	
 func hud_data() -> void:
+	BKMREngine.Energy.get_energy_drink()
 	beats_balance.text = PLAYER.beats_balance
-	native_balance.text = PLAYER.native_balance
 	gmr_balance.text = PLAYER.gmr_balance
+	energy_hud()
+	
+	
+func energy_hud() -> void:
+	%Energy.text = str(PLAYER.current_energy) + " " + "/" + " " + str(PLAYER.max_energy)
+	if PLAYER.time_until_next_recharge != 0:
+		start_recharge_countdown(PLAYER.time_until_next_recharge)
+	
+	
+func start_recharge_countdown(time_until_next: int) -> void:
+	time_until_next_recharge = time_until_next
+	recharge_progress = 0.0
 	
 	
 func signal_connect() -> void:
@@ -69,6 +112,7 @@ func _on_get_valid_cards_complete(cards :Array) -> void:
 		
 		
 func _on_card_slot_buy_button_pressed(card_data: Dictionary) -> void:
+	@warning_ignore("unsafe_call_argument")
 	var afford: bool = check_cost_and_funds(card_data.pricePerToken)
 	if not afford:
 		return
@@ -151,6 +195,7 @@ func _on_yes_button_pressed(item_data: Dictionary, item_type: String) -> void:
 		
 		
 func buy_card(item_data: Dictionary) -> void:
+	@warning_ignore("unsafe_call_argument")
 	var listingId: int = int(item_data.listingId)
 	price_recent = item_data.pricePerToken
 	BKMREngine.Store.buy_card(item_data.uri, listingId, str(price_recent))
@@ -268,18 +313,18 @@ func clear_grid() -> void:
 
 func format_balance(value: String) -> String:
 	var parts: Array = value.split(".")
-	var wholePart: String = parts[0]
-	
-	# Add commas for every three digits in the whole part.
-	var formattedWholePart: String = ""
-	var digitCount: int = 0
-	for i: int in range(wholePart.length() - 1, -1, -1):
-		formattedWholePart = wholePart[i] + formattedWholePart
-		digitCount += 1
-		if digitCount == 3 and i != 0:
-			formattedWholePart = "," + formattedWholePart
-			digitCount = 0
-	return formattedWholePart
+	var whole_part: String = parts[0]
+	var formatted_whole_part: String = ""
+	var digit_count: int = 0
+
+	for i: int in range(whole_part.length() - 1, -1, -1):
+		formatted_whole_part = whole_part[i] + formatted_whole_part
+		digit_count += 1
+		if digit_count == 3 and i != 0:
+			formatted_whole_part = "," + formatted_whole_part
+			digit_count = 0
+
+	return formatted_whole_part
 
 
 func _on_filter_panel_gui_input(event: InputEvent) -> void:
