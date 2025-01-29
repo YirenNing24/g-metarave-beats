@@ -396,7 +396,7 @@ func _on_GoogleLoginPasskey_request_completed(_result: int, response_code: int, 
 				var challenge: Dictionary = json_body
 				BeatsPasskey.login_passkey(challenge)
 		else:
-			bkmr_google_login_passkey_complete.emit({"error": json_body})
+			bkmr_google_login_passkey_complete.emit({ "error": json_body })
 	else:
 		bkmr_google_login_passkey_complete.emit({"error": "Unknown error"})
 		
@@ -780,7 +780,10 @@ func load_session() -> Dictionary:
 	if OS.get_name() == "Android":
 		# Log debug information about loading session for Android
 		BKMRLogger.debug("Loading session from Android plugin")
-		var session_data: Dictionary = await BeatsSessionTokens.retrieve_jwt_tokens()
+		BeatsSessionTokens.retrieve_jwt_tokens()
+		var session_data: Dictionary = await BeatsSessionTokens.jwt_retrieve_completed
+		
+		print("tae mo gaga: ", session_data)
 		if session_data == {} or session_data == null:
 			BKMRLogger.debug("No session data found on Android plugin")
 			return {}

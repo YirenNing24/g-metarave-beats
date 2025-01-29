@@ -4,8 +4,6 @@ const BKMRLogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 const error_list: PackedScene = preload("res://Components/Lists/auth_error.tscn")
 
 #region Variables
-
-
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var animation_player2: AnimationPlayer = %AnimationPlayer2
 
@@ -27,52 +25,39 @@ var password: String
 var animation_played: bool = false
 
 var registration_success: bool = false
-var google_registration_success: bool = false
-var google_register_pressed: bool = false
 
-var google_sign_in_retries: int = 5
 #endregion
 
-
-var passkey: Variant 	
 
 #region Init Functions
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	signal_connect()
 	init_visibility_control()
-	#google_auth()
-	
-	if passkey == null && ClassDB.class_exists("Passkey"):
-		passkey = ClassDB.instantiate("Passkey")
-	else:
-		print("wala pa po")
+	BKMREngine.Auth.auto_login_player()
 	
 func signal_connect() -> void:
 	#BEATS LOGIN
 	BKMREngine.Auth.bkmr_registration_complete.connect(_on_registration_completed)
 	BKMREngine.Auth.bkmr_login_complete.connect(_on_login_succeeded)
-	BKMREngine.Auth.bkmr_google_login_complete.connect(_on_google_login_succeeded)
-	#BKMREngine.Auth.bkmr_google_registration_complete.connect(_on_google_registration_completed)
-	
+
 	#REGISTRATION PASSKEY
 	BKMREngine.Auth.bkmr_google_registration_passkey_complete.connect(let_me_verified)
 	var _passkey_registration: int = BeatsPasskey.create_passkey_completed.connect(passkey_registration_insert_username)
 	BKMREngine.Auth.bkmr_google_registration_passkey_verify_complete.connect(passkey_registration_verification_complete)
 		
 	#LOGIN PASSKEY
+	var _check: int = BeatsPasskey.debug_message.connect(debug_label)
+	var _yeah: int = BeatsPasskey.sign_in_passkey_user_selected.connect(debug_label)
 	BKMREngine.Auth.bkmr_google_login_passkey_verify_complete.connect(passkey_login_verification_complete)
 	var _sign_in_passkey: int = BeatsPasskey.sign_in_passkey_completed.connect(passkey_authentication_insert_username)
 	
-	#var _connect: int = SignInClient.server_side_access_requested.connect(_on_google_token_generated)
+	
+func debug_label(data: Variant) -> void:
+	%DebugLabel.text = "Freak" + str(data)
 	
 	
-func passkey_registration_verification_complete(message: Dictionary) -> void:
-	if message.has("error"):
-		error_logger([message.error])
-		return
-	
-	
+func passkey_registration_verification_complete() -> void:
 	%ErrorPanel.visible = false
 	BKMREngine.session = true
 	init_visibility_control()
@@ -82,21 +67,24 @@ func passkey_registration_verification_complete(message: Dictionary) -> void:
 	
 	
 func passkey_login_verification_complete(_player_data: Dictionary) -> void:
-	BKMREngine.session = true
-	%ErrorPanel.visible = false
-	
-	init_visibility_control()
-	BKMRLogger.info("logged in as: " + str(BKMREngine.Auth.logged_in_player))
-	loading_panel.tween_kill()
-	init_visibility_control()
-	
+	if not _player_data.is_empty():
+		%DebugLabel.text = str(_player_data)
+		BKMREngine.session = true
+		%ErrorPanel.visible = false
+		
+		init_visibility_control()
+		BKMRLogger.info("logged in as: " + str(BKMREngine.Auth.logged_in_player))
+		loading_panel.tween_kill()
+		init_visibility_control()
+	else:
+		%DebugLabel.text = "Player data is empty"
 	
 func let_me_verified(result: Dictionary) -> void:
 	%DebugLabel.text = str(result)
-
-
+	
+	
 func passkey_registration_insert_username(result: String) -> void:
-	%DebugLabel.text = str(result)
+	%DebugLabel.text = str("patingin po: " , result)
 	if result != null or "":
 		var json_result: Variant = JSON.parse_string(result)
 		if json_result is Dictionary:
@@ -113,11 +101,6 @@ func passkey_authentication_insert_username(result: String) -> void:
 			json_result.username = %UsernamePasskey.text
 			BKMREngine.Auth.beats_passkey_login_response(json_result)
 			loading_panel.fake_loader()
-	
-	
-#func google_auth() -> void:
-	#if BKMREngine.Auth.last_login_type == "google":
-		#SignInClient.request_server_side_access(BKMREngine.google_server_client_id, true)
 	
 	
 func init_visibility_control() -> void:
@@ -165,45 +148,12 @@ func _on_login_succeeded(result: Dictionary) -> void:
 	loading_panel.tween_kill()
 	
 	
-#Callback for google login
-func _on_google_login_succeeded(result: Dictionary) -> void:
-	if result.has("error"):
-		error_logger([{"error": result.error}])  
-		google_registration_success = false
-		loading_panel.tween_kill()
-	else:
-		%TextureProgressBar.visible = false
-		BKMREngine.session = true
-		start_container.visible = false
-		login_modal_container.visible = false
-		animation_player.play('switch_start_screen')
-		google_registration_success = false
-	loading_panel.tween_kill()
+
 		
 #endregion
 
 
-#region Google Auth
-#func google_authenticated(is_authenticated: bool) -> void:
-	#if google_sign_in_retries > 0 and not is_authenticated:
-		#if google_sign_in_retries > 0 and not is_authenticated:
-			#SignInClient.sign_in()
-			#google_sign_in_retries -= 1
-			#
-#func _on_google_register_button_pressed() -> void:
-	#google_register_pressed = true
-	#SignInClient.request_server_side_access(BKMREngine.google_server_client_id, true)
-	#loading_panel.fake_loader()
-	
-#endregion
 
-
-func _on_google_token_generated(token: String) -> void:
-	if google_registration_success == false and google_register_pressed == true:
-		BKMREngine.Auth.register_google(token)
-		
-	elif google_registration_success == true or BKMREngine.Auth.last_login_type == "google":
-		BKMREngine.Auth.google_login_player(token)
 		
 #region Registration functions
 
@@ -221,23 +171,7 @@ func _on_registration_completed(result: Dictionary) -> void:
 		BKMREngine.Auth.login_player(username, password)
 	
 	
-#Callback for google registration status
-#func _on_google_registration_completed(result: Dictionary) -> void:
-	## Check if there is an error in the registration result.
-	#if result.has("error"):
-		#google_registration_success = false
-		#error_logger([{"error": result.error}]) 
-		#if result.error == "An account already exists":
-			#error_logger([{"error": "You already have an account"}])
-			#google_registration_success = true
-			#SignInClient.request_server_side_access(BKMREngine.google_server_client_id, true)
-			#loading_panel.fake_loader()
-		#loading_panel.tween_kill()
-	#else:
-		#error_container.visible = false
-		#SignInClient.request_server_side_access(BKMREngine.google_server_client_id, true)
-		#google_registration_success = true
-		#loading_panel.tween_kill()
+
 		
 		
 # Function to submit user registration.
@@ -310,10 +244,6 @@ func _on_username_field_text_changed(new_text: String) -> void:
 # Event handler for password field text change.
 func _on_password_field_text_changed(new_text: String) -> void:
 	password = new_text
-
-
-
-
 	
 	
 # Event handler for register toggle button press.

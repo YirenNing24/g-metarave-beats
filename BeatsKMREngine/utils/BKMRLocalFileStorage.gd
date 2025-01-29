@@ -11,7 +11,7 @@ static func save_data(path: String, data: Dictionary, debug_message: String='Sav
 	var file:FileAccess = FileAccess.open(path, FileAccess.WRITE)
 	file.store_string(str(data))
 	save_success = true
-	@warning_ignore("unsafe_method_access")
+
 	BKMRELogger.debug(debug_message + str(data))
 	return save_success
 
@@ -20,7 +20,7 @@ static func remove_data(path: String, debug_message: String='Removing data from 
 	var delete_success: bool = false
 	if FileAccess.file_exists(path):
 		var file: FileAccess = FileAccess.open(path, FileAccess.WRITE)
-		var data: Dictionary = {"deleted": "delete"}
+		var data: Dictionary = { "deleted": "delete" }
 		file.store_var(data)
 		delete_success = true
 	BKMRELogger.debug(debug_message)

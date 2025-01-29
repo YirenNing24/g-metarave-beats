@@ -22,7 +22,7 @@ func _ready() -> void:
 	BKMREngine.Auth.bkmr_session_check_complete.connect(_on_session_check)
 	%LoadingLabel2.text = BKMREngine.Auth.last_login_type
 	# Create and start a timer for the delay
-	var _timer: int = get_tree().create_timer(3.0).timeout.connect(_on_timer_timeout)
+	var _timer: int = get_tree().create_timer(8.0).timeout.connect(_on_timer_timeout)
 
 
 # Callback to handle the timer timeout
