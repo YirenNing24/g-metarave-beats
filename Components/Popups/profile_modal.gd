@@ -1,5 +1,8 @@
 extends Control
 
+signal wallet_address_copied(wallet_address: String)
+
+
 const badge_scene: PackedScene = preload("res://Components/MyProfile/badge.tscn")
 const liker_slot_scene: PackedScene = preload("res://Components/Moments/liker_slot.tscn")
 const notification_scene: PackedScene = preload("res://Components/MyProfile/notification_slot.tscn")
@@ -38,10 +41,10 @@ func _ready() -> void:
 func signal_connect() -> void:
 	#It connects the logout complete signal to the _on_Logout_Complete function for handling logout events.
 	BKMREngine.Auth.bkmr_logout_complete.connect(_on_logout_complete)
-	#BKMREngine.Profile.get_profile_pic_complete.connect(_on_get_profile_pic_complete)
+	BKMREngine.Profile.get_profile_pic_complete.connect(_on_get_profile_pic_complete)
 	#BKMREngine.Profile.preference_get_complete.connect(_on_get_preference_complete)
-	#BKMREngine.Profile.profile_pic_upload_complete.connect(_on_profile_pic_upload_complete)
-	#BKMREngine.Profile.change_profile_pic_complete.connect(_on_change_profile_pic_complete)
+	BKMREngine.Profile.profile_pic_upload_complete.connect(_on_profile_pic_upload_complete)
+	BKMREngine.Profile.change_profile_pic_complete.connect(_on_change_profile_pic_complete)
 	#BKMREngine.Social.get_followers_following_count_complete.connect(_get_followers_following_count_complete)
 	#BKMREngine.Social.get_followers_following_complete.connect(_get_followers_following_complete)
 	
@@ -374,6 +377,7 @@ func _on_get_notifications_complete(notification_data: Array) -> void:
 func _on_copy_button_pressed() -> void:
 	var address_wallet: String = PLAYER.wallet_data.smartWalletAddress
 	DisplayServer.clipboard_set(address_wallet)
+	wallet_address_copied.emit(address_wallet)
 
 
 func _on_close_button_pressed() -> void:

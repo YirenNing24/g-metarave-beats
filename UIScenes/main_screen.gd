@@ -51,10 +51,11 @@ var is_opened: bool = false
 
 #region Initialization function called when the node is ready.
 func _ready() -> void:
-	hud_data()
-	signal_connect()
-	add_components()
 	BKMREngine.Auth.validate_player_session()
+	hud_data()
+	add_components()
+	signal_connect()
+
 	#Wait for animation completion before showing the mutuals box.
 	await animation_player.animation_finished
 	mutuals_box.show()
@@ -77,6 +78,7 @@ func signal_connect() -> void:
 	#BKMREngine.Profile.get_profile_pic_complete.connect(_on_get_profile_pic)
 	BKMREngine.Auth.bkmr_session_check_complete.connect(_on_session_check_complete)
 	var _connect: int = PLAYER.new_data_received.connect(hud_data)
+	profile_modal.wallet_address_copied.connect(_on_wallet_address_copied)
 	
 # Checks the user session.
 func session_check() -> void:
@@ -399,6 +401,12 @@ func _on_chat_closed(_code: int, _reason: String) -> void:
 		pass  # Placeholder, additional handling can be added here if needed
 		
 		
+
+func _on_wallet_address_copied(_wallet_address: String) -> void:
+	%Message.text = "Wallet address copied!"
+	%AnimationPlayer.play("Message")
+	
+	
 # Function to close all modals.
 func close_modals() -> void:
 	# Close all modals

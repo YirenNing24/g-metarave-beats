@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://yfevho5xx5qg"]
+[gd_scene load_steps=54 format=3 uid="uid://yfevho5xx5qg"]
 
 [ext_resource type="Script" path="res://UIScenes/main_screen.gd" id="1_25j1r"]
 [ext_resource type="Texture2D" uid="uid://cj3g7l2prnd31" path="res://UITextures/PanelElements/player_panel.png" id="2_37prv"]
@@ -196,8 +196,36 @@ tracks/2/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_2xnis"]
+resource_name = "Message"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MessagePanel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333, 0.9667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MessagePanel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(393, 546), Vector2(387.5, 226)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qe76f"]
 _data = {
+"Message": SubResource("Animation_2xnis"),
 "chat_slide": SubResource("Animation_rr2ox"),
 "game_mode_hero": SubResource("Animation_2glyp"),
 "mutual_slide": SubResource("Animation_alxay")
@@ -242,7 +270,7 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5mvih"]
-bg_color = Color(0, 0, 0, 0.611765)
+bg_color = Color(0, 0, 0, 0.937255)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
@@ -1168,6 +1196,8 @@ stretch_mode = 0
 
 [node name="MessagePanel" type="Panel" parent="."]
 unique_name_in_owner = true
+visible = false
+z_index = 9
 custom_minimum_size = Vector2(348, 0)
 layout_mode = 1
 anchors_preset = 8

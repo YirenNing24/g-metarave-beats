@@ -783,7 +783,6 @@ func load_session() -> Dictionary:
 		BeatsSessionTokens.retrieve_jwt_tokens()
 		var session_data: Dictionary = await BeatsSessionTokens.jwt_retrieve_completed
 		
-		print("tae mo gaga: ", session_data)
 		if session_data == {} or session_data == null:
 			BKMRLogger.debug("No session data found on Android plugin")
 			return {}
@@ -792,7 +791,7 @@ func load_session() -> Dictionary:
 	else:
 		# Log debug information about loading session from local storage
 		BKMRLogger.debug("Loading session from local file storage")
-		var path: String = "user://bkmrsession.save"
+		const path: String = "user://bkmrsession.save"
 		
 		# Retrieve the session data using BKMRLocalFileStorage
 		var session_data: Dictionary = BKMRLocalFileStorage.get_data(path)

@@ -1,6 +1,7 @@
-[gd_scene load_steps=43 format=3 uid="uid://c0bfp8uhi3poy"]
+[gd_scene load_steps=46 format=3 uid="uid://c0bfp8uhi3poy"]
 
 [ext_resource type="Script" path="res://Components/Popups/profile_modal.gd" id="1_umnlo"]
+[ext_resource type="Shader" path="res://Components/Moments/moment_slot.gdshader" id="2_2fi0b"]
 [ext_resource type="Texture2D" uid="uid://bc1cgt8r4y12o" path="res://UITextures/Icons/copy_icon.png" id="3_o65q7"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="5_f3kct"]
 [ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="5_xgibo"]
@@ -28,6 +29,22 @@ corner_radius_bottom_left = 20
 shadow_color = Color(0, 0, 0, 0.494118)
 shadow_size = 1
 shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1d66x"]
+bg_color = Color(0.00245657, 0.0230238, 0.0230327, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.222973, 0.626395, 0.626332, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_apt6c"]
+shader = ExtResource("2_2fi0b")
+shader_parameter/corner_radius = 20.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8nuqf"]
 
@@ -210,14 +227,32 @@ grow_vertical = 2
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 
-[node name="ProfilePic" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer"]
+[node name="MomentPicturePanel" type="Panel" parent="Panel/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
+theme_override_styles/panel = SubResource("StyleBoxFlat_1d66x")
 
-[node name="ProfilePicOptionsButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ProfilePic"]
+[node name="ProfilePic" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer/MomentPicturePanel"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_apt6c")
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -58.0
+offset_right = 58.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ProfilePicOptionsButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer/MomentPicturePanel/ProfilePic"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -336,6 +371,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="NotificationsButton" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(130, 33)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -362,6 +398,7 @@ uppercase = true
 metadata/_edit_use_anchors_ = true
 
 [node name="FanMomentsButton" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+visible = false
 custom_minimum_size = Vector2(130, 33)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -392,6 +429,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Status" type="Label" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("5_f3kct")
@@ -428,6 +466,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_constants/separation = 40
@@ -487,6 +526,7 @@ flat = true
 
 [node name="HistoryContainer" type="VBoxContainer" parent="Panel/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
@@ -735,7 +775,7 @@ visible = false
 layout_mode = 1
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ProfilePic/ProfilePicOptionsButton" to="." method="_on_profile_pic_options_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/MomentPicturePanel/ProfilePic/ProfilePicOptionsButton" to="." method="_on_profile_pic_options_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/CopyButton" to="." method="_on_copy_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer2/MyProfileButton" to="." method="_on_my_profile_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer2/NotificationsButton" to="." method="_on_notifications_button_pressed"]
