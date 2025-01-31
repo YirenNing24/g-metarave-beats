@@ -28,21 +28,49 @@ var difficulty_mode: String = "easy" #default
 
 
 func _ready() -> void:
-	# Initialize and set up the UI elements, connect signals.
+	%LoadingPanel.fake_loader()
 	parse_song_files()
 	list_songs()
 	hud_data()
 	songs_difficulty_visibility()
-	#get_classic_high_score()
+	connect_signals()
 	
 	left_difficulty_button.disabled = true
 	left_difficulty_button.modulate = "ffffff68"
-	BKMREngine.beats_server_connect(BKMREngine.Server.preferred_server)
+	BKMREngine.beats_server_connect()
+	
+	
+func _process(delta: float) -> void:
+	game_server_connection_check()
+	energy_check(delta)
+	
+	
+func connect_signals() -> void:
+	BKMREngine.Score.get_player_highscore_per_song_complete.connect(_on_get_player_highscore_per_song_complete)
+	
+	
+func get_classic_high_score() -> void:
+	BKMREngine.Score.get_player_highscore_per_song()
+	
+	
+func _on_get_player_highscore_per_song_complete(scores: Array) -> void:
+	# Map song names to their corresponding Control nodes
+	var song_map: Dictionary
+	for song: Control in song_list_container.get_children():
+		song_map[song.name] = song
+	
+	# Update high scores using the map
+	for score_data: Dictionary in scores:
+		var song_name: String = score_data.songName
+		if song_map.has(song_name):
+			var high_score: String = str(score_data.score)
+			var formatted_high_score: String = format_scores(high_score)
+			song_map[song_name].get_node("HBoxContainer2/HBoxContainer/HighScoreLabel").text = formatted_high_score
 
 	
 func on_get_classic_high_score_complete(high_scores: Array[Dictionary]) -> void:
 	# Map song names to their corresponding Control nodes
-	var song_map: Dictionary = {}
+	var song_map: Dictionary
 	for song: Control in song_list_container.get_children():
 		song_map[song.name] = song
 	
@@ -58,11 +86,9 @@ func on_get_classic_high_score_complete(high_scores: Array[Dictionary]) -> void:
 # Initialize HUD data, such as energy, beats, and kmr balances.
 func hud_data() -> void:
 	beats_balance.text = PLAYER.beats_balance
-	#native_balance.text = PLAYER.native_balance
-	
-	%Energy.text = str(PLAYER.current_energy) + " " + "/" + " " + str(PLAYER.max_energy)
 	gmr_balance.text = PLAYER.gmr_balance
-	
+	#native_balance.text = PLAYER.native_balance
+	%Energy.text = str(PLAYER.current_energy) + " " + "/" + " " + str(PLAYER.max_energy)
 	if PLAYER.time_until_next_recharge != 0:
 		start_recharge_countdown(PLAYER.time_until_next_recharge)
 	
@@ -72,14 +98,7 @@ func start_recharge_countdown(time_until_next: int) -> void:
 	recharge_progress = 0.0
 	
 	
-func _process(delta: float) -> void:
-	
-	BKMREngine.Server.websocket.close()
-	BKMREngine.Server.websocket.poll()
-	
-	if BKMREngine.peer.get_connection_status() != 2:
-		BKMREngine.beats_server_connect(BKMREngine.beats_host)
-		
+func energy_check(delta: float) -> void:
 	if PLAYER.current_energy >= PLAYER.max_energy:
 		# Max energy reached, hide recharge label
 		%EnergyRecharge.visible = false
@@ -103,6 +122,19 @@ func _process(delta: float) -> void:
 			# Energy is maxed out, hide recharge progress
 			%EnergyRecharge.visible = false
 	
+
+func game_server_connection_check() -> void:
+	BKMREngine.Server.websocket.close()
+	BKMREngine.Server.websocket.poll()
+	match BKMREngine.peer.get_connection_status():
+		0:
+			BKMREngine.beats_server_connect(BKMREngine.beats_host)
+			%LoadingPanel.fake_loader()
+		1:
+			BKMREngine.beats_server_connect(BKMREngine.beats_host)
+			%LoadingPanel.fake_loader()
+		2:
+			%LoadingPanel.tween_kill()
 	
 	
 # Parse the song files in the specified directory.
@@ -197,7 +229,7 @@ func list_songs() -> void:
 		songs.song_started.connect(song_start)
 		songs.song_canceled.connect(song_cancel)
 		songs.no_energy.connect(_on_no_energy)
-	
+	get_classic_high_score()
 	
 # Callback function to set the selected map when a song is chosen.
 func set_selected_map(_audio_file: String) -> void:

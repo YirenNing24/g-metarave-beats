@@ -319,8 +319,8 @@ func _on_chat_box_close_pressed() -> void:
 		buttons.disabled = false
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons2'):
 		buttons.disabled = false
-
-
+	
+	
 # Open chat with a mutual 
 func _on_mutuals_box_chat_button_pressed(_conversing_username: String) -> void:
 	for buttons: TextureButton in get_tree().get_nodes_in_group('MainButtons'):
@@ -332,7 +332,8 @@ func _on_mutuals_box_chat_button_pressed(_conversing_username: String) -> void:
 	await animation_player.animation_finished
 	mutuals_button.visible = true
 	animation_player.play("chat_slide")
-
+	
+	
 # Change scene to leaderboard screen
 func _on_leaderboard_button_pressed() -> void:
 	# Kill the stat tween if it exists
@@ -352,7 +353,6 @@ func _on_leaderboard_button_pressed() -> void:
 	# Disable buttons in the 'MainButtons2' group during the scene transition
 	for buttons: Button in get_tree().get_nodes_in_group('MainButtons2'):
 		buttons.disabled = true
-		
 		
 		
 func _on_missions_button_pressed() -> void:
@@ -429,6 +429,7 @@ func _input(event: InputEvent) -> void:
 		var position_event: Vector2 = event.position
 		cursor_spark.position = position_event
 		cursor_spark.emitting = true
+	
 	
 func play_pointer_sfx() -> void:
 	$AudioStreamPlayer.play()

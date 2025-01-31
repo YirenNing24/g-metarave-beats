@@ -126,13 +126,13 @@ func add_child_nodes() -> void:
 		
 		
 func beats_server_connect(host_url: String = "wss://sg-game.gmetarave.asia") -> void:
+	if not BKMREngine.Server.preferred_server.is_empty():
+		host_url = BKMREngine.Server.preferred_server
 	var connection: int = peer.get_connection_status()
 	if game_connected == false:
-		
 		peer.poll()
 		peer.handshake_timeout = 5.0
 		var _result: Error = peer.create_client(host_url)
-
 		multiplayer.multiplayer_peer = peer
 	if connection != 2: #connected
 		game_connected = false

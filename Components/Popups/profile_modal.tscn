@@ -262,6 +262,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_8nuqf")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_g8l7j")
+disabled = true
 flat = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer"]

@@ -33,18 +33,17 @@ func set_map() -> void:
 	SONG.song_name = song_title.text
 	await get_tree().create_timer(0.3).timeout
 	
+	
 func _on_initiate_start_button_pressed() -> void:
 	if PLAYER.current_energy == 0:
-		
-		print(PLAYER.current_energy)
 		no_energy.emit()
 		return
 		
-	
 	cancel_button.visible = true
 	on_song_selected()
 	disable_not_selected_songs()
 	song_selected.emit(self)
+	
 	
 func on_song_selected() -> void:
 	start_panel.visible = true
@@ -58,11 +57,13 @@ func on_song_selected() -> void:
 	start_panel.modulate = "#ffffff"
 	var _tween_callback: CallbackTweener = start_tween.tween_callback(on_song_selected)
 	
+	
 func _on_start_button_pressed() -> void:
 	start_tween.kill()
 	set_map()
 	song_started.emit(song.audio_file)
-
+	
+	
 func _on_cancel_button_pressed() -> void:
 	for songs: Control in get_tree().get_nodes_in_group('SongDisplay'):
 		if songs.name != name:
@@ -72,6 +73,7 @@ func _on_cancel_button_pressed() -> void:
 	start_panel.visible = false
 	start_tween.kill()
 	song_canceled.emit()
+
 
 func disable_not_selected_songs() -> void:
 	for song_display: Control in get_tree().get_nodes_in_group('SongDisplay'):
