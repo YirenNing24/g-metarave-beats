@@ -31,6 +31,7 @@ SONG="*res://Songs/Song.gd"
 Game3D="*res://GameComponents/Game3D.gd"
 BeatsPasskey="*res://addons/BeatsPassKeyLogin/beats_passkey_login.gd"
 BeatsSessionTokens="*res://addons/BeatsSessionTokens/beats_session_tokens.gd"
+BeatsQrScanner="*res://addons/BeatsQRScanner/beats_qr_scanner.gd"
 
 [debug]
 
@@ -87,7 +88,7 @@ project/assembly_name="kmr-godot-4"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/BeatsPassKeyLogin/plugin.cfg", "res://addons/BeatsSessionTokens/plugin.cfg", "res://addons/GodotGetImage/plugin.cfg", "res://addons/SmoothScroll/plugin.cfg")
+enabled=PackedStringArray("res://addons/BeatsPassKeyLogin/plugin.cfg", "res://addons/BeatsQRScanner/plugin.cfg", "res://addons/BeatsSessionTokens/plugin.cfg", "res://addons/GodotGetImage/plugin.cfg", "res://addons/SmoothScroll/plugin.cfg")
 
 [global_group]
 

@@ -21,7 +21,7 @@
 [ext_resource type="Shader" uid="uid://bd1fs0imo8ab4" path="res://UITextures/CustomResource/matrix.tres" id="17_1yvus"]
 [ext_resource type="Texture2D" uid="uid://d356rg23a4gt5" path="res://UITextures/BGTextures/hero_main_start.png" id="17_pcelb"]
 [ext_resource type="Texture2D" uid="uid://vxw1aujmxjy3" path="res://UITextures/CustomResource/auth_screen_gradient.tres" id="17_qx24v"]
-[ext_resource type="Texture2D" uid="uid://cryc4eqtq2jkp" path="res://UITextures/Bundles/beats_logo.png" id="18_uhof4"]
+[ext_resource type="Texture2D" uid="uid://pd3gisy01cy4" path="res://UITextures/Bundles/beats_logo_new.png" id="19_yqdd8"]
 [ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="20_6nce6"]
 [ext_resource type="AudioStream" uid="uid://ca4prkiescihv" path="res://Songs/3031347447 ICU-Anti-Hero/ICU-Anti-Hero.ogg" id="22_qaqcc"]
 [ext_resource type="Texture2D" uid="uid://dt3r7qpml5ogu" path="res://UITextures/Icons/notifications_icon.png" id="23_rqv4e"]
@@ -160,7 +160,7 @@ shader_parameter/color_gradiant = ExtResource("17_qx24v")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e3y73"]
 shader = ExtResource("17_1yvus")
-shader_parameter/ScaleMult = Vector2(1, 1)
+shader_parameter/ScaleMult = Vector2(0.98, 0.98)
 shader_parameter/AuraProgres = 1.0
 shader_parameter/TextureLaodMult = 10.0
 shader_parameter/Tilling = 60.0
@@ -1550,16 +1550,18 @@ alignment = 1
 
 [node name="StartHeroTexture" type="TextureRect" parent="BackgroundTexture"]
 unique_name_in_owner = true
+self_modulate = Color(0.77084, 0.770839, 0.770839, 1)
 material = SubResource("ShaderMaterial_bgfsb")
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.161667
-anchor_top = 0.0740741
-anchor_right = 0.828333
-anchor_bottom = 1.06111
+anchor_left = 0.0833333
+anchor_top = 0.0592593
+anchor_right = 0.9075
+anchor_bottom = 1.13889
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("17_pcelb")
+expand_mode = 1
 stretch_mode = 4
 metadata/_edit_use_anchors_ = true
 
@@ -1571,13 +1573,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -384.0
-offset_top = 53.5
-offset_right = 416.0
-offset_bottom = 228.5
+offset_left = -398.5
+offset_top = 54.5
+offset_right = 418.5
+offset_bottom = 178.5
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("18_uhof4")
+texture = ExtResource("19_yqdd8")
+expand_mode = 1
 
 [node name="StartButton" type="Button" parent="BackgroundTexture/StartHeroTexture"]
 modulate = Color(1, 1, 1, 0)

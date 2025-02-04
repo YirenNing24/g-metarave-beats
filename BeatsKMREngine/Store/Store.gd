@@ -67,15 +67,16 @@ func _onGetValidCards_request_completed(_result: int, response_code: int, header
 	if status_check:
 		# Parse the JSON response body and store the retrieved cards for sale
 		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
-		if json_body.is_empty():
-			get_valid_cards_complete.emit(json_body)
+		if json_body is Array:
+			if json_body.is_empty():
+				get_valid_cards_complete.emit(json_body)
 
-		elif json_body.has("error"):
-			
-			
-			get_valid_cards_complete.emit(json_body)
+			elif json_body.has("error"):
+				get_valid_cards_complete.emit(json_body)
+			else:
+				get_valid_cards_complete.emit(json_body)
 		else:
-			get_valid_cards_complete.emit(json_body)
+			get_valid_cards_complete.emit({"error": "Unknown server error"})
 		# Emit the signal indicating that the get cards request is complete
 	else:
 		get_valid_cards_complete.emit({"error": "Unknown server error"})

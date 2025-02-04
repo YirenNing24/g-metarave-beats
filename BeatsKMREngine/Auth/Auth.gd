@@ -781,7 +781,7 @@ func load_session() -> Dictionary:
 		# Log debug information about loading session for Android
 		BKMRLogger.debug("Loading session from Android plugin")
 		BeatsSessionTokens.retrieve_jwt_tokens()
-		var session_data: Dictionary = await BeatsSessionTokens.jwt_retrieve_completed
+		var session_data: Variant = await BeatsSessionTokens.jwt_retrieve_completed
 		
 		if session_data == {} or session_data == null:
 			BKMRLogger.debug("No session data found on Android plugin")
