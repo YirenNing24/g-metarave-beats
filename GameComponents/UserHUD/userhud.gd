@@ -56,11 +56,19 @@ func _ready() -> void:
 	set_multiplayer_authority(1) 
 	%MultiplayerSynchronizer.set_multiplayer_authority(1)
 	connect_signals()
+	username_label.text = PLAYER.username
+	
+	
+func set_artist(artist: String) -> void:
+	
+	print("artist po: ", artist)
+	BKMREngine.Inventory.group_card_equipped(artist)
 	
 	
 func connect_signals() -> void:
 	var _1: int = MULTIPLAYER.classic_game_over_completed.connect(_on_classic_game_over_completed)
-		
+	BKMREngine.Inventory.group_card_equip_complete.connect(equipped_cards_texture)
+	
 	
 func _on_get_group_card_equipped_complete(card_data: Array) -> void:
 	if not card_data.is_empty():
@@ -72,11 +80,13 @@ func _on_get_group_card_equipped_complete(card_data: Array) -> void:
 		
 @rpc
 func show_equipped_cards(card_data: Array) -> void:
-	print(card_data)
+	print("equipped cards:", card_data)
 	equipped_cards_texture(card_data)
 		
 		
 func equipped_cards_texture(card_data: Array) -> void:
+	
+	print(card_data)
 	if card_data.is_empty():
 		%CardTexture3.visible = false
 	else:

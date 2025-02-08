@@ -105,7 +105,8 @@ func equip(origin_item_id: String, card_data: Dictionary, origin: String = "self
 				"tokenId": card_data[origin_item_id].id,
 				"contractAddress": card_data[origin_item_id].contractAddress,
 				"group": card_data[origin_item_id].group,
-				"slot": card_data[origin_item_id].slot
+				"slot": card_data[origin_item_id].slot,
+				"name": card_data[origin_item_id].name
 				}
 			BKMREngine.Inventory.equip_item([equip_item_data])
 	%LoadingPanel.fake_loader()
@@ -122,11 +123,14 @@ func unequip(_equipment_data: Dictionary = {}) -> void:
 				"tokenId": cards_data[uri].id, 
 				"contractAddress": cards_data[uri].contractAddress,
 				"group": cards_data[uri].group,
-				"slot": cards_data[uri].slot
+				"slot": cards_data[uri].slot,
+				"name": cards_data[uri].name
 				}
 			BKMREngine.Inventory.unequip_item([unequip_data])
+			self_modulate = "92929287"
 			var _unequip: Dictionary = slot_data({})
 			return
+
 	
 	
 func limit_toggled_skills(equipment_slot: Dictionary) -> int:

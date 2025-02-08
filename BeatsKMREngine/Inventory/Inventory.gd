@@ -10,6 +10,7 @@ signal get_card_upgrade_inventory_complete(upgrade_inventory_data: Array)
 signal get_card_pack_inventory_complete(card_pack_inventory_data: Array)
 signal get_group_card_equipped_complete(card_equipped: Array)
 
+signal group_card_equip_complete(cards: Array)
 
 signal equip_item_complete(message: Dictionary)
 signal unequip_item_complete(message: Dictionary)
@@ -20,6 +21,10 @@ var wrOpenCardInventory: WeakRef
 
 var OpenGroupCardEquipped: HTTPRequest
 var wrOpenGroupCardEquipped: WeakRef
+
+
+var GroupCardEquip: HTTPRequest
+var wrGroupCardEquip: WeakRef
 
 var OpenCardUpgradeInventory: HTTPRequest
 var wrOpenCardUpgradeInventory: WeakRef
@@ -103,6 +108,41 @@ func _onOpenGroupCardEquipped_request_completed(_result: int, response_code: int
 			get_group_card_equipped_complete.emit({"error": "Unable to retrieve inventory"})
 	else:
 		get_group_card_equipped_complete.emit({"error": "Unable to retrieve inventory"})
+
+
+func group_card_equipped(group_name: String) -> void:
+	# Prepare an HTTP request for fetching private inbox data.
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	GroupCardEquip = prepared_http_req.request
+	wrGroupCardEquip  = prepared_http_req.weakref
+	
+	var _cards: int = GroupCardEquip.request_completed.connect(_onGroupCardEquipped_request_completed)
+	
+	var request_url: String = BKMREngine.host + "/api/card/inventory/equip-group/" + group_name
+	BKMREngine.send_get_request(GroupCardEquip, request_url)
+
+
+func _onGroupCardEquipped_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check if the HTTP response indicates success.
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	if status_check:
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body != null:
+			if json_body.has("error"):
+				BKMRLogger.info(json_body.error)
+			else:
+				group_card_equip_complete.emit(json_body)
+		else:
+			group_card_equip_complete.emit({ "error": "Unable to retrieve inventory" })
+	else:
+		group_card_equip_complete.emit({"error": "Unable to retrieve inventory"})
+
+
+
+
+
+
+
 #endregion
 
 

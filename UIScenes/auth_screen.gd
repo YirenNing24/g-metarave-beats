@@ -374,7 +374,7 @@ func _on_register_passkey_button_pressed() -> void:
 func _on_register_password_pressed() -> void:
 	if %Password.visible == false:
 		%RegisterPasskeyButton.visible = false
-		%RegisterPlaystore.visible = false
+
 		%HBoxContainer3.visible = false
 		
 		%Label5.visible = true

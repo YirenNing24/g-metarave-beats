@@ -24,16 +24,17 @@ var peer_id: int = PLAYER.peer_id
 
 
 func _ready() -> void:
+	signal_connect()
 	%LoadingPanel.fake_loader()
 	hud_data()
-	signal_connect()
-	var _1: int = MULTIPLAYER.classic_game_over_completed.connect(display_score)
+	
 	#BKMREngine.Score.get_classic_high_score_single(peer_id)
 	#BKMREngine.Score.get_classic_highscore_single.connect(_on_get_classic_highscore_single)
 	
 	#display_score()
 	
 func signal_connect() -> void:
+	var _1: int = MULTIPLAYER.classic_game_over_completed.connect(display_score)
 	var _connect: int = PLAYER.new_data_received.connect(hud_data)
 	
 	
@@ -115,7 +116,6 @@ func display_score(rewards: Dictionary) -> void:
 	
 	BKMREngine.beats_server_peer_close()
 	%LoadingPanel.tween_kill()
-	BKMREngine.Auth.validate_player_session()
 	
 	
 func format_scores(value: String) -> String:

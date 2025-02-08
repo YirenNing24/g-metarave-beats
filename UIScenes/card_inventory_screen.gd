@@ -41,6 +41,7 @@ func card_inventory_open(inventory_data: Array) -> void:
 		card_inventory_slot.get_node('CardIcon').data_card.connect(_on_inventory_card_pressed)
 		
 	var empty_card_inventory_slot: int = PLAYER.inventory_size - inventory_data[0].size()
+	
 	for _i: int in empty_card_inventory_slot:
 		card_inventory_slot = inventory_slot_card.instantiate()
 		card_inventory_container.add_child(card_inventory_slot)
@@ -67,6 +68,7 @@ func equipment_slot_open(inventory_data: Array) -> void:
 				great_guys_equipped(uri, card_data)
 			"Irohm":
 				irohm_equipped(uri, card_data)
+	%LoadingPanel.tween_kill()
 				
 				
 # Handle equipped cards with group "X:IN"

@@ -1602,6 +1602,7 @@ text = "START"
 
 [node name="DebugLabel" type="Label" parent="BackgroundTexture"]
 unique_name_in_owner = true
+visible = false
 z_index = 2
 layout_mode = 0
 offset_left = 5.0

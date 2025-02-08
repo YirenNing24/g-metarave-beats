@@ -29,6 +29,7 @@ var combo: int = 0
 var peer_id: int = 0
 var has_loaded: bool = false
 
+
 func _ready() -> void:
 	connect_signals()
 	
@@ -37,6 +38,10 @@ func _on_road_notepicker_position(picker_y_position: float) -> void:
 	var song_map: String = SONG.map_selected.map_file
 	var song_audio_file: String = SONG.map_selected.audio_file
 	MULTIPLAYER.load_song(song_map, song_audio_file, picker_y_position)
+	
+	
+
+
 	
 	
 func connect_signals() -> void:
@@ -49,7 +54,7 @@ func song_game_start() -> void:
 	set_variables()
 	calculate_params()
 	setup_nodes()
-	
+	user_hud.set_artist(beatmap.audio.artist)
 	
 #func _on_player_peer_id_received(id: int) -> void:
 	#print("HHHOYYYYYYYYYYYYYYY")
@@ -62,8 +67,8 @@ func song_game_start() -> void:
 func set_variables() -> void:
 	beatmap_file = SONG.map_selected.map_file
 	beatmap = load_beatmap()
-
-
+	
+	
 func _on_loading_start(id_peer: int) -> void:
 	peer_id = id_peer
 	if has_loaded:

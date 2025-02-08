@@ -213,7 +213,7 @@ func _on_buy_card_complete(_message: Dictionary) -> void:
 		if current_beats_balance != 0:
 			beats_balance.text = format_balance(str(current_beats_balance - price_recent))
 			
-	confirm_yes_button.pressed.disconnect(_on_yes_button_pressed)
+	confirm_yes_button.presseds.disconnect(_on_yes_button_pressed)
 	%LoadingPanel.fake_loader()
 	BKMREngine.Store.get_valid_cards()
 

@@ -106,6 +106,7 @@ func _on_get_energy_drink_complete(energy_drinks: Array) -> void:
 		
 func _on_recharge_energy_button_pressed() -> void:
 	$EnergyBottlePanel.visible = not $EnergyBottlePanel.visible
+	BeatsQrScanner.start_qr_code_scanner()
 		
 		
 func _on_basic_energy_button_pressed() -> void:
