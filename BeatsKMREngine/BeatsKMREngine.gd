@@ -75,6 +75,7 @@ var notification_script: Script = load("res://BeatsKMREngine/Notification/Notifi
 var energy_script: Script = load("res://BeatsKMREngine/Energy/Energy.gd")
 var server_script: Script = load("res://BeatsKMREngine/Server/Server.gd")
 
+
 func _ready() -> void:
 	print("BKMR ready start timestamp: " + str(BKMRUtils.get_timestamp()))
 	initialize_script()

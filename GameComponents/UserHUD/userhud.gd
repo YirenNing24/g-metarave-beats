@@ -79,7 +79,7 @@ func _on_get_group_card_equipped_complete(card_data: Array) -> void:
 @rpc
 func show_equipped_cards(card_data: Array) -> void:
 	print("equipped cards:", card_data)
-	equipped_cards_texture(card_data)
+
 		
 		
 func equipped_cards_texture(card_data: Array) -> void:

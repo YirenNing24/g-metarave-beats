@@ -57,10 +57,9 @@ func set_server_urls() -> void:
 	
 func set_player_urls(player_server: String) -> void:
 	var preferred_server_api_index: int = latency_test_urls.find(player_server)
-	
 	BKMREngine.host = api_server_urls[preferred_server_api_index]
 	BKMREngine.beats_host = game_server_urls[preferred_server_api_index]
-	
+	preferred_server = BKMREngine.beats_host
 	
 	
 func connect_to_server() -> void:
