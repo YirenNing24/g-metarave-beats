@@ -60,8 +60,6 @@ func _ready() -> void:
 	
 	
 func set_artist(artist: String) -> void:
-	
-	print("artist po: ", artist)
 	BKMREngine.Inventory.group_card_equipped(artist)
 	
 	
@@ -85,21 +83,45 @@ func show_equipped_cards(card_data: Array) -> void:
 		
 		
 func equipped_cards_texture(card_data: Array) -> void:
-	
-	print(card_data)
-	if card_data.is_empty():
-		%CardTexture3.visible = false
-	else:
-		%CardTexture3.visible = true
+	# Extract dictionary from array (assuming only one dictionary exists)
+	var card_dict: Dictionary = card_data[0]
+
+	# Check if all "name" values are empty
+	var all_names_empty: bool = true
+	for key: String in card_dict.keys():
+		var card_info: Dictionary = card_dict[key]
+		if "name" in card_info and card_info["name"] != "":
+			all_names_empty = false
+			break  # Exit early if at least one name exists
+
+	# Toggle CardTexture3 visibility based on names
+	%CardTexture3.visible = not all_names_empty
+
+	# If all names are empty, stop execution
+	if all_names_empty:
+		return
+
+	# Ensure card_textures_array is defined (assuming it's a class variable)
+	if not "card_textures_array" in self:
+		var _card_textures_array: Array = []
+
+	# Iterate over dictionary keys
+	for key: String in card_dict.keys():
+		var card_info: Dictionary = card_dict[key]
 		
-	for card: Dictionary in card_data:
-		var card_name: String = card["name"].replace(" ", "_").to_lower()
-		var card_texture: Texture = load("res://UITextures/Cards/" + card_name + ".png")
-			
-		if card_texture:
-			card_textures_array.append(card_texture)
+		# Ensure "name" exists and is not empty
+		if "name" in card_info and card_info["name"] != "":
+			var card_name: String = card_info["name"].replace(" ", "_").to_lower()
+			var texture_path: String = "res://UITextures/Cards/" + card_name + ".png"
+
+			# Check if texture exists before loading
+			if ResourceLoader.exists(texture_path):
+				var card_texture: Texture = load(texture_path)
+				card_textures_array.append(card_texture)
+
+	# Call animation function (assuming it exists)
 	animate_card()
-	
+
 	
 func animate_card() -> void:
 	if not card_textures_array.is_empty():
