@@ -1,17 +1,20 @@
-[gd_scene load_steps=20 format=3 uid="uid://cff5li31pk0jx"]
+[gd_scene load_steps=29 format=3 uid="uid://cff5li31pk0jx"]
 
 [ext_resource type="Script" path="res://Components/Popups/store_item_modal.gd" id="1_ychtr"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_wygyw"]
 [ext_resource type="Texture2D" uid="uid://71ok60rxtq74" path="res://UITextures/Popups/info_panel.png" id="3_7ymp4"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="3_tsqrq"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="4_40xnu"]
+[ext_resource type="Texture2D" uid="uid://bfct8g5meu08d" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_COLOR.jpg" id="4_pwxi3"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="5_5o5t1"]
 [ext_resource type="Texture2D" uid="uid://dtknbgik85jx3" path="res://UITextures/Progress/prop_base.png" id="5_f8ghx"]
 [ext_resource type="Texture2D" uid="uid://ds0um88d71gmp" path="res://UITextures/Progress/prop_progress.png" id="6_sh0mv"]
 [ext_resource type="FontFile" uid="uid://vqx73un0cel7" path="res://UITextures/Fonts/HankenGrotesk-Italic-VariableFont_wght.ttf" id="7_vtv0g"]
 [ext_resource type="Texture2D" uid="uid://1ktjogd6a24l" path="res://UITextures/Buttons/buy_button.png" id="8_0vpge"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="8_p2noh"]
+[ext_resource type="Shader" path="res://Components/Popups/store_item_modal.gdshader" id="13_om51l"]
 [ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="13_sdllf"]
+[ext_resource type="Texture2D" uid="uid://0gcaffddmrr8" path="res://UITextures/Cards/nova_no_doubt_genesis.png" id="14_pu1my"]
 [ext_resource type="Texture2D" uid="uid://cu2rldjgd6cuu" path="res://UITextures/Cards/hannah_no_doubt_genesis.png" id="15_psqku"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_fvuja"]
@@ -28,6 +31,51 @@ metallic_specular = 0.0
 material = SubResource("StandardMaterial3D_5k46n")
 uv2_padding = 1.0
 size = Vector2(119.5, 150)
+
+[sub_resource type="Gradient" id="Gradient_bcsdd"]
+offsets = PackedFloat32Array(0.915493)
+colors = PackedColorArray(0.75514, 0.00117824, 0.861417, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lprqg"]
+gradient = SubResource("Gradient_bcsdd")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qkv4b"]
+render_priority = 0
+shader = ExtResource("13_om51l")
+shader_parameter/threshold = 0.6
+shader_parameter/effect_alpha_mult = 0.383
+shader_parameter/direction = 0.0
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.735
+shader_parameter/roughness = 0.191
+shader_parameter/emission_energy = 0.505
+shader_parameter/line_smoothness = 0.045
+shader_parameter/line_width = 0.09
+shader_parameter/scanline_brightness = 2.0
+shader_parameter/rotation_deg = 30.07
+shader_parameter/distortion = 1.568
+shader_parameter/speed = 0.8
+shader_parameter/position = 0.0
+shader_parameter/position_min = 0.25
+shader_parameter/position_max = 0.5
+shader_parameter/scanline_alpha = 0.5
+shader_parameter/scanline_interval = 5.0
+shader_parameter/scanline_duration = 1.0
+shader_parameter/texture_albedo = ExtResource("14_pu1my")
+shader_parameter/gradient = SubResource("GradientTexture2D_lprqg")
+shader_parameter/noise = ExtResource("4_pwxi3")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0lrwn"]
+
+[sub_resource type="Sky" id="Sky_64ppu"]
+sky_material = SubResource("ProceduralSkyMaterial_0lrwn")
+
+[sub_resource type="Environment" id="Environment_2puog"]
+background_color = Color(1, 1, 1, 1)
+sky = SubResource("Sky_64ppu")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.72
 
 [sub_resource type="Animation" id="Animation_6t2hi"]
 resource_name = "buy_loading"
@@ -279,17 +327,18 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.0520446
-anchor_top = 0.0652741
-anchor_right = 0.920074
-anchor_bottom = 0.180157
+anchor_left = 0.0687732
+anchor_top = 0.075718
+anchor_right = 0.905204
+anchor_bottom = 0.190601
 offset_bottom = -8.0
 theme_override_fonts/font = ExtResource("8_p2noh")
 theme_override_font_sizes/font_size = 28
-text = "MUST BE LOVE"
+text = "NOVA NO DOUBT GENESIS"
 horizontal_alignment = 1
 vertical_alignment = 2
 clip_text = true
+text_overrun_behavior = 3
 uppercase = true
 metadata/_edit_use_anchors_ = true
 
@@ -368,6 +417,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_fonts/font = ExtResource("8_p2noh")
 theme_override_font_sizes/font_size = 12
+text = "1000 GBEATS"
 horizontal_alignment = 2
 vertical_alignment = 2
 
@@ -394,39 +444,46 @@ unique_name_in_owner = true
 transparent_bg = true
 
 [node name="Area3D" type="Node3D" parent="SubViewport"]
+unique_name_in_owner = true
 
 [node name="CardMesh" type="MeshInstance3D" parent="SubViewport/Area3D"]
 unique_name_in_owner = true
-transform = Transform3D(0.996195, 0, -0.0871558, 0, 1, 0, 0.0871558, 0, 0.996195, 0, 0, 0)
+transform = Transform3D(0.999702, 0, 0.0244385, 0, 1, 0, -0.0244385, 0, 0.999702, 0, 0, 0)
 mesh = SubResource("QuadMesh_vfpk8")
+surface_material_override/0 = SubResource("ShaderMaterial_qkv4b")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport/Area3D"]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, -1.85923, 4.50207, 144.818)
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="SubViewport/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 74.1237, 119.064)
-light_energy = 16.0
-light_specular = 3.909
-omni_range = 449.986
-
-[node name="OmniLight3D4" type="OmniLight3D" parent="SubViewport/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 74.1237, 119.064)
-light_energy = 16.0
-light_specular = 3.909
-omni_range = 449.986
-
 [node name="OmniLight3D5" type="OmniLight3D" parent="SubViewport/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 74.1237, 119.064)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 102.338, 89.3689)
 light_energy = 16.0
 light_specular = 3.909
-omni_range = 449.986
+omni_range = 113.936
 
 [node name="OmniLight3D6" type="OmniLight3D" parent="SubViewport/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.8231, -53.6142, 119.022)
-light_energy = 16.0
-light_specular = 3.909
-omni_range = 449.986
+transform = Transform3D(1, 0, 0, 0, 0.985662, 0.16873, 0, -0.16873, 0.985662, -3.8609, -30.6491, 98.5611)
+visible = false
+light_energy = 15.4
+light_specular = 3.762
+omni_range = 4096.0
 omni_attenuation = 0.933033
+
+[node name="OmniLight3D7" type="OmniLight3D" parent="SubViewport/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 0.985662, 0.16873, 0, -0.16873, 0.985662, -3.8609, -113.468, 98.5611)
+light_energy = 15.4
+light_specular = 3.762
+omni_range = 4096.0
+omni_attenuation = 0.933033
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.92612, 29.7704, 193.106)
+visible = false
+light_energy = 0.58
+sky_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport/Area3D"]
+environment = SubResource("Environment_2puog")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

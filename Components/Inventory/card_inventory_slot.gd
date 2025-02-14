@@ -6,7 +6,7 @@ signal data_card(card_data: Dictionary)
 
 var cards_data: Dictionary = {}
 
-
+#mistake on "var uri", the "var uri" uri key here is a string value "metadata"
 func slot_data(card_data: Dictionary = {}) -> Dictionary:
 	if !card_data.is_empty():
 		var uri: String = card_data.keys()[0]
@@ -14,6 +14,7 @@ func slot_data(card_data: Dictionary = {}) -> Dictionary:
 		card_data["origin_node"] = self
 		card_data["origin_panel"] = "CardInventory"
 		card_data["origin_item_id"] = uri
+		card_data["uri"] = card_data[uri].uri
 		card_data["card_id"] = card_data[uri].id
 		card_data["origin_equipment_slot"] = card_data[uri].slot
 		

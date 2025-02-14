@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://gmllsb3bdm2u"]
+[gd_scene load_steps=62 format=3 uid="uid://gmllsb3bdm2u"]
 
 [ext_resource type="Script" path="res://UIScenes/card_inventory_screen.gd" id="1_2vffs"]
 [ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="2_poddd"]
@@ -37,6 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://bsx630v8ue428" path="res://UITextures/BGTextures/Inventory/EmptySlot/chaei_empty_slot_bg.png" id="29_ws4jg"]
 [ext_resource type="Texture2D" uid="uid://br8aihdn3jbm5" path="res://UITextures/BGTextures/Inventory/EmptySlot/miku_empty_slot_bg.png" id="30_nphcp"]
 [ext_resource type="Texture2D" uid="uid://dw26b55e18wee" path="res://UITextures/BGTextures/Inventory/EmptySlot/irohmvocal_empty_slot_bg.png" id="33_mx350"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="35_eiwgq"]
 [ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="38_7gcnm"]
 
 [sub_resource type="Resource" id="Resource_w5syg"]
@@ -243,7 +244,7 @@ layout_mode = 2
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_3ma8w")
 metadata/_tab_index = 0
 
-[node name="XINEquip" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN"]
+[node name="X_INEquip" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN"]
 custom_minimum_size = Vector2(1055, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -252,14 +253,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip"]
+[node name="Panel" type="Panel" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip"]
 self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
 custom_minimum_size = Vector2(1057, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_1tsup")
 
-[node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel"]
+[node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel"]
 self_modulate = Color(0.239216, 0.239216, 0.239216, 1)
 layout_mode = 1
 anchors_preset = 8
@@ -276,7 +277,7 @@ grow_vertical = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0198676
@@ -287,13 +288,13 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 129)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -301,12 +302,12 @@ size_flags_vertical = 0
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="Esha" type="Panel" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Esha" type="Panel" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Esha" groups=["CardSlot", "X:INSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Esha" groups=["CardSlot", "X:INSlot"]]
 self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
@@ -320,7 +321,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
-[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Esha"]
+[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Esha"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -341,7 +342,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w3ejl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rmk8c")
 flat = true
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Esha"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Esha"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.03471
@@ -355,12 +356,12 @@ text = "ESHA"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Nizz" type="Panel" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Nizz" type="Panel" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nizz" groups=["CardSlot", "X:INSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nizz" groups=["CardSlot", "X:INSlot"]]
 self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
@@ -374,7 +375,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
-[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nizz"]
+[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nizz"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -395,7 +396,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w3ejl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rmk8c")
 flat = true
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nizz"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nizz"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.03471
@@ -409,12 +410,12 @@ text = "NIZZ"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Nova" type="Panel" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Nova" type="Panel" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nova" groups=["CardSlot", "X:INSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nova" groups=["CardSlot", "X:INSlot"]]
 self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
@@ -428,7 +429,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
-[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nova"]
+[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nova"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -449,7 +450,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w3ejl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rmk8c")
 flat = true
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nova"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Nova"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.03471
@@ -463,13 +464,13 @@ text = "NOVA"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 129)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -477,12 +478,12 @@ size_flags_vertical = 0
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="Hannah" type="Panel" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Hannah" type="Panel" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Hannah" groups=["CardSlot", "X:INSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Hannah" groups=["CardSlot", "X:INSlot"]]
 self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
@@ -496,7 +497,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
-[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Hannah"]
+[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Hannah"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -517,7 +518,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w3ejl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rmk8c")
 flat = true
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Hannah"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Hannah"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.03471
@@ -531,12 +532,12 @@ text = "HANNAH"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Aria" type="Panel" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Aria" type="Panel" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Aria" groups=["CardSlot", "X:INSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Aria" groups=["CardSlot", "X:INSlot"]]
 self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
@@ -550,7 +551,7 @@ expand_mode = 1
 stretch_mode = 4
 script = ExtResource("7_tqxdo")
 
-[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Aria"]
+[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Aria"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -571,7 +572,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w3ejl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rmk8c")
 flat = true
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Aria"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Aria"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.03471
@@ -585,26 +586,26 @@ text = "ARIA"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="TextureButton" type="TextureButton" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
 texture_normal = ExtResource("7_aj63t")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -621,14 +622,14 @@ text = "Equip Set"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureButton2" type="TextureButton" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="TextureButton2" type="TextureButton" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
 texture_normal = ExtResource("7_aj63t")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton2"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -645,14 +646,14 @@ text = "Equip Best"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureButton3" type="TextureButton" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="TextureButton3" type="TextureButton" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
 texture_normal = ExtResource("7_aj63t")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton3"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -669,75 +670,128 @@ text = "Unequip"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VboxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer"]
+[node name="VboxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.44
+size_flags_stretch_ratio = 0.81
 
-[node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
-custom_minimum_size = Vector2(92.4, 120)
+[node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
+custom_minimum_size = Vector2(150, 120)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 texture = ExtResource("15_lx753")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
 visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "X:IN"
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 text = "Equipped Skills"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="XinSkillIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
+[node name="XinSkillIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
 size_flags_horizontal = 4
 expand_mode = 1
 
-[node name="XinSkillIcon2" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
+[node name="XinSkillIcon2" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
 size_flags_horizontal = 4
 expand_mode = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="XinSkillIcon3" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer2"]
+[node name="XinSkillIcon3" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
 size_flags_horizontal = 4
 expand_mode = 1
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer"]
+[node name="CardSetStatsContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer"]
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("16_7ynqb")
 theme_override_font_sizes/font_size = 20
-text = "CARD SET STATS"
+text = "CARD SET BONUS"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="TextureRect2" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/XINEquip/Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("35_eiwgq")
+text = "SCOREBOOST"
+vertical_alignment = 2
+
+[node name="ScoreBoostValue" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("35_eiwgq")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("35_eiwgq")
+text = "HEALTHBOOST"
+vertical_alignment = 2
+
+[node name="HealBoostValue" type="Label" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("35_eiwgq")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect2" type="TextureRect" parent="TextureRect/InventoryTabContainer/X_IN/X_INEquip/Panel"]
 self_modulate = Color(0.370846, 0.360594, 0.356181, 0.498039)
 show_behind_parent = true
 layout_mode = 1
@@ -757,7 +811,7 @@ layout_mode = 2
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_3ma8w")
 metadata/_tab_index = 1
 
-[node name="XINEquip" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS"]
+[node name="GREAT_GUYSEquip" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS"]
 custom_minimum_size = Vector2(1055, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -766,14 +820,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip"]
+[node name="Panel" type="Panel" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip"]
 self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
 custom_minimum_size = Vector2(1057, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_1tsup")
 
-[node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel"]
+[node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel"]
 self_modulate = Color(0.239216, 0.239216, 0.239216, 1)
 layout_mode = 1
 anchors_preset = 8
@@ -790,7 +844,7 @@ grow_vertical = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0198676
@@ -801,13 +855,13 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 129)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -815,12 +869,12 @@ size_flags_vertical = 0
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="DongHwi" type="Panel" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="DongHwi" type="Panel" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/DongHwi" groups=["CardSlot", "GREATGUYSSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/DongHwi" groups=["CardSlot", "GREATGUYSSlot"]]
 self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
@@ -834,7 +888,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
-[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/DongHwi"]
+[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/DongHwi"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -855,7 +909,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w3ejl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rmk8c")
 flat = true
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/DongHwi"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/DongHwi"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.03471
@@ -869,12 +923,12 @@ text = "DONG HWI"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="HoRyeong" type="Panel" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="HoRyeong" type="Panel" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/HoRyeong" groups=["CardSlot", "GREATGUYSSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/HoRyeong" groups=["CardSlot", "GREATGUYSSlot"]]
 self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
@@ -888,7 +942,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
-[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/HoRyeong"]
+[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/HoRyeong"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -909,7 +963,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w3ejl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rmk8c")
 flat = true
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/HoRyeong"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/HoRyeong"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.03471
@@ -923,12 +977,12 @@ text = "HO RYEONG"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="BaekGyeol" type="Panel" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="BaekGyeol" type="Panel" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/BaekGyeol" groups=["CardSlot", "GREATGUYSSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/BaekGyeol" groups=["CardSlot", "GREATGUYSSlot"]]
 self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
@@ -942,7 +996,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
-[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/BaekGyeol"]
+[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/BaekGyeol"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -963,7 +1017,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w3ejl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rmk8c")
 flat = true
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/BaekGyeol"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/BaekGyeol"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.03471
@@ -977,26 +1031,26 @@ text = "BAEK GYEOL"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="TextureButton" type="TextureButton" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
 texture_normal = ExtResource("7_aj63t")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1013,14 +1067,14 @@ text = "Equip Set"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureButton2" type="TextureButton" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="TextureButton2" type="TextureButton" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
 texture_normal = ExtResource("7_aj63t")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton2"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1037,14 +1091,14 @@ text = "Equip Best"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureButton3" type="TextureButton" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="TextureButton3" type="TextureButton" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
 texture_normal = ExtResource("7_aj63t")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton3"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1061,73 +1115,124 @@ text = "Unequip"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VboxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer"]
+[node name="VboxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.44
 
-[node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
+[node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
 custom_minimum_size = Vector2(120, 160)
 layout_mode = 2
 texture = ExtResource("16_8qvm6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
 visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "X:IN"
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 text = "Equipped Skills"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="XinSkillIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
+[node name="XinSkillIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
 size_flags_horizontal = 4
 expand_mode = 1
 
-[node name="XinSkillIcon2" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
+[node name="XinSkillIcon2" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
 size_flags_horizontal = 4
 expand_mode = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="XinSkillIcon3" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer2"]
+[node name="XinSkillIcon3" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
 size_flags_horizontal = 4
 expand_mode = 1
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer"]
+[node name="CardSetStatsContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer"]
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("16_7ynqb")
 theme_override_font_sizes/font_size = 20
-text = "CARD SET STATS"
+text = "CARD SET BONUS"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("35_eiwgq")
+text = "SCOREBOOST"
+vertical_alignment = 2
+
+[node name="ScoreBoostValue" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("35_eiwgq")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("35_eiwgq")
+text = "HEALTHBOOST"
+vertical_alignment = 2
+
+[node name="HealBoostValue" type="Label" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("35_eiwgq")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="TextureRect2" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS"]
 self_modulate = Color(0.70763, 0.697332, 0.693902, 0.282353)
@@ -1148,7 +1253,7 @@ layout_mode = 2
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_3ma8w")
 metadata/_tab_index = 2
 
-[node name="XINEquip" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/ICU"]
+[node name="ICUEquip" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/ICU"]
 custom_minimum_size = Vector2(1055, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -1157,14 +1262,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="TextureRect/InventoryTabContainer/ICU/XINEquip"]
+[node name="Panel" type="Panel" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip"]
 self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
 custom_minimum_size = Vector2(1057, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_1tsup")
 
-[node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel"]
+[node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel"]
 self_modulate = Color(0.239216, 0.239216, 0.239216, 1)
 layout_mode = 1
 anchors_preset = 8
@@ -1181,7 +1286,7 @@ grow_vertical = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.0293283
@@ -1192,13 +1297,13 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 129)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1206,12 +1311,12 @@ size_flags_vertical = 0
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="Abin" type="Panel" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Abin" type="Panel" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Abin" groups=["CardSlot", "ICUSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Abin" groups=["CardSlot", "ICUSlot"]]
 self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
@@ -1225,7 +1330,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
-[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Abin"]
+[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Abin"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -1246,7 +1351,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w3ejl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rmk8c")
 flat = true
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Abin"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Abin"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.03471
@@ -1260,12 +1365,12 @@ text = "ABIN"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Naye" type="Panel" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Naye" type="Panel" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Naye" groups=["CardSlot", "ICUSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Naye" groups=["CardSlot", "ICUSlot"]]
 self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
@@ -1279,7 +1384,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
-[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Naye"]
+[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Naye"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -1300,7 +1405,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w3ejl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rmk8c")
 flat = true
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Naye"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/Naye"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.03471
@@ -1314,13 +1419,13 @@ text = "NAYE"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="ChaeI" type="Panel" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="ChaeI" type="Panel" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
 visible = false
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/ChaeI" groups=["CardSlot", "ICUSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/ChaeI" groups=["CardSlot", "ICUSlot"]]
 self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
@@ -1334,7 +1439,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
-[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/ChaeI"]
+[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/ChaeI"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -1355,7 +1460,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w3ejl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rmk8c")
 flat = true
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/ChaeI"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/ChaeI"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.03471
@@ -1369,13 +1474,13 @@ text = "CHAE-I"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 129)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1383,12 +1488,12 @@ size_flags_vertical = 0
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="ChaeI" type="Panel" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="ChaeI" type="Panel" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/ChaeI" groups=["CardSlot", "ICUSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/ChaeI" groups=["CardSlot", "ICUSlot"]]
 self_modulate = Color(0.572549, 0.572549, 0.572549, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
@@ -1402,7 +1507,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
-[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/ChaeI"]
+[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/ChaeI"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -1423,7 +1528,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w3ejl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rmk8c")
 flat = true
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/ChaeI"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/ChaeI"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.03471
@@ -1438,12 +1543,12 @@ text = "CHAE-I
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Miku" type="Panel" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Miku" type="Panel" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Miku" groups=["CardSlot", "ICUSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Miku" groups=["CardSlot", "ICUSlot"]]
 self_modulate = Color(1, 1, 1, 0.529412)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
@@ -1457,7 +1562,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
-[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Miku"]
+[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Miku"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -1478,7 +1583,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w3ejl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rmk8c")
 flat = true
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Miku"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer2/Miku"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.03471
@@ -1492,26 +1597,26 @@ text = "MIKU"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="TextureButton" type="TextureButton" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
 texture_normal = ExtResource("7_aj63t")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1528,14 +1633,14 @@ text = "Equip Set"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureButton2" type="TextureButton" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="TextureButton2" type="TextureButton" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
 texture_normal = ExtResource("7_aj63t")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton2"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1552,14 +1657,14 @@ text = "Equip Best"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureButton3" type="TextureButton" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="TextureButton3" type="TextureButton" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
 texture_normal = ExtResource("7_aj63t")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton3"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1576,73 +1681,124 @@ text = "Unequip"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VboxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer"]
+[node name="VboxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.44
+size_flags_stretch_ratio = 1.02
 
-[node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
+[node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
 custom_minimum_size = Vector2(120, 160)
 layout_mode = 2
 texture = ExtResource("16_8se6w")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
 visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "X:IN"
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 text = "Equipped Skills"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="XinSkillIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
+[node name="XinSkillIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
 size_flags_horizontal = 4
 expand_mode = 1
 
-[node name="XinSkillIcon2" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
+[node name="XinSkillIcon2" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
 size_flags_horizontal = 4
 expand_mode = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="XinSkillIcon3" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer2"]
+[node name="XinSkillIcon3" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
 size_flags_horizontal = 4
 expand_mode = 1
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer"]
+[node name="CardSetStatsContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer"]
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("16_7ynqb")
 theme_override_font_sizes/font_size = 20
-text = "CARD SET STATS"
+text = "CARD SET BONUS"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("35_eiwgq")
+text = "SCOREBOOST"
+vertical_alignment = 2
+
+[node name="ScoreBoostValue" type="Label" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("35_eiwgq")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("35_eiwgq")
+text = "HEALTHBOOST"
+vertical_alignment = 2
+
+[node name="HealBoostValue" type="Label" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("35_eiwgq")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/ICU/ICUEquip/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="TextureRect2" type="TextureRect" parent="TextureRect/InventoryTabContainer/ICU"]
 self_modulate = Color(0.366654, 0.356844, 0.353573, 0.572549)
@@ -1662,7 +1818,7 @@ layout_mode = 2
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_3ma8w")
 metadata/_tab_index = 3
 
-[node name="XINEquip" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM"]
+[node name="IROHMEquip" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM"]
 custom_minimum_size = Vector2(1055, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -1671,14 +1827,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip"]
+[node name="Panel" type="Panel" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip"]
 self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
 custom_minimum_size = Vector2(1057, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_1tsup")
 
-[node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel"]
+[node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel"]
 self_modulate = Color(0.239216, 0.239216, 0.239216, 1)
 layout_mode = 1
 anchors_preset = 8
@@ -1695,7 +1851,7 @@ grow_vertical = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.0293283
@@ -1706,13 +1862,13 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 129)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1720,12 +1876,12 @@ size_flags_vertical = 0
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="IrohmVocal" type="Panel" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="IrohmVocal" type="Panel" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/IrohmVocal" groups=["CardSlot", "IROHMSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/IrohmVocal" groups=["CardSlot", "IROHMSlot"]]
 self_modulate = Color(0.717647, 0.717647, 0.717647, 0.811765)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
@@ -1739,7 +1895,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
-[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/IrohmVocal"]
+[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/IrohmVocal"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -1760,7 +1916,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w3ejl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rmk8c")
 flat = true
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/IrohmVocal"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/IrohmVocal"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.03471
@@ -1774,12 +1930,12 @@ text = "VOCALS"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="IrohmInstrumental" type="Panel" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="IrohmInstrumental" type="Panel" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
-[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/IrohmInstrumental" groups=["CardSlot", "IROHMSlot"]]
+[node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/IrohmInstrumental" groups=["CardSlot", "IROHMSlot"]]
 self_modulate = Color(0.717647, 0.717647, 0.717647, 0.811765)
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
@@ -1793,7 +1949,7 @@ expand_mode = 1
 stretch_mode = 6
 script = ExtResource("7_tqxdo")
 
-[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/IrohmInstrumental"]
+[node name="Button" type="Button" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/IrohmInstrumental"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -1814,7 +1970,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w3ejl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rmk8c")
 flat = true
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/IrohmInstrumental"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/IrohmInstrumental"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.03101
@@ -1828,32 +1984,32 @@ text = "INSTRUMENTAL"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="TextureButton" type="TextureButton" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
 texture_normal = ExtResource("7_aj63t")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1870,14 +2026,14 @@ text = "Equip Set"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureButton2" type="TextureButton" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="TextureButton2" type="TextureButton" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
 texture_normal = ExtResource("7_aj63t")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton2"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1894,14 +2050,14 @@ text = "Equip Best"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureButton3" type="TextureButton" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="TextureButton3" type="TextureButton" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
 texture_normal = ExtResource("7_aj63t")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton3"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1918,75 +2074,127 @@ text = "Unequip"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VboxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer"]
+[node name="VboxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.44
+size_flags_stretch_ratio = 0.81
 
-[node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
+[node name="TextureRect" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
 custom_minimum_size = Vector2(92.4, 120)
 layout_mode = 2
 texture = ExtResource("18_458n4")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
 visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "X:IN"
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VboxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 text = "Equipped Skills"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="XinSkillIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
+[node name="XinSkillIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
 size_flags_horizontal = 4
 expand_mode = 1
 
-[node name="XinSkillIcon2" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
+[node name="XinSkillIcon2" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
 size_flags_horizontal = 4
 expand_mode = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="XinSkillIcon3" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer2"]
+[node name="XinSkillIcon3" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VboxContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
 size_flags_horizontal = 4
 expand_mode = 1
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/XINEquip/Panel/TextureRect/HBoxContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("16_7ynqb")
 theme_override_font_sizes/font_size = 20
 text = "CARD SET BONUS"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("35_eiwgq")
+text = "SCOREBOOST"
+vertical_alignment = 2
+
+[node name="ScoreBoostValue" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("35_eiwgq")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("35_eiwgq")
+text = "HEALTHBOOST"
+vertical_alignment = 2
+
+[node name="ScoreBoostValue" type="Label" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(104, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("35_eiwgq")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="TextureRect/InventoryTabContainer/IROHM/IROHMEquip/Panel/TextureRect/HBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="TextureRect2" type="TextureRect" parent="TextureRect/InventoryTabContainer/IROHM"]
+visible = false
 self_modulate = Color(0.366654, 0.356844, 0.353573, 0.572549)
 show_behind_parent = true
 layout_mode = 1

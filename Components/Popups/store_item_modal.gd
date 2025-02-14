@@ -38,15 +38,16 @@ var nft_name: String
 func _ready() -> void:
 	# Play the halfspin animation
 	animation_player.play('halfspin')
-
+	
+	
 # Set data and texture for the card.
 func set_data(card_data: Dictionary, texture: Texture) -> void:
 	# Set the albedo texture of the card mesh
-	%CardMesh.mesh.surface_get_material(0).set("albedo_texture", texture)
+	%CardMesh.get_surface_override_material(0).set_shader_parameter("texture_albedo", texture)
 
 	var currency_symbol: String = card_data.currencyName
 	var display_value: String = str(card_data.pricePerToken)
-
+	card_price = display_value
 	# Update UI elements with card information
 	card_name.text = card_data.name
 	
@@ -68,20 +69,22 @@ func set_data(card_data: Dictionary, texture: Texture) -> void:
 	var listing_id_string: String = card_data.listingId
 	listing_id = listing_id_string
 	nft_name = card_data.name
-
+	
+	
 # Determine the currency and check player balance to enable/disable buy button
 func _on_close_button_pressed() -> void:
 	visible = false
-
+	
+	
 # Handle buy button press.
 func _on_buy_button_pressed() -> void:
-	
 	var afford: bool = get_parent().check_cost_and_funds(int(card_price))
 	if not afford:
 		return
 	BKMREngine.Store.buy_card(card_uri, int(listing_id), str(card_price))
 	store_item_buy_pressed.emit(price.text)
-
+	
+	
 # Handle close transaction button press.
 func _on_close_transaction_pressed() -> void:
 	visible = false

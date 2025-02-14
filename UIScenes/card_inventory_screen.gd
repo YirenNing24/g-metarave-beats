@@ -14,7 +14,11 @@ var inventory_slot_card: PackedScene = preload("res://Components/Inventory/card_
 @onready var filter_panel: Panel = %FilterPanel
 #@onready var equipment_slot_container: HBoxContainer = %EquipmentSlotContainer
 
+var score_boost_value_display: int = 0
+var inventory_tab_container_path: String = "CardInventoryScreen/TextureRect/InventoryTabContainer/"
+
 var is_loading : bool = false
+
 
 
 func _ready() -> void:

@@ -398,6 +398,7 @@ offset_right = 101.0
 offset_bottom = 113.0
 grow_horizontal = 2
 grow_vertical = 2
+disabled = true
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -453,6 +454,7 @@ offset_right = 101.0
 offset_bottom = 162.5
 grow_horizontal = 2
 grow_vertical = 2
+disabled = true
 ignore_texture_size = true
 stretch_mode = 5
 

@@ -13,6 +13,12 @@ var cards_data: Dictionary = {}
 var unequip_card_data: Dictionary
 
 
+const inventory_tab_container: String = "/root/CardInventoryScreen/TextureRect/InventoryTabContainer"
+const score_boost_value_path: String = "/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer/HBoxContainer/ScoreBoostValue"
+const heal_boost_value_path: String = "/Panel/TextureRect/HBoxContainer/CardSetStatsContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HealBoostValue"
+
+
+
 func _ready() -> void:
 	connect_signal()
 	
@@ -54,7 +60,11 @@ func slot_data(card_data: Dictionary = {}) -> Dictionary:
 			card_data["AwakenCount"] = card_data[uri].awakenCount
 			cards_data = card_data
 			slot_texture_set()
-			return cards_data as Dictionary
+			
+			@warning_ignore("unsafe_call_argument")
+			update_card_boost_values(card_data["Scoreboost"], card_data["Healboost"], card_data["Group"], true)
+			
+			return cards_data
 	else:
 		default_texture()
 		
@@ -63,11 +73,11 @@ func slot_data(card_data: Dictionary = {}) -> Dictionary:
 		card_data["origin_equipment_slot"] = equipment_slot
 		card_data["origin_texture"] = texture
 		cards_data = card_data
-		return cards_data as Dictionary
+		return cards_data
 		
 	cards_data = card_data
 	slot_texture_set()
-	return cards_data as Dictionary
+	return cards_data
 	
 	
 func slot_texture_set() -> void:
@@ -79,7 +89,7 @@ func slot_texture_set() -> void:
 		self_modulate = "ffffff"
 		cards_data["origin_texture"] = card_texture
 	
-	
+
 func default_texture() -> void:
 	var equipment_slot: String = get_parent().name
 	var texture_name: String = equipment_slot.to_lower() + "_empty_slot_bg" + ".png"
@@ -95,16 +105,15 @@ func _on_button_pressed() -> void:
 	
 	
 func equip(origin_item_id: String, card_data: Dictionary, origin: String = "self") -> void:
-	if card_data[origin_item_id].group == "Great Guys":
-		print("Dong Hwasa: ", card_data)
 	if cards_data["origin_equipment_slot"].replace(" ", "").to_lower() == card_data["origin_equipment_slot"].replace(" ", "").to_lower():
 		var _equipment_slot_data: Dictionary = slot_data(card_data)
 		if origin == "self":
+			var group: String = card_data[origin_item_id].group
 			var equip_item_data: Dictionary = { 
-				"uri": origin_item_id, 
+				"uri": card_data[origin_item_id].uri, 
 				"tokenId": card_data[origin_item_id].id,
 				"contractAddress": card_data[origin_item_id].contractAddress,
-				"group": card_data[origin_item_id].group,
+				"group": group,
 				"slot": card_data[origin_item_id].slot,
 				"name": card_data[origin_item_id].name
 				}
@@ -126,11 +135,61 @@ func unequip(_equipment_data: Dictionary = {}) -> void:
 				"slot": cards_data[uri].slot,
 				"name": cards_data[uri].name
 				}
+			update_card_boost_values(cards_data[uri].scoreboost, cards_data[uri].healboost, cards_data[uri].group, false)
 			BKMREngine.Inventory.unequip_item([unequip_data])
 			self_modulate = "92929287"
 			var _unequip: Dictionary = slot_data({})
 			return
+	
+	
+func update_card_boost_values(score_boost: String, heal_boost: String, group: String, equip_card: bool) -> void:
+	var group_node: String = group_to_node_name(group)
+	var group_equip_container: String = group_node + "Equip"
+	
+	
+	print("Score boost: ", score_boost)
+	# Paths to labels
+	var score_boost_label_path: String = inventory_tab_container + "/" + group_node + "/" + group_equip_container + score_boost_value_path
+	var health_boost_label_path: String = inventory_tab_container + "/" + group_node + "/" + group_equip_container + heal_boost_value_path
 
+	# Convert boost values
+	var score_boost_value: int = int(score_boost)
+	var heal_boost_value: int = int(heal_boost)
+
+	# Update score boost label directly
+	if has_node(score_boost_label_path):
+		var score_label: Label = get_node(score_boost_label_path)
+
+		# Ensure label has a valid number
+		var current_score: int = int(score_label.text) if score_label.text.is_valid_int() else 0
+
+		# Adjust score
+		var new_score: int = current_score + score_boost_value if equip_card else max(0, current_score - score_boost_value)
+		score_label.text = str(new_score)
+
+	# Update heal boost label directly
+	if has_node(health_boost_label_path):
+		var heal_label: Label = get_node(health_boost_label_path)
+
+		# Ensure label has a valid number
+		var current_heal: int = int(heal_label.text) if heal_label.text.is_valid_int() else 0
+
+		# Adjust heal boost
+		var new_heal: int = current_heal + heal_boost_value if equip_card else max(0, current_heal - heal_boost_value)
+		heal_label.text = str(new_heal)
+
+	
+func group_to_node_name(group: String) -> String:
+	match group:
+		"X:IN":
+			return "X_IN"
+		"ICU":
+			return "ICU"
+		"Great Guys":
+			return "GREAT_GUYS"
+		"Irohm":
+			return "IROHM"
+	return ""
 	
 	
 func limit_toggled_skills(equipment_slot: Dictionary) -> int:

@@ -25,7 +25,6 @@ anchor_right = 0.125
 anchor_bottom = 0.45
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
 script = ExtResource("1_xdj0r")
 
 [node name="Panel2" type="Panel" parent="."]
@@ -36,7 +35,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_26s2p")
 
 [node name="Icon" type="TextureRect" parent="Panel2"]
@@ -69,7 +68,6 @@ anchor_right = 0.973333
 anchor_bottom = 0.720165
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
 
 [node name="Label" type="Label" parent="."]
 visible = false
@@ -106,7 +104,6 @@ offset_right = -5.0
 offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 0
-mouse_filter = 1
 texture_normal = ExtResource("3_pe827")
 ignore_texture_size = true
 stretch_mode = 0
@@ -119,6 +116,7 @@ offset_right = 128.0
 offset_bottom = 32.0
 
 [node name="Price" type="Label" parent="BuyButton/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 0)
 layout_mode = 2
 size_flags_horizontal = 3

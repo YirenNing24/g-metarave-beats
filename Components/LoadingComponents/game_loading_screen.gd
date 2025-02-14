@@ -9,15 +9,15 @@ var tween: Tween
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-
-
+	
+	
 func _on_visibility_changed() -> void:
 	if visible:
 		fake_loader()
 	else:
 		pass
-
-
+	
+	
 func fake_loader() -> void:
 	loading_wheel.value = 0
 	tween = get_tree().create_tween()

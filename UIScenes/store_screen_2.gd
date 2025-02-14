@@ -101,17 +101,20 @@ func _on_get_valid_cards_complete(cards :Array) -> void:
 		var price: int = card.pricePerToken
 		
 		# Set card slot properties.
-		card_slots.show_item_store_modal.connect(_on_show_item_store_modal)
-		card_slots.card_buy_button_pressed.connect(_on_card_slot_buy_button_pressed)
+
 		card_slots.get_node('Panel2/Icon').texture = card_texture
 		card_slots.get_node('BuyButton/HBoxContainer/Price').text = str(price)
 		
 		item_grid.add_child(card_slots)
 		card_slots.get_card_data(card)
+		
+		card_slots.show_item_store_modal.connect(_on_show_item_store_modal)
+		card_slots.card_buy_button_pressed.connect(_on_card_slot_buy_button_pressed)
 	%LoadingPanel.tween_kill()
 		
 		
 func _on_card_slot_buy_button_pressed(card_data: Dictionary) -> void:
+	%LoadingPanel.fake_loader()
 	@warning_ignore("unsafe_call_argument")
 	var afford: bool = check_cost_and_funds(card_data.pricePerToken)
 	if not afford:
@@ -213,7 +216,7 @@ func _on_buy_card_complete(_message: Dictionary) -> void:
 		if current_beats_balance != 0:
 			beats_balance.text = format_balance(str(current_beats_balance - price_recent))
 			
-	confirm_yes_button.presseds.disconnect(_on_yes_button_pressed)
+	confirm_yes_button.pressed.disconnect(_on_yes_button_pressed)
 	%LoadingPanel.fake_loader()
 	BKMREngine.Store.get_valid_cards()
 
