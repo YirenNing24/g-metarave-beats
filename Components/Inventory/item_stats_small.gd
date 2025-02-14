@@ -1,8 +1,8 @@
 extends Control
 
-signal equip_unequip_pressed
-signal close_item_stats_pressed
-signal chosen_card_group
+signal equip_unequip_pressed()
+signal close_item_stats_pressed()
+signal chosen_card_group()
 
 @onready var name_label: Label = %NameLabel
 @onready var scoreboost_label: Label = %ScoreBoost
