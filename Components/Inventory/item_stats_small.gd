@@ -36,10 +36,9 @@ func populate_card_labels() -> void:
 		var card_healboost: String = card_data["Healboost"]
 		
 		var card_level: String = str(card_data["Level"])
+		var card_texture: Texture = card_data["origin_texture"]
 		#var card_tier: String = card_data["Tier"]
 		#var card_era: String = card_data["Era"]
-		
-		var card_texture: Texture = card_data["origin_texture"]
 		
 		set_labels(card_name, card_scoreboost, card_healboost, card_level, card_texture)
 		set_buttons(true, origin_node)
@@ -73,7 +72,7 @@ func set_labels(card_name: String, scoreboost: String, healboost: String, level:
 
 func set_buttons(is_data: bool, origin: String) -> void:
 	if origin == "CardSlot":
-		if !is_data:
+		if not is_data:
 			equip_unequip_button.visible = false
 			powerup_button.visible = false
 		else:
@@ -117,27 +116,41 @@ func equip() -> void:
 	var slots_name: String = group_name + "Slot"
 	var slot_group_name: String = slots_name.replace(" ", "")
 	var card_equipment_slot: String = card_data["origin_equipment_slot"].replace(" ", "").to_lower()
-	
+
 	# Emit the chosen card's group
 	chosen_card_group.emit(card_data["Group"])
 
-	# Iterate over slots and equip if conditions are met
-	for slot: TextureRect in get_tree().get_nodes_in_group(slot_group_name):
-		if slot.cards_data["origin_equipment_slot"].replace(" ", "").to_lower() == card_equipment_slot:
-			if slot.cards_data["origin_item_id"] == null:
-				slot.equip(card_data["origin_item_id"], card_data)
-				inv_slot_node.equip_to_equip_slot()
-				break  # Only one slot needs to be equipped, exit the loop
+	# Pre-fetch slot nodes once to improve performance
+	var slots: Array[Node] = get_tree().get_nodes_in_group(slot_group_name)
 
-	# Reset is_open state and clear variables
+	# Iterate over slots and equip if conditions are met
+	for slot: TextureRect in slots:
+		var slot_data: Dictionary = slot.cards_data
+		var slot_equipment_slot: String = slot_data["origin_equipment_slot"].replace(" ", "").to_lower()
+
+		# Check if slot matches the required equipment slot
+		if slot_equipment_slot == card_equipment_slot and slot_data["origin_item_id"] == null:
+			slot.equip(card_data["origin_item_id"], card_data)
+			inv_slot_node.equip_to_equip_slot()
+
+			# Exit function early after equipping
+			is_open = false
+			clear_variables()
+			_hide_filter_button()
+			return  
+
+	# Reset state if no slot was equipped
 	is_open = false
 	clear_variables()
+	_hide_filter_button()
 
-	# Hide the filter button
+
+func _hide_filter_button() -> void:
 	const filter_button_path: String = "TextureRect/VBoxContainer/Panel/HBoxContainer/HBoxContainer/CloseFilterButton"
 	var filter_button: TextureButton = get_parent().get_node(filter_button_path)
-	filter_button.visible = false
-	
+	if filter_button:
+		filter_button.visible = false
+
 	
 func unequip() -> void:
 	var slots_name: String = card_data["Group"].to_upper() + "Slot"

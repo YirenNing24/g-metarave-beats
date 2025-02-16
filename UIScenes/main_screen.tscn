@@ -457,6 +457,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ExpProgressBar" type="TextureProgressBar" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 1
 anchors_preset = -1
@@ -476,6 +477,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ExperienceLabel" type="Label" parent="Panel/BackgroundTexture/HBoxContainer/HBoxContainer/TextureRect"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 287.0
 offset_top = 92.0
