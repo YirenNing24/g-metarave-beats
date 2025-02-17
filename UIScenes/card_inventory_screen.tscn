@@ -233,7 +233,7 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/tab_selected = SubResource("StyleBoxTexture_ahlu7")
 theme_override_styles/tab_hovered = SubResource("StyleBoxEmpty_mhja2")
 theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_o7lcf")
-current_tab = 3
+current_tab = 1
 clip_tabs = false
 tab_focus_mode = 1
 metadata/_edit_use_anchors_ = true
@@ -806,7 +806,6 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="GREAT_GUYS" type="TabBar" parent="TextureRect/InventoryTabContainer"]
-visible = false
 layout_mode = 2
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_3ma8w")
 metadata/_tab_index = 1
@@ -872,6 +871,7 @@ alignment = 1
 [node name="DongHwi" type="Panel" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
 [node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/DongHwi" groups=["CardSlot", "GREATGUYSSlot"]]
@@ -883,6 +883,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("21_r86gy")
 expand_mode = 1
 stretch_mode = 6
@@ -926,6 +927,7 @@ metadata/_edit_use_anchors_ = true
 [node name="HoRyeong" type="Panel" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
 [node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/HoRyeong" groups=["CardSlot", "GREATGUYSSlot"]]
@@ -937,6 +939,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("22_2w7n2")
 expand_mode = 1
 stretch_mode = 6
@@ -980,6 +983,7 @@ metadata/_edit_use_anchors_ = true
 [node name="BaekGyeol" type="Panel" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(102.3, 0)
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ko1p5")
 
 [node name="CardIcon" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS/GREAT_GUYSEquip/Panel/TextureRect/HBoxContainer/VBoxContainer/HBoxContainer/BaekGyeol" groups=["CardSlot", "GREATGUYSSlot"]]
@@ -991,6 +995,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("23_dch4j")
 expand_mode = 1
 stretch_mode = 6
@@ -1235,6 +1240,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="TextureRect2" type="TextureRect" parent="TextureRect/InventoryTabContainer/GREAT_GUYS"]
+visible = false
 self_modulate = Color(0.70763, 0.697332, 0.693902, 0.282353)
 show_behind_parent = true
 layout_mode = 1
@@ -1814,6 +1820,7 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="IROHM" type="TabBar" parent="TextureRect/InventoryTabContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_3ma8w")
 metadata/_tab_index = 3

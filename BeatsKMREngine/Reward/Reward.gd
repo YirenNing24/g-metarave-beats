@@ -17,6 +17,10 @@ var GetDailyMissionList: HTTPRequest
 var wrGetDailyMissionList: WeakRef
 signal get_daily_mission_list_completed(daily_mission_list: Array[Dictionary])
 
+var ClaimDailyMissionReward: HTTPRequest
+var wrClaimDailyMissionReward: WeakRef
+signal claim_daily_mission_reward_completed(message: Dictionary)
+
 
 
 func claim_personal_mission_reward(mission_name: String) -> void:
@@ -43,8 +47,34 @@ func _on_ClaimPersonalMissionReward_request_completed(_result: int, response_cod
 			claim_personal_mission_reward_completed.emit(json_body)
 	else:
 		claim_personal_mission_reward_completed.emit({ "Error:": "Unknown Server Error" })
+	
+	
+func claim_daily_mission_reward(mission_name: String) -> void:
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	ClaimDailyMissionReward = prepared_http_req.request
+	wrClaimDailyMissionReward = prepared_http_req.weakref
+
+	var _connect: int = ClaimDailyMissionReward.request_completed.connect(_on_ClaimDailyMissionReward_request_completed)
+	BKMRLogger.info("Calling BKMREngine to get card inventory data")
+
+	var request_url: String = BKMREngine.host + "/api/reward/claim/daily-mission"
+	var payload: Dictionary = { "name": mission_name }
+	BKMREngine.send_post_request(ClaimDailyMissionReward, request_url, payload)
 
 
+func _on_ClaimDailyMissionReward_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	if status_check:
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body.has("error"):
+			BKMRLogger.info(json_body.error)
+			claim_daily_mission_reward_completed.emit(json_body.error)
+		else:
+			claim_daily_mission_reward_completed.emit(json_body)
+	else:
+		claim_daily_mission_reward_completed.emit({ "Error:": "Unknown Server Error" })
+	
+	
 func get_personal_mission_list() -> void:
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	GetPersonalMissionList = prepared_http_req.request

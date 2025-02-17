@@ -114,7 +114,6 @@ func _on_get_valid_cards_complete(cards :Array) -> void:
 		
 		
 func _on_card_slot_buy_button_pressed(card_data: Dictionary) -> void:
-	%LoadingPanel.fake_loader()
 	@warning_ignore("unsafe_call_argument")
 	var afford: bool = check_cost_and_funds(card_data.pricePerToken)
 	if not afford:
@@ -190,10 +189,13 @@ func _on_get_valid_card_packs_buy_button_pressed(item_data: Dictionary, type: St
 func _on_yes_button_pressed(item_data: Dictionary, item_type: String) -> void:
 	match item_type:
 		"CardUpgrade":
+			%LoadingPanel.fake_loader()
 			buy_card_upgrade(item_data)
 		"Card":
+			%LoadingPanel.fake_loader()
 			buy_card(item_data)
 		"CardPack":
+			%LoadingPanel.fake_loader()
 			buy_card_pack(item_data)
 		
 		

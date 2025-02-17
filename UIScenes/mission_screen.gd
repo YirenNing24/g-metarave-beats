@@ -66,6 +66,7 @@ func start_recharge_countdown(time_until_next: int) -> void:
 	
 func connect_signals() -> void:
 	BKMREngine.Reward.get_personal_mission_list_completed.connect(_get_personal_mission_list_completed)
+	BKMREngine.Reward.get_daily_mission_list_completed.connect(_get_daily_mission_list_completed)
 	
 	
 func _get_personal_mission_list_completed(personal_missions: Array) -> void:
@@ -73,16 +74,29 @@ func _get_personal_mission_list_completed(personal_missions: Array) -> void:
 		var mission_personal: Control = mission_slot.instantiate()
 		mission_personal.mission_slot_data(mission)
 		%PersonalMissionVBox.add_child(mission_personal)
-		
 		mission_personal.claim_personal_mission_started.connect(_on_claim_personal_mission_reward_started)
 		mission_personal.claim_personal_mission_reward_complete.connect(_on_claim_personal_mission_reward_completed)
+	%LoadingPanel.tween_kill()
+	
+	
+func _get_daily_mission_list_completed(daily_missions: Array) -> void:
+	for mission: Dictionary in daily_missions:
+		var mission_daily: Control = mission_slot.instantiate()
+		mission_daily.mission_slot_data(mission)
+		%DailyMissionVBox.add_child(mission_daily)
 		
+		mission_daily.claim_daily_mission_started.connect(_on_claim_daily_mission_reward_started)
+		mission_daily.claim_daily_mission_reward_complete.connect(_on_claim_daily_mission_reward_completed)
 	%LoadingPanel.tween_kill()
 		
 		
 func _on_claim_personal_mission_reward_started() -> void:
 	%LoadingPanel.fake_loader()
 		
+		
+func _on_claim_daily_mission_reward_started() -> void:
+	%LoadingPanel.fake_loader()
+	
 		
 func _on_claim_mission_reward_completed(_message: Dictionary) -> void:
 	%LoadingPanel.tween_kill()
@@ -104,6 +118,22 @@ func _on_claim_personal_mission_reward_completed(reward_name: String, reward_amo
 			beats_balance.text = format_balance(str(current_beats_balance + reward_amount))
 			
 	%LoadingPanel.tween_kill()
+	
+	
+func _on_claim_daily_mission_reward_completed(reward_name: String, reward_amount: int) -> void:
+	if reward_amount != 0:
+		if reward_name == "BEATS":
+			%Message.text = "BEATS reward succesfully claimed"
+			%AnimationPlayer.play("Message")
+			
+		var current_beats_balance: int = beats_balance.text.to_int()
+		if current_beats_balance != 0:
+			beats_balance.text = format_balance(str(current_beats_balance + reward_amount))
+			
+	%LoadingPanel.tween_kill()
+	
+	
+	
 	
 	
 func _on_close_button_pressed() -> void:
@@ -145,4 +175,5 @@ func _on_tab_container_tab_changed(tab: int) -> void:
 			pass
 		3:
 			if %DailyMissionVBox.get_children().is_empty():
+				%LoadingPanel.fake_loader()
 				BKMREngine.Reward.get_daily_mission_list()

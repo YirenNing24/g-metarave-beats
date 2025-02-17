@@ -122,6 +122,7 @@ func _on_inventory_card_pressed(card_data: Dictionary, _slot: Control) -> void:
 	
 	
 func _on_equipped_card_pressed(card_data: Dictionary) -> void:
+	print("heyyyyss: ", card_data)
 	if %ItemStatsSmall.is_open == false:
 		#animation_player.play("item_stats_slide")
 		#await animation_player.animation_finished

@@ -98,6 +98,7 @@ func default_texture() -> void:
 	
 	
 func _on_button_pressed() -> void:
+	print("ehhhhh: ", cards_data)
 	if cards_data["origin_item_id"] != null:
 		equipped_card_pressed.emit(cards_data)
 	else:

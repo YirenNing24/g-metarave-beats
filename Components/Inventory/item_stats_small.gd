@@ -28,7 +28,8 @@ func _on_card_inventory_screen_item_stats_card_data(data_card: Dictionary) -> vo
 	
 	
 func populate_card_labels() -> void:
-	
+
+	visible = true
 	var origin_node: String = card_data["origin_panel"]
 	if origin_node == "CardInventory":
 		var card_name: String = card_data["Name"]
@@ -57,7 +58,7 @@ func populate_card_labels() -> void:
 			set_labels(card_name, card_scoreboost, card_healboost, card_level, card_texture)
 			set_buttons(true, origin_node)
 			#set_skill()
-	visible = true
+	
 	
 	
 func set_labels(card_name: String, scoreboost: String, healboost: String, level: String, texture: Texture) -> void:
@@ -160,7 +161,7 @@ func unequip() -> void:
 			if slot.cards_data["origin_equipment_slot"].replace(" ", "").to_lower() == card_data["origin_equipment_slot"].replace(" ", "").to_lower():
 				slot.unequip(card_data)
 				
-	is_open = true
+	is_open = false
 	clear_variables()
 #endregion
 	
