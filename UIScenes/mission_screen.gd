@@ -42,8 +42,6 @@ func _process(delta: float) -> void:
 			%EnergyRecharge.visible = false
 	
 	
-	
-	
 func hud_data() -> void:
 	display_hud()
 	
@@ -67,12 +65,10 @@ func start_recharge_countdown(time_until_next: int) -> void:
 	
 	
 func connect_signals() -> void:
-	BKMREngine.Reward.get_personal_mission_list_completed.connect(_get_personal_mission_lost_completed)
+	BKMREngine.Reward.get_personal_mission_list_completed.connect(_get_personal_mission_list_completed)
 	
 	
-func _get_personal_mission_lost_completed(personal_missions: Array) -> void:
-	%LoadingPanel.fake_loader()
-	
+func _get_personal_mission_list_completed(personal_missions: Array) -> void:
 	for mission: Dictionary in personal_missions:
 		var mission_personal: Control = mission_slot.instantiate()
 		mission_personal.mission_slot_data(mission)
@@ -124,15 +120,29 @@ func _on_close_button_pressed() -> void:
 	
 func format_balance(value: String) -> String:
 	var parts: Array = value.split(".")
-	var wholePart: String = parts[0]
+	var whole_part: String = parts[0]
 	
 	# Add commas for every three digits in the whole part.
-	var formattedWholePart: String = ""
-	var digitCount: int = 0
-	for i: int in range(wholePart.length() - 1, -1, -1):
-		formattedWholePart = wholePart[i] + formattedWholePart
-		digitCount += 1
-		if digitCount == 3 and i != 0:
-			formattedWholePart = "," + formattedWholePart
-			digitCount = 0
-	return formattedWholePart
+	var formatted_whole_part: String = ""
+	var digit_count: int = 0
+	for i: int in range(whole_part.length() - 1, -1, -1):
+		formatted_whole_part = whole_part[i] + formatted_whole_part
+		digit_count += 1
+		if digit_count == 3 and i != 0:
+			formatted_whole_part = "," + formatted_whole_part
+			digit_count = 0
+	return formatted_whole_part
+	
+	
+func _on_tab_container_tab_changed(tab: int) -> void:
+	match tab:
+		0:
+			if %PersonalMissionVBox.get_children().is_empty():
+				BKMREngine.Reward.get_personal_mission_list()
+		1:
+			pass
+		2:
+			pass
+		3:
+			if %DailyMissionVBox.get_children().is_empty():
+				BKMREngine.Reward.get_daily_mission_list()
