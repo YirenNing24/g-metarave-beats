@@ -31,7 +31,7 @@ var card_reward: Dictionary
 var peer_id: int
 
 var preferred_server: String
-
+var is_server_checked: bool = false
 
 func _ready() -> void:
 	BKMREngine.Auth.bkmr_session_check_complete.connect(populate_player_data)
@@ -88,7 +88,9 @@ func populate_player_data(data: Dictionary) -> void:
 		if data.safeProperties.has("preferredServer") and data.safeProperties["preferredServer"] != "":
 			BKMREngine.Server.set_player_urls(data.safeProperties["preferredServer"])
 		else:
-			BKMREngine.Server.no_preferred_server()
+			if not is_server_checked:
+				BKMREngine.Server.no_preferred_server()
+				is_server_checked = true
 		
 	else:
 		return

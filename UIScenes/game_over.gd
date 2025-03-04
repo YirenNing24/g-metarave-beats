@@ -28,10 +28,6 @@ func _ready() -> void:
 	%LoadingPanel.fake_loader()
 	hud_data()
 	
-	#BKMREngine.Score.get_classic_high_score_single(peer_id)
-	#BKMREngine.Score.get_classic_highscore_single.connect(_on_get_classic_highscore_single)
-	
-	#display_score()
 	
 func signal_connect() -> void:
 	var _1: int = MULTIPLAYER.classic_game_over_completed.connect(display_score)
@@ -84,14 +80,6 @@ func display_hud() -> void:
 	%GMR.text = PLAYER.gmr_balance
 	
 	
-#func _on_get_classic_highscore_single(score: Array) -> void:
-	#if !score.is_empty():
-		#var single_score: Dictionary = score[0]
-		#display_score(single_score) 
-	#else:
-		#BKMREngine.Score.get_classic_high_score_single(peer_id)
-	
-	
 func display_score(rewards: Dictionary) -> void:
 	var single_score: Dictionary = MULTIPLAYER.classic_score_stats
 	score_label.text = format_scores(str(single_score["score"]))
@@ -110,12 +98,14 @@ func display_score(rewards: Dictionary) -> void:
 	good_label.text = format_scores(str(single_score["good"]))
 	bad_label.text = format_scores(str(single_score["bad"]))
 	miss_label.text = format_scores(str(single_score["miss"]))
+	%HighScoreLabel.text = format_scores(str(rewards["previousHighscore"]))
 	
 	%ExperienceValue.text = str(rewards["experienceGained"])
 	%BeatsGainedValue.text = str(rewards["beatsReward"])
 	
-	BKMREngine.beats_server_peer_close()
 	%LoadingPanel.tween_kill()
+	BKMREngine.Auth.validate_player_session()
+	BKMREngine.beats_server_peer_close()
 	
 	
 func format_scores(value: String) -> String:

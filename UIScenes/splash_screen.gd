@@ -1,59 +1,136 @@
 extends Control
 
-# Reference to the loading wheel and label in the scene.
-#@onready var animation_player: AnimationPlayer = %AnimationPlayer
+const BKMRLocalFileStorage: Script = preload("res://BeatsKMREngine/utils/BKMRLocalFileStorage.gd")
+
+# UI References
 @onready var loading_wheel: TextureProgressBar = %LoadingWheel
 @onready var loading_label: Label = %LoadingLabel
-@onready var player: String  # Reference to a player (type not specified).
-@onready var transition_texture: TextureRect = %TextureRect  # Reference to a transition texture.
-#@onready var cursor_spark: GPUParticles2D = %CursorSpark
+@onready var transition_texture: TextureRect = %TextureRect
+@onready var loading_label_2: Label = %LoadingLabel2
 
-# Reference to the update popup scene.
-#var app_update: PackedScene = preload("res://Components/Popups/update_popup.tscn")
-var google_sign_in_retries: int = 5
-# Tween object for animations.
+# Tween for animations
 var tween: Tween
+var google_sign_in_retries: int = 5
 
-# Ready function called when the node and its children are added to the scene.
+# Default settings (Lowest Graphics)
+var selected_fps: int = 60
+var selected_resolution: Vector2 = Vector2(1200, 540)
+var selected_gfx_level: int = 1
+var selected_aa_level: int = 0  # Default: No AA
+
+var player_session: Dictionary
+# FPS Mapping
+var fps_values: Dictionary = {
+	"Standard": 60,
+	"High": 90,
+	"Max": 120
+}
+
+# Resolution Mapping
+var resolution_values: Dictionary = {
+	"Low": Vector2(800, 360),
+	"Standard": Vector2(1200, 540),
+	"High": Vector2(1600, 720),
+	"Ultra": Vector2(2400, 1080)
+}
+
+# GFX Mapping
+var gfx_settings: Dictionary = {
+	"1": 1, "2": 2, "3": 3, "4": 4, "5": 5
+}
+
+# Anti-Aliasing Mapping
+var aa_settings: Dictionary = {
+	"Off": 0,   # No AA
+	"FXAA": 1,  # Fast Approximate Anti-Aliasing
+	"MSAA2X": 2, # Multi-Sample Anti-Aliasing 2X
+	"MSAA4X": 4, # Multi-Sample Anti-Aliasing 4X
+	"MSAA8X": 8  # Multi-Sample Anti-Aliasing 8X
+}
+
 func _ready() -> void:
-	fake_loader()
-	#google_auth()
+	# Load settings before starting animations
 	
+	load_graphics_settings()
+	apply_graphics_settings()
+	# Start loading animation
+	fake_loader()
+
+	# Connect session check signal
 	BKMREngine.Auth.bkmr_session_check_complete.connect(_on_session_check)
-	%LoadingLabel2.text = BKMREngine.Auth.last_login_type
-	# Create and start a timer for the delay
-	var _timer: int = get_tree().create_timer(8.0).timeout.connect(_on_timer_timeout)
+	BKMREngine.Server.server_checking_complete.connect(on_server_check_complete)
+	loading_label_2.text = BKMREngine.Auth.last_login_type
 
+	# Timer for auto-login
+	var _timer: int = get_tree().create_timer(10.0).timeout.connect(_on_timer_timeout)
+	
+	
+func on_server_check_complete() -> void:
+	print("dead man walking")
+	
+# Load settings from file or use defaults
+func load_graphics_settings() -> void:
+	const settings_path: String = "user://settings.json"
+	if BKMRLocalFileStorage.does_file_exist(settings_path):
+		var settings: Dictionary = BKMRLocalFileStorage.get_data(settings_path)
+		selected_fps = settings.get("fps", 60)
+		var res: Variant = settings.get("resolution", { "x": 800, "y": 360 })
+		var x: float = res.x
+		var y: float = res.y
+		selected_resolution = Vector2(x, y)
+		selected_gfx_level = settings.get("gfx_level", 1)
+		selected_aa_level = settings.get("aa_level", 0)  # Load AA setting
+		print("Loaded graphics settings:", settings)
+		print_debug("Loaded FPS:", selected_fps)
+		print_debug("Loaded Resolution:", selected_resolution)
+		print_debug("Loaded GFX Level:", selected_gfx_level)
+		print_debug("Loaded AA Level:", selected_aa_level)
+	else:
+		print("No settings file found. Using lowest settings.")
+	
+	
+# Apply graphics settings
+func apply_graphics_settings() -> void:
+	DisplayServer.window_set_size(selected_resolution)
+	Engine.max_fps = selected_fps
 
-# Callback to handle the timer timeout
+	# Apply Anti-Aliasing
+	var viewport: Viewport = get_viewport()
+	viewport.msaa_2d = selected_aa_level as Viewport.MSAA
+	RenderingServer.viewport_set_msaa_3d(viewport.get_viewport_rid(), selected_aa_level)  # Apply MSAA in 3D if needed
+
+	# Apply FXAA (Screen Space AA)
+	if selected_aa_level == 1:  # If "FXAA" is selected
+		viewport.screen_space_aa = Viewport.ScreenSpaceAA.SCREEN_SPACE_AA_FXAA
+		print("FXAA enabled")
+	else:
+		viewport.screen_space_aa = Viewport.ScreenSpaceAA.SCREEN_SPACE_AA_DISABLED
+		print("FXAA disabled")
+		
+	viewport.scaling_3d_mode = Viewport.SCALING_3D_MODE_BILINEAR
+	var base_resolution: Vector2 = Vector2(1200, 540)
+	
+	viewport.scaling_3d_scale = min(selected_resolution.x / base_resolution.x, selected_resolution.y / base_resolution.y)
+	# Apply FSR (FidelityFX Super Resolution for upscaling)
+
+	# Debugging
+	print("Applied Settings: FPS =", selected_fps, "Resolution =", selected_resolution, 
+		"GFX Level =", selected_gfx_level, "AA Level =", selected_aa_level)
+		
+		
+# Auto-login timer callback
 func _on_timer_timeout() -> void:
 	BKMREngine.Auth.auto_login_player()
 	
 	
-
-#func google_auth() -> void: 
-	#var _token: int = SignInClient.server_side_access_requested.connect(_on_google_token_generated)
-	#var _connect: int = SignInClient.user_authenticated.connect(google_authenticated)
-	#
-#func google_authenticated(is_authenticated: bool) -> void:
-	#if google_sign_in_retries > 0 and not is_authenticated:
-		#if is_authenticated:
-			#pass
-		#elif google_sign_in_retries > 0 and not is_authenticated:
-			#SignInClient.sign_in()
-			#google_sign_in_retries -= 1
-	
-func _on_google_token_generated(token: String) -> void:
-	BKMREngine.Auth.google_login_player(token)
-	
-# Check the user session status.
+# Handle session check response
 func _on_session_check(session: Dictionary) -> void:
+	player_session = session
 	if session.is_empty():
 		BKMREngine.session = false
 		loading_label.text = "No logged-in account found!"
 		change_to_auth_scene()
 	else:
-		# Load the main screen if the session is successful.
 		if session.has("success"):
 			BKMREngine.session = true
 			change_to_auth_scene()
@@ -64,40 +141,22 @@ func _on_session_check(session: Dictionary) -> void:
 			else:
 				loading_label.text = str(session.error)
 			change_to_auth_scene()
-	# Stop the tween animation.
+
 	loading_wheel.visible = false
 	tween.kill()
-	
-# Switch to the authentication scene after a delay.
+
+
+# Change to authentication scene
 func change_to_auth_scene() -> void:
-	#await get_tree().create_timer(3.0).timeout
-	# Stop the tween animation.
 	tween.kill()
-	# Load the authentication scene.
 	var _load_scene: bool = await LOADER.load_scene(self, "res://UIScenes/auth_screen.tscn")
 	LOADER.previous_texture = transition_texture.texture
 	LOADER.next_texture = preload("res://UITextures/BGTextures/blue_gradient.png")
 
-# Simulate a loading animation.
+
+# Loading animation
 func fake_loader() -> void:
 	loading_wheel.value = 0
 	tween = get_tree().create_tween()
-	
-	# Animate the loading wheel value property.
-	var _wheel_loader: PropertyTweener = tween.tween_property(loading_wheel, "value", 100, 3.0).set_trans(Tween.TRANS_LINEAR)
-	
-	# Schedule a callback for fake_loader after the animation completes.
-	var _loader_fake: CallbackTweener = tween.tween_callback(fake_loader)
-
-#func _input(event: InputEvent) -> void:
-	## Handle screen touch events.
-	#if event is InputEventScreenTouch:
-		#if event.pressed:
-			## Check if the touch event is within the bounds of the notepicker node.
-			#var position_event: Vector2 = event.position
-			#cursor_spark.position = position_event
-			#cursor_spark.emitting = true
-	#elif event is InputEventScreenDrag:
-		#var position_event: Vector2 = event.position
-		#cursor_spark.position = position_event
-		#cursor_spark.emitting = true
+	var _i: PropertyTweener = tween.tween_property(loading_wheel, "value", 100, 3.0).set_trans(Tween.TRANS_LINEAR)
+	var _a: CallbackTweener = tween.tween_callback(fake_loader)

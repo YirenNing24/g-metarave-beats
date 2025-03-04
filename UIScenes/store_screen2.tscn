@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://d05oohu41yaxd"]
+[gd_scene load_steps=33 format=3 uid="uid://d05oohu41yaxd"]
 
 [ext_resource type="Texture2D" uid="uid://bjpkh360v82aq" path="res://UITextures/BGTextures/store_bg.png" id="1_2tlno"]
 [ext_resource type="Script" path="res://UIScenes/store_screen_2.gd" id="1_24gne"]
@@ -138,6 +138,30 @@ tracks/0/keys = {
 "update": 1,
 "values": [false, true, false]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MessagePanel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(393, 546), Vector2(387.5, 226)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MessagePanel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.933333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="Animation" id="Animation_gljh7"]
 length = 0.001
@@ -153,12 +177,49 @@ tracks/0/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MessagePanel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(393, 546)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MessagePanel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2sc8t"]
 _data = {
 "ErrorMessage": SubResource("Animation_os1u0"),
 "RESET": SubResource("Animation_gljh7")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_koo8x"]
+bg_color = Color(0, 0, 0, 0.937255)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(2.21401e-06, 0.597346, 0.597346, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="StoreScreen" type="Control"]
 layout_mode = 3
@@ -829,6 +890,52 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_2sc8t")
 }
+
+[node name="MessagePanel" type="Panel" parent="."]
+unique_name_in_owner = true
+z_index = 9
+custom_minimum_size = Vector2(348, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -207.0
+offset_top = 276.0
+offset_right = 218.0
+offset_bottom = 364.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_koo8x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MessagePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -36.0
+offset_right = -4.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ErrorMessage" type="Label" parent="MessagePanel/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.758192, 0.758192, 0.758192, 1)
+theme_override_constants/line_spacing = 5
+theme_override_fonts/font = ExtResource("3_sqi3r")
+theme_override_font_sizes/font_size = 24
+text = "BEATS reward succesfully claimed!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+justification_flags = 235
 
 [connection signal="pressed" from="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/CardPackButton" to="." method="_on_card_pack_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/CardsButton" to="." method="_on_cards_button_pressed"]

@@ -1,57 +1,76 @@
-[gd_scene load_steps=15 format=3 uid="uid://j1ox362pqin7"]
+[gd_scene load_steps=13 format=3 uid="uid://j1ox362pqin7"]
 
 [ext_resource type="Script" path="res://GameComponents/UserHUD/userhud.gd" id="1_5118n"]
 [ext_resource type="Texture2D" uid="uid://4euq5v0yi5wh" path="res://UITextures/Progress/song_exp.png" id="1_jofs5"]
 [ext_resource type="Texture2D" uid="uid://d2liwvto7p64l" path="res://UITextures/Progress/player_exp_base.png" id="2_j4g7n"]
 [ext_resource type="Texture2D" uid="uid://74d22xpi5g4s" path="res://UITextures/Progress/player_exp_progress.png" id="3_3qn4g"]
-[ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="5_6xcqj"]
-[ext_resource type="Texture2D" uid="uid://cxo48wpowo4oa" path="res://UITextures/Progress/base_momentum.png" id="5_w6njq"]
-[ext_resource type="Texture2D" uid="uid://b0e5yudkr5hi1" path="res://UITextures/Progress/momentum0.png" id="6_yr53h"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="5_2lmvi"]
+[ext_resource type="FontFile" uid="uid://cfpnum8trj6m7" path="res://UITextures/Fonts/HankenGrotesk-SemiBold.ttf" id="5_b27at"]
 [ext_resource type="Texture2D" uid="uid://bl15da1eeo2o6" path="res://UITextures/Cards/esha_no_doubt_genesis.png" id="8_cpap7"]
-[ext_resource type="Shader" uid="uid://bd1fs0imo8ab4" path="res://UITextures/CustomResource/matrix.tres" id="9_sy1kn"]
-[ext_resource type="Texture2D" uid="uid://vxw1aujmxjy3" path="res://UITextures/CustomResource/auth_screen_gradient.tres" id="10_4xhq0"]
+[ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="9_2ykvj"]
 [ext_resource type="Texture2D" uid="uid://dorhyoghxkay6" path="res://addons/SmoothScroll/class-icon.svg" id="11_ytpoh"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mln7i"]
-shader = ExtResource("9_sy1kn")
-shader_parameter/ScaleMult = Vector2(1, 2)
-shader_parameter/AuraProgres = 1.0
-shader_parameter/TextureLaodMult = 8.0
-shader_parameter/Tilling = 10.0
-shader_parameter/MovementDirSpeed = Vector2(-0.3, 0.5)
-shader_parameter/MovementDirSpeed2 = Vector2(0.3, 0.5)
-shader_parameter/Noise_Seed = Vector2(1, 1)
-shader_parameter/color_gradiant = ExtResource("10_4xhq0")
+[sub_resource type="Shader" id="Shader_khsgi"]
+code = "shader_type canvas_item;
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_uhf7o"]
-properties/0/path = NodePath(".:score")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath("VBoxContainer/HBoxContainer/HBoxContainer/TextureRect/HealthBar:value")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath("VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/BoostProgressBar:value")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath(".:momentum_to_string")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath("VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/ScoreLabel:text")
-properties/4/spawn = true
-properties/4/replication_mode = 1
+uniform vec4 bottom_color: source_color;
+uniform vec4 top_color: source_color;
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lnhsd"]
-shader = ExtResource("9_sy1kn")
-shader_parameter/ScaleMult = Vector2(0.4, 1)
-shader_parameter/AuraProgres = 1.0
-shader_parameter/TextureLaodMult = 5.0
-shader_parameter/Tilling = 32.35
-shader_parameter/MovementDirSpeed = Vector2(1, 8)
-shader_parameter/MovementDirSpeed2 = Vector2(0.3, 0.5)
-shader_parameter/Noise_Seed = Vector2(1, 1)
-shader_parameter/color_gradiant = ExtResource("10_4xhq0")
+uniform float wave_amp: hint_range(0.0, 0.5);
+uniform float wave_size: hint_range(1.0, 10.0);
+uniform float wave_time_mul: hint_range(0.1, 2.0);
+
+uniform int total_phases: hint_range(2, 600, 1);
+
+
+float rand(float n){return fract(sin(n) * 43758.5453123);}
+
+
+float noise(float p){
+	float fl = floor(p);
+  float fc = fract(p);
+	return mix(rand(fl), rand(fl + 1.0), fc);
+}
+
+
+float fmod(float x, float y) {
+	return x - floor(x / y) * y;
+}
+
+
+vec4 lerp(vec4 a, vec4 b, float w) {
+	return a + w * (b - a);
+}
+
+
+void fragment() {
+	float t = float(total_phases);
+	float effective_wave_amp = min(wave_amp, 0.5 / t);
+	float d = fmod(UV.y, 1.0 / t);
+	float i = floor(UV.y * t);
+	float vi = floor(UV.y * t + t * effective_wave_amp);
+	float s = effective_wave_amp * sin((UV.x + TIME * max(1.0 / t, noise(vi)) * wave_time_mul * vi / t) * 2.0 * PI * wave_size);
+
+	if (d < s) i--;
+	if (d > s + 1.0 / t) i++;
+	i = clamp(i, 0.0, t - 1.0);
+
+	COLOR = lerp(top_color, bottom_color, i / (t - 1.0));
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7qhs7"]
+shader = SubResource("Shader_khsgi")
+shader_parameter/bottom_color = Color(0.109804, 0.517647, 0.517647, 1)
+shader_parameter/top_color = Color(0.0219001, 0.196963, 0.196952, 1)
+shader_parameter/wave_amp = 0.5
+shader_parameter/wave_size = 1.588
+shader_parameter/wave_time_mul = 0.261
+shader_parameter/total_phases = 7
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtcod"]
 
 [node name="UserHUD" type="Control"]
+clip_contents = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -65,7 +84,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -100,10 +118,11 @@ metadata/_edit_use_anchors_ = true
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer/TextureRect"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.23
-anchor_top = 0.466667
-anchor_right = 0.496667
-anchor_bottom = 0.686667
+anchor_left = 0.243333
+anchor_top = 0.48
+anchor_right = 0.51
+anchor_bottom = 0.7
+theme_override_fonts/font = ExtResource("5_2lmvi")
 theme_override_font_sizes/font_size = 20
 text = "LIFE"
 vertical_alignment = 1
@@ -117,16 +136,22 @@ anchor_left = 0.233333
 anchor_top = 0.14
 anchor_right = 0.56
 anchor_bottom = 0.36
-theme_override_font_sizes/font_size = 20
-text = "kaetaro13"
+theme_override_fonts/font = ExtResource("5_b27at")
+theme_override_font_sizes/font_size = 24
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.22
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
+size_flags_stretch_ratio = 1.35
 theme_override_constants/separation = 10
 alignment = 1
 
@@ -135,46 +160,118 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer"]
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer"]
+z_index = 1
+material = SubResource("ShaderMaterial_7qhs7")
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_vertical = 2
+size_flags_stretch_ratio = 7.19
+color = Color(0.14337, 0.000254203, 0.345199, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="MomentumLabel" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
-material = SubResource("ShaderMaterial_mln7i")
-layout_mode = 2
-theme_override_fonts/font = ExtResource("5_6xcqj")
-theme_override_font_sizes/font_size = 20
-text = "STAN BOOST X1"
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="ScoreLabel" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("5_6xcqj")
-theme_override_font_sizes/font_size = 20
-text = "0"
-horizontal_alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/ColorRect/VBoxContainer/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/ColorRect/VBoxContainer/HBoxContainer/HBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/ColorRect/VBoxContainer/HBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_2ykvj")
+theme_override_font_sizes/font_size = 14
+text = "SCORE"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="BoostProgressBar" type="TextureProgressBar" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer"]
+[node name="ScoreLabel" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/ColorRect/VBoxContainer/HBoxContainer/HBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(420, 50)
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-max_value = 50.0
-nine_patch_stretch = true
-texture_under = ExtResource("5_w6njq")
-texture_progress = ExtResource("6_yr53h")
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_2ykvj")
+theme_override_font_sizes/font_size = 36
+text = "0"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/ColorRect/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/ColorRect/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="GroupPic" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/ColorRect/VBoxContainer/HBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(73, 73)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/ColorRect/VBoxContainer/HBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="SongName" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/ColorRect/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_2ykvj")
+theme_override_font_sizes/font_size = 20
+vertical_alignment = 1
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Artist" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/ColorRect/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_b27at")
+theme_override_font_sizes/font_size = 16
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="HBoxContainer2" type="Control" parent="VBoxContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(300, 150)
 layout_mode = 2
 
@@ -224,14 +321,10 @@ texture = ExtResource("8_cpap7")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-unique_name_in_owner = true
-replication_config = SubResource("SceneReplicationConfig_uhf7o")
-
 [node name="CardTexture3" type="TextureRect" parent="." groups=["CardTexture"]]
 unique_name_in_owner = true
 z_index = 1
-material = SubResource("ShaderMaterial_lnhsd")
+material = SubResource("ShaderMaterial_vtcod")
 custom_minimum_size = Vector2(155.28, 196.83)
 layout_mode = 1
 anchors_preset = -1
@@ -239,10 +332,11 @@ anchor_left = 0.0383333
 anchor_top = 0.225926
 anchor_right = 0.185833
 anchor_bottom = 0.640741
-offset_top = 10.0
-offset_bottom = 10.0
+offset_left = -17.0
+offset_top = 9.99999
+offset_right = -2.9996
+offset_bottom = 13.9999
 size_flags_horizontal = 0
-texture = ExtResource("11_ytpoh")
 expand_mode = 1
 
 [node name="CardTexture1" type="TextureRect" parent="CardTexture3" groups=["CardTexture"]]
@@ -267,13 +361,51 @@ expand_mode = 1
 [node name="CardTexture2" type="TextureRect" parent="." groups=["CardTexture"]]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0.396078)
+z_index = -1
 custom_minimum_size = Vector2(155.28, 196.83)
 layout_mode = 0
-offset_left = 9.0
-offset_top = 146.0
-offset_right = 164.28
-offset_bottom = 342.83
+offset_left = 17.0
+offset_top = 148.0
+offset_right = 172.28
+offset_bottom = 344.83
+rotation = 0.00019201
 size_flags_horizontal = 0
 expand_mode = 1
 
-[connection signal="value_changed" from="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/BoostProgressBar" to="." method="_on_boost_progress_bar_value_changed"]
+[node name="EffectsOnLeft" type="TextureRect" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.0117647)
+custom_minimum_size = Vector2(155.28, 196.83)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0383333
+anchor_top = 0.225926
+anchor_right = 0.185833
+anchor_bottom = 0.640741
+offset_left = 1058.0
+offset_top = -123.0
+offset_right = 1076.0
+offset_bottom = 197.0
+size_flags_horizontal = 0
+texture = ExtResource("11_ytpoh")
+expand_mode = 1
+
+[node name="EffectsOnRight" type="TextureRect" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.0117647)
+z_index = -1
+custom_minimum_size = Vector2(155.28, 196.83)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0383333
+anchor_top = 0.225926
+anchor_right = 0.185833
+anchor_bottom = 0.640741
+offset_left = -154.0
+offset_top = -129.0
+offset_right = -125.0
+offset_bottom = 200.0
+size_flags_horizontal = 0
+texture = ExtResource("11_ytpoh")
+expand_mode = 1
+flip_h = true

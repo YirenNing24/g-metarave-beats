@@ -115,7 +115,7 @@ func equip(origin_item_id: String, card_data: Dictionary, origin: String = "self
 				"tokenId": card_data[origin_item_id].id,
 				"contractAddress": card_data[origin_item_id].contractAddress,
 				"group": group,
-				"slot": card_data[origin_item_id].slot,
+				"slot": get_parent().name,
 				"name": card_data[origin_item_id].name
 				}
 			BKMREngine.Inventory.equip_item([equip_item_data])
@@ -126,16 +126,16 @@ func unequip(_equipment_data: Dictionary = {}) -> void:
 	for slots: TextureRect in get_tree().get_nodes_in_group('InventorySlot'):
 		if slots.cards_data["origin_item_id"] == null or "":
 			slots.unequip_from_equip_slot(cards_data, texture)
-			
 			var uri: String = cards_data.keys()[0]
 			var unequip_data: Dictionary = { 
 				"uri": cards_data["origin_item_id"], 
 				"tokenId": cards_data[uri].id, 
 				"contractAddress": cards_data[uri].contractAddress,
 				"group": cards_data[uri].group,
-				"slot": cards_data[uri].slot,
+				"slot": get_parent().name,
 				"name": cards_data[uri].name
 				}
+			@warning_ignore("unsafe_call_argument")
 			update_card_boost_values(cards_data[uri].scoreboost, cards_data[uri].healboost, cards_data[uri].group, false)
 			BKMREngine.Inventory.unequip_item([unequip_data])
 			self_modulate = "92929287"
@@ -147,8 +147,6 @@ func update_card_boost_values(score_boost: String, heal_boost: String, group: St
 	var group_node: String = group_to_node_name(group)
 	var group_equip_container: String = group_node + "Equip"
 	
-	
-	print("Score boost: ", score_boost)
 	# Paths to labels
 	var score_boost_label_path: String = inventory_tab_container + "/" + group_node + "/" + group_equip_container + score_boost_value_path
 	var health_boost_label_path: String = inventory_tab_container + "/" + group_node + "/" + group_equip_container + heal_boost_value_path

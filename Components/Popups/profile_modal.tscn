@@ -438,6 +438,62 @@ theme_override_font_sizes/font_size = 20
 text = "In-game"
 vertical_alignment = 2
 
+[node name="SettingsButton" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer3"]
+self_modulate = Color(1, 1, 1, 0.580392)
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+texture_normal = ExtResource("5_xgibo")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer3/SettingsButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("6_7jbf1")
+theme_override_font_sizes/font_size = 10
+text = "SETTINGS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer3/SettingsButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("6_7jbf1")
+theme_override_font_sizes/font_size = 10
+text = "SETTINGS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer3/SettingsButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("6_7jbf1")
+theme_override_font_sizes/font_size = 10
+text = "SETTINGS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -781,6 +837,7 @@ layout_mode = 1
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer2/MyProfileButton" to="." method="_on_my_profile_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer2/NotificationsButton" to="." method="_on_notifications_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer2/FanMomentsButton" to="." method="_on_fan_moments_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer3/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer3/LogoutButton" to="." method="_on_logout_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/FollowingButton" to="." method="_on_following_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/FollowersButton" to="." method="_on_followers_button_pressed"]

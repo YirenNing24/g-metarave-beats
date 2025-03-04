@@ -32,9 +32,12 @@ var registration_success: bool = false
 #region Init Functions
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	%PlayerMessage.text = "Please wait"
+	
 	signal_connect()
 	init_visibility_control()
 	BKMREngine.Auth.auto_login_player()
+	
 	
 func signal_connect() -> void:
 	#BEATS LOGIN
@@ -52,6 +55,13 @@ func signal_connect() -> void:
 	BKMREngine.Auth.bkmr_google_login_passkey_verify_complete.connect(passkey_login_verification_complete)
 	var _sign_in_passkey: int = BeatsPasskey.sign_in_passkey_completed.connect(passkey_authentication_insert_username)
 	
+	#SERVER ASSIGN
+	BKMREngine.Server.server_checking_complete.connect(_on_server_check_complete)
+	
+	
+func _on_server_check_complete() -> void:
+	%StartButton.disabled = false
+	%PlayerMessage.text = "TAP ANYWHERE ON THE SCREEN"
 	
 func debug_label(data: Variant) -> void:
 	%DebugLabel.text = "Freak" + str(data)
@@ -84,13 +94,24 @@ func let_me_verified(result: Dictionary) -> void:
 	
 	
 func passkey_registration_insert_username(result: String) -> void:
-	%DebugLabel.text = str("patingin po: " , result)
-	if result != null or "":
-		var json_result: Variant = JSON.parse_string(result)
-		if json_result is Dictionary:
-			json_result.username = %Username.text
-			BKMREngine.Auth.beats_passkey_registration_response(json_result)
-			loading_panel.fake_loader()
+	%DebugLabel.text = "patingin po: " + result
+
+	if result == "User already has a registered passkey":
+		%DebugLabel.text = result
+		error_logger([{"error": "You already have a passkey account"}]) 
+		return
+
+	if result.is_empty():
+		error_logger([{"error": "Received an empty response"}])
+		return
+
+	var json_result: Variant = JSON.parse_string(result)
+	if json_result is Dictionary:
+		json_result["username"] = %Username.text
+		BKMREngine.Auth.beats_passkey_registration_response(json_result)
+		loading_panel.fake_loader()
+	else:
+		error_logger([{"error": "Invalid JSON response"}])
 	
 	
 func passkey_authentication_insert_username(result: String) -> void:
@@ -147,8 +168,6 @@ func _on_login_succeeded(result: Dictionary) -> void:
 		registration_success = false
 	loading_panel.tween_kill()
 	
-	
-
 		
 #endregion
 
@@ -169,9 +188,6 @@ func _on_registration_completed(result: Dictionary) -> void:
 	else:
 		registration_success = true
 		BKMREngine.Auth.login_player(username, password)
-	
-	
-
 		
 		
 # Function to submit user registration.
@@ -180,58 +196,6 @@ func on_submit_registration(val_username: String, val_password: String)  -> void
 	username = val_username
 	BKMREngine.Auth.register_player(val_username, val_password)
 	loading_panel.fake_loader()
-	
-	
-func _on_register_button_pressed() -> void:
-	var errors: Array = []
-	
-	var found_empty_field: bool = false
-	var reg_password: String = ""
-	var confirmPassword: String = ""
-
-	var valid_username: String = ""
-	var valid_password: String = ""
-
-	for fields: LineEdit in get_tree().get_nodes_in_group("reg_field"):
-			match fields.name:
-				"Username":
-					username = fields.text
-					if not is_valid_username(username):
-						errors.append({"error": "Invalid username format"})
-						error_logger(errors)
-						return
-					else:
-						valid_username = fields.text
-				"Password":
-					reg_password = fields.text
-					if not is_valid_password(reg_password):
-						errors.append({"error": "Invalid password format"})
-						error_logger(errors)
-						return
-					else:
-						password = fields.text
-				"ConfirmPassword":
-					confirmPassword = fields.text
-				
-	if found_empty_field:
-		error_logger(errors)
-		return
-		
-	if password != confirmPassword:
-		errors.append({"error":"Password doesn't match"})
-		error_logger(errors) 
-	else:
-		valid_password = reg_password
-	
-	if valid_username and valid_password != "":
-		for child: Control in error_container.get_children():
-			error_container.remove_child(child)
-			child.queue_free()
-			
-		on_submit_registration(valid_username, valid_password)
-		animation_played = false
-		error_container.visible = false
-	
 #endregion
 
 
@@ -262,8 +226,8 @@ func _on_start_button_pressed() -> void:
 	LOADER.previous_texture = background_texture.texture
 	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")
 	var _change_scene:bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
-
-
+	
+	
 # Function to check the validity of a username.
 func is_valid_username(valid_username: String) -> bool:
 	if valid_username.is_empty():
@@ -272,16 +236,13 @@ func is_valid_username(valid_username: String) -> bool:
 	var regex: RegEx = RegEx.new()
 	var _pattern_username: Error = regex.compile(username_pattern)
 	return regex.search(valid_username) != null
-
-
+	
+	
 # Function to check the validity of a password.
 func is_valid_password(valid_password: String) -> bool:
-	var password_pattern: String = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z\\d\\s]).{8,}$"
-	var regex: RegEx = RegEx.new()
-	var _pattern_password: Error = regex.compile(password_pattern)
-	return regex.search(valid_password) != null
-
-
+	return valid_password.length() >= 8
+	
+	
 # Function to log errors and play animation if not played.
 func error_logger(errors: Array) -> void:
 	if animation_played == false:
@@ -360,7 +321,7 @@ func _on_register_passkey_button_pressed() -> void:
 	var errors: Array = []
 	var valid_username: String = ""
 	
-	username = %Username.text
+	username = %Username.text.strip_edges()
 	
 	if is_valid_username(username) == false:
 		errors.append({"error": "Invalid username or empty"})
@@ -390,54 +351,46 @@ func _on_register_password_pressed() -> void:
 		
 func register_with_password() -> void:
 	var errors: Array = []
-	
-	var found_empty_field: bool = false
-	var reg_password: String = ""
-	var confirmPassword: String = ""
+	var input_username: String = ""
+	var input_password: String = ""
+	var input_confirm_password: String = ""
 
-	var valid_username: String = ""
-	var valid_password: String = ""
+	# Iterate through registration fields
+	for field: LineEdit in get_tree().get_nodes_in_group("reg_field"):
+		match field.name:
+			"Username":
+				input_username = field.text.strip_edges()
+				if not is_valid_username(input_username):
+					errors.append({ "error": "Invalid or empty username" })
+			"Password":
+				input_password = field.text
+				if not is_valid_password(input_password):
+					errors.append({ "error": "Password must be at least 8 characters long" })
+			"ConfirmPassword":
+				input_confirm_password = field.text
 
-	for fields: LineEdit in get_tree().get_nodes_in_group("reg_field"):
-			match fields.name:
-				"Username":
-					username = fields.text
-					if not is_valid_username(username):
-						errors.append({"error": "Invalid or empty username"})
-						error_logger(errors)
-						return
-					else:
-						valid_username = fields.text
-				"Password":
-					reg_password = fields.text
-					if not is_valid_password(reg_password):
-						errors.append({"error": "Invalid or empty password"})
-						error_logger(errors)
-						return
-					else:
-						password = fields.text
-				"ConfirmPassword":
-					confirmPassword = fields.text
-				
-	if found_empty_field:
+	# Check if any fields were empty
+	if input_username == "" or input_password == "" or input_confirm_password == "":
+		errors.append({ "error": "All fields must be filled in" })
+
+	# Check if passwords match
+	if input_password != input_confirm_password:
+		errors.append({ "error": "Passwords do not match" })
+
+	# Handle errors
+	if errors.size() > 0:
 		error_logger(errors)
 		return
-		
-	if password != confirmPassword:
-		errors.append({"error":"Password doesn't match"})
-		error_logger(errors) 
-	else:
-		valid_password = reg_password
 	
-	if valid_username and valid_password != "":
-		for child: Control in error_container.get_children():
-			error_container.remove_child(child)
-			child.queue_free()
-			
-		on_submit_registration(valid_username, valid_password)
-		animation_played = false
-		error_container.visible = false
-	
+	# Clear previous errors and register the user
+	for child: Control in error_container.get_children():
+		error_container.remove_child(child)
+		child.queue_free()
+
+	on_submit_registration(input_username, input_password)
+	animation_played = false
+	error_container.visible = false
+
 	
 func _on_pass_key_login_pressed() -> void:
 	var username_pass: String = %UsernamePasskey.text

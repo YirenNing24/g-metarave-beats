@@ -1,0 +1,387 @@
+[gd_scene load_steps=16 format=3 uid="uid://b0begljb4uc4l"]
+
+[ext_resource type="Script" path="res://UIScenes/settings_screen.gd" id="1_3tjif"]
+[ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_jhaod"]
+[ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="3_pgwo5"]
+[ext_resource type="Shader" path="res://UIScenes/settings_screen.gdshader" id="4_rwmrv"]
+[ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="5_k5erb"]
+[ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="7_1nquv"]
+[ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="8_alofr"]
+[ext_resource type="FontFile" uid="uid://cak36l0bes2dv" path="res://UITextures/Fonts/argentum-sans.medium.ttf" id="12_6jg5g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtby7"]
+bg_color = Color(0.396078, 0.396078, 0.396078, 0.219608)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ybaax"]
+texture = ExtResource("3_pgwo5")
+texture_margin_left = 60.0
+texture_margin_right = 60.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ud5co"]
+texture = ExtResource("3_pgwo5")
+texture_margin_left = 60.0
+texture_margin_top = 25.0
+texture_margin_right = 60.0
+texture_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oif0p"]
+texture = ExtResource("3_pgwo5")
+texture_margin_left = 60.0
+texture_margin_right = 60.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nlkyy"]
+content_margin_top = 6.0
+texture = ExtResource("3_pgwo5")
+texture_margin_left = 60.0
+texture_margin_right = 60.0
+texture_margin_bottom = 12.0
+expand_margin_bottom = 5.0
+modulate_color = Color(1, 1, 1, 0.380392)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l0j35"]
+shader = ExtResource("4_rwmrv")
+shader_parameter/battery = 1.0
+shader_parameter/anchor = -0.483
+shader_parameter/speed_scale = 0.1
+shader_parameter/fov = 0.2
+shader_parameter/background_color = Color(0, 0.443137, 0.490196, 0.215686)
+shader_parameter/grid_color = Color(0.00392157, 0.823529, 0.87451, 0.25098)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fyuvy"]
+bg_color = Color(0.108346, 0.250122, 0.250115, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.0652045, 0.677454, 0.677444, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="SettingsScreen" type="Control"]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3tjif")
+
+[node name="Panel" type="Panel" parent="."]
+show_behind_parent = true
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_vtby7")
+
+[node name="BackgroundTexture" type="TextureRect" parent="Panel"]
+unique_name_in_owner = true
+self_modulate = Color(0.255659, 0.255659, 0.255659, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("2_jhaod")
+expand_mode = 1
+
+[node name="MessageTab" type="TabContainer" parent="Panel/BackgroundTexture"]
+unique_name_in_owner = true
+self_modulate = Color(0.113725, 0.0980392, 0.2, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("12_6jg5g")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/tab_focus = SubResource("StyleBoxTexture_ybaax")
+theme_override_styles/tab_selected = SubResource("StyleBoxTexture_ud5co")
+theme_override_styles/tab_hovered = SubResource("StyleBoxTexture_oif0p")
+theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_nlkyy")
+current_tab = 0
+
+[node name="Graphics" type="TabBar" parent="Panel/BackgroundTexture/MessageTab"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="TextureRect" type="ColorRect" parent="Panel/BackgroundTexture/MessageTab/Graphics"]
+z_index = 2
+material = SubResource("ShaderMaterial_l0j35")
+custom_minimum_size = Vector2(1151, 0)
+layout_mode = 0
+offset_left = -1.0
+offset_top = 2.0
+offset_right = 1199.0
+offset_bottom = 463.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_top = 8.0
+offset_right = -22.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.745098, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("5_k5erb")
+theme_override_font_sizes/font_size = 20
+text = "Graphic Settings"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_k5erb")
+theme_override_font_sizes/font_size = 14
+text = "• FPS"
+
+[node name="FPSContainer" type="HBoxContainer" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(230, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Panel" type="Panel" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer/FPSContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_fyuvy")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer/FPSContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Standard" type="CheckBox" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer/FPSContainer/Panel/HBoxContainer" groups=["FPSConfig"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_6jg5g")
+theme_override_font_sizes/font_size = 12
+text = "Standard"
+
+[node name="High" type="CheckBox" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer/FPSContainer/Panel/HBoxContainer" groups=["FPSConfig"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_6jg5g")
+theme_override_font_sizes/font_size = 12
+text = "High"
+
+[node name="Max" type="CheckBox" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer/FPSContainer/Panel/HBoxContainer" groups=["FPSConfig"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_6jg5g")
+theme_override_font_sizes/font_size = 12
+text = "Max"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_k5erb")
+theme_override_font_sizes/font_size = 14
+text = "• Resolution"
+
+[node name="ResolutionContainer" type="HBoxContainer" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer3"]
+custom_minimum_size = Vector2(310, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Panel" type="Panel" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer3/ResolutionContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_fyuvy")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer3/ResolutionContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Low" type="CheckBox" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer3/ResolutionContainer/Panel/HBoxContainer" groups=["Resolution"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_6jg5g")
+theme_override_font_sizes/font_size = 12
+text = "Low"
+
+[node name="Standard" type="CheckBox" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer3/ResolutionContainer/Panel/HBoxContainer" groups=["Resolution"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_6jg5g")
+theme_override_font_sizes/font_size = 12
+text = "Standard"
+
+[node name="High" type="CheckBox" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer3/ResolutionContainer/Panel/HBoxContainer" groups=["Resolution"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_6jg5g")
+theme_override_font_sizes/font_size = 12
+text = "High"
+
+[node name="Ultra" type="CheckBox" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer3/ResolutionContainer/Panel/HBoxContainer" groups=["Resolution"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_6jg5g")
+theme_override_font_sizes/font_size = 12
+text = "Ultra"
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer4"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_k5erb")
+theme_override_font_sizes/font_size = 14
+text = "• Anti-Aliasing"
+
+[node name="FPSContainer" type="HBoxContainer" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer4"]
+custom_minimum_size = Vector2(230, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Panel" type="Panel" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer4/FPSContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_fyuvy")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer4/FPSContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Standard" type="CheckBox" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer2/VBoxContainer4/FPSContainer/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_6jg5g")
+theme_override_font_sizes/font_size = 12
+text = "Enable"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_k5erb")
+theme_override_font_sizes/font_size = 14
+text = "• Overall Graphics Quality"
+
+[node name="OverallGraphisQualityContainer" type="HBoxContainer" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(230, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Panel" type="Panel" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer3/VBoxContainer/OverallGraphisQualityContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_fyuvy")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer3/VBoxContainer/OverallGraphisQualityContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="1" type="CheckBox" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer3/VBoxContainer/OverallGraphisQualityContainer/Panel/HBoxContainer" groups=["GFXQuality"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_6jg5g")
+theme_override_font_sizes/font_size = 12
+text = "1"
+
+[node name="2" type="CheckBox" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer3/VBoxContainer/OverallGraphisQualityContainer/Panel/HBoxContainer" groups=["GFXQuality"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_6jg5g")
+theme_override_font_sizes/font_size = 12
+text = "2"
+
+[node name="3" type="CheckBox" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer3/VBoxContainer/OverallGraphisQualityContainer/Panel/HBoxContainer" groups=["GFXQuality"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_6jg5g")
+theme_override_font_sizes/font_size = 12
+text = "3"
+
+[node name="4" type="CheckBox" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer3/VBoxContainer/OverallGraphisQualityContainer/Panel/HBoxContainer" groups=["GFXQuality"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_6jg5g")
+theme_override_font_sizes/font_size = 12
+text = "4"
+
+[node name="5" type="CheckBox" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer/HBoxContainer3/VBoxContainer/OverallGraphisQualityContainer/Panel/HBoxContainer" groups=["GFXQuality"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_6jg5g")
+theme_override_font_sizes/font_size = 12
+text = "5"
+
+[node name="Label2" type="Label" parent="Panel/BackgroundTexture/MessageTab/Graphics/TextureRect/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.745098, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("5_k5erb")
+theme_override_font_sizes/font_size = 14
+text = "**Changes will take effect on your next restart"
+
+[node name="CloseButton" type="TextureButton" parent="Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -68.0
+offset_bottom = 68.0
+grow_horizontal = 0
+size_flags_horizontal = 3
+texture_normal = ExtResource("7_1nquv")
+texture_hover = ExtResource("8_alofr")
+
+[connection signal="pressed" from="Panel/CloseButton" to="." method="_on_close_button_pressed"]

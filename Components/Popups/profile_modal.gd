@@ -1,7 +1,7 @@
 extends Control
 
 signal wallet_address_copied(wallet_address: String)
-
+signal settings_screen_button_pressed
 
 const badge_scene: PackedScene = preload("res://Components/MyProfile/badge.tscn")
 const liker_slot_scene: PackedScene = preload("res://Components/Moments/liker_slot.tscn")
@@ -397,3 +397,7 @@ func _on_notifications_button_pressed() -> void:
 	%FollowersFollowingContainer.visible = false
 	%NotificationsContainer.visible = true
 	%CloseButton.visible = true
+
+
+func _on_settings_button_pressed() -> void:
+	settings_screen_button_pressed.emit()

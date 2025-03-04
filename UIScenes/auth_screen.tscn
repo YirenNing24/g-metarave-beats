@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cfnseobkn66fh"]
+[gd_scene load_steps=43 format=3 uid="uid://cfnseobkn66fh"]
 
 [ext_resource type="Script" path="res://UIScenes/auth_screen.gd" id="1_fahu6"]
 [ext_resource type="Texture2D" uid="uid://beivc8jimuyqa" path="res://UITextures/BGTextures/blue_gradient.png" id="2_usyb0"]
@@ -17,12 +17,11 @@
 [ext_resource type="FontFile" uid="uid://c5fr5m8j4q1cg" path="res://UITextures/Fonts/HankenGrotesk-ExtraBoldItalic.ttf" id="15_outm7"]
 [ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="16_0g07l"]
 [ext_resource type="StyleBox" uid="uid://d4grcs3ey2rdr" path="res://UITextures/CustomResource/start_button.tres" id="16_6u3q1"]
-[ext_resource type="Shader" path="res://UIScenes/auth_screen.gdshader" id="16_84y64"]
-[ext_resource type="Shader" uid="uid://bd1fs0imo8ab4" path="res://UITextures/CustomResource/matrix.tres" id="17_1yvus"]
+[ext_resource type="Texture2D" uid="uid://cryc4eqtq2jkp" path="res://UITextures/Bundles/beats_logo.png" id="17_6wkh0"]
 [ext_resource type="Texture2D" uid="uid://d356rg23a4gt5" path="res://UITextures/BGTextures/hero_main_start.png" id="17_pcelb"]
-[ext_resource type="Texture2D" uid="uid://vxw1aujmxjy3" path="res://UITextures/CustomResource/auth_screen_gradient.tres" id="17_qx24v"]
-[ext_resource type="Texture2D" uid="uid://pd3gisy01cy4" path="res://UITextures/Bundles/beats_logo_new.png" id="19_yqdd8"]
+[ext_resource type="Texture2D" uid="uid://cfro5im0a5fk2" path="res://UITextures/Bundles/beats_logo_new.png" id="19_yqdd8"]
 [ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="20_6nce6"]
+[ext_resource type="FontFile" uid="uid://cbqgl5ybh1snb" path="res://UITextures/Fonts/argentum-sans.vf-regular.ttf" id="20_63bsd"]
 [ext_resource type="AudioStream" uid="uid://ca4prkiescihv" path="res://Songs/3031347447 ICU-Anti-Hero/ICU-Anti-Hero.ogg" id="22_qaqcc"]
 [ext_resource type="Texture2D" uid="uid://dt3r7qpml5ogu" path="res://UITextures/Icons/notifications_icon.png" id="23_rqv4e"]
 [ext_resource type="Texture2D" uid="uid://cgv7c6lcidb0a" path="res://UITextures/Icons/twitter_icon.png" id="24_w2ycs"]
@@ -36,101 +35,6 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 shadow_size = 10
 shadow_offset = Vector2(5, 8)
-
-[sub_resource type="Shader" id="Shader_w6od6"]
-code = "shader_type canvas_item;
-
-#define iResolution 1.0/SCREEN_PIXEL_SIZE
-#define iTime TIME
-
-uniform float size  = 5.;
-uniform sampler2D iChannel0;
-/*
-
-A quick experiment with rain drop ripples.
-
-This effect was written for and used in the launch scene of the
-64kB intro \"H - Immersion\", by Ctrl-Alt-Test.
-
- > http://www.ctrl-alt-test.fr/productions/h-immersion/
- > https://www.youtube.com/watch?v=27PN1SsXbjM
-
---
-Zavie / Ctrl-Alt-Test
-
-*/
-
-// Maximum number of cells a ripple can cross.
-#define MAX_RADIUS 2
-
-// Set to 1 to hash twice. Slower, but less patterns.
-#define DOUBLE_HASH 0
-
-// Hash functions shamefully stolen from:
-// https://www.shadertoy.com/view/4djSRW
-#define HASHSCALE1 .1031
-#define HASHSCALE3 vec3(.1031, .1030, .0973)
-
-float hash12(vec2 p)
-{
-	vec3 p3  = fract(vec3(p.xyx) * HASHSCALE1);
-    p3 += dot(p3, p3.yzx + 19.19);
-    return fract((p3.x + p3.y) * p3.z);
-}
-
-vec2 hash22(vec2 p)
-{
-	vec3 p3 = fract(vec3(p.xyx) * HASHSCALE3);
-    p3 += dot(p3, p3.yzx+19.19);
-    return fract((p3.xx+p3.yz)*p3.zy);
-
-}
-
-void fragment()
-{
-    float resolution = size;
-	vec2 uv = SCREEN_UV * resolution;
-	vec2 uv2 = uv * vec2(1.0 ,SCREEN_PIXEL_SIZE.x / SCREEN_PIXEL_SIZE.y);
-    vec2 p0 = floor(uv2);
-
-    vec2 circles = vec2(0.);
-    for (int j = -MAX_RADIUS; j <= MAX_RADIUS; ++j)
-    {
-        for (int i = -MAX_RADIUS; i <= MAX_RADIUS; ++i)
-        {
-			vec2 pi = p0 + vec2(float(i), float(j));
-            #if DOUBLE_HASH
-            vec2 hsh = hash22(pi);
-            #else
-            vec2 hsh = pi;
-            #endif
-            vec2 p = pi + hash22(hsh);
-
-            float t = fract(0.3*iTime + hash12(hsh));
-            vec2 v = p - uv2;
-            float d = length(v) - (float(MAX_RADIUS) + 1.)*t;
-
-            float h = 1e-3;
-            float d1 = d - h;
-            float d2 = d + h;
-            float p1 = sin(31.*d1) * smoothstep(-0.6, -0.3, d1) * smoothstep(0., -0.3, d1);
-            float p2 = sin(31.*d2) * smoothstep(-0.6, -0.3, d2) * smoothstep(0., -0.3, d2);
-            circles += 0.5 * normalize(v) * ((p2 - p1) / (2. * h) * (1. - t) * (1. - t));
-        }
-    }
-    circles /= float((MAX_RADIUS*2+1)*(MAX_RADIUS*2+1));
-
-    float intensity = mix(0.01, 0.15, smoothstep(0.1, 0.6, abs(fract(0.05*iTime + 0.5)*2.-1.)));
-    vec3 n = vec3(circles, sqrt(1. - dot(circles, circles)));
-    vec3 color = texture(iChannel0, uv/ resolution - intensity*n.xy).rgb + 5.*pow(clamp(dot(n, normalize(vec3(1., 0.7, 0.5))), 0., 1.), 6.);
-	COLOR = vec4(color, 1.0);
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_f2u6b"]
-shader = SubResource("Shader_w6od6")
-shader_parameter/size = 5.0
-shader_parameter/iChannel0 = ExtResource("2_usyb0")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_keqlh"]
 bg_color = Color(0.00566075, 0.0596161, 0.0596163, 1)
@@ -148,26 +52,6 @@ shadow_offset = Vector2(1, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_boybj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bgfsb"]
-shader = ExtResource("16_84y64")
-shader_parameter/ScaleMult = Vector2(0.99, 0.99)
-shader_parameter/AuraProgres = 1.0
-shader_parameter/TextureLaodMult = 10.0
-shader_parameter/Tilling = 60.0
-shader_parameter/MovementDirSpeed = Vector2(1, 1)
-shader_parameter/MovementDirSpeed2 = Vector2(1, 1)
-shader_parameter/Noise_Seed = Vector2(0.5, 0.5)
-shader_parameter/color_gradiant = ExtResource("17_qx24v")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_e3y73"]
-shader = ExtResource("17_1yvus")
-shader_parameter/ScaleMult = Vector2(0.98, 0.98)
-shader_parameter/AuraProgres = 1.0
-shader_parameter/TextureLaodMult = 10.0
-shader_parameter/Tilling = 60.0
-shader_parameter/MovementDirSpeed = Vector2(1, 1)
-shader_parameter/MovementDirSpeed2 = Vector2(1, 1)
-shader_parameter/Noise_Seed = Vector2(1, 1)
-shader_parameter/color_gradiant = ExtResource("17_qx24v")
 
 [sub_resource type="Animation" id="Animation_tqtgn"]
 length = 0.001
@@ -534,7 +418,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="BackgroundTexture" type="TextureRect" parent="."]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_f2u6b")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -546,6 +429,7 @@ expand_mode = 1
 
 [node name="LoginModalContainer" type="VBoxContainer" parent="BackgroundTexture"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.230833
@@ -1164,32 +1048,6 @@ alignment = 1
 caret_blink = true
 secret = true
 
-[node name="RegisterButton" type="TextureButton" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(0, 65)
-layout_mode = 2
-texture_normal = ExtResource("8_1trul")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="Label" type="Label" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/RegisterButton"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -19.0004
-offset_top = -6.5
-offset_right = 27.9996
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_wtii2")
-theme_override_font_sizes/font_size = 14
-text = "REGISTER"
-
 [node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -1566,29 +1424,34 @@ stretch_mode = 4
 metadata/_edit_use_anchors_ = true
 
 [node name="Logo" type="TextureRect" parent="BackgroundTexture/StartHeroTexture"]
-material = SubResource("ShaderMaterial_e3y73")
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -305.5
-offset_top = 66.5
-offset_right = 353.5
-offset_bottom = 166.5
+anchor_bottom = 1.0
+offset_left = -462.5
+offset_top = -366.001
+offset_right = 479.5
+offset_bottom = 75.9995
 grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("19_yqdd8")
+grow_vertical = 0
+texture = ExtResource("17_6wkh0")
 expand_mode = 1
+stretch_mode = 5
 
 [node name="StartButton" type="Button" parent="BackgroundTexture/StartHeroTexture"]
+unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -134.0
+offset_top = -92.0
+offset_right = 180.0
+offset_bottom = -76.0004
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("15_outm7")
@@ -1598,7 +1461,27 @@ theme_override_styles/disabled = ExtResource("16_6u3q1")
 theme_override_styles/hover = ExtResource("16_6u3q1")
 theme_override_styles/pressed = ExtResource("16_6u3q1")
 theme_override_styles/normal = ExtResource("16_6u3q1")
+disabled = true
 text = "START"
+
+[node name="PlayerMessage" type="Label" parent="BackgroundTexture/StartHeroTexture"]
+unique_name_in_owner = true
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -209.5
+offset_top = -69.0002
+offset_right = 279.5
+offset_bottom = -27.0002
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.912289, 0.912289, 0.912287, 1)
+theme_override_fonts/font = ExtResource("20_63bsd")
+theme_override_font_sizes/font_size = 20
+text = "TAP ANYWHERE ON THE SCREEN"
+horizontal_alignment = 1
+vertical_alignment = 2
 
 [node name="DebugLabel" type="Label" parent="BackgroundTexture"]
 unique_name_in_owner = true
@@ -1737,7 +1620,6 @@ vertical_alignment = 1
 [connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/LoginButton" to="." method="_on_login_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/HBoxContainer5/OtherLoginButton" to="." method="_on_other_login_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/LoginPasswordContainer/VBoxContainer/HBoxContainer3/RegisterToggle" to="." method="_on_register_toggle_pressed"]
-[connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/RegisterButton" to="." method="_on_register_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/RegisterPassword" to="." method="_on_register_password_pressed"]
 [connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/RegisterPasskeyButton" to="." method="_on_register_passkey_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/LoginModalContainer/Panel/VBoxContainer2/RegisterContainer/VBoxContainer/HBoxContainer3/LoginToggle" to="." method="_on_login_toggle_pressed"]

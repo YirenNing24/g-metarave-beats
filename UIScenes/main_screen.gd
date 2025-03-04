@@ -79,6 +79,7 @@ func signal_connect() -> void:
 	BKMREngine.Auth.bkmr_session_check_complete.connect(_on_session_check_complete)
 	var _connect: int = PLAYER.new_data_received.connect(hud_data)
 	profile_modal.wallet_address_copied.connect(_on_wallet_address_copied)
+	profile_modal.settings_screen_button_pressed.connect(_on_settings_screen_button_pressed)
 	
 # Checks the user session.
 func session_check() -> void:
@@ -270,6 +271,22 @@ func _on_game_mode_button_pressed() -> void:
 
 	# Load the song menu scene asynchronously
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/song_menu.tscn")
+
+
+func _on_settings_screen_button_pressed() -> void:
+	# Disable buttons in 'MainButtons' and 'MainButtons2' groups during the transition
+	for buttons: TextureButton in get_tree().get_nodes_in_group('MainButtons'):
+		buttons.disabled = true
+	for buttons2: Button in get_tree().get_nodes_in_group('MainButtons2'):
+		buttons2.disabled = true
+
+	# Set previous and next textures for the scene transition
+	LOADER.previous_texture = background_texture.texture
+	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")
+
+	# Load the song menu scene asynchronously
+	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/settings_screen.tscn")
+
 
 
 # Open the stat modal and show the filter panel.

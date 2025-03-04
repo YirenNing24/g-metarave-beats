@@ -9,10 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://o7bs4n3vreta" path="res://GameComponents/UserHUD/hit_display.tscn" id="7_2b871"]
 
 [sub_resource type="Environment" id="Environment_0fcn8"]
+background_mode = 2
 background_energy_multiplier = 0.0
-ambient_light_source = 3
-ambient_light_color = Color(1, 1, 1, 1)
-tonemap_mode = 3
+ambient_light_source = 1
+reflected_light_source = 1
+tonemap_mode = 1
 
 [node name="GameScene" type="Node"]
 
@@ -37,35 +38,31 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Game"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.87361, 21.8571, 0)
-light_color = Color(0.737255, 0.737255, 0.737255, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.38425, 21.857, 0)
 light_energy = 16.0
-omni_range = 47.404
-omni_attenuation = 0.435275
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="Game"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5098, 21.8571, 0)
-light_color = Color(0.458824, 0.458824, 0.458824, 1)
-light_energy = 0.0
-omni_range = 47.404
-omni_attenuation = 0.435275
-
-[node name="CanvasLayer" type="CanvasLayer" parent="Game"]
-
-[node name="UserHUD" parent="Game/CanvasLayer" instance=ExtResource("4_5wd3j")]
-unique_name_in_owner = true
-
-[node name="LoadingScreen" parent="Game/CanvasLayer" instance=ExtResource("6_ce6x1")]
-unique_name_in_owner = true
-visible = false
-z_index = 2
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_specular = 0.619
+omni_range = 2161.85
+omni_attenuation = 0.54
 
 [node name="Sprite3D" type="Sprite3D" parent="Game"]
-transform = Transform3D(-7.0925e-08, -1.0038, -1.95764, -4.35855e-08, 1.95764, -1.0038, 2.2, 6.42281e-09, -8.29988e-08, -19.8414, -10.5111, 0)
+transform = Transform3D(-2.95265e-07, -4.01521, -7.83059, -1.74342e-07, 7.83059, -4.01521, 8.8, 2.04148e-08, -3.42286e-07, -19.8414, -10.5111, 0)
 texture = ExtResource("6_0o2hm")
 
 [node name="HitDisplay" parent="Game" instance=ExtResource("7_2b871")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.517003, -0.0545545, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.61648, -0.0545545, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Game"]
+layer = 0
+
+[node name="UserHUD" parent="Game/CanvasLayer" instance=ExtResource("4_5wd3j")]
+unique_name_in_owner = true
+rotation = 0.000722891
+
+[node name="LoadingScreen" parent="Game/CanvasLayer" instance=ExtResource("6_ce6x1")]
+unique_name_in_owner = true
+z_index = 4
 
 [connection signal="notepicker_position" from="Game/Road" to="Game" method="_on_road_notepicker_position"]
 [connection signal="song_finished" from="Game/Music" to="Game/CanvasLayer/UserHUD" method="_on_music_song_finished"]

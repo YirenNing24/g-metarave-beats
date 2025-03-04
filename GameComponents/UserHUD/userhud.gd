@@ -1,17 +1,10 @@
 extends Control
 
-signal hit_display_data(note_accuracy: int, line: int, combo_value: int)
-
 
 @onready var health_bar: TextureProgressBar = %HealthBar
-
-@onready var boost_progress_bar: TextureProgressBar = %BoostProgressBar
-@onready var score_label: Label = %ScoreLabel
 @onready var username_label: Label = %UsernameLabel
 
-
 @export var health: int = 100
-@export var score: int = 0
 @export var score_accuracy: float = 0
 
 @export var total_combo: int = 0
@@ -29,19 +22,18 @@ signal hit_display_data(note_accuracy: int, line: int, combo_value: int)
 @export var bad: int = 0
 @export var miss: int = 0
 
-@export var current_momentum: int = 0
+@export var boost_current: String
 @export var current_boost: int = 0
 @export var boost_multiplier: int = 1
 
 var map: String
 var song_length: float
 
-
 @export var final_stats: Dictionary
 @export var note_stats: Dictionary
 
 var tween: Tween
-var boost_tween: Tween
+var left_boost_tween: Tween
 
 var card_texture_tween: Tween
 var card_textures_array: Array[Texture] = []
@@ -54,15 +46,21 @@ var current_card_texture_index: int = 0
 func _ready() -> void:
 	health = clamp(health, 0, 100) 
 	set_multiplayer_authority(1) 
-	%MultiplayerSynchronizer.set_multiplayer_authority(1)
 	connect_signals()
 	username_label.text = PLAYER.username
+	#%EffectsOnLeft.material.set_shader_parameter("color1", "ffffff01")
+	 
+	
+func on_boost_current_changed(value: String) -> void:
+	print("Boost changed to: ", value)
 	
 	
-func set_artist(artist: String) -> void:
+func set_artist(artist: String, title: String) -> void:
 	BKMREngine.Inventory.group_card_equipped(artist)
+	%Artist.text = artist
+	%SongName.text = title
 	
-	
+
 func connect_signals() -> void:
 	var _1: int = MULTIPLAYER.classic_game_over_completed.connect(_on_classic_game_over_completed)
 	BKMREngine.Inventory.group_card_equip_complete.connect(equipped_cards_texture)
@@ -75,13 +73,30 @@ func _on_get_group_card_equipped_complete(card_data: Array) -> void:
 		for textures: TextureRect in get_tree().get_nodes_in_group("CardTexture"):
 			textures.visible = false
 		
+	
+	
+@rpc("authority")
+func set_client_score(score: int) -> void:
+	%ScoreLabel.text = str(score)
+	
+	
+@rpc('authority')
+func show_equipped_cards(_card_data: Array) -> void:
+	pass
+	
+	
+@rpc("authority")
+func set_client_current_boost(boost: int, _momentum: int) -> void:
+	set_boost_visibility(boost)
 		
-@rpc
-func show_equipped_cards(card_data: Array) -> void:
-	print("equipped cards:", card_data)
-
-		
-		
+	
+@rpc("authority")
+func set_client_health(health_value: int) -> void:
+	health_bar.value = health_value
+	if health_value == 0:
+		_on_classic_game_over_completed()
+	
+	
 func equipped_cards_texture(card_data: Array) -> void:
 	# Extract dictionary from array (assuming only one dictionary exists)
 	var card_dict: Dictionary = card_data[0]
@@ -121,7 +136,7 @@ func equipped_cards_texture(card_data: Array) -> void:
 
 	# Call animation function (assuming it exists)
 	animate_card()
-
+	
 	
 func animate_card() -> void:
 	if not card_textures_array.is_empty():
@@ -133,7 +148,6 @@ func animate_card() -> void:
 			cycle_card_textures()
 	
 	
-# Define the cycle_textures function outside
 # Function to update textures for CardTexture1 and CardTexture2
 func update_textures() -> void:
 	# Store the current texture of CardTexture2
@@ -150,7 +164,8 @@ func update_textures() -> void:
 	
 	# Set CardTexture2 to the next texture in the array
 	%CardTexture2.texture = card_textures_array[current_card_texture_index]
-
+	
+	
 # Function to start tweening for CardTexture2
 func start_tween() -> void:
 	card_texture_tween = get_tree().create_tween()
@@ -162,86 +177,50 @@ func start_tween() -> void:
 		card_textures_array[current_card_texture_index], 
 		4
 	).set_trans(Tween.TRANS_LINEAR)
-
-	# Callback to cycle textures again after the tween completes
 	var _tween_callback: CallbackTweener = card_texture_tween.tween_callback(cycle_card_textures)
-
+	
+	
 # Main function to cycle through textures
 func cycle_card_textures() -> void:
 	update_textures()  # Update the textures for CardTexture1 and CardTexture2
 	start_tween()      # Start the tweening process
 	
 	
-func hit_continued_feedback(note_accuracy: int, line: int ) -> void:
-	if note_accuracy == 5:
-		Input.vibrate_handheld(300)
-		combo = 0
-	elif note_accuracy != 4:
-		set_boost_multiplier()
-		var long_note_accuracy: int = 5 - note_accuracy
-		combo = combo + 1
-		total_combo = total_combo + 1
-		score = round(score + (long_note_accuracy * combo * 5 * boost_multiplier))
-	hit_display_data.emit(note_accuracy, line, combo)
-	
-	
-func set_boost_multiplier() -> void:
-	if current_boost != 1:
-		boost_multiplier = current_boost
+func set_boost_visibility(boost: int) -> void:
+	# Show or hide effects based on boost level
+	if boost == 0:
+		%EffectsOnLeft.visible = false
+		%EffectsOnRight.visible = false
 	else:
-		boost_multiplier = 1
-	if current_boost == 3 and current_momentum == 50:
-		boost_multiplier = 4
+		%EffectsOnLeft.visible = true
+		%EffectsOnRight.visible = true
+	
+	var _new_color: Color = get_boost_color(boost)
+	#tween_boost_color(new_color)
 	
 	
-func boost_feedback(is_swipe_note: bool = false) -> void:
-	current_momentum = clamp(current_momentum, 0, 50)
-	# Increase momentum based on whether it's a swipe note
-	if is_swipe_note:
-		current_momentum += 15
-	else:
-		current_momentum += 20
-	# Clamp again after the increase to ensure it stays within bounds
-	current_momentum = clamp(current_momentum, 0, 50)
-	
-	# Set boost if current momentum reaches or exceeds 50
-	if current_momentum == 50 and current_boost < 3:
-		if current_boost == 2:
-			set_boost()
-		else:
-			current_momentum = 0
-			set_boost()
-
-	elif current_momentum == 50 and current_boost == 3:
-		set_boost()
-	animate_momentum()
+func get_boost_color(boost: int) -> Color:
+	match boost:
+		1: return Color("#7b950033") # Softened opacity (20%)
+		2: return Color("#66E10055") # More transparency (33%)
+		3: return Color("#A400A477") # Subtle but noticeable (47%)
+	return Color("#00000000") # Default transparent (for safety)
 	
 	
-func set_boost(is_reset: bool = false) -> void:
-	if is_reset:
-		current_boost = 0
-		current_momentum = 0
-		animate_momentum()
-	else:
-		if current_boost < 3:
-			current_boost += 1
-			print("cur: ", current_boost)
-	set_boost_multiplier()
-	if current_boost < 3:
-		boost_progress_texture_change() 
-		
-		
-func boost_progress_texture_change() -> void:
-	const texture_path: String = "res://UITextures/Progress/momentum"
-	boost_progress_bar.texture_progress = load(texture_path + momentum_to_string + ".png")
-	
-	
-func animate_momentum() -> void:
-	boost_tween = get_tree().create_tween()
-	var _momentum_tween: PropertyTweener = boost_tween.tween_property(
-		boost_progress_bar, 
-		"value", 
-		current_momentum, 0.1).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_LINEAR )
+#func tween_boost_color(new_color: Color) -> void:
+	#left_boost_tween = get_tree().create_tween()
+#
+	## Get the current color of the shader parameter
+	##var start_color: Color = %EffectsOnLeft.material.get_shader_parameter("color1")
+#
+	## Tween the shader parameter correctly
+	#var _hey: MethodTweener = left_boost_tween.tween_method(
+		#func(value: Color) -> void:
+			#%EffectsOnLeft.material.set_shader_parameter("color1", value),
+		#start_color, # Start value
+		#new_color,   # Target value
+		#0.3          # Duration
+	#).set_trans(Tween.TRANS_LINEAR)
 	
 	
 func _on_road_song_finished() -> void:
@@ -252,9 +231,10 @@ func _on_music_song_finished() -> void:
 	_on_classic_game_over_completed()
 	
 	
-func _on_classic_game_over_completed() -> void:
-	var _load_scene: bool = await LOADER.load_scene(self, "res://UIScenes/game_over.tscn")
+func _on_classic_game_over_completed(_message: Variant = "") -> void:
 	LOADER.next_texture = preload("res://UITextures/BGTextures/game_over_bg.png")
+	var _load_scene: bool = await LOADER.load_scene(self, "res://UIScenes/game_over.tscn")
+	
 	
 	
 func format_number(number: int) -> String:
@@ -274,9 +254,3 @@ func format_number(number: int) -> String:
 	return formatted_number as String
 	
 	
-func _on_boost_progress_bar_value_changed(_value: float) -> void:
-	if momentum_to_string != "":
-		boost_progress_texture_change()
-	else:
-		momentum_to_string = "0"
-		boost_progress_texture_change()

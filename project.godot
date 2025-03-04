@@ -12,7 +12,8 @@ config_version=5
 
 config/name="kmr-godot-4"
 run/main_scene="res://UIScenes/splash_screen.tscn"
-config/features=PackedStringArray("4.3", "Mobile")
+config/features=PackedStringArray("4.4", "Mobile")
+run/max_fps=120
 boot_splash/bg_color=Color(0, 0, 0, 1)
 
 [audio]
@@ -101,6 +102,9 @@ ClaimRewardButton=""
 Picker=""
 InventorySlot=""
 SongDisplay=""
+FPSConfig=""
+Resolution=""
+GFXQuality=""
 
 [input]
 
@@ -143,4 +147,6 @@ pointing/emulate_touch_from_mouse=true
 
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
+camera/depth_of_field/depth_of_field_bokeh_quality=0
+environment/ssao/quality=1
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)

@@ -531,7 +531,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_fonts/font = ExtResource("8_03vso")
 theme_override_font_sizes/font_size = 14
 text = " HIGH SCORE"
 horizontal_alignment = 2
@@ -540,13 +540,14 @@ clip_text = true
 text_overrun_behavior = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="EnergyBalance2" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Panel/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="HighScoreLabel" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Panel/HBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.78
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_fonts/font = ExtResource("8_03vso")
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -609,7 +610,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_cmnq4")
 
-[node name="EnergyBalance" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel/VBoxContainer/VBoxContainer2/Panel"]
+[node name="NewRecord" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer/Panel/Panel/VBoxContainer/VBoxContainer2/Panel"]
 custom_minimum_size = Vector2(95, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -624,7 +625,7 @@ size_flags_vertical = 1
 theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
 theme_override_fonts/font = ExtResource("10_xfc4x")
 theme_override_font_sizes/font_size = 28
-text = "NEW RECORD!"
+text = "LET'S GO!"
 horizontal_alignment = 1
 vertical_alignment = 1
 clip_text = true
@@ -1268,7 +1269,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.733005, 0.733005, 0.733005, 1)
 theme_override_fonts/font = ExtResource("8_03vso")
-text = "20"
+text = "0"
 horizontal_alignment = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer"]
@@ -1343,7 +1344,7 @@ layout_mode = 2
 size_flags_horizontal = 10
 theme_override_colors/font_color = Color(0.733005, 0.733005, 0.733005, 1)
 theme_override_fonts/font = ExtResource("8_03vso")
-text = "200"
+text = "0"
 horizontal_alignment = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect/TextureRect/VBoxContainer/HBoxContainer/VBoxContainer2/Panel2/VBoxContainer/Panel3/HBoxContainer/VBoxContainer2"]

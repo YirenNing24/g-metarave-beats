@@ -5,7 +5,7 @@ extends Node3D
 @onready var road: Node3D = %Road
 # Reference to the music Node3D.
 @onready var music: Node3D = %Music
-# Reference to the user HUD Control node.
+# Reference to the user HUD Control node.game
 @onready var user_hud: Control = %UserHUD
 
 # Dictionary storing the map data.
@@ -32,16 +32,12 @@ var has_loaded: bool = false
 
 func _ready() -> void:
 	connect_signals()
-	
+	print("anu po size: ", get_viewport().scaling_3d_mode)
 	
 func _on_road_notepicker_position(picker_y_position: float) -> void:
 	var song_map: String = SONG.map_selected.map_file
 	var song_audio_file: String = SONG.map_selected.audio_file
 	MULTIPLAYER.load_song(song_map, song_audio_file, picker_y_position)
-	
-	
-
-
 	
 	
 func connect_signals() -> void:
@@ -54,14 +50,7 @@ func song_game_start() -> void:
 	set_variables()
 	calculate_params()
 	setup_nodes()
-	user_hud.set_artist(beatmap.audio.artist)
-	
-#func _on_player_peer_id_received(id: int) -> void:
-	#print("HHHOYYYYYYYYYYYYYYY")
-	#print("dito ahhhhhhh: ", id)
-	#peer_id = id
-	#PLAYER.peer_id = id
-	#name = str(id)
+	user_hud.set_artist(beatmap.audio.artist, beatmap.audio.title)
 	
 	
 func set_variables() -> void:

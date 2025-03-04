@@ -37,9 +37,6 @@ func _on_GetClassicLeaderboard_request_completed(_result: int, response_code: in
 	# Check the HTTP response status.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	
-	# Free the request resources.
-	BKMREngine.free_request(wrGetClassicLeaderboard, GetClassicLeaderboard)
-
 	# Check if the server update was successful.
 	if status_check:
 		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())

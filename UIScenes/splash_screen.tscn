@@ -70,6 +70,7 @@ stretch_mode = 6
 
 [node name="LoadingWheel" type="TextureProgressBar" parent="HBoxContainer/TextureRect" groups=["Splash"]]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 1
 anchors_preset = -1
@@ -103,6 +104,7 @@ horizontal_alignment = 1
 
 [node name="LoadingLabel2" type="Label" parent="VBoxContainer" groups=["Splash"]]
 unique_name_in_owner = true
+visible = false
 z_index = 1
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0.552941, 0.552941, 0.552941, 1)
@@ -111,6 +113,7 @@ text = "What Session"
 horizontal_alignment = 1
 
 [node name="Panel" type="Panel" parent="." groups=["Splash"]]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -136,3 +139,22 @@ libraries = {
 "": SubResource("AnimationLibrary_08333")
 }
 autoplay = "fade_in_out"
+
+[node name="FilterPanel" type="Panel" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+z_index = 2
+z_as_relative = false
+custom_minimum_size = Vector2(1200, 540)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -270.0
+offset_right = 600.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2

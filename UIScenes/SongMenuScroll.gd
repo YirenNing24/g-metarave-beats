@@ -53,10 +53,18 @@ func _process(_delta: float) -> void:
 		image_nodes[_index].scale = Vector2(_card_scale, _card_scale)
 		image_nodes[_index].modulate.a = _card_opacity
 		
-		# Update the current image index if within swipe range
+		# Get the button node for this song
+		var start_button: TextureButton = image_nodes[_index].get_node("InitiateStartButton")
+
+		# Enable button only if this song is in focus, otherwise disable it
 		if _swipe_current_length < _swipe_length:
 			image_current_index = _index
+			start_button.disabled = false
+		else:
+			start_button.disabled = true
 
+	
+	
 # Function to initiate the scrolling animation
 func scroll() -> void:
 	# Create a tween for smooth scrolling
@@ -83,7 +91,7 @@ func scroll() -> void:
 			Vector2(_image_scale, _image_scale),
 			scroll_duration 
 		)
-
+	
 # Input handling for user interaction
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -100,6 +108,7 @@ func song_unfocused_selected(index: int) -> void:
 		scroll()
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	kill_tween()
+	
 	
 func kill_tween() -> void:
 	if tween:

@@ -78,6 +78,8 @@ func add_difficulty_option() -> void:
 
 #region filter_button_signals
 func _on_song_picker_focus_entered() -> void:
+	#if %SongListContainer.visible == false:
+		#return
 	song_list_container.visible = true
 	
 	

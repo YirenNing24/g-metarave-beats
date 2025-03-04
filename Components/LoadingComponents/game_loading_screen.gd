@@ -2,7 +2,7 @@ extends Control
 
 signal loading_finished
 
-@onready var loading_wheel: TextureProgressBar = %LoadingWheel
+
 
 var tween: Tween
 
@@ -19,11 +19,11 @@ func _on_visibility_changed() -> void:
 	
 	
 func fake_loader() -> void:
-	loading_wheel.value = 0
+	%LoadingWheel.value = 0
 	tween = get_tree().create_tween()
 	
 	# Animate the loading wheel value property.
-	var _wheel_loader: PropertyTweener = tween.tween_property(loading_wheel, "value", 100, 5.0).set_trans(Tween.TRANS_LINEAR)
+	var _wheel_loader: PropertyTweener = tween.tween_property(%LoadingWheel, "value", 100, 5.0).set_trans(Tween.TRANS_LINEAR)
 	var _1: int = tween.finished.connect(_on_loading_finished) 
 
 

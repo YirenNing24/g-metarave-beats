@@ -115,28 +115,15 @@ func _on_close_button_pressed() -> void:
 	
 	
 func _on_inventory_card_pressed(card_data: Dictionary, _slot: Control) -> void:
-	#if item_stats.is_open == false:
-		#animation_player.play("item_stats_slide")
-		#await animation_player.animation_finished
 	item_stats_card_data.emit(card_data)
 	
 	
 func _on_equipped_card_pressed(card_data: Dictionary) -> void:
-	print("heyyyyss: ", card_data)
+
 	if %ItemStatsSmall.is_open == false:
-		#animation_player.play("item_stats_slide")
-		#await animation_player.animation_finished
 		item_stats_card_data.emit(card_data)
 	
 	
-#func _on_item_stats_equip_unequip_pressed() -> void:
-	#if item_stats.is_open:
-		#animation_player.play_backwards("item_stats_slide")
-		#await animation_player.animation_finished
-		#is_loading = false
-		#item_stats.is_open = false
-		
-		
 func _on_item_stats_close_item_stats_pressed() -> void:
 	#item_stats.is_open = false
 	animation_player.play_backwards("item_stats_slide")

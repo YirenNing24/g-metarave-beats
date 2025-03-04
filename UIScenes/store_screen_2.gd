@@ -131,7 +131,7 @@ func check_cost_and_funds(price: int) -> bool:
 	if int(beats_balance.text) > price:
 		return true
 	else:
-		%ErrorMessage.text = ("Not enough funds")
+		%ErrorMessage.text = "Not enough funds"
 		%AnimationPlayer.play("ErrorMessage")
 		return false
 	
