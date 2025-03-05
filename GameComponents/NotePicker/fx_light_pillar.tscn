@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c4er7m40crmy6"]
 
-[ext_resource type="Shader" path="res://GameComponents/NotePicker/fx_light_pillar.gdshader" id="1_vswfk"]
+[ext_resource type="Shader" uid="uid://gobxxprqk3bj" path="res://GameComponents/NotePicker/fx_light_pillar.gdshader" id="1_vswfk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hw478"]
 render_priority = 0
@@ -17,7 +17,7 @@ shader_parameter/animation_speed = 1.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n71op"]
 render_priority = 0
 shader = ExtResource("1_vswfk")
-shader_parameter/albedo = null
+shader_parameter/albedo = Color(0, 0, 0, 1)
 shader_parameter/brightness = 1.0
 shader_parameter/small_lines = 1.0
 shader_parameter/medium_lines = 1.0

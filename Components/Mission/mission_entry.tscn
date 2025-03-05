@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ce4jc85gl050y"]
 
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="1_gov6q"]
-[ext_resource type="Script" path="res://Components/Mission/mission_entry.gd" id="1_mmmyh"]
+[ext_resource type="Script" uid="uid://uob23c0wjqxm" path="res://Components/Mission/mission_entry.gd" id="1_mmmyh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_231a6"]
 bg_color = Color(0, 0, 0, 0.0470588)

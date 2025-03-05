@@ -20,7 +20,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1eeiw"]
 _data = {
-"initial": SubResource("Animation_cb3ko")
+&"initial": SubResource("Animation_cb3ko")
 }
 
 [node name="HBoxContainer" type="HBoxContainer"]

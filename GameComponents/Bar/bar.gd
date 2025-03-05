@@ -12,6 +12,7 @@ var bar_index: int
 
 func _ready() -> void:
 	add_notes()
+	
 
 # Add notes to the scene based on the provided bar_data.
 func add_notes() -> void:

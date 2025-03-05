@@ -1,6 +1,6 @@
 [gd_scene load_steps=151 format=3 uid="uid://cjx2qu2kdc3p2"]
 
-[ext_resource type="Script" path="res://GameComponents/NotePicker/notepicker.gd" id="1_nn2og"]
+[ext_resource type="Script" uid="uid://corflqpty6h0i" path="res://GameComponents/NotePicker/notepicker.gd" id="1_nn2og"]
 [ext_resource type="Texture2D" uid="uid://dqt5hoxr6n6le" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_01.png" id="2_1b715"]
 [ext_resource type="Texture2D" uid="uid://dcc01ygpautp" path="res://UITextures/GameTextures/globe/1.png" id="2_wgwxd"]
 [ext_resource type="Texture2D" uid="uid://bm3ing1oa6up4" path="res://UITextures/GameTextures/long_vortex/fx_7_ver3_02.png" id="3_a255i"]
@@ -724,7 +724,7 @@ animations = [{
 }]
 
 [node name="NotePicker" type="Node3D" groups=["Picker"]]
-transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.548166, 0.051, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.2, 0, 0, 0)
 script = ExtResource("1_nn2og")
 
 [node name="BadAreaEarly" type="Area3D" parent="." groups=["bad_area", "picker_area"]]
@@ -808,7 +808,7 @@ unique_name_in_owner = true
 transform = Transform3D(0.1, 0, 0, 0, 0.9, 0, 0, 0, 0.8, 0.548438, 0, 0)
 material_override = SubResource("StandardMaterial3D_kg0bt")
 emitting = false
-amount = 20
+amount = 40
 lifetime = 0.3
 one_shot = true
 explosiveness = 0.3

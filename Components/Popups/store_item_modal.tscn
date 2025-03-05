@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=3 uid="uid://cff5li31pk0jx"]
 
-[ext_resource type="Script" path="res://Components/Popups/store_item_modal.gd" id="1_ychtr"]
+[ext_resource type="Script" uid="uid://rqxu7cug1n5p" path="res://Components/Popups/store_item_modal.gd" id="1_ychtr"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_wygyw"]
 [ext_resource type="Texture2D" uid="uid://71ok60rxtq74" path="res://UITextures/Popups/info_panel.png" id="3_7ymp4"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="3_tsqrq"]
@@ -12,7 +12,7 @@
 [ext_resource type="FontFile" uid="uid://vqx73un0cel7" path="res://UITextures/Fonts/HankenGrotesk-Italic-VariableFont_wght.ttf" id="7_vtv0g"]
 [ext_resource type="Texture2D" uid="uid://1ktjogd6a24l" path="res://UITextures/Buttons/buy_button.png" id="8_0vpge"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="8_p2noh"]
-[ext_resource type="Shader" path="res://Components/Popups/store_item_modal.gdshader" id="13_om51l"]
+[ext_resource type="Shader" uid="uid://bj7abumnyc73y" path="res://Components/Popups/store_item_modal.gdshader" id="13_om51l"]
 [ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="13_sdllf"]
 [ext_resource type="Texture2D" uid="uid://0gcaffddmrr8" path="res://UITextures/Cards/nova_no_doubt_genesis.png" id="14_pu1my"]
 [ext_resource type="Texture2D" uid="uid://cu2rldjgd6cuu" path="res://UITextures/Cards/hannah_no_doubt_genesis.png" id="15_psqku"]
@@ -42,6 +42,7 @@ gradient = SubResource("Gradient_bcsdd")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qkv4b"]
 render_priority = 0
 shader = ExtResource("13_om51l")
+shader_parameter/texture_albedo = ExtResource("14_pu1my")
 shader_parameter/threshold = 0.6
 shader_parameter/effect_alpha_mult = 0.383
 shader_parameter/direction = 0.0
@@ -49,6 +50,8 @@ shader_parameter/specular = 0.0
 shader_parameter/metallic = 0.735
 shader_parameter/roughness = 0.191
 shader_parameter/emission_energy = 0.505
+shader_parameter/gradient = SubResource("GradientTexture2D_lprqg")
+shader_parameter/noise = ExtResource("4_pwxi3")
 shader_parameter/line_smoothness = 0.045
 shader_parameter/line_width = 0.09
 shader_parameter/scanline_brightness = 2.0
@@ -61,9 +64,6 @@ shader_parameter/position_max = 0.5
 shader_parameter/scanline_alpha = 0.5
 shader_parameter/scanline_interval = 5.0
 shader_parameter/scanline_duration = 1.0
-shader_parameter/texture_albedo = ExtResource("14_pu1my")
-shader_parameter/gradient = SubResource("GradientTexture2D_lprqg")
-shader_parameter/noise = ExtResource("4_pwxi3")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0lrwn"]
 
@@ -101,8 +101,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rnhn3"]
 _data = {
-"buy_loading": SubResource("Animation_6t2hi"),
-"halfspin": SubResource("Animation_5mc1f")
+&"buy_loading": SubResource("Animation_6t2hi"),
+&"halfspin": SubResource("Animation_5mc1f")
 }
 
 [node name="store_item_modal" type="Control"]

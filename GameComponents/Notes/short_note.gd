@@ -35,32 +35,49 @@ var picker: Node3D = null
 
 
 func _ready() -> void:
-	set_note_position()
-	var _note_connect: int = note_area.area_entered.connect(_on_area_entered)
 	connect_notes()
+	var _note_connect: int = note_area.area_entered.connect(_on_area_entered)
+	set_note_position()
 	
-
+	
+func connect_notes() -> void:
+	for note_picker: Node3D in get_tree().get_nodes_in_group('Picker'):
+		var feedback: Callable = note_picker.hit_feedback
+		var _1: int = hit_feedback.connect(feedback)
+		
+	for user_hud: Control in get_tree().get_nodes_in_group("UserHUD"):
+		var feedback: Callable = user_hud.hit_feedback
+		var add_score: Callable = user_hud.add_score
+		var _1: int = hit_feedback.connect(feedback)
+		var _2: int = hit_feedback.connect(add_score)
+	
+	
 func _process(_delta: float) -> void:
 	# Check if the picker is present and is not collecting another note.
 	if not picker or (picker.note_collect != null and picker.note_collect != self): 
 		return
+		
 	# Check if the note is colliding and the picker is collecting.
 	if not collected:
 		if is_colliding and picker.is_collecting:
+			print("collecting?!")
 			collect()
 
 # Method to handle the collection of the note.
 func collect(is_miss: bool = false) -> void:
+	hit_feedback.emit(accuracy, line)
+	print("collecting: ", accuracy, line)
 	note_body.visible = false
 	collected = true
-	picker.is_collecting = false
+	#picker.is_collecting = false
 	if accuracy != 5:
 		collected = true
 		note_body.visible = false
 	if not is_miss:
 		picker.note_collect = self
-	hit_feedback.emit(accuracy, line)
-
+		
+	
+		print("collecting: ", accuracy, line)
 
 # Method to set the position of the note based on the line and layer.
 func set_note_position() -> void:
@@ -77,6 +94,7 @@ func set_note_position() -> void:
 
 # Method to handle the area entered signal of the note.
 func _on_area_entered(area: Area3D) -> void:
+	print("Area: ", area)
 	if collected:
 		return
 	const area_groups: Array[String] = ["perfect_area", "verygood_area", "good_area", "bad_area", "miss_area"]
@@ -90,9 +108,4 @@ func _on_area_entered(area: Area3D) -> void:
 			if accuracy == 5:
 				collect(true)
 			break
-
-
-func connect_notes() -> void:
-	for note_picker: Node3D in get_tree().get_nodes_in_group('Picker'):
-		var feedback: Callable = note_picker.hit_feedback
-		var _1: int = hit_feedback.connect(feedback)
+	

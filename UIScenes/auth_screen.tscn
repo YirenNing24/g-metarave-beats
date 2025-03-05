@@ -1,6 +1,6 @@
 [gd_scene load_steps=43 format=3 uid="uid://cfnseobkn66fh"]
 
-[ext_resource type="Script" path="res://UIScenes/auth_screen.gd" id="1_fahu6"]
+[ext_resource type="Script" uid="uid://c5jgccefecj8h" path="res://UIScenes/auth_screen.gd" id="1_fahu6"]
 [ext_resource type="Texture2D" uid="uid://beivc8jimuyqa" path="res://UITextures/BGTextures/blue_gradient.png" id="2_usyb0"]
 [ext_resource type="Texture2D" uid="uid://grsujvs6d7s4" path="res://UITextures/BGTextures/esha_hero_auth.png" id="3_skcmq"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_wtii2"]
@@ -174,9 +174,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4w76c"]
 _data = {
-"RESET": SubResource("Animation_tqtgn"),
-"switch_start_screen": SubResource("Animation_aaf5s"),
-"transition_1": SubResource("Animation_6sob6")
+&"RESET": SubResource("Animation_tqtgn"),
+&"switch_start_screen": SubResource("Animation_aaf5s"),
+&"transition_1": SubResource("Animation_6sob6")
 }
 
 [sub_resource type="Animation" id="Animation_pvikh"]
@@ -368,11 +368,11 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tnpq4"]
 _data = {
-"RESET": SubResource("Animation_pvikh"),
-"error_container": SubResource("Animation_igun7"),
-"login_container": SubResource("Animation_05gyf"),
-"register_container": SubResource("Animation_qng8j"),
-"success": SubResource("Animation_bjstk")
+&"RESET": SubResource("Animation_pvikh"),
+&"error_container": SubResource("Animation_igun7"),
+&"login_container": SubResource("Animation_05gyf"),
+&"register_container": SubResource("Animation_qng8j"),
+&"success": SubResource("Animation_bjstk")
 }
 
 [node name="AuthScreen" type="Control"]
@@ -1498,14 +1498,14 @@ justification_flags = 170
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_4w76c")
+&"": SubResource("AnimationLibrary_4w76c")
 }
 autoplay = "transition_1"
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_tnpq4")
+&"": SubResource("AnimationLibrary_tnpq4")
 }
 
 [node name="LoadingPanel" parent="." instance=ExtResource("16_0g07l")]

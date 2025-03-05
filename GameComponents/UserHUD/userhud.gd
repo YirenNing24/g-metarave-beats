@@ -1,10 +1,12 @@
 extends Control
 
+signal hit_display_data(note_accuracy: int, line: int, combo_value: int)
 
 @onready var health_bar: TextureProgressBar = %HealthBar
 @onready var username_label: Label = %UsernameLabel
 
 @export var health: int = 100
+@export var score: int = 0
 @export var score_accuracy: float = 0
 
 @export var total_combo: int = 0
@@ -22,9 +24,13 @@ extends Control
 @export var bad: int = 0
 @export var miss: int = 0
 
-@export var boost_current: String
-@export var current_boost: int = 0
+@export var current_momentum: int = 0
+@export var current_boost: int = 1
 @export var boost_multiplier: int = 1
+var score_boost: int = 0
+
+@export var boost_current: String
+
 
 var map: String
 var song_length: float
@@ -48,8 +54,27 @@ func _ready() -> void:
 	set_multiplayer_authority(1) 
 	connect_signals()
 	username_label.text = PLAYER.username
-	#%EffectsOnLeft.material.set_shader_parameter("color1", "ffffff01")
+	#%EffectsOnLeft.material.set_shader_parameter("color1", "ffffff01")func add_score(_accuracy: int, _line: int) -> void:
+	score = round(score + (score_accuracy +(score_accuracy * combo / 25)))
 	 
+	
+func _process(_delta: float) -> void:
+	calculate_accuracy_score()
+	if combo > max_combo:
+		max_combo = combo
+	
+	
+func calculate_accuracy_score() -> void:
+	var total_notes: int = perfect + very_good + good + bad + miss
+	accuracy_rate = (float(0 * miss) + (200 * bad) + (400 * good) + (800 * very_good) + (1200 * perfect)) / float(1200 * total_notes)
+	
+	
+func add_score(_accuracy: int, _line: int) -> void:
+	var base_score: float = score_accuracy * boost_multiplier
+	var combo_bonus: float = max(1.0, 1.0 + (combo / 20.0))  # Ensures at least x1 multiplier
+	score = round(score + (base_score * combo_bonus))
+	%ScoreLabel.text = str(score)
+	
 	
 func on_boost_current_changed(value: String) -> void:
 	print("Boost changed to: ", value)
@@ -60,7 +85,7 @@ func set_artist(artist: String, title: String) -> void:
 	%Artist.text = artist
 	%SongName.text = title
 	
-
+	
 func connect_signals() -> void:
 	var _1: int = MULTIPLAYER.classic_game_over_completed.connect(_on_classic_game_over_completed)
 	BKMREngine.Inventory.group_card_equip_complete.connect(equipped_cards_texture)
@@ -72,29 +97,27 @@ func _on_get_group_card_equipped_complete(card_data: Array) -> void:
 	else:
 		for textures: TextureRect in get_tree().get_nodes_in_group("CardTexture"):
 			textures.visible = false
-		
 	
 	
-@rpc("authority")
-func set_client_score(score: int) -> void:
-	%ScoreLabel.text = str(score)
+func hit_continued_feedback(note_accuracy: int, line: int ) -> void:
+	if note_accuracy == 5:
+		combo = 0
+	elif note_accuracy != 4:
+		set_boost_multiplier()
+		var long_note_accuracy: int = 5 - note_accuracy
+		combo = combo + 1
+		total_combo = total_combo + 1
+		score = round(score + (long_note_accuracy * combo * 5 * boost_multiplier))
+	hit_display_data.emit(note_accuracy, line, combo)
 	
 	
-@rpc('authority')
-func show_equipped_cards(_card_data: Array) -> void:
-	pass
-	
-	
-@rpc("authority")
-func set_client_current_boost(boost: int, _momentum: int) -> void:
-	set_boost_visibility(boost)
-		
-	
-@rpc("authority")
-func set_client_health(health_value: int) -> void:
-	health_bar.value = health_value
-	if health_value == 0:
-		_on_classic_game_over_completed()
+func set_boost_multiplier() -> void:
+	if current_boost != 1:
+		boost_multiplier = current_boost
+	else:
+		boost_multiplier = 1
+	if current_boost == 3 and current_momentum == 50:
+		boost_multiplier = 4
 	
 	
 func equipped_cards_texture(card_data: Array) -> void:
@@ -136,6 +159,86 @@ func equipped_cards_texture(card_data: Array) -> void:
 
 	# Call animation function (assuming it exists)
 	animate_card()
+	
+	
+func hit_feedback(note_accuracy: int, line: int) -> void:
+	health = clamp(health, 0, 100)
+	match note_accuracy:
+		1:
+			# perfect
+			combo += 1
+			hit_display_data.emit(note_accuracy, line, combo)
+			score_accuracy = (1200 + score_boost) * boost_multiplier
+			print("accuracy ht: ", score_accuracy)
+			total_combo += 1
+			perfect += 1
+			adjust_health(3)  # Increase health
+			boost_feedback(false)
+		2:
+			# very good
+			combo += 1
+			hit_display_data.emit(note_accuracy, line, combo)
+			score_accuracy = 800 * boost_multiplier
+			total_combo += 1
+			very_good += 1
+			adjust_health(2)  # Increase health
+			boost_feedback(false)
+		3:
+			# good
+			combo += 1
+			hit_display_data.emit(note_accuracy, line, combo)
+			score_accuracy = 400
+			total_combo += 1
+			good += 1
+			adjust_health(1)  # Increase health
+		4:
+			# bad
+			hit_display_data.emit(note_accuracy, line, combo)
+			score_accuracy = 200
+			bad += 1
+		5:
+			# miss
+			combo = 0
+			hit_display_data.emit(note_accuracy, line, combo)
+			score_accuracy = 0
+			miss += 1
+			adjust_health(-10)  # Decrease health
+			set_boost(true)
+	
+
+func boost_feedback(is_swipe_note: bool = false) -> void:
+	current_momentum = clamp(current_momentum, 0, 50)
+
+	# Increase momentum based on whether it's a swipe note
+	current_momentum += 15 if is_swipe_note else 20
+
+	# Clamp again to keep it within bounds
+	current_momentum = clamp(current_momentum, 0, 50)
+	# If momentum is maxed out, increase boost level (up to 3)
+	if current_momentum == 50:
+		if current_boost < 3:
+			set_boost()
+		else:
+			# If already at max boost, reset momentum
+			current_momentum = 0
+
+
+func adjust_health(amount: int) -> void:
+	health += amount
+	health = clamp(health, 0, 100)  # Ensure health stays within range
+	health_bar.value = health
+	
+	
+func set_boost(is_reset: bool = false) -> void:
+	if is_reset:
+		current_boost = 1
+		current_momentum = 0
+	else:
+		# Increase boost level if it's not maxed out
+		if current_boost < 3:
+			current_momentum = 0
+			current_boost += 1
+	set_boost_multiplier()
 	
 	
 func animate_card() -> void:

@@ -1,10 +1,10 @@
 [gd_scene load_steps=11 format=3 uid="uid://c7mwjhpxo1aa7"]
 
-[ext_resource type="Script" path="res://Components/Moments/liked_by.gd" id="1_rxaff"]
+[ext_resource type="Script" uid="uid://c8blnf3265xxk" path="res://Components/Moments/liked_by.gd" id="1_rxaff"]
 [ext_resource type="Texture2D" uid="uid://u5uvm5snnfq6" path="res://UITextures/PanelElements/difficulty_bg.png" id="1_va7jd"]
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="2_0upbc"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="3_3a2kv"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="4_5suon"]
+[ext_resource type="Script" uid="uid://bcnyg4qos0dr7" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="3_3a2kv"]
+[ext_resource type="Script" uid="uid://mr2fibppbyip" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="4_5suon"]
 [ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="8_yf0nl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8y37"]

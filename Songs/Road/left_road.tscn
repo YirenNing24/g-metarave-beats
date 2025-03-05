@@ -1,15 +1,15 @@
 [gd_scene load_steps=23 format=3 uid="uid://by3eu0c1wu460"]
 
-[ext_resource type="Script" path="res://Songs/Road/left_road.gd" id="1_7ihg8"]
+[ext_resource type="Script" uid="uid://cowgn2f1behp8" path="res://Songs/Road/left_road.gd" id="1_7ihg8"]
 [ext_resource type="PackedScene" uid="uid://ckxk82ja1e1qf" path="res://Songs/Road/road_surface.tscn" id="1_np8nn"]
 [ext_resource type="Texture2D" uid="uid://bfct8g5meu08d" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_COLOR.jpg" id="2_xlccs"]
 [ext_resource type="Texture2D" uid="uid://dubt54coayt3a" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_OCC.jpg" id="3_cii7a"]
 [ext_resource type="Texture2D" uid="uid://cgxvigqrsd5b1" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_DISP.png" id="4_2ihvf"]
 [ext_resource type="Texture2D" uid="uid://6nqow2sfbl2g" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_NORM.jpg" id="5_13qd0"]
 [ext_resource type="Texture2D" uid="uid://bvgtfwv5c7rgl" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_ROUGH.jpg" id="6_wny1h"]
-[ext_resource type="Shader" path="res://Songs/Road/hit_area.gdshader" id="7_7c51b"]
+[ext_resource type="Shader" uid="uid://wmsfrfegfgco" path="res://Songs/Road/hit_area.gdshader" id="7_7c51b"]
 [ext_resource type="PackedScene" uid="uid://cjx2qu2kdc3p2" path="res://GameComponents/NotePicker/notepicker.tscn" id="8_ymljb"]
-[ext_resource type="Script" path="res://GameComponents/NotePicker/left_notepicker.gd" id="10_8xr12"]
+[ext_resource type="Script" uid="uid://d0a1h0xn7e28e" path="res://GameComponents/NotePicker/left_notepicker.gd" id="10_8xr12"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_kakxu"]
 
@@ -30,15 +30,15 @@ ao_texture = ExtResource("3_cii7a")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qy708"]
 render_priority = 0
 shader = ExtResource("7_7c51b")
-shader_parameter/character_position = null
+shader_parameter/character_position = Vector3(0, 0, 0)
 shader_parameter/fade_distance = 20.0
 shader_parameter/color = Color(0.94, 0.54, 0.15, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_avrcq"]
 render_priority = 0
 shader = ExtResource("7_7c51b")
-shader_parameter/character_position = null
-shader_parameter/fade_distance = null
+shader_parameter/character_position = Vector3(0, 0, 0)
+shader_parameter/fade_distance = 0.0
 shader_parameter/color = Color(0.94, 0.54, 0.15, 1)
 
 [sub_resource type="Gradient" id="Gradient_08vfv"]

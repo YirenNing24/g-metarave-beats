@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://j1ox362pqin7"]
 
-[ext_resource type="Script" path="res://GameComponents/UserHUD/userhud.gd" id="1_5118n"]
+[ext_resource type="Script" uid="uid://wmw1ektr0fvo" path="res://GameComponents/UserHUD/userhud.gd" id="1_5118n"]
 [ext_resource type="Texture2D" uid="uid://4euq5v0yi5wh" path="res://UITextures/Progress/song_exp.png" id="1_jofs5"]
 [ext_resource type="Texture2D" uid="uid://d2liwvto7p64l" path="res://UITextures/Progress/player_exp_base.png" id="2_j4g7n"]
 [ext_resource type="Texture2D" uid="uid://74d22xpi5g4s" path="res://UITextures/Progress/player_exp_progress.png" id="3_3qn4g"]
@@ -69,7 +69,7 @@ shader_parameter/total_phases = 7
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vtcod"]
 
-[node name="UserHUD" type="Control"]
+[node name="UserHUD" type="Control" groups=["UserHUD"]]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 15

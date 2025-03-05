@@ -1,6 +1,6 @@
 [gd_scene load_steps=33 format=3 uid="uid://k28lld0y8vp6"]
 
-[ext_resource type="Script" path="res://UIScenes/mission_screen.gd" id="1_xn003"]
+[ext_resource type="Script" uid="uid://bwa85ephuv5ct" path="res://UIScenes/mission_screen.gd" id="1_xn003"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_pcrgv"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="3_o7xh5"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="4_lp7is"]
@@ -8,13 +8,13 @@
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="6_3tg7t"]
 [ext_resource type="Texture2D" uid="uid://b6nau7vgc00e8" path="res://UITextures/PanelElements/chat_active_tab.png" id="7_5febl"]
 [ext_resource type="Texture2D" uid="uid://vxw1aujmxjy3" path="res://UITextures/CustomResource/auth_screen_gradient.tres" id="7_pup3p"]
-[ext_resource type="Shader" path="res://UIScenes/energy.gdshader" id="8_ijk11"]
+[ext_resource type="Shader" uid="uid://b08q4cvvvk12s" path="res://UIScenes/energy.gdshader" id="8_ijk11"]
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="8_klile"]
 [ext_resource type="Texture2D" uid="uid://jtteocw4fdjn" path="res://UITextures/PanelElements/chat_inactive_tab.png" id="8_uksks"]
 [ext_resource type="Texture2D" uid="uid://ba8q012bmx1s0" path="res://UITextures/BGTextures/purple-gradient.png" id="9_50s76"]
 [ext_resource type="Texture2D" uid="uid://dea3dcdqw5gw" path="res://UITextures/Icons/energy_icon.png" id="10_4rw7r"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="10_y0mbm"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="11_bvhu5"]
+[ext_resource type="Script" uid="uid://bcnyg4qos0dr7" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="10_y0mbm"]
+[ext_resource type="Script" uid="uid://mr2fibppbyip" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="11_bvhu5"]
 [ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="11_ewtbr"]
 
 [sub_resource type="Shader" id="Shader_iaf8f"]
@@ -76,8 +76,8 @@ shader_parameter/TextureLaodMult = 8.0
 shader_parameter/Tilling = 10.0
 shader_parameter/MovementDirSpeed = Vector2(-0.3, 0.5)
 shader_parameter/MovementDirSpeed2 = Vector2(0.3, 0.5)
-shader_parameter/Noise_Seed = Vector2(1, 1)
 shader_parameter/color_gradiant = ExtResource("7_pup3p")
+shader_parameter/Noise_Seed = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5hdjy"]
 shader = ExtResource("8_ijk11")
@@ -87,8 +87,8 @@ shader_parameter/TextureLaodMult = 0.0
 shader_parameter/Tilling = 60.0
 shader_parameter/MovementDirSpeed = Vector2(0, 2)
 shader_parameter/MovementDirSpeed2 = Vector2(0, 5)
-shader_parameter/Noise_Seed = Vector2(1, 1)
 shader_parameter/color_gradiant = ExtResource("9_50s76")
+shader_parameter/Noise_Seed = Vector2(1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5mqa3"]
 bg_color = Color(0.0313726, 0.0980392, 0.129412, 0.756863)
@@ -226,9 +226,9 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4oy2q"]
 _data = {
-"ClaimModal": SubResource("Animation_tachd"),
-"Message": SubResource("Animation_ugewd"),
-"RESET": SubResource("Animation_uclgl")
+&"ClaimModal": SubResource("Animation_tachd"),
+&"Message": SubResource("Animation_ugewd"),
+&"RESET": SubResource("Animation_uclgl")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xn6oj"]

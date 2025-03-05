@@ -42,8 +42,24 @@ var picker: Node3D = null
 
 func _ready() -> void:
 	set_note_position()
+	connect_notes()
 	var _note_connect: int = note_area.area_entered.connect(_on_area_entered)
-
+	set_note_position()
+	
+	
+func connect_notes() -> void:
+	for note_picker: Node3D in get_tree().get_nodes_in_group('Picker'):
+		var feedback: Callable = note_picker.hit_feedback
+		var _1: int = hit_feedback.connect(feedback)
+	for user_hud: Control in get_tree().get_nodes_in_group("UserHUD"):
+		var feedback: Callable = user_hud.hit_feedback
+		var add_score: Callable = user_hud.add_score
+		var boost: Callable = user_hud.boost_feedback
+		var _1: int = hit_feedback.connect(feedback)
+		var _2: int = hit_feedback.connect(add_score)
+		var _3: int = boost_feedback.connect(boost)
+	
+	
 func _process(_delta: float) -> void:
 	# Check if the picker is present or if the current note is being collected by another picker.
 	if not picker or (picker.note_collect != null and picker.note_collect != self):
@@ -113,9 +129,3 @@ func _on_area_entered(area: Area3D) -> void:
 			if accuracy == 5:
 				collect(true)
 			break
-
-
-func connect_notes() -> void:
-	for note_picker: Node3D in get_tree().get_nodes_in_group('Picker'):
-		var feedback: Callable = note_picker.hit_feedback
-		var _1: int = hit_feedback.connect(feedback)

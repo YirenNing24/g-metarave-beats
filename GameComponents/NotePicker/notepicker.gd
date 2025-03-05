@@ -40,18 +40,18 @@ func _process(_delta: float) -> void:
 		fx_spinner.visible = false
 	
 	
-@rpc("authority", "call_remote", "reliable")
-func _server_input(pos: Vector2, pressed: bool) -> void:
-	# Handle the input on the server side
-	print("Input received from client: ", pos, pressed)
-	# You can add server-side logic here
+#@rpc("authority", "call_remote", "reliable")
+#func _server_input(pos: Vector2, pressed: bool) -> void:
+	## Handle the input on the server side
+	#print("Input received from client: ", pos, pressed)
+	## You can add server-side logic here
 	
 	
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		if event.pressed:
 			touch_position = event.position
-			var _r: Error = rpc_id(1, "_server_input", touch_position, true)
+			#var _r: Error = rpc_id(1, "_server_input", touch_position, true)
 			var touched_node: bool = get_touched_node(touch_position)
 			if touched_node:
 				is_pressed = true
@@ -65,7 +65,7 @@ func _input(event: InputEvent) -> void:
 			note_collect = null
 			fx_highlight.visible = false
 			# Synchronize with server
-			var _r: Error = rpc_id(1, "_server_input", touch_position, false)
+			#var _r: Error = rpc_id(1, "_server_input", touch_position, false)
 	if event is InputEventScreenDrag:
 		touch_position = event.position
 		var touched_node: bool = get_touched_node(touch_position)
@@ -82,7 +82,7 @@ func _input(event: InputEvent) -> void:
 			note_collect = null
 			fx_highlight.visible = false
 			# Synchronize with server
-			var _r: Error = rpc_id(1, "_server_input", touch_position, false)
+			#var _r: Error = rpc_id(1, "_server_input", touch_position, false)
 	
 	
 func get_touched_node(touch_pos: Vector2) -> bool:
@@ -94,18 +94,21 @@ func get_touched_node(touch_pos: Vector2) -> bool:
 	return false
 	
 	
+# Get the 3D position of the notepicker in screen space.
 func notepicker_3d_pos() -> Vector2:
+	# Get the 3D position of the notepicker in screen space.
 	var camera: Camera3D = get_viewport().get_camera_3d()
 	var picker_position: Vector2 = camera.unproject_position(position)
-	return picker_position
+	return picker_position as Vector2
 	
 	
 func hit_feedback(_note_accuracy: int, short_line: int) -> void:
 	if _note_accuracy == 5:
 		Input.vibrate_handheld(300)
+		return  # Exit early to prevent other effects from triggering
 	
 	if line == short_line:
-		# Emit spark if combo <= 20 or combo is in certain ranges
+		# Emit spark if combo <= 20 or combo is in certain ranges (excluding accuracy 5)
 		if combo <= 20 or combo % 10 == 0:
 			emit_spark()
 
@@ -130,14 +133,28 @@ func hit_feedback(_note_accuracy: int, short_line: int) -> void:
 
 	
 	
+#func hit_feedback(note_accuracy: int, short_line: int) -> void:
+	## Ensure the note is on the correct line.
+	#if line == short_line:
+		## If the note accuracy is 1 (presumably perfect), trigger spark effects.
+		#if note_accuracy != 4 and note_accuracy != 5:
+			#pass
+			##client_hit_feedback(note_accuracy, short_line)
+	
+	
+# Handles feedback for continued collection of long notes.
+func hit_continued_feedback(note_accuracy: int, note_line: int) -> void:
+	if note_accuracy != 5:
+		if note_line == line and is_collecting:
+			fx_spinner.play('vortex')
+			fx_highlight.visible = false
+		else:
+			fx_spinner.stop()
+			fx_spinner.frame = 0
+	
+
 func combo_value(value: int) -> void:
 	combo = value
-	
-	
-func hit_continued_feedback(_note_accuracy: int, long_line: int) -> void:
-	if line == long_line:
-		fx_spinner.visible = true
-		fx_spinner.play()
 	
 	
 func emit_spark() -> void:
@@ -154,14 +171,14 @@ func _on_fx_light_pillar_animation_finished() -> void:
 	fx_light_pillar.frame = 0
 	
 	
-@rpc
-func hit_feedback_short(note_accuracy: int, short_line: int) -> void:
-	hit_feedback(note_accuracy, short_line)
-	
-	
-@rpc
-func hit_feedback_long(note_accuracy: int, short_line: int) -> void:
-	hit_continued_feedback(note_accuracy, short_line)
+#@rpc
+#func hit_feedback_short(note_accuracy: int, short_line: int) -> void:
+	#hit_feedback(note_accuracy, short_line)
+	#
+	#
+#@rpc
+#func hit_feedback_long(note_accuracy: int, short_line: int) -> void:
+	#hit_continued_feedback(note_accuracy, short_line)
 	
 	
 func _on_fx_globe_animation_finished() -> void:

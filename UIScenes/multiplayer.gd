@@ -10,13 +10,14 @@ signal classic_game_over_completed(message: Dictionary)  # Emitted when the clas
 var classic_score_stats: Dictionary
 
 # Sends the beatmap and audio file information to the server.
-func load_song(beatmap: String, audio_file: String, picker_y_position: float) -> void:
-	send_beatmap_info_to_server.rpc_id(1, BKMREngine.Auth.access_token, beatmap, audio_file, picker_y_position, BKMREngine.Auth.logged_in_player)
+func load_song(_beatmap: String, _audio_file: String, _picker_y_position: float) -> void:
+	pass
+	#send_beatmap_info_to_server.rpc_id(1, BKMREngine.Auth.access_token, beatmap, audio_file, picker_y_position, BKMREngine.Auth.logged_in_player)
 	
 	
 # Called when the loading is finished and the game is ready to start.
 func loading_finished(peer_id: int) -> void:
-	start_game.rpc_id(1, peer_id)
+	#start_game.rpc_id(1, peer_id)
 	server_game_started.emit(peer_id)
 	
 	

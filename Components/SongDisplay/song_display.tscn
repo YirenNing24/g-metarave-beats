@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://j6g3c714j8u2"]
 
-[ext_resource type="Script" path="res://Components/SongDisplay/song_display.gd" id="1_g74vl"]
+[ext_resource type="Script" uid="uid://dfty7rcx3lc3u" path="res://Components/SongDisplay/song_display.gd" id="1_g74vl"]
 [ext_resource type="Texture2D" uid="uid://naup1ns6qyy" path="res://UITextures/PanelElements/song_display.png" id="2_yho8l"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="3_v45iq"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="4_5hrhr"]

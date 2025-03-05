@@ -1,7 +1,5 @@
 [gd_scene load_steps=3 format=3 uid="uid://bmt8n4ktl7h0q"]
 
-[ext_resource type="Texture2D" uid="uid://y64yt3bd585j" path="res://UITextures/Cards/hannah_no_doubt_star.png" id="1_ipaaa"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gj8li"]
 bg_color = Color(0, 0, 0, 0.627451)
 border_width_left = 3
@@ -14,6 +12,9 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="Resource" id="Resource_jbuja"]
+metadata/__load_path__ = "res://UITextures/Cards/hannah_no_doubt_star.png"
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -47,6 +48,6 @@ offset_right = 71.4
 offset_bottom = 92.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_ipaaa")
+texture = SubResource("Resource_jbuja")
 expand_mode = 1
 stretch_mode = 6

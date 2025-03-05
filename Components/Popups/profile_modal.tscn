@@ -1,7 +1,7 @@
 [gd_scene load_steps=46 format=3 uid="uid://c0bfp8uhi3poy"]
 
-[ext_resource type="Script" path="res://Components/Popups/profile_modal.gd" id="1_umnlo"]
-[ext_resource type="Shader" path="res://Components/Moments/moment_slot.gdshader" id="2_2fi0b"]
+[ext_resource type="Script" uid="uid://dkhkthypl260t" path="res://Components/Popups/profile_modal.gd" id="1_umnlo"]
+[ext_resource type="Shader" uid="uid://bujd5frudsgcq" path="res://Components/Moments/moment_slot.gdshader" id="2_2fi0b"]
 [ext_resource type="Texture2D" uid="uid://bc1cgt8r4y12o" path="res://UITextures/Icons/copy_icon.png" id="3_o65q7"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="5_f3kct"]
 [ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="5_xgibo"]
@@ -9,8 +9,8 @@
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="6_tfnrl"]
 [ext_resource type="PackedScene" uid="uid://dkw4i4wmj2ike" path="res://Components/Popups/view_picture.tscn" id="7_kijk3"]
 [ext_resource type="FontFile" uid="uid://cak36l0bes2dv" path="res://UITextures/Fonts/argentum-sans.medium.ttf" id="8_woc8j"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="9_l672a"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="10_c3r7i"]
+[ext_resource type="Script" uid="uid://bcnyg4qos0dr7" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="9_l672a"]
+[ext_resource type="Script" uid="uid://mr2fibppbyip" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="10_c3r7i"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="10_lgb1c"]
 [ext_resource type="PackedScene" uid="uid://t2r6xb1nhou" path="res://Components/MyProfile/MyNote.tscn" id="10_y0iou"]
 [ext_resource type="PackedScene" uid="uid://bcfgl37ibygf2" path="res://Components/Moments/moments.tscn" id="12_b16o4"]
@@ -164,8 +164,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sqsaf"]
 _data = {
-"dp_options": SubResource("Animation_k11gc"),
-"fade-in": SubResource("Animation_ydsjf")
+&"dp_options": SubResource("Animation_k11gc"),
+&"fade-in": SubResource("Animation_ydsjf")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5tl12"]

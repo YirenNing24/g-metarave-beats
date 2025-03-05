@@ -151,3 +151,12 @@ func connect_notes() -> void:
 		
 		var _1: int = hit_feedback.connect(feedback)
 		var _2: int = hit_feedback.connect(continued_feedback)
+		
+	for user_hud: Control in get_tree().get_nodes_in_group("UserHUD"):
+		var feedback: Callable = user_hud.hit_feedback
+		var continued_feedback: Callable = user_hud.hit_continued_feedback
+		var add_score: Callable = user_hud.add_score
+		
+		var _1: int = hit_feedback.connect(feedback)
+		var _2: int = hit_continued_feedback.connect(continued_feedback)
+		var _3: int = hit_feedback.connect(add_score)

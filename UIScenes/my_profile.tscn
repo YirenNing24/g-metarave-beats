@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://kpun4sk7hxjv"]
 
-[ext_resource type="Script" path="res://UIScenes/my_profile.gd" id="1_0eu0s"]
+[ext_resource type="Script" uid="uid://b6g1m60gfbuc2" path="res://UIScenes/my_profile.gd" id="1_0eu0s"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="1_gebit"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="2_tgqgn"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="3_0vhc0"]
@@ -8,9 +8,9 @@
 [ext_resource type="StyleBox" uid="uid://chv57rdd2b5s" path="res://UITextures/CustomResource/chat_box_tab.tres" id="5_ykroo"]
 [ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="6_45850"]
 [ext_resource type="PackedScene" uid="uid://dm87xj4otq4ex" path="res://Components/Popups/preferences.tscn" id="7_iuhv0"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="8_qnspf"]
+[ext_resource type="Script" uid="uid://bcnyg4qos0dr7" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="8_qnspf"]
 [ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="9_fe3dm"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="9_mhd7h"]
+[ext_resource type="Script" uid="uid://mr2fibppbyip" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="9_mhd7h"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="10_bliyp"]
 [ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="13_g4ey3"]
 [ext_resource type="AudioStream" uid="uid://xbmw1rvhaoyy" path="res://GameTracks/UITracks/abs-pointer-combine.mp3" id="14_0tnpr"]
@@ -99,7 +99,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cbvrg"]
 _data = {
-"RewardClaimed": SubResource("Animation_ue2hv")
+&"RewardClaimed": SubResource("Animation_ue2hv")
 }
 
 [node name="MyProfile" type="Control"]

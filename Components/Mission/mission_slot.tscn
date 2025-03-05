@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://cqkmwfwiefy8b"]
 
-[ext_resource type="Script" path="res://Components/Mission/mission_slot.gd" id="1_to6ph"]
-[ext_resource type="Shader" path="res://Components/Moments/moment_slot.gdshader" id="1_vuac1"]
+[ext_resource type="Script" uid="uid://bulj31dofc7gh" path="res://Components/Mission/mission_slot.gd" id="1_to6ph"]
+[ext_resource type="Shader" uid="uid://bujd5frudsgcq" path="res://Components/Moments/moment_slot.gdshader" id="1_vuac1"]
 [ext_resource type="Texture2D" uid="uid://bldb4qj7ni6w2" path="res://UITextures/Icons/newbie_icon.png" id="2_1r1qj"]
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="3_od7gc"]
 [ext_resource type="FontFile" uid="uid://cak36l0bes2dv" path="res://UITextures/Fonts/argentum-sans.medium.ttf" id="5_oyagv"]

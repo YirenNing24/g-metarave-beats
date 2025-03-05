@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dp54j5nuc100g"]
 
-[ext_resource type="Script" path="res://GameComponents/Notes/swipe_note.gd" id="1_qkm4a"]
+[ext_resource type="Script" uid="uid://dim1nr6l4irte" path="res://GameComponents/Notes/swipe_note.gd" id="1_qkm4a"]
 [ext_resource type="PackedScene" uid="uid://b35ly4ife5ufj" path="res://GameComponents/Notes/note_mesh.tscn" id="2_tyii2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_umbbb"]

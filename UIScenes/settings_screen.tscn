@@ -1,9 +1,9 @@
 [gd_scene load_steps=16 format=3 uid="uid://b0begljb4uc4l"]
 
-[ext_resource type="Script" path="res://UIScenes/settings_screen.gd" id="1_3tjif"]
+[ext_resource type="Script" uid="uid://dce2masds5hjy" path="res://UIScenes/settings_screen.gd" id="1_3tjif"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_jhaod"]
 [ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="3_pgwo5"]
-[ext_resource type="Shader" path="res://UIScenes/settings_screen.gdshader" id="4_rwmrv"]
+[ext_resource type="Shader" uid="uid://dyjftbcg6oiov" path="res://UIScenes/settings_screen.gdshader" id="4_rwmrv"]
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="5_k5erb"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="7_1nquv"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="8_alofr"]

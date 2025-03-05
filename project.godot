@@ -105,6 +105,9 @@ SongDisplay=""
 FPSConfig=""
 Resolution=""
 GFXQuality=""
+ShortNote=""
+Notes=""
+UserHUD=""
 
 [input]
 

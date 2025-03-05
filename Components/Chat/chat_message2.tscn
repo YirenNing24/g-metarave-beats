@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://chxyyx1f26vva"]
 
 [ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="1_nq58b"]
-[ext_resource type="Script" path="res://Components/Chat/chat_message_2.gd" id="1_w5jyt"]
-[ext_resource type="Shader" path="res://Components/Moments/moment_slot.gdshader" id="3_bs4mu"]
+[ext_resource type="Script" uid="uid://m5cyktaegw7j" path="res://Components/Chat/chat_message_2.gd" id="1_w5jyt"]
+[ext_resource type="Shader" uid="uid://bujd5frudsgcq" path="res://Components/Moments/moment_slot.gdshader" id="3_bs4mu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r2v1x"]
 bg_color = Color(0.0196078, 0.0196078, 0.0196078, 0.258824)

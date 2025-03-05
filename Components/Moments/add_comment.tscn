@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://cfn5bqa5d0ucl"]
 
-[ext_resource type="Script" path="res://Components/Moments/add_comment.gd" id="1_7bt3c"]
+[ext_resource type="Script" uid="uid://6nvql61r2yoq" path="res://Components/Moments/add_comment.gd" id="1_7bt3c"]
 [ext_resource type="Texture2D" uid="uid://u5uvm5snnfq6" path="res://UITextures/PanelElements/difficulty_bg.png" id="1_pg5s1"]
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="2_ue0nf"]
 [ext_resource type="FontFile" uid="uid://cbqgl5ybh1snb" path="res://UITextures/Fonts/argentum-sans.vf-regular.ttf" id="3_cm0dv"]

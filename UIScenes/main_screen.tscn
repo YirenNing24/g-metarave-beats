@@ -1,6 +1,6 @@
 [gd_scene load_steps=54 format=3 uid="uid://yfevho5xx5qg"]
 
-[ext_resource type="Script" path="res://UIScenes/main_screen.gd" id="1_25j1r"]
+[ext_resource type="Script" uid="uid://c726826vu1mhe" path="res://UIScenes/main_screen.gd" id="1_25j1r"]
 [ext_resource type="Texture2D" uid="uid://cj3g7l2prnd31" path="res://UITextures/PanelElements/player_panel.png" id="2_37prv"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_hcabu"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_5uujb"]
@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://clu717sjyfm4r" path="res://UITextures/Buttons/message_button.png" id="11_a2u7i"]
 [ext_resource type="Texture2D" uid="uid://dir30ha1xy1ee" path="res://UITextures/PanelElements/Square slot 4.png" id="11_ddq8t"]
 [ext_resource type="Texture2D" uid="uid://ym02txfwpfvg" path="res://UITextures/Icons/beats_icon.png" id="11_jl1ep"]
-[ext_resource type="Shader" path="res://UIScenes/energy.gdshader" id="12_6kgy4"]
+[ext_resource type="Shader" uid="uid://b08q4cvvvk12s" path="res://UIScenes/energy.gdshader" id="12_6kgy4"]
 [ext_resource type="PackedScene" uid="uid://cdxx8kvromwib" path="res://Components/MyNotes/MyNotes.tscn" id="12_8ev20"]
 [ext_resource type="PackedScene" uid="uid://b3eiw5d6jk827" path="res://Components/Chat/mutuals_box.tscn" id="12_b1h6r"]
 [ext_resource type="Texture2D" uid="uid://vxw1aujmxjy3" path="res://UITextures/CustomResource/auth_screen_gradient.tres" id="12_i7ftc"]
@@ -103,8 +103,8 @@ shader_parameter/TextureLaodMult = 8.0
 shader_parameter/Tilling = 10.0
 shader_parameter/MovementDirSpeed = Vector2(-0.3, 0.5)
 shader_parameter/MovementDirSpeed2 = Vector2(0.3, 0.5)
-shader_parameter/Noise_Seed = Vector2(1, 1)
 shader_parameter/color_gradiant = ExtResource("12_i7ftc")
+shader_parameter/Noise_Seed = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xhd21"]
 shader = ExtResource("12_6kgy4")
@@ -114,8 +114,8 @@ shader_parameter/TextureLaodMult = 0.0
 shader_parameter/Tilling = 60.0
 shader_parameter/MovementDirSpeed = Vector2(0, 2)
 shader_parameter/MovementDirSpeed2 = Vector2(0, 5)
-shader_parameter/Noise_Seed = Vector2(1, 1)
 shader_parameter/color_gradiant = ExtResource("13_lmwdx")
+shader_parameter/Noise_Seed = Vector2(1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sg28f"]
 bg_color = Color(0.0980392, 0.0980392, 0.0980392, 0.509804)
@@ -225,10 +225,10 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qe76f"]
 _data = {
-"Message": SubResource("Animation_2xnis"),
-"chat_slide": SubResource("Animation_rr2ox"),
-"game_mode_hero": SubResource("Animation_2glyp"),
-"mutual_slide": SubResource("Animation_alxay")
+&"Message": SubResource("Animation_2xnis"),
+&"chat_slide": SubResource("Animation_rr2ox"),
+&"game_mode_hero": SubResource("Animation_2glyp"),
+&"mutual_slide": SubResource("Animation_alxay")
 }
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gfsdk"]
@@ -1071,7 +1071,7 @@ mouse_force_pass_scroll_events = false
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_qe76f")
+&"": SubResource("AnimationLibrary_qe76f")
 }
 autoplay = "game_mode_hero"
 
@@ -1081,10 +1081,10 @@ z_index = 2
 position = Vector2(3, -12)
 emitting = false
 amount = 100
-process_material = SubResource("ParticleProcessMaterial_gfsdk")
 texture = ExtResource("21_vp18h")
 lifetime = 10.0
 speed_scale = 0.8
+process_material = SubResource("ParticleProcessMaterial_gfsdk")
 
 [node name="CursorSpark" parent="." instance=ExtResource("22_6iiwn")]
 unique_name_in_owner = true

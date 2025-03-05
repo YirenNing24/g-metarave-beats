@@ -9,7 +9,7 @@ const BKMRELogger: Script = preload("res://BeatsKMREngine/utils/BKMRLogger.gd")
 static func save_data(path: String, data: Dictionary, debug_message: String='Saving data to file in local storage: ') -> bool:
 	var save_success:bool = false
 	var file:FileAccess = FileAccess.open(path, FileAccess.WRITE)
-	file.store_string(str(data))
+	var _t: bool = file.store_string(str(data))
 	save_success = true
 
 	BKMRELogger.debug(debug_message + str(data))
@@ -21,7 +21,7 @@ static func remove_data(path: String, debug_message: String='Removing data from 
 	if FileAccess.file_exists(path):
 		var file: FileAccess = FileAccess.open(path, FileAccess.WRITE)
 		var data: Dictionary = { "deleted": "delete" }
-		file.store_var(data)
+		var _t: bool = file.store_var(data)
 		delete_success = true
 	BKMRELogger.debug(debug_message)
 	return delete_success

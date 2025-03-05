@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bj2igrdk8hfmb"]
 
-[ext_resource type="Script" path="res://GameComponents/Music/music.gd" id="1_e2dml"]
+[ext_resource type="Script" uid="uid://dptunnhph7wqu" path="res://GameComponents/Music/music.gd" id="1_e2dml"]
 
 [node name="Music" type="Node3D"]
 script = ExtResource("1_e2dml")

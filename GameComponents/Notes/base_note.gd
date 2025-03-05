@@ -41,6 +41,7 @@ func _on_process(_delta: float) -> void:
 	pass
 	
 func collect(is_miss: bool = false) -> void:
+	print("where: ", accuracy)
 	note_body.visible = false
 	collected = true
 	picker.is_collecting = false
@@ -52,7 +53,7 @@ func collect(is_miss: bool = false) -> void:
 	if not is_miss:
 		picker.note_collect = self
 		
-	print(accuracy)
+	
 	#game_ui.hit_feedback(accuracy, line)
 	#game_ui.add_score()
 	

@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://cbhfcq0bjdlqy"]
 
-[ext_resource type="Script" path="res://Songs/Road/road.gd" id="1_fldoh"]
+[ext_resource type="Script" uid="uid://cgp5jqheas07f" path="res://Songs/Road/road.gd" id="1_fldoh"]
 [ext_resource type="PackedScene" uid="uid://ckxk82ja1e1qf" path="res://Songs/Road/road_surface.tscn" id="1_qjbxv"]
 [ext_resource type="Texture2D" uid="uid://bfct8g5meu08d" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_COLOR.jpg" id="2_d84p4"]
 [ext_resource type="Texture2D" uid="uid://dubt54coayt3a" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_OCC.jpg" id="3_4y7eo"]
@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://6nqow2sfbl2g" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_NORM.jpg" id="4_nadg5"]
 [ext_resource type="Texture2D" uid="uid://bvgtfwv5c7rgl" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_ROUGH.jpg" id="5_q8rnr"]
 [ext_resource type="PackedScene" uid="uid://cjx2qu2kdc3p2" path="res://GameComponents/NotePicker/notepicker.tscn" id="8_81ipa"]
-[ext_resource type="Shader" path="res://Songs/Road/hit_area.gdshader" id="8_ldstf"]
+[ext_resource type="Shader" uid="uid://wmsfrfegfgco" path="res://Songs/Road/hit_area.gdshader" id="8_ldstf"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_kakxu"]
 
@@ -27,8 +27,8 @@ ao_texture = ExtResource("3_4y7eo")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_avrcq"]
 render_priority = 0
 shader = ExtResource("8_ldstf")
-shader_parameter/character_position = null
-shader_parameter/fade_distance = null
+shader_parameter/character_position = Vector3(0, 0, 0)
+shader_parameter/fade_distance = 0.0
 shader_parameter/color = Color(0.94, 0.54, 0.15, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_mnigc"]

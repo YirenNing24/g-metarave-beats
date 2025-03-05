@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cdxx8kvromwib"]
 
-[ext_resource type="Script" path="res://Components/MyNotes/my_notes.gd" id="1_4i33h"]
+[ext_resource type="Script" uid="uid://cl0rn3gsa8xp0" path="res://Components/MyNotes/my_notes.gd" id="1_4i33h"]
 [ext_resource type="FontFile" uid="uid://cbqgl5ybh1snb" path="res://UITextures/Fonts/argentum-sans.vf-regular.ttf" id="1_3443w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yidiq"]

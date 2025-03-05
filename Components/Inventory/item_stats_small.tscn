@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://boeesjmh1p2qx"]
 
 [ext_resource type="Texture2D" uid="uid://naup1ns6qyy" path="res://UITextures/PanelElements/song_display.png" id="1_4s64q"]
-[ext_resource type="Script" path="res://Components/Inventory/item_stats_small.gd" id="1_ojhwh"]
+[ext_resource type="Script" uid="uid://wgmtro4q8tkm" path="res://Components/Inventory/item_stats_small.gd" id="1_ojhwh"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="2_i14e4"]
 [ext_resource type="Texture2D" uid="uid://cu2rldjgd6cuu" path="res://UITextures/Cards/hannah_no_doubt_genesis.png" id="3_mjka6"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="5_jtq0n"]

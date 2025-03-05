@@ -1,6 +1,6 @@
 [gd_scene load_steps=71 format=4 uid="uid://c52wye8mpp4wd"]
 
-[ext_resource type="Script" path="res://UIScenes/leaderboard_screen.gd" id="1_2k00p"]
+[ext_resource type="Script" uid="uid://dd0pcxv2f3y8h" path="res://UIScenes/leaderboard_screen.gd" id="1_2k00p"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_4eavk"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="2_cffby"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="3_ft6p3"]
@@ -10,13 +10,13 @@
 [ext_resource type="Texture2D" uid="uid://d0qybsxxccq3l" path="res://UITextures/BGTextures/Leaderboard/no_doubt_bg.png" id="5_s5s2i"]
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="5_ydgkb"]
 [ext_resource type="StyleBox" uid="uid://b137tuats7kxu" path="res://UITextures/CustomResource/leaderboard_screen_dropdown.tres" id="6_aiytg"]
-[ext_resource type="Shader" path="res://Components/Moments/moment_slot.gdshader" id="6_y7hkn"]
+[ext_resource type="Shader" uid="uid://bujd5frudsgcq" path="res://Components/Moments/moment_slot.gdshader" id="6_y7hkn"]
 [ext_resource type="StyleBox" uid="uid://4tv08h3we0s4" path="res://UITextures/CustomResource/leaderboard_screen_song_picker.tres" id="8_oober"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="9_7h7cg"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="10_vq0qi"]
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="12_c06dv"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="14_6sao8"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="15_no3dg"]
+[ext_resource type="Script" uid="uid://bcnyg4qos0dr7" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="14_6sao8"]
+[ext_resource type="Script" uid="uid://mr2fibppbyip" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="15_no3dg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mvagh"]
 bg_color = Color(0.0313726, 0.0980392, 0.129412, 0.756863)
@@ -2710,7 +2710,7 @@ cache/0/17/0/kerning_overrides/17/0 = Vector2(0, 0)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mudi4"]
 
-[sub_resource type="Image" id="Image_a6a3k"]
+[sub_resource type="Image" id="Image_5o57f"]
 data = {
 "data": PackedByteArray("////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wAqKioMGhoaQxoaGmkbGxt6GxsbehoaGmkbGxtCLi4uC////wD///8A////AP///wD///8A////AP///wAdHR0sGxsbehoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBsbG3oeHh4q////AP///wD///8A////AP///wAdHR0sGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagB4eHir///8A////AP///wAqKioMGxsbehoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAbGxt5Li4uC////wD///8AGhoaQxoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBsbG0H///8A////ABoaGmkaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAbGxto////AP///wAbGxt6GhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGxsbev///wD///8AGxsbehoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBsbG3n///8A////ABoaGmkaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAbGxtn////AP///wAbGxtCGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGxsbQf///wD///8ALi4uCxsbG3oaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGxsbeTMzMwr///8A////AP///wAeHh4qGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagB8fHyn///8A////AP///wD///8A////AB4eHiobGxt5GhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGxsbeR8fHyn///8A////AP///wD///8A////AP///wD///8ALi4uCxsbG0EbGxtoGxsbehsbG3kbGxtnGxsbQTMzMwr///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AA=="),
 "format": "RGBA8",
@@ -2720,9 +2720,9 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_xb1eb"]
-image = SubResource("Image_a6a3k")
+image = SubResource("Image_5o57f")
 
-[sub_resource type="Image" id="Image_jghx5"]
+[sub_resource type="Image" id="Image_fc5d7"]
 data = {
 "data": PackedByteArray("////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8As7OzHrKysmeysrIu////AP///wD///8A////AP///wC1tbUfsrKyc7KysnOwsLAw////AP///wD///8A////AP///wC1tbUwsrKyc7KysnOwsLAw////AP///wD///8A////AP///wCxsbExsrKyc7KysnOtra0f////AP///wD///8A////ALGxsTGysrJzsrKyc7W1tR////8A////AP///wC1tbUwsrKyc7KysnOzs7Mv////AP///wD///8AtbW1H7KysnOysrJzs7OzL////wD///8A////AP///wCzs7MesrKyZ7Kysi7///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wA="),
 "format": "RGBA8",
@@ -2732,9 +2732,9 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_wn4a5"]
-image = SubResource("Image_jghx5")
+image = SubResource("Image_fc5d7")
 
-[sub_resource type="Image" id="Image_j1cas"]
+[sub_resource type="Image" id="Image_qj6dt"]
 data = {
 "data": PackedByteArray("////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8AsrKyLrKysmewsLAd////AP///wD///8A////ALW1tTCysrJzsrKyc7W1tR////8A////AP///wC1tbUwsrKyc7KysnO1tbUw////AP///wD///8AtbW1H7KysnOysrJzsbGxMf///wD///8A////AP///wC1tbUfsrKyc7KysnOxsbEx////AP///wD///8A////AP///wCwsLAwsrKyc7KysnO1tbUw////AP///wD///8A////AP///wCwsLAwsrKyc7KysnOtra0f////AP///wD///8A////AP///wCysrIusrKyZ7Ozsx7///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wA="),
 "format": "RGBA8",
@@ -2744,9 +2744,9 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_43gga"]
-image = SubResource("Image_j1cas")
+image = SubResource("Image_qj6dt")
 
-[sub_resource type="Image" id="Image_jga4s"]
+[sub_resource type="Image" id="Image_0pkgv"]
 data = {
 "data": PackedByteArray("////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wAeHh4RGhoaYhoaGn8aGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGn8aGhphHh4eEf///wD///8AGhoaYhoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGmH///8A////ABoaGn8aGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhp/////AP///wAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagP///wD///8AGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoD///8A////ABoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqA////AP///wAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagP///wD///8AGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoD///8A////ABoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqA////AP///wAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagP///wD///8AGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoD///8A////ABoaGn8aGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhp/////AP///wAaGhphGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoaYP///wD///8AHh4eERoaGmEaGhp/GhoagBoaGoAaGhqAGhoagBoaGoAaGhqAGhoagBoaGoAaGhp/GhoaYCAgIBD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AA=="),
 "format": "RGBA8",
@@ -2756,7 +2756,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_6bplg"]
-image = SubResource("Image_jga4s")
+image = SubResource("Image_0pkgv")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cvi0k"]
 content_margin_left = 4.0
@@ -2854,7 +2854,7 @@ content_margin_left = 28.0
 content_margin_right = 0.0
 texture = ExtResource("3_swulm")
 
-[sub_resource type="Image" id="Image_6aqyj"]
+[sub_resource type="Image" id="Image_uo86g"]
 data = {
 "data": PackedByteArray("////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////YP///2H///8A////AP///wD///8A////AP///wD///8A////AP///2D///9h////AP///wD///8A////YP///7////+/////Yf///wD///8A////AP///wD///8A////AP///2D///+/////v////2H///8A////AP///2H///+/////v////7////9h////AP///wD///8A////AP///2D///+/////v////7////9g////AP///wD///8A////Yf///7////+/////v////2H///8A////AP///2D///+/////v////7////9g////AP///wD///8A////AP///wD///9h////v////7////+/////Yf///2D///+/////v////7////9g////AP///wD///8A////AP///wD///8A////AP///2H///+/////v////7////+/////v////7////9g////AP///wD///8A////AP///wD///8A////AP///wD///8A////Yf///7////+/////v////7////9g////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///2D///+/////v////7////+/////Yf///wD///8A////AP///wD///8A////AP///wD///8A////AP///2D///+/////v////7////+/////v////7////9h////AP///wD///8A////AP///wD///8A////AP///2D///+/////v////7////9g////Yf///7////+/////v////2H///8A////AP///wD///8A////AP///2D///+/////v////7////9g////AP///wD///9h////v////7////+/////Yf///wD///8A////AP///2D///+/////v////7////9g////AP///wD///8A////AP///2H///+/////v////7////9h////AP///wD///9h////v////7////9g////AP///wD///8A////AP///wD///8A////Yf///7////+/////YP///wD///8A////AP///2H///9g////AP///wD///8A////AP///wD///8A////AP///wD///9h////YP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AA=="),
 "format": "RGBA8",
@@ -2864,7 +2864,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_u1d6j"]
-image = SubResource("Image_6aqyj")
+image = SubResource("Image_uo86g")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qhcaq"]
 content_margin_left = 4.0
@@ -3010,8 +3010,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_66bi6"]
 _data = {
-"RESET": SubResource("Animation_doq2l"),
-"SongBG": SubResource("Animation_t7xlu")
+&"RESET": SubResource("Animation_doq2l"),
+&"SongBG": SubResource("Animation_t7xlu")
 }
 
 [node name="LeaderboardScreen" type="Control"]

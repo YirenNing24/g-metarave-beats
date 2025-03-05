@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c62ktsqjchrot"]
 
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="1_3or6x"]
-[ext_resource type="Script" path="res://Components/Leaderboard/leaderboard_entry.gd" id="1_xir4t"]
+[ext_resource type="Script" uid="uid://dbo8dyjgusp8g" path="res://Components/Leaderboard/leaderboard_entry.gd" id="1_xir4t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_45xei"]
 bg_color = Color(0, 0, 0, 0.533333)

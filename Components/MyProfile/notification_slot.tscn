@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://cj23fsxa0h7qv"]
 
-[ext_resource type="Shader" path="res://Components/Moments/moment_slot.gdshader" id="1_5nfsx"]
-[ext_resource type="Script" path="res://Components/MyProfile/notification_slot.gd" id="1_qc6l4"]
+[ext_resource type="Shader" uid="uid://bujd5frudsgcq" path="res://Components/Moments/moment_slot.gdshader" id="1_5nfsx"]
+[ext_resource type="Script" uid="uid://d4gn15ul7lq1b" path="res://Components/MyProfile/notification_slot.gd" id="1_qc6l4"]
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="2_0o2yg"]
 [ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="3_0e1t3"]
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="4_x2w8p"]

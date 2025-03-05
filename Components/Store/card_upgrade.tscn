@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cbvqq5h4ae052"]
 
-[ext_resource type="Script" path="res://Components/Store/card_upgrade.gd" id="1_0g16j"]
+[ext_resource type="Script" uid="uid://c6ok3sfhf8abg" path="res://Components/Store/card_upgrade.gd" id="1_0g16j"]
 [ext_resource type="Texture2D" uid="uid://bffg6ppdyiift" path="res://UITextures/CardUpgrades/general_tier1.png" id="1_sws0t"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="2_v3h2j"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="3_c5lh7"]

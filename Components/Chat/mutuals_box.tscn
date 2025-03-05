@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://b3eiw5d6jk827"]
 
-[ext_resource type="Script" path="res://Components/Chat/mutuals_box.gd" id="1_0bpm2"]
+[ext_resource type="Script" uid="uid://dhq0lvqesfg68" path="res://Components/Chat/mutuals_box.gd" id="1_0bpm2"]
 [ext_resource type="Texture2D" uid="uid://b6nau7vgc00e8" path="res://UITextures/PanelElements/chat_active_tab.png" id="2_g5lir"]
 [ext_resource type="Texture2D" uid="uid://jtteocw4fdjn" path="res://UITextures/PanelElements/chat_inactive_tab.png" id="3_ed3jv"]
 [ext_resource type="Texture2D" uid="uid://irgifod6546h" path="res://UITextures/Buttons/show_chat.png" id="4_6u0gt"]

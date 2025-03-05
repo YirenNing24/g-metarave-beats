@@ -1,14 +1,14 @@
 [gd_scene load_steps=21 format=3 uid="uid://c32csp53qlais"]
 
-[ext_resource type="Script" path="res://UIScenes/song_menu.gd" id="1_75gia"]
+[ext_resource type="Script" uid="uid://bq00bbbacn0lj" path="res://UIScenes/song_menu.gd" id="1_75gia"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_4tsei"]
 [ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="3_mxqyj"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="4_aqf5a"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="5_h7gew"]
-[ext_resource type="Shader" path="res://UIScenes/energy.gdshader" id="5_hfapt"]
+[ext_resource type="Shader" uid="uid://b08q4cvvvk12s" path="res://UIScenes/energy.gdshader" id="5_hfapt"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="6_34ojg"]
 [ext_resource type="Texture2D" uid="uid://ba8q012bmx1s0" path="res://UITextures/BGTextures/purple-gradient.png" id="6_g5al8"]
-[ext_resource type="Script" path="res://UIScenes/SongMenuScroll.gd" id="7_36j7h"]
+[ext_resource type="Script" uid="uid://djtcojnt2pnhb" path="res://UIScenes/SongMenuScroll.gd" id="7_36j7h"]
 [ext_resource type="Texture2D" uid="uid://dea3dcdqw5gw" path="res://UITextures/Icons/energy_icon.png" id="7_qfgch"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="7_yex5a"]
 [ext_resource type="Texture2D" uid="uid://df4ks21hiueoy" path="res://UITextures/Buttons/next_prev_button.png" id="8_nwtib"]
@@ -23,8 +23,8 @@ shader_parameter/TextureLaodMult = 0.0
 shader_parameter/Tilling = 60.0
 shader_parameter/MovementDirSpeed = Vector2(0, 2)
 shader_parameter/MovementDirSpeed2 = Vector2(0, 5)
-shader_parameter/Noise_Seed = Vector2(1, 1)
 shader_parameter/color_gradiant = ExtResource("6_g5al8")
+shader_parameter/Noise_Seed = Vector2(1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wntsw"]
 bg_color = Color(0, 0, 0, 0.87451)
@@ -86,8 +86,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h1pu7"]
 _data = {
-"Notification": SubResource("Animation_i3078"),
-"RESET": SubResource("Animation_7gyxo")
+&"Notification": SubResource("Animation_i3078"),
+&"RESET": SubResource("Animation_7gyxo")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_veeju"]
@@ -460,7 +460,7 @@ text_overrun_behavior = 3
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_h1pu7")
+&"": SubResource("AnimationLibrary_h1pu7")
 }
 
 [node name="LoadingPanel" parent="." instance=ExtResource("14_hpmdr")]

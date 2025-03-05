@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c2qpmo4lwtiyt"]
 
 [ext_resource type="Texture2D" uid="uid://dhpahtpythp8o" path="res://UITextures/Cards/nizz_no_doubt_genesis.png" id="1_6m8bs"]
-[ext_resource type="Script" path="res://Components/MyProfile/card_collection_slot.gd" id="1_s5v58"]
+[ext_resource type="Script" uid="uid://bcoj7387tu02u" path="res://Components/MyProfile/card_collection_slot.gd" id="1_s5v58"]
 
 [node name="CardCollectionSlot" type="Control"]
 custom_minimum_size = Vector2(159.36, 200)

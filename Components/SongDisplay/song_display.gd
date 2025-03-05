@@ -21,10 +21,11 @@ var difficulty: String
 func _ready() -> void:
 	song_title.text = song.audio.title
 	artist.text = song.audio.artist
-	
+	%StartButton.disabled = false
 	
 func _process(_delta: float) -> void:
-	%StartButton.disabled = BKMREngine.peer.get_connection_status() != 2
+	pass
+	#%StartButton.disabled = BKMREngine.peer.get_connection_status() != 2
 	
 	
 func set_map() -> void:

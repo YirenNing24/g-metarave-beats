@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b581pfsbi35t2"]
 
-[ext_resource type="Shader" path="res://GameComponents/NotePicker/fx_god_ray.gdshader" id="1_j8qb7"]
+[ext_resource type="Shader" uid="uid://dh2clx47ny08c" path="res://GameComponents/NotePicker/fx_god_ray.gdshader" id="1_j8qb7"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_3sfch"]
 viewport_path = NodePath("SubViewport")

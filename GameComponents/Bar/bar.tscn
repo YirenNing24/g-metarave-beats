@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dl3giqghnhqi6"]
 
-[ext_resource type="Script" path="res://GameComponents/Bar/bar.gd" id="1_68j80"]
+[ext_resource type="Script" uid="uid://chkmfqd16y4u5" path="res://GameComponents/Bar/bar.gd" id="1_68j80"]
 
 [node name="Bar" type="Node3D" groups=["Bars"]]
 script = ExtResource("1_68j80")

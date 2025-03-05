@@ -1,6 +1,6 @@
 [gd_scene load_steps=32 format=3 uid="uid://c3q3fqqfdkrw"]
 
-[ext_resource type="Script" path="res://Components/LoadingComponents/filter_panel.gd" id="1_5lsxa"]
+[ext_resource type="Script" uid="uid://by6pyda5vwgbi" path="res://Components/LoadingComponents/filter_panel.gd" id="1_5lsxa"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_jj3if"]
 [ext_resource type="Texture2D" uid="uid://bj54aji438hd8" path="res://UITextures/Progress/HannahLoading/Timeline 1_0000.png" id="3_pwsbl"]
 [ext_resource type="Texture2D" uid="uid://d3hc8u3mi5a5w" path="res://UITextures/Progress/HannahLoading/Timeline 1_0001.png" id="4_mjoh7"]

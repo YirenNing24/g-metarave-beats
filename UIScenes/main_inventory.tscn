@@ -1,13 +1,13 @@
 [gd_scene load_steps=16 format=3 uid="uid://cmtydmadawqy8"]
 
-[ext_resource type="Script" path="res://UIScenes/main_inventory.gd" id="1_imm7e"]
+[ext_resource type="Script" uid="uid://bjuufhccus10v" path="res://UIScenes/main_inventory.gd" id="1_imm7e"]
 [ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="2_quowf"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="3_8treb"]
 [ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="3_vofqu"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="4_7x11s"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="4_v34na"]
 [ext_resource type="Texture2D" uid="uid://c77ras2lgiqbf" path="res://UITextures/PanelElements/inventory_selection.png" id="6_bbjlk"]
-[ext_resource type="Shader" path="res://UIScenes/energy.gdshader" id="7_0mdqv"]
+[ext_resource type="Shader" uid="uid://b08q4cvvvk12s" path="res://UIScenes/energy.gdshader" id="7_0mdqv"]
 [ext_resource type="Texture2D" uid="uid://bt4ht314qd3y4" path="res://UITextures/Cards/naye_look_at_me_genesis.png" id="8_ck8bf"]
 [ext_resource type="Texture2D" uid="uid://ba8q012bmx1s0" path="res://UITextures/BGTextures/purple-gradient.png" id="8_irtj5"]
 [ext_resource type="Texture2D" uid="uid://dqnqqawvspdxo" path="res://UITextures/Buttons/PanelTextures/accessories_texture.png" id="8_sxcys"]
@@ -23,8 +23,8 @@ shader_parameter/TextureLaodMult = 0.0
 shader_parameter/Tilling = 60.0
 shader_parameter/MovementDirSpeed = Vector2(0, 2)
 shader_parameter/MovementDirSpeed2 = Vector2(0, 5)
-shader_parameter/Noise_Seed = Vector2(1, 1)
 shader_parameter/color_gradiant = ExtResource("8_irtj5")
+shader_parameter/Noise_Seed = Vector2(1, 1)
 
 [node name="main_inventory" type="Control"]
 layout_mode = 3

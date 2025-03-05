@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://dt6o2d3trj4d4"]
 
-[ext_resource type="Script" path="res://Components/Chat/mutual_slot.gd" id="1_0tmni"]
+[ext_resource type="Script" uid="uid://bwvtymynokbi6" path="res://Components/Chat/mutual_slot.gd" id="1_0tmni"]
 [ext_resource type="Texture2D" uid="uid://clu717sjyfm4r" path="res://UITextures/Buttons/message_button.png" id="1_wky12"]
-[ext_resource type="Shader" path="res://Components/Moments/moment_slot.gdshader" id="3_gp2qc"]
+[ext_resource type="Shader" uid="uid://bujd5frudsgcq" path="res://Components/Moments/moment_slot.gdshader" id="3_gp2qc"]
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="4_27jwu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pkqk1"]

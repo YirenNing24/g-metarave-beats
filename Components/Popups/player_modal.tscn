@@ -1,14 +1,14 @@
 [gd_scene load_steps=26 format=3 uid="uid://d3525s8khlmqy"]
 
-[ext_resource type="Script" path="res://Components/Popups/player_modal.gd" id="1_1wv2s"]
+[ext_resource type="Script" uid="uid://wiauej7hbvkm" path="res://Components/Popups/player_modal.gd" id="1_1wv2s"]
 [ext_resource type="Texture2D" uid="uid://cwkvcqhvukyk8" path="res://UITextures/Icons/change_pic_icon.png" id="2_ksmhj"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="2_lk40d"]
 [ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="3_fki7l"]
 [ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="4_61bi6"]
 [ext_resource type="PackedScene" uid="uid://51rvmruybgkx" path="res://Components/Popups/view_player_picture.tscn" id="5_64l24"]
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="5_km1qn"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="7_3rqr7"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="8_snjm0"]
+[ext_resource type="Script" uid="uid://bcnyg4qos0dr7" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="7_3rqr7"]
+[ext_resource type="Script" uid="uid://mr2fibppbyip" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="8_snjm0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kas5t"]
 bg_color = Color(0, 0.0588235, 0.0588235, 1)

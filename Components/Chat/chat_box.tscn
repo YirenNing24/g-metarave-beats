@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://4hviwgrfsnfn"]
 
-[ext_resource type="Script" path="res://Components/Chat/chat_box.gd" id="1_76hnh"]
+[ext_resource type="Script" uid="uid://cluus1cgocu7o" path="res://Components/Chat/chat_box.gd" id="1_76hnh"]
 [ext_resource type="Texture2D" uid="uid://c7qlt18wu7138" path="res://UITextures/BGTextures/dark_panel.png" id="1_m3mo4"]
 [ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="3_w74j3"]
 [ext_resource type="Texture2D" uid="uid://s1ul6vm55i6w" path="res://UITextures/Buttons/message_submit.png" id="4_qqcqh"]

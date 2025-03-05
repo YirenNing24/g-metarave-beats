@@ -1,13 +1,13 @@
 [gd_scene load_steps=22 format=3 uid="uid://bsvujqdy54ohb"]
 
-[ext_resource type="Script" path="res://Songs/Road/right_road.gd" id="1_iw5it"]
+[ext_resource type="Script" uid="uid://b7hfdei067p55" path="res://Songs/Road/right_road.gd" id="1_iw5it"]
 [ext_resource type="PackedScene" uid="uid://ckxk82ja1e1qf" path="res://Songs/Road/road_surface.tscn" id="1_nl215"]
 [ext_resource type="Texture2D" uid="uid://bfct8g5meu08d" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_COLOR.jpg" id="2_t436x"]
 [ext_resource type="Texture2D" uid="uid://dubt54coayt3a" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_OCC.jpg" id="3_c33wq"]
 [ext_resource type="Texture2D" uid="uid://cgxvigqrsd5b1" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_DISP.png" id="4_pink2"]
 [ext_resource type="Texture2D" uid="uid://6nqow2sfbl2g" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_NORM.jpg" id="5_g50b0"]
 [ext_resource type="Texture2D" uid="uid://bvgtfwv5c7rgl" path="res://UITextures/3DTextures/RailingTextures/Blue_Marble_002_ROUGH.jpg" id="6_cc8er"]
-[ext_resource type="Shader" path="res://Songs/Road/hit_area.gdshader" id="7_u7m2c"]
+[ext_resource type="Shader" uid="uid://wmsfrfegfgco" path="res://Songs/Road/hit_area.gdshader" id="7_u7m2c"]
 [ext_resource type="PackedScene" uid="uid://cjx2qu2kdc3p2" path="res://GameComponents/NotePicker/notepicker.tscn" id="8_hnb2e"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_kakxu"]
@@ -29,15 +29,15 @@ ao_texture = ExtResource("3_c33wq")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qy708"]
 render_priority = 0
 shader = ExtResource("7_u7m2c")
-shader_parameter/character_position = null
+shader_parameter/character_position = Vector3(0, 0, 0)
 shader_parameter/fade_distance = 20.0
 shader_parameter/color = Color(0.94, 0.54, 0.15, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_avrcq"]
 render_priority = 0
 shader = ExtResource("7_u7m2c")
-shader_parameter/character_position = null
-shader_parameter/fade_distance = null
+shader_parameter/character_position = Vector3(0, 0, 0)
+shader_parameter/fade_distance = 0.0
 shader_parameter/color = Color(0.94, 0.54, 0.15, 1)
 
 [sub_resource type="Gradient" id="Gradient_08vfv"]

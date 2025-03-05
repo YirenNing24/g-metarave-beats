@@ -222,7 +222,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sqsaf"]
 _data = {
-"fade-in": SubResource("Animation_ydsjf")
+&"fade-in": SubResource("Animation_ydsjf")
 }
 
 [node name="StatsModal" type="Control"]

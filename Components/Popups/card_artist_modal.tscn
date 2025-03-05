@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=3 uid="uid://bkdp5d21f2370"]
 
-[ext_resource type="Script" path="res://Components/Popups/card_artist_modal.gd" id="1_f064n"]
+[ext_resource type="Script" uid="uid://dymdm8qqo7hmt" path="res://Components/Popups/card_artist_modal.gd" id="1_f064n"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="1_ucaxk"]
 [ext_resource type="Texture2D" uid="uid://c33ow3cv1gle4" path="res://UITextures/CardArtistTextures/aria_card_artist_hero.png" id="3_ubpuj"]
 [ext_resource type="Texture2D" uid="uid://71ok60rxtq74" path="res://UITextures/Popups/info_panel.png" id="3_x8uou"]
@@ -11,8 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://cwohbn8trwaql" path="res://UITextures/Buttons/active_button.png" id="9_3pdgl"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="9_mdwmf"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="10_02v3c"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="11_limcq"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="12_dpqnw"]
+[ext_resource type="Script" uid="uid://bcnyg4qos0dr7" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="11_limcq"]
+[ext_resource type="Script" uid="uid://mr2fibppbyip" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="12_dpqnw"]
 [ext_resource type="Texture2D" uid="uid://cfqt007qf2ge6" path="res://UITextures/PanelElements/reward_panel.png" id="13_4i3pl"]
 [ext_resource type="Texture2D" uid="uid://mwrbk6jlyh12" path="res://UITextures/RewardTextures/hannah_ownership.png" id="14_yy6dh"]
 [ext_resource type="Texture2D" uid="uid://1se5bq5gv7v4" path="res://UITextures/Icons/coins_icon.png" id="16_51ai8"]
@@ -80,7 +80,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f2f62"]
 _data = {
-"RewardClaimed": SubResource("Animation_7nd0p")
+&"RewardClaimed": SubResource("Animation_7nd0p")
 }
 
 [node name="CardArtistModal" type="Control"]

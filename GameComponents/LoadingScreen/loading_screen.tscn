@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dl25uiqgjpf8d"]
 
-[ext_resource type="Script" path="res://Components/LoadingComponents/game_loading_screen.gd" id="1_7wrvo"]
+[ext_resource type="Script" uid="uid://c703xkt0v01yt" path="res://Components/LoadingComponents/game_loading_screen.gd" id="1_7wrvo"]
 [ext_resource type="Texture2D" uid="uid://ch4vcya7p573" path="res://UITextures/BGTextures/layout_icu_xin_gg_irohm.jpg" id="2_xkvfv"]
 [ext_resource type="Texture2D" uid="uid://c6jne54yyhp3a" path="res://UITextures/Progress/splash_base.png" id="3_xko2i"]
 [ext_resource type="Texture2D" uid="uid://c7ms0fmdj83si" path="res://UITextures/Progress/splash_progress.png" id="4_0llk3"]

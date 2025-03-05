@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ba4wxirgdeywq"]
 
-[ext_resource type="Script" path="res://Components/Inventory/pack_inventory_slot.gd" id="1_6ckcp"]
+[ext_resource type="Script" uid="uid://dg4teug2o4k0r" path="res://Components/Inventory/pack_inventory_slot.gd" id="1_6ckcp"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="2_uebgm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hi66k"]

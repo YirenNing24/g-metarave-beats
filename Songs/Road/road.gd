@@ -57,8 +57,8 @@ func setup(game_config: Node3D) -> void:
 func _on_game_new_peer_id(peer_id: int) -> void:
 	for picker: Node3D in get_tree().get_nodes_in_group("Picker"):
 		picker.set_peer_id(peer_id)
-	print("banda dito: ", peer_id)
-
+	
+	
 # Process method called on every frame to update the position of musical bars.
 func _process(delta: float) -> void:
 	bars_node.translate(speed * delta)
@@ -85,13 +85,14 @@ func add_bar() -> void:
 	current_location += Vector3(0, 0, -bar_length_in_meters)
 
 # Method to retrieve the data for the current musical bar.
-func get_bar_data() -> Array:
+func get_bar_data() -> Array[Dictionary]:
 	var irene_data: Dictionary = tracks_data[0].bars[current_bar_index]
 	var seulgi_data: Dictionary = tracks_data[1].bars[current_bar_index]
 	var wendy_data: Dictionary = tracks_data[2].bars[current_bar_index]
 	var joy_data: Dictionary = tracks_data[3].bars[current_bar_index]
 	var yeri_data: Dictionary = tracks_data[4].bars[current_bar_index]
-	return [irene_data, seulgi_data, wendy_data, joy_data, yeri_data] as Array
+	
+	return [irene_data, seulgi_data, wendy_data, joy_data, yeri_data] 
 
 
 # Method to remove a musical bar from the scene.

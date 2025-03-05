@@ -1,11 +1,11 @@
 [gd_scene load_steps=17 format=3 uid="uid://cfdxe8w21p21q"]
 
 [ext_resource type="Texture2D" uid="uid://u5uvm5snnfq6" path="res://UITextures/PanelElements/difficulty_bg.png" id="1_7eqht"]
-[ext_resource type="Script" path="res://Components/Moments/make_post.gd" id="1_ni5ab"]
+[ext_resource type="Script" uid="uid://xhswmqnayc3v" path="res://Components/Moments/make_post.gd" id="1_ni5ab"]
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="2_otvlu"]
 [ext_resource type="FontFile" uid="uid://cbqgl5ybh1snb" path="res://UITextures/Fonts/argentum-sans.vf-regular.ttf" id="3_iquav"]
 [ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="4_d46au"]
-[ext_resource type="Shader" path="res://Components/Moments/moment_slot.gdshader" id="4_n6v62"]
+[ext_resource type="Shader" uid="uid://bujd5frudsgcq" path="res://Components/Moments/moment_slot.gdshader" id="4_n6v62"]
 [ext_resource type="Texture2D" uid="uid://bue3ajov5ngpw" path="res://UITextures/Icons/plus_icon.png" id="5_lq35p"]
 [ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="8_riwry"]
 

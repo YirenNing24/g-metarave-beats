@@ -18,7 +18,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yjb8s"]
 _data = {
-"scene_transition1": SubResource("Animation_lh2gd")
+&"scene_transition1": SubResource("Animation_lh2gd")
 }
 
 [node name="GameLoader" type="Control"]

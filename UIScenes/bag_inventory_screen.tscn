@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://csyu4ysprdc64"]
 
-[ext_resource type="Script" path="res://UIScenes/bag_inventory_screen.gd" id="1_ierhc"]
+[ext_resource type="Script" uid="uid://vmdxde1cbjmm" path="res://UIScenes/bag_inventory_screen.gd" id="1_ierhc"]
 [ext_resource type="Texture2D" uid="uid://bjnhwb0w8lu4t" path="res://UITextures/BGTextures/bag_inventory_bg.png" id="1_tivw2"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="2_dxgtd"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="3_nr8rw"]

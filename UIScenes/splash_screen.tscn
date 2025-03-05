@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dniibdgmghavl"]
 
-[ext_resource type="Script" path="res://UIScenes/splash_screen.gd" id="1_mc7qq"]
+[ext_resource type="Script" uid="uid://b8nq82n16tf01" path="res://UIScenes/splash_screen.gd" id="1_mc7qq"]
 [ext_resource type="Texture2D" uid="uid://beivc8jimuyqa" path="res://UITextures/BGTextures/blue_gradient.png" id="2_3347k"]
 [ext_resource type="Texture2D" uid="uid://c6jne54yyhp3a" path="res://UITextures/Progress/splash_base.png" id="3_rp0rw"]
 [ext_resource type="Texture2D" uid="uid://c7ms0fmdj83si" path="res://UITextures/Progress/splash_progress.png" id="4_5slah"]
@@ -38,7 +38,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_08333"]
 _data = {
-"fade_in_out": SubResource("Animation_amlca")
+&"fade_in_out": SubResource("Animation_amlca")
 }
 
 [node name="SplashScreen" type="Control" groups=["Splash"]]
@@ -136,7 +136,7 @@ stretch_mode = 6
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." groups=["Splash"]]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_08333")
+&"": SubResource("AnimationLibrary_08333")
 }
 autoplay = "fade_in_out"
 

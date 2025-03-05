@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bdyjgc8o5v8vq"]
 
-[ext_resource type="Script" path="res://GameComponents/Notes/long_note.gd" id="1_tkpdw"]
+[ext_resource type="Script" uid="uid://c3m22smp27jan" path="res://GameComponents/Notes/long_note.gd" id="1_tkpdw"]
 [ext_resource type="PackedScene" uid="uid://b35ly4ife5ufj" path="res://GameComponents/Notes/note_mesh.tscn" id="2_em3nd"]
 [ext_resource type="PackedScene" uid="uid://fl620scyryxd" path="res://GameComponents/Notes/beam.tscn" id="3_uok1g"]
 

@@ -1,9 +1,9 @@
 [gd_scene load_steps=13 format=3 uid="uid://b5md4ncm41wts"]
 
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="1_qdlb8"]
-[ext_resource type="Script" path="res://Components/Popups/card_collection_modal.gd" id="1_qqtrc"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="2_2a16y"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="3_2y4bk"]
+[ext_resource type="Script" uid="uid://dfqsite7i4syr" path="res://Components/Popups/card_collection_modal.gd" id="1_qqtrc"]
+[ext_resource type="Script" uid="uid://bcnyg4qos0dr7" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="2_2a16y"]
+[ext_resource type="Script" uid="uid://mr2fibppbyip" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="3_2y4bk"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="4_a3fcm"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="7_mpojd"]
 [ext_resource type="PackedScene" uid="uid://bkdp5d21f2370" path="res://Components/Popups/card_artist_modal.tscn" id="8_g8cga"]

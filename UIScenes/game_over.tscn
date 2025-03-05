@@ -1,13 +1,13 @@
 [gd_scene load_steps=37 format=3 uid="uid://dvqwd1vjvgbtk"]
 
-[ext_resource type="Script" path="res://UIScenes/game_over.gd" id="1_cnrlt"]
+[ext_resource type="Script" uid="uid://cfjvxxjjt2y32" path="res://UIScenes/game_over.gd" id="1_cnrlt"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_jjkhf"]
 [ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="3_ik2fc"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="4_64gxq"]
 [ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="5_b0j7s"]
 [ext_resource type="Texture2D" uid="uid://vxw1aujmxjy3" path="res://UITextures/CustomResource/auth_screen_gradient.tres" id="5_ln7qv"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="6_ovqjx"]
-[ext_resource type="Shader" path="res://UIScenes/energy.gdshader" id="6_texb6"]
+[ext_resource type="Shader" uid="uid://b08q4cvvvk12s" path="res://UIScenes/energy.gdshader" id="6_texb6"]
 [ext_resource type="Texture2D" uid="uid://ba8q012bmx1s0" path="res://UITextures/BGTextures/purple-gradient.png" id="7_any8h"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="8_03vso"]
 [ext_resource type="Texture2D" uid="uid://dea3dcdqw5gw" path="res://UITextures/Icons/energy_icon.png" id="8_vnv6u"]
@@ -81,8 +81,8 @@ shader_parameter/TextureLaodMult = 8.0
 shader_parameter/Tilling = 10.0
 shader_parameter/MovementDirSpeed = Vector2(-0.3, 0.5)
 shader_parameter/MovementDirSpeed2 = Vector2(0.3, 0.5)
-shader_parameter/Noise_Seed = Vector2(1, 1)
 shader_parameter/color_gradiant = ExtResource("5_ln7qv")
+shader_parameter/Noise_Seed = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g4drh"]
 shader = ExtResource("6_texb6")
@@ -92,8 +92,8 @@ shader_parameter/TextureLaodMult = 0.0
 shader_parameter/Tilling = 60.0
 shader_parameter/MovementDirSpeed = Vector2(0, 2)
 shader_parameter/MovementDirSpeed2 = Vector2(0, 5)
-shader_parameter/Noise_Seed = Vector2(1, 1)
 shader_parameter/color_gradiant = ExtResource("7_any8h")
+shader_parameter/Noise_Seed = Vector2(1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v6myh"]
 bg_color = Color(0, 0.121569, 0.121569, 0.266667)

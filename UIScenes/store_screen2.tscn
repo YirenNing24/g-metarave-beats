@@ -1,7 +1,7 @@
 [gd_scene load_steps=33 format=3 uid="uid://d05oohu41yaxd"]
 
 [ext_resource type="Texture2D" uid="uid://bjpkh360v82aq" path="res://UITextures/BGTextures/store_bg.png" id="1_2tlno"]
-[ext_resource type="Script" path="res://UIScenes/store_screen_2.gd" id="1_24gne"]
+[ext_resource type="Script" uid="uid://2bbi552q8ath" path="res://UIScenes/store_screen_2.gd" id="1_24gne"]
 [ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="2_i6ng3"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_sqi3r"]
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="4_3x0rp"]
@@ -9,9 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://vxw1aujmxjy3" path="res://UITextures/CustomResource/auth_screen_gradient.tres" id="5_i8ib8"]
 [ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="5_socof"]
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="6_ak7vr"]
-[ext_resource type="Shader" path="res://UIScenes/energy.gdshader" id="6_b8iwp"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="6_cg2tr"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="7_cjpvt"]
+[ext_resource type="Shader" uid="uid://b08q4cvvvk12s" path="res://UIScenes/energy.gdshader" id="6_b8iwp"]
+[ext_resource type="Script" uid="uid://bcnyg4qos0dr7" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="6_cg2tr"]
+[ext_resource type="Script" uid="uid://mr2fibppbyip" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="7_cjpvt"]
 [ext_resource type="Texture2D" uid="uid://ba8q012bmx1s0" path="res://UITextures/BGTextures/purple-gradient.png" id="7_w2lxa"]
 [ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="7_ypx8t"]
 [ext_resource type="Texture2D" uid="uid://clhoav6v6sxtn" path="res://UITextures/Buttons/PanelTextures/esha_hero.png" id="8_f5vyn"]
@@ -80,8 +80,8 @@ shader_parameter/TextureLaodMult = 8.0
 shader_parameter/Tilling = 10.0
 shader_parameter/MovementDirSpeed = Vector2(-0.3, 0.5)
 shader_parameter/MovementDirSpeed2 = Vector2(0.3, 0.5)
-shader_parameter/Noise_Seed = Vector2(1, 1)
 shader_parameter/color_gradiant = ExtResource("5_i8ib8")
+shader_parameter/Noise_Seed = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dc7sh"]
 shader = ExtResource("6_b8iwp")
@@ -91,8 +91,8 @@ shader_parameter/TextureLaodMult = 0.0
 shader_parameter/Tilling = 60.0
 shader_parameter/MovementDirSpeed = Vector2(0, 2)
 shader_parameter/MovementDirSpeed2 = Vector2(0, 5)
-shader_parameter/Noise_Seed = Vector2(1, 1)
 shader_parameter/color_gradiant = ExtResource("7_w2lxa")
+shader_parameter/Noise_Seed = Vector2(1, 1)
 
 [sub_resource type="Resource" id="Resource_1k74k"]
 script = ExtResource("7_cjpvt")
@@ -204,8 +204,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2sc8t"]
 _data = {
-"ErrorMessage": SubResource("Animation_os1u0"),
-"RESET": SubResource("Animation_gljh7")
+&"ErrorMessage": SubResource("Animation_os1u0"),
+&"RESET": SubResource("Animation_gljh7")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_koo8x"]
@@ -888,7 +888,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_p7f2p")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_2sc8t")
+&"": SubResource("AnimationLibrary_2sc8t")
 }
 
 [node name="MessagePanel" type="Panel" parent="."]

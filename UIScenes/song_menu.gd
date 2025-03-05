@@ -28,7 +28,7 @@ var difficulty_mode: String = "easy" #default
 
 
 func _ready() -> void:
-	%LoadingPanel.fake_loader()
+	#%LoadingPanel.fake_loader()
 	parse_song_files()
 	list_songs()
 	hud_data()
@@ -37,11 +37,11 @@ func _ready() -> void:
 	
 	left_difficulty_button.disabled = true
 	left_difficulty_button.modulate = "ffffff68"
-	BKMREngine.beats_server_connect()
+	#BKMREngine.beats_server_connect()
 	
 	
 func _process(delta: float) -> void:
-	game_server_connection_check()
+	#game_server_connection_check()
 	energy_check(delta)
 	
 	
@@ -123,18 +123,18 @@ func energy_check(delta: float) -> void:
 			%EnergyRecharge.visible = false
 	
 
-func game_server_connection_check() -> void:
-	BKMREngine.Server.websocket.close()
-	BKMREngine.Server.websocket.poll()
-	match BKMREngine.peer.get_connection_status():
-		0:
-			BKMREngine.beats_server_connect(BKMREngine.beats_host)
-			%LoadingPanel.fake_loader()
-		1:
-			BKMREngine.beats_server_connect(BKMREngine.beats_host)
-			%LoadingPanel.fake_loader()
-		2:
-			%LoadingPanel.tween_kill()
+#func game_server_connection_check() -> void:
+	#BKMREngine.Server.websocket.close()
+	#BKMREngine.Server.websocket.poll()
+	#match BKMREngine.peer.get_connection_status():
+		#0:
+			#BKMREngine.beats_server_connect(BKMREngine.beats_host)
+			#%LoadingPanel.fake_loader()
+		#1:
+			#BKMREngine.beats_server_connect(BKMREngine.beats_host)
+			#%LoadingPanel.fake_loader()
+		#2:
+			#%LoadingPanel.tween_kill()
 	
 	
 # Parse the song files in the specified directory.

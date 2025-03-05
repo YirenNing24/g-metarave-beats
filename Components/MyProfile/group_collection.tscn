@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://wndln7vo5eq8"]
 
-[ext_resource type="Script" path="res://Components/MyProfile/group_collection.gd" id="1_5n4ga"]
+[ext_resource type="Script" uid="uid://djufad2qujtg4" path="res://Components/MyProfile/group_collection.gd" id="1_5n4ga"]
 [ext_resource type="FontFile" uid="uid://cbqgl5ybh1snb" path="res://UITextures/Fonts/argentum-sans.vf-regular.ttf" id="2_wwty0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jnmvb"]
