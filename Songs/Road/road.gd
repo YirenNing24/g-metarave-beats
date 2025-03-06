@@ -60,12 +60,17 @@ func _on_game_new_peer_id(peer_id: int) -> void:
 	
 	
 # Process method called on every frame to update the position of musical bars.
-func _process(delta: float) -> void:
-	bars_node.translate(speed * delta)
+func _physics_process(delta: float) -> void:
+	# Apply movement with time scaling
+	var scaled_delta: float = delta * Engine.time_scale
+	bars_node.translate(speed * scaled_delta)
+
+	# Remove bars that move too far and add new ones
 	for bar: Node3D in bars: 
 		if bar.position.z + bars_node.position.x >= bar_length_in_meters * 2:
 			remove_bar(bar)
-			add_bar() 
+			add_bar()
+
 
 
 # Method to add a musical bar to the scene.

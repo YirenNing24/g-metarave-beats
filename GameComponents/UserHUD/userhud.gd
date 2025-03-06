@@ -2,6 +2,9 @@ extends Control
 
 signal hit_display_data(note_accuracy: int, line: int, combo_value: int)
 
+signal pause_button_pressed
+signal play_button_pressed
+
 @onready var health_bar: TextureProgressBar = %HealthBar
 @onready var username_label: Label = %UsernameLabel
 
@@ -31,9 +34,11 @@ var score_boost: int = 0
 
 @export var boost_current: String
 
-
+var game_over_called: bool = false
 var map: String
 var song_length: float
+var song_name: String
+var difficulty: String
 
 @export var final_stats: Dictionary
 @export var note_stats: Dictionary
@@ -57,6 +62,11 @@ func _ready() -> void:
 	#%EffectsOnLeft.material.set_shader_parameter("color1", "ffffff01")func add_score(_accuracy: int, _line: int) -> void:
 	score = round(score + (score_accuracy +(score_accuracy * combo / 25)))
 	 
+	
+func connect_signals() -> void:
+	BKMREngine.Score.save_classic_highscore_complete.connect(_on_save_classic_highscore_complete)
+	BKMREngine.Inventory.group_card_equip_complete.connect(equipped_cards_texture)
+	
 	
 func _process(_delta: float) -> void:
 	calculate_accuracy_score()
@@ -84,11 +94,6 @@ func set_artist(artist: String, title: String) -> void:
 	BKMREngine.Inventory.group_card_equipped(artist)
 	%Artist.text = artist
 	%SongName.text = title
-	
-	
-func connect_signals() -> void:
-	var _1: int = MULTIPLAYER.classic_game_over_completed.connect(_on_classic_game_over_completed)
-	BKMREngine.Inventory.group_card_equip_complete.connect(equipped_cards_texture)
 	
 	
 func _on_get_group_card_equipped_complete(card_data: Array) -> void:
@@ -161,6 +166,12 @@ func equipped_cards_texture(card_data: Array) -> void:
 	animate_card()
 	
 	
+	
+func _on_save_classic_highscore_complete(_rewards: Dictionary) -> void:
+	%LoadingPanel.tween_kill()
+	_on_classic_game_over_completed()
+	
+	
 func hit_feedback(note_accuracy: int, line: int) -> void:
 	health = clamp(health, 0, 100)
 	match note_accuracy:
@@ -227,6 +238,8 @@ func adjust_health(amount: int) -> void:
 	health += amount
 	health = clamp(health, 0, 100)  # Ensure health stays within range
 	health_bar.value = health
+	if health <= 0:
+		game_over(false)  # Call game over when health reaches zero
 	
 	
 func set_boost(is_reset: bool = false) -> void:
@@ -259,7 +272,7 @@ func update_textures() -> void:
 	# Set CardTexture1 to show the texture of CardTexture2
 	%CardTexture1.texture = next_texture
 	
-	# Update the index for CardTexture2
+	# Update the index for CardTexture2%LoadingPanel.fake_loader()
 	if current_card_texture_index + 1 < card_textures_array.size():
 		current_card_texture_index += 1
 	else:
@@ -327,11 +340,11 @@ func get_boost_color(boost: int) -> Color:
 	
 	
 func _on_road_song_finished() -> void:
-	_on_classic_game_over_completed()
+	game_over(true)
 	
 	
 func _on_music_song_finished() -> void:
-	_on_classic_game_over_completed()
+	game_over(true)
 	
 	
 func _on_classic_game_over_completed(_message: Variant = "") -> void:
@@ -339,6 +352,33 @@ func _on_classic_game_over_completed(_message: Variant = "") -> void:
 	var _load_scene: bool = await LOADER.load_scene(self, "res://UIScenes/game_over.tscn")
 	
 	
+func game_over(is_finished: bool) -> void:
+	
+	if game_over_called:
+		return  # Exit if already called
+
+	game_over_called = true  # Mark as called
+	%LoadingPanel.fake_loader()
+	var classic_score_stats: Dictionary = {
+		"difficulty": difficulty,
+		"score": score,
+		"combo": total_combo,
+		"maxCombo": max_combo,
+		"accuracy": accuracy_rate,
+		"finished": is_finished,
+		"songName": song_name,
+		"artist": %Artist.text,
+		"perfect": perfect,
+		"veryGood": very_good,
+		"good": good,
+		"bad": bad,
+		"miss": miss,
+		"username": PLAYER.username,
+		"gameId": BKMREngine.Energy.game_id
+	}
+	#score_stats_classic = classic_score_stats
+	BKMREngine.Score.save_classic_high_score(classic_score_stats)
+
 	
 func format_number(number: int) -> String:
 	# Handle negative numbers by adding the "minus" sign in advance, as we discard it
@@ -357,3 +397,14 @@ func format_number(number: int) -> String:
 	return formatted_number as String
 	
 	
+
+
+func _on_button_pressed() -> void:
+	%LoadingPanel.set_message("YOU ARE ON PAUSE")
+	%LoadingPanel.fake_loader()
+	Engine.time_scale = 0
+	pause_button_pressed.emit()
+
+
+func _on_loading_panel_on_play_button_pressed() -> void:
+	play_button_pressed.emit()

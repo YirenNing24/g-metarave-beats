@@ -67,7 +67,7 @@ func set_note_position() -> void:
 
 
 # Handle the process logic for the note.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	# Check if the picker is present or if the current note is being collected by another picker.
 	if not picker or (picker.note_collect != null and picker.note_collect != self):
 		return

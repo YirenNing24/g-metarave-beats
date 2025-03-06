@@ -34,6 +34,7 @@ func _ready() -> void:
 	connect_signals()
 	print("anu po size: ", get_viewport().scaling_3d_mode)
 	
+	
 func _on_road_notepicker_position(picker_y_position: float) -> void:
 	var song_map: String = SONG.map_selected.map_file
 	var song_audio_file: String = SONG.map_selected.audio_file
@@ -50,13 +51,15 @@ func song_game_start() -> void:
 	set_variables()
 	calculate_params()
 	setup_nodes()
-	user_hud.set_artist(beatmap.audio.artist, beatmap.audio.title)
 	
+
 	
 func set_variables() -> void:
 	beatmap_file = SONG.map_selected.map_file
 	beatmap = load_beatmap()
-	
+	user_hud.difficulty = beatmap.difficulty
+	user_hud.song_name = beatmap.audio.title
+	user_hud.set_artist(beatmap.audio.artist, beatmap.audio.title)
 	
 func _on_loading_start(id_peer: int) -> void:
 	peer_id = id_peer

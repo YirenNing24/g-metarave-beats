@@ -35,7 +35,7 @@ func set_peer_id(_id_peer: int) -> void:
 	set_multiplayer_authority(1)
 	
 	
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if is_collecting == false:
 		fx_spinner.visible = false
 	
@@ -88,10 +88,15 @@ func _input(event: InputEvent) -> void:
 func get_touched_node(touch_pos: Vector2) -> bool:
 	var picker_x: float = notepicker_position.x
 	var picker_y: float = notepicker_position.y
-
-	if touch_pos.x >= picker_x - 83.5 and touch_pos.x <= picker_x + 83.5 and touch_pos.y >= picker_y - 83.5 and touch_pos.y <= picker_y + 83.5:
+	
+	# Extend the touch area on the X-axis
+	var x_range: float = 83.5  # Adjust this value to widen the touch area
+	var y_range: float = 150   # Keep Y range the same
+	
+	if touch_pos.x >= picker_x - x_range and touch_pos.x <= picker_x + x_range and touch_pos.y >= picker_y - y_range and touch_pos.y <= picker_y + y_range:
 		return true
 	return false
+
 	
 	
 # Get the 3D position of the notepicker in screen space.

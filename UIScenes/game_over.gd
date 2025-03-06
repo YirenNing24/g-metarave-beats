@@ -24,13 +24,16 @@ var peer_id: int = PLAYER.peer_id
 
 
 func _ready() -> void:
-	signal_connect()
 	%LoadingPanel.fake_loader()
+	signal_connect()
 	hud_data()
+	
+	var score_stats: Dictionary = BKMREngine.Score.classic_game_rewards
+	display_score(score_stats)
 	
 	
 func signal_connect() -> void:
-	var _1: int = MULTIPLAYER.classic_game_over_completed.connect(display_score)
+	#var _1: int = MULTIPLAYER.classic_game_over_completed.connect(display_score)
 	var _connect: int = PLAYER.new_data_received.connect(hud_data)
 	
 	
@@ -81,31 +84,32 @@ func display_hud() -> void:
 	
 	
 func display_score(rewards: Dictionary) -> void:
-	var single_score: Dictionary = MULTIPLAYER.classic_score_stats
-	score_label.text = format_scores(str(single_score["score"]))
-	combo_label.text = format_scores(str(single_score["combo"]))
-	max_combo_label.text = format_scores(str(single_score["maxCombo"]))
-	
-	var rounded_accuracy: float = snapped(single_score["accuracy"], 0.01)
-	accuracy_label.text = (str(rounded_accuracy * 100) + "%")
-	
-	if not single_score.finished:
-		finished_label.text = "TRY AGAIN!"
+	if rewards.has("score"):
+		var single_score: Dictionary = rewards.score
+		score_label.text = format_scores(str(single_score["score"]))
+		combo_label.text = format_scores(str(single_score["combo"]))
+		max_combo_label.text = format_scores(str(single_score["maxCombo"]))
 		
-	#NOTES STATS
-	k_perfect_label.text = format_scores(str(single_score["perfect"]))
-	very_good_label.text = format_scores(str(single_score["veryGood"]))
-	good_label.text = format_scores(str(single_score["good"]))
-	bad_label.text = format_scores(str(single_score["bad"]))
-	miss_label.text = format_scores(str(single_score["miss"]))
-	%HighScoreLabel.text = format_scores(str(rewards["previousHighscore"]))
-	
-	%ExperienceValue.text = str(rewards["experienceGained"])
-	%BeatsGainedValue.text = str(rewards["beatsReward"])
-	
-	%LoadingPanel.tween_kill()
-	BKMREngine.Auth.validate_player_session()
-	BKMREngine.beats_server_peer_close()
+		var rounded_accuracy: float = snapped(single_score["accuracy"], 0.01)
+		accuracy_label.text = (str(rounded_accuracy * 100) + "%")
+		
+		if not single_score.finished:
+			finished_label.text = "TRY AGAIN!"
+			
+		#NOTES STATS
+		k_perfect_label.text = format_scores(str(single_score["perfect"]))
+		very_good_label.text = format_scores(str(single_score["veryGood"]))
+		good_label.text = format_scores(str(single_score["good"]))
+		bad_label.text = format_scores(str(single_score["bad"]))
+		miss_label.text = format_scores(str(single_score["miss"]))
+		%HighScoreLabel.text = format_scores(str(rewards["previousHighscore"]))
+		
+		%ExperienceValue.text = str(rewards["experienceGained"])
+		%BeatsGainedValue.text = str(rewards["beatsReward"])
+		
+		BKMREngine.Auth.validate_player_session()
+		%LoadingPanel.tween_kill()
+	#BKMREngine.beats_server_peer_close()
 	
 	
 func format_scores(value: String) -> String:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://c3q3fqqfdkrw"]
+[gd_scene load_steps=33 format=3 uid="uid://c3q3fqqfdkrw"]
 
 [ext_resource type="Script" uid="uid://by6pyda5vwgbi" path="res://Components/LoadingComponents/filter_panel.gd" id="1_5lsxa"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_jj3if"]
@@ -30,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://bmcw3elvcnlay" path="res://UITextures/Progress/HannahLoading/Timeline 1_0025.png" id="28_gntmd"]
 [ext_resource type="Texture2D" uid="uid://b04fy8h1disgy" path="res://UITextures/Progress/HannahLoading/Timeline 1_0026.png" id="29_qn4c6"]
 [ext_resource type="Texture2D" uid="uid://ckswwd7rh8xae" path="res://UITextures/Progress/HannahLoading/Timeline 1_0027.png" id="30_drj21"]
+[ext_resource type="Texture2D" uid="uid://bgedcn1onaufx" path="res://UITextures/Buttons/submit_button.png" id="31_nqlvx"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3li0g"]
 animations = [{
@@ -135,22 +136,22 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5lsxa")
 
-[node name="Label" type="Label" parent="."]
+[node name="Message" type="Label" parent="."]
+unique_name_in_owner = true
 z_index = 2
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -52.0
-offset_top = 106.0
-offset_right = 42.0
-offset_bottom = 129.0
+anchors_preset = -1
+anchor_left = 0.456667
+anchor_top = 0.703704
+anchor_right = 0.535
+anchor_bottom = 0.746296
+offset_right = -6.10352e-05
+offset_bottom = 3.05176e-05
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_jj3if")
 text = "Please wait..."
+metadata/_edit_use_anchors_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1
@@ -158,3 +159,42 @@ position = Vector2(600, 270)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_3li0g")
 frame = 27
+
+[node name="PlayButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -552.0
+offset_top = -127.0
+offset_right = -472.0
+offset_bottom = -47.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("31_nqlvx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Message" type="Label" parent="PlayButton"]
+z_index = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.077083
+anchor_top = 0.9125
+anchor_right = 0.914584
+anchor_bottom = 1.475
+offset_right = -6.10352e-05
+offset_bottom = 3.05176e-05
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_jj3if")
+text = "CONTINUE
+"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]

@@ -52,7 +52,7 @@ func connect_notes() -> void:
 		var _2: int = hit_feedback.connect(add_score)
 	
 	
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	# Check if the picker is present and is not collecting another note.
 	if not picker or (picker.note_collect != null and picker.note_collect != self): 
 		return
@@ -60,7 +60,6 @@ func _process(_delta: float) -> void:
 	# Check if the note is colliding and the picker is collecting.
 	if not collected:
 		if is_colliding and picker.is_collecting:
-			print("collecting?!")
 			collect()
 
 # Method to handle the collection of the note.

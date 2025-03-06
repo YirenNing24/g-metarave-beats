@@ -10,6 +10,7 @@ var pre_start_duration: float
 var start_pos_in_sec: int
 var audio_file: String = SONG.map_selected.audio_file
 
+var playback_postion: float 
 
 # Load and set the audio stream player with the selected audio file.
 func play_song(path: String) -> void:
@@ -45,3 +46,12 @@ func _process(delta: float) -> void:
 
 func _on_audio_stream_player_finished() -> void:
 	song_finished.emit()
+
+
+func _on_user_hud_pause_button_pressed() -> void:
+	playback_postion = %AudioStreamPlayer.get_playback_position()
+	%AudioStreamPlayer.stop()
+	
+	
+func _on_user_hud_play_button_pressed() -> void:
+	%AudioStreamPlayer.play(playback_postion)

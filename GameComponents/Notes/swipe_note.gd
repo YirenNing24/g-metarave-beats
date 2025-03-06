@@ -60,7 +60,7 @@ func connect_notes() -> void:
 		var _3: int = boost_feedback.connect(boost)
 	
 	
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	# Check if the picker is present or if the current note is being collected by another picker.
 	if not picker or (picker.note_collect != null and picker.note_collect != self):
 		return

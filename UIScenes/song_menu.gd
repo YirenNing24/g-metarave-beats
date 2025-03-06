@@ -26,9 +26,11 @@ var recharge_interval : int = 60 * 60 * 1000 # 1 hour in milliseconds
 const difficulty: Array[String] = ['easy', 'medium', 'hard', 'ultra hard']
 var difficulty_mode: String = "easy" #default
 
+var energy_available: bool = false
 
 func _ready() -> void:
-	#%LoadingPanel.fake_loader()
+	%LoadingPanel.fake_loader()
+	BKMREngine.Energy.use_player_energy()
 	parse_song_files()
 	list_songs()
 	hud_data()
@@ -47,6 +49,14 @@ func _process(delta: float) -> void:
 	
 func connect_signals() -> void:
 	BKMREngine.Score.get_player_highscore_per_song_complete.connect(_on_get_player_highscore_per_song_complete)
+	BKMREngine.Energy.use_player_energy_complete.connect(_on_use_player_energy_complete)
+	
+	
+func _on_use_player_energy_complete(energy_data: Dictionary) -> void:
+	if energy_data.energy == true:
+		energy_available = true
+		BKMREngine.Energy.game_id = energy_data.gameId
+	%LoadingPanel.tween_kill()
 	
 	
 func get_classic_high_score() -> void:
@@ -123,20 +133,6 @@ func energy_check(delta: float) -> void:
 			%EnergyRecharge.visible = false
 	
 
-#func game_server_connection_check() -> void:
-	#BKMREngine.Server.websocket.close()
-	#BKMREngine.Server.websocket.poll()
-	#match BKMREngine.peer.get_connection_status():
-		#0:
-			#BKMREngine.beats_server_connect(BKMREngine.beats_host)
-			#%LoadingPanel.fake_loader()
-		#1:
-			#BKMREngine.beats_server_connect(BKMREngine.beats_host)
-			#%LoadingPanel.fake_loader()
-		#2:
-			#%LoadingPanel.tween_kill()
-	
-	
 # Parse the song files in the specified directory.
 func parse_song_files() -> void:
 	# Initialize arrays to store file names and directories.
@@ -264,16 +260,17 @@ func song_selected(display: Control) -> void:
 func song_cancel() -> void:
 	song_scroll_container.mouse_filter = Control.MOUSE_FILTER_PASS
 	audio_player.stop()
-
-
+	
+	
 func song_unfocused_selected(_song_display: Control, index: int) -> void:
 	song_scroll_container.song_unfocused_selected(index) 
 		
 		 
 func song_start(song_file: String) -> void:
-	SONG.difficulty = difficulty_mode
-	set_selected_map(song_file)  
-	var _game_scene: int = await LOADER.load_scene(self, "res://UIScenes/game_scene.tscn")
+	if energy_available:
+		SONG.difficulty = difficulty_mode
+		set_selected_map(song_file)  
+		var _game_scene: int = await LOADER.load_scene(self, "res://UIScenes/game_scene.tscn")
 	
 	
 func _on_left_difficulty_button_pressed() -> void:

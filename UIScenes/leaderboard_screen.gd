@@ -202,8 +202,8 @@ func set_personal_entry(leaderboard: Array) -> void:
 				var rank: String = str(leaderboard.find(entry) + 1)
 				personal_rank.text = rank
 				personal_name.text = entry.username
-				personal_score.text = str(entry.score)
-				%PlayerScore.text = str(entry.score)
+				personal_score.text = str(int(entry.score))
+				%PlayerScore.text = personal_score.text 
 				break
 	
 	
@@ -231,7 +231,7 @@ func on_get_classic_leaderboard_complete(weekly_lederboard: Array) -> void:
 		
 		entry_leaderboard.get_node("Panel/HBoxContainer/VBoxContainer/Rank").text = rank
 		entry_leaderboard.get_node("Panel/HBoxContainer/HBoxContainer/HBoxContainer/PlayerName").text = entry.username
-		entry_leaderboard.get_node("Panel/HBoxContainer/VBoxContainer3/Score").text = str(entry.score)
+		entry_leaderboard.get_node("Panel/HBoxContainer/VBoxContainer3/Score").text = str(int(entry.score))
 		leaderboard_entry_container.add_child(entry_leaderboard)
 	set_personal_entry(weekly_lederboard)
 	

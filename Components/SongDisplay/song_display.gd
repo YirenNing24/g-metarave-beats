@@ -39,7 +39,6 @@ func _on_initiate_start_button_pressed() -> void:
 	if PLAYER.current_energy == 0:
 		no_energy.emit()
 		return
-		
 	cancel_button.visible = true
 	on_song_selected()
 	disable_not_selected_songs()

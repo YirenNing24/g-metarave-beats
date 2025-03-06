@@ -3022,6 +3022,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+mouse_force_pass_scroll_events = false
 script = ExtResource("1_2k00p")
 
 [node name="BackgroundTexture" type="TextureRect" parent="."]
@@ -3445,7 +3447,8 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-mouse_filter = 2
+mouse_filter = 0
+mouse_force_pass_scroll_events = false
 
 [node name="No Doubt" type="Panel" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer"]
 custom_minimum_size = Vector2(0, 45)
@@ -3529,15 +3532,14 @@ custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 0
-alignment = 1
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Deep In Love/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 1
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("12_c06dv")
 theme_override_font_sizes/font_size = 16
-text = "Deep In Love
-"
+text = "Deep In Love"
 vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Deep In Love/HBoxContainer/VBoxContainer"]
@@ -3637,8 +3639,7 @@ layout_mode = 2
 size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("12_c06dv")
 theme_override_font_sizes/font_size = 16
-text = "Look At Me
-"
+text = "Look At Me"
 vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Look At Me/HBoxContainer/VBoxContainer"]
@@ -3688,8 +3689,7 @@ layout_mode = 2
 size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("12_c06dv")
 theme_override_font_sizes/font_size = 16
-text = "Anti-Hero
-"
+text = "Anti-Hero"
 vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Anti-Hero/HBoxContainer/VBoxContainer"]
@@ -3739,8 +3739,7 @@ layout_mode = 2
 size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("12_c06dv")
 theme_override_font_sizes/font_size = 16
-text = "Honey
-"
+text = "Honey"
 vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Honey/HBoxContainer/VBoxContainer"]
@@ -3790,8 +3789,7 @@ layout_mode = 2
 size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("12_c06dv")
 theme_override_font_sizes/font_size = 16
-text = "Flash
-"
+text = "Flash"
 vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SongPicker/ScrollContainer/SongListContainer/Flash/HBoxContainer/VBoxContainer"]
@@ -4054,7 +4052,7 @@ texture_hover = ExtResource("10_vq0qi")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_66bi6")
+&"": SubResource("AnimationLibrary_66bi6")
 }
 
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer2/Panel/VBoxContainer/HBoxContainer/Panel/HBoxContainer/GameModeOption" to="." method="_on_game_mode_option_item_selected"]

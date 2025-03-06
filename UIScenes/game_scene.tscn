@@ -67,4 +67,6 @@ z_index = 4
 [connection signal="notepicker_position" from="Game/Road" to="Game" method="_on_road_notepicker_position"]
 [connection signal="song_finished" from="Game/Music" to="Game/CanvasLayer/UserHUD" method="_on_music_song_finished"]
 [connection signal="hit_display_data" from="Game/CanvasLayer/UserHUD" to="Game/HitDisplay" method="_on_user_hud_hit_display_data"]
+[connection signal="pause_button_pressed" from="Game/CanvasLayer/UserHUD" to="Game/Music" method="_on_user_hud_pause_button_pressed"]
+[connection signal="play_button_pressed" from="Game/CanvasLayer/UserHUD" to="Game/Music" method="_on_user_hud_play_button_pressed"]
 [connection signal="loading_finished" from="Game/CanvasLayer/LoadingScreen" to="Game" method="_on_loading_screen_loading_finished"]
