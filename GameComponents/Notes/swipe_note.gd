@@ -41,6 +41,7 @@ var picker: Node3D = null
 
 
 func _ready() -> void:
+	print("Swipe po ako")
 	set_note_position()
 	connect_notes()
 	var _note_connect: int = note_area.area_entered.connect(_on_area_entered)

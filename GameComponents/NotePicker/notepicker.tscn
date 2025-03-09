@@ -143,7 +143,7 @@ size = Vector3(0.12, 0.5, 1)
 size = Vector3(0.12, 0.5, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d5ims"]
-size = Vector3(1.8, 0.5, 1)
+size = Vector3(1.35, 0.5, 3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tx1l3"]
 size = Vector3(0.2, 0.5, 1)
@@ -728,25 +728,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.2, 0, 0, 0)
 script = ExtResource("1_nn2og")
 
 [node name="BadAreaEarly" type="Area3D" parent="." groups=["bad_area", "picker_area"]]
-transform = Transform3D(1, 0, 0, 0, 0.999998, 0, 0, 0, 0.999998, -0.518658, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.999998, 0, 0, 0, 0.999998, -0.561205, 0, 0)
 
 [node name="BadEarly" type="CollisionShape3D" parent="BadAreaEarly"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.201082, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.181139, 0, 0)
 shape = SubResource("BoxShape3D_8tmit")
 
 [node name="GoodArea" type="Area3D" parent="." groups=["good_area", "picker_area"]]
-transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, -1.02135, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, -0.398198, 0, 0)
 monitorable = false
 
 [node name="Good" type="CollisionShape3D" parent="GoodArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.427152, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.140206, 0, 0)
 shape = SubResource("BoxShape3D_aig7u")
 
 [node name="VeryGoodAreaEarly" type="Area3D" parent="." groups=["picker_area", "verygood_area"]]
-transform = Transform3D(1, 0, 0, 0, 0.999996, 0, 0, 0, 0.999996, -0.274594, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.999996, 0, 0, 0, 0.999996, -0.298065, 0, 0)
 
 [node name="VeryGoodEarly" type="CollisionShape3D" parent="VeryGoodAreaEarly"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.196952, 0, 2.08189e-12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0445251, 0, 0)
 shape = SubResource("BoxShape3D_adcft")
 
 [node name="PerfectArea" type="Area3D" parent="." groups=["perfect_area", "picker_area"]]
@@ -757,24 +757,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.303589, 0, 0)
 shape = SubResource("BoxShape3D_d5ims")
 
 [node name="VeryGoodAreaLate" type="Area3D" parent="." groups=["picker_area", "verygood_area"]]
-transform = Transform3D(1, 0, 0, 0, 0.999996, 0, 0, 0, 0.999996, 0.650389, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.999996, 0, 0, 0, 0.999996, 1.30105, 0, 0)
 
 [node name="VeryGoodLate" type="CollisionShape3D" parent="VeryGoodAreaLate"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.808027, 0, 2.08189e-12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00353241, 0, 0)
 shape = SubResource("BoxShape3D_adcft")
 
 [node name="BadAreaLate" type="Area3D" parent="." groups=["bad_area", "picker_area"]]
-transform = Transform3D(1, 0, 0, 0, 0.999997, 0, 0, 0, 0.999997, 0.77088, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0, 0, 0, 0.999997, 1.46774, 0, 0)
 
 [node name="BadLate" type="CollisionShape3D" parent="BadAreaLate"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.812502, 0, 2.08189e-12)
 shape = SubResource("BoxShape3D_8tmit")
 
 [node name="MissArea" type="Area3D" parent="." groups=["miss_area", "picker_area"]]
-transform = Transform3D(1, 0, 0, 0, 0.999997, 0, 0, 0, 0.999997, 0.931815, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0, 0, 0, 0.999997, 1.69656, 0, 0)
 
 [node name="Miss" type="CollisionShape3D" parent="MissArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.817786, 0, 0)
 shape = SubResource("BoxShape3D_tx1l3")
 
 [node name="FXHighLight" type="MeshInstance3D" parent="."]

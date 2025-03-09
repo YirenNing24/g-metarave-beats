@@ -14,7 +14,7 @@ extends Control
 @onready var right_difficulty_button: TextureButton = %RightDifficultyButton
 
 const song_display: PackedScene = preload("res://Components/SongDisplay/song_display.tscn")
-const songs_directory: String = "res://Songs/"
+
 var song_files: Array[Dictionary]
 var map_changed: bool = false
 var selected_map: String
@@ -25,6 +25,7 @@ var recharge_interval : int = 60 * 60 * 1000 # 1 hour in milliseconds
 
 const difficulty: Array[String] = ['easy', 'medium', 'hard', 'ultra hard']
 var difficulty_mode: String = "easy" #default
+var currently_highlighted_song: String = "No Doubt"
 
 var energy_available: bool = false
 
@@ -34,16 +35,14 @@ func _ready() -> void:
 	parse_song_files()
 	list_songs()
 	hud_data()
-	songs_difficulty_visibility()
-	connect_signals()
 	
+	connect_signals()
+	#songs_difficulty_visibility()
 	left_difficulty_button.disabled = true
 	left_difficulty_button.modulate = "ffffff68"
-	#BKMREngine.beats_server_connect()
 	
 	
 func _process(delta: float) -> void:
-	#game_server_connection_check()
 	energy_check(delta)
 	
 	
@@ -85,7 +84,7 @@ func on_get_classic_high_score_complete(high_scores: Array[Dictionary]) -> void:
 		song_map[song.name] = song
 	
 	# Update high scores using the map
-	for score: Dictionary in high_scores:
+	for score: Dictionary[String, Variant] in high_scores:
 		var song_name: String = score.scoreStats.finalStats.songName
 		if song_map.has(song_name):
 			var high_score: String = str(score.scoreStats.finalStats.score)
@@ -135,8 +134,9 @@ func energy_check(delta: float) -> void:
 
 # Parse the song files in the specified directory.
 func parse_song_files() -> void:
+	const songs_directory: String = "res://Songs/"
 	# Initialize arrays to store file names and directories.
-	var file_names: Array = []
+	var file_names: Array[Array] = []
 	var dir: DirAccess = DirAccess.open(songs_directory)
 
 	if dir:
@@ -156,7 +156,7 @@ func parse_song_files() -> void:
 		dir.list_dir_end()
 
 		# Parse each song file.
-		for file_name_entry: Array in file_names:
+		for file_name_entry: Array[String] in file_names:
 			parse_song_file(file_name_entry)
 	
 	
@@ -188,7 +188,7 @@ func parse_song_file(file_name_entry: Array) -> void:
 	
 # Recursively search subdirectories for .json files.
 func search_dir(dir_name: String) -> Array:
-	var file_names: Array = []
+	var file_names: Array[Array] = []
 	var dir: DirAccess = DirAccess.open(dir_name)
 
 	if dir:
@@ -207,26 +207,55 @@ func search_dir(dir_name: String) -> Array:
 	else:
 		return []
 	
-	
+
 # List the parsed songs in the UI.
 func list_songs() -> void:
-	for song: Dictionary in song_files:
-		var songs: Control = song_display.instantiate()
-		songs.song = song
-		songs.name = song.audio.title
-		
-		var song_title: String = 'UITextures/SongMenu/' + song.audio.title.to_lower().replace(' ', '') + '.png'
-		songs.get_node("TextureRect/SongArt").texture = load(song_title)
-		songs.difficulty = song.difficulty
-		song_list_container.add_child(songs)
-		
-		songs.song_selected.connect(song_selected)
-		songs.song_selected.connect(song_unfocused_selected.bind(songs.get_index()))
-		songs.song_started.connect(song_start)
-		songs.song_canceled.connect(song_cancel)
-		songs.no_energy.connect(_on_no_energy)
-	get_classic_high_score()
+	var grouped_songs: Dictionary = {}  # Store unique songs by title
 	
+	# Group songs by title
+	for song: Dictionary[String, Variant] in song_files:
+		var title: String = song.audio.title
+		
+		# If the song title is not yet in grouped_songs, create a new entry
+		if not grouped_songs.has(title):
+			grouped_songs[title] = {
+				"easy": {},
+				"medium": {},
+				"hard": {},
+				"ultra_hard": {}
+			}
+		
+		# Assign the song to its respective difficulty
+		grouped_songs[title][song.difficulty] = song
+
+	# Instantiate only one song_display per title
+	for title: String in grouped_songs.keys():
+		var song_entry: Control = song_display.instantiate()
+		song_entry.name = title
+
+		# Ensure each difficulty level gets a valid dictionary, even if empty
+		song_entry.song_easy = grouped_songs[title]["easy"] if grouped_songs[title]["easy"] else {}
+		song_entry.song_medium = grouped_songs[title]["medium"] if grouped_songs[title]["medium"] else {}
+		song_entry.song_hard = grouped_songs[title]["hard"] if grouped_songs[title]["hard"] else {}
+		song_entry.song_ultra_hard = grouped_songs[title]["ultra_hard"] if grouped_songs[title]["ultra_hard"] else {}
+
+		# Load cover art dynamically
+		var song_title: String = 'UITextures/SongMenu/' + title.to_lower().replace(' ', '') + '.png'
+		song_entry.get_node("TextureRect/SongArt").texture = load(song_title)
+
+		song_list_container.add_child(song_entry)
+
+		# Connect signals
+		song_entry.song_selected.connect(song_selected)
+		song_entry.song_selected.connect(song_unfocused_selected.bind(song_entry.get_index()))
+		song_entry.song_started.connect(song_start)
+		song_entry.song_canceled.connect(song_cancel)
+		song_entry.song_highlighted.connect(song_highlighted)
+		song_entry.no_energy.connect(_on_no_energy)
+	
+	get_classic_high_score()
+	%SongScrollContainer.add_songs()
+
 # Callback function to set the selected map when a song is chosen.
 func set_selected_map(_audio_file: String) -> void:
 	if selected_map != SONG.map_selected.song_folder:
@@ -253,8 +282,29 @@ func _on_close_button_pressed() -> void:
 # Callable function for song selection in the UI.
 func song_selected(display: Control) -> void:
 	song_scroll_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var song_path: String = display.song.audio_file
-	play_preview(song_path)
+	
+	# Determine the correct song variant based on difficulty_mode
+	var selected_song: Dictionary = {}
+	match difficulty_mode:
+		"easy":
+			selected_song = display.song_easy
+		"medium":
+			selected_song = display.song_medium
+		"hard":
+			selected_song = display.song_hard
+		"ultra_hard":
+			selected_song = display.song_ultra_hard
+	
+	# If the selected difficulty does not exist, default to "easy"
+	if selected_song.is_empty():
+		selected_song = display.song_easy
+	
+	# Check if there is a valid song to play
+	if selected_song and selected_song.has("audio_file"):
+		var song_path: String = selected_song.audio_file
+		play_preview(song_path)
+	else:
+		print("No valid song found for", difficulty_mode)
 	
 	
 func song_cancel() -> void:
@@ -268,10 +318,16 @@ func song_unfocused_selected(_song_display: Control, index: int) -> void:
 		 
 func song_start(song_file: String) -> void:
 	if energy_available:
+
 		SONG.difficulty = difficulty_mode
 		set_selected_map(song_file)  
 		var _game_scene: int = await LOADER.load_scene(self, "res://UIScenes/game_scene.tscn")
 	
+	
+func song_highlighted(song_name: String) -> void:
+	if song_name != currently_highlighted_song:
+		currently_highlighted_song = song_name
+
 	
 func _on_left_difficulty_button_pressed() -> void:
 	var current_difficulty: int = difficulty.find(difficulty_mode)
@@ -284,7 +340,7 @@ func _on_left_difficulty_button_pressed() -> void:
 	if difficulty_mode == "easy":
 		left_difficulty_button.disabled = true
 		left_difficulty_button.modulate = "ffffff68"
-	songs_difficulty_visibility()
+	#songs_difficulty_visibility()
 		
 		
 func _on_right_difficulty_button_pressed() -> void:
@@ -298,16 +354,16 @@ func _on_right_difficulty_button_pressed() -> void:
 	if difficulty_mode == "ultra hard":
 		right_difficulty_button.disabled = true
 		right_difficulty_button.modulate = "ffffff68"
-	songs_difficulty_visibility()
+	#songs_difficulty_visibility()
+	
 		
-		
-func songs_difficulty_visibility() -> void:
-	for song: Control in song_list_container.get_children():
-		if song.difficulty != difficulty_mode:
-			song.visible = false
-		else:
-			song.visible = true
-		
+#func songs_difficulty_visibility() -> void:
+	#for song: Control in %HBoxContainer.get_children():
+		#if song.difficulty != difficulty_mode:
+			#song.visible = false
+		#else:
+			#song.visible = true
+	
 		
 func difficulty_update() -> void:
 	difficulty_label.text = difficulty_mode
@@ -332,3 +388,7 @@ func format_scores(value: String) -> String:
 			formattedWholePart = "," + formattedWholePart
 			digitCount = 0
 	return formattedWholePart as String
+	
+	
+func _on_leaderboard_button_pressed() -> void:
+	%Leaderboard2Screen.open_laderboard(currently_highlighted_song, difficulty_mode)

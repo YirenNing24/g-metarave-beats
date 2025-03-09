@@ -16,18 +16,15 @@ func _ready() -> void:
 
 # Add notes to the scene based on the provided bar_data.
 func add_notes() -> void:
-	# Initialize line variable to represent the road lines.
-	var line: int = 1
-	# Iterate through each line's data in the bar_data array.
-	for line_data: Dictionary in bar_data:
-		# Get the notes data for the current line.
-		var notes_data: Array = line_data.notes
-		# Iterate through each note's data in the line.
-		for note_data: Dictionary in notes_data:
-			# Add the note to the scene.
-			add_note(line, note_data)
-		# Move to the next line.
-		line += 1 
+	# Iterate through the indexed `bar_data` to eliminate unnecessary variable assignments.
+	for line: int in bar_data.size():
+		var line_data: Dictionary = bar_data[line]
+		# Check if "notes" exists and is non-empty before processing
+		if line_data.has("notes") and not line_data.notes.is_empty():
+			# Directly iterate over notes to reduce array access overhead
+			for note_data: Dictionary in line_data.notes:
+				add_note(line + 1, note_data)  # Use index directly to avoid extra variable
+
 
 # Add an individual note to the scene.
 func add_note(line: int, note_data: Dictionary) -> void:
@@ -37,7 +34,7 @@ func add_note(line: int, note_data: Dictionary) -> void:
 	
 	if note_length >= 400:
 		note_scene = long_note_scene
-	elif note_data.has("swipe"):
+	elif note_data.swipe == true:
 		note_scene = short_swipe_note_scene
 	else:
 		note_scene = short_note_scene

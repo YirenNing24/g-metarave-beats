@@ -34,7 +34,6 @@ func _ready() -> void:
 	connect_signals()
 	print("anu po size: ", get_viewport().scaling_3d_mode)
 	
-	
 func _on_road_notepicker_position(picker_y_position: float) -> void:
 	var song_map: String = SONG.map_selected.map_file
 	var song_audio_file: String = SONG.map_selected.audio_file

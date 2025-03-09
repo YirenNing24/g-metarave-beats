@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c32csp53qlais"]
+[gd_scene load_steps=24 format=3 uid="uid://c32csp53qlais"]
 
 [ext_resource type="Script" uid="uid://bq00bbbacn0lj" path="res://UIScenes/song_menu.gd" id="1_75gia"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_4tsei"]
@@ -13,7 +13,10 @@
 [ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="7_yex5a"]
 [ext_resource type="Texture2D" uid="uid://df4ks21hiueoy" path="res://UITextures/Buttons/next_prev_button.png" id="8_nwtib"]
 [ext_resource type="Texture2D" uid="uid://u5uvm5snnfq6" path="res://UITextures/PanelElements/difficulty_bg.png" id="9_vyfj1"]
+[ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="14_ffjwp"]
 [ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="14_hpmdr"]
+[ext_resource type="PackedScene" uid="uid://dg0ybplpf6gsk" path="res://UIScenes/leaderboard2_screen.tscn" id="15_pedcv"]
+[ext_resource type="Texture2D" uid="uid://bf6us288ky7tu" path="res://UITextures/Icons/leaderboard_icon.png" id="15_q61l3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_60bj2"]
 shader = ExtResource("5_hfapt")
@@ -420,6 +423,48 @@ text = "History"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="LeaderboardButton" type="TextureButton" parent="BackgroundTexture"]
+self_modulate = Color(0.775064, 0.775063, 0.775063, 1)
+custom_minimum_size = Vector2(220, 55)
+layout_mode = 0
+offset_left = 21.0
+offset_top = 476.0
+offset_right = 241.0
+offset_bottom = 531.0
+size_flags_vertical = 0
+texture_normal = ExtResource("7_yex5a")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/LeaderboardButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -14.5
+offset_right = 70.0
+offset_bottom = 19.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
+theme_override_fonts/font = ExtResource("14_ffjwp")
+theme_override_font_sizes/font_size = 18
+text = "Leaderboard"
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/LeaderboardButton"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 2.00006
+offset_right = 53.0
+offset_bottom = 47.0001
+texture = ExtResource("15_q61l3")
+expand_mode = 1
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 volume_db = -11.363
@@ -466,7 +511,7 @@ libraries = {
 [node name="LoadingPanel" parent="." instance=ExtResource("14_hpmdr")]
 unique_name_in_owner = true
 visible = false
-z_index = 4
+z_index = 5
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
@@ -477,7 +522,14 @@ grow_horizontal = 1
 grow_vertical = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_veeju")
 
+[node name="Leaderboard2Screen" parent="." instance=ExtResource("15_pedcv")]
+unique_name_in_owner = true
+visible = false
+z_index = 4
+layout_mode = 1
+
 [connection signal="pressed" from="BackgroundTexture/HBoxContainer2/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="gui_input" from="BackgroundTexture/SongScrollContainer" to="BackgroundTexture/SongScrollContainer" method="_on_gui_input"]
 [connection signal="pressed" from="BackgroundTexture/HBoxContainer4/HBoxContainer/LeftDifficultyButton" to="." method="_on_left_difficulty_button_pressed"]
 [connection signal="pressed" from="BackgroundTexture/HBoxContainer4/HBoxContainer/RightDifficultyButton" to="." method="_on_right_difficulty_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]

@@ -128,7 +128,6 @@ func _on_SaveClassicHighScore_request_completed(_result: int, response_code: int
 					save_classic_highscore_complete.emit(json_body)
 				else:
 					save_classic_highscore_complete.emit(json_body)
-					print("wahtss up??: ", json_body)
 					classic_game_rewards = json_body
 			else:
 				save_classic_highscore_complete.emit({"error": "Unknown server error"})

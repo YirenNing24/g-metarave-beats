@@ -18,6 +18,7 @@ tonemap_mode = 1
 [node name="GameScene" type="Node"]
 
 [node name="Game" type="Node3D" parent="."]
+physics_interpolation_mode = 1
 script = ExtResource("1_qchx2")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Game"]
@@ -59,10 +60,12 @@ layer = 0
 [node name="UserHUD" parent="Game/CanvasLayer" instance=ExtResource("4_5wd3j")]
 unique_name_in_owner = true
 rotation = 0.000722891
+metadata/_edit_use_anchors_ = true
 
 [node name="LoadingScreen" parent="Game/CanvasLayer" instance=ExtResource("6_ce6x1")]
 unique_name_in_owner = true
 z_index = 4
+metadata/_edit_use_anchors_ = true
 
 [connection signal="notepicker_position" from="Game/Road" to="Game" method="_on_road_notepicker_position"]
 [connection signal="song_finished" from="Game/Music" to="Game/CanvasLayer/UserHUD" method="_on_music_song_finished"]

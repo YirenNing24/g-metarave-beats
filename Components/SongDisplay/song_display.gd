@@ -1,5 +1,6 @@
 extends Control
 
+signal song_highlighted(song_name: String)
 signal song_selected(song: Control)
 signal song_started(song_file: String)
 signal song_canceled
@@ -14,13 +15,22 @@ signal no_energy
 @onready var start_button: Button = %StartButton
 @onready var cancel_button: TextureButton = %CancelButton
 
-var song: Dictionary
+var song_easy: Dictionary
+var song_medium: Dictionary
+var song_hard: Dictionary
+var song_ultra_hard: Dictionary
+
 var start_tween: Tween
 var difficulty: String
 
+
+var difficulty_mode: String
+
 func _ready() -> void:
-	song_title.text = song.audio.title
-	artist.text = song.audio.artist
+	song_title.text = song_easy.audio.title
+	artist.text = song_easy.audio.artist
+	if song_easy.has("tempo"):
+		%Bpm.text = str(int(song_easy.tempo))
 	%StartButton.disabled = false
 	
 func _process(_delta: float) -> void:
@@ -29,11 +39,28 @@ func _process(_delta: float) -> void:
 	
 	
 func set_map() -> void:
-	SONG.map_selected = song
+	difficulty_mode = get_tree().current_scene.difficulty_mode
+	# Select the song data based on the difficulty_mode from the main scene
+	var selected_song: Dictionary = {}
+	match difficulty_mode:
+		"easy":
+			selected_song = song_easy
+		"medium":
+			selected_song = song_medium
+		"hard":
+			selected_song = song_hard
+		"ultra_hard":
+			selected_song = song_ultra_hard
+	
+	# Ensure a valid song is selected
+	if selected_song.is_empty():
+		print("No available song for difficulty: ", difficulty_mode)
+		return
+	SONG.map_selected = selected_song
 	SONG.artist = artist.text
 	SONG.song_name = song_title.text
 	await get_tree().create_timer(0.3).timeout
-	
+
 	
 func _on_initiate_start_button_pressed() -> void:
 	if PLAYER.current_energy == 0:
@@ -60,8 +87,33 @@ func on_song_selected() -> void:
 	
 func _on_start_button_pressed() -> void:
 	start_tween.kill()
-	set_map()
-	song_started.emit(song.audio_file)
+	difficulty_mode = get_tree().current_scene.difficulty_mode
+	# Determine the correct song variant based on difficulty_mode
+	var selected_song: Dictionary = {}
+	match difficulty_mode:
+		"easy":
+			selected_song = song_easy
+		"medium":
+			selected_song = song_medium
+		"hard":
+			selected_song = song_hard
+		"ultra_hard":
+			selected_song = song_ultra_hard
+	
+	# If the selected difficulty does not exist, default to "easy"
+	if selected_song.is_empty():
+		print("Error: No valid song found for ", difficulty_mode)
+		return
+		#selected_song = song_easy
+	
+	# Ensure we have a valid song before emitting the signal
+	if selected_song and selected_song.has("audio_file"):
+		set_map()
+		print(selected_song.difficulty)
+		song_started.emit(selected_song.audio_file)
+	else:
+		print("Error: No valid song found for ", difficulty_mode)
+
 	
 	
 func _on_cancel_button_pressed() -> void:
@@ -79,3 +131,8 @@ func disable_not_selected_songs() -> void:
 	for song_display: Control in get_tree().get_nodes_in_group('SongDisplay'):
 		if song_display.name != name:
 			song_display.initiate_start_button.disabled = true
+
+
+func on_song_highlighted() -> void:
+	song_highlighted.emit(song_title.text)
+	

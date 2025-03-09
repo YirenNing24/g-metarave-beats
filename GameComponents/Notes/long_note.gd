@@ -160,3 +160,4 @@ func connect_notes() -> void:
 		var _1: int = hit_feedback.connect(feedback)
 		var _2: int = hit_continued_feedback.connect(continued_feedback)
 		var _3: int = hit_feedback.connect(add_score)
+		var _4: int = hit_continued_feedback.connect(add_score)

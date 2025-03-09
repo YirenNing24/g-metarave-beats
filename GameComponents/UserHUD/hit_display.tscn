@@ -57,30 +57,30 @@ outline_size = 15
 
 [node name="Hit1" type="AnimatedSprite3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(-1.74846e-08, 0, 0.4, 0, 0.4, 0, -0.4, 0, -1.74846e-08, 3.21636, 0.2, 1.81635)
+transform = Transform3D(-2.62268e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.62268e-08, 3.21636, 0.2, 1.81635)
 sprite_frames = SubResource("SpriteFrames_lmt48")
 animation = &"HitLabel"
 
 [node name="Hit2" type="AnimatedSprite3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(-1.74846e-08, 0, 0.4, 0, 0.4, 0, -0.4, 0, -1.74846e-08, 3.21636, 0.2, 0.957054)
+transform = Transform3D(-2.62268e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.62268e-08, 3.21636, 0.2, 0.957054)
 sprite_frames = SubResource("SpriteFrames_lmt48")
 animation = &"HitLabel"
 
 [node name="Hit3" type="AnimatedSprite3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(-1.74846e-08, 0, 0.4, 0, 0.4, 0, -0.4, 0, -1.74846e-08, 3.21636, 0.2, 0.0997852)
+transform = Transform3D(-2.62268e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.62268e-08, 3.21636, 0.2, 0.0997852)
 sprite_frames = SubResource("SpriteFrames_lmt48")
 animation = &"HitLabel"
 
 [node name="Hit4" type="AnimatedSprite3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(-1.74846e-08, 0, 0.4, 0, 0.4, 0, -0.4, 0, -1.74846e-08, 3.21636, 0.2, -0.760899)
+transform = Transform3D(-2.62268e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.62268e-08, 3.21636, 0.2, -0.760899)
 sprite_frames = SubResource("SpriteFrames_lmt48")
 animation = &"HitLabel"
 
 [node name="Hit5" type="AnimatedSprite3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(-1.74846e-08, 0, 0.4, 0, 0.4, 0, -0.4, 0, -1.74846e-08, 3.21636, 0.2, -1.61648)
+transform = Transform3D(-2.62268e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.62268e-08, 3.21636, 0.2, -1.61648)
 sprite_frames = SubResource("SpriteFrames_lmt48")
 animation = &"HitLabel"

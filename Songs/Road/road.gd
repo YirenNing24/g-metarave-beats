@@ -42,7 +42,10 @@ func setup(game_config: Node3D) -> void:
 	var game_speed: float = game.speed
 	speed = Vector3(0, 0, game_speed)
 	bar_length_in_meters = game.bar_length_in_m
-	current_location = Vector3(0, 0, -bar_length_in_meters)
+	# Instead of placing the first bar at -bar_length_in_meters, put it at 0
+	current_location = Vector3(0, 0, 0)
+	
+	print("Current Location: ", current_location)
 	note_scale = game.note_scale
 
 	current_bar_index = 0
@@ -91,13 +94,16 @@ func add_bar() -> void:
 
 # Method to retrieve the data for the current musical bar.
 func get_bar_data() -> Array[Dictionary]:
-	var irene_data: Dictionary = tracks_data[0].bars[current_bar_index]
-	var seulgi_data: Dictionary = tracks_data[1].bars[current_bar_index]
-	var wendy_data: Dictionary = tracks_data[2].bars[current_bar_index]
-	var joy_data: Dictionary = tracks_data[3].bars[current_bar_index]
-	var yeri_data: Dictionary = tracks_data[4].bars[current_bar_index]
+	var bar_data: Array[Dictionary] = []
 	
-	return [irene_data, seulgi_data, wendy_data, joy_data, yeri_data] 
+	for track: Dictionary in tracks_data:
+		if current_bar_index < len(track.bars):  # Check if index exists
+			bar_data.append(track.bars[current_bar_index])
+		else:
+			bar_data.append({})  # Append an empty dictionary if out of bounds
+	
+	return bar_data
+
 
 
 # Method to remove a musical bar from the scene.

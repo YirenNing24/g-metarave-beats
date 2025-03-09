@@ -35,6 +35,7 @@ var picker: Node3D = null
 
 
 func _ready() -> void:
+	print("Short po ako")
 	connect_notes()
 	var _note_connect: int = note_area.area_entered.connect(_on_area_entered)
 	set_note_position()
@@ -65,7 +66,6 @@ func _physics_process(_delta: float) -> void:
 # Method to handle the collection of the note.
 func collect(is_miss: bool = false) -> void:
 	hit_feedback.emit(accuracy, line)
-	print("collecting: ", accuracy, line)
 	note_body.visible = false
 	collected = true
 	#picker.is_collecting = false
@@ -75,8 +75,6 @@ func collect(is_miss: bool = false) -> void:
 	if not is_miss:
 		picker.note_collect = self
 		
-	
-		print("collecting: ", accuracy, line)
 
 # Method to set the position of the note based on the line and layer.
 func set_note_position() -> void:
@@ -93,7 +91,6 @@ func set_note_position() -> void:
 
 # Method to handle the area entered signal of the note.
 func _on_area_entered(area: Area3D) -> void:
-	print("Area: ", area)
 	if collected:
 		return
 	const area_groups: Array[String] = ["perfect_area", "verygood_area", "good_area", "bad_area", "miss_area"]
@@ -107,4 +104,3 @@ func _on_area_entered(area: Area3D) -> void:
 			if accuracy == 5:
 				collect(true)
 			break
-	

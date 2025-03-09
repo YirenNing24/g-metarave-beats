@@ -18,7 +18,7 @@ var image_x_positions: Array = []
 # Tween for animations
 var tween: Tween
 
-func _ready() -> void:
+func add_songs() -> void:
 	# Wait for the next frame to ensure all nodes are properly initialized
 	await get_tree().process_frame
 
@@ -28,38 +28,62 @@ func _ready() -> void:
 		var image_pos_x: float = (margin_right + image.position.x) - ((size.x - image.size.x) / 2)
 		image.pivot_offset = (image.size / 2)
 		image_x_positions.append(image_pos_x)
+		var _connect: int = image.visibility_changed.connect(visibility_changed)
 		
 	# Set initial scroll position and perform the initial scroll
 	scroll_horizontal = image_x_positions[image_current_index]
+	
+	
+	scroll()
+
+
+func visibility_changed() -> void:
+	await get_tree().process_frame
+	image_nodes = %HBoxContainer.get_children()
+	
+	for image: Control in image_nodes:
+		if image.visible:
+			print("taena")
+			var image_pos_x: float = (margin_right + image.position.x) - ((size.x - image.size.x) / 2)
+			image.pivot_offset = (image.size / 2)
+			image_x_positions.append(image_pos_x)
+			
+		# Set initial scroll position and perform the initial scroll
+		scroll_horizontal = image_x_positions[image_current_index]
 	
 	scroll()
 
 # Process function for updating UI elements during runtime
 func _process(_delta: float) -> void:
-	for _index: int in range(image_x_positions.size()):
+	
+	for _index: int in range(image_nodes.size()):
+		if not image_nodes[_index].visible:
+			continue  # Skip hidden nodes
+
 		var _card_pos_x: float = image_x_positions[_index]
 
 		# Calculate scaling and opacity based on the current scroll position
 		var _swipe_length: float = (image_nodes[_index].size.x / 2.0) + (image_space / 2.0)
 		var _swipe_current_length: int = abs(_card_pos_x - scroll_horizontal)
-		var _card_scale: float  = remap(_swipe_current_length, _swipe_length, 0, image_scale, image_current_scale)
+		var _card_scale: float = remap(_swipe_current_length, _swipe_length, 0, image_scale, image_current_scale)
 		var _card_opacity: float = remap(_swipe_current_length, _swipe_length, 0, 0.3, 1)
-		
+
 		# Ensure scaling and opacity stay within defined limits
 		_card_scale = clamp(_card_scale, image_scale, image_current_scale)
 		_card_opacity = clamp(_card_opacity, 0.3, 1)
-		
-		# Apply scaling and opacity to image nodes
+
+		# Apply scaling and opacity to visible image nodes
 		image_nodes[_index].scale = Vector2(_card_scale, _card_scale)
 		image_nodes[_index].modulate.a = _card_opacity
-		
+
 		# Get the button node for this song
 		var start_button: TextureButton = image_nodes[_index].get_node("InitiateStartButton")
-
+		var song_display: Control = image_nodes[_index]
 		# Enable button only if this song is in focus, otherwise disable it
 		if _swipe_current_length < _swipe_length:
 			image_current_index = _index
 			start_button.disabled = false
+			song_display.on_song_highlighted()
 		else:
 			start_button.disabled = true
 
