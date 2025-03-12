@@ -55,12 +55,10 @@ var current_card_texture_index: int = 0
 
 
 func _ready() -> void:
-	health = clamp(health, 0, 100) 
-	set_multiplayer_authority(1) 
 	connect_signals()
+	health = clamp(health, 0, 100) 
 	username_label.text = PLAYER.username
 	#%EffectsOnLeft.material.set_shader_parameter("color1", "ffffff01")func add_score(_accuracy: int, _line: int) -> void:
-	score = round(score + (score_accuracy +(score_accuracy * combo / 25)))
 	 
 	
 func connect_signals() -> void:
@@ -410,3 +408,11 @@ func _on_button_pressed() -> void:
 
 func _on_loading_panel_on_play_button_pressed() -> void:
 	play_button_pressed.emit()
+
+
+func _on_music_song_length(time: int) -> void:
+	%SongProgressBar.max_value = time
+	
+	
+func _on_music_song_playback_time(time: int) -> void:
+	%SongProgressBar.value = time

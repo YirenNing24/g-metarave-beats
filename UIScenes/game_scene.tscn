@@ -64,11 +64,13 @@ metadata/_edit_use_anchors_ = true
 
 [node name="LoadingScreen" parent="Game/CanvasLayer" instance=ExtResource("6_ce6x1")]
 unique_name_in_owner = true
+visible = false
 z_index = 4
 metadata/_edit_use_anchors_ = true
 
-[connection signal="notepicker_position" from="Game/Road" to="Game" method="_on_road_notepicker_position"]
 [connection signal="song_finished" from="Game/Music" to="Game/CanvasLayer/UserHUD" method="_on_music_song_finished"]
+[connection signal="song_length" from="Game/Music" to="Game/CanvasLayer/UserHUD" method="_on_music_song_length"]
+[connection signal="song_playback_time" from="Game/Music" to="Game/CanvasLayer/UserHUD" method="_on_music_song_playback_time"]
 [connection signal="hit_display_data" from="Game/CanvasLayer/UserHUD" to="Game/HitDisplay" method="_on_user_hud_hit_display_data"]
 [connection signal="pause_button_pressed" from="Game/CanvasLayer/UserHUD" to="Game/Music" method="_on_user_hud_pause_button_pressed"]
 [connection signal="play_button_pressed" from="Game/CanvasLayer/UserHUD" to="Game/Music" method="_on_user_hud_play_button_pressed"]

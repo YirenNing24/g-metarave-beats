@@ -110,6 +110,7 @@ func _on_get_valid_cards_complete(cards :Array) -> void:
 		
 		card_slots.show_item_store_modal.connect(_on_show_item_store_modal)
 		card_slots.card_buy_button_pressed.connect(_on_card_slot_buy_button_pressed)
+	print("salarin2")
 	%LoadingPanel.tween_kill()
 		
 		
@@ -192,7 +193,8 @@ func _on_yes_button_pressed(item_data: Dictionary, item_type: String) -> void:
 			%LoadingPanel.fake_loader()
 			buy_card_upgrade(item_data)
 		"Card":
-			%LoadingPanel.fake_loader()
+			print("dito ba banda???")
+			%LoadingPanel.fake_loader("buyCard")
 			buy_card(item_data)
 		"CardPack":
 			%LoadingPanel.fake_loader()
@@ -204,28 +206,35 @@ func buy_card(item_data: Dictionary) -> void:
 	var listingId: int = int(item_data.listingId)
 	price_recent = item_data.pricePerToken
 	BKMREngine.Store.buy_card(item_data.uri, listingId, str(price_recent))
-	%LoadingPanel.fake_loader()
+	%LoadingPanel.fake_loader("buyCard")
 		
 		
-func _on_buy_card_complete(_message: Dictionary) -> void:
+func _on_buy_card_complete(message: Dictionary) -> void:
 	if store_item_modal.visible:
 		store_item_modal.visible = false
 	%LoadingPanel.tween_kill()
 	%FilterPanel.visible = false
 	
 	var current_beats_balance: int = beats_balance.text.to_int()
-	if not _message.has("error"):
+	if not message.has("error"):
 		if current_beats_balance != 0:
 			beats_balance.text = format_balance(str(current_beats_balance - price_recent))
-			
-	confirm_yes_button.pressed.disconnect(_on_yes_button_pressed)
+	else:
+		%ErrorMessage.text = "Error encountered or card sold already"
+		%AnimationPlayer.play("ErrorMessage")
+
+	%YesButton.pressed.disconnect(_on_yes_button_pressed)
 	%LoadingPanel.fake_loader()
 	BKMREngine.Store.get_valid_cards()
+	%ErrorMessage.text = "Purchase complete"
+	%AnimationPlayer.play("ErrorMessage")
+
 
 	
 func _on_store_item_modal_buy_pressed(recent_price: String) -> void:
+	%LoadingPanel.fake_loader("buyCard")
 	price_recent = recent_price.to_int()
-	%LoadingPanel.fake_loader()
+	
 
 
 func buy_card_upgrade(item_data: Dictionary) -> void:

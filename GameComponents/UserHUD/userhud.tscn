@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://j1ox362pqin7"]
+[gd_scene load_steps=18 format=3 uid="uid://j1ox362pqin7"]
 
 [ext_resource type="Script" uid="uid://wmw1ektr0fvo" path="res://GameComponents/UserHUD/userhud.gd" id="1_5118n"]
 [ext_resource type="Texture2D" uid="uid://4euq5v0yi5wh" path="res://UITextures/Progress/song_exp.png" id="1_jofs5"]
@@ -6,7 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://74d22xpi5g4s" path="res://UITextures/Progress/player_exp_progress.png" id="3_3qn4g"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="5_2lmvi"]
 [ext_resource type="FontFile" uid="uid://cfpnum8trj6m7" path="res://UITextures/Fonts/HankenGrotesk-SemiBold.ttf" id="5_b27at"]
+[ext_resource type="Texture2D" uid="uid://fadyu86xt0om" path="res://UITextures/Progress/buy_base.png" id="7_0wnj4"]
 [ext_resource type="Texture2D" uid="uid://bl15da1eeo2o6" path="res://UITextures/Cards/esha_no_doubt_genesis.png" id="8_cpap7"]
+[ext_resource type="Texture2D" uid="uid://cam62c8r5h2y" path="res://UITextures/Progress/buy_progress.png" id="8_eux1t"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="9_2ykvj"]
 [ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="10_cgamq"]
 [ext_resource type="Texture2D" uid="uid://bslg10kvvpknk" path="res://UITextures/Icons/play_icon.png" id="11_ekce0"]
@@ -150,6 +152,29 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.22
+
+[node name="SongProgressBar" type="TextureProgressBar" parent="VBoxContainer/HBoxContainer/HBoxContainer4"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(450, 60)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+nine_patch_stretch = true
+texture_under = ExtResource("7_0wnj4")
+texture_progress = ExtResource("8_eux1t")
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer4/SongProgressBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0433213
+anchor_top = 0.727273
+anchor_right = 0.309988
+anchor_bottom = 0.972727
+theme_override_fonts/font = ExtResource("5_2lmvi")
+theme_override_font_sizes/font_size = 16
+text = "PROGRESS"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 120)

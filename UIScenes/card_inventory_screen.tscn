@@ -233,13 +233,12 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/tab_selected = SubResource("StyleBoxTexture_ahlu7")
 theme_override_styles/tab_hovered = SubResource("StyleBoxEmpty_mhja2")
 theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_o7lcf")
-current_tab = 1
+current_tab = 0
 clip_tabs = false
 tab_focus_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="X_IN" type="TabBar" parent="TextureRect/InventoryTabContainer"]
-visible = false
 layout_mode = 2
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_3ma8w")
 metadata/_tab_index = 0
@@ -806,6 +805,7 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="GREAT_GUYS" type="TabBar" parent="TextureRect/InventoryTabContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_3ma8w")
 metadata/_tab_index = 1
@@ -2229,7 +2229,7 @@ grow_vertical = 2
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_dwomd")
+&"": SubResource("AnimationLibrary_dwomd")
 }
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]

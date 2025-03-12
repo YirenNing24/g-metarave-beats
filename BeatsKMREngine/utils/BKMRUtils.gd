@@ -9,10 +9,10 @@ static func get_timestamp() -> float:
 	var timestamp: float = round((unix_time - unix_time_int) * 1000.0)
 	return timestamp
 
-static func check_http_response(response_code: int, headers: Array, body: PackedByteArray) -> bool:
+static func check_http_response(response_code: int, headers: Array, _body: PackedByteArray) -> bool:
 	BKMRLogger.debug("response code: " + str(response_code))
 	BKMRLogger.debug("response headers: " + str(headers))
-	BKMRLogger.debug("response body: " + str(body.get_string_from_utf8()))
+	#BKMRLogger.debug("response body: " + str(body.get_string_from_utf8()))
 	var check_ok:bool = true
 	if response_code == 0:
 		no_connection_error()

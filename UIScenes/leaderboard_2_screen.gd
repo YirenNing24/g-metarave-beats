@@ -29,21 +29,21 @@ func open_laderboard(current_song: String, difficulty: String) -> void:
 	%SongName.text = current_song
 	song_title = current_song
 	song_difficulty = difficulty
+	print("tingin nga: ", difficulty)
 	classic_mode_selected()
 	visible = true
 	
-
+	
 func change_difficulty_option_selected() -> void:
 	var difficulty_map: Dictionary[String, int]= {
-		"Easy": 0,
-		"Medium": 1,
-		"Hard": 2,
-		"Ultra Hard": 3
+		"easy": 0,
+		"medium": 1,
+		"hard": 2,
+		"ultra hard": 3
 	}
 
 	if song_difficulty in difficulty_map:
 		%DifficultyOption.selected = difficulty_map[song_difficulty]
-
 	
 	
 func _on_close_button_pressed() -> void:

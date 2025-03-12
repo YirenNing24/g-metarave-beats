@@ -30,7 +30,7 @@ func _ready() -> void:
 	
 	var score_stats: Dictionary = BKMREngine.Score.classic_game_rewards
 	display_score(score_stats)
-	
+	%SongNameDiificulty.text = SONG.song_name + " - " + SONG.difficulty
 	
 func signal_connect() -> void:
 	#var _1: int = MULTIPLAYER.classic_game_over_completed.connect(display_score)
@@ -132,3 +132,16 @@ func _on_close_button_pressed() -> void:
 	LOADER.previous_texture = background_texture.texture
 	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
+
+
+func _on_retry_button_pressed() -> void:
+	if PLAYER.current_energy > 0:
+		# Allow retry logic here
+		var _game_scene: int = await LOADER.load_scene(self, "res://UIScenes/game_scene.tscn")
+	else:
+		# Handle no energy case
+		print("Not enough energy to retry!")
+	
+	
+func _on_retry_button_2_pressed() -> void:
+	var _game_scene: int = await LOADER.load_scene(self, "res://UIScenes/song_menu.tscn")

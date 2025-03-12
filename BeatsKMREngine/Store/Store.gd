@@ -59,10 +59,6 @@ func _onGetValidCards_request_completed(_result: int, response_code: int, header
 	# Check if the HTTP response is successful
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	
-	# Free the request resources if the HTTP request instance is valid
-	if is_instance_valid(GetValidCards):
-		BKMREngine.free_request(wrGetValidCards, GetValidCards)
-	
 	# Process the response if the HTTP response is successful
 	if status_check:
 		# Parse the JSON response body and store the retrieved cards for sale
@@ -75,6 +71,7 @@ func _onGetValidCards_request_completed(_result: int, response_code: int, header
 				get_valid_cards_complete.emit(json_body)
 			else:
 				get_valid_cards_complete.emit(json_body)
+				
 		else:
 			get_valid_cards_complete.emit({"error": "Unknown server error"})
 		# Emit the signal indicating that the get cards request is complete

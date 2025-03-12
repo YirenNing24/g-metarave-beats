@@ -1,6 +1,8 @@
 extends Node3D
 
 signal song_finished
+signal song_playback_time(time: int)
+signal song_length(time: int)
 
 @onready var audio_player: AudioStreamPlayer = %AudioStreamPlayer
 
@@ -16,8 +18,16 @@ var playback_postion: float
 func play_song(path: String) -> void:
 	var stream: AudioStreamOggVorbis = ResourceLoader.load(path)
 	audio_player.set_stream(stream)
+	var length: int = audio_player.stream.get_length()
 
+	song_length.emit(length)
+	
 
+func _physics_process(_delta: float) -> void:
+	var playback_time: int = %AudioStreamPlayer.get_playback_position() + AudioServer.get_time_since_last_mix()
+	song_playback_time.emit(playback_time)
+	
+	
 # Set up the audio player for the game
 func setup(game: Node3D) -> void:
 	# Set up the audio player for the game.

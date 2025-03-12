@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dvqwd1vjvgbtk"]
+[gd_scene load_steps=39 format=3 uid="uid://dvqwd1vjvgbtk"]
 
 [ext_resource type="Script" uid="uid://cfjvxxjjt2y32" path="res://UIScenes/game_over.gd" id="1_cnrlt"]
 [ext_resource type="Texture2D" uid="uid://bnj6rvdpuh0fc" path="res://UITextures/BGTextures/main_city.png" id="2_jjkhf"]
@@ -15,8 +15,10 @@
 [ext_resource type="Texture2D" uid="uid://ym02txfwpfvg" path="res://UITextures/Icons/beats_icon.png" id="9_kjfya"]
 [ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="10_bscnk"]
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="10_xfc4x"]
+[ext_resource type="Texture2D" uid="uid://df4ks21hiueoy" path="res://UITextures/Buttons/next_prev_button.png" id="12_e0nvl"]
 [ext_resource type="Texture2D" uid="uid://dmxpmc3ckn6tt" path="res://UITextures/GameTextures/kperfect.png" id="12_loamo"]
 [ext_resource type="Texture2D" uid="uid://do8jreuy76wp2" path="res://UITextures/GameTextures/verygood.png" id="13_2yhbe"]
+[ext_resource type="Texture2D" uid="uid://bf6us288ky7tu" path="res://UITextures/Icons/leaderboard_icon.png" id="13_bqmwx"]
 [ext_resource type="Texture2D" uid="uid://vofwmpcudyxn" path="res://UITextures/GameTextures/good.png" id="14_whd5v"]
 [ext_resource type="Texture2D" uid="uid://cxgr2m8ocpfv0" path="res://UITextures/GameTextures/bad.png" id="15_r7hlv"]
 [ext_resource type="Texture2D" uid="uid://gjgvcsqa6t5f" path="res://UITextures/GameTextures/miss.png" id="16_fmltj"]
@@ -426,6 +428,83 @@ layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/TextureRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="RetryButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer/TextureRect/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+texture_normal = ExtResource("12_e0nvl")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="EnergyBalance" type="Label" parent="BackgroundTexture/HBoxContainer/TextureRect/VBoxContainer/HBoxContainer/RetryButton"]
+custom_minimum_size = Vector2(93, 20)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -46.5
+offset_top = -14.0
+offset_right = 46.5
+offset_bottom = 7.00003
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.912289, 0.912289, 0.912289, 1)
+theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_font_sizes/font_size = 16
+text = "RETRY"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="RetryButton2" type="TextureButton" parent="BackgroundTexture/HBoxContainer/TextureRect/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_vertical = 4
+texture_normal = ExtResource("13_bqmwx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="EnergyBalance" type="Label" parent="BackgroundTexture/HBoxContainer/TextureRect/VBoxContainer/HBoxContainer/RetryButton2"]
+custom_minimum_size = Vector2(93, 20)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -3.99997
+offset_right = 48.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.912289, 0.912289, 0.912289, 1)
+theme_override_fonts/font = ExtResource("4_64gxq")
+theme_override_font_sizes/font_size = 16
+text = "SONG MENU"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
 [node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -439,9 +518,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_v6myh")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0686937
-anchor_top = 0.0932755
+anchor_top = 0.149675
 anchor_right = 0.940315
-anchor_bottom = 0.906725
+anchor_bottom = 0.963124
 theme_override_styles/panel = SubResource("StyleBoxFlat_6p4tf")
 metadata/_edit_use_anchors_ = true
 
@@ -449,9 +528,9 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0664414
-anchor_top = 0.0932755
+anchor_top = 0.140998
 anchor_right = 0.939189
-anchor_bottom = 0.908894
+anchor_bottom = 0.956616
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_2s2i2")
@@ -1379,6 +1458,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="SongNameDiificulty" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/TextureRect"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(130, 30)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 18.0
+offset_top = 6.0
+offset_bottom = 65.0
+grow_horizontal = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.909804, 0.909804, 0.909804, 1)
+theme_override_fonts/font = ExtResource("8_03vso")
+theme_override_font_sizes/font_size = 28
+text = "SCORE"
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+uppercase = true
+
 [node name="LoadingPanel" parent="." instance=ExtResource("16_wllxy")]
 unique_name_in_owner = true
 visible = false
@@ -1394,3 +1493,5 @@ grow_vertical = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_k0tge")
 
 [connection signal="pressed" from="BackgroundTexture/HBoxContainer2/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/HBoxContainer/TextureRect/VBoxContainer/HBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/HBoxContainer/TextureRect/VBoxContainer/HBoxContainer/RetryButton2" to="." method="_on_retry_button_2_pressed"]

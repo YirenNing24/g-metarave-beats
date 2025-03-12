@@ -2,28 +2,47 @@ extends Panel
 
 signal on_play_button_pressed
 
+var active_timer: SceneTreeTimer = null  # Store the active timer reference
 
-func fake_loader() -> void:
+func fake_loader(transaction_name: String = "") -> void:
+	var loading_time: float
+	match transaction_name:
+		"":
+			loading_time = 30.0
+		"buyCard":
+			loading_time = 90.0
+		
 	visible = true
 	$AnimatedSprite2D.play("default")
-	var _timer: int = get_tree().create_timer(30).timeout.connect(tween_kill)
+
+	# Ensure any existing timer is disconnected before creating a new one
+	if active_timer:
+		active_timer.timeout.disconnect(tween_kill)
+	
+	active_timer = get_tree().create_timer(loading_time)
+	var  _yes: int = active_timer.timeout.connect(tween_kill)
 	
 	
 func tween_kill() -> void:
-	visible = false
-	$AnimatedSprite2D.stop()
-	
+	# Prevent multiple calls by checking if there's an active timer
+	if active_timer:
+		visible = false
+		$AnimatedSprite2D.stop()
 
+		# Disconnect and nullify the timer to avoid redundant calls
+		active_timer.timeout.disconnect(tween_kill)
+		active_timer = null
+	
+	
 func set_message(message: String) -> void:
 	%Message.text = message
 	if message == "YOU ARE ON PAUSE":
 		%PlayButton.visible = true
-
-
+	
+	
 func _on_play_button_pressed() -> void:
 	on_play_button_pressed.emit()
 	Engine.time_scale = 1
 	visible = false
 	%PlayButton.visible = false
 	%Message.text = "Please wait..."
-	

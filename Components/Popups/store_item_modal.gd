@@ -81,6 +81,7 @@ func _on_buy_button_pressed() -> void:
 	var afford: bool = get_parent().check_cost_and_funds(int(card_price))
 	if not afford:
 		return
+	
 	BKMREngine.Store.buy_card(card_uri, int(listing_id), str(card_price))
 	store_item_buy_pressed.emit(price.text)
 	
