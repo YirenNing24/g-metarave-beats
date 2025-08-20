@@ -1,5 +1,6 @@
 extends Control
 
+#TODO add beatmap completion
 
 @onready var background_texture: TextureRect = %BackgroundTexture
 @onready var audio_player: AudioStreamPlayer = %AudioStreamPlayer
@@ -26,20 +27,25 @@ var recharge_interval : int = 60 * 60 * 1000 # 1 hour in milliseconds
 const difficulty: Array[String] = ['easy', 'medium', 'hard', 'ultra hard']
 var difficulty_mode: String = "easy" #default
 var currently_highlighted_song: String = "No Doubt"
+var all_scores: Dictionary = {} # Global or class-level if needed
 
 var energy_available: bool = false
 
+
 func _ready() -> void:
+	if not SONG.difficulty.is_empty():
+		difficulty_mode = SONG.difficulty
+		difficulty_update()
+	update_difficulty_buttons()
 	%LoadingPanel.fake_loader()
-	BKMREngine.Energy.use_player_energy()
 	parse_song_files()
 	list_songs()
 	hud_data()
-	
 	connect_signals()
-	#songs_difficulty_visibility()
-	left_difficulty_button.disabled = true
-	left_difficulty_button.modulate = "ffffff68"
+	if difficulty_mode == "easy":
+		left_difficulty_button.modulate = "ffffff68"
+	else:
+		left_difficulty_button.modulate = "ffffffff"
 	
 	
 func _process(delta: float) -> void:
@@ -49,13 +55,20 @@ func _process(delta: float) -> void:
 func connect_signals() -> void:
 	BKMREngine.Score.get_player_highscore_per_song_complete.connect(_on_get_player_highscore_per_song_complete)
 	BKMREngine.Energy.use_player_energy_complete.connect(_on_use_player_energy_complete)
+	check_energy()
+	var _l: int = left_difficulty_button.pressed.connect(_on_left_difficulty_button_pressed)
+	var _r: int = right_difficulty_button.pressed.connect(_on_right_difficulty_button_pressed)
+
+	
+func check_energy() -> void:
+	if PLAYER.current_energy > 0:
+		energy_available = true
 	
 	
 func _on_use_player_energy_complete(energy_data: Dictionary) -> void:
 	if energy_data.energy == true:
 		energy_available = true
 		BKMREngine.Energy.game_id = energy_data.gameId
-	%LoadingPanel.tween_kill()
 	
 	
 func get_classic_high_score() -> void:
@@ -63,19 +76,37 @@ func get_classic_high_score() -> void:
 	
 	
 func _on_get_player_highscore_per_song_complete(scores: Array) -> void:
-	# Map song names to their corresponding Control nodes
-	var song_map: Dictionary
+	# Group scores by song name and difficulty
+	all_scores.clear()
+	for score_data: Dictionary in scores:
+		var key: String = "%s|%s" % [score_data.songName, score_data.difficulty]
+		all_scores[key] = score_data
+	
+	update_scores_display()
+	%LoadingPanel.tween_kill()
+	
+	
+func update_scores_display() -> void:
+	var song_map: Dictionary = {}
 	for song: Control in song_list_container.get_children():
 		song_map[song.name] = song
 	
-	# Update high scores using the map
-	for score_data: Dictionary in scores:
-		var song_name: String = score_data.songName
-		if song_map.has(song_name):
+	for song_name: String in song_map.keys():
+		var song_node: Control = song_map[song_name]
+		var key: String = "%s|%s" % [song_name, difficulty_mode]
+
+		# Default BPM based on difficulty
+		var bpm_text: String = "170" if difficulty_mode == "easy" or difficulty_mode == "medium" else "199"
+		song_node.get_node("VBoxContainer/HBoxContainer/TextureRect/TextureProgressBar/Bpm3/Bpm").text = bpm_text
+
+		if all_scores.has(key):
+			var score_data: Dictionary = all_scores[key]
 			var high_score: String = str(score_data.score)
 			var formatted_high_score: String = format_scores(high_score)
-			song_map[song_name].get_node("HBoxContainer2/HBoxContainer/HighScoreLabel").text = formatted_high_score
-
+			song_node.get_node("HBoxContainer2/HBoxContainer/HighScoreLabel").text = formatted_high_score
+		else:
+			song_node.get_node("HBoxContainer2/HBoxContainer/HighScoreLabel").text = "0"
+	
 	
 func on_get_classic_high_score_complete(high_scores: Array[Dictionary]) -> void:
 	# Map song names to their corresponding Control nodes
@@ -94,12 +125,20 @@ func on_get_classic_high_score_complete(high_scores: Array[Dictionary]) -> void:
 	
 # Initialize HUD data, such as energy, beats, and kmr balances.
 func hud_data() -> void:
+	%LoadingPanel.fake_loader()
 	beats_balance.text = PLAYER.beats_balance
 	gmr_balance.text = PLAYER.gmr_balance
 	#native_balance.text = PLAYER.native_balance
 	%Energy.text = str(PLAYER.current_energy) + " " + "/" + " " + str(PLAYER.max_energy)
 	if PLAYER.time_until_next_recharge != 0:
 		start_recharge_countdown(PLAYER.time_until_next_recharge)
+	get_battery_percentage()
+	
+	
+func get_battery_percentage() -> void:
+	var battery_level: int = int(AndroidInterface.get_battery_level())
+	%BatteryPercentage.text = str(battery_level) + "%"
+	var _c:int = get_tree().create_timer(15.0).timeout.connect(get_battery_percentage)
 	
 	
 func start_recharge_countdown(time_until_next: int) -> void:
@@ -131,7 +170,7 @@ func energy_check(delta: float) -> void:
 			# Energy is maxed out, hide recharge progress
 			%EnergyRecharge.visible = false
 	
-
+	
 # Parse the song files in the specified directory.
 func parse_song_files() -> void:
 	const songs_directory: String = "res://Songs/"
@@ -207,7 +246,7 @@ func search_dir(dir_name: String) -> Array:
 	else:
 		return []
 	
-
+	
 # List the parsed songs in the UI.
 func list_songs() -> void:
 	var grouped_songs: Dictionary = {}  # Store unique songs by title
@@ -222,7 +261,7 @@ func list_songs() -> void:
 				"easy": {},
 				"medium": {},
 				"hard": {},
-				"ultra_hard": {}
+				"ultra hard": {}
 			}
 		
 		# Assign the song to its respective difficulty
@@ -237,7 +276,7 @@ func list_songs() -> void:
 		song_entry.song_easy = grouped_songs[title]["easy"] if grouped_songs[title]["easy"] else {}
 		song_entry.song_medium = grouped_songs[title]["medium"] if grouped_songs[title]["medium"] else {}
 		song_entry.song_hard = grouped_songs[title]["hard"] if grouped_songs[title]["hard"] else {}
-		song_entry.song_ultra_hard = grouped_songs[title]["ultra_hard"] if grouped_songs[title]["ultra_hard"] else {}
+		song_entry.song_ultra_hard = grouped_songs[title]["ultra hard"] if grouped_songs[title]["ultra hard"] else {}
 
 		# Load cover art dynamically
 		var song_title: String = 'UITextures/SongMenu/' + title.to_lower().replace(' ', '') + '.png'
@@ -255,7 +294,8 @@ func list_songs() -> void:
 	
 	get_classic_high_score()
 	%SongScrollContainer.add_songs()
-
+	
+	
 # Callback function to set the selected map when a song is chosen.
 func set_selected_map(_audio_file: String) -> void:
 	if selected_map != SONG.map_selected.song_folder:
@@ -292,7 +332,7 @@ func song_selected(display: Control) -> void:
 			selected_song = display.song_medium
 		"hard":
 			selected_song = display.song_hard
-		"ultra_hard":
+		"ultra hard":
 			selected_song = display.song_ultra_hard
 	
 	# If the selected difficulty does not exist, default to "easy"
@@ -318,11 +358,13 @@ func song_unfocused_selected(_song_display: Control, index: int) -> void:
 		 
 func song_start(song_file: String) -> void:
 	if energy_available:
-
+		BKMREngine.Energy.game_id = ""
+		BKMREngine.Energy.use_player_energy()
 		SONG.difficulty = difficulty_mode
-		set_selected_map(song_file)  
+		set_selected_map(song_file)
+		BKMREngine.Auth.validate_player_session()
 		var _game_scene: int = await LOADER.load_scene(self, "res://UIScenes/game_scene.tscn")
-	
+		
 	
 func song_highlighted(song_name: String) -> void:
 	if song_name != currently_highlighted_song:
@@ -330,43 +372,37 @@ func song_highlighted(song_name: String) -> void:
 
 	
 func _on_left_difficulty_button_pressed() -> void:
-	var current_difficulty: int = difficulty.find(difficulty_mode)
-	if current_difficulty != 0:  
-		var new_difficulty: String = difficulty[current_difficulty - 1]
-		difficulty_mode = new_difficulty
+	var current_index: int = difficulty.find(difficulty_mode)
+	if current_index > 0:
+		difficulty_mode = difficulty[current_index - 1]
+		SONG.difficulty = difficulty_mode
 		difficulty_update()
-		right_difficulty_button.disabled = false
-		right_difficulty_button.modulate = "ffffff"
-	if difficulty_mode == "easy":
-		left_difficulty_button.disabled = true
-		left_difficulty_button.modulate = "ffffff68"
-	#songs_difficulty_visibility()
-		
-		
+		update_scores_display()
+	update_difficulty_buttons()
+
 func _on_right_difficulty_button_pressed() -> void:
-	var current_difficulty: int = difficulty.find(difficulty_mode)
-	if current_difficulty != 3:
-		var new_difficulty: String = difficulty[current_difficulty + 1]
-		difficulty_mode = new_difficulty
+	var current_index: int = difficulty.find(difficulty_mode)
+	if current_index < difficulty.size() - 1:
+		difficulty_mode = difficulty[current_index + 1]
+		SONG.difficulty = difficulty_mode
 		difficulty_update()
-		left_difficulty_button.disabled = false
-		left_difficulty_button.modulate = "ffffff"
-	if difficulty_mode == "ultra hard":
-		right_difficulty_button.disabled = true
-		right_difficulty_button.modulate = "ffffff68"
-	#songs_difficulty_visibility()
+		update_scores_display()
+	update_difficulty_buttons()
+
+
+func update_difficulty_buttons() -> void:
+	var current_index: int = difficulty.find(difficulty_mode)
+
+	left_difficulty_button.disabled = current_index == 0
+	right_difficulty_button.disabled = current_index == difficulty.size() - 1
+
+	left_difficulty_button.modulate = "ffffff" if !left_difficulty_button.disabled else "ffffff68"
+	right_difficulty_button.modulate = "ffffff" if !right_difficulty_button.disabled else "ffffff68"
 	
-		
-#func songs_difficulty_visibility() -> void:
-	#for song: Control in %HBoxContainer.get_children():
-		#if song.difficulty != difficulty_mode:
-			#song.visible = false
-		#else:
-			#song.visible = true
 	
-		
 func difficulty_update() -> void:
 	difficulty_label.text = difficulty_mode
+	update_difficulty_buttons()
 	
 	
 func _on_no_energy() -> void:
@@ -392,3 +428,11 @@ func format_scores(value: String) -> String:
 	
 func _on_leaderboard_button_pressed() -> void:
 	%Leaderboard2Screen.open_laderboard(currently_highlighted_song, difficulty_mode)
+
+
+func _on_leaderboard_2_screen_leaderboard_loading() -> void:
+	%LoadingPanel.fake_loader()
+	
+	
+func _on_leaderboard_2_screen_leaderboard_loading_complete() -> void:
+	%LoadingPanel.tween_kill()

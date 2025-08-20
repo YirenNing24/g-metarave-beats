@@ -36,7 +36,8 @@ func animate_client_hit(accuracy: int, line: int) -> void:
 	await tween.finished
 	hit_node.frame = 0
 	if accuracy == 4 or 5:
-		feedback_haptic(accuracy)
+		pass
+		#feedback_haptic(accuracy)
 
 
 func feedback_haptic(accuracy: int) -> void:

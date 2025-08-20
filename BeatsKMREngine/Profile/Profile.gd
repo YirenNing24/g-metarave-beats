@@ -177,10 +177,6 @@ func _onGetProfilePicture_request_completed(_result: int, response_code: int, he
 	# Check if the HTTP response indicates success.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	
-	# Free the HTTP request resource if it is still valid.
-	#if is_instance_valid(GetProfilePicture):
-		#BKMREngine.free_request(wrGetProfilePicture, GetProfilePicture)
-	
 	# If the HTTP response indicates success, parse the JSON response body.
 	if status_check:
 		# Parse the JSON response body.
@@ -240,6 +236,7 @@ func _onGetPlayerProfilePicture_request_completed(_result: int, response_code: i
 	else:
 		get_player_profile_pic_complete.emit({"Error:": "Unknown Server Error" })
 		
+		
 func like_profile_picture(picture_id: String) -> void:
 	# Prepare the HTTP request and associated resources.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -250,7 +247,7 @@ func like_profile_picture(picture_id: String) -> void:
 	var _upload: int = LikeProfilePicture.request_completed.connect(_on_LikeProfilePicture_request_completed)
 	
 	# Prepare the payload with the image data.
-	var payload: Dictionary = { "id": picture_id }
+	var payload: Dictionary = { "_id": picture_id }
 	
 	# Specify the request URL for profile picture upload.
 	var request_url: String = BKMREngine.host + "/api/like/profilepic"
@@ -293,7 +290,7 @@ func unlike_profile_picture(picture_id: String) -> void:
 	var _upload: int = UnlikeProfilePicture.request_completed.connect(_on_UnlikeProfilePicture_request_completed)
 	
 	# Prepare the payload with the image data.
-	var payload: Dictionary = { "id": picture_id }
+	var payload: Dictionary = { "_id": picture_id }
 	
 	# Specify the request URL for profile picture upload.
 	var request_url: String = BKMREngine.host + "/api/unlike/profilepic"
@@ -334,13 +331,13 @@ func change_profile_picture(picture_id: String) -> void:
 	var _upload: int = ChangeProfilePicture.request_completed.connect(_on_ChangeProfilePicture_request_completed)
 	
 	# Prepare the payload with the image data.
-	var payload: Dictionary = { "id": picture_id }
+	var payload: Dictionary = { "_id": picture_id }
 	
 	# Specify the request URL for profile picture upload.
 	var request_url: String = BKMREngine.host + "/api/change/profilepic"
 	
 	# Send a POST request to upload the profile picture.
-	BKMREngine.send_post_request(UnlikeProfilePicture, request_url, payload)
+	BKMREngine.send_post_request(ChangeProfilePicture, request_url, payload)
 	
 # Callback function triggered when the profile picture upload request is completed.
 func _on_ChangeProfilePicture_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
@@ -580,7 +577,6 @@ func _on_GetProfilePics_request_completed(_result: int, response_code: int, head
 			if json_body.has("error"):
 				get_profile_pics_complete.emit(json_body.error)
 			else:
-				print("GANO KALAKI :", json_body.size())
 				get_profile_pics_complete.emit(json_body)
 		else:
 			get_profile_pics_complete.emit({ "error": "Unknown Server Error" })

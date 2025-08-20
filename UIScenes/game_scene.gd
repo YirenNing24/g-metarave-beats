@@ -12,8 +12,8 @@ var beatmap_file: String
 var audio_file: String = SONG.map_selected.audio_file
 
 # Gameplay parameters
-var tempo: int
-var bar_length_in_m: float = 16.8  # Godot meters
+var tempo: float
+const bar_length_in_m: float = 8.0 # Godot meters
 var quarter_time_in_sec: float
 var speed: float
 var note_scale: float
@@ -28,11 +28,10 @@ var has_loaded: bool = false
 func _ready() -> void:
 	loading_screen.visible = true
 	set_variables()
-
-
+	
+	
 func set_variables() -> void:
 	beatmap_file = SONG.map_selected.map_file
-	print("anu: ", beatmap_file)
 	beatmap = load_beatmap()
 	if beatmap.is_empty():
 		push_error("Failed to load beatmap.")
@@ -55,18 +54,19 @@ func song_game_start() -> void:
 	if beatmap.is_empty():
 		push_error("Beatmap is empty. Cannot start game.")
 		return
-	
 	calculate_params()
 	setup_nodes()
 	
 	
 func calculate_params() -> void:
 	tempo = beatmap.tempo
-	quarter_time_in_sec = 60.0 / tempo  # Quarter note duration in seconds
-	speed = bar_length_in_m / (4 * quarter_time_in_sec)  # Speed based on bar length
-	note_scale = speed / 400  # Scale factor for notes
+	print("Current tempo: ", tempo)
+	quarter_time_in_sec = 60.0 / float(tempo)  # Quarter note duration in seconds
+	speed = bar_length_in_m / (4.0 * quarter_time_in_sec)
+	note_scale = speed / 800.0  # Scale factor for notes
 
-	var beatmap_start_pos: float = beatmap.start_pos
+	@warning_ignore("unsafe_call_argument")
+	var beatmap_start_pos: float = float(beatmap.start_pos)
 	start_pos_in_sec = (beatmap_start_pos / 400.0) * quarter_time_in_sec
 	
 	

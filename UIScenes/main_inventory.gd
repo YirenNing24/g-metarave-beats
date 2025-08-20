@@ -66,7 +66,7 @@ func _on_card_inventory_pressed() -> void:
 func _on_card_upgrade_pressed() -> void:
 	LOADER.previous_texture = background_texture.texture
 	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")
-	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/card_upgrade.tscn")
+	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/card_upgrade2.tscn")
 
 
 func _on_close_button_pressed() -> void:

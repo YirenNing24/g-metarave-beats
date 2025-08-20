@@ -28,6 +28,13 @@ var FollowersFollowingCount: HTTPRequest
 var wrFollowersFollowingCount: WeakRef
 signal get_followers_following_count_complete(followers_following_count: Dictionary)
 
+var SaveStalkers: HTTPRequest
+var wrSaveStalkers: WeakRef
+signal save_stalkers_complete(message: Dictionary)
+
+var GetStalkers: HTTPRequest
+var wrGetStalkers: WeakRef
+signal get_stalkers_complete(stalkers: Array)
 
 var FollowersFollowing: HTTPRequest
 var wrFollowersFollowing: WeakRef
@@ -198,7 +205,79 @@ func _onUnfollow_request_completed(_result: int, response_code: int, headers: Ar
 # Function to retrieve mutual followers between the authenticated player and other users.
 
 
-func get_mutual() -> void:
+func save_stalkers(username: String) -> void:
+	# Prepare the HTTP request.
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	SaveStalkers = prepared_http_req.request
+	wrSaveStalkers = prepared_http_req.weakref
+	
+	# Connect the callback function to the request completion signal.
+	var _save: int = SaveStalkers .request_completed.connect(_onSaveStalkers_request_completed)
+	
+	# Prepare the payload for the unfollow request.
+	var payload: Dictionary = { "username": username }
+	
+	# Set the request URL for the unfollow action.
+	var request_url: String = BKMREngine.host + "/api/social/save-stalkers"
+	
+	# Send the POST request to unfollow the specified player.
+	BKMREngine.send_post_request(SaveStalkers, request_url, payload)
+	
+	
+func _onSaveStalkers_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check the HTTP response status.
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	
+	# Process the response if the status check is successful.
+	if status_check:
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body != null:
+			if json_body.has("error"):
+				save_stalkers_complete.emit(json_body.error)
+			else:
+				save_stalkers_complete.emit(json_body)
+		else:
+			save_stalkers_complete.emit({ "error": "Unknown Server Error" })
+	else:
+		save_stalkers_complete.emit({ "error": "Unknown Server Error" })
+# Function to retrieve mutual followers between the authenticated player and other users.
+
+
+func get_stalkers(username: String) -> void:
+	# Prepare HTTP request resources.
+	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
+	GetStalkers = prepared_http_req.request
+	wrGetStalkers  = prepared_http_req.weakref
+	
+	# Connect the callback function for handling mutual followers request completion.
+	var _get: int = GetStalkers.request_completed.connect(_onGetStalkers_request_completed)
+	
+	# Specify the request URL for retrieving mutual followers data, using the username as a path parameter.
+	var request_url: String = BKMREngine.host + "/api/social/get-stalkers/" + username
+	BKMREngine.send_get_request(GetStalkers, request_url)
+
+
+# Callback function invoked upon completion of the get_mutual request.
+func _onGetStalkers_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	# Check the HTTP response status.
+	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
+	
+	# Process the response data if the status check is successful.
+	if status_check:
+		# Parse the response body as a JSON array.
+		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
+		if json_body != null:
+			if json_body.has("error"):
+				get_stalkers_complete.emit({ "error": json_body.error })
+			else:
+				get_stalkers_complete.emit(json_body)
+		else:
+			get_stalkers_complete.emit({ "error": "Unknown Server Error" })
+	else:
+		get_stalkers_complete.emit({ "error": "Unknown Server Error" })
+	
+	
+func get_mutual(username: String) -> void:
 	# Prepare HTTP request resources.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
 	Mutual = prepared_http_req.request
@@ -211,11 +290,11 @@ func get_mutual() -> void:
 	BKMRLogger.info("Calling BKMREngine to get mutual followers data")
 	
 	# Specify the request URL for retrieving mutual followers data.
-	var request_url: String = BKMREngine.host + "/api/social/list/mutual"
+	var request_url: String = BKMREngine.host + "/api/social/list/mutual/" + username
 	
 	BKMREngine.send_get_request(Mutual, request_url)
-
-
+	
+	
 # Callback function invoked upon completion of the get_mutual request.
 func _onGetMutual_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
@@ -233,8 +312,8 @@ func _onGetMutual_request_completed(_result: int, response_code: int, headers: A
 			get_mutual_complete.emit(json_body)
 		else:
 			pass
-
-
+	
+	
 func get_following_followers_count(username: String = "") -> void:
 	# Prepare HTTP request resources.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -309,7 +388,6 @@ func _onGetFollowingFollowers_request_completed(_result: int, response_code: int
 				get_followers_following_complete.emit({ "error": json_body.error })
 			else:
 				get_followers_following_complete.emit(json_body)
-				print(json_body)
 		else:
 			get_followers_following_complete.emit({ "error": "Unknown Server Error" })
 	else:

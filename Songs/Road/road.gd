@@ -45,12 +45,11 @@ func setup(game_config: Node3D) -> void:
 	# Instead of placing the first bar at -bar_length_in_meters, put it at 0
 	current_location = Vector3(0, 0, 0)
 	
-	print("Current Location: ", current_location)
 	note_scale = game.note_scale
 
 	current_bar_index = 0
 	tracks_data = game.beatmap.tracks
-	scaled_bar_amount = max(ceil(32 / bar_length_in_meters), 16.8)
+	scaled_bar_amount = max(ceil(32 / bar_length_in_meters), 8)
 
 	for track: Dictionary in tracks_data:
 		max_index = max(max_index, len(track.bars))
@@ -64,16 +63,12 @@ func _on_game_new_peer_id(peer_id: int) -> void:
 	
 # Process method called on every frame to update the position of musical bars.
 func _physics_process(delta: float) -> void:
-	# Apply movement with time scaling
-	var scaled_delta: float = delta * Engine.time_scale
-	bars_node.translate(speed * scaled_delta)
-
+	bars_node.translate(speed * delta)
 	# Remove bars that move too far and add new ones
 	for bar: Node3D in bars: 
-		if bar.position.z + bars_node.position.x >= bar_length_in_meters * 2:
+		if bar.position.z + bars_node.position.x >= bar_length_in_meters * 2.0:
 			remove_bar(bar)
 			add_bar()
-
 
 
 # Method to add a musical bar to the scene.
@@ -88,8 +83,10 @@ func add_bar() -> void:
 	bar.speed = speed
 	bars.append(bar)
 	bars_node.add_child(bar)
-	current_bar_index += 1
 	bar.bar_index = current_bar_index
+	
+	# Move to next position for the next bar
+	current_bar_index += 1
 	current_location += Vector3(0, 0, -bar_length_in_meters)
 
 # Method to retrieve the data for the current musical bar.

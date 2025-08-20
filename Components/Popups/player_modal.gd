@@ -34,53 +34,75 @@ func _ready() -> void:
 
 
 func signal_connect() -> void:
-	BKMREngine.Social.view_profile_complete.connect(_on_stat_display)
 	BKMREngine.Social.follow_complete.connect(_on_follow_complete)
 	BKMREngine.Social.unfollow_complete.connect(_on_unfollow_complete)
 	#BKMREngine.Profile.get_player_profile_pic_complete.connect(_on_get_player_profile_pic_complete)
-	BKMREngine.Social.get_followers_following_count_complete.connect(_get_followers_following_count_complete)
+	#BKMREngine.Social.get_followers_following_count_complete.connect(_get_followers_following_count_complete)
 	BKMREngine.Social.get_followers_following_complete.connect(_get_followers_following_complete)
 	
 	
 # Handle the display of player statistics.
 func _on_stat_display(player_profile: Dictionary) -> void:
-	profile_player = player_profile
-	# Check if the player profile is available
-	if player_profile:
-		var player_stats: Dictionary = player_profile.playerStats
+	reset_labels() 
+	if not player_profile.has("error"):
+		visible = true
+		profile_player = player_profile
 		
-		# Update follow/unfollow button and label based on user relationships
-		if player_profile.followsUser:
-			follow_button_label.text = "UNFOLLOW"
-			follow_unfollow_button.modulate = "#89898994"
-		else:
-			follow_button_label.text = "FOLLOW"
-			follow_unfollow_button.modulate = "#ffffff"
-			
-		# Update follow status label for mutual follows
-		if player_profile.followedByUser and player_profile.followsUser:
-			follow_button_label.text = "UNFOLLOW"
-			follow_unfollow_button.modulate = "#89898994"
-			
-		elif player_profile.followedByUser:
-			follow_status_label.text = "Follows you!"
-			
-			follow_button_label.text = "FOLLOW BACK"
-			follow_unfollow_button.modulate = "#ffffff"
+		if player_profile:
+			_update_follow_buttons(player_profile)
+			_update_player_info(player_profile)
+			_on_get_player_profile_pic_complete(player_profile.profilePics)
+	@warning_ignore("unsafe_call_argument")
+	%WalletAddress.text = PLAYER.formatAddress(player_profile.smartWalletAddress)  
+	
+	
+func reset_labels() -> void:
+	for entry: Control in %FollowersFollowingContainer.get_children():
+		entry.queue_free()
+	%FollowingButton.text = str(0) + " " + "Following"
+	%FollowersButton.text = str(0) + " " + "Followers"
+	
+	
+func _update_follow_buttons(player_profile: Dictionary) -> void:
+	# Update follow/unfollow button and label based on user relationships
+	if player_profile.followsUser:
+		_set_follow_button("UNFOLLOW", "#89898994")
+	else:
+		_set_follow_button("FOLLOW", "#ffffff")
 		
-		# Display player information in the UI
-		player_name.text = player_profile.username
-		player_level.text = str(player_stats.level)
-		player_rank.text = player_stats.rank
-	#_on_get_preference_complete(player_profile)
-	_on_chat_box_view_profile_pressed()
+	# Update follow status label for mutual follows
+	if player_profile.followedByUser and player_profile.followsUser:
+		_set_follow_button("UNFOLLOW", "#89898994")
+	elif player_profile.followedByUser:
+		follow_status_label.text = "Follows you!"
+		_set_follow_button("FOLLOW BACK", "#ffffff")
+		
+	@warning_ignore("unsafe_call_argument")
+	_get_followers_following_count_complete(player_profile.followerCount, player_profile.followingCount)
+
+func _set_follow_button(label_text: String, color: String) -> void:
+	follow_button_label.text = label_text
+	follow_unfollow_button.modulate = color
 
 
+func _update_player_info(player_profile: Dictionary) -> void:
+	var player_stats: Dictionary = player_profile.playerStats
+	
+	player_name.text = player_profile.username
+	@warning_ignore("unsafe_call_argument")
+	player_level.text = str(int(player_stats.level))
+	player_rank.text = player_stats.rank
+	
+	
+func _on_leaderboard_view_profile_pressed(username: String) -> void:
+	BKMREngine.Social.view_profile(username)
+	
+	
 func _on_chat_box_view_profile_pressed() -> void:
 	visible = true
-	BKMREngine.Profile.get_player_profile_pic(%PlayerName.text)
-	BKMREngine.Social.get_following_followers_count(%PlayerName.text)
-	
+	#BKMREngine.Profile.get_player_profile_pic(%PlayerName.text)
+	#BKMREngine.Social.get_following_followers_count(%PlayerName.text)
+
 	
 	
 func _on_follow_unfollow_button_pressed() -> void:
@@ -147,14 +169,15 @@ func _on_panel_2_gui_input(event: InputEvent) -> void:
 
 
 func _get_followers_following_complete(followers_following: Dictionary) -> void:
-	if is_following_button_pressed:
-		var following: Array = followers_following.following
-		populate_following(following)
-		is_following_button_pressed = false
-	elif is_followers_button_pressed:
-		var followers: Array = followers_following.followers
-		populate_followers(followers)
-		is_followers_button_pressed = false
+	if not followers_following.is_empty():
+		if is_following_button_pressed:
+			var following: Array = followers_following.following
+			populate_following(following)
+			is_following_button_pressed = false
+		elif is_followers_button_pressed:
+			var followers: Array = followers_following.followers
+			populate_followers(followers)
+			is_followers_button_pressed = false
 		
 
 func populate_followers(followers: Array) -> void:
@@ -180,19 +203,19 @@ func clear_followers_following_container() -> void:
 		child.queue_free()
 
 
-func _get_followers_following_count_complete(followers_following_count: Dictionary) -> void:
-	print("teti: ", followers_following_count)
-	if not followers_following_count.is_empty() and not followers_following_count.has("error"):
+func _get_followers_following_count_complete(followers: int = 0, following: int = 0) -> void:
 		if player_name.text != PLAYER.username:
-			%FollowingButton.text = str(followers_following_count.followingCount) + " " + "Following"
-			%FollowersButton.text = str(followers_following_count.followerCount) + " " + "Followers"
+			%FollowingButton.text = str(following) + " " + "Following"
+			%FollowersButton.text = str(followers) + " " + "Followers"
 
 
 func _on_following_button_pressed() -> void:
-	BKMREngine.Social.get_following_followers(player_name.text)
-	is_following_button_pressed = true
+	if %FollowingButton.text != "0":
+		BKMREngine.Social.get_following_followers(player_name.text)
+		is_following_button_pressed = true
 
 
 func _on_followers_button_pressed() -> void:
-	BKMREngine.Social.get_following_followers(player_name.text)
-	is_followers_button_pressed = true
+	if %FollowersButton.text != "0":
+		BKMREngine.Social.get_following_followers(player_name.text)
+		is_followers_button_pressed = true

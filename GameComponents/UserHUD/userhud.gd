@@ -36,7 +36,9 @@ var score_boost: int = 0
 
 var game_over_called: bool = false
 var map: String
+
 var song_length: float
+var elapsed_time: float
 var song_name: String
 var difficulty: String
 
@@ -66,11 +68,14 @@ func connect_signals() -> void:
 	BKMREngine.Inventory.group_card_equip_complete.connect(equipped_cards_texture)
 	
 	
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	calculate_accuracy_score()
+
 	if combo > max_combo:
 		max_combo = combo
-	
+	if game_over_called == false:
+		if health <= 0:
+			game_over(false)  # Call game over when health reaches zero
 	
 func calculate_accuracy_score() -> void:
 	var total_notes: int = perfect + very_good + good + bad + miss
@@ -166,7 +171,6 @@ func equipped_cards_texture(card_data: Array) -> void:
 		animate_card()
 	
 	
-	
 func _on_save_classic_highscore_complete(_rewards: Dictionary) -> void:
 	%LoadingPanel.tween_kill()
 	_on_classic_game_over_completed()
@@ -180,10 +184,9 @@ func hit_feedback(note_accuracy: int, line: int) -> void:
 			combo += 1
 			hit_display_data.emit(note_accuracy, line, combo)
 			score_accuracy = (1200 + score_boost) * boost_multiplier
-			print("accuracy ht: ", score_accuracy)
 			total_combo += 1
 			perfect += 1
-			adjust_health(3)  # Increase health
+			adjust_health(2)  # Increase health
 			boost_feedback(false)
 		2:
 			# very good
@@ -192,7 +195,7 @@ func hit_feedback(note_accuracy: int, line: int) -> void:
 			score_accuracy = 800 * boost_multiplier
 			total_combo += 1
 			very_good += 1
-			adjust_health(2)  # Increase health
+			adjust_health(1)  # Increase health
 			boost_feedback(false)
 		3:
 			# good
@@ -201,7 +204,6 @@ func hit_feedback(note_accuracy: int, line: int) -> void:
 			score_accuracy = 400
 			total_combo += 1
 			good += 1
-			adjust_health(1)  # Increase health
 		4:
 			# bad
 			hit_display_data.emit(note_accuracy, line, combo)
@@ -216,13 +218,13 @@ func hit_feedback(note_accuracy: int, line: int) -> void:
 			adjust_health(-10)  # Decrease health
 			set_boost(true)
 	
-
+	
 func boost_feedback(is_swipe_note: bool = false) -> void:
 	current_momentum = clamp(current_momentum, 0, 50)
-
+	
 	# Increase momentum based on whether it's a swipe note
 	current_momentum += 15 if is_swipe_note else 20
-
+	
 	# Clamp again to keep it within bounds
 	current_momentum = clamp(current_momentum, 0, 50)
 	# If momentum is maxed out, increase boost level (up to 3)
@@ -232,8 +234,8 @@ func boost_feedback(is_swipe_note: bool = false) -> void:
 		else:
 			# If already at max boost, reset momentum
 			current_momentum = 0
-
-
+	
+	
 func adjust_health(amount: int) -> void:
 	health += amount
 	health = clamp(health, 0, 100)  # Ensure health stays within range
@@ -358,6 +360,7 @@ func game_over(is_finished: bool) -> void:
 
 	game_over_called = true  # Mark as called
 	%LoadingPanel.fake_loader()
+	%PauseButton.visible = false
 	var classic_score_stats: Dictionary[String, Variant] = {
 		"difficulty": difficulty,
 		"score": score,
@@ -375,10 +378,9 @@ func game_over(is_finished: bool) -> void:
 		"username": PLAYER.username,
 		"gameId": BKMREngine.Energy.game_id
 	}
-
 	#score_stats_classic = classic_score_stats
 	BKMREngine.Score.save_classic_high_score(classic_score_stats)
-
+	
 	
 func format_number(number: int) -> String:
 	# Handle negative numbers by adding the "minus" sign in advance, as we discard it
@@ -397,22 +399,22 @@ func format_number(number: int) -> String:
 	return formatted_number as String
 	
 	
-
-
 func _on_button_pressed() -> void:
 	%LoadingPanel.set_message("YOU ARE ON PAUSE")
 	%LoadingPanel.fake_loader()
 	Engine.time_scale = 0
 	pause_button_pressed.emit()
-
-
+	
+	
 func _on_loading_panel_on_play_button_pressed() -> void:
 	play_button_pressed.emit()
-
-
-func _on_music_song_length(time: int) -> void:
+	
+	
+func _on_music_song_length(time: float) -> void:
 	%SongProgressBar.max_value = time
+	song_length = time
 	
 	
-func _on_music_song_playback_time(time: int) -> void:
+func _on_music_song_playback_time(time: float) -> void:
 	%SongProgressBar.value = time
+	elapsed_time = time

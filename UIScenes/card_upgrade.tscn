@@ -126,6 +126,7 @@ size_flags_vertical = 0
 [node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer"]
 auto_translate_mode = 1
 layout_mode = 2
+alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
 auto_translate_mode = 1
@@ -210,6 +211,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect4" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
 auto_translate_mode = 1
+visible = false
 custom_minimum_size = Vector2(175, 50)
 layout_mode = 2
 texture = ExtResource("5_jug6g")

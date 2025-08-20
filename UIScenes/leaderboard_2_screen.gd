@@ -1,5 +1,7 @@
 extends Control
 
+signal leaderboard_loading
+signal leaderboard_loading_complete
 const leaderboard_entry: PackedScene = preload("res://Components/Leaderboard/leaderboard_entry.tscn")
 
 #region variables
@@ -29,7 +31,6 @@ func open_laderboard(current_song: String, difficulty: String) -> void:
 	%SongName.text = current_song
 	song_title = current_song
 	song_difficulty = difficulty
-	print("tingin nga: ", difficulty)
 	classic_mode_selected()
 	visible = true
 	
@@ -108,14 +109,24 @@ func classic_mode_selected() -> void:
 		return
 	clear_entries()
 	change_difficulty_option_selected()
+	leaderboard_loading.emit()
 	var selected_period: int = period_option.selected
 	period = period_option.get_item_text(selected_period)
 	
-	var song_name: String = song_title.replace(" ", "")
-	var song_bg_name: String = song_title.replace(" ", "_")
+	# Ensure songName is correctly formatted
+	var song_name: String = song_title.strip_edges()# Trim whitespace
+	song_name = song_name.replace(" ", "%20") # Encode spaces as %20 for URLs
 	
-	BKMREngine.Leaderboard.get_classic_leaderboard(song_name, song_difficulty, period)
+	# Ensure difficulty matches database format (all lowercase)
+	var song_difficulty_fixed: String = song_difficulty.to_lower().replace(" ", "%20")
+	
+	# Ensure song_bg_name formatting remains correct
+	var song_bg_name: String = song_title.replace(" ", "_")
+
+	# Call the leaderboard with properly formatted strings
+	BKMREngine.Leaderboard.get_classic_leaderboard(song_name, song_difficulty_fixed, period)
 	animate_song_bg(song_bg_name)
+
 	
 	
 func game_mode_versus_selected() -> void:
@@ -123,19 +134,18 @@ func game_mode_versus_selected() -> void:
 	
 	
 func set_personal_entry(leaderboard: Array) -> void:
-	if leaderboard.is_empty():
-		personal_rank.text = ""
-		personal_name.text = ""
-		personal_score.text = ""
-	else:
-		for entry: Dictionary in leaderboard:
-			if entry.username == PLAYER.username:
-				var rank: String = str(leaderboard.find(entry) + 1)
-				personal_rank.text = rank
-				personal_name.text = entry.username
-				personal_score.text = str(int(entry.score))
-				%PlayerScore.text = personal_score.text 
-				break
+	personal_rank.text = ""
+	personal_name.text = ""
+	personal_score.text = ""
+	for entry: Dictionary in leaderboard:
+		if entry.username == PLAYER.username:
+			var rank: String = str(leaderboard.find(entry) + 1)
+			personal_rank.text = rank
+			personal_name.text = entry.username
+			@warning_ignore("unsafe_call_argument")
+			personal_score.text = str(int(entry.score))
+			%PlayerScore.text = personal_score.text 
+			break
 	
 	
 func animate_song_bg(song_name: String) -> void:
@@ -158,14 +168,23 @@ func on_get_classic_leaderboard_complete(weekly_lederboard: Array) -> void:
 		var rank: String = str(weekly_lederboard.find(entry) + 1)
 		var entry_leaderboard: Control = leaderboard_entry.instantiate()
 		entry_leaderboard.name = entry.username
-		
 		entry_leaderboard.get_node("Panel/HBoxContainer/VBoxContainer/Rank").text = rank
 		entry_leaderboard.get_node("Panel/HBoxContainer/HBoxContainer/HBoxContainer/PlayerName").text = entry.username
+		@warning_ignore("unsafe_call_argument")
 		entry_leaderboard.get_node("Panel/HBoxContainer/VBoxContainer3/Score").text = str(int(entry.score))
+		entry_leaderboard.player_profile_button_pressed.connect(_on_player_profile_button_pressed)
+		if not entry.image.is_empty():
+			entry_leaderboard.set_picture(entry.image)
 		leaderboard_entry_container.add_child(entry_leaderboard)
 	set_personal_entry(weekly_lederboard)
+	leaderboard_loading_complete.emit()
 	
 	
+func _on_player_profile_button_pressed(username: String, texture: Texture) -> void:
+	if username == PLAYER.username:
+		return
+	%PlayerModal._on_leaderboard_view_profile_pressed(username, texture)
+
 #endregion
 
 

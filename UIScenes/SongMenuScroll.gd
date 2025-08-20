@@ -22,19 +22,32 @@ func add_songs() -> void:
 	# Wait for the next frame to ensure all nodes are properly initialized
 	await get_tree().process_frame
 
-	# Get child song nodes and calculate their initial positions
 	image_nodes = %HBoxContainer.get_children()
-	for image: Control in image_nodes:
+	image_x_positions.clear()  # Ensure it's reset before populating
+	
+	var found_index: int = -1  # Default to -1 (not found)
+	
+	for index: int in range(image_nodes.size()):
+		var image: Control = image_nodes[index]
 		var image_pos_x: float = (margin_right + image.position.x) - ((size.x - image.size.x) / 2)
 		image.pivot_offset = (image.size / 2)
 		image_x_positions.append(image_pos_x)
+
+		# Check if this song's title matches SONG.song_name
+		var song_title: Label = image.get_node("TextureRect/VBoxContainer/SongTitle")
+		if SONG.song_name != "" and song_title.text == SONG.song_name:
+			found_index = index  # Store the matching index
+	
 		var _connect: int = image.visibility_changed.connect(visibility_changed)
 		
+	# If a matching song was found, set it as the current index
+	if found_index != -1:
+		image_current_index = found_index
+	
 	# Set initial scroll position and perform the initial scroll
 	scroll_horizontal = image_x_positions[image_current_index]
-	
-	
 	scroll()
+
 
 
 func visibility_changed() -> void:

@@ -6,7 +6,7 @@ signal song_length(time: int)
 
 @onready var audio_player: AudioStreamPlayer = %AudioStreamPlayer
 
-var speed: int
+var speed: float
 var started: bool = false
 var pre_start_duration: float
 var start_pos_in_sec: int
@@ -14,19 +14,24 @@ var audio_file: String = SONG.map_selected.audio_file
 
 var playback_postion: float 
 
+
 # Load and set the audio stream player with the selected audio file.
 func play_song(path: String) -> void:
 	var stream: AudioStreamOggVorbis = ResourceLoader.load(path)
 	audio_player.set_stream(stream)
-	var length: int = audio_player.stream.get_length()
-
+	var length: float = audio_player.stream.get_length()
+	
 	song_length.emit(length)
 	
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var playback_time: int = %AudioStreamPlayer.get_playback_position() + AudioServer.get_time_since_last_mix()
 	song_playback_time.emit(playback_time)
-	
+	if not started:
+		pre_start_duration -= speed * delta
+		if pre_start_duration <= 0:
+			start()
+			return
 	
 # Set up the audio player for the game
 func setup(game: Node3D) -> void:
@@ -45,15 +50,6 @@ func start() -> void:
 	started = true
 	
 	
-# Check if the pre-start duration has elapsed and start playing the audio.
-func _process(delta: float) -> void:
-	if not started:
-		pre_start_duration -= speed * delta
-		if pre_start_duration <= 0:
-			start()
-			return
-
-
 func _on_audio_stream_player_finished() -> void:
 	song_finished.emit()
 

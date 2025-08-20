@@ -41,7 +41,7 @@ func setup(game_config: Node3D) -> void:
 
 	current_bar_index = 0
 	tracks_data = game.map.tracks
-	scaled_bar_amount = max(ceil(32 / bar_length_in_meters), 16.8)
+	scaled_bar_amount = max(ceil(32 / bar_length_in_meters), 8.4)
  
 	for track: Dictionary in tracks_data:
 		max_index = max(max_index, len(track.bars))

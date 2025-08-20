@@ -21,6 +21,7 @@ var player_experience: int
 var player_rank: String
 var stat_points: int
 var stat_points_saved: Dictionary
+var signup_date: float
 
 var current_energy: int 
 var max_energy: int
@@ -81,6 +82,7 @@ func populate_player_data(data: Dictionary) -> void:
 		stat_points = player_stats.availStatPoints
 		stat_points_saved = player_stats.statPointsSaved
 		inventory_size = data.safeProperties.inventorySize.low
+		signup_date = data.safeProperties.signupDate
 		
 		new_data_received.emit()
 		
@@ -98,7 +100,7 @@ func populate_player_data(data: Dictionary) -> void:
 		
 # Function to format a wallet address for display.
 func formatAddress(address: String) -> String:
-	var firstFour: String = address.left(6)
+	var firstFour: String = address.left(12)
 	var lastFour: String = address.right(4)
 	return firstFour + "..." + lastFour
 	

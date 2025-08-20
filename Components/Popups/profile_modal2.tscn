@@ -1,0 +1,1336 @@
+[gd_scene load_steps=59 format=3 uid="uid://dlojqc7eedet1"]
+
+[ext_resource type="Script" uid="uid://fwakfrgni3hn" path="res://Components/Popups/profile_modal_2.gd" id="1_1u6x1"]
+[ext_resource type="Texture2D" uid="uid://bjpkh360v82aq" path="res://UITextures/BGTextures/store_bg.png" id="1_lcj8u"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_4bvgr"]
+[ext_resource type="Texture2D" uid="uid://k0okwqkc0y8q" path="res://UITextures/Buttons/twitter.png" id="5_3xg4s"]
+[ext_resource type="Shader" uid="uid://buwsofr788vu4" path="res://Components/Popups/profile_modal2.gdshader" id="5_f03cu"]
+[ext_resource type="Texture2D" uid="uid://dkhfubpod87bf" path="res://UITextures/BGTextures/profile_modal_bg.png" id="8_3xg4s"]
+[ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="9_kn1na"]
+[ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="10_eg18s"]
+[ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="10_ekdar"]
+[ext_resource type="Script" uid="uid://bcnyg4qos0dr7" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="11_4kq2q"]
+[ext_resource type="Shader" uid="uid://bujd5frudsgcq" path="res://Components/Moments/moment_slot.gdshader" id="11_kmpn1"]
+[ext_resource type="Script" uid="uid://mr2fibppbyip" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="12_sc3da"]
+[ext_resource type="FontFile" uid="uid://cbqgl5ybh1snb" path="res://UITextures/Fonts/argentum-sans.vf-regular.ttf" id="13_0yp4j"]
+[ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="13_n1bdj"]
+[ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="14_arh4a"]
+[ext_resource type="Shader" uid="uid://ct0xee5vgwe4b" path="res://Components/Popups/profile_modal_player.gdshader" id="14_lcj8u"]
+[ext_resource type="Texture2D" uid="uid://bc1cgt8r4y12o" path="res://UITextures/Icons/copy_icon.png" id="14_tho4c"]
+[ext_resource type="FontFile" uid="uid://cak36l0bes2dv" path="res://UITextures/Fonts/argentum-sans.medium.ttf" id="17_owsvo"]
+[ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="17_pyrnu"]
+[ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="18_tho4c"]
+[ext_resource type="Texture2D" uid="uid://bhjbga7uh5w8m" path="res://UITextures/GroupLogo/x_in_logo.png" id="20_sc3da"]
+[ext_resource type="PackedScene" uid="uid://dkw4i4wmj2ike" path="res://Components/Popups/view_picture.tscn" id="21_mpo7j"]
+[ext_resource type="Texture2D" uid="uid://csjervjbnw1wf" path="res://UITextures/GroupLogo/icu_logo.png" id="21_n1bdj"]
+[ext_resource type="Texture2D" uid="uid://bdt3p262pwiff" path="res://UITextures/Buttons/confirm_button.png" id="22_kn1na"]
+[ext_resource type="Texture2D" uid="uid://b2noyqawm7or" path="res://UITextures/GroupLogo/irohm_logo.png" id="22_n1bdj"]
+[ext_resource type="Texture2D" uid="uid://wayq1lcdvxlh" path="res://UITextures/GroupLogo/great_guys_logo.png" id="23_arh4a"]
+[ext_resource type="PackedScene" uid="uid://bqaw4oc8gcn2n" path="res://Components/Popups/player_modal2.tscn" id="23_eg18s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f03cu"]
+bg_color = Color(0.0117647, 0.0823529, 0.0823529, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f03cu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3xg4s"]
+shader = ExtResource("5_f03cu")
+shader_parameter/background_color = Color(0, 0, 0, 0)
+shader_parameter/line_color = Color(0, 1, 1, 1)
+shader_parameter/line_freq = 5.0
+shader_parameter/height = 0.3
+shader_parameter/speed = 0.8
+shader_parameter/scale = Vector2(4, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1u6x1"]
+bg_color = Color(0.00245657, 0.0230238, 0.0230327, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.222973, 0.626395, 0.626332, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0yp4j"]
+shader = ExtResource("11_kmpn1")
+shader_parameter/corner_radius = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lcj8u"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i4leu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i4leu"]
+shader = ExtResource("14_lcj8u")
+shader_parameter/gradient_width = 0.5
+shader_parameter/panel_color = Color(0, 0, 0, 0.65098)
+shader_parameter/border_thickness = 0.008
+shader_parameter/border_color = Color(0.140265, 0.379166, 0.37923, 1)
+shader_parameter/border_fade_width = 0.082
+shader_parameter/shadow_height = 0.019
+shader_parameter/shadow_color = Color(0, 0, 0, 0.360784)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4bvgr"]
+bg_color = Color(0, 0, 0, 0.65098)
+border_color = Color(0.22429, 0.547846, 0.5484, 1)
+
+[sub_resource type="Resource" id="Resource_4bvgr"]
+script = ExtResource("12_sc3da")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="Resource" id="Resource_owsvo"]
+script = ExtResource("12_sc3da")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nsdlc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyrnu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tho4c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mpo7j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kn1na"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eg18s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4kq2q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sc3da"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n1bdj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_arh4a"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ge6gb"]
+
+[sub_resource type="Resource" id="Resource_mpo7j"]
+script = ExtResource("12_sc3da")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="Resource" id="Resource_kn1na"]
+script = ExtResource("12_sc3da")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="Animation" id="Animation_eg18s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/CopyButton:texture_normal")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_tho4c")]
+}
+
+[sub_resource type="Animation" id="Animation_k11gc"]
+resource_name = "copy_button_pressed"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/CopyButton:texture_normal")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("22_kn1na"), ExtResource("14_tho4c")]
+}
+
+[sub_resource type="Animation" id="Animation_ydsjf"]
+resource_name = "fade-in"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sqsaf"]
+_data = {
+&"RESET": SubResource("Animation_eg18s"),
+&"copy_button_pressed": SubResource("Animation_k11gc"),
+&"fade-in": SubResource("Animation_ydsjf")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mpo7j"]
+bg_color = Color(0, 0.0588235, 0.0588235, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+shadow_color = Color(0, 0, 0, 0.407843)
+shadow_size = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vht02"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1vsbv"]
+
+[node name="ProfileModal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1u6x1")
+
+[node name="BackgroundTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+self_modulate = Color(0.29219, 0.29219, 0.29219, 1)
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_lcj8u")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.00833333
+anchor_top = -0.00185185
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer/HBoxContainer"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0.886275)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_f03cu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+
+[node name="Player" type="TextureButton" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/Panel/VBoxContainer" groups=["ProfileButtons"]]
+auto_translate_mode = 1
+self_modulate = Color(0.776471, 0.776471, 0.776471, 0.560784)
+material = SubResource("ShaderMaterial_f03cu")
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+texture_normal = ExtResource("9_kn1na")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/Panel/VBoxContainer/Player"]
+auto_translate_mode = 1
+self_modulate = Color(0.87451, 0.87451, 0.87451, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.5
+offset_top = -15.5
+offset_right = 56.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("10_eg18s")
+theme_override_font_sizes/font_size = 14
+text = "Player"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/Panel/VBoxContainer/Player"]
+self_modulate = Color(1, 1, 1, 0.992157)
+show_behind_parent = true
+material = SubResource("ShaderMaterial_3xg4s")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 13.0
+offset_right = -8.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_3xg4s")
+expand_mode = 1
+
+[node name="History" type="TextureButton" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/Panel/VBoxContainer" groups=["ProfileButtons"]]
+auto_translate_mode = 1
+self_modulate = Color(0.776471, 0.776471, 0.776471, 0)
+material = SubResource("ShaderMaterial_f03cu")
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+texture_normal = ExtResource("9_kn1na")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/Panel/VBoxContainer/History"]
+auto_translate_mode = 1
+self_modulate = Color(0.87451, 0.87451, 0.87451, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.5
+offset_top = -15.5
+offset_right = 56.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("10_eg18s")
+theme_override_font_sizes/font_size = 14
+text = "History"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/Panel/VBoxContainer/History"]
+visible = false
+show_behind_parent = true
+material = SubResource("ShaderMaterial_3xg4s")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 13.0
+offset_right = -8.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_3xg4s")
+expand_mode = 1
+
+[node name="Collection" type="TextureButton" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/Panel/VBoxContainer" groups=["ProfileButtons"]]
+auto_translate_mode = 1
+self_modulate = Color(0.776471, 0.776471, 0.776471, 0)
+material = SubResource("ShaderMaterial_f03cu")
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+texture_normal = ExtResource("9_kn1na")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/Panel/VBoxContainer/Collection"]
+auto_translate_mode = 1
+self_modulate = Color(0.87451, 0.87451, 0.87451, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.5
+offset_top = -15.5
+offset_right = 56.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("10_eg18s")
+theme_override_font_sizes/font_size = 14
+text = "Collection"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/Panel/VBoxContainer/Collection"]
+visible = false
+show_behind_parent = true
+material = SubResource("ShaderMaterial_3xg4s")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 13.0
+offset_right = -8.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_3xg4s")
+expand_mode = 1
+
+[node name="Social" type="TextureButton" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/Panel/VBoxContainer" groups=["ProfileButtons"]]
+auto_translate_mode = 1
+self_modulate = Color(0.776471, 0.776471, 0.776471, 0)
+material = SubResource("ShaderMaterial_f03cu")
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+texture_normal = ExtResource("9_kn1na")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/Panel/VBoxContainer/Social"]
+auto_translate_mode = 1
+self_modulate = Color(0.87451, 0.87451, 0.87451, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.5
+offset_top = -15.5
+offset_right = 56.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("10_eg18s")
+theme_override_font_sizes/font_size = 14
+text = "Social"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/Panel/VBoxContainer/Social"]
+visible = false
+show_behind_parent = true
+material = SubResource("ShaderMaterial_3xg4s")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 13.0
+offset_right = -8.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_3xg4s")
+expand_mode = 1
+
+[node name="Settings" type="TextureButton" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/Panel/VBoxContainer" groups=["ProfileButtons"]]
+auto_translate_mode = 1
+self_modulate = Color(0.776471, 0.776471, 0.776471, 0)
+material = SubResource("ShaderMaterial_f03cu")
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+texture_normal = ExtResource("9_kn1na")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/Panel/VBoxContainer/Settings"]
+auto_translate_mode = 1
+self_modulate = Color(0.87451, 0.87451, 0.87451, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.5
+offset_top = -15.5
+offset_right = 56.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("10_eg18s")
+theme_override_font_sizes/font_size = 14
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer/Panel/VBoxContainer/Settings"]
+visible = false
+show_behind_parent = true
+material = SubResource("ShaderMaterial_3xg4s")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 13.0
+offset_right = -8.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_3xg4s")
+expand_mode = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+offset_top = -1.0
+offset_right = 68.0
+offset_bottom = 67.0
+
+[node name="CloseButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer2"]
+auto_translate_mode = 1
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("13_n1bdj")
+texture_hover = ExtResource("14_arh4a")
+
+[node name="PlayerContainer" type="VBoxContainer" parent="BackgroundTexture"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.150833
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/PlayerContainer"]
+self_modulate = Color(1, 1, 1, 0.913725)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("8_3xg4s")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Status2" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_4bvgr")
+theme_override_font_sizes/font_size = 20
+vertical_alignment = 2
+
+[node name="ContainerName" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("10_ekdar")
+theme_override_font_sizes/font_size = 20
+text = "Player"
+vertical_alignment = 2
+
+[node name="PlayerContainer" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer" groups=["ProfileContainer"]]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="MomentPicturePanel" type="Panel" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1u6x1")
+
+[node name="ProfilePic" type="TextureRect" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/MomentPicturePanel"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_0yp4j")
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -58.0
+offset_right = 58.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ProfilePicOptionsButton" type="Button" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/MomentPicturePanel/ProfilePic"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lcj8u")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_i4leu")
+flat = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="PlayerName" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("10_eg18s")
+theme_override_font_sizes/font_size = 20
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="LogoutButton" type="TextureButton" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 30)
+layout_mode = 2
+texture_normal = ExtResource("17_pyrnu")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="FollowLabel" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2/HBoxContainer2/LogoutButton"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("18_tho4c")
+theme_override_font_sizes/font_size = 12
+text = "LOG OUT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerRank" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("10_eg18s")
+theme_override_font_sizes/font_size = 14
+text = "Platinum"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(27, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("10_eg18s")
+theme_override_font_sizes/font_size = 14
+text = "Level"
+
+[node name="Level" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(27, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("10_eg18s")
+theme_override_font_sizes/font_size = 14
+text = "100"
+
+[node name="Fandom" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.724643, 0.724643, 0.724642, 1)
+theme_override_fonts/font = ExtResource("13_0yp4j")
+theme_override_font_sizes/font_size = 12
+text = "GMetarave: Beats - Pioneer"
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="WalletAddress" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.0098166, 0.529348, 0.571695, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 15
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 1
+
+[node name="CopyButton" type="TextureButton" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_vertical = 8
+texture_normal = ExtResource("14_tho4c")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2"]
+material = SubResource("ShaderMaterial_i4leu")
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_styles/panel = SubResource("StyleBoxFlat_4bvgr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 22.0
+offset_top = -65.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+alignment = 1
+
+[node name="StalkerContainer" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/Panel/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/Panel/VBoxContainer/VBoxContainer/StalkerContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.724643, 0.724643, 0.724642, 1)
+theme_override_fonts/font = ExtResource("13_0yp4j")
+theme_override_font_sizes/font_size = 12
+text = "Recent Stalkers:"
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HistoryContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer" groups=["ProfileContainer"]]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/HistoryContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 200
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/HistoryContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("13_0yp4j")
+theme_override_font_sizes/font_size = 14
+text = "Result"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/HistoryContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("13_0yp4j")
+theme_override_font_sizes/font_size = 14
+text = "Score"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/HistoryContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("13_0yp4j")
+theme_override_font_sizes/font_size = 14
+text = "Difficulty"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/HistoryContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("13_0yp4j")
+theme_override_font_sizes/font_size = 14
+text = "Time"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/HistoryContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SmoothScrollContainer" type="ScrollContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/HistoryContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("11_4kq2q")
+wheel_scroll_damper = SubResource("Resource_4bvgr")
+dragging_scroll_damper = SubResource("Resource_owsvo")
+metadata/_custom_type_script = "uid://bcnyg4qos0dr7"
+
+[node name="HistoryContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/HistoryContainer/VBoxContainer/SmoothScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="CollectionContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer" groups=["ProfileContainer"]]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/CollectionContainer"]
+custom_minimum_size = Vector2(850, 450)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/CollectionContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 450)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 10
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/CollectionContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/CollectionContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+
+[node name="TextureButton" type="TextureButton" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/CollectionContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(210, 200)
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("20_sc3da")
+stretch_mode = 5
+
+[node name="TextureButton2" type="TextureButton" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/CollectionContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(270, 200)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+texture_normal = ExtResource("21_n1bdj")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/CollectionContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+
+[node name="TextureButton" type="TextureButton" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/CollectionContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(210, 200)
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("22_n1bdj")
+stretch_mode = 5
+
+[node name="TextureButton3" type="TextureButton" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/CollectionContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(210, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+texture_normal = ExtResource("23_arh4a")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureButton2" type="TextureButton" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/CollectionContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2"]
+visible = false
+custom_minimum_size = Vector2(270, 200)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+texture_normal = ExtResource("21_n1bdj")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/CollectionContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+
+[node name="TextureButton" type="TextureButton" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/CollectionContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(210, 200)
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("20_sc3da")
+stretch_mode = 5
+
+[node name="TextureButton2" type="TextureButton" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/CollectionContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(270, 200)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+texture_normal = ExtResource("21_n1bdj")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="SocialContainer" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer" groups=["ProfileContainer"]]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="MomentPicturePanel" type="Panel" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1u6x1")
+
+[node name="ProfilePicSocial" type="TextureRect" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/HBoxContainer/MomentPicturePanel"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_0yp4j")
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -58.0
+offset_right = 58.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ProfilePicOptionsButton" type="Button" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/HBoxContainer/MomentPicturePanel/ProfilePicSocial"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lcj8u")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_i4leu")
+flat = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="SocialPlayerName" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("10_eg18s")
+theme_override_font_sizes/font_size = 18
+text = "kaetaro13"
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Bio" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(345, 67)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.51
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("13_0yp4j")
+theme_override_font_sizes/font_size = 12
+text = "What you gonna do with that big fat cat?! Wiggle WIggle"
+autowrap_mode = 2
+
+[node name="JoinDate" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.605274, 0.605274, 0.605274, 1)
+theme_override_fonts/font = ExtResource("13_0yp4j")
+theme_override_font_sizes/font_size = 12
+text = "Joined April 2025"
+vertical_alignment = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 69)
+layout_mode = 2
+
+[node name="VBoxContainer" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="FollowersButton" type="Button" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/HBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("17_owsvo")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = SubResource("StyleBoxEmpty_nsdlc")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_pyrnu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_tho4c")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_mpo7j")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_kn1na")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_eg18s")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_4kq2q")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_sc3da")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_n1bdj")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_arh4a")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ge6gb")
+text = "0 Followers"
+flat = true
+
+[node name="FollowingButton" type="Button" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/HBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("17_owsvo")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = SubResource("StyleBoxEmpty_nsdlc")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_pyrnu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_tho4c")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_mpo7j")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_kn1na")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_eg18s")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_4kq2q")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_sc3da")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_n1bdj")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_arh4a")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ge6gb")
+text = "0 Following"
+flat = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2"]
+material = SubResource("ShaderMaterial_i4leu")
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_styles/panel = SubResource("StyleBoxFlat_4bvgr")
+
+[node name="SmoothScrollContainer" type="ScrollContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.000411987
+offset_top = 3.0
+offset_right = 18.0004
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("11_4kq2q")
+wheel_scroll_damper = SubResource("Resource_mpo7j")
+dragging_scroll_damper = SubResource("Resource_kn1na")
+metadata/_custom_type_script = "uid://bcnyg4qos0dr7"
+
+[node name="FollowersFollowingContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/Panel/SmoothScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SettingsContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer" groups=["ProfileContainer"]]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SettingsContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 180
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SettingsContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("13_0yp4j")
+theme_override_font_sizes/font_size = 12
+text = "Result"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SettingsContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("13_0yp4j")
+theme_override_font_sizes/font_size = 12
+text = "Score"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SettingsContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("13_0yp4j")
+theme_override_font_sizes/font_size = 12
+text = "Score Stats"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SettingsContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("13_0yp4j")
+theme_override_font_sizes/font_size = 12
+text = "Time"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SettingsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ViewPicture" parent="." instance=ExtResource("21_mpo7j")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+mouse_filter = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_sqsaf")
+}
+
+[node name="DPPanel" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 9
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DPOptionPanel" type="Panel" parent="DPPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.531482
+anchor_right = 1.0
+anchor_bottom = 0.761111
+offset_top = 126.0
+offset_bottom = 126.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mpo7j")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DPPanel/DPOptionPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00916667
+anchor_top = 0.0483871
+anchor_right = 0.99
+anchor_bottom = 0.959678
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SeeProfilePicButton" type="Button" parent="DPPanel/DPOptionPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_tho4c")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vht02")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_1vsbv")
+text = "See Profile Picure"
+flat = true
+
+[node name="UploadProfilePicButton" type="Button" parent="DPPanel/DPOptionPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_tho4c")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vht02")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_1vsbv")
+text = "Upload Profile Picture"
+flat = true
+
+[node name="ChooseAvatarButton" type="Button" parent="DPPanel/DPOptionPanel/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("18_tho4c")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vht02")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_1vsbv")
+text = "Choose Avatar"
+flat = true
+
+[node name="PlayerModal" parent="." instance=ExtResource("23_eg18s")]
+unique_name_in_owner = true
+visible = false
+z_index = 9
+layout_mode = 1
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="BackgroundTexture/HBoxContainer2/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/MomentPicturePanel/ProfilePic/ProfilePicOptionsButton" to="." method="_on_profile_pic_options_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2/HBoxContainer2/LogoutButton" to="." method="_on_logout_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/CopyButton" to="." method="_on_copy_button_pressed"]
+[connection signal="visibility_changed" from="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/HistoryContainer" to="." method="_on_history_container_visibility_changed"]
+[connection signal="pressed" from="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/HBoxContainer/MomentPicturePanel/ProfilePicSocial/ProfilePicOptionsButton" to="." method="_on_profile_pic_options_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/HBoxContainer2/VBoxContainer/FollowersButton" to="." method="_on_followers_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/PlayerContainer/TextureRect/VBoxContainer/SocialContainer/VBoxContainer/VBoxContainer2/HBoxContainer2/VBoxContainer/FollowingButton" to="." method="_on_following_button_pressed"]
+[connection signal="gui_input" from="DPPanel" to="." method="_on_dp_panel_gui_input"]
+[connection signal="pressed" from="DPPanel/DPOptionPanel/VBoxContainer/SeeProfilePicButton" to="." method="_on_see_profile_pic_button_pressed"]
+[connection signal="pressed" from="DPPanel/DPOptionPanel/VBoxContainer/UploadProfilePicButton" to="." method="_on_upload_profile_pic_button_pressed"]
+[connection signal="player_modal_close_button_press" from="PlayerModal" to="." method="_on_player_modal_player_modal_close_button_press"]

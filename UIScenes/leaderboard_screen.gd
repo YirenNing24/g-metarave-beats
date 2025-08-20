@@ -202,6 +202,7 @@ func set_personal_entry(leaderboard: Array) -> void:
 				var rank: String = str(leaderboard.find(entry) + 1)
 				personal_rank.text = rank
 				personal_name.text = entry.username
+				@warning_ignore("unsafe_call_argument")
 				personal_score.text = str(int(entry.score))
 				%PlayerScore.text = personal_score.text 
 				break
@@ -223,16 +224,23 @@ func animate_song_bg(song_name: String) -> void:
 
 
 #region http_api_calls
-func on_get_classic_leaderboard_complete(weekly_lederboard: Array) -> void:
-	for entry: Dictionary in weekly_lederboard:
+func on_get_classic_leaderboard_complete(weekly_lederboard: Array[Dictionary]) -> void:
+	for entry: Dictionary[String, Variant] in weekly_lederboard:
 		var rank: String = str(weekly_lederboard.find(entry) + 1)
 		var entry_leaderboard: Control = leaderboard_entry.instantiate()
 		entry_leaderboard.name = entry.username
-		
+		print("tite mo")
 		entry_leaderboard.get_node("Panel/HBoxContainer/VBoxContainer/Rank").text = rank
 		entry_leaderboard.get_node("Panel/HBoxContainer/HBoxContainer/HBoxContainer/PlayerName").text = entry.username
+		@warning_ignore("unsafe_call_argument")
 		entry_leaderboard.get_node("Panel/HBoxContainer/VBoxContainer3/Score").text = str(int(entry.score))
+		
+		if not entry.image.is_empty():
+			entry_leaderboard.set_picture(entry.image)
+		
 		leaderboard_entry_container.add_child(entry_leaderboard)
+		
+		
 	set_personal_entry(weekly_lederboard)
 	
 	

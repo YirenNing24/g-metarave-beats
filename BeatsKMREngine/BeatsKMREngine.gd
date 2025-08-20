@@ -173,7 +173,7 @@ func prepare_http_request() -> Dictionary:
 		"request": request, 
 		"weakref": weak_ref
 	}
-	return return_dict as Dictionary
+	return return_dict
 	
 	
 # Sends a GET request using the provided HTTPRequest object to the specified URL.
@@ -184,7 +184,7 @@ func send_get_request(http_node: HTTPRequest, request_url: String) -> void:
 	]
 	headers = add_jwt_token_headers(headers)
 	if !http_node.is_inside_tree():
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(1).timeout
 
 	BKMRLogger.debug("Method: GET")
 	BKMRLogger.debug("request_url: " + str(request_url))
@@ -201,7 +201,7 @@ func send_post_request(http_node: HTTPRequest, request_url: String, payload: Var
 	]
 	headers = add_jwt_token_headers(headers)
 	if !http_node.is_inside_tree():
-		await get_tree().create_timer(0.05).timeout
+		await get_tree().create_timer(1).timeout
 		
 	var query: String = JSON.stringify(payload)
 	BKMRLogger.debug("Method: POST")
@@ -219,7 +219,7 @@ func send_login_request(http_node: HTTPRequest, request_url: String, payload: Di
 	]
 	headers = add_jwt_refresh_token_headers(headers)
 	if !http_node.is_inside_tree():
-		await get_tree().create_timer(0.05).timeout
+		await get_tree().create_timer(1).timeout
 		
 	var query: String = JSON.stringify(payload)
 	BKMRLogger.debug("Method: POST")

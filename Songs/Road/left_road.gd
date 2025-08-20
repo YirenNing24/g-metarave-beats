@@ -41,14 +41,14 @@ func setup(game_config: Node3D) -> void:
 
 	current_bar_index = 0
 	tracks_data = game.map.tracks
-	scaled_bar_amount = max(ceil(32 / bar_length_in_meters), 16.8)
+	scaled_bar_amount = max(ceil(32 / bar_length_in_meters), 8)
  
 	for track: Dictionary in tracks_data:
 		max_index = max(max_index, len(track.bars))
 	add_bars(scaled_bar_amount)
 
 # Process method called on every frame to update the position of musical bars.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	bars_node.translate(speed * delta)
 	for bar: Node3D in bars: 
 		if bar.position.z + bars_node.position.x >= bar_length_in_meters * 2:

@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0w6h8216m03"]
+
+[ext_resource type="Script" uid="uid://dqippn5vyb2h7" path="res://Components/Upgrade/card_upgrade.gd" id="1_7qjaj"]
+[ext_resource type="Texture2D" uid="uid://bc1g4ncop4hd7" path="res://UITextures/CardUpgrades/card_upgrade.png" id="1_s8o2t"]
+
+[node name="CardUpgrade" type="Control"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("1_7qjaj")
+
+[node name="CardIcon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 0
+texture = ExtResource("1_s8o2t")
+expand_mode = 1
+
+[node name="Quantity" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.655738
+anchor_top = -0.0491803
+anchor_right = 1.04918
+anchor_bottom = 0.327869
+offset_left = -3.90166
+offset_top = 1.44262
+offset_right = -3.90166
+offset_bottom = 1.44262
+theme_override_font_sizes/font_size = 12
+text = "500"
+horizontal_alignment = 2
+
+[node name="Button" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

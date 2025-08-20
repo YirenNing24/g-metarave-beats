@@ -18,10 +18,10 @@ func _ready() -> void:
 	connect_signal()
 
 func connect_signal() -> void:
-	pass
-	#BKMREngine.Profile.like_profile_pic_complete.connect(_on_like_profile_pic_complete)
-	#BKMREngine.Profile.unlike_profile_pic_complete.connect(_on_unlike_profile_pic_complete)
-
+	BKMREngine.Profile.like_profile_pic_complete.connect(_on_like_profile_pic_complete)
+	BKMREngine.Profile.unlike_profile_pic_complete.connect(_on_unlike_profile_pic_complete)
+	
+	
 # Get pictures from the stored Array in Profile BKMREngine Script
 func get_pictures() -> void:
 	for pictures: Dictionary in profile_pics_data:
@@ -36,13 +36,15 @@ func get_pictures() -> void:
 			var pics: Texture = ImageTexture.create_from_image(image)
 			profile_pictures.append(pics)
 	display_picture()
-
+	
+	
 # Display the first picture and handles the switching to other pictures available 
 func display_picture() -> void:
 	if profile_pictures != []:
 		display_picture_texture.texture = profile_pictures[current_picture_index]
 	display_likes()
-
+	
+	
 func display_likes() -> void:
 	if profile_pics_data.size() == 0 or current_picture_index >= profile_pics_data.size():
 		%LikersLabel.text = "No likes yet!"
@@ -51,7 +53,7 @@ func display_likes() -> void:
 		return
 
 	var likes: Array = profile_pics_data[current_picture_index].likes
-	var picture_id: String = profile_pics_data[current_picture_index].id
+	var picture_id: String = profile_pics_data[current_picture_index]._id
 	var likes_count: int = likes.size()
 	
 	var likers_label: String = ""
@@ -81,17 +83,20 @@ func display_likes() -> void:
 		%LikersLabel.text = "No likes yet!"
 		%LikeCountLabel.text = "0"
 		toggle_like_button(usernames, picture_id)
-
+	
+	
 func toggle_like_button(usernames: Array, picture_id: String) -> void:
 	like_button.button_pressed = PLAYER.username in usernames
 	current_picture_id = picture_id
-
+	
+	
 func _on_like_button_pressed() -> void:
 	if like_button.button_pressed:
 		BKMREngine.Profile.like_profile_picture(current_picture_id)
 	else:
 		BKMREngine.Profile.unlike_profile_picture(current_picture_id)
-
+	
+	
 func _on_like_profile_pic_complete(message: Dictionary) -> void:
 	if message.has("success"):
 		@warning_ignore("unsafe_call_argument")
@@ -101,7 +106,8 @@ func _on_like_profile_pic_complete(message: Dictionary) -> void:
 		BKMREngine.Profile.get_player_profile_pic(%PlayerName.text)
 	else:
 		like_button.button_pressed = false
-
+	
+	
 func _on_unlike_profile_pic_complete(message: Dictionary) -> void:
 	if message.has("error"):
 		like_button.button_pressed = true
@@ -111,25 +117,29 @@ func _on_unlike_profile_pic_complete(message: Dictionary) -> void:
 		%LikeCountLabel.text = new_count_like
 		like_button.disabled = false
 	BKMREngine.Profile.get_player_profile_pic(%PlayerName.text)
-
+	
+	
 func _on_left_button_pressed() -> void:
 	if profile_pictures.size() > 0:
 		current_picture_index = (current_picture_index - 1 + profile_pictures.size()) % profile_pictures.size()
 		display_picture_texture.texture = profile_pictures[current_picture_index]
 		display_likes()
-	
+		
+		
 func _on_right_button_pressed() -> void:
 	if profile_pictures.size() > 0:
 		current_picture_index = (current_picture_index + 1) % profile_pictures.size()
 		display_picture_texture.texture = profile_pictures[current_picture_index]
 		display_likes()
-
+	
+	
 func _on_visibility_changed() -> void:
 	if visible:
 		get_pictures()
 	else:
 		current_picture_index = 0
-
+	
+	
 func _on_close_button_pressed() -> void:
 	visible = false
 	current_picture_index = 0

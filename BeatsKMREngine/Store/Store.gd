@@ -225,17 +225,19 @@ func _onBuyCardUpgrade_request_completed(_result: int, response_code: int, heade
 	if status_check:
 		# Parse the JSON response body
 		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
-		
+		if json_body is Dictionary:
 		# Check if the purchase was successful and log accordingly
-		if json_body.has("success"):
-			BKMRLogger.info("Card upgrade purchase was successful.")
+			if json_body.has("success"):
+				BKMRLogger.info("Card upgrade purchase was successful.")
+			else:
+				BKMRLogger.error("Purchase failed: " + str(json_body.error))
+			
+			# Emit the 'buy_card_complete' signal with the response body
+			buy_card_upgrade_item_complete.emit(json_body)
 		else:
-			BKMRLogger.error("Purchase failed: " + str(json_body.error))
-		
-		# Emit the 'buy_card_complete' signal with the response body
-		buy_card_upgrade_item_complete.emit(json_body)
-
-
+			buy_card_upgrade_item_complete.emit(json_body)
+	
+	
 # Function to get store items based on item type.
 func get_valid_card_upgrades() -> void:
 	# Prepare HTTP request
@@ -260,10 +262,6 @@ func get_valid_card_upgrades() -> void:
 func _onGetValidCardUpgrades_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check if the HTTP response is successful
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
-	
-	# Free the request resources if the HTTP request instance is valid
-	if is_instance_valid(GetValidCardUpgrades):
-		BKMREngine.free_request(wrGetValidCardUpgrades, GetValidCardUpgrades)
 	
 	# Process the response if the HTTP response is successful
 	if status_check:

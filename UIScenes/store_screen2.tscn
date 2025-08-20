@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://d05oohu41yaxd"]
+[gd_scene load_steps=32 format=3 uid="uid://d05oohu41yaxd"]
 
 [ext_resource type="Texture2D" uid="uid://bjpkh360v82aq" path="res://UITextures/BGTextures/store_bg.png" id="1_2tlno"]
 [ext_resource type="Script" uid="uid://2bbi552q8ath" path="res://UIScenes/store_screen_2.gd" id="1_24gne"]
@@ -14,14 +14,13 @@
 [ext_resource type="Script" uid="uid://mr2fibppbyip" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="7_cjpvt"]
 [ext_resource type="Texture2D" uid="uid://ba8q012bmx1s0" path="res://UITextures/BGTextures/purple-gradient.png" id="7_w2lxa"]
 [ext_resource type="PackedScene" uid="uid://c2epnpimhjct6" path="res://Components/Cursor/cursor_spark.tscn" id="7_ypx8t"]
-[ext_resource type="Texture2D" uid="uid://clhoav6v6sxtn" path="res://UITextures/Buttons/PanelTextures/esha_hero.png" id="8_f5vyn"]
 [ext_resource type="Texture2D" uid="uid://dea3dcdqw5gw" path="res://UITextures/Icons/energy_icon.png" id="8_ff1go"]
 [ext_resource type="Texture2D" uid="uid://ym02txfwpfvg" path="res://UITextures/Icons/beats_icon.png" id="9_w7jiv"]
 [ext_resource type="AudioStream" uid="uid://dtocxag21vt3n" path="res://GameTracks/BGTracks/Tue Apr 23 2024.mp3" id="13_0ps5v"]
 [ext_resource type="FontFile" uid="uid://chprskojxilgj" path="res://UITextures/Fonts/argentum-sans.black.ttf" id="14_7ht2r"]
 [ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="15_n31tq"]
 
-[sub_resource type="Shader" id="Shader_30skf"]
+[sub_resource type="Shader" id="Shader_pfu6j"]
 code = "shader_type canvas_item;
 render_mode unshaded, blend_mix;
 
@@ -73,7 +72,7 @@ void fragment() {
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8jafh"]
-shader = SubResource("Shader_30skf")
+shader = SubResource("Shader_pfu6j")
 shader_parameter/ScaleMult = Vector2(0.99, 1)
 shader_parameter/AuraProgres = 1.0
 shader_parameter/TextureLaodMult = 8.0
@@ -584,7 +583,6 @@ vertical_alignment = 1
 
 [node name="CardUpgradeButton" type="TextureButton" parent="BackgroundTexture/VBoxContainer/HBoxContainer/VBoxContainer"]
 auto_translate_mode = 1
-visible = false
 self_modulate = Color(0.776471, 0.776471, 0.776471, 1)
 custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
@@ -703,16 +701,6 @@ offset_right = 45.0
 grow_horizontal = 0
 grow_vertical = 2
 alignment = 2
-
-[node name="HeroCharacter" type="TextureRect" parent="VBoxContainer"]
-unique_name_in_owner = true
-auto_translate_mode = 1
-custom_minimum_size = Vector2(0, 400)
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("8_f5vyn")
-expand_mode = 1
-stretch_mode = 6
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_0ps5v")

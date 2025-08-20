@@ -1,0 +1,115 @@
+[gd_scene load_steps=3 format=3 uid="uid://l3e1gnxmohr8"]
+
+[ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="1_26yr7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_owsvo"]
+bg_color = Color(0, 0.288531, 0.288531, 0.541176)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.27451)
+shadow_size = 1
+shadow_offset = Vector2(0, 2)
+
+[node name="History" type="Control"]
+custom_minimum_size = Vector2(1019, 75)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_right = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_owsvo")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(977, 59)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -488.5
+offset_top = -29.5
+offset_right = 488.5
+offset_bottom = 29.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ResultLabel" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+auto_translate_mode = 1
+self_modulate = Color(0.87451, 0.87451, 0.87451, 1)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("1_26yr7")
+theme_override_font_sizes/font_size = 18
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Score" type="Label" parent="Panel/HBoxContainer/VBoxContainer2"]
+auto_translate_mode = 1
+self_modulate = Color(0.87451, 0.87451, 0.87451, 1)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("1_26yr7")
+theme_override_font_sizes/font_size = 18
+text = "999,999,999,999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DifficultyLabel" type="Label" parent="Panel/HBoxContainer/VBoxContainer3"]
+auto_translate_mode = 1
+self_modulate = Color(0.87451, 0.87451, 0.87451, 1)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("1_26yr7")
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TimeLabel" type="Label" parent="Panel/HBoxContainer/VBoxContainer4"]
+auto_translate_mode = 1
+self_modulate = Color(0.87451, 0.87451, 0.87451, 1)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.894118, 0.894118, 0.894118, 1)
+theme_override_fonts/font = ExtResource("1_26yr7")
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+vertical_alignment = 1

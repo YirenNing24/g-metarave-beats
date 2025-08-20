@@ -2,6 +2,7 @@ extends Control
 
 signal wallet_address_copied(wallet_address: String)
 signal settings_screen_button_pressed
+signal picture_processing_complete
 
 const badge_scene: PackedScene = preload("res://Components/MyProfile/badge.tscn")
 const liker_slot_scene: PackedScene = preload("res://Components/Moments/liker_slot.tscn")
@@ -25,29 +26,37 @@ const notification_scene: PackedScene = preload("res://Components/MyProfile/noti
 var get_image: Object
 const plugin_name: String = "GodotGetImage"
 
+
+
 var is_upload: bool = false
 var is_following_button_pressed: bool = false
 var is_followers_button_pressed: bool = false
 
 
+func show_profile_modal() -> void:
+	if %ProfilePic.texture == null:
+		await picture_processing_complete
+		visible = true
+	else:
+		visible = true
+	
+	
 func _ready() -> void:
 	signal_connect()
-	stat_display()
 	load_plugin()
 	#get_notification()
-	BKMREngine.Social.get_following_followers_count(player_name.text)
+	#BKMREngine.Social.get_following_followers_count(player_name.text)
 	
 	
 func signal_connect() -> void:
-	#It connects the logout complete signal to the _on_Logout_Complete function for handling logout events.
 	BKMREngine.Auth.bkmr_logout_complete.connect(_on_logout_complete)
 	BKMREngine.Profile.get_profile_pic_complete.connect(_on_get_profile_pic_complete)
-	#BKMREngine.Profile.preference_get_complete.connect(_on_get_preference_complete)
 	BKMREngine.Profile.profile_pic_upload_complete.connect(_on_profile_pic_upload_complete)
 	BKMREngine.Profile.change_profile_pic_complete.connect(_on_change_profile_pic_complete)
-	#BKMREngine.Social.get_followers_following_count_complete.connect(_get_followers_following_count_complete)
+	BKMREngine.Social.get_followers_following_count_complete.connect(_get_followers_following_count_complete)
 	#BKMREngine.Social.get_followers_following_complete.connect(_get_followers_following_complete)
-	
+
+	#BKMREngine.Profile.preference_get_complete.connect(_on_get_preference_complete)
 	#BKMREngine.Notification.get_notifications_complete.connect(_on_get_notifications_complete)
 	#BKMREngine.Reward.get_available_card_reward()
 	
@@ -69,6 +78,7 @@ func stat_display() -> void:
 # Handle visibility change.
 func _on_visibility_changed() -> void:
 	if visible:
+		pass
 		BKMREngine.Social.get_following_followers_count(player_name.text)
 		#BKMREngine.Profile.get_soul()
 		if is_upload == false:
@@ -104,7 +114,7 @@ func load_plugin() -> void:
 		print("Could not load plugin: ", plugin_name)
 		
 	if get_image:
-		var options: Dictionary = {
+		var options: Dictionary[String, Variant] = {
 		"image_height" : 200,
 		"image_width" : 100,
 		"keep_aspect" : true,
@@ -175,8 +185,10 @@ func _on_get_profile_pic_complete(profile_pics: Variant) -> void:
 		else:
 			var display_pic: Texture =  ImageTexture.create_from_image(image)
 			profile_pic.texture = display_pic
+			picture_processing_complete.emit()
 		view_picture.profile_pics_data = profile_pics
 		view_picture.display_picture()
+	picture_processing_complete.emit()
 			
 			
 func _on_get_image_error(_error: String) -> void:
@@ -188,78 +200,37 @@ func _on_permission_not_granted_by_user() -> void:
 	get_image.resendPermission()
 	
 #endregion
-
+	
+	
 #region Button callback functions
 func _on_profile_pic_options_button_pressed() -> void:
 	animation_player.play('dp_options')
-
-
+	
+	
 func _on_dp_panel_gui_input(event: InputEvent) -> void:
 	if dp_option_panel.visible == true:
 		if event is InputEventMouseButton:
 			animation_player.play_backwards('dp_options')
 #endregion
-
-
+	
+	
 #region View Pictuer callback
 func _on_view_picture_view_picture_close() -> void:
 	visible = true
-
-
+	
+	
 func _on_profile_pic_upload_complete(_message: Dictionary) -> void:
 	BKMREngine.Profile.get_profile_pic() 
 	
 	
 func _on_change_profile_pic_complete(_message: Dictionary) -> void:
 	BKMREngine.Profile.get_profile_pic()
-
-
+	
+	
 func _on_my_profile_button_pressed() -> void:
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/my_profile.tscn")
-
-
-#func _on_get_preference_complete(soul_data: Dictionary) -> void:
-	#for badge: Control in badge_container.get_children():
-		#badge.queue_free()
-	#if !soul_data.is_empty():
-		#var badge_created: bool = false
-		#var soul_data_ownership: Array = soul_data.ownership
-		#var soul_data_horoscope_match: Array = soul_data.horoscopeMatch
-		#var soul_data_animal_match: Array = soul_data.animalMatch
-		#var soul_data_weekly_first: Array = soul_data.weeklyFirst
-	#
-		#for card: String in soul_data_ownership:
-			#if "No Doubt" in card and not badge_created:
-				#var badge: Control = badge_scene.instantiate()
-				#badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x_in_owner_badge.png")
-				#badge_container.add_child(badge)
-				#badge_created = true  # Set the flag to true to indicate a badge has been created
-				#break  # Exit the loop since we only need one badge
-		#for card: String in soul_data_horoscope_match:
-			#if "No Doubt" in card:
-				#var badge: Control = badge_scene.instantiate()
-				#badge.get_node("Panel").modulate = "a8923e"
-				#badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x_in_capricorn.png")
-				#badge_container.add_child(badge)
-				#badge_created = true  # Set the flag to true to indicate a badge has been created
-				#break  # Exit the loop since we only need one badge
-		#for card: String in soul_data_animal_match:
-			#if "No Doubt" in card:
-				#var badge: Control = badge_scene.instantiate()
-				#badge.get_node("Panel").modulate = "46ff45"
-				#badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x_in_animal.png")
-				#badge_container.add_child(badge)
-				#badge_created = true  # Set the flag to true to indicate a badge has been created
-				#break  # Exit the loop since we only need one badge
-		#for song: String in soul_data_weekly_first:
-			#if "No Doubt" in song:
-				#var badge: Control = badge_scene.instantiate()
-				#badge.get_node("Panel").self_modulate = "8f8f8f"
-				#badge.get_node("Panel/BadgeIcon").texture = preload("res://UITextures/BadgeTextures/x:in_award.png")
-				#badge_container.add_child(badge)
-				#badge_created = true  # Set the flag to true to indicate a badge has been created
-				#break  # Exit the loop since we only need one badge
-	#
+	
+	
 	
 #func _on_my_notes_button_pressed() -> void:
 	#pass
@@ -292,34 +263,32 @@ func _on_moments_visibility_changed() -> void:
 	else:
 		plugin_signal_disconnect()
 		
-
+		
 func _get_followers_following_count_complete(followers_following_count: Dictionary) -> void:
-	if not followers_following_count.is_empty() and not followers_following_count.has("error"):
-		if player_name.text == PLAYER.username:
-			%FollowingButton.text = str(followers_following_count.followingCount) + " " + "Following"
-			%FollowersButton.text = str(followers_following_count.followerCount) + " " + "Followers"
-
-
+	@warning_ignore("unsafe_call_argument")
+	%FollowingButton.text = str(int(followers_following_count.followingCount)) + " " + "Following"
+	@warning_ignore("unsafe_call_argument")
+	%FollowersButton.text = str(int(followers_following_count.followerCount)) + " " + "Followers"
+	
+	
 func _on_following_button_pressed() -> void:
 	BKMREngine.Social.get_following_followers(player_name.text)
 	is_following_button_pressed = true
 	following_follower_buttons()
-
-
+	
+	
 func _on_followers_button_pressed() -> void:
 	BKMREngine.Social.get_following_followers(player_name.text)
 	is_followers_button_pressed = true
 	following_follower_buttons()
-
-
+	
+	
 func following_follower_buttons() -> void:
 	%FollowersFollowingContainer.visible = true
 	%CloseButton.visible = true
 	%HistoryContainer.visible = false
-	%NotificationsContainer.visible = false
 	
-
-
+	
 func _get_followers_following_complete(followers_following: Dictionary) -> void:
 	if is_following_button_pressed:
 		var following: Array = followers_following.following
@@ -330,7 +299,7 @@ func _get_followers_following_complete(followers_following: Dictionary) -> void:
 		populate_followers(followers)
 		is_followers_button_pressed = false
 		
-
+		
 func populate_followers(followers: Array) -> void:
 	clear_followers_following_container()
 	var follower_slot: Control
@@ -352,15 +321,14 @@ func populate_following(followings: Array) -> void:
 func clear_followers_following_container() -> void:
 	for child: Control in %FollowersFollowingContainer.get_children():
 		child.queue_free()
-
-
-
+	
+	
 func _on_get_notifications_complete(notification_data: Array) -> void:
 	var notification_slot: Control
 	for notif: Dictionary in notification_data:
 		var already_exists: bool = false
 		
-		# Check if a notification with the same ID already exists in the container
+		# Check if a notification with the same ID already exists in the container	pass # Replace with function body.
 		for slots: Control in %NotificationsContainer.get_children():
 			if slots.id == notif.id:
 				already_exists = true
@@ -371,33 +339,29 @@ func _on_get_notifications_complete(notification_data: Array) -> void:
 			notification_slot = notification_scene.instantiate()
 			notification_slot.notification_slot_data(notif)
 			%NotificationsContainer.add_child(notification_slot)
-
-
-
+	
+	
 func _on_copy_button_pressed() -> void:
 	var address_wallet: String = PLAYER.wallet_data.smartWalletAddress
 	DisplayServer.clipboard_set(address_wallet)
 	wallet_address_copied.emit(address_wallet)
-
-
+	
+	
 func _on_close_button_pressed() -> void:
 	reset_state()
 	
+	
 func reset_state() -> void:
 	%HistoryContainer.visible = true
-	
 	%FollowersFollowingContainer.visible = false
-	%NotificationsContainer.visible = false
 	%CloseButton.visible = false
-
-
+	
+	
 func _on_notifications_button_pressed() -> void:
 	%HistoryContainer.visible = false
-	
 	%FollowersFollowingContainer.visible = false
-	%NotificationsContainer.visible = true
 	%CloseButton.visible = true
-
-
+	
+	
 func _on_settings_button_pressed() -> void:
 	settings_screen_button_pressed.emit()

@@ -50,28 +50,6 @@ shader_parameter/corner_radius = 20.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g8l7j"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5jrfp"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_txi7e"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4pytj"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bk7np"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_usmx7"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hp18n"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mo2vv"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f1e0k"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_am1jw"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3o5xy"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_523hs"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lk1uv"]
 bg_color = Color(0.0235294, 0.109804, 0.109804, 1)
 draw_center = false
@@ -106,6 +84,28 @@ content_margin_right = 5.0
 content_margin_bottom = 1.0
 draw_center = false
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iqvs8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jm2qd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cjavy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4pbd7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h624t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qj7ds"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qtlhw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w7f80"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3bwfr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_234gl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_28tjn"]
+
 [sub_resource type="Resource" id="Resource_bv7a1"]
 script = ExtResource("10_c3r7i")
 friction = 4.0
@@ -121,34 +121,10 @@ rebound_strength = 7.0
 [sub_resource type="Animation" id="Animation_k11gc"]
 resource_name = "dp_options"
 length = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DPPanel/DPOptionPanel:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 541), Vector2(0, 415)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("DPPanel:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.01),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
 
 [sub_resource type="Animation" id="Animation_ydsjf"]
 resource_name = "fade-in"
-length = 0.3
+length = 0.15
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -156,7 +132,7 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
+"times": PackedFloat32Array(0, 0.15),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -262,7 +238,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_8nuqf")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_g8l7j")
-disabled = true
 flat = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer"]
@@ -329,6 +304,8 @@ theme_override_colors/font_color = Color(0.878431, 0.223529, 0.992157, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="CopyButton" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(20, 20)
@@ -539,48 +516,6 @@ layout_mode = 2
 custom_minimum_size = Vector2(10, 40)
 layout_mode = 2
 
-[node name="FollowingButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_fonts/font = ExtResource("6_7jbf1")
-theme_override_font_sizes/font_size = 13
-theme_override_styles/focus = SubResource("StyleBoxEmpty_5jrfp")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_txi7e")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_4pytj")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_bk7np")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_usmx7")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_hp18n")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_mo2vv")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_f1e0k")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_am1jw")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_3o5xy")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_523hs")
-text = "252 Following"
-flat = true
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(10, 0)
-layout_mode = 2
-
-[node name="FollowersButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_fonts/font = ExtResource("6_7jbf1")
-theme_override_font_sizes/font_size = 13
-theme_override_styles/focus = SubResource("StyleBoxEmpty_5jrfp")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_txi7e")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_4pytj")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_bk7np")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_usmx7")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_hp18n")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_mo2vv")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_f1e0k")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_am1jw")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_3o5xy")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_523hs")
-text = "252 Followers"
-flat = true
-
 [node name="HistoryContainer" type="VBoxContainer" parent="Panel/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
@@ -702,6 +637,59 @@ mouse_filter = 2
 theme_override_constants/separation = 10
 alignment = 2
 
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(10, 40)
+layout_mode = 2
+
+[node name="FollowingButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("6_7jbf1")
+theme_override_font_sizes/font_size = 13
+theme_override_styles/focus = SubResource("StyleBoxEmpty_iqvs8")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jm2qd")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_cjavy")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_4pbd7")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_h624t")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_qj7ds")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qtlhw")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_w7f80")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_3bwfr")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_234gl")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_28tjn")
+text = "0 Following"
+flat = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="FollowersButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("6_7jbf1")
+theme_override_font_sizes/font_size = 13
+theme_override_styles/focus = SubResource("StyleBoxEmpty_iqvs8")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jm2qd")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_cjavy")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_4pbd7")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_h624t")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_qj7ds")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qtlhw")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_w7f80")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_3bwfr")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_234gl")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_28tjn")
+text = "0 Followers"
+flat = true
+
 [node name="SmoothScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -713,19 +701,6 @@ dragging_scroll_damper = SubResource("Resource_fmmh2")
 
 [node name="FollowersFollowingContainer" type="VBoxContainer" parent="Panel/VBoxContainer/SmoothScrollContainer"]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/SmoothScrollContainer"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 2
-
-[node name="NotificationsContainer" type="VBoxContainer" parent="Panel/VBoxContainer/SmoothScrollContainer"]
-unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -747,7 +722,7 @@ stretch_mode = 4
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_sqsaf")
+&"": SubResource("AnimationLibrary_sqsaf")
 }
 
 [node name="DPPanel" type="Panel" parent="."]
@@ -839,8 +814,8 @@ layout_mode = 1
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer2/FanMomentsButton" to="." method="_on_fan_moments_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer3/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer3/LogoutButton" to="." method="_on_logout_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/FollowingButton" to="." method="_on_following_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/FollowersButton" to="." method="_on_followers_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer3/FollowingButton" to="." method="_on_following_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer3/FollowersButton" to="." method="_on_followers_button_pressed"]
 [connection signal="pressed" from="Panel/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="gui_input" from="DPPanel" to="." method="_on_dp_panel_gui_input"]
 [connection signal="pressed" from="DPPanel/DPOptionPanel/VBoxContainer/SeeProfilePicButton" to="." method="_on_see_profile_pic_button_pressed"]

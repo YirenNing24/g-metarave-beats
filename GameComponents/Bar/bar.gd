@@ -32,12 +32,15 @@ func add_note(line: int, note_data: Dictionary) -> void:
 	var note_scene: PackedScene
 	var note_length: int = note_data["len"]
 	
-	if note_length >= 400:
+	if note_length == 70:  # ✅ Explicitly check for exactly 70-length short notes
+		if note_data.swipe == true:
+			note_scene = short_swipe_note_scene  # ✅ Swipe notes are also short notes
+		else:
+			note_scene = short_note_scene
+	elif note_length >= 71:
 		note_scene = long_note_scene
-	elif note_data.swipe == true:
-		note_scene = short_swipe_note_scene
 	else:
-		note_scene = short_note_scene
+		note_scene = long_note_scene  # ✅ Everything else defaults to a long note
 		
 	# Instantiate the note from the chosen scene.
 	var note: Node3D = note_scene.instantiate()
@@ -50,14 +53,11 @@ func add_note(line: int, note_data: Dictionary) -> void:
 		note.layer = note_data["layer"]
 	
 	# Set note position, length, length_scale, and speed properties.
-	note.note_position = note_data["pos"]
+	@warning_ignore("unsafe_call_argument")
+	note.note_position = int(note_data["pos"])
 	note.length = note_length
 	note.length_scale = note_scale
 	note.speed = speed
-	
-	# Check if note_data has 'uid' property and set it if present.
-	if note_data.has("uid"):
-		note.uid = note_data["uid"]
 	
 	# Add the note as a child of this node.
 	add_child(note)

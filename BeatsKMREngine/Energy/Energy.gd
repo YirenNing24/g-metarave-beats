@@ -12,6 +12,7 @@ var UsePlayerEnergy: HTTPRequest
 var wrUsePlayerEnergy: WeakRef
 signal use_player_energy_complete(is_energy: bool)
 
+
 var game_id: String
 
 
@@ -50,8 +51,8 @@ func _on_GetEnergyDrink_request_completed(_result: int, response_code: int, head
 			get_energy_drink_complete.emit({"error": "Unknown server error"})
 	else:
 		get_energy_drink_complete.emit({"error": "Unknown server error"})
-
-
+	
+	
 func use_player_energy() -> void:
 	# Prepare an HTTP request for fetching leaderboard data.
 	var prepared_http_req: Dictionary = BKMREngine.prepare_http_request()
@@ -65,7 +66,7 @@ func use_player_energy() -> void:
 	BKMRLogger.info("Calling BKMREngine to get leaderboard data")
 	
 	# Construct the request URL for fetching leaderboard data.
-	var request_url: String = "https://api-fn.gmetarave.asia" + "/api/energy/use"
+	var request_url: String = BKMREngine.host + "/api/energy/use"
 
 	# Send the GET request using the prepared URL.
 	BKMREngine.send_post_request(UsePlayerEnergy, request_url, {})
@@ -83,7 +84,9 @@ func _on_UsePlayerEnergy_request_completed(_result: int, response_code: int, hea
 				if json_body.has("error"):
 					use_player_energy_complete.emit({ "error": json_body.error })
 				else:
+					print("may laman po ba: ", json_body)
 					use_player_energy_complete.emit(json_body)
+					game_id = json_body.gameId
 		else:
 			use_player_energy_complete.emit({ "error": "Unknown server error" })
 	else:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://c3q3fqqfdkrw"]
+[gd_scene load_steps=35 format=3 uid="uid://c3q3fqqfdkrw"]
 
 [ext_resource type="Script" uid="uid://by6pyda5vwgbi" path="res://Components/LoadingComponents/filter_panel.gd" id="1_5lsxa"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="3_jj3if"]
@@ -31,6 +31,8 @@
 [ext_resource type="Texture2D" uid="uid://b04fy8h1disgy" path="res://UITextures/Progress/HannahLoading/Timeline 1_0026.png" id="29_qn4c6"]
 [ext_resource type="Texture2D" uid="uid://ckswwd7rh8xae" path="res://UITextures/Progress/HannahLoading/Timeline 1_0027.png" id="30_drj21"]
 [ext_resource type="Texture2D" uid="uid://bgedcn1onaufx" path="res://UITextures/Buttons/submit_button.png" id="31_nqlvx"]
+[ext_resource type="Texture2D" uid="uid://df4ks21hiueoy" path="res://UITextures/Buttons/next_prev_button.png" id="32_7kxeb"]
+[ext_resource type="Texture2D" uid="uid://bf6us288ky7tu" path="res://UITextures/Icons/leaderboard_icon.png" id="33_pifew"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3li0g"]
 animations = [{
@@ -197,4 +199,83 @@ text = "CONTINUE
 "
 metadata/_edit_use_anchors_ = true
 
+[node name="RetryContainer" type="HBoxContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 958.0
+offset_top = -137.0
+offset_right = 1168.0
+offset_bottom = -47.0
+grow_vertical = 0
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="RetryButton" type="TextureButton" parent="RetryContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+texture_normal = ExtResource("32_7kxeb")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="EnergyBalance" type="Label" parent="RetryContainer/RetryButton"]
+custom_minimum_size = Vector2(93, 20)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -46.5
+offset_top = -14.0
+offset_right = 46.5
+offset_bottom = 7.00003
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.912289, 0.912289, 0.912289, 1)
+theme_override_fonts/font = ExtResource("3_jj3if")
+theme_override_font_sizes/font_size = 16
+text = "RETRY"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="RetryButton2" type="TextureButton" parent="RetryContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_vertical = 4
+texture_normal = ExtResource("33_pifew")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="EnergyBalance" type="Label" parent="RetryContainer/RetryButton2"]
+custom_minimum_size = Vector2(93, 20)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -3.99997
+offset_right = 48.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.912289, 0.912289, 0.912289, 1)
+theme_override_fonts/font = ExtResource("3_jj3if")
+theme_override_font_sizes/font_size = 16
+text = "SONG MENU"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
 [connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="RetryContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="RetryContainer/RetryButton2" to="." method="_on_retry_button_2_pressed"]

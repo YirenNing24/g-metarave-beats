@@ -35,7 +35,6 @@ var picker: Node3D = null
 
 
 func _ready() -> void:
-	print("Short po ako")
 	connect_notes()
 	var _note_connect: int = note_area.area_entered.connect(_on_area_entered)
 	set_note_position()
@@ -83,10 +82,8 @@ func set_note_position() -> void:
 
 	if line in [1, 2, 3, 4, 5]:
 		z = z_values[line - 1]
-	elif line in [6, 7, 8, 9, 10, 11, 12, 13, 14, 15]:
-		rotation.y = 90
-		z = z_values[line - 6]
-	position = Vector3(z, layer, -note_position * length_scale)
+
+	position = Vector3(z, layer, -note_position * (length_scale / 1.2))
 
 
 # Method to handle the area entered signal of the note.

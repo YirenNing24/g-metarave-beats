@@ -10,11 +10,11 @@ func _ready() -> void:
 	var _connect: int = button.pressed.connect(_on_button_pressed)
 
 func slot_data(card_upgrade_data: Dictionary = {}) -> void:
-	card_upgrade_data["Quantity"] = card_upgrade_data.quantity
+	card_upgrade_data["Quantity"] = card_upgrade_data.supply
 
 	card_upgrade_data["uri"] = card_upgrade_data.uri
 	card_upgrade_data["tokenId"] = card_upgrade_data.tokenId
-	card_upgrade_data["Tier"] = card_upgrade_data.tier
+	card_upgrade_data["Tier"] = card_upgrade_data.metadata.tier
 	card_upgrade_slot_data = card_upgrade_data
 	set_texture()
 	

@@ -12,6 +12,7 @@ config_version=5
 
 config/name="kmr-godot-4"
 run/main_scene="res://UIScenes/splash_screen.tscn"
+config/quit_on_go_back=false
 config/features=PackedStringArray("4.4", "Mobile")
 run/max_fps=120
 boot_splash/bg_color=Color(0, 0, 0, 1)
@@ -33,6 +34,7 @@ Game3D="*res://GameComponents/Game3D.gd"
 BeatsPasskey="*res://addons/BeatsPassKeyLogin/beats_passkey_login.gd"
 BeatsSessionTokens="*res://addons/BeatsSessionTokens/beats_session_tokens.gd"
 BeatsQrScanner="*res://addons/BeatsQRScanner/beats_qr_scanner.gd"
+AndroidInterface="*res://addons/AndroidInterface/android_interface.gd"
 
 [debug]
 
@@ -89,7 +91,7 @@ project/assembly_name="kmr-godot-4"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/BeatsPassKeyLogin/plugin.cfg", "res://addons/BeatsQRScanner/plugin.cfg", "res://addons/BeatsSessionTokens/plugin.cfg", "res://addons/GodotGetImage/plugin.cfg", "res://addons/SmoothScroll/plugin.cfg")
+enabled=PackedStringArray("res://addons/AndroidInterface/plugin.cfg", "res://addons/BeatsPassKeyLogin/plugin.cfg", "res://addons/BeatsQRScanner/plugin.cfg", "res://addons/BeatsSessionTokens/plugin.cfg", "res://addons/GodotGetImage/plugin.cfg", "res://addons/SmoothScroll/plugin.cfg")
 
 [global_group]
 
@@ -108,6 +110,10 @@ GFXQuality=""
 ShortNote=""
 Notes=""
 UserHUD=""
+ProfileContainer=""
+ProfileButtons=""
+PlayerModal=""
+CardValues=""
 
 [input]
 

@@ -18,7 +18,7 @@ func _ready() -> void:
 	notepicker_position = notepicker_3d_pos()
 	call_deferred('connect_notes') 
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if is_collecting == false:
 		fx_spinner.visible = false
 

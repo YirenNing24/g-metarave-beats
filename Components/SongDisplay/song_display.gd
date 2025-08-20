@@ -27,15 +27,26 @@ var difficulty: String
 var difficulty_mode: String
 
 func _ready() -> void:
-	song_title.text = song_easy.audio.title
-	artist.text = song_easy.audio.artist
-	if song_easy.has("tempo"):
-		%Bpm.text = str(int(song_easy.tempo))
+	var selected_song: Dictionary = song_easy  # Default to song_easy
+
+	# If song_easy is empty, use song_ultra_hard instead
+	if song_easy.is_empty():
+		selected_song = song_ultra_hard
+
+	# Set title and artist
+	if selected_song.has("audio"):
+		song_title.text = selected_song.audio.title
+		artist.text = selected_song.audio.artist
+
+	# Set tempo if it exists
+	if selected_song.has("tempo"):
+		@warning_ignore("unsafe_call_argument")
+		%Bpm.text = str(int(selected_song.tempo))
+
+	# Enable start button
 	%StartButton.disabled = false
 	
-func _process(_delta: float) -> void:
-	pass
-	#%StartButton.disabled = BKMREngine.peer.get_connection_status() != 2
+	
 	
 	
 func set_map() -> void:
@@ -49,7 +60,8 @@ func set_map() -> void:
 			selected_song = song_medium
 		"hard":
 			selected_song = song_hard
-		"ultra_hard":
+		"ultra hard":
+			print(song_ultra_hard)
 			selected_song = song_ultra_hard
 	
 	# Ensure a valid song is selected
@@ -97,7 +109,7 @@ func _on_start_button_pressed() -> void:
 			selected_song = song_medium
 		"hard":
 			selected_song = song_hard
-		"ultra_hard":
+		"ultra hard":
 			selected_song = song_ultra_hard
 	
 	# If the selected difficulty does not exist, default to "easy"

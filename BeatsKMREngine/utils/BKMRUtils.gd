@@ -35,10 +35,10 @@ static func check_http_response(response_code: int, headers: Array, _body: Packe
 
 
 static func no_connection_error() -> void:
-	BKMRLogger.error("Beats couldn't connect to the server. There are several reasons why this might happen. See https://www.kmetarave.com/troubleshooting for more details. If the problem persists you can reach out to us: https://www.kmetarave.com/contact")
+	BKMRLogger.error("Beats couldn't connect to the server. There are several reasons why this might happen. See https://www.gmetarave.com/troubleshooting for more details. If the problem persists you can reach out to us: https://www.gmetarave.com/contact")
 
 static func forbidden_error() -> void:
-	BKMRLogger.error("You are not authorized to call the BKMREngine - check your device, game version or account or contact us at https://www.kmetarave.com/contact")
+	BKMRLogger.error("You are not authorized to call the BKMREngine - check your device, game version or account or contact us at https://www.gmetarave.com/contact")
 
 static func validation_error() -> void:
 	BKMRLogger.error("Your credentials entered or used are invalid")

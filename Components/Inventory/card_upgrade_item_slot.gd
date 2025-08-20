@@ -42,10 +42,10 @@ func on_pressed() -> void:
 		return
 	$Quantity.text = new_value
 
-func card_equipped(equipped: bool) -> void:
-	is_equipped = equipped
-	if is_equipped:
-		modulate = "ffffff"
-	else:
-		modulate = "626262"
+#func card_equipped(equipped: bool) -> void:
+	#is_equipped = equipped
+	#if is_equipped:
+		#modulate = "ffffff"
+	#else:
+		#modulate = "626262"
 	

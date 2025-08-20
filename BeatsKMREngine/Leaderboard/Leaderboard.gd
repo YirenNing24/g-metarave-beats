@@ -33,12 +33,14 @@ func get_classic_leaderboard(song_name: String, difficulty: String, period: Stri
 	BKMREngine.send_get_request(GetClassicLeaderboard, request_url)
 
 
+
 func _on_GetClassicLeaderboard_request_completed(_result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
 	# Check the HTTP response status.
 	var status_check: bool = BKMRUtils.check_http_response(response_code, headers, body)
 	
 	# Check if the server update was successful.
 	if status_check:
+		print("hey: ", body.get_string_from_utf8())
 		var json_body: Variant = JSON.parse_string(body.get_string_from_utf8())
 		if json_body != null:
 			if json_body.has("error"):
@@ -46,6 +48,7 @@ func _on_GetClassicLeaderboard_request_completed(_result: int, response_code: in
 			else:
 				get_classic_leaderboard_complete.emit(json_body)
 		else:
+			print()
 			get_classic_leaderboard_complete.emit({"error": "Unknown server error"})
 	else:
 		get_classic_leaderboard_complete.emit({"error": "Unknown server error"})

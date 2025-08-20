@@ -47,8 +47,8 @@ func _ready() -> void:
 	var _note_connect: int = note_area.area_entered.connect(_on_area_entered)
 	
 	# Calculate and set the current length of the note and update the beam scale.
-	curr_length_in_m = max(100, length - 100) * length_scale
-	beam.scale.z = curr_length_in_m
+	curr_length_in_m = max(70, length) * length_scale
+	beam.scale.z = curr_length_in_m * 0.81
 	connect_notes()
 	
 	
@@ -60,10 +60,8 @@ func set_note_position() -> void:
 
 	if line in [1, 2, 3, 4, 5]:
 		z = z_values[line - 1]
-	elif line in [6, 7, 8, 9, 10, 11, 12, 13, 14, 15]:
-		rotation.y = 90
-		z = z_values[line - 6]
-	position = Vector3(z, layer, -note_position * length_scale)
+	# Adjust long note position to ensure correct placement
+	position = Vector3(z, layer, -note_position * (length_scale / 1.2))
 
 
 # Handle the process logic for the note.

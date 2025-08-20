@@ -57,7 +57,7 @@ var SavePreferredServer: HTTPRequest
 var wrSavePreferredServer: WeakRef
 signal save_preferred_server_complete(message: Dictionary)
 
-var scene: PackedScene = preload("res://UIScenes/splash_screen.tscn")
+const scene: PackedScene = preload("res://UIScenes/splash_screen.tscn")
 
 func _ready() -> void:
 	set_process(false)
@@ -76,7 +76,7 @@ func set_server_urls() -> void:
 	
 func set_player_urls(player_server: String) -> void:
 	var preferred_server_api_index: int = latency_test_urls.find(player_server)
-	BKMREngine.host = api_server_urls[preferred_server_api_index]
+	BKMREngine.host = "https://api-sg.gmetarave.asia"
 	BKMREngine.beats_host = game_server_urls[preferred_server_api_index]
 	preferred_server = BKMREngine.beats_host
 	player_server_check_complete()

@@ -40,6 +40,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = -62.3
 offset_bottom = -88.4
+mouse_filter = 2
 expand_mode = 1
 script = ExtResource("2_uof06")
 metadata/_edit_use_anchors_ = true

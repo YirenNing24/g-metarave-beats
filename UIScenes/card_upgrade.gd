@@ -2,8 +2,8 @@ extends Control
 
 signal card_equipped(value: bool)
 
-var template_card_upgrade_slot: PackedScene = preload("res://Components/Inventory/card_upgrade_item_slot.tscn")
-var inventory_slot_card: PackedScene = preload("res://Components/Inventory/card_inventory_slot.tscn")
+const template_card_upgrade_slot: PackedScene = preload("res://Components/Inventory/card_upgrade_item_slot.tscn")
+const inventory_slot_card: PackedScene = preload("res://Components/Inventory/card_inventory_slot.tscn")
 
 @onready var beats_balance: Label = %BeatsBalance
 @onready var native_balance: Label = %Native

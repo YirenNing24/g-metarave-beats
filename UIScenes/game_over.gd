@@ -27,14 +27,19 @@ func _ready() -> void:
 	%LoadingPanel.fake_loader()
 	signal_connect()
 	hud_data()
-	
 	var score_stats: Dictionary = BKMREngine.Score.classic_game_rewards
 	display_score(score_stats)
 	%SongNameDiificulty.text = SONG.song_name + " - " + SONG.difficulty
 	
+	
 func signal_connect() -> void:
-	#var _1: int = MULTIPLAYER.classic_game_over_completed.connect(display_score)
 	var _connect: int = PLAYER.new_data_received.connect(hud_data)
+	BKMREngine.Auth.bkmr_session_check_complete.connect(_on_session_check_complete)
+	
+	
+func _on_session_check_complete(_session: Dictionary) -> void:
+	%LoadingPanel.tween_kill()
+	energy_hud()
 	
 	
 func hud_data() -> void:
@@ -46,8 +51,11 @@ func energy_hud() -> void:
 	%Energy.text = str(PLAYER.current_energy) + " " + "/" + " " + str(PLAYER.max_energy)
 	if PLAYER.time_until_next_recharge != 0:
 		start_recharge_countdown(PLAYER.time_until_next_recharge)
-	
-	
+	if PLAYER.current_energy <= 0:
+		%RetryButton.modulate = "ffffff4b"
+		%RetryButton.disabled = true
+		
+		
 func start_recharge_countdown(time_until_next: int) -> void:
 	time_until_next_recharge = time_until_next
 	recharge_progress = 0.0
@@ -108,8 +116,6 @@ func display_score(rewards: Dictionary) -> void:
 		%BeatsGainedValue.text = str(rewards["beatsReward"])
 		
 		BKMREngine.Auth.validate_player_session()
-		%LoadingPanel.tween_kill()
-	#BKMREngine.beats_server_peer_close()
 	
 	
 func format_scores(value: String) -> String:
@@ -132,10 +138,12 @@ func _on_close_button_pressed() -> void:
 	LOADER.previous_texture = background_texture.texture
 	LOADER.next_texture = preload("res://UITextures/BGTextures/main_city.png")
 	var _change_scene: bool = await LOADER.load_scene(self, "res://UIScenes/main_screen.tscn")
-
-
+	
+	
 func _on_retry_button_pressed() -> void:
 	if PLAYER.current_energy > 0:
+		BKMREngine.Energy.game_id = ""
+		BKMREngine.Energy.use_player_energy()
 		# Allow retry logic here
 		var _game_scene: int = await LOADER.load_scene(self, "res://UIScenes/game_scene.tscn")
 	else:

@@ -46,7 +46,7 @@ func _draw() -> void:
 		)
 		prev_hz = hz
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	queue_redraw()
 
 

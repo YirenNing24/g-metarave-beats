@@ -10,7 +10,7 @@
 [ext_resource type="Shader" uid="uid://b08q4cvvvk12s" path="res://UIScenes/energy.gdshader" id="7_0mdqv"]
 [ext_resource type="Texture2D" uid="uid://bt4ht314qd3y4" path="res://UITextures/Cards/naye_look_at_me_genesis.png" id="8_ck8bf"]
 [ext_resource type="Texture2D" uid="uid://ba8q012bmx1s0" path="res://UITextures/BGTextures/purple-gradient.png" id="8_irtj5"]
-[ext_resource type="Texture2D" uid="uid://dqnqqawvspdxo" path="res://UITextures/Buttons/PanelTextures/accessories_texture.png" id="8_sxcys"]
+[ext_resource type="Texture2D" uid="uid://did8ldxfqm2u8" path="res://UITextures/Buttons/PanelTextures/beats_logo2.png" id="8_sxcys"]
 [ext_resource type="Texture2D" uid="uid://dea3dcdqw5gw" path="res://UITextures/Icons/energy_icon.png" id="9_j0x5g"]
 [ext_resource type="Texture2D" uid="uid://cvbjb7aump7p3" path="res://UITextures/CardUpgrades/upgrade_image.png" id="11_2v14h"]
 [ext_resource type="Texture2D" uid="uid://btinkw3sxegiv" path="res://UITextures/CardPacks/card_pack_texture.png" id="11_mqhl7"]
@@ -398,7 +398,6 @@ offset_right = 101.0
 offset_bottom = 113.0
 grow_horizontal = 2
 grow_vertical = 2
-disabled = true
 ignore_texture_size = true
 stretch_mode = 5
 

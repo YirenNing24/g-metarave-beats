@@ -1,10 +1,11 @@
-[gd_scene load_steps=26 format=3 uid="uid://d3525s8khlmqy"]
+[gd_scene load_steps=29 format=3 uid="uid://d3525s8khlmqy"]
 
 [ext_resource type="Script" uid="uid://wiauej7hbvkm" path="res://Components/Popups/player_modal.gd" id="1_1wv2s"]
-[ext_resource type="Texture2D" uid="uid://cwkvcqhvukyk8" path="res://UITextures/Icons/change_pic_icon.png" id="2_ksmhj"]
+[ext_resource type="Shader" uid="uid://bujd5frudsgcq" path="res://Components/Moments/moment_slot.gdshader" id="2_ev4md"]
 [ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="2_lk40d"]
-[ext_resource type="FontFile" uid="uid://s5ys4podnve" path="res://UITextures/Fonts/HankenGrotesk-VariableFont_wght.ttf" id="3_fki7l"]
+[ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="3_ev4md"]
 [ext_resource type="Texture2D" uid="uid://bhnx7lhb6qxue" path="res://UITextures/Buttons/Empty_button.png" id="4_61bi6"]
+[ext_resource type="Texture2D" uid="uid://bc1cgt8r4y12o" path="res://UITextures/Icons/copy_icon.png" id="4_xmck4"]
 [ext_resource type="PackedScene" uid="uid://51rvmruybgkx" path="res://Components/Popups/view_player_picture.tscn" id="5_64l24"]
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="5_km1qn"]
 [ext_resource type="Script" uid="uid://bcnyg4qos0dr7" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="7_3rqr7"]
@@ -24,9 +25,25 @@ corner_radius_bottom_left = 20
 shadow_size = 1
 shadow_offset = Vector2(2, 2)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_68tpd"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xmck4"]
+bg_color = Color(0.00245657, 0.0230238, 0.0230327, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.222973, 0.626395, 0.626332, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ft0ld"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ttkvw"]
+shader = ExtResource("2_ev4md")
+shader_parameter/corner_radius = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1c0qe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_der4c"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h0a7u"]
 
@@ -117,79 +134,98 @@ grow_vertical = 2
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 
-[node name="ProfilePic" type="TextureRect" parent="Panel2/Panel/VBoxContainer/HBoxContainer"]
+[node name="MomentPicturePanel" type="Panel" parent="Panel2/Panel/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
-texture = ExtResource("2_ksmhj")
-expand_mode = 1
-stretch_mode = 5
+theme_override_styles/panel = SubResource("StyleBoxFlat_xmck4")
 
-[node name="ProfilePicOptionsButton" type="Button" parent="Panel2/Panel/VBoxContainer/HBoxContainer/ProfilePic"]
+[node name="ProfilePic" type="TextureRect" parent="Panel2/Panel/VBoxContainer/HBoxContainer/MomentPicturePanel"]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ttkvw")
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -58.0
+offset_right = 58.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ProfilePicOptionsButton" type="Button" parent="Panel2/Panel/VBoxContainer/HBoxContainer/MomentPicturePanel/ProfilePic"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_68tpd")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_ft0ld")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1c0qe")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_der4c")
 flat = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel2/Panel/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel2/Panel/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer4" type="VBoxContainer" parent="Panel2/Panel/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(135, 0)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="PlayerName" type="Label" parent="Panel2/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="PlayerName" type="Label" parent="Panel2/Panel/VBoxContainer/HBoxContainer/VBoxContainer4"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_lk40d")
+theme_override_colors/font_color = Color(0.787745, 0.62211, 0.308051, 1)
+theme_override_fonts/font = ExtResource("3_ev4md")
 theme_override_font_sizes/font_size = 20
-text = "tyjtjjtj"
+text = "kaetaro13"
 vertical_alignment = 2
 clip_text = true
 text_overrun_behavior = 3
 
-[node name="PlayerRank" type="Label" parent="Panel2/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="PlayerRank" type="Label" parent="Panel2/Panel/VBoxContainer/HBoxContainer/VBoxContainer4"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("3_fki7l")
+theme_override_fonts/font = ExtResource("3_ev4md")
 theme_override_font_sizes/font_size = 16
 text = "Platinum"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel2/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel2/Panel/VBoxContainer/HBoxContainer/VBoxContainer4"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel2/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
+[node name="Label" type="Label" parent="Panel2/Panel/VBoxContainer/HBoxContainer/VBoxContainer4/HBoxContainer"]
 custom_minimum_size = Vector2(27, 24)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("3_fki7l")
+theme_override_fonts/font = ExtResource("3_ev4md")
 theme_override_font_sizes/font_size = 16
 text = "Level"
 
-[node name="Level" type="Label" parent="Panel2/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Level" type="Label" parent="Panel2/Panel/VBoxContainer/HBoxContainer/VBoxContainer4/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(27, 24)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
 theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("3_fki7l")
+theme_override_fonts/font = ExtResource("3_ev4md")
 theme_override_font_sizes/font_size = 16
 text = "100"
 
-[node name="WalletAddress" type="Label" parent="Panel2/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel2/Panel/VBoxContainer/HBoxContainer/VBoxContainer4"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="WalletAddress" type="Label" parent="Panel2/Panel/VBoxContainer/HBoxContainer/VBoxContainer4/HBoxContainer2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(93, 45)
 layout_mode = 2
@@ -197,6 +233,16 @@ theme_override_colors/font_color = Color(0.878431, 0.223529, 0.992157, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 1
+
+[node name="CopyButton" type="TextureButton" parent="Panel2/Panel/VBoxContainer/HBoxContainer/VBoxContainer4/HBoxContainer2"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_vertical = 8
+texture_normal = ExtResource("4_xmck4")
+ignore_texture_size = true
+stretch_mode = 4
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel2/Panel/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
@@ -288,7 +334,7 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_0jjke")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_6pota")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_t1kis")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_elqy7")
-text = "252 Following"
+text = "0 Following"
 flat = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Panel2/Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
@@ -311,7 +357,7 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_0jjke")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_6pota")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_t1kis")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_elqy7")
-text = "252 Followers"
+text = "0 Followers"
 flat = true
 
 [node name="SmoothScrollContainer" type="ScrollContainer" parent="Panel2/Panel/VBoxContainer"]
@@ -334,7 +380,7 @@ unique_name_in_owner = true
 layout_mode = 1
 
 [connection signal="gui_input" from="Panel2" to="." method="_on_panel_2_gui_input"]
-[connection signal="pressed" from="Panel2/Panel/VBoxContainer/HBoxContainer/ProfilePic/ProfilePicOptionsButton" to="." method="_on_profile_pic_options_button_pressed"]
+[connection signal="pressed" from="Panel2/Panel/VBoxContainer/HBoxContainer/MomentPicturePanel/ProfilePic/ProfilePicOptionsButton" to="." method="_on_profile_pic_options_button_pressed"]
 [connection signal="pressed" from="Panel2/Panel/VBoxContainer/HBoxContainer/VBoxContainer3/FollowUnfollowButton" to="." method="_on_follow_unfollow_button_pressed"]
 [connection signal="pressed" from="Panel2/Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/FollowingButton" to="." method="_on_following_button_pressed"]
 [connection signal="pressed" from="Panel2/Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/FollowersButton" to="." method="_on_followers_button_pressed"]

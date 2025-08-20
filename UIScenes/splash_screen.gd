@@ -5,7 +5,7 @@ const BKMRLocalFileStorage: Script = preload("res://BeatsKMREngine/utils/BKMRLoc
 # UI References
 @onready var loading_wheel: TextureProgressBar = %LoadingWheel
 @onready var loading_label: Label = %LoadingLabel
-@onready var transition_texture: TextureRect = %TextureRect
+
 @onready var loading_label_2: Label = %LoadingLabel2
 
 # Tween for animations
@@ -20,14 +20,14 @@ var selected_aa_level: int = 0  # Default: No AA
 
 var player_session: Dictionary
 # FPS Mapping
-var fps_values: Dictionary = {
+var fps_values: Dictionary[String, int] = {
 	"Standard": 60,
 	"High": 90,
 	"Max": 120
 }
 
 # Resolution Mapping
-var resolution_values: Dictionary = {
+var resolution_values: Dictionary[String, Vector2] = {
 	"Low": Vector2(800, 360),
 	"Standard": Vector2(1200, 540),
 	"High": Vector2(1600, 720),
@@ -35,12 +35,12 @@ var resolution_values: Dictionary = {
 }
 
 # GFX Mapping
-var gfx_settings: Dictionary = {
+var gfx_settings: Dictionary[String, int] = {
 	"1": 1, "2": 2, "3": 3, "4": 4, "5": 5
 }
 
 # Anti-Aliasing Mapping
-var aa_settings: Dictionary = {
+var aa_settings: Dictionary[String, int] = {
 	"Off": 0,   # No AA
 	"FXAA": 1,  # Fast Approximate Anti-Aliasing
 	"MSAA2X": 2, # Multi-Sample Anti-Aliasing 2X
@@ -50,7 +50,6 @@ var aa_settings: Dictionary = {
 
 func _ready() -> void:
 	# Load settings before starting animations
-	
 	load_graphics_settings()
 	apply_graphics_settings()
 	# Start loading animation
@@ -62,7 +61,7 @@ func _ready() -> void:
 	loading_label_2.text = BKMREngine.Auth.last_login_type
 
 	# Timer for auto-login
-	var _timer: int = get_tree().create_timer(10.0).timeout.connect(_on_timer_timeout)
+	var _timer: int = get_tree().create_timer(5.0).timeout.connect(_on_timer_timeout)
 	
 	
 func on_server_check_complete() -> void:
@@ -87,7 +86,7 @@ func load_graphics_settings() -> void:
 		print_debug("Loaded AA Level:", selected_aa_level)
 	else:
 		print("No settings file found. Using lowest settings.")
-	
+	print("Singletons:", Engine.get_singleton_list())
 	
 # Apply graphics settings
 func apply_graphics_settings() -> void:
@@ -150,7 +149,7 @@ func _on_session_check(session: Dictionary) -> void:
 func change_to_auth_scene() -> void:
 	tween.kill()
 	var _load_scene: bool = await LOADER.load_scene(self, "res://UIScenes/auth_screen.tscn")
-	LOADER.previous_texture = transition_texture.texture
+	LOADER.previous_texture = %TextureRect.texture
 	LOADER.next_texture = preload("res://UITextures/BGTextures/blue_gradient.png")
 
 

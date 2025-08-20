@@ -1,0 +1,861 @@
+[gd_scene load_steps=26 format=3 uid="uid://2413f0ql6pyd"]
+
+[ext_resource type="Script" uid="uid://cswiys6aj5w7t" path="res://UIScenes/card_upgrade_2.gd" id="1_jys27"]
+[ext_resource type="Texture2D" uid="uid://0frf765poiji" path="res://UITextures/BGTextures/main_inventory_bg.png" id="1_mnq8i"]
+[ext_resource type="Texture2D" uid="uid://3rxqq1un1t5e" path="res://UITextures/Buttons/close.png" id="2_1y8j3"]
+[ext_resource type="Texture2D" uid="uid://dw8vtn3ftjpfy" path="res://UITextures/Buttons/close_hover.png" id="3_4xqu1"]
+[ext_resource type="Texture2D" uid="uid://dxe2lv4xpcfs2" path="res://UITextures/PanelElements/currency_panel.png" id="4_nr7s7"]
+[ext_resource type="FontFile" uid="uid://pv0ja7y8uilm" path="res://UITextures/Fonts/HankenGrotesk-Bold.ttf" id="5_qg2cr"]
+[ext_resource type="Script" uid="uid://bcnyg4qos0dr7" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="6_yxmpr"]
+[ext_resource type="Script" uid="uid://mr2fibppbyip" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="7_dycu2"]
+[ext_resource type="Texture2D" uid="uid://dkhfubpod87bf" path="res://UITextures/BGTextures/profile_modal_bg.png" id="8_yxmpr"]
+[ext_resource type="Shader" uid="uid://ct0xee5vgwe4b" path="res://Components/Popups/profile_modal_player.gdshader" id="9_dycu2"]
+[ext_resource type="Texture2D" uid="uid://fadyu86xt0om" path="res://UITextures/Progress/buy_base.png" id="10_qg2cr"]
+[ext_resource type="Texture2D" uid="uid://cu2rldjgd6cuu" path="res://UITextures/Cards/hannah_no_doubt_genesis.png" id="12_jys27"]
+[ext_resource type="Texture2D" uid="uid://br0hqqbj0u2vj" path="res://UITextures/Buttons/main_button.png" id="12_u20lj"]
+[ext_resource type="FontFile" uid="uid://v6ktxqm6y64" path="res://UITextures/Fonts/argentum-sans.semibold.ttf" id="12_yxmpr"]
+[ext_resource type="FontFile" uid="uid://cfpnum8trj6m7" path="res://UITextures/Fonts/HankenGrotesk-SemiBold.ttf" id="13_dycu2"]
+[ext_resource type="Script" uid="uid://bhsg4ivpgdcyj" path="res://UIScenes/card_upgrade_item_slot.gd" id="16_qsfc5"]
+[ext_resource type="PackedScene" uid="uid://c3q3fqqfdkrw" path="res://Components/LoadingComponents/filter_panel.tscn" id="17_qsfc5"]
+
+[sub_resource type="Resource" id="Resource_u20lj"]
+script = ExtResource("7_dycu2")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="Resource" id="Resource_pdnmx"]
+script = ExtResource("7_dycu2")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qsfc5"]
+shader = ExtResource("9_dycu2")
+shader_parameter/gradient_width = 0.5
+shader_parameter/panel_color = Color(0, 0, 0, 0.65098)
+shader_parameter/border_thickness = 0.008
+shader_parameter/border_color = Color(0.140265, 0.379166, 0.37923, 1)
+shader_parameter/border_fade_width = 0.082
+shader_parameter/shadow_height = 0.019
+shader_parameter/shadow_color = Color(0, 0, 0, 0.360784)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_815wy"]
+bg_color = Color(0, 0, 0, 0.47451)
+border_color = Color(0.22429, 0.547846, 0.5484, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cj4qc"]
+bg_color = Color(0.162066, 0.162066, 0.162066, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Resource" id="Resource_jys27"]
+script = ExtResource("7_dycu2")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="Resource" id="Resource_qsfc5"]
+script = ExtResource("7_dycu2")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cqnkn"]
+bg_color = Color(0, 0, 0, 0.945098)
+
+[node name="CardUpgrade" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jys27")
+
+[node name="BackgroundTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+self_modulate = Color(0.254902, 0.254902, 0.254902, 1)
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_mnq8i")
+expand_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.0166667
+anchor_right = 0.981667
+anchor_bottom = 0.142593
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="CloseButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer/HBoxContainer"]
+auto_translate_mode = 1
+layout_mode = 2
+texture_normal = ExtResource("2_1y8j3")
+texture_hover = ExtResource("3_4xqu1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/HBoxContainer"]
+auto_translate_mode = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/HBoxContainer/VBoxContainer"]
+auto_translate_mode = 1
+layout_mode = 2
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("4_nr7s7")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Native" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_qg2cr")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect2" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("4_nr7s7")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="BeatsBalance" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect2"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_qg2cr")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect3" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("4_nr7s7")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="ThumpBalance" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect3"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_qg2cr")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect4" type="TextureRect" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer"]
+auto_translate_mode = 1
+visible = false
+custom_minimum_size = Vector2(175, 50)
+layout_mode = 2
+texture = ExtResource("4_nr7s7")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="KMR" type="Label" parent="BackgroundTexture/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect4"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+custom_minimum_size = Vector2(93, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.217143
+anchor_top = 0.16
+anchor_right = 0.92
+anchor_bottom = 0.76
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_qg2cr")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.712963
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/VBoxContainer"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(0, 155)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/VBoxContainer/Panel"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00583333
+anchor_top = 0.0903226
+anchor_right = 0.930833
+anchor_bottom = 0.922581
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureButton" parent="BackgroundTexture/VBoxContainer/Panel/HBoxContainer"]
+auto_translate_mode = 1
+custom_minimum_size = Vector2(83.6, 129)
+layout_mode = 2
+
+[node name="InventoryScroll2" type="ScrollContainer" parent="BackgroundTexture/VBoxContainer/Panel/HBoxContainer"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+script = ExtResource("6_yxmpr")
+wheel_scroll_damper = SubResource("Resource_u20lj")
+dragging_scroll_damper = SubResource("Resource_pdnmx")
+just_snap_under = 0.2
+allow_vertical_scroll = false
+hide_scrollbar_over_time = true
+scrollbar_hide_time = 0.0
+metadata/_custom_type_script = "uid://bcnyg4qos0dr7"
+
+[node name="CardInventoryContainer" type="HBoxContainer" parent="BackgroundTexture/VBoxContainer/Panel/HBoxContainer/InventoryScroll2"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+custom_minimum_size = Vector2(0, 129)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 7
+
+[node name="UpgradeContainer" type="VBoxContainer" parent="BackgroundTexture"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(1143, 424)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -571.0
+offset_top = -186.0
+offset_right = 572.0
+offset_bottom = 269.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundTexture/UpgradeContainer"]
+self_modulate = Color(0, 0, 0, 0.780392)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("8_yxmpr")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerContainer" type="HBoxContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer" groups=["ProfileContainer"]]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer/PlayerContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2"]
+material = SubResource("ShaderMaterial_qsfc5")
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_815wy")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 32.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(520, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="HBoxContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/Panel/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 280)
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CardImage" type="TextureRect" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/Panel/HBoxContainer/VBoxContainer2/TextureRect"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 280)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("12_jys27")
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="EquippedCardButton" type="TextureButton" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/Panel/HBoxContainer/VBoxContainer2/TextureRect/CardImage"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.282692
+anchor_right = 0.711538
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CardLevelProgress" type="TextureProgressBar" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/Panel/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+modulate = Color(0.597176, 0.597176, 0.597176, 1)
+custom_minimum_size = Vector2(360, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 50.0
+fill_mode = 4
+nine_patch_stretch = true
+texture_under = ExtResource("10_qg2cr")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/Panel/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="InventoryButton" type="TextureButton" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/Panel/HBoxContainer/VBoxContainer2" groups=["MainButtons"]]
+self_modulate = Color(0.775064, 0.775063, 0.775063, 1)
+custom_minimum_size = Vector2(280, 65)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture_normal = ExtResource("12_u20lj")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/Panel/HBoxContainer/VBoxContainer2/InventoryButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.873298, 0.873298, 0.873298, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("12_yxmpr")
+theme_override_font_sizes/font_size = 18
+text = "Upgrade"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer/PlayerContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0148731
+anchor_top = 0.0615385
+anchor_right = 0.336833
+anchor_bottom = 0.982418
+offset_right = -3.05176e-05
+theme_override_constants/separation = 40
+metadata/_edit_use_anchors_ = true
+
+[node name="Name" type="Label" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2" groups=["CardValues"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.621525, 0.621524, 0.621522, 1)
+theme_override_fonts/font = ExtResource("12_yxmpr")
+theme_override_font_sizes/font_size = 24
+text = "Hannah No Doubt Genesis"
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.621525, 0.621524, 0.621522, 1)
+theme_override_fonts/font = ExtResource("12_yxmpr")
+theme_override_font_sizes/font_size = 20
+text = "Level "
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Level" type="Label" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer" groups=["CardValues"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.621525, 0.621524, 0.621522, 1)
+theme_override_fonts/font = ExtResource("13_dycu2")
+theme_override_font_sizes/font_size = 32
+text = "100"
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="NewLevel" type="Label" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer" groups=["CardValues"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.621525, 0.621524, 0.621522, 1)
+theme_override_fonts/font = ExtResource("13_dycu2")
+theme_override_font_sizes/font_size = 32
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="CardName" type="Label" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.621525, 0.621524, 0.621522, 1)
+theme_override_fonts/font = ExtResource("12_yxmpr")
+theme_override_font_sizes/font_size = 20
+text = "Scoreboost"
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Scoreboost" type="Label" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer2" groups=["CardValues"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.621525, 0.621524, 0.621522, 1)
+theme_override_fonts/font = ExtResource("13_dycu2")
+theme_override_font_sizes/font_size = 24
+text = "100"
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="NewScoreBoost" type="Label" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer2" groups=["CardValues"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.621525, 0.621524, 0.621522, 1)
+theme_override_fonts/font = ExtResource("13_dycu2")
+theme_override_font_sizes/font_size = 24
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="CardName" type="Label" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.621525, 0.621524, 0.621522, 1)
+theme_override_fonts/font = ExtResource("12_yxmpr")
+theme_override_font_sizes/font_size = 20
+text = "Healboost"
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Healboost" type="Label" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer3" groups=["CardValues"]]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.621525, 0.621524, 0.621522, 1)
+theme_override_fonts/font = ExtResource("13_dycu2")
+theme_override_font_sizes/font_size = 24
+text = "100"
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="NewHealboost" type="Label" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer3" groups=["CardValues", "InventorySlot"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.621525, 0.621524, 0.621522, 1)
+theme_override_fonts/font = ExtResource("13_dycu2")
+theme_override_font_sizes/font_size = 24
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 61)
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="CardUpgradeItemSlot" type="Control" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5" groups=["CardUpgradeSlot"]]
+custom_minimum_size = Vector2(61, 61)
+layout_mode = 2
+script = ExtResource("16_qsfc5")
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot"]
+custom_minimum_size = Vector2(61, 61)
+layout_mode = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cj4qc")
+
+[node name="CardIcon" type="TextureRect" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot/Panel"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.131148
+anchor_top = 0.131148
+anchor_right = 0.868852
+anchor_bottom = 0.868852
+offset_left = 2.5
+offset_top = 2.5
+offset_right = -2.5
+offset_bottom = -2.5
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Quantity" type="Label" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = -3.0
+offset_right = 64.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 2
+
+[node name="Button" type="TextureButton" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardUpgradeItemSlot2" type="Control" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5" groups=["CardUpgradeSlot"]]
+visible = false
+custom_minimum_size = Vector2(61, 61)
+layout_mode = 2
+script = ExtResource("16_qsfc5")
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot2"]
+custom_minimum_size = Vector2(61, 61)
+layout_mode = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cj4qc")
+
+[node name="CardIcon" type="TextureRect" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot2/Panel"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.131148
+anchor_top = 0.131148
+anchor_right = 0.868852
+anchor_bottom = 0.868852
+offset_left = 2.5
+offset_top = 2.5
+offset_right = -2.5
+offset_bottom = -2.5
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Quantity" type="Label" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot2"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = -3.0
+offset_right = 64.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 2
+
+[node name="Button" type="TextureButton" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardUpgradeItemSlot3" type="Control" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5" groups=["CardUpgradeSlot"]]
+visible = false
+custom_minimum_size = Vector2(61, 61)
+layout_mode = 2
+script = ExtResource("16_qsfc5")
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot3"]
+custom_minimum_size = Vector2(61, 61)
+layout_mode = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cj4qc")
+
+[node name="CardIcon" type="TextureRect" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot3/Panel"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.131148
+anchor_top = 0.131148
+anchor_right = 0.868852
+anchor_bottom = 0.868852
+offset_left = 2.5
+offset_top = 2.5
+offset_right = -2.5
+offset_bottom = -2.5
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Quantity" type="Label" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot3"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = -3.0
+offset_right = 64.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 2
+
+[node name="Button" type="TextureButton" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardUpgradeItemSlot4" type="Control" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5" groups=["CardUpgradeSlot"]]
+visible = false
+custom_minimum_size = Vector2(61, 61)
+layout_mode = 2
+script = ExtResource("16_qsfc5")
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot4"]
+custom_minimum_size = Vector2(61, 61)
+layout_mode = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cj4qc")
+
+[node name="CardIcon" type="TextureRect" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot4/Panel"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.131148
+anchor_top = 0.131148
+anchor_right = 0.868852
+anchor_bottom = 0.868852
+offset_left = 2.5
+offset_top = 2.5
+offset_right = -2.5
+offset_bottom = -2.5
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Quantity" type="Label" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot4"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = -3.0
+offset_right = 64.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 2
+
+[node name="Button" type="TextureButton" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardUpgradeItemSlot5" type="Control" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5" groups=["CardUpgradeSlot"]]
+visible = false
+custom_minimum_size = Vector2(61, 61)
+layout_mode = 2
+script = ExtResource("16_qsfc5")
+
+[node name="Panel" type="Panel" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot5"]
+custom_minimum_size = Vector2(61, 61)
+layout_mode = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cj4qc")
+
+[node name="CardIcon" type="TextureRect" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot5/Panel"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.131148
+anchor_top = 0.131148
+anchor_right = 0.868852
+anchor_bottom = 0.868852
+offset_left = 2.5
+offset_top = 2.5
+offset_right = -2.5
+offset_bottom = -2.5
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Quantity" type="Label" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot5"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = -3.0
+offset_right = 64.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 2
+
+[node name="Button" type="TextureButton" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer2/VBoxContainer/HBoxContainer5/CardUpgradeItemSlot5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.660542
+anchor_top = 0.0615385
+anchor_right = 0.982503
+anchor_bottom = 0.982418
+offset_right = -3.05176e-05
+metadata/_edit_use_anchors_ = true
+
+[node name="CardName" type="Label" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer3"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.800491, 0.800491, 0.80049, 1)
+theme_override_fonts/font = ExtResource("12_yxmpr")
+theme_override_font_sizes/font_size = 24
+text = "Upgrade Materials"
+horizontal_alignment = 1
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="SmoothScrollContainer" type="ScrollContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("6_yxmpr")
+wheel_scroll_damper = SubResource("Resource_jys27")
+dragging_scroll_damper = SubResource("Resource_qsfc5")
+metadata/_custom_type_script = "uid://bcnyg4qos0dr7"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer3/SmoothScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CardUpgradeContainer" type="GridContainer" parent="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer3/SmoothScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+columns = 5
+
+[node name="LoadingPanel" parent="." instance=ExtResource("17_qsfc5")]
+unique_name_in_owner = true
+visible = false
+z_index = 4
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 1200.0
+offset_bottom = 540.0
+grow_horizontal = 1
+grow_vertical = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_cqnkn")
+
+[connection signal="pressed" from="BackgroundTexture/HBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="BackgroundTexture/UpgradeContainer/TextureRect/VBoxContainer/PlayerContainer/VBoxContainer/VBoxContainer2/Panel/HBoxContainer/VBoxContainer2/TextureRect/CardImage/EquippedCardButton" to="." method="_on_equipped_card_button_pressed"]

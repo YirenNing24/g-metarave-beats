@@ -69,7 +69,7 @@ func set_note_position() -> void:
 	position = Vector3( z, layer , -note_position * length_scale )
 	
 # Handle the process logic for the note.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if point2 == Vector3(0,0,0):
 		var point: Vector3 = get_point2()
 		draw_beam(point)

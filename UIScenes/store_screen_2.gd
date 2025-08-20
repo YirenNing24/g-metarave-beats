@@ -7,11 +7,14 @@ const template_card_upgrade_slot_scene: PackedScene = preload("res://Components/
 const template_card_pack_slot_scene: PackedScene = preload("res://Components/Store/card_pack.tscn")
 var store_item_modal: Control = preload("res://Components/Popups/store_item_modal.tscn").instantiate()
 
+
+
+
+
 @onready var beats_balance: Label = %BeatsBalance
 @onready var gmr_balance: Label = %GMR
 
 @onready var background_texture: TextureRect = %BackgroundTexture
-@onready var hero_character: TextureRect = %HeroCharacter
 @onready var card_slots: Node
 @onready var item_grid: GridContainer = %ItemGrid
 @onready var cursor_spark: GPUParticles2D = %CursorSpark
@@ -35,9 +38,6 @@ func _ready() -> void:
 	
 	
 func _process(delta: float) -> void:
-	BKMREngine.Server.websocket.close()
-	BKMREngine.Server.websocket.poll()
-	
 	if PLAYER.current_energy >= PLAYER.max_energy:
 		# Max energy reached, hide recharge label
 		%EnergyRecharge.visible = false
@@ -110,7 +110,6 @@ func _on_get_valid_cards_complete(cards :Array) -> void:
 		
 		card_slots.show_item_store_modal.connect(_on_show_item_store_modal)
 		card_slots.card_buy_button_pressed.connect(_on_card_slot_buy_button_pressed)
-	print("salarin2")
 	%LoadingPanel.tween_kill()
 		
 		
@@ -126,8 +125,8 @@ func _on_card_slot_buy_button_pressed(card_data: Dictionary) -> void:
 	var connected: bool = confirm_yes_button.pressed.is_connected(_on_yes_button_pressed)
 	if not connected:
 		var _connect: int = confirm_yes_button.pressed.connect(_on_yes_button_pressed.bind(card_data, "Card"))
-
-
+	
+	
 func check_cost_and_funds(price: int) -> bool:
 	if int(beats_balance.text) > price:
 		return true
@@ -142,11 +141,11 @@ func _on_get_valid_card_upgrades_complete(upgrades: Array) -> void:
 	for upgrade_item: Dictionary in upgrades:
 		var template_card_upgrade_slot: Control = template_card_upgrade_slot_scene.instantiate()
 		if upgrade_item.tier == "tier1":
-			var item_texture: Texture = load("res://UITextures/CardUpgrades/general_tier1.png")
+			var item_texture: Texture = preload("res://UITextures/CardUpgrades/card_upgrade.png")
 			template_card_upgrade_slot.get_node("Panel/CardupgradeIcon").texture = item_texture
 		
 		var price_per_token: int = upgrade_item.pricePerToken 
-		var quantity: int = upgrade_item.quantity
+		var quantity: int = upgrade_item.supply
 		var price: int = int(price_per_token * quantity)
 		template_card_upgrade_slot.get_node("BuyButton/HBoxContainer/Price").text = format_balance(str(price))
 		template_card_upgrade_slot.get_node("Panel/Quantity").text = format_balance(str(quantity))
@@ -228,25 +227,45 @@ func _on_buy_card_complete(message: Dictionary) -> void:
 	BKMREngine.Store.get_valid_cards()
 	%ErrorMessage.text = "Purchase complete"
 	%AnimationPlayer.play("ErrorMessage")
+	
+	
+func _on_buy_card_upgrades_complete(message: Dictionary) -> void:
+	if store_item_modal.visible:
+		store_item_modal.visible = false
+	%LoadingPanel.tween_kill()
+	%FilterPanel.visible = false
 
+	var current_beats_balance: int = beats_balance.text.to_int()
+	if not message.has("error"):
+		if current_beats_balance != 0:
+			beats_balance.text = format_balance(str(current_beats_balance - price_recent))
+	else:
+		%ErrorMessage.text = "Error encountered or card upgrade sold already"
+		%AnimationPlayer.play("ErrorMessage")
 
+	%YesButton.pressed.disconnect(_on_yes_button_pressed)
+	%LoadingPanel.fake_loader()
+	BKMREngine.Store.get_valid_card_upgrades()
+	%ErrorMessage.text = "Purchase complete"
+	%AnimationPlayer.play("ErrorMessage")
+	
 	
 func _on_store_item_modal_buy_pressed(recent_price: String) -> void:
 	%LoadingPanel.fake_loader("buyCard")
 	price_recent = recent_price.to_int()
 	
-
-
+	
 func buy_card_upgrade(item_data: Dictionary) -> void:
-	var buy_card_data: Dictionary = {
+	var buy_card_data: Dictionary[String, Variant] = {
 		"uri": item_data.uri,
-		"listingId": item_data.listingId,
-		"quantity": str(item_data.quantity)
+		"listingId": item_data.listingId.replace(".0", ""),
+		"quantity": str(item_data.supply).replace(".0", ""),
+		"price": str(item_data.pricePerToken * item_data.supply).replace(".0", "")
 	}
 	BKMREngine.Store.buy_card_upgrade(buy_card_data)
 	%LoadingPanel.fake_loader()
-
-
+	
+	
 func buy_card_pack(item_data: Dictionary) -> void:
 	var listingId: int = item_data.listingId
 	price_recent = item_data.pricePerToken
@@ -271,11 +290,7 @@ func _on_no_button_pressed() -> void:
 	%FilterPanel.visible = false
 
 
-func _on_buy_card_upgrades_complete(_message: Dictionary) -> void:
-	if not _message.has("error"):
-		pass
-	BKMREngine.Store.get_valid_card_upgrades()
-	%LoadingPanel.tween_kill()
+
 
 
 func _on_show_item_store_modal(card_data: Dictionary, texture: Texture) -> void:

@@ -7,7 +7,7 @@
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="5_7b7py"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3807h"]
-bg_color = Color(0.0175823, 0.10012, 0.100122, 1)
+bg_color = Color(0.0394829, 0.162024, 0.162025, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -35,12 +35,16 @@ shader_parameter/corner_radius = 5.0
 custom_minimum_size = Vector2(348, 70)
 layout_mode = 3
 anchors_preset = 0
+offset_right = 522.0
+offset_bottom = 70.0
 mouse_filter = 1
 script = ExtResource("1_gc2t6")
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(348, 70)
 layout_mode = 0
+offset_right = 487.0
+offset_bottom = 70.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_3807h")
 
@@ -52,9 +56,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -169.5
+offset_left = -215.5
 offset_top = -31.0
-offset_right = 169.5
+offset_right = 123.5
 offset_bottom = 31.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -84,9 +88,10 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 0
 expand_mode = 1
-stretch_mode = 5
+stretch_mode = 6
 
 [node name="TextureButton" type="TextureButton" parent="Panel/HBoxContainer/Panel/ProfilePic"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

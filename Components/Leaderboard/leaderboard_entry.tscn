@@ -1,13 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://c62ktsqjchrot"]
+[gd_scene load_steps=7 format=3 uid="uid://c62ktsqjchrot"]
 
 [ext_resource type="FontFile" uid="uid://d4hkhl2bcn0ty" path="res://UITextures/Fonts/HankenGrotesk-ExtraBold.ttf" id="1_3or6x"]
 [ext_resource type="Script" uid="uid://dbo8dyjgusp8g" path="res://Components/Leaderboard/leaderboard_entry.gd" id="1_xir4t"]
+[ext_resource type="Shader" uid="uid://bujd5frudsgcq" path="res://Components/Moments/moment_slot.gdshader" id="3_dsdrl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_45xei"]
 bg_color = Color(0, 0, 0, 0.533333)
 border_width_bottom = 1
 border_color = Color(0, 0.823529, 0.823529, 0.894118)
 shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k0btk"]
+bg_color = Color(0.00245657, 0.0230238, 0.0230327, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.222973, 0.626395, 0.626332, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tnh81"]
+shader = ExtResource("3_dsdrl")
+shader_parameter/corner_radius = 20.0
 
 [node name="LeaderboardEntry" type="Control"]
 custom_minimum_size = Vector2(761, 50)
@@ -55,20 +72,50 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(335, 0)
 layout_mode = 2
 mouse_filter = 2
+theme_override_constants/separation = 10
 alignment = 1
 
+[node name="MomentPicturePanel" type="Panel" parent="Panel/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_k0btk")
+
+[node name="ProfilePic" type="TextureRect" parent="Panel/HBoxContainer/HBoxContainer/MomentPicturePanel"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_tnh81")
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 6
+
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 mouse_filter = 2
 
 [node name="PlayerName" type="Label" parent="Panel/HBoxContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("1_3or6x")
 theme_override_font_sizes/font_size = 20
 text = "kaetaro13"
 horizontal_alignment = 1
 vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="Panel/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
@@ -85,3 +132,15 @@ theme_override_font_sizes/font_size = 20
 text = "1000"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PlayerProfileButton" type="TextureButton" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 115.0
+offset_right = -322.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="Panel/PlayerProfileButton" to="." method="_on_player_profile_button_pressed"]

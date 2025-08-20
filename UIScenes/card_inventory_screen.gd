@@ -26,7 +26,7 @@ func _ready() -> void:
 	BKMREngine.Inventory.get_card_inventory_complete.connect(card_inventory_open)
 	BKMREngine.Inventory.get_card_inventory_complete.connect(equipment_slot_open)
 	BKMREngine.Inventory.open_card_inventory()
-
+	
 	
 func card_inventory_open(inventory_data: Array) -> void:
 	var card_inventory_slot: Control

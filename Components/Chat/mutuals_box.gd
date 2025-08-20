@@ -4,7 +4,7 @@ extends Control
 signal slide_pressed(is_opened: bool)
 signal view_profile_pressed(player_profile: Dictionary)
 signal chat_button_pressed(conversing_username: String)
-
+signal mutual_slot_button_pressed(username: String)
 # BUTTON FOR TOGGLING THE MUTUALS WINDOW TO CLOSE
 @onready var slide_button: TextureButton = $SlideButton
 
@@ -13,7 +13,7 @@ signal chat_button_pressed(conversing_username: String)
 @onready var mutual_vbox: VBoxContainer = %MutualsVBox
 
 # INSTANCE SCENE COMPONENTS FOR MUTUALS WINDOW
-var mutual_slot: PackedScene = load("res://Components/Chat/mutual_slot.tscn")
+const mutual_slot: PackedScene = preload("res://Components/Chat/mutual_slot.tscn")
 
 # GLOBAL SCENE VARIABLES
 var username: String = PLAYER.username
@@ -24,8 +24,9 @@ var private_messages: Array
 # Initialization function called when the node is ready.
 func _ready() -> void:
 	# Get mutual followers from the social system
-	#BKMREngine.Social.get_mutual()
 	BKMREngine.Social.get_mutual_complete.connect(populate_mutuals_list)
+	BKMREngine.Social.get_mutual(PLAYER.username)
+	
 	# Populate the mutuals list in the UI
 	#call_deferred("set_status_and_activity")
 #
@@ -46,6 +47,7 @@ func populate_mutuals_list(mutuals_list: Array) -> void:
 
 		# Connect the chat button signal to handle chat initiation
 		slot_mutuals.chat_button_pressed.connect(_on_chat_button_pressed)
+		slot_mutuals.mutual_slot_button_pressed.connect(_mutual_slot_button_pressed)
 		mutual_vbox.add_child(slot_mutuals)
 
 
@@ -68,7 +70,6 @@ func set_mutual_profile_picture(image_buffer_string: String) -> Texture:
 
 # Function to handle the slide button press event.
 func _on_slide_button_pressed() -> void:
-	BKMREngine.Social.get_mutual()
 	slide_button.disabled = true
 	# Emit signal to toggle the visibility of the mutuals window
 	slide_pressed.emit(is_opened)
@@ -84,6 +85,11 @@ func _on_view_profile(userName: String) -> void:
 func _on_chat_button_pressed(convering_username: String) -> void:
 	# Emit signal to initiate a chat with the selected user
 	chat_button_pressed.emit(convering_username)
+
+
+
+func _mutual_slot_button_pressed(user_name: String) -> void:
+	mutual_slot_button_pressed.emit(user_name)
 
 
 func _on_main_screen_mutuals_button_pressed() -> void:

@@ -61,7 +61,7 @@ func set_data(card_data: Dictionary, texture: Texture) -> void:
 	
 	rarity.text = card_data.rarity
 	skill.text = card_data.skill
-	price.text = display_value + " " + currency_symbol
+	price.text = display_value.replace(".0", "") + " " + currency_symbol
 	
 	card_uri = card_data.uri
 	

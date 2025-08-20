@@ -56,6 +56,7 @@ stretch_mode = 5
 
 [node name="ChangeProfilePicButton" type="TextureButton" parent="Panel/VBoxContainer/HBoxContainer/DisplayPictureTexture"]
 unique_name_in_owner = true
+visible = false
 self_modulate = Color(1, 1, 1, 0.639216)
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 1

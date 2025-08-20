@@ -12,7 +12,6 @@ signal mutuals_button_pressed
 @onready var hero: TextureRect = %Hero
 @onready var player_name: Label = %PlayerName
 @onready var player_rank: Label = %PlayerRank
-@onready var filter_panel: Panel = %FilterPanel
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var beats_balance: Label = %BeatsBalance
 
@@ -35,8 +34,8 @@ var time_until_next_recharge : int
 var recharge_interval : int = 60 * 60 * 1000 # 1 hour in milliseconds
 
 #region Modals
-var profile_modal: Control = preload("res://Components/Popups/profile_modal.tscn").instantiate()
-var stats_modal: Control = preload("res://Components/Popups/stats_modal.tscn").instantiate()
+
+#var stats_modal: Control = preload("res://Components/Popups/stats_modal.tscn").instantiate()
 var stats_tween: Tween
 #endregion
 
@@ -52,14 +51,24 @@ var is_opened: bool = false
 #region Initialization function called when the node is ready.
 func _ready() -> void:
 	BKMREngine.Auth.validate_player_session()
+	AndroidInterface.enable_performance_mode()
 	hud_data()
 	add_components()
 	signal_connect()
-
+	
+	for buttons: TextureButton in get_tree().get_nodes_in_group('MainButtons'):
+		buttons.disabled = false
+	
 	#Wait for animation completion before showing the mutuals box.
 	await animation_player.animation_finished
 	mutuals_box.show()
-	
+
+func enable_buttons() -> void:
+	for buttons: TextureButton in get_tree().get_nodes_in_group('MainButtons'):
+		buttons.disabled = false
+		
+	for buttons: TextureButton in get_tree().get_nodes_in_group('MainButtons2'):
+		buttons.disabled = false
 	
 func beats_server_connect() -> void:
 	BKMREngine.beats_server_connect(BKMREngine.beats_host)
@@ -67,9 +76,8 @@ func beats_server_connect() -> void:
 	
 # Add modals (profile_modal, player_modal, stat_modal) to the filter panel.
 func add_components() -> void:
-	filter_panel.add_child(profile_modal)
-	filter_panel.add_child(stats_modal)
-	stats_modal.visible = false
+	pass
+
 	
 	
 # Connect chat signals to their respective handlers.
@@ -78,8 +86,9 @@ func signal_connect() -> void:
 	#BKMREngine.Profile.get_profile_pic_complete.connect(_on_get_profile_pic)
 	BKMREngine.Auth.bkmr_session_check_complete.connect(_on_session_check_complete)
 	var _connect: int = PLAYER.new_data_received.connect(hud_data)
-	profile_modal.wallet_address_copied.connect(_on_wallet_address_copied)
-	profile_modal.settings_screen_button_pressed.connect(_on_settings_screen_button_pressed)
+	#profile_modal.wallet_address_copied.connect(_on_wallet_address_copied)
+	#profile_modal.settings_screen_button_pressed.connect(_on_settings_screen_button_pressed)
+	
 	
 # Checks the user session.
 func session_check() -> void:
@@ -118,7 +127,7 @@ func _on_basic_energy_button_pressed() -> void:
 		
 		
 func hud_data() -> void:
-	BKMREngine.Energy.get_energy_drink()
+	#BKMREngine.Energy.get_energy_drink()
 	animate_hud()
 	energy_hud()
 	exp_hud()
@@ -131,6 +140,7 @@ func display_hud() -> void:
 	beats_balance.text = PLAYER.beats_balance
 	gmr_balance.text = PLAYER.gmr_balance
 	level.text = str(PLAYER.level)
+	get_battery_percentage()
 	
 	
 func energy_hud() -> void:
@@ -144,6 +154,12 @@ func exp_hud() -> void:
 	%ExpProgressBar.value = PLAYER.player_experience
 	%ExpProgressBar.max_value = required_experience
 	%ExperienceLabel.text = str(PLAYER.player_experience) + " / " + str(required_experience)
+	
+	
+func get_battery_percentage() -> void:
+	var battery_level: int = int(AndroidInterface.get_battery_level())
+	%BatteryPercentage.text = str(battery_level) + "%"
+	var _c:int = get_tree().create_timer(15.0).timeout.connect(get_battery_percentage)
 	
 	
 func get_required_player_experience(levels: int) -> int:
@@ -201,20 +217,18 @@ func animate_hud() -> void:
 # Event handler for the profile button press.
 func _on_profile_button_pressed() -> void:
 	# Show the profile modal and make the filter panel visible.
-	filter_panel.visible = true
-	profile_modal.visible = true
-	stats_modal.visible = false
+	%ProfileModal.show_profile_modal()
 	
 	
 # GUI input event handler for the filter panel.
-func _on_filter_panel_gui_input(event: InputEvent) -> void:
-	# Check for mouse button input
-	if event is InputEventMouseButton:
-		# Close panels based on visibility
-		if profile_modal.visible:
-			close_modals()
-		elif stats_modal.visible:
-			close_modals()
+#func _on_filter_panel_gui_input(event: InputEvent) -> void:
+	## Check for mouse button input
+	#if event is InputEventMouseButton:
+		## Close panels based on visibility
+		#if profile_modal.visible:
+			#close_modals()
+		#elif stats_modal.visible:
+			#close_modals()
 		
 		
 # Open the store screen.
@@ -290,15 +304,14 @@ func _on_settings_screen_button_pressed() -> void:
 
 
 # Open the stat modal and show the filter panel.
-func _on_stat_button_pressed() -> void:
-	profile_modal.visible = false
-	filter_panel.visible = true
-	stats_modal.visible = true
+#func _on_stat_button_pressed() -> void:
+	#profile_modal.visible = false
+	#stats_modal.visible = true
 	
 	
 # View the profile from the chat box.
-func _on_chat_box_view_profile_pressed() -> void:
-	profile_modal.visible = false
+#func _on_chat_box_view_profile_pressed() -> void:
+	#profile_modal.visible = false
 
 
 # Display the received message in the chat box
@@ -427,10 +440,10 @@ func _on_wallet_address_copied(_wallet_address: String) -> void:
 	
 # Function to close all modals.
 func close_modals() -> void:
+	pass
 	# Close all modals
-	filter_panel.visible = false
-	profile_modal.visible = false
-	stats_modal.visible = false
+	#profile_modal.visible = false
+	#stats_modal.visible = false
 #endregion
 
 
@@ -451,3 +464,16 @@ func _input(event: InputEvent) -> void:
 	
 func play_pointer_sfx() -> void:
 	$AudioStreamPlayer.play()
+
+
+func _on_profile_modal_picture_processing_complete() -> void:
+	%ProfileButton.disabled = false
+
+
+func _on_stat_button_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_mutuals_box_mutual_slot_button_pressed(username: String) -> void:
+	%PlayerModal._on_stalker_button_pressed(username, null)
+	%PlayerModal.visible = true

@@ -1,8 +1,6 @@
 extends Node3D
 
-
 signal position_notepicker(pos: float)
-
 
 @export var line: int
 
@@ -11,19 +9,18 @@ signal position_notepicker(pos: float)
 @onready var fx_light_pillar: AnimatedSprite3D = $FXLightPillar
 @onready var fx_spark: GPUParticles3D = $FXSpark
 
-
 var note_collect: Node3D = null
-var note_name: String
 var notepicker_position: Vector2
 var combo: int = 0
 
-@export var touch_position: Vector2 = Vector2.ZERO
-@export var is_pressed: bool = false
-@export var is_collecting: bool = false
-@export var is_swiping: bool = false
+var touch_positions: Dictionary = {}  # Store multiple touch points
+var is_collecting: bool = false
+var is_swiping: bool = false
 
-var peer_id: int
+var base_state: Dictionary[int, Vector2] = {}  # Stores initial touch positions
+var curr_state: Dictionary[int, Vector2] = {}  # Stores ongoing touch positions
 
+var active_touches: Dictionary = {}  # Dictionary to track which touch belongs to this instance
 
 func _ready() -> void:
 	set_process_input(true)
@@ -31,85 +28,74 @@ func _ready() -> void:
 	position_notepicker.emit(notepicker_position.y)
 	
 	
-func set_peer_id(_id_peer: int) -> void:
-	set_multiplayer_authority(1)
-	
-	
 func _physics_process(_delta: float) -> void:
-	if is_collecting == false:
+	# If no touches for this instance, stop effects
+	if active_touches.is_empty():
+		is_collecting = false
 		fx_spinner.visible = false
-	
-	
-#@rpc("authority", "call_remote", "reliable")
-#func _server_input(pos: Vector2, pressed: bool) -> void:
-	## Handle the input on the server side
-	#print("Input received from client: ", pos, pressed)
-	## You can add server-side logic here
-	
-	
+		
+		
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		if event.pressed:
-			touch_position = event.position
-			#var _r: Error = rpc_id(1, "_server_input", touch_position, true)
-			var touched_node: bool = get_touched_node(touch_position)
-			if touched_node:
-				is_pressed = true
+			# Check if touch is inside this notepicker
+			@warning_ignore("unsafe_call_argument")
+			if get_touched_node(event.position):
+				base_state[event.index] = event.position
+				curr_state[event.index] = event.position
+				active_touches[event.index] = true  # Track this touch for this instance
 				is_collecting = true
 				fx_highlight.visible = true
-				# Synchronize with server
 		else:
-			is_pressed = false
-			is_swiping = false
-			is_collecting = false
-			note_collect = null
-			fx_highlight.visible = false
-			# Synchronize with server
-			#var _r: Error = rpc_id(1, "_server_input", touch_position, false)
-	if event is InputEventScreenDrag:
-		touch_position = event.position
-		var touched_node: bool = get_touched_node(touch_position)
-		if touched_node:
-			is_swiping = true
-			is_pressed = true
-			is_collecting = true
-			fx_highlight.visible = true
-			# Synchronize with server
-		else:
-			is_swiping = false
-			is_pressed = false
-			is_collecting = false
-			note_collect = null
-			fx_highlight.visible = false
-			# Synchronize with server
-			#var _r: Error = rpc_id(1, "_server_input", touch_position, false)
-	
+			# Remove touch only if it belongs to this instance
+			if active_touches.has(event.index):
+				var _j: bool = base_state.erase(event.index)
+				var _k: bool = curr_state.erase(event.index)
+				var _l: bool = active_touches.erase(event.index)
+
+			# If no more touches left in this instance, reset states
+			if active_touches.is_empty():
+				is_collecting = false
+				is_swiping = false
+				note_collect = null
+				fx_highlight.visible = false
+				fx_spinner.visible = false  # Ensure spinner stops too
+				
+	elif event is InputEventScreenDrag:
+		if curr_state.has(event.index):
+			curr_state[event.index] = event.position
+			@warning_ignore("unsafe_call_argument")
+			if get_touched_node(event.position):
+				is_swiping = true
+				is_collecting = true
+				fx_highlight.visible = true
+			else:
+				is_swiping = false
+				is_collecting = false
+				fx_highlight.visible = false
 	
 func get_touched_node(touch_pos: Vector2) -> bool:
 	var picker_x: float = notepicker_position.x
 	var picker_y: float = notepicker_position.y
-	
-	# Extend the touch area on the X-axis
-	var x_range: float = 83.5  # Adjust this value to widen the touch area
-	var y_range: float = 150   # Keep Y range the same
-	
-	if touch_pos.x >= picker_x - x_range and touch_pos.x <= picker_x + x_range and touch_pos.y >= picker_y - y_range and touch_pos.y <= picker_y + y_range:
-		return true
-	return false
 
+	# Touch sensitivity
+	var x_range: float = 83.5
+	var y_range: float = 170
+
+	return (touch_pos.x >= picker_x - x_range and touch_pos.x <= picker_x + x_range 
+		and touch_pos.y >= picker_y - y_range and touch_pos.y <= picker_y + y_range)
 	
 	
 # Get the 3D position of the notepicker in screen space.
 func notepicker_3d_pos() -> Vector2:
-	# Get the 3D position of the notepicker in screen space.
 	var camera: Camera3D = get_viewport().get_camera_3d()
-	var picker_position: Vector2 = camera.unproject_position(position)
-	return picker_position as Vector2
+	return camera.unproject_position(position)
 	
 	
 func hit_feedback(_note_accuracy: int, short_line: int) -> void:
 	if _note_accuracy == 5:
-		Input.vibrate_handheld(300)
+		pass
+		#Input.vibrate_handheld(300)
 		return  # Exit early to prevent other effects from triggering
 	
 	if line == short_line:
@@ -122,7 +108,7 @@ func hit_feedback(_note_accuracy: int, short_line: int) -> void:
 			emit_light_pillar()
 
 		# Handle FXGlobe animations based on combo ranges
-		var combo_thresholds: Dictionary = {
+		var combo_thresholds: Dictionary[int, String] = {
 			20: "combo20",
 			30: "combo30",
 			40: "combo40",
@@ -135,16 +121,6 @@ func hit_feedback(_note_accuracy: int, short_line: int) -> void:
 				%FXGlobe.visible = true
 				%FXGlobe.play(combo_thresholds[threshold])
 				break
-
-	
-	
-#func hit_feedback(note_accuracy: int, short_line: int) -> void:
-	## Ensure the note is on the correct line.
-	#if line == short_line:
-		## If the note accuracy is 1 (presumably perfect), trigger spark effects.
-		#if note_accuracy != 4 and note_accuracy != 5:
-			#pass
-			##client_hit_feedback(note_accuracy, short_line)
 	
 	
 # Handles feedback for continued collection of long notes.
@@ -174,16 +150,6 @@ func emit_light_pillar() -> void:
 	
 func _on_fx_light_pillar_animation_finished() -> void:
 	fx_light_pillar.frame = 0
-	
-	
-#@rpc
-#func hit_feedback_short(note_accuracy: int, short_line: int) -> void:
-	#hit_feedback(note_accuracy, short_line)
-	#
-	#
-#@rpc
-#func hit_feedback_long(note_accuracy: int, short_line: int) -> void:
-	#hit_continued_feedback(note_accuracy, short_line)
 	
 	
 func _on_fx_globe_animation_finished() -> void:

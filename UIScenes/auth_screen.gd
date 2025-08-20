@@ -25,7 +25,7 @@ var password: String
 var animation_played: bool = false
 
 var registration_success: bool = false
-
+var hero_set: bool = false
 #endregion
 
 
@@ -33,7 +33,6 @@ var registration_success: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	%PlayerMessage.text = "Please wait"
-	
 	signal_connect()
 	init_visibility_control()
 	BKMREngine.Auth.auto_login_player()
@@ -61,7 +60,7 @@ func signal_connect() -> void:
 	
 func _on_server_check_complete() -> void:
 	%StartButton.disabled = false
-	%PlayerMessage.text = "TAP ANYWHERE ON THE SCREEN"
+	%PlayerMessage.text = "TAP ON THE CENTER OF THE SCREEN"
 	
 func debug_label(data: Variant) -> void:
 	%DebugLabel.text = "Freak" + str(data)
@@ -81,6 +80,8 @@ func passkey_login_verification_complete(_player_data: Dictionary) -> void:
 		%DebugLabel.text = str(_player_data)
 		BKMREngine.session = true
 		%ErrorPanel.visible = false
+		if _player_data.has("error"):
+			%ErrorMessage.text = _player_data.error
 		
 		init_visibility_control()
 		BKMRLogger.info("logged in as: " + str(BKMREngine.Auth.logged_in_player))
@@ -122,10 +123,36 @@ func passkey_authentication_insert_username(result: String) -> void:
 			json_result.username = %UsernamePasskey.text
 			BKMREngine.Auth.beats_passkey_login_response(json_result)
 			loading_panel.fake_loader()
-	
-	
+
+func set_start_hero_texture() -> void:
+	if hero_set:
+		return
+
+	# Dictionary to pair textures with their corresponding audio files
+	var hero_data: Dictionary[String, String]= {
+		"res://UITextures/BGTextures/great_guys_hero.png": "res://Songs/SampleSongs/Great Guys-Deep In Love.ogg",
+		"res://UITextures/BGTextures/x_in_hero.png": "res://Songs/SampleSongs/X:IN-No Doubt.ogg",
+		"res://UITextures/BGTextures/sweet_ch_hero.png": "res://Songs/SampleSongs/candyhouse.ogg", # Uses the same as great_guys_hero
+		"res://UITextures/BGTextures/flash_hero.png": "res://Songs/SampleSongs/I-ROHM-Flash.ogg"
+	}
+
+	# Pick a random texture
+	var keys: Array[String]= hero_data.keys()
+	var random_texture_path: String = keys[randi() % keys.size()]
+	var random_audio_path: String = hero_data[random_texture_path]
+
+	# Apply the texture
+	%StartHeroTexture.texture = load(random_texture_path)
+
+	# Play the corresponding audio
+	%AudioStreamPlayer.stream = load(random_audio_path)
+	%AudioStreamPlayer.play()
+
+	hero_set = true
+
 func init_visibility_control() -> void:
 	if BKMREngine.session:
+		set_start_hero_texture()
 		start_container.visible = false
 		login_modal_container.visible = false
 		animation_player.play('switch_start_screen')
@@ -193,7 +220,7 @@ func _on_registration_completed(result: Dictionary) -> void:
 # Function to submit user registration.
 func on_submit_registration(val_username: String, val_password: String)  -> void:
 	password = val_password
-	username = val_username
+	username = val_username.strip_edges()
 	BKMREngine.Auth.register_player(val_username, val_password)
 	loading_panel.fake_loader()
 #endregion
@@ -324,20 +351,18 @@ func _on_register_passkey_button_pressed() -> void:
 	username = %Username.text.strip_edges()
 	
 	if is_valid_username(username) == false:
-		errors.append({"error": "Invalid username or empty"})
+		errors.append({ "error": "Invalid username or empty" })
 		error_logger(errors)
 		return
 	else:
 		valid_username = %Username.text
-	BKMREngine.Auth.register_google_passkey(valid_username)
+	BKMREngine.Auth.register_google_passkey(valid_username.strip_edges())
 	
 	
 func _on_register_password_pressed() -> void:
 	if %Password.visible == false:
 		%RegisterPasskeyButton.visible = false
-
 		%HBoxContainer3.visible = false
-		
 		%Label5.visible = true
 		%Label2.visible = true
 		%Password.visible = true
@@ -395,7 +420,7 @@ func register_with_password() -> void:
 func _on_pass_key_login_pressed() -> void:
 	var username_pass: String = %UsernamePasskey.text
 	if not is_valid_username(username_pass):
-		error_logger([{"error": "Invalid or empty username"}])
+		error_logger([{ "error": "Invalid or empty username" }])
 		return
 	BKMREngine.Auth.login_player_google_passkey(%UsernamePasskey.text)
 	
@@ -421,7 +446,19 @@ func _on_login_password_field_text_submitted(_new_text: String) -> void:
 	var passWord:String = %LoginPasswordField.text
 	BKMREngine.Auth.login_player(userName, passWord)
 	loading_panel.fake_loader()
-
-
+	
+	
 func _on_password_field_text_submitted(_new_text: String) -> void:
 	pass
+	
+	
+func _on_open_x_button_pressed() -> void:
+	AndroidInterface.open_twitter_profile()
+	
+	
+func _on_open_fb_button_pressed() -> void:
+	AndroidInterface.open_facebook_profile()
+	
+	
+func _on_open_website_button_pressed() -> void:
+	AndroidInterface.open_website()

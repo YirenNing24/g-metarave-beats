@@ -38,11 +38,31 @@ func set_message(message: String) -> void:
 	%Message.text = message
 	if message == "YOU ARE ON PAUSE":
 		%PlayButton.visible = true
+		$RetryContainer.visible = true
 	
 	
 func _on_play_button_pressed() -> void:
-	on_play_button_pressed.emit()
 	Engine.time_scale = 1
+	on_play_button_pressed.emit()
+	
 	visible = false
 	%PlayButton.visible = false
 	%Message.text = "Please wait..."
+	
+	
+func _on_retry_button_pressed() -> void:
+	if PLAYER.current_energy > 0:
+		Engine.time_scale = 1
+		BKMREngine.Energy.game_id = ""
+		BKMREngine.Energy.use_player_energy()
+		# Allow retry logic here
+		var _game_scene: int = await LOADER.load_scene(self, "res://UIScenes/game_scene.tscn")
+	else:
+		%RetryButton.modulate = "ffffff4b"
+		%RetryButton.disabled = true
+		print("Not enough energy to retry!")
+	
+	
+func _on_retry_button_2_pressed() -> void:
+	Engine.time_scale = 1
+	var _game_scene: int = await LOADER.load_scene(self, "res://UIScenes/song_menu.tscn")

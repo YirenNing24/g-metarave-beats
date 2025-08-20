@@ -22,6 +22,7 @@ func _on_panel_gui_input(event: InputEvent) -> void:
 		if visible:
 			visible = false
 
+
 func _on_submit_button_pressed() -> void:
 	if note_line_edit.text.length() > 60 or note_line_edit.text.length() == 0:
 		return

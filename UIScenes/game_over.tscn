@@ -445,6 +445,7 @@ theme_override_constants/separation = 50
 alignment = 1
 
 [node name="RetryButton" type="TextureButton" parent="BackgroundTexture/HBoxContainer/TextureRect/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
 texture_normal = ExtResource("12_e0nvl")
